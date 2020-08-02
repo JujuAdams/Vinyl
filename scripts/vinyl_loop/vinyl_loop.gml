@@ -40,7 +40,7 @@ function __vinyl_pattern_loop(_intro, _loop, _outro) constructor
     
     toString = function()
     {
-        return "Loop {" + __vinyl_get_source_name(__intro) + ", " + __vinyl_get_source_name(__loop) + ", " + __vinyl_get_source_name(__outro) + "}";
+        return "Loop [ " + __vinyl_get_source_name(__intro) + "," + __vinyl_get_source_name(__loop) + "," + __vinyl_get_source_name(__outro) + " ]";
     }
     
     if (__VINYL_DEBUG) __vinyl_trace("Created pattern ", self);
@@ -90,7 +90,6 @@ function __vinyl_player_loop(_intro, _loop, _outro) constructor
         
         __stopping = false;
         __finished = true;
-        __instance = undefined;
         __current  = undefined;
     }
     
@@ -140,7 +139,7 @@ function __vinyl_player_loop(_intro, _loop, _outro) constructor
     
     toString = function()
     {
-        return "Loop {" + __vinyl_get_source_name(__intro) + ", " + __vinyl_get_source_name(__loop) + ", " + __vinyl_get_source_name(__outro) + "}";
+        return "Loop [ " + __vinyl_get_source_name(__intro) + "," + __vinyl_get_source_name(__loop) + "," + __vinyl_get_source_name(__outro) + " ]";
     }
     
     if (__VINYL_DEBUG) __vinyl_trace("Created player ", self);

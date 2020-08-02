@@ -1,6 +1,6 @@
 if (keyboard_check_pressed(vk_space))
 {
-    instance = vinyl_play(vinyl_random(snd_1, snd_2, snd_3, snd_4, snd_5));
+    vinyl_play(vinyl_lib.footstep);
 }
 
 if (keyboard_check_pressed(ord("L")))

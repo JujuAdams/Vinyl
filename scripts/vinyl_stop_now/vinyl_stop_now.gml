@@ -1,5 +1,13 @@
-// Script assets have changed for v2.3.0 see
-// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
-function vinyl_stop_now(){
+/// @param soundInstance
 
+function vinyl_stop_now(_sound_instance)
+{
+    if (is_vinyl_sound_instance(_sound_instance))
+    {
+        _sound_instance.stop_now();
+    }
+    else
+    {
+        __vinyl_trace("Warning! ", _sound_instance, " is not a Vinyl sound instance");
+    }
 }

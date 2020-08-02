@@ -3,7 +3,7 @@
 #macro __VINYL_VERSION  "0.0.0"
 #macro __VINYL_DATE     "2020/08/02"
 
-#macro __VINYL_DEBUG  true
+#macro __VINYL_DEBUG  false
 
 #macro vinyl_lib       global.__vinyl_library
 #macro vinyl_library   global.__vinyl_library
@@ -25,7 +25,7 @@ function vinyl_system_end_step()
             
             if (__finished)
             {
-                __vinyl_trace("Deleted ", self);
+                if (__VINYL_DEBUG) __vinyl_trace("Deleted ", self);
                 ds_list_delete(global.__vinyl_playing, _i);
             }
             else

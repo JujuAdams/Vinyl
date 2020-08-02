@@ -98,8 +98,6 @@ function __vinyl_player_random(_sources) constructor
         
         __stopping = false;
         __finished = true;
-        __instance = undefined;
-        __current  = undefined;
     }
     
     tick = function()
