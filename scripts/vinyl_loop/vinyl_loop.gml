@@ -104,34 +104,37 @@ function __vinyl_player_loop(_intro, _loop, _outro) constructor
             if (__gain  != gain ) __gain  = gain;
             if (__pitch != pitch) __pitch = pitch;
             
-            with(__current) tick();
-            
-            if (__current.__finished)
+            if (__current != undefined)
             {
-                if (__current == __intro)
+                with(__current) tick();
+                
+                if (__current.__finished)
                 {
-                    __current = __loop;
-                    __current.play();
-                }
-                else if (__current == __loop)
-                {
-                    if (!__stopping)
+                    if (__current == __intro)
                     {
-                        __loop.play();
-                    }
-                    else if (__outro != undefined)
-                    {
-                        __current = __outro;
+                        __current = __loop;
                         __current.play();
+                    }
+                    else if (__current == __loop)
+                    {
+                        if (!__stopping)
+                        {
+                            __loop.play();
+                        }
+                        else if (__outro != undefined)
+                        {
+                            __current = __outro;
+                            __current.play();
+                        }
+                        else
+                        {
+                            stop_now();
+                        }
                     }
                     else
                     {
                         stop_now();
                     }
-                }
-                else
-                {
-                    stop_now();
                 }
             }
         }
