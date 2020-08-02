@@ -57,7 +57,7 @@ function __vinyl_pattern_gm_audio(_source) constructor
     
     __source = _source;
     
-    play = function()
+    generate = function()
     {
         return new __vinyl_player_gm_audio(__source);
     }
@@ -67,7 +67,7 @@ function __vinyl_pattern_gm_audio(_source) constructor
         return __vinyl_get_source_name(__source);
     }
     
-    if (__VINYL_DEBUG) __vinyl_trace("Created player ", self);
+    if (__VINYL_DEBUG) __vinyl_trace("Created pattern for ", self);
 }
 
 /// @param asset
@@ -83,7 +83,7 @@ function __vinyl_player_gm_audio(_asset) constructor
         if (__gain  == undefined) __gain  = gain;
         if (__pitch == undefined) __pitch = pitch;
         
-        if (__VINYL_DEBUG) __vinyl_trace("Starting player ", self, " (gain=", __gain, ", pitch=", __pitch, ")");
+        if (__VINYL_DEBUG) __vinyl_trace("Starting player (gain=", __gain, ", pitch=", __pitch, ") ", self);
         
         __instance = audio_play_sound(__asset, 1, false);
         audio_sound_gain(__instance, __gain, 0.0);
@@ -146,5 +146,5 @@ function __vinyl_player_gm_audio(_asset) constructor
         return __vinyl_get_source_name(__asset);
     }
     
-    if (__VINYL_DEBUG) __vinyl_trace("Created player ", self);
+    if (__VINYL_DEBUG) __vinyl_trace("Created player for ", self);
 }

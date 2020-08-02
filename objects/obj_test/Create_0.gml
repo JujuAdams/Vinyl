@@ -1,3 +1,3 @@
-vinyl_lib.loop_test = vinyl_loop(snd_1);
+vinyl_lib.loop_test = vinyl_loop(undefined, snd_music_loop, undefined);
 
 instance = undefined;

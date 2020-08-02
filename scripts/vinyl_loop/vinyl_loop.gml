@@ -1,48 +1,73 @@
-/// @param source
+/// @param intro
+/// @param loop
+/// @param outro
 
-function vinyl_loop(_source)
+function vinyl_loop()
 {
-    return new __vinyl_pattern_loop(_source);
+    if (argument_count == 1)
+    {
+        return new __vinyl_pattern_loop(undefined, argument[0], undefined);
+    }
+    else if (argument_count == 3)
+    {
+        var _intro = (argument[0] == "")? undefined : argument[0];
+        var _outro = (argument[0] == "")? undefined : argument[0];
+        return new __vinyl_pattern_loop(_intro, argument[1], _outro);
+    }
+    else
+    {
+        __vinyl_error("Unsupported number of arguments (", argument_count, ") for vinyl_loop()\n(Should be 1 or 3, use <undefined> or \"\" for no source");
+    }
 }
 
-/// @param source
-function __vinyl_pattern_loop(_source) constructor
+/// @param intro
+/// @param loop
+/// @param outro
+function __vinyl_pattern_loop(_intro, _loop, _outro) constructor
 {
     __vinyl_pattern_common();
     
-    __source = __vinyl_patternize_source(_source);
+    __intro = __vinyl_patternize_source(_intro);
+    __loop  = __vinyl_patternize_source(_loop );
+    __outro = __vinyl_patternize_source(_outro);
     
     play = function()
     {
-        return new __vinyl_player_loop(__source.play());
+        var _intro = (__intro != undefined)? __intro.generate() : undefined;
+        var _outro = (__outro != undefined)? __outro.generate() : undefined;
+        return new __vinyl_player_loop(_intro, __loop.generate(), _outro);
     }
     
     toString = function()
     {
-        return "Loop {" + __vinyl_get_source_name(__source) + "}";
+        return "Loop {" + __vinyl_get_source_name(__intro) + ", " + __vinyl_get_source_name(__loop) + ", " + __vinyl_get_source_name(__outro) + "}";
     }
     
     if (__VINYL_DEBUG) __vinyl_trace("Created pattern ", self);
 }
 
-/// @param source
-function __vinyl_player_loop(_source) constructor
+/// @param intro
+/// @param loop
+/// @param outro
+function __vinyl_player_loop(_intro, _loop, _outro) constructor
 {
     __vinyl_player_common();
     
-    __source = _source;
+    __intro = _intro;
+    __loop  = _loop;
+    __outro = _outro;
+    
+    __current = undefined;
     
     play = function()
     {
         if (__gain  == undefined) __gain  = gain;
         if (__pitch == undefined) __pitch = pitch;
         
-        if (__VINYL_DEBUG) __vinyl_trace("Starting player ", self, " (gain=", __gain, ", pitch=", __pitch, ")");
+        if (__VINYL_DEBUG) __vinyl_trace("Starting player (gain=", __gain, ", pitch=", __pitch, ") ", self);
         
-        with(__source)
-        {
-            play();
-        }
+        __current = (__intro != undefined)? __intro : __loop;
+        with(__current) play();
         
         __started = true;
         __finished = false;
@@ -59,11 +84,14 @@ function __vinyl_player_loop(_source) constructor
     {
         if (__VINYL_DEBUG) __vinyl_trace(self, " finished");
         
-        with(__source) stop_now();
+        if (__intro != undefined) with(__intro) stop_now();
+        with(__loop) stop_now();
+        if (__outro != undefined) with(__outro) stop_now();
         
         __stopping = false;
         __finished = true;
         __instance = undefined;
+        __current  = undefined;
     }
     
     tick = function()
@@ -77,22 +105,30 @@ function __vinyl_player_loop(_source) constructor
             if (__gain  != gain ) __gain  = gain;
             if (__pitch != pitch) __pitch = pitch;
             
-            var _children_stopping = true;
-            var _children_finished = true;
+            with(__current) tick();
             
-            with(__source)
+            if (__current.__finished)
             {
-                tick();
-                if (!__stopping) _children_stopping = false;
-                if (!__finished) _children_finished = false;
-            }
-            
-            if (_children_finished)
-            {
-                if (!__stopping)
+                if (__current == __intro)
                 {
-                    if (__VINYL_DEBUG) __vinyl_trace(self, ": source finished, restarting");
-                    with(__source) play();
+                    __current = __loop;
+                    __current.play();
+                }
+                else if (__current == __loop)
+                {
+                    if (!__stopping)
+                    {
+                        __loop.play();
+                    }
+                    else if (__outro != undefined)
+                    {
+                        __current = __outro;
+                        __current.play();
+                    }
+                    else
+                    {
+                        stop_now();
+                    }
                 }
                 else
                 {
@@ -104,7 +140,7 @@ function __vinyl_player_loop(_source) constructor
     
     toString = function()
     {
-        return "Loop {" + __vinyl_get_source_name(__source) + "}";
+        return "Loop {" + __vinyl_get_source_name(__intro) + ", " + __vinyl_get_source_name(__loop) + ", " + __vinyl_get_source_name(__outro) + "}";
     }
     
     if (__VINYL_DEBUG) __vinyl_trace("Created player ", self);
