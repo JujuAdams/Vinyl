@@ -7,12 +7,18 @@
 
 #macro vinyl_lib       global.__vinyl_library
 #macro vinyl_library   global.__vinyl_library
+#macro vinyl_master    (global.__vinyl_busses.master)
+
+show_debug_message("Scribble: Welcome to Vinyl by @jujuadams! This is version " + __VINYL_VERSION + ", " + __VINYL_DATE);
 
 #endregion
 
 global.__vinyl_playing           = ds_list_create();
 global.__vinyl_global_asset_gain = ds_map_create();
 global.__vinyl_library           = {};
+global.__vinyl_busses            = {};
+
+vinyl_master = new __vinyl_class_buss();
 
 function vinyl_system_end_step()
 {

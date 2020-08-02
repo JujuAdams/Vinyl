@@ -1,5 +1,6 @@
-// Script assets have changed for v2.3.0 see
-// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
-function vinyl_buss_get(){
+/// @param bussName
 
+function vinyl_buss_get(_name)
+{
+    return variable_struct_get(global.__vinyl_busses, _name);
 }
