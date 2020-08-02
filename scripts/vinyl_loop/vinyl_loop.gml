@@ -31,7 +31,7 @@ function __vinyl_pattern_loop(_intro, _loop, _outro) constructor
     __loop  = __vinyl_patternize_source(_loop );
     __outro = __vinyl_patternize_source(_outro);
     
-    play = function()
+    generate = function()
     {
         var _intro = (__intro != undefined)? __intro.generate() : undefined;
         var _outro = (__outro != undefined)? __outro.generate() : undefined;

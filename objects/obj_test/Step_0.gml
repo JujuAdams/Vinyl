@@ -1,6 +1,6 @@
 if (keyboard_check_pressed(vk_space))
 {
-    vinyl_play(snd_1);
+    instance = vinyl_play(vinyl_random(snd_1, snd_2, snd_3, snd_4, snd_5));
 }
 
 if (keyboard_check_pressed(ord("L")))
