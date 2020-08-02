@@ -5,7 +5,10 @@ if (keyboard_check_pressed(vk_space))
 
 if (keyboard_check_pressed(ord("L")))
 {
-    vinyl_play(vinyl_lib.loop_test);
-    //var _instance = new __vinyl_class_loop(new __vinyl_class_gm_audio(snd_1));
-    //ds_list_add(global.__vinyl_playing, _instance);
+    instance = vinyl_play("loop_test");
+}
+
+if (keyboard_check_pressed(ord("S")))
+{
+    vinyl_stop(instance);
 }

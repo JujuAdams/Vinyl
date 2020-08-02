@@ -48,9 +48,27 @@ function __vinyl_player_loop(_source) constructor
         __finished = false;
     }
     
+    stop = function()
+    {
+        if (__VINYL_DEBUG) __vinyl_trace(self, " stopping");
+        
+        __stopping = true;
+    }
+    
+    stop_now = function()
+    {
+        if (__VINYL_DEBUG) __vinyl_trace(self, " finished");
+        
+        with(__source) stop_now();
+        
+        __stopping = false;
+        __finished = true;
+        __instance = undefined;
+    }
+    
     tick = function()
     {
-        if (!__started)
+        if (!__started && !__stopping)
         {
             play();
         }
@@ -59,14 +77,26 @@ function __vinyl_player_loop(_source) constructor
             if (__gain  != gain ) __gain  = gain;
             if (__pitch != pitch) __pitch = pitch;
             
+            var _children_stopping = true;
+            var _children_finished = true;
+            
             with(__source)
             {
                 tick();
+                if (!__stopping) _children_stopping = false;
+                if (!__finished) _children_finished = false;
+            }
             
-                if (__finished)
+            if (_children_finished)
+            {
+                if (!__stopping)
                 {
-                    if (__VINYL_DEBUG) __vinyl_trace(other, ": source finished, restarting");
-                    play();
+                    if (__VINYL_DEBUG) __vinyl_trace(self, ": source finished, restarting");
+                    with(__source) play();
+                }
+                else
+                {
+                    stop_now();
                 }
             }
         }

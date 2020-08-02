@@ -29,7 +29,11 @@ function vinyl_play(_in_source)
             }
         }
         
-        if (instanceof(_source) == "__vinyl_pattern_loop")
+        var _instanceof = instanceof(_source);
+        if ((_instanceof == "__vinyl_pattern_loop")
+        ||  (_instanceof == "__vinyl_pattern_random")
+        ||  (_instanceof == "__vinyl_pattern_queue")
+        ||  (_instanceof == "__vinyl_pattern_multi"))
         {
             var _instance = _source.play();
             ds_list_add(global.__vinyl_playing, _instance);
@@ -89,9 +93,33 @@ function __vinyl_player_gm_audio(_asset) constructor
         __finished = false;
     }
     
+    stop = function()
+    {
+        if (!__stopping)
+        {
+            if (__VINYL_DEBUG) __vinyl_trace(self, " stopping");
+            
+            __stopping = true;
+        }
+    }
+    
+    stop_now = function()
+    {
+        if (!__finished)
+        {
+            if (__VINYL_DEBUG) __vinyl_trace(self, " finished");
+            
+            if (is_numeric(__instance) && audio_is_playing(__instance)) audio_stop_sound(__instance);
+            
+            __stopping = false;
+            __finished = true;
+            __instance = undefined;
+        }
+    }
+    
     tick = function()
     {
-        if (!__started)
+        if (!__started && !__stopping)
         {
             play();
         }
@@ -100,11 +128,15 @@ function __vinyl_player_gm_audio(_asset) constructor
             if (__gain  != gain ) __gain  = gain;
             if (__pitch != pitch) __pitch = pitch;
             
+            if (!__finished && __stopping)
+            {
+                //TODO - Fade out
+                stop_now();
+            }
+            
             if (!__finished && (!is_numeric(__instance) || !audio_is_playing(__instance)))
             {
-                __finished = true;
-                __instance = undefined;
-                if (__VINYL_DEBUG) __vinyl_trace(self, " finished");
+                stop_now();
             }
         }
     }
