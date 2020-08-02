@@ -4,11 +4,15 @@
 #macro __VINYL_DATE     "2020/08/02"
 
 #macro __VINYL_DEBUG  true
-    
+
+#macro vinyl_lib       global.__vinyl_library
+#macro vinyl_library   global.__vinyl_library
+
 #endregion
 
 global.__vinyl_playing           = ds_list_create();
 global.__vinyl_global_asset_gain = ds_map_create();
+global.__vinyl_library           = {};
 
 function vinyl_system_end_step()
 {
@@ -32,9 +36,25 @@ function vinyl_system_end_step()
     }
 }
 
-function __vinyl_sound_common()
+function __vinyl_pattern_common()
 {
-    ds_list_add(global.__vinyl_playing, self);
+    buss           = "master";
+    
+    gain           = 1.0;
+    gain_vary_min  = 0.0;
+    gain_vary_max  = 0.0;
+    
+    pitch          = 1.0;
+    pitch_vary_min = 0.0;
+    pitch_vary_max = 0.0;
+    
+    time_fade_in   = 0.0;
+    time_fade_out  = 0.0;
+}
+
+function __vinyl_player_common()
+{
+    buss         = "master";
     
     gain         = 1.0;
     gain_target  = 1.0;
@@ -51,43 +71,29 @@ function __vinyl_sound_common()
     __pitch    = undefined;
 }
 
-/// @param asset
-function __vinyl_class_gm_audio(_asset, _loop) constructor
+/// @param value
+function __vinyl_get_source_name(_value)
 {
-    if (__VINYL_DEBUG) __vinyl_trace("Creating GM audio \"", audio_get_name(_asset), "\" (loop=", _loop, ")");
-    
-    __vinyl_sound_common();
-    
-    __instance = undefined;
-    __asset    = _asset;
-    __loop     = _loop;
-    
-    tick = function()
+    if (is_numeric(_value))
     {
-        if (__gain  == undefined) __gain  = gain;
-        if (__pitch == undefined) __pitch = pitch;
-        
-        if (!__started)
-        {
-            __started = true;
-            
-            __instance = audio_play_sound(__asset, 1, __loop);
-            audio_sound_gain(__instance, __gain, 0.0);
-            audio_sound_pitch(__instance, __pitch);
-            
-            if (__VINYL_DEBUG) __vinyl_trace("Started GM audio \"", audio_get_name(__asset), "\" (gain=", __gain, ", pitch=", __pitch, ", loop=", __loop, ")");
-        }
-        else
-        {
-            if (__gain  != gain ) __gain  = gain;
-            if (__pitch != pitch) __pitch = pitch;
-            
-            if (!audio_is_playing(__instance))
-            {
-                __finished = true;
-                if (__VINYL_DEBUG) __vinyl_trace("GM audio \"", audio_get_name(__asset), "\" finished");
-            }
-        }
+        return audio_get_name(_value);
+    }
+    else
+    {
+        return string(_value);
+    }
+}
+
+/// @param source
+function __vinyl_patternize_source(_source)
+{
+    if (is_numeric(_source))
+    {
+        return new __vinyl_pattern_gm_audio(_source);
+    }
+    else
+    {
+        return _source;
     }
 }
 
