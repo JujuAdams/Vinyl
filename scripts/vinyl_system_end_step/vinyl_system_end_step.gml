@@ -3,25 +3,27 @@
 #macro __VINYL_VERSION  "0.0.0"
 #macro __VINYL_DATE     "2020/08/02"
 
-#macro __VINYL_DEBUG  false
+#macro __VINYL_DEBUG  true
 
 #macro vinyl_lib       global.__vinyl_library
 #macro vinyl_library   global.__vinyl_library
 #macro vinyl_master    (global.__vinyl_busses.master)
 
-show_debug_message("Scribble: Welcome to Vinyl by @jujuadams! This is version " + __VINYL_VERSION + ", " + __VINYL_DATE);
+__vinyl_trace("Welcome to Vinyl by @jujuadams! This is version " + __VINYL_VERSION + ", " + __VINYL_DATE);
 
 #endregion
 
 global.__vinyl_playing           = ds_list_create();
 global.__vinyl_global_asset_gain = ds_map_create();
-global.__vinyl_library           = {};
 global.__vinyl_busses            = {};
 
+vinyl_lib    = {};
 vinyl_master = new __vinyl_class_buss();
 
 function vinyl_system_end_step()
 {
+    vinyl_master.tick();
+    
     var _i = 0;
     repeat(ds_list_size(global.__vinyl_playing))
     {
@@ -44,7 +46,7 @@ function vinyl_system_end_step()
 
 function __vinyl_pattern_common()
 {
-    buss           = "master";
+    buss           = undefined;
     
     gain           = 1.0;
     gain_vary_min  = 0.0;
@@ -60,7 +62,7 @@ function __vinyl_pattern_common()
 
 function __vinyl_player_common()
 {
-    buss         = "master";
+    buss         = undefined;
     
     gain         = 1.0;
     gain_target  = 1.0;
@@ -70,11 +72,21 @@ function __vinyl_player_common()
     pitch_target = 1.0;
     pitch_rate   = 0.1;
     
-    __started  = false;
-    __stopping = false;
-    __finished = false;
-    __gain     = undefined;
-    __pitch    = undefined;
+    __started    = false;
+    __stopping   = false;
+    __finished   = false;
+    __parent     = undefined;
+    __gain       = undefined;
+    __pitch      = undefined;
+}
+
+/// @param pattern
+/// @param buss
+function __vinyl_player_common_complete(_pattern, _buss)
+{
+    buss  = _buss;
+    gain  = _pattern.gain  + random_range(_pattern.gain_vary_min , _pattern.gain_vary_max );
+    pitch = _pattern.pitch + random_range(_pattern.pitch_vary_min, _pattern.pitch_vary_max);
 }
 
 /// @param value

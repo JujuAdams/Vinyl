@@ -33,15 +33,24 @@ function __vinyl_pattern_multi() constructor
     
     generate = function()
     {
+        //Pass on either our buss, or our parent's buss, to child players
+        var _buss = (buss != undefined)? buss : _parent_buss;
+        
+        //Generate child players
         var _sources = array_create(array_length(__sources));
         var _i = 0;
         repeat(array_length(__sources))
         {
-            _sources[@ _i] = __sources[_i].generate();
+            _sources[@ _i] = __sources[_i].generate(_buss);
             ++_i;
         }
         
-        return new __vinyl_player_multi(_sources);
+        //Generate our own player
+        with(new __vinyl_player_multi(_sources))
+        {
+            __vinyl_player_common_complete(other, _buss);
+            return self;
+        }
     }
     
     toString = function()
@@ -59,13 +68,30 @@ function __vinyl_player_multi(_sources) constructor
     
     __sources = _sources;
     
+    var _i = 0;
+    repeat(array_length(__sources))
+    {
+        __sources[_i].__parent = self;
+        ++_i;
+    }
+    
     play = function()
     {
-        if (__gain  == undefined) __gain  = gain;
-        if (__pitch == undefined) __pitch = pitch;
+        //If we have some un-set values, figure them out
+        var _parent_gain  = 1.0;
+        var _parent_pitch = 1.0;
+        if (is_struct(__parent))
+        {
+            _parent_gain  = __parent.__gain;
+            _parent_pitch = __parent.__pitch;
+        }
+        
+        if (__gain  == undefined) __gain  = gain*_parent_gain;
+        if (__pitch == undefined) __pitch = pitch*_parent_pitch;
         
         if (__VINYL_DEBUG) __vinyl_trace("Starting player (gain=", __gain, ", pitch=", __pitch, ") ", self);
         
+        //Figure out what to play
         var _i = 0;
         repeat(array_length(__sources))
         {
@@ -73,6 +99,7 @@ function __vinyl_player_multi(_sources) constructor
             ++_i;
         }
         
+        //Set state
         __started = true;
         __finished = false;
     }
@@ -106,7 +133,7 @@ function __vinyl_player_multi(_sources) constructor
         __finished = true;
     }
     
-    tick = function()
+    tick = function(_parent)
     {
         if (!__started && !__stopping)
         {
@@ -114,11 +141,21 @@ function __vinyl_player_multi(_sources) constructor
         }
         else
         {
-            if (__gain  != gain ) __gain  = gain;
-            if (__pitch != pitch) __pitch = pitch;
+            //Update our final gain
+            var _parent_gain  = 1.0;
+            var _parent_pitch = 1.0;
+            if (is_struct(__parent))
+            {
+                _parent_gain  = __parent.__gain;
+                _parent_pitch = __parent.__pitch;
+            }
+            
+            __gain  = gain*_parent_gain;
+            __pitch = pitch*_parent_pitch;
             
             var _children_finished = true;
             
+            //Update the instances we're currently playing
             var _i = 0;
             repeat(array_length(__sources))
             {
