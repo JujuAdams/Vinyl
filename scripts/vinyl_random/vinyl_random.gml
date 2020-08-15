@@ -93,7 +93,7 @@ function __vinyl_player_random(_sources) constructor
     {
         __vinyl_player_common_play(false);
         
-        if (__VINYL_DEBUG) __vinyl_trace("Playing (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ") ", self);
+        if (__VINYL_DEBUG) __vinyl_trace("Playing ", self, " (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
         //Figure out what to play
         __index = irandom(array_length(__sources) - 1);
@@ -103,7 +103,7 @@ function __vinyl_player_random(_sources) constructor
     
     stop = function(_direct)
     {
-        if (__VINYL_DEBUG) __vinyl_trace(self, " stopping");
+        if (__VINYL_DEBUG) __vinyl_trace("Stopping ", self);
         
         with(__current) stop(false);
         
@@ -125,7 +125,7 @@ function __vinyl_player_random(_sources) constructor
     
     finish = function()
     {
-        if (__started && !__finished && __VINYL_DEBUG) __vinyl_trace(self, " finished");
+        if (__started && !__finished && __VINYL_DEBUG) __vinyl_trace("Finished ", self);
         
         var _i = 0;
         repeat(array_length(__sources))

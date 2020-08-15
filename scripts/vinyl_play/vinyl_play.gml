@@ -107,7 +107,7 @@ function __vinyl_player_gm_audio(_asset) constructor
     {
         if (!__stopping)
         {
-            if (__VINYL_DEBUG) __vinyl_trace(self, " stopping");
+            if (__VINYL_DEBUG) __vinyl_trace("Stopping ", self);
             
             __stopping = true;
             __time_stopping = current_time;
@@ -122,7 +122,7 @@ function __vinyl_player_gm_audio(_asset) constructor
     
     finish = function()
     {
-        if (__started && !__finished && __VINYL_DEBUG) __vinyl_trace(self, " finished");
+        if (__started && !__finished && __VINYL_DEBUG) __vinyl_trace("Finished ", self);
         
         if (!__finished)
         {

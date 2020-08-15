@@ -90,7 +90,7 @@ function __vinyl_player_multi(_sources) constructor
     {
         __vinyl_player_common_play(false);
         
-        if (__VINYL_DEBUG) __vinyl_trace("Playing (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ") ", self);
+        if (__VINYL_DEBUG) __vinyl_trace("Playing ", self, " (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
         //Figure out what to play
         var _i = 0;
@@ -103,7 +103,7 @@ function __vinyl_player_multi(_sources) constructor
     
     stop = function(_direct)
     {
-        if (__VINYL_DEBUG) __vinyl_trace(self, " stopping");
+        if (__VINYL_DEBUG) __vinyl_trace("Stopping ", self);
         
         var _i = 0;
         repeat(array_length(__sources))
@@ -130,7 +130,7 @@ function __vinyl_player_multi(_sources) constructor
     
     finish = function()
     {
-        if (__VINYL_DEBUG) __vinyl_trace(self, " finished");
+        if (__VINYL_DEBUG) __vinyl_trace("Finished ", self);
         
         var _i = 0;
         repeat(array_length(__sources))

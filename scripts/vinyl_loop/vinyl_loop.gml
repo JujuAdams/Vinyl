@@ -66,7 +66,7 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
 {
     __vinyl_player_common_construct();
     
-    __wait_to_play_outro = _wait_to_play_outro;
+    wait_to_play_outro = _wait_to_play_outro;
     
     __intro = _intro;
     __loop  = _loop;
@@ -91,7 +91,7 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
     {
         __vinyl_player_common_play(false);
         
-        if (__VINYL_DEBUG) __vinyl_trace("Playing (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ") ", self);
+        if (__VINYL_DEBUG) __vinyl_trace("Playing ", self, " (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
         //Figure out what to play
         __current = (__intro != undefined)? __intro : __loop;
@@ -100,14 +100,7 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
     
     stop = function(_direct)
     {
-        if (__VINYL_DEBUG) __vinyl_trace(self, " stopping");
-        
-        if (!__wait_to_play_outro && (__outro != undefined))
-        {
-            __current.finish();
-            __current = __outro;
-            __current.play();
-        }
+        if (__VINYL_DEBUG) __vinyl_trace("Stopping ", self);
         
         __stopping = true;
         __time_stopping = current_time;
@@ -132,7 +125,7 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
     
     finish = function()
     {
-        if (!__finished && __VINYL_DEBUG) __vinyl_trace(self, " finished");
+        if (!__finished && __VINYL_DEBUG) __vinyl_trace("Finished ", self);
         
         if (__intro != undefined) with(__intro) finish();
         with(__loop) finish();
@@ -191,6 +184,12 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
                     {
                         finish();
                     }
+                }
+                else if (__started && __stopping && !wait_to_play_outro && (__outro != undefined) && (__current != __outro))
+                {
+                    __current.finish();
+                    __current = __outro;
+                    __current.play();
                 }
             }
         }

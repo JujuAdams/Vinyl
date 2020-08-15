@@ -13,7 +13,7 @@ __vinyl_trace("Welcome to Vinyl by @jujuadams! This is version " + __VINYL_VERSI
 
 #endregion
 
-global.__vinyl_playing           = ds_list_create();
+global.__vinyl_playing           = ds_list_create(); //TODO - Replace this with an array
 global.__vinyl_global_asset_gain = ds_map_create();
 global.__vinyl_busses            = {};
 
@@ -228,6 +228,19 @@ function __vinyl_error()
 	show_error("Vinyl:\n" + _string + "\n ", false);
     
 	return _string;
+}
+
+/// @param array
+/// @param index
+function __vinyl_array_delete(_array, _index)
+{
+    var _copy_size = array_length(_array) - (_index+1);
+    if ((_index < 0) || (_copy_size < 0)) throw "Index " + string(_index) + " is greater than maximum array index (" + string(array_length(_array)-1) + ")";
+    
+    var _new_array = array_create(_copy_size);
+    array_copy(_new_array, 0, _array, _index+1, _copy_size);
+    array_copy(_array, _index, _new_array, 0, _copy_size);
+    array_resize(_array, array_length(_array)-1);
 }
 
 #endregion
