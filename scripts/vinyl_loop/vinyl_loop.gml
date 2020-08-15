@@ -98,6 +98,23 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
         with(__current) play();
     }
     
+    get_position = function()
+    {
+        if (!__started || __finished || !is_struct(__current)) return undefined;
+        return __current.get_position();
+    }
+    
+    /// @param time
+    set_position = function(_time)
+    {
+        //TODO - Make this more accuracte by taking into account the length of the intro (if one exists)
+        if ((_time != undefined) && __started && !__finished && is_struct(__current))
+        {
+            __current.set_position(_time);
+        }
+    }
+    
+    /// @param direct
     stop = function(_direct)
     {
         if (__VINYL_DEBUG) __vinyl_trace("Stopping ", self);
@@ -136,7 +153,7 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
         __current  = undefined;
     }
     
-    tick = function(_parent)
+    tick = function()
     {
         if (!__started && !__stopping && !__finished)
         {

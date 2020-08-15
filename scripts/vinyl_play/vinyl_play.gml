@@ -103,6 +103,22 @@ function __vinyl_player_gm_audio(_asset) constructor
         audio_sound_pitch(__instance, __pitch);
     }
     
+    get_position = function()
+    {
+        if (!__started || __finished || !is_numeric(__instance) || !audio_is_playing(__instance)) return undefined;
+        return audio_sound_get_track_position(__instance);
+    }
+    
+    /// @param time
+    set_position = function(_time)
+    {
+        if ((_time != undefined) && __started && !__finished && is_numeric(__instance) && audio_is_playing(__instance))
+        {
+            audio_sound_set_track_position(__instance, _time);
+        }
+    }
+    
+    /// @param direct
     stop = function(_direct)
     {
         if (!__stopping)
@@ -117,7 +133,7 @@ function __vinyl_player_gm_audio(_asset) constructor
     will_finish = function()
     {
         if (!__started || __finished || !is_numeric(__instance) || !audio_is_playing(__instance)) return true;
-        return (audio_sound_length(__instance) - audio_sound_get_track_position(__instance) <= VINYL_STEP_DURATION/1000);
+        return (((audio_sound_length(__instance) - audio_sound_get_track_position(__instance)) / __pitch) <= (VINYL_STEP_DURATION/1000));
     }
     
     finish = function()
@@ -134,7 +150,7 @@ function __vinyl_player_gm_audio(_asset) constructor
         }
     }
     
-    tick = function(_parent)
+    tick = function()
     {
         if (!__started && !__stopping && !__finished)
         {

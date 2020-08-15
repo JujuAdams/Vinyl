@@ -126,6 +126,22 @@ function __vinyl_player_queue(_sources, _loop, _pops, _loop_on_last) constructor
         with(__current) play();
     }
     
+    get_position = function()
+    {
+        if (!__started || __finished || !is_struct(__current)) return undefined;
+        return __current.get_position();
+    }
+    
+    /// @param time
+    set_position = function(_time)
+    {
+        if ((_time != undefined) && __started && !__finished && is_struct(__current))
+        {
+            __current.set_position(_time);
+        }
+    }
+    
+    /// @param direct
     stop = function(_direct)
     {
         if (__VINYL_DEBUG) __vinyl_trace("Stopping ", self);
@@ -181,7 +197,7 @@ function __vinyl_player_queue(_sources, _loop, _pops, _loop_on_last) constructor
         __current  = undefined;
     }
     
-    tick = function(_parent)
+    tick = function()
     {
         if (playing_index != __index)
         {
