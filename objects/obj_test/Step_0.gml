@@ -1,6 +1,7 @@
 if (keyboard_check_pressed(vk_space))
 {
-    vinyl_play(vinyl_queue(snd_1, snd_2, snd_3, snd_4, snd_5));
+    instance = vinyl_play(vinyl_lib.loop_test);
+    instance.time_fade_out = 1500;
 }
 
 if (keyboard_check_pressed(ord("L")))

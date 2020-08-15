@@ -35,7 +35,7 @@ function vinyl_play(_in_source)
         ||  (_instanceof == "__vinyl_pattern_queue" )
         ||  (_instanceof == "__vinyl_pattern_multi" ))
         {
-            var _instance = _source.generate(undefined);
+            var _instance = _source.generate(true);
             ds_list_add(global.__vinyl_playing, _instance);
             return _instance;
         }
@@ -53,19 +53,18 @@ function vinyl_play(_in_source)
 /// @param asset
 function __vinyl_pattern_gm_audio(_source) constructor
 {
-    __vinyl_pattern_common();
+    __vinyl_pattern_common_construct();
     
     __source = _source;
     
-    generate = function(_parent_buss)
+    generate = function(_direct)
     {
-        //Pass on either our buss, or our parent's buss, to the new player
-        var _buss = (buss != undefined)? buss : _parent_buss;
-        
         //Generate a player
         with(new __vinyl_player_gm_audio(__source))
         {
-            __vinyl_player_common_complete(other, _buss);
+            __pattern = other;
+            reset();
+            if (_direct) buss_name = other.buss_name;
             return self;
         }
     }
@@ -81,57 +80,46 @@ function __vinyl_pattern_gm_audio(_source) constructor
 /// @param asset
 function __vinyl_player_gm_audio(_asset) constructor
 {
-    __vinyl_player_common();
+    __vinyl_player_common_construct();
     
-    __instance = undefined;
-    __asset    = _asset;
+    __asset = _asset;
+    
+    reset = function()
+    {
+        __vinyl_player_common_reset();
+        
+        __instance = undefined;
+    }
     
     play = function()
     {
-        //Grab our buss
-        var _buss_struct = vinyl_buss_get(buss);
-        if (!is_struct(_buss_struct)) _buss_struct = vinyl_master;
+        __vinyl_player_common_play(true);
         
-        //If we have some un-set values, figure them out
-        var _parent_gain  = 1.0;
-        var _parent_pitch = 1.0;
-        if (is_struct(__parent))
-        {
-            _parent_gain  = __parent.__gain;
-            _parent_pitch = __parent.__pitch;
-        }
-        
-        if (__gain  == undefined) __gain  = gain *_parent_gain *_buss_struct.__gain;
-        if (__pitch == undefined) __pitch = pitch*_parent_pitch*_buss_struct.__pitch;
-        
-        if (__VINYL_DEBUG) __vinyl_trace("Starting player (buss=\"", buss, "\", gain=", __gain, ", pitch=", __pitch, ") ", self);
+        if (__VINYL_DEBUG) __vinyl_trace("Playing (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ") ", self);
         
         //Play the audio asset
         __instance = audio_play_sound(__asset, 1, false);
         audio_sound_gain(__instance, __gain, 0.0);
         audio_sound_pitch(__instance, __pitch);
-        
-        //Set state
-        __started = true;
-        __finished = false;
     }
     
-    stop = function()
+    stop = function(_direct)
     {
         if (!__stopping)
         {
             if (__VINYL_DEBUG) __vinyl_trace(self, " stopping");
             
             __stopping = true;
+            __time_stopping = current_time;
         }
     }
     
-    stop_now = function()
+    finish = function()
     {
+        if (!__finished && __VINYL_DEBUG) __vinyl_trace(self, " finished");
+        
         if (!__finished)
         {
-            if (__VINYL_DEBUG) __vinyl_trace(self, " finished");
-            
             if (is_numeric(__instance) && audio_is_playing(__instance)) audio_stop_sound(__instance);
             
             __stopping = false;
@@ -142,47 +130,29 @@ function __vinyl_player_gm_audio(_asset) constructor
     
     tick = function(_parent)
     {
-        if (!__started && !__stopping)
+        if (!__started && !__stopping && !__finished)
         {
+            //If we're not started and we're not stopping and we ain't finished, then play!
             play();
         }
         else
         {
-            var _parent_gain  = 1.0;
-            var _parent_pitch = 1.0;
-            if (is_struct(__parent))
+            __vinyl_player_common_tick(true);
+            
+            if (is_numeric(__instance) && audio_is_playing(__instance))
             {
-                _parent_gain  = __parent.__gain;
-                _parent_pitch = __parent.__pitch;
+                //Update GM's sound instance
+                audio_sound_gain(__instance, __gain, VINYL_STEP_DURATION);
+                audio_sound_pitch(__instance, __pitch);
             }
             
-            //Grab our buss
-            var _buss_struct = vinyl_buss_get(buss);
-            if (!is_struct(_buss_struct)) _buss_struct = vinyl_master;
-            
-            //If our internal gain is wrong, adjust that
-            if (__gain != gain*_parent_gain*_buss_struct.__gain)
+            if (!__finished)
             {
-                __gain = gain*_parent_gain*_buss_struct.__gain;
-                if (is_numeric(__instance) && audio_is_playing(__instance)) audio_sound_gain(__instance, __gain, VINYL_STEP_DURATION);
-            }
-            
-            //If our internal pitch is wrong, adjust that too
-            if (__pitch != pitch*_parent_pitch*_buss_struct.__pitch)
-            {
-                __pitch = pitch*_parent_pitch*_buss_struct.__pitch;
-                if (is_numeric(__instance) && audio_is_playing(__instance)) audio_sound_pitch(__instance, __pitch);
-            }
-            
-            if (!__finished && __stopping)
-            {
-                //TODO - Fade out
-                stop_now();
-            }
-            
-            if (!__finished && (!is_numeric(__instance) || !audio_is_playing(__instance)))
-            {
-                stop_now();
+                //If our sound instance is somehow invalid, stop this player
+                if (!is_numeric(__instance) || !audio_is_playing(__instance))
+                {
+                    finish();
+                }
             }
         }
     }

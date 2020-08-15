@@ -21,7 +21,7 @@ function vinyl_queue()
 /// @param ...
 function __vinyl_pattern_queue() constructor
 {
-    __vinyl_pattern_common();
+    __vinyl_pattern_common_construct();
     
     __sources = array_create(argument_count, undefined);
     var _i = 0;
@@ -31,24 +31,23 @@ function __vinyl_pattern_queue() constructor
         ++_i;
     }
     
-    generate = function(_parent_buss)
+    generate = function(_direct)
     {
-        //Pass on either our buss, or our parent's buss, to child players
-        var _buss = (buss != undefined)? buss : _parent_buss;
-        
         //Generate child players
         var _sources = array_create(array_length(__sources));
         var _i = 0;
         repeat(array_length(__sources))
         {
-            _sources[@ _i] = __sources[_i].generate(_parent_buss);
+            _sources[@ _i] = __sources[_i].generate(false);
             ++_i;
         }
         
         //Generate our own player
         with(new __vinyl_player_queue(_sources))
         {
-            __vinyl_player_common_complete(other, _buss);
+            __pattern = other;
+            reset();
+            if (_direct) buss_name = other.buss_name;
             return self;
         }
     }
@@ -64,11 +63,9 @@ function __vinyl_pattern_queue() constructor
 /// @param sources
 function __vinyl_player_queue(_sources) constructor
 {
-    __vinyl_player_common();
+    __vinyl_player_common_construct();
     
     __sources = _sources;
-    __index   = undefined;
-    __current = undefined;
     
     var _i = 0;
     repeat(array_length(__sources))
@@ -77,94 +74,97 @@ function __vinyl_player_queue(_sources) constructor
         ++_i;
     }
     
-    play = function()
+    reset = function()
     {
-        //If we have some un-set values, figure them out
-        var _parent_gain  = 1.0;
-        var _parent_pitch = 1.0;
-        if (is_struct(__parent))
-        {
-            _parent_gain  = __parent.__gain;
-            _parent_pitch = __parent.__pitch;
-        }
+        __vinyl_player_common_reset();
         
-        if (__gain  == undefined) __gain  = gain*_parent_gain;
-        if (__pitch == undefined) __pitch = pitch*_parent_pitch;
-        
-        if (__VINYL_DEBUG) __vinyl_trace("Starting player (gain=", __gain, ", pitch=", __pitch, ") ", self);
-        
-        //Figure out what to play
-        if (__index == undefined)
-        {
-            __index = 0;
-        }
-        else
-        {
-            __index = (__index + 1) mod array_length(__sources);
-        }
-        
-        __current = __sources[__index];
-        with(__current) play();
-        
-        //Set state
-        __started = true;
-        __finished = false;
-    }
-    
-    stop = function()
-    {
-        if (__VINYL_DEBUG) __vinyl_trace(self, " stopping");
-        
-        with(__current) stop();
-        
-        __stopping = true;
-    }
-    
-    stop_now = function()
-    {
-        if (__VINYL_DEBUG) __vinyl_trace(self, " finished");
+        __index   = undefined;
+        __current = undefined;
         
         var _i = 0;
         repeat(array_length(__sources))
         {
-            with(__sources[_i]) stop_now();
+            __sources[_i].reset();
+            ++_i;
+        }
+    }
+    
+    play = function()
+    {
+        __vinyl_player_common_play(false);
+        
+        if (__VINYL_DEBUG) __vinyl_trace("Playing (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ") ", self);
+        
+        //Play the first source
+        __index = 0;
+        __current = __sources[__index];
+        with(__current) play();
+    }
+    
+    stop = function(_direct)
+    {
+        if (__VINYL_DEBUG) __vinyl_trace(self, " stopping");
+        
+        with(__current) stop(false);
+        
+        __stopping = true;
+        __time_stopping = current_time;
+    }
+    
+    finish = function()
+    {
+        if (!__finished && __VINYL_DEBUG) __vinyl_trace(self, " finished");
+        
+        var _i = 0;
+        repeat(array_length(__sources))
+        {
+            with(__sources[_i]) finish();
             ++_i;
         }
         
         __stopping = false;
         __finished = true;
+        __current  = undefined;
     }
     
     tick = function(_parent)
     {
-        if (!__started && !__stopping)
+        __vinyl_player_common_tick(false);
+        
+        if (!__started && !__stopping && !__finished)
         {
+            //If we're not started and we're not stopping and we ain't finished, then play!
             play();
         }
         else
         {
-            //Update our final gain
-            var _parent_gain  = 1.0;
-            var _parent_pitch = 1.0;
-            if (is_struct(__parent))
-            {
-                _parent_gain  = __parent.__gain;
-                _parent_pitch = __parent.__pitch;
-            }
+            __vinyl_player_common_tick(false);
             
-            __gain  = gain*_parent_gain;
-            __pitch = pitch*_parent_pitch;
-            
-            //Update the instance we're currently playing
-            with(__current) tick();
-            
-            if (!__stopping)
+            if (__current != undefined)
             {
-                if (__current.__stopping || __current.__finished) play();
-            }
-            else
-            {
-                if (__current.__finished) stop_now();
+                //Update the instance we're currently playing
+                with(__current) tick();
+                
+                if (!__stopping)
+                {
+                    if (__current.__stopping || __current.__finished)
+                    {
+                        ++__index;
+                        if (__index < array_length(__sources))
+                        {
+                            __current = __sources[__index];
+                            with(__current) play();
+                        }
+                        else
+                        {
+                            finish();
+                        }
+                    }
+                }
+                else
+                {
+                    if (__current.__finished) finish();
+                }
             }
         }
     }

@@ -11,7 +11,7 @@ function vinyl_loop()
     else if (argument_count == 3)
     {
         var _intro = (argument[0] == "")? undefined : argument[0];
-        var _outro = (argument[0] == "")? undefined : argument[0];
+        var _outro = (argument[2] == "")? undefined : argument[2];
         return new __vinyl_pattern_loop(_intro, argument[1], _outro);
     }
     else
@@ -25,26 +25,25 @@ function vinyl_loop()
 /// @param outro
 function __vinyl_pattern_loop(_intro, _loop, _outro) constructor
 {
-    __vinyl_pattern_common();
+    __vinyl_pattern_common_construct();
     
     __intro = __vinyl_patternize_source(_intro);
     __loop  = __vinyl_patternize_source(_loop );
     __outro = __vinyl_patternize_source(_outro);
     
-    generate = function(_parent_buss)
+    generate = function(_direct)
     {
-        //Pass on either our buss, or our parent's buss, to child players
-        var _buss = (buss != undefined)? buss : _parent_buss;
-        
         //Generate child players
-        var _intro = (__intro != undefined)? __intro.generate(_buss) : undefined;
-        var _loop  =                          __loop.generate(_buss);
-        var _outro = (__outro != undefined)? __outro.generate(_buss) : undefined;
+        var _intro = (__intro != undefined)? __intro.generate(false) : undefined;
+        var _loop  =                          __loop.generate(false);
+        var _outro = (__outro != undefined)? __outro.generate(false) : undefined;
         
         //Generate our own player
         with(new __vinyl_player_loop(_intro, _loop, _outro))
         {
-            __vinyl_player_common_complete(other, _buss);
+            __pattern = other;
+            reset();
+            if (_direct) buss_name = other.buss_name;
             return self;
         }
     }
@@ -62,57 +61,60 @@ function __vinyl_pattern_loop(_intro, _loop, _outro) constructor
 /// @param outro
 function __vinyl_player_loop(_intro, _loop, _outro) constructor
 {
-    __vinyl_player_common();
+    __vinyl_player_common_construct();
     
     __intro = _intro;
     __loop  = _loop;
     __outro = _outro;
     
-    __intro.__parent = self;
-    __loop.__parent  = self;
-    __outro.__parent = self;
+    var _i = 0;
+    repeat(array_length(__sources))
+    {
+        __sources[_i].__parent = self;
+        ++_i;
+    }
     
-    __current = undefined;
+    if (__intro != undefined) __intro.__parent = self;
+    __loop.__parent = self;
+    if (__outro != undefined) __outro.__parent = self;
+    
+    reset = function()
+    {
+        __vinyl_player_common_reset();
+        
+        __current = undefined;
+    
+        if (__intro != undefined) __intro.reset();
+        __loop.reset();
+        if (__outro != undefined) __outro.reset();
+    }
     
     play = function()
     {
-        //If we have some un-set values, figure them out
-        var _parent_gain  = 1.0;
-        var _parent_pitch = 1.0;
-        if (is_struct(__parent))
-        {
-            _parent_gain  = __parent.__gain;
-            _parent_pitch = __parent.__pitch;
-        }
+        __vinyl_player_common_play(false);
         
-        if (__gain  == undefined) __gain  = gain*_parent_gain;
-        if (__pitch == undefined) __pitch = pitch*_parent_pitch;
-        
-        if (__VINYL_DEBUG) __vinyl_trace("Starting player (gain=", __gain, ", pitch=", __pitch, ") ", self);
+        if (__VINYL_DEBUG) __vinyl_trace("Playing (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ") ", self);
         
         //Figure out what to play
         __current = (__intro != undefined)? __intro : __loop;
         with(__current) play();
-        
-        //Set state
-        __started = true;
-        __finished = false;
     }
     
-    stop = function()
+    stop = function(_direct)
     {
         if (__VINYL_DEBUG) __vinyl_trace(self, " stopping");
         
         __stopping = true;
+        __time_stopping = current_time;
     }
     
-    stop_now = function()
+    finish = function()
     {
-        if (__VINYL_DEBUG) __vinyl_trace(self, " finished");
+        if (!__finished && __VINYL_DEBUG) __vinyl_trace(self, " finished");
         
-        if (__intro != undefined) with(__intro) stop_now();
-        with(__loop) stop_now();
-        if (__outro != undefined) with(__outro) stop_now();
+        if (__intro != undefined) with(__intro) finish();
+        with(__loop) finish();
+        if (__outro != undefined) with(__outro) finish();
         
         __stopping = false;
         __finished = true;
@@ -121,23 +123,14 @@ function __vinyl_player_loop(_intro, _loop, _outro) constructor
     
     tick = function(_parent)
     {
-        if (!__started && !__stopping)
+        if (!__started && !__stopping && !__finished)
         {
+            //If we're not started and we're not stopping and we ain't finished, then play!
             play();
         }
         else
         {
-            //Update our final gain
-            var _parent_gain  = 1.0;
-            var _parent_pitch = 1.0;
-            if (is_struct(__parent))
-            {
-                _parent_gain  = __parent.__gain;
-                _parent_pitch = __parent.__pitch;
-            }
-            
-            __gain  = gain*_parent_gain;
-            __pitch = pitch*_parent_pitch;
+            __vinyl_player_common_tick(false);
             
             if (__current != undefined)
             {
@@ -163,12 +156,12 @@ function __vinyl_player_loop(_intro, _loop, _outro) constructor
                         }
                         else
                         {
-                            stop_now();
+                            finish();
                         }
                     }
                     else
                     {
-                        stop_now();
+                        finish();
                     }
                 }
             }

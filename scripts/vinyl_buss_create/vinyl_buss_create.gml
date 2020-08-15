@@ -65,12 +65,10 @@ function __vinyl_class_buss() constructor
         {
             __old_gain  = gain;
             gain_target = gain;
-            __vinyl_trace("Buss gain=", __gain, " (to ", gain_target, " at ", gain_rate, ")");
         }
         else if (gain_target != gain)
         {
             gain += clamp( gain_target - gain, -gain_rate, gain_rate);
-            __vinyl_trace("Buss gain=", __gain, " (to ", gain_target, " at ", gain_rate, ")");
         }
         
         //Tween to target pitch
@@ -82,7 +80,6 @@ function __vinyl_class_buss() constructor
         else if (pitch_target != pitch)
         {
             pitch += clamp(pitch_target - pitch, -pitch_rate, pitch_rate);
-            __vinyl_trace("Buss pitch=", __pitch, " (to ", pitch_target, " at ", pitch_rate, ")");
         }
         
         //Calculate our resultant gain

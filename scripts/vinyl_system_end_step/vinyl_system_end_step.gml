@@ -44,49 +44,129 @@ function vinyl_system_end_step()
     }
 }
 
-function __vinyl_pattern_common()
+function __vinyl_pattern_common_construct()
 {
-    buss           = undefined;
+    buss_name = undefined;
     
-    gain           = 1.0;
-    gain_vary_min  = 0.0;
-    gain_vary_max  = 0.0;
+    gain          = 1.0;
+    gain_vary_min = 0.0;
+    gain_vary_max = 0.0;
     
     pitch          = 1.0;
     pitch_vary_min = 0.0;
     pitch_vary_max = 0.0;
     
-    time_fade_in   = 0.0;
-    time_fade_out  = 0.0;
+    time_fade_in  = undefined;
+    time_fade_out = undefined;
 }
 
-function __vinyl_player_common()
+function __vinyl_player_common_construct()
 {
-    buss         = undefined;
+    buss_name = undefined;
     
-    gain         = 1.0;
-    gain_target  = 1.0;
-    gain_rate    = 0.1;
+    gain        = 1.0;
+    gain_target = undefined;
+    gain_rate   = 0.1;
     
     pitch        = 1.0;
-    pitch_target = 1.0;
+    pitch_target = undefined;
     pitch_rate   = 0.1;
     
-    __started    = false;
-    __stopping   = false;
-    __finished   = false;
-    __parent     = undefined;
-    __gain       = undefined;
-    __pitch      = undefined;
+    time_fade_in  = 0.0;
+    time_fade_out = 0.0;
+    
+    __pattern = undefined;
+    __parent  = undefined;
 }
 
-/// @param pattern
-/// @param buss
-function __vinyl_player_common_complete(_pattern, _buss)
+function __vinyl_player_common_reset()
 {
-    buss  = _buss;
-    gain  = _pattern.gain  + random_range(_pattern.gain_vary_min , _pattern.gain_vary_max );
-    pitch = _pattern.pitch + random_range(_pattern.pitch_vary_min, _pattern.pitch_vary_max);
+    __started       = false;
+    __time_started  = -1;
+    __stopping      = false;
+    __time_stopping = -1;
+    __finished      = false;
+    
+    __buss  = undefined;
+    __gain  = undefined;
+    __pitch = undefined;
+    
+    if (__pattern != undefined)
+    {
+        if (__pattern.time_fade_in  != undefined) time_fade_in  = __pattern.time_fade_in;
+        if (__pattern.time_fade_out != undefined) time_fade_out = __pattern.time_fade_out;
+        
+        //Randomise the gain/pitch as is appropriate
+        gain  = __pattern.gain  + random_range(__pattern.gain_vary_min , __pattern.gain_vary_max );
+        pitch = __pattern.pitch + random_range(__pattern.pitch_vary_min, __pattern.pitch_vary_max);
+    }
+}
+
+/// @param useBuss
+function __vinyl_player_common_play(_use_buss)
+{
+    finish();
+    reset();
+    
+    //Set state
+    __started = true;
+    __time_started = current_time;
+    
+    __vinyl_player_common_tick(_use_buss);
+}
+
+/// @param useBuss
+function __vinyl_player_common_tick(_use_buss)
+{
+    var _final_gain  = 1.0;
+    var _final_pitch = 1.0;
+    
+    //Find our parent's gain, pitch, and buss
+    if (is_struct(__parent))
+    {
+        _final_gain  *= __parent.__gain;
+        _final_pitch *= __parent.__pitch;
+        __buss = __parent.__buss;
+    }
+    else
+    {
+        //If we have no parent, find our own buss
+        __buss = vinyl_buss_get(buss_name);
+    }
+    
+    //If we want to factor in our buss' gain/pitch, do so here
+    if (_use_buss)
+    {
+        if (!is_struct(__buss)) __buss = vinyl_master;
+        _final_gain  *= __buss.gain;
+        _final_pitch *= __buss.pitch;
+    }
+    
+    //Calculate and apply the fade gain
+    if (!__finished)
+    {
+        if (time_fade_in > 0)
+        {
+            _final_gain *= clamp((current_time - __time_started) / time_fade_in, 0.0, 1.0);
+        }
+        
+        if (__stopping && (time_fade_out > 0))
+        {
+            _final_gain *= 1.0 - clamp((current_time - __time_stopping) / time_fade_out, 0.0, 1.0);
+        }
+    }
+    
+    //If our gain or pitch targets are undefined then we should set them!
+    if (gain_target  == undefined) gain_target  = gain;
+    if (pitch_target == undefined) pitch_target = pitch;
+    
+    //Tween to the gain/pitch target
+    if (gain  != gain_target ) gain  += clamp(gain_target  - gain , -gain_rate , gain_rate );
+    if (pitch != pitch_target) pitch += clamp(pitch_target - pitch, -pitch_rate, pitch_rate);
+    
+    //Set our final gain
+    __gain  = gain*_final_gain;
+    __pitch = pitch*_final_pitch;
 }
 
 /// @param value

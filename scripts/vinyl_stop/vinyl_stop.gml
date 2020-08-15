@@ -4,7 +4,7 @@ function vinyl_stop(_sound_instance)
 {
     if (is_vinyl_sound_instance(_sound_instance))
     {
-        _sound_instance.stop();
+        _sound_instance.stop(true);
     }
     else
     {

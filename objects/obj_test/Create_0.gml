@@ -9,3 +9,5 @@ with(vinyl_buss_create("sound effect")) //This buss is a child of "master"
     vinyl_buss_create("footsteps");
     vinyl_buss_create("narration");
 }
+
+vinyl_buss_get("sound effect").gain = 0.5;
