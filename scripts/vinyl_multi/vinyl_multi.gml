@@ -116,6 +116,18 @@ function __vinyl_player_multi(_sources) constructor
         __time_stopping = current_time;
     }
     
+    will_finish = function()
+    {
+        var _i = 0;
+        repeat(array_length(__sources))
+        {
+            if (!__sources[_i].will_finish()) return false;
+            ++_i;
+        }
+        
+        return true;
+    }
+    
     finish = function()
     {
         if (__VINYL_DEBUG) __vinyl_trace(self, " finished");

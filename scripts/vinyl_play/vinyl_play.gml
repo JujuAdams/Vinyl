@@ -114,6 +114,12 @@ function __vinyl_player_gm_audio(_asset) constructor
         }
     }
     
+    will_finish = function()
+    {
+        if (!__started || __finished || !is_numeric(__instance) || !audio_is_playing(__instance)) return true;
+        return (audio_sound_length(__instance) - audio_sound_get_track_position(__instance) <= VINYL_STEP_DURATION/1000);
+    }
+    
     finish = function()
     {
         if (!__finished && __VINYL_DEBUG) __vinyl_trace(self, " finished");
@@ -149,10 +155,7 @@ function __vinyl_player_gm_audio(_asset) constructor
             if (!__finished)
             {
                 //If our sound instance is somehow invalid, stop this player
-                if (!is_numeric(__instance) || !audio_is_playing(__instance))
-                {
-                    finish();
-                }
+                if (!is_numeric(__instance) || !audio_is_playing(__instance)) finish();
             }
         }
     }

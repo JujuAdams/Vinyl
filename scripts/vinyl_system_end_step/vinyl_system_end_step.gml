@@ -167,6 +167,9 @@ function __vinyl_player_common_tick(_use_buss)
     //Set our final gain
     __gain  = gain*_final_gain;
     __pitch = pitch*_final_pitch;
+    
+    //Handle fade out
+    if (__stopping && (current_time - __time_stopping > time_fade_out)) finish();
 }
 
 /// @param value

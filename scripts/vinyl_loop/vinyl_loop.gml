@@ -67,13 +67,6 @@ function __vinyl_player_loop(_intro, _loop, _outro) constructor
     __loop  = _loop;
     __outro = _outro;
     
-    var _i = 0;
-    repeat(array_length(__sources))
-    {
-        __sources[_i].__parent = self;
-        ++_i;
-    }
-    
     if (__intro != undefined) __intro.__parent = self;
     __loop.__parent = self;
     if (__outro != undefined) __outro.__parent = self;
@@ -108,6 +101,23 @@ function __vinyl_player_loop(_intro, _loop, _outro) constructor
         __time_stopping = current_time;
     }
     
+    will_finish = function()
+    {
+        if (__intro != undefined)
+        {
+            if (!__intro.will_finish()) return false;
+        }
+        
+        if (!__loop.will_finish()) return false;
+        
+        if (__outro != undefined)
+        {
+            if (!__outro.will_finish()) return false;
+        }
+        
+        return true;
+    }
+    
     finish = function()
     {
         if (!__finished && __VINYL_DEBUG) __vinyl_trace(self, " finished");
@@ -136,7 +146,7 @@ function __vinyl_player_loop(_intro, _loop, _outro) constructor
             {
                 with(__current) tick();
                 
-                if (__current.__finished)
+                if (__current.will_finish())
                 {
                     if (__current == __intro)
                     {

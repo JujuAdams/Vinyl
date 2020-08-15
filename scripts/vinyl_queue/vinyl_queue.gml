@@ -111,6 +111,18 @@ function __vinyl_player_queue(_sources) constructor
         __time_stopping = current_time;
     }
     
+    will_finish = function()
+    {
+        var _i = 0;
+        repeat(array_length(__sources))
+        {
+            if (!__sources[_i].will_finish()) return false;
+            ++_i;
+        }
+        
+        return true;
+    }
+    
     finish = function()
     {
         if (!__finished && __VINYL_DEBUG) __vinyl_trace(self, " finished");
@@ -147,7 +159,7 @@ function __vinyl_player_queue(_sources) constructor
                 
                 if (!__stopping)
                 {
-                    if (__current.__stopping || __current.__finished)
+                    if (__current.__stopping || __current.will_finish())
                     {
                         ++__index;
                         if (__index < array_length(__sources))
