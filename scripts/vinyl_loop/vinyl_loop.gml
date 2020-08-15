@@ -27,6 +27,8 @@ function __vinyl_pattern_loop(_intro, _loop, _outro) constructor
 {
     __vinyl_pattern_common_construct();
     
+    wait_to_play_outro = true;
+    
     __intro = __vinyl_patternize_source(_intro);
     __loop  = __vinyl_patternize_source(_loop );
     __outro = __vinyl_patternize_source(_outro);
@@ -39,7 +41,7 @@ function __vinyl_pattern_loop(_intro, _loop, _outro) constructor
         var _outro = (__outro != undefined)? __outro.generate(false) : undefined;
         
         //Generate our own player
-        with(new __vinyl_player_loop(_intro, _loop, _outro))
+        with(new __vinyl_player_loop(_intro, _loop, _outro, wait_to_play_outro))
         {
             __pattern = other;
             reset();
@@ -59,9 +61,12 @@ function __vinyl_pattern_loop(_intro, _loop, _outro) constructor
 /// @param intro
 /// @param loop
 /// @param outro
-function __vinyl_player_loop(_intro, _loop, _outro) constructor
+/// @param waitToPlayOutro
+function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constructor
 {
     __vinyl_player_common_construct();
+    
+    __wait_to_play_outro = _wait_to_play_outro;
     
     __intro = _intro;
     __loop  = _loop;
@@ -96,6 +101,13 @@ function __vinyl_player_loop(_intro, _loop, _outro) constructor
     stop = function(_direct)
     {
         if (__VINYL_DEBUG) __vinyl_trace(self, " stopping");
+        
+        if (!__wait_to_play_outro && (__outro != undefined))
+        {
+            __current.finish();
+            __current = __outro;
+            __current.play();
+        }
         
         __stopping = true;
         __time_stopping = current_time;
@@ -141,6 +153,12 @@ function __vinyl_player_loop(_intro, _loop, _outro) constructor
         else
         {
             __vinyl_player_common_tick(false);
+            
+            //Handle fade out
+            if (time_fade_out > 0.0)
+            {
+                if (__stopping && (current_time - __time_stopping > time_fade_out)) finish();
+            }
             
             if (__current != undefined)
             {

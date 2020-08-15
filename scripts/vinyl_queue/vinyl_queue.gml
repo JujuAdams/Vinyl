@@ -152,6 +152,9 @@ function __vinyl_player_queue(_sources) constructor
         {
             __vinyl_player_common_tick(false);
             
+            //Handle fade out
+            if (__stopping && (current_time - __time_stopping > time_fade_out)) finish();
+            
             if (__current != undefined)
             {
                 //Update the instance we're currently playing

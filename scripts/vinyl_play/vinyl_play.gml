@@ -95,7 +95,7 @@ function __vinyl_player_gm_audio(_asset) constructor
     {
         __vinyl_player_common_play(true);
         
-        if (__VINYL_DEBUG) __vinyl_trace("Playing (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ") ", self);
+        if (__VINYL_DEBUG) __vinyl_trace("Playing ", self, " (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
         //Play the audio asset
         __instance = audio_play_sound(__asset, 1, false);
@@ -122,7 +122,7 @@ function __vinyl_player_gm_audio(_asset) constructor
     
     finish = function()
     {
-        if (!__finished && __VINYL_DEBUG) __vinyl_trace(self, " finished");
+        if (__started && !__finished && __VINYL_DEBUG) __vinyl_trace(self, " finished");
         
         if (!__finished)
         {
@@ -144,6 +144,9 @@ function __vinyl_player_gm_audio(_asset) constructor
         else
         {
             __vinyl_player_common_tick(true);
+            
+            //Handle fade out
+            if (__stopping && (current_time - __time_stopping > time_fade_out)) finish();
             
             if (is_numeric(__instance) && audio_is_playing(__instance))
             {

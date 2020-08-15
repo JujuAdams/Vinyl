@@ -154,6 +154,9 @@ function __vinyl_player_multi(_sources) constructor
         {
             __vinyl_player_common_tick(false);
             
+            //Handle fade out
+            if (__stopping && (current_time - __time_stopping > time_fade_out)) finish();
+            
             //Update the instances we're currently playing
             var _children_finished = true;
             var _i = 0;
