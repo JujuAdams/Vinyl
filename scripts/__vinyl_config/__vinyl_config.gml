@@ -1,0 +1,1 @@
+#macro VINYL_STEP_DURATION  33  //milliseconds
