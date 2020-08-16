@@ -8,7 +8,7 @@
 
 &nbsp;
 
-|[![About & Support](https://raw.githubusercontent.com/wiki/JujuAdams/scribble/images/aboutsupport.png)](https://github.com/JujuAdams/vinyl/wiki/About-&-Support)|[![Features](https://raw.githubusercontent.com/wiki/JujuAdams/scribble/images/features.png)](https://github.com/JujuAdams/vinyl/wiki/Features)|[![GML Functions](https://raw.githubusercontent.com/wiki/JujuAdams/scribble/images/functions.png)](https://github.com/JujuAdams/vinyl/wiki/Function-Index)|
-|----------------------|----------------------|----------------------|
-|<p align="center">[About & Support](https://github.com/JujuAdams/vinyl/wiki/About-&-Support)</p>|<p align="center">[Features](https://github.com/JujuAdams/vinyl/wiki/Features)</p>|<p align="center">[Function Index](https://github.com/JujuAdams/vinyl/wiki/Function-Index)</p>|
-|Who made Vinyl and how to get help| Synopsis of Vinyl's features | Every Vinyl function and how to use them in common situations |
+|[![About & Support](https://raw.githubusercontent.com/wiki/JujuAdams/scribble/images/aboutsupport.png)](About-&-Support)|[![Functions](https://raw.githubusercontent.com/wiki/JujuAdams/scribble/images/functions.png)](Function-Index)|
+|----------------------|----------------------|
+|<p align="center">[About & Support](About-&-Support)</p>|<p align="center">[Functions](Function-Index)</p>|
+|Who made Vinyl and how to get help|Every Vinyl function and how to use them in common situations|
