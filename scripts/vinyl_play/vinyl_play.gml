@@ -166,8 +166,11 @@ function __vinyl_player_gm_audio(_asset) constructor
             
             if (is_numeric(__instance) && audio_is_playing(__instance))
             {
+                var _asset_gain = global.__vinyl_global_asset_gain[? __asset];
+                if (_asset_gain == undefined) _asset_gain = 1.0;
+                
                 //Update GM's sound instance
-                audio_sound_gain(__instance, __gain, VINYL_STEP_DURATION);
+                audio_sound_gain(__instance, __gain*_asset_gain, VINYL_STEP_DURATION);
                 audio_sound_pitch(__instance, __pitch);
             }
             
