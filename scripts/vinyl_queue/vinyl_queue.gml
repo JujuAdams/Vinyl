@@ -258,16 +258,14 @@ function __vinyl_player_queue(_sources, _loop, _pops, _loop_on_last) constructor
                         if (pops)
                         {
                             //Pop the current source so long as we're not on the last source in "loop on last" mode
-                            if (!loop_on_last || (array_length(sources) > 1))
-                            {
-                                __vinyl_trace(self, " popping index=", __index, " ", __current);
-                                __vinyl_array_delete(sources, __index);
-                            }
+                            if (!loop_on_last || (array_length(sources) > 1)) __vinyl_array_delete(sources, __index);
                         }
                         else
                         {
                             ++__index;
                         }
+                        
+                        var _new_play = false;
                         
                         if (array_length(sources) <= 0)
                         {
@@ -275,16 +273,21 @@ function __vinyl_player_queue(_sources, _loop, _pops, _loop_on_last) constructor
                             playing_index = undefined;
                             finish();
                         }
-                        else if (loop || (loop_on_last && (array_length(sources) <= 1)))
+                        else if (loop)
                         {
                             //If we're looping, wrap around to the start of the queue if necessary and play the next source
-                            
                             __index = __index mod array_length(sources);
                             playing_index = __index;
                             __current = sources[__index];
-                            
-                            __vinyl_trace(self, " (loops) playing index=", __index, " ", __current);
-                            with(__current) play();
+                            _new_play = true;
+                        }
+                        else if (loop_on_last && (__index >= array_length(sources)))
+                        {
+                            //If we're looping on the last source, loop that source
+                            __index = array_length(sources) - 1;
+                            playing_index = __index;
+                            __current = sources[__index];
+                            _new_play = true;
                         }
                         else
                         {
@@ -293,15 +296,27 @@ function __vinyl_player_queue(_sources, _loop, _pops, _loop_on_last) constructor
                             {
                                 playing_index = __index;
                                 __current = sources[__index];
-                                
-                                __vinyl_trace(self, " playing index=", __index, " ", __current);
-                                with(__current) play();
+                                _new_play = true;
                             }
                             else
                             {
                                 playing_index = undefined;
                                 finish();
                             }
+                        }
+                        
+                        if (_new_play)
+                        {
+                            //If we're playing a new source, check if it's a pattern
+                            //Normally this won't happen, but we expose the sources array to the dev and they might try to play a pattern
+                            __current = __vinyl_patternize_source(__current);
+                            if (is_vinyl_pattern(__current))
+                            {
+                                __current = __current.generate(false); //Generate the source
+                                sources[@ __index] = __current;
+                            }
+                            
+                            with(__current) play();
                         }
                     }
                 }

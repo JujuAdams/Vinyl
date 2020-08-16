@@ -1,8 +1,8 @@
-/// @param soundInstance
+/// @param value
 
-function is_vinyl_sound_instance(_sound_instance)
+function is_vinyl_sound_instance(_value)
 {
-    var _instanceof = instanceof(_sound_instance);
+    var _instanceof = instanceof(_value);
     if ((_instanceof == "__vinyl_player_gm_audio")
     ||  (_instanceof == "__vinyl_player_loop")
     ||  (_instanceof == "__vinyl_player_random")

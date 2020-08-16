@@ -26,22 +26,22 @@ function __vinyl_pattern_multi() constructor
     synchronize = false;
     loop = false;
     
-    sources = array_create(argument_count, undefined);
+    __sources = array_create(argument_count, undefined);
     var _i = 0;
     repeat(argument_count)
     {
-        sources[@ _i] = __vinyl_patternize_source(argument[_i]);
+        __sources[@ _i] = __vinyl_patternize_source(argument[_i]);
         ++_i;
     }
     
     generate = function(_direct)
     {
         //Generate child players
-        var _sources = array_create(array_length(sources));
+        var _sources = array_create(array_length(__sources));
         var _i = 0;
-        repeat(array_length(sources))
+        repeat(array_length(__sources))
         {
-            _sources[@ _i] = sources[_i].generate(false);
+            _sources[@ _i] = __sources[_i].generate(false);
             ++_i;
         }
         
@@ -57,7 +57,7 @@ function __vinyl_pattern_multi() constructor
     
     toString = function()
     {
-        return "Multi " + string(sources);
+        return "Multi " + string(__sources);
     }
     
     if (__VINYL_DEBUG) __vinyl_trace("Created pattern ", self);
@@ -68,14 +68,15 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
 {
     __vinyl_player_common_construct();
     
-    sources     = _sources;
     synchronize = _synchronize;
     loop        = _loop;
     
+    __sources = _sources;
+    
     var _i = 0;
-    repeat(array_length(sources))
+    repeat(array_length(__sources))
     {
-        if (is_struct(sources[_i])) sources[_i].__parent = self;
+        if (is_struct(__sources[_i])) __sources[_i].__parent = self;
         ++_i;
     }
     
@@ -84,9 +85,9 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
         __vinyl_player_common_reset();
         
         var _i = 0;
-        repeat(array_length(sources))
+        repeat(array_length(__sources))
         {
-            if (is_struct(sources[_i])) sources[_i].reset();
+            if (is_struct(__sources[_i])) __sources[_i].reset();
             ++_i;
         }
     }
@@ -99,9 +100,9 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
         
         //Figure out what to play
         var _i = 0;
-        repeat(array_length(sources))
+        repeat(array_length(__sources))
         {
-            with(sources[_i]) play();
+            with(__sources[_i]) play();
             ++_i;
         }
     }
@@ -114,9 +115,9 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
         
         var _max_time = 0;
         var _i = 0;
-        repeat(array_length(sources))
+        repeat(array_length(__sources))
         {
-            var _time = sources[_i].get_position();
+            var _time = __sources[_i].get_position();
             if (_time != undefined)
             {
                 _any_valid = true;
@@ -135,9 +136,9 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
         if ((_time != undefined) && __started && !__finished)
         {
             var _i = 0;
-            repeat(array_length(sources))
+            repeat(array_length(__sources))
             {
-                sources[_i].set_position(_time);
+                __sources[_i].set_position(_time);
                 ++_i;
             }
         }
@@ -149,9 +150,9 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
         if (__VINYL_DEBUG) __vinyl_trace("Stopping ", self);
         
         var _i = 0;
-        repeat(array_length(sources))
+        repeat(array_length(__sources))
         {
-            with(sources[_i]) stop(false);
+            with(__sources[_i]) stop(false);
             ++_i;
         }
         
@@ -162,9 +163,9 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
     will_finish = function()
     {
         var _i = 0;
-        repeat(array_length(sources))
+        repeat(array_length(__sources))
         {
-            if (!sources[_i].will_finish()) return false;
+            if (!__sources[_i].will_finish()) return false;
             ++_i;
         }
         
@@ -176,9 +177,9 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
         if (__VINYL_DEBUG) __vinyl_trace("Finished ", self);
         
         var _i = 0;
-        repeat(array_length(sources))
+        repeat(array_length(__sources))
         {
-            with(sources[_i]) finish();
+            with(__sources[_i]) finish();
             ++_i;
         }
         
@@ -208,9 +209,9 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
                 if (loop)
                 {
                     var _i = 0;
-                    repeat(array_length(sources))
+                    repeat(array_length(__sources))
                     {
-                        with(sources[_i])
+                        with(__sources[_i])
                         {
                             tick(); //Update the instances we're currently playing
                             if (_time == undefined) _time = get_position() else set_position(_time);
@@ -223,9 +224,9 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
                     if (_finished)
                     {
                         var _i = 0;
-                        repeat(array_length(sources))
+                        repeat(array_length(__sources))
                         {
-                            sources[_i].play();
+                            __sources[_i].play();
                             ++_i;
                         }
                     }
@@ -233,9 +234,9 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
                 else
                 {
                     var _i = 0;
-                    repeat(array_length(sources))
+                    repeat(array_length(__sources))
                     {
-                        with(sources[_i])
+                        with(__sources[_i])
                         {
                             tick(); //Update the instances we're currently playing
                             if (_time == undefined) _time = get_position() else set_position(_time);
@@ -253,9 +254,9 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
                 if (loop)
                 {
                     var _i = 0;
-                    repeat(array_length(sources))
+                    repeat(array_length(__sources))
                     {
-                        with(sources[_i])
+                        with(__sources[_i])
                         {
                             tick(); //Update the instances we're currently playing
                             if (will_finish()) play();
@@ -268,9 +269,9 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
                 {
                     var _finished = true;
                     var _i = 0;
-                    repeat(array_length(sources))
+                    repeat(array_length(__sources))
                     {
-                        with(sources[_i])
+                        with(__sources[_i])
                         {
                             tick(); //Update the instances we're currently playing
                             if (!__finished) _finished = false;
@@ -287,7 +288,7 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
     
     toString = function()
     {
-        return "Multi " + string(sources);
+        return "Multi " + string(__sources);
     }
     
     if (__VINYL_DEBUG) __vinyl_trace("Created player ", self);
