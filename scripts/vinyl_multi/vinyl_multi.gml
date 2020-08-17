@@ -23,25 +23,28 @@ function __vinyl_pattern_multi() constructor
 {
     __vinyl_pattern_common_construct();
     
+    sources     = array_create(argument_count, undefined);
     synchronize = false;
-    loop = false;
+    loop        = false;
     
-    sources = array_create(argument_count, undefined);
+    //Copy input sources into the actual array
     var _i = 0;
     repeat(argument_count)
     {
-        sources[@ _i] = __vinyl_patternize_source(argument[_i]);
+        sources[@ _i] = argument[_i];
         ++_i;
     }
     
     generate = function(_direct)
     {
-        //Generate child players
         var _sources = array_create(array_length(sources));
+        
+        //Patternise and generate sources
         var _i = 0;
-        repeat(array_length(sources))
+        repeat(array_length(_sources))
         {
-            _sources[@ _i] = sources[_i].generate(false);
+            var _source = __vinyl_patternize_source(_sources[_i]);
+            _sources[@ _i] = _source.generate(false);
             ++_i;
         }
         
