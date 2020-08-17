@@ -147,17 +147,20 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
     /// @param direct
     stop = function(_direct)
     {
-        if (__VINYL_DEBUG) __vinyl_trace("Stopping ", self);
-        
-        var _i = 0;
-        repeat(array_length(__sources))
+        if (!__stopping && !__finished)
         {
-            with(__sources[_i]) stop(false);
-            ++_i;
+            if (__VINYL_DEBUG) __vinyl_trace("Stopping ", self);
+            
+            var _i = 0;
+            repeat(array_length(__sources))
+            {
+                with(__sources[_i]) stop(false);
+                ++_i;
+            }
+            
+            __stopping = true;
+            __time_stopping = current_time;
         }
-        
-        __stopping = true;
-        __time_stopping = current_time;
     }
     
     will_finish = function()

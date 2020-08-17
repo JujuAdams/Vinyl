@@ -121,7 +121,7 @@ function __vinyl_player_gm_audio(_asset) constructor
     /// @param direct
     stop = function(_direct)
     {
-        if (!__stopping)
+        if (!__stopping && !__finished)
         {
             if (__VINYL_DEBUG) __vinyl_trace("Stopping ", self);
             

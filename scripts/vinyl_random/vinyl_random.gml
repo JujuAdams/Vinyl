@@ -118,12 +118,15 @@ function __vinyl_player_random(_sources) constructor
     
     stop = function(_direct)
     {
-        if (__VINYL_DEBUG) __vinyl_trace("Stopping ", self);
-        
-        with(__current) stop(false);
-        
-        __stopping = true;
-        __time_stopping = current_time;
+        if (!__stopping && !__finished)
+        {
+            if (__VINYL_DEBUG) __vinyl_trace("Stopping ", self);
+            
+            with(__current) stop(false);
+            
+            __stopping = true;
+            __time_stopping = current_time;
+        }
     }
     
     will_finish = function()

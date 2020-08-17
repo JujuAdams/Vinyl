@@ -117,10 +117,13 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
     /// @param direct
     stop = function(_direct)
     {
-        if (__VINYL_DEBUG) __vinyl_trace("Stopping ", self);
-        
-        __stopping = true;
-        __time_stopping = current_time;
+        if (!__stopping && !__finished)
+        {
+            if (__VINYL_DEBUG) __vinyl_trace("Stopping ", self);
+            
+            __stopping = true;
+            __time_stopping = current_time;
+        }
     }
     
     will_finish = function()
