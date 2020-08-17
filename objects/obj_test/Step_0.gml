@@ -1,9 +1,6 @@
 if (keyboard_check_pressed(vk_space))
 {
-    var _pattern = vinyl_queue(snd_1, snd_2, snd_3);
-    _pattern.pops = true;
-    _pattern.loop_on_last = true;
-    instance = vinyl_play(_pattern);
+    instance = vinyl_play(vinyl_loop(snd_1, snd_2, snd_3));
 }
 
 if (keyboard_check_pressed(ord("L")))

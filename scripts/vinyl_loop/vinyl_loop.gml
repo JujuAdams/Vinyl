@@ -29,16 +29,20 @@ function __vinyl_pattern_loop(_intro, _loop, _outro) constructor
     
     wait_to_play_outro = true;
     
-    __intro = __vinyl_patternize_source(_intro);
-    __loop  = __vinyl_patternize_source(_loop );
-    __outro = __vinyl_patternize_source(_outro);
+    intro = _intro;
+    loop  = _loop;
+    outro = _outro;
     
     generate = function(_direct)
     {
+        var _intro = __vinyl_patternize_source(intro);
+        var _loop  = __vinyl_patternize_source(loop );
+        var _outro = __vinyl_patternize_source(outro);
+        
         //Generate child players
-        var _intro = (__intro != undefined)? __intro.generate(false) : undefined;
-        var _loop  =                          __loop.generate(false);
-        var _outro = (__outro != undefined)? __outro.generate(false) : undefined;
+        _intro = (_intro != undefined)? _intro.generate(false) : undefined;
+        _loop  =                         _loop.generate(false);
+        _outro = (_outro != undefined)? _outro.generate(false) : undefined;
         
         //Generate our own player
         with(new __vinyl_player_loop(_intro, _loop, _outro, wait_to_play_outro))
@@ -52,7 +56,7 @@ function __vinyl_pattern_loop(_intro, _loop, _outro) constructor
     
     toString = function()
     {
-        return "Loop [ " + __vinyl_get_source_name(__intro) + "," + __vinyl_get_source_name(__loop) + "," + __vinyl_get_source_name(__outro) + " ]";
+        return "Loop [ " + __vinyl_get_source_name(intro) + "," + __vinyl_get_source_name(loop) + "," + __vinyl_get_source_name(outro) + " ]";
     }
     
     if (__VINYL_DEBUG) __vinyl_trace("Created pattern ", self);
@@ -68,13 +72,13 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
     
     wait_to_play_outro = _wait_to_play_outro;
     
-    __intro = _intro;
-    __loop  = _loop;
-    __outro = _outro;
+    intro = _intro;
+    loop  = _loop;
+    outro = _outro;
     
-    if (__intro != undefined) __intro.__parent = self;
-    __loop.__parent = self;
-    if (__outro != undefined) __outro.__parent = self;
+    if (intro != undefined) intro.__parent = self;
+    loop.__parent = self;
+    if (outro != undefined) outro.__parent = self;
     
     reset = function()
     {
@@ -82,9 +86,9 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
         
         __current = undefined;
     
-        if (__intro != undefined) __intro.reset();
-        __loop.reset();
-        if (__outro != undefined) __outro.reset();
+        if (intro != undefined) intro.reset();
+        loop.reset();
+        if (outro != undefined) outro.reset();
     }
     
     play = function()
@@ -94,7 +98,7 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
         if (__VINYL_DEBUG) __vinyl_trace("Playing ", self, " (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
         //Figure out what to play
-        __current = (__intro != undefined)? __intro : __loop;
+        __current = (intro != undefined)? intro : loop;
         with(__current) play();
     }
     
@@ -128,16 +132,16 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
     
     will_finish = function()
     {
-        if (__intro != undefined)
+        if (intro != undefined)
         {
-            if (!__intro.will_finish()) return false;
+            if (!intro.will_finish()) return false;
         }
         
-        if (!__loop.will_finish()) return false;
+        if (!loop.will_finish()) return false;
         
-        if (__outro != undefined)
+        if (outro != undefined)
         {
-            if (!__outro.will_finish()) return false;
+            if (!outro.will_finish()) return false;
         }
         
         return true;
@@ -147,9 +151,9 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
     {
         if (!__finished && __VINYL_DEBUG) __vinyl_trace("Finished ", self);
         
-        if (__intro != undefined) with(__intro) finish();
-        with(__loop) finish();
-        if (__outro != undefined) with(__outro) finish();
+        if (intro != undefined) with(intro) finish();
+        with(loop) finish();
+        if (outro != undefined) with(outro) finish();
         
         __stopping = false;
         __finished = true;
@@ -179,20 +183,20 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
                 
                 if (__current.will_finish())
                 {
-                    if (__current == __intro)
+                    if (__current == intro)
                     {
-                        __current = __loop;
+                        __current = loop;
                         __current.play();
                     }
-                    else if (__current == __loop)
+                    else if (__current == loop)
                     {
                         if (!__stopping)
                         {
-                            __loop.play();
+                            loop.play();
                         }
-                        else if (__outro != undefined)
+                        else if (outro != undefined)
                         {
-                            __current = __outro;
+                            __current = outro;
                             __current.play();
                         }
                         else
@@ -205,10 +209,10 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
                         finish();
                     }
                 }
-                else if (__started && __stopping && !wait_to_play_outro && (__outro != undefined) && (__current != __outro))
+                else if (__started && __stopping && !wait_to_play_outro && (outro != undefined) && (__current != outro))
                 {
                     __current.finish();
-                    __current = __outro;
+                    __current = outro;
                     __current.play();
                 }
             }
@@ -217,7 +221,7 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
     
     toString = function()
     {
-        return "Loop [ " + __vinyl_get_source_name(__intro) + "," + __vinyl_get_source_name(__loop) + "," + __vinyl_get_source_name(__outro) + " ]";
+        return "Loop [ " + __vinyl_get_source_name(intro) + "," + __vinyl_get_source_name(loop) + "," + __vinyl_get_source_name(outro) + " ]";
     }
     
     if (__VINYL_DEBUG) __vinyl_trace("Created player ", self);
