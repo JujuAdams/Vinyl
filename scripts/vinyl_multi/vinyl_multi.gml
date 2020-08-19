@@ -43,7 +43,7 @@ function __vinyl_pattern_multi() constructor
         var _i = 0;
         repeat(array_length(_sources))
         {
-            var _source = __vinyl_patternize_source(_sources[_i]);
+            var _source = __vinyl_patternize_source(sources[_i]);
             _sources[@ _i] = _source.generate(false);
             ++_i;
         }
@@ -94,6 +94,8 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
             ++_i;
         }
     }
+    
+    reset();
     
     play = function()
     {

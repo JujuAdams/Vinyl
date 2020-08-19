@@ -91,6 +91,8 @@ function __vinyl_player_gm_audio(_asset) constructor
         __instance = undefined;
     }
     
+    reset();
+    
     play = function()
     {
         __vinyl_player_common_play(true);

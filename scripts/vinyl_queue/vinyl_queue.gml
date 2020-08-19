@@ -41,14 +41,13 @@ function __vinyl_pattern_queue() constructor
     
     generate = function(_direct)
     {
-        
         var _sources = array_create(array_length(sources));
         
         //Patternise and generate sources
         var _i = 0;
         repeat(array_length(_sources))
         {
-            var _source = __vinyl_patternize_source(_sources[_i]);
+            var _source = __vinyl_patternize_source(sources[_i]);
             _sources[@ _i] = _source.generate(false);
             ++_i;
         }
@@ -116,6 +115,8 @@ function __vinyl_player_queue(_sources, _loop, _pops, _loop_on_last) constructor
             ++_i;
         }
     }
+    
+    reset();
     
     play = function()
     {

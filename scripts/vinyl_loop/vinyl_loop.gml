@@ -91,6 +91,8 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
         if (outro != undefined) outro.reset();
     }
     
+    reset();
+    
     play = function()
     {
         __vinyl_player_common_play(false);

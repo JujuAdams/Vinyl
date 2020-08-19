@@ -93,6 +93,8 @@ function __vinyl_player_random(_sources) constructor
         }
     }
     
+    reset();
+    
     play = function()
     {
         __vinyl_player_common_play(false);
