@@ -20,6 +20,15 @@ global.__vinyl_busses            = {};
 vinyl_lib    = {};
 vinyl_master = new __vinyl_class_buss();
 
+//Iterate over all audio assets
+var _i = 0;
+repeat(9999)
+{
+    if (!audio_exists(_i)) break;
+    global.__vinyl_global_asset_gain[? _i] = audio_sound_get_gain(_i);
+    ++_i;
+}
+ 
 function vinyl_system_end_step()
 {
     vinyl_master.tick();
