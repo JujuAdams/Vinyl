@@ -3,7 +3,7 @@
 #macro __VINYL_VERSION  "1.0.1"
 #macro __VINYL_DATE     "2020/08/17"
 
-#macro __VINYL_DEBUG  true
+#macro __VINYL_DEBUG  false
 
 #macro vinyl_lib       global.__vinyl_library
 #macro vinyl_library   global.__vinyl_library
