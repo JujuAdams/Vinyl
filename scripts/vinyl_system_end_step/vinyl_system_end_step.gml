@@ -75,8 +75,15 @@ function __vinyl_player_common_construct()
     time_fade_in  = 0.0;
     time_fade_out = 0.0;
     
+    __buss    = undefined;
     __pattern = undefined;
     __parent  = undefined;
+    
+    __started       = false;
+    __time_started  = -1;
+    __stopping      = false;
+    __time_stopping = -1;
+    __finished      = false;
 }
 
 function __vinyl_player_common_reset()
