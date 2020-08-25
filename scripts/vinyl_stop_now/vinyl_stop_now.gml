@@ -1,6 +1,6 @@
 /// @param soundInstance
 
-function vinyl_finish(_sound_instance)
+function vinyl_stop_now(_sound_instance)
 {
     if (is_vinyl_sound_instance(_sound_instance))
     {
