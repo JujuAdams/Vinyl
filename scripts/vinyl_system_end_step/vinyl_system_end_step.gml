@@ -154,8 +154,8 @@ function __vinyl_player_common_tick(_use_buss)
     if (_use_buss)
     {
         if (!is_struct(__buss)) __buss = vinyl_master;
-        _final_gain  *= __buss.gain;
-        _final_pitch *= __buss.pitch;
+        _final_gain  *= __buss.__gain;
+        _final_pitch *= __buss.__pitch;
     }
     
     //Calculate and apply the fade gain
