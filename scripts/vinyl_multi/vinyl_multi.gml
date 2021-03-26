@@ -58,6 +58,18 @@ function __vinyl_pattern_multi() constructor
         }
     }
     
+    //I don't trust GM not to mess up these functions if I put them in the common definition
+    static buss_set = function(_buss_name)
+    {
+        buss_name = _buss_name;
+        return self;
+    }
+    
+    static buss_get = function()
+    {
+        return buss_name;
+    }
+    
     static toString = function()
     {
         return "Multi " + string(sources);
@@ -294,6 +306,18 @@ function __vinyl_player_multi(_sources, _synchronize, _loop) constructor
                 }
             }
         }
+    }
+    
+    //I don't trust GM not to mess up these functions if I put them in the common definition
+    static buss_set = function(_buss_name)
+    {
+        buss_name = _buss_name;
+        return self;
+    }
+    
+    static buss_get = function()
+    {
+        return buss_name;
     }
     
     static toString = function()

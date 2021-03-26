@@ -24,6 +24,18 @@ function __vinyl_pattern_gm_audio(_asset) constructor
         }
     }
     
+    //I don't trust GM not to mess up these functions if I put them in the common definition
+    static buss_set = function(_buss_name)
+    {
+        buss_name = _buss_name;
+        return self;
+    }
+    
+    static buss_get = function()
+    {
+        return buss_name;
+    }
+    
     static toString = function()
     {
         return __vinyl_get_source_name(asset);
@@ -137,6 +149,18 @@ function __vinyl_player_gm_audio(_asset) constructor
                 if (!is_numeric(__instance) || !audio_is_playing(__instance)) finish();
             }
         }
+    }
+    
+    //I don't trust GM not to mess up these functions if I put them in the common definition
+    static buss_set = function(_buss_name)
+    {
+        buss_name = _buss_name;
+        return self;
+    }
+    
+    static buss_get = function()
+    {
+        return buss_name;
     }
     
     static toString = function()

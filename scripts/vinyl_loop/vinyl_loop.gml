@@ -54,6 +54,18 @@ function __vinyl_pattern_loop(_intro, _loop, _outro) constructor
         }
     }
     
+    //I don't trust GM not to mess up these functions if I put them in the common definition
+    static buss_set = function(_buss_name)
+    {
+        buss_name = _buss_name;
+        return self;
+    }
+    
+    static buss_get = function()
+    {
+        return buss_name;
+    }
+    
     static toString = function()
     {
         return "Loop [ " + __vinyl_get_source_name(intro) + "," + __vinyl_get_source_name(loop) + "," + __vinyl_get_source_name(outro) + " ]";
@@ -221,6 +233,18 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
                 }
             }
         }
+    }
+    
+    //I don't trust GM not to mess up these functions if I put them in the common definition
+    static buss_set = function(_buss_name)
+    {
+        buss_name = _buss_name;
+        return self;
+    }
+    
+    static buss_get = function()
+    {
+        return buss_name;
     }
     
     static toString = function()
