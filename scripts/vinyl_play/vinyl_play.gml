@@ -30,7 +30,8 @@ function vinyl_play(_in_source)
         }
         
         var _instanceof = instanceof(_source);
-        if ((_instanceof == "__vinyl_pattern_loop"  )
+        if ((_instanceof == "__vinyl_pattern_gm_audio")
+        ||  (_instanceof == "__vinyl_pattern_loop"  )
         ||  (_instanceof == "__vinyl_pattern_random")
         ||  (_instanceof == "__vinyl_pattern_queue" )
         ||  (_instanceof == "__vinyl_pattern_multi" ))
