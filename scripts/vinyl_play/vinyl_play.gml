@@ -8,7 +8,7 @@ function vinyl_play(_in_source)
     {
         if (audio_exists(_source))
         {
-            var _instance = new __vinyl_player_gm_audio(_source);
+            var _instance = new __vinyl_player_basic(_source);
             ds_list_add(global.__vinyl_playing, _instance);
             return _instance;
         }
@@ -30,7 +30,7 @@ function vinyl_play(_in_source)
         }
         
         var _instanceof = instanceof(_source);
-        if ((_instanceof == "__vinyl_pattern_gm_audio")
+        if ((_instanceof == "__vinyl_pattern_basic" )
         ||  (_instanceof == "__vinyl_pattern_loop"  )
         ||  (_instanceof == "__vinyl_pattern_random")
         ||  (_instanceof == "__vinyl_pattern_queue" )

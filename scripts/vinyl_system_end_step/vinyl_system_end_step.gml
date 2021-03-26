@@ -203,7 +203,7 @@ function __vinyl_patternize_source(_source)
 {
     if (is_numeric(_source))
     {
-        return new __vinyl_pattern_gm_audio(_source);
+        return new __vinyl_pattern_basic(_source);
     }
     else
     {

@@ -6,7 +6,7 @@ function vinyl_basic(_asset)
 }
 
 /// @param asset
-function __vinyl_pattern_gm_audio(_asset) constructor
+function __vinyl_pattern_basic(_asset) constructor
 {
     __vinyl_pattern_common_construct();
     
@@ -15,7 +15,7 @@ function __vinyl_pattern_gm_audio(_asset) constructor
     static generate = function(_direct)
     {
         //Generate a player
-        with(new __vinyl_player_gm_audio(asset))
+        with(new __vinyl_player_basic(asset))
         {
             __pattern = other;
             reset();
@@ -45,7 +45,7 @@ function __vinyl_pattern_gm_audio(_asset) constructor
 }
 
 /// @param asset
-function __vinyl_player_gm_audio(_asset) constructor
+function __vinyl_player_basic(_asset) constructor
 {
     __vinyl_player_common_construct();
     
