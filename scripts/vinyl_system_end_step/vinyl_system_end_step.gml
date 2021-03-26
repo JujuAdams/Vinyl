@@ -1,7 +1,7 @@
 #region Internal Macro Definitions
 
-#macro __VINYL_VERSION  "1.0.2"
-#macro __VINYL_DATE     "2020/08/19"
+#macro __VINYL_VERSION  "1.0.3"
+#macro __VINYL_DATE     "2021/03/26"
 
 #macro __VINYL_DEBUG  false
 
