@@ -58,7 +58,7 @@ function __vinyl_class_buss() constructor
     __old_gain  = 1.0;
     __old_pitch = 1.0;
     
-    tick = function(_parent)
+    static tick = function(_parent)
     {
         //Tween to target gain
         if (__old_gain != gain)

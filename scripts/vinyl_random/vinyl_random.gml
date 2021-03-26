@@ -33,7 +33,7 @@ function __vinyl_pattern_random() constructor
         ++_i;
     }
     
-    generate = function(_direct)
+    static generate = function(_direct)
     {
         var _sources = array_create(array_length(sources));
         
@@ -56,7 +56,7 @@ function __vinyl_pattern_random() constructor
         }
     }
     
-    toString = function()
+    static toString = function()
     {
         return "Random " + string(sources);
     }
@@ -78,7 +78,7 @@ function __vinyl_player_random(_sources) constructor
         ++_i;
     }
     
-    reset = function()
+    static reset = function()
     {
         __vinyl_player_common_reset();
         
@@ -95,7 +95,7 @@ function __vinyl_player_random(_sources) constructor
     
     reset();
     
-    play = function()
+    static play = function()
     {
         __vinyl_player_common_play(false);
         
@@ -107,14 +107,14 @@ function __vinyl_player_random(_sources) constructor
         with(__current) play();
     }
     
-    get_position = function()
+    static get_position = function()
     {
         if (!__started || __finished || !is_struct(__current)) return undefined;
         return __current.get_position();
     }
     
     /// @param time
-    set_position = function(_time)
+    static set_position = function(_time)
     {
         if ((_time != undefined) && __started && !__finished && is_struct(__current))
         {
@@ -122,7 +122,7 @@ function __vinyl_player_random(_sources) constructor
         }
     }
     
-    stop = function(_direct)
+    static stop = function(_direct)
     {
         if (!__stopping && !__finished)
         {
@@ -135,7 +135,7 @@ function __vinyl_player_random(_sources) constructor
         }
     }
     
-    will_finish = function()
+    static will_finish = function()
     {
         var _i = 0;
         repeat(array_length(sources))
@@ -147,7 +147,7 @@ function __vinyl_player_random(_sources) constructor
         return true;
     }
     
-    finish = function()
+    static finish = function()
     {
         if (__started && !__finished && __VINYL_DEBUG) __vinyl_trace("Finished ", self);
         
@@ -163,7 +163,7 @@ function __vinyl_player_random(_sources) constructor
         __current  = undefined;
     }
     
-    tick = function()
+    static tick = function()
     {
         //TODO - Much like queues, we should be checking to see if the loop source has changed and adjust accordingly
         
@@ -188,7 +188,7 @@ function __vinyl_player_random(_sources) constructor
         }
     }
     
-    toString = function()
+    static toString = function()
     {
         return "Random " + string(sources);
     }

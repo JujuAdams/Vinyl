@@ -12,7 +12,7 @@ function __vinyl_pattern_gm_audio(_asset) constructor
     
     asset = _asset;
     
-    generate = function(_direct)
+    static generate = function(_direct)
     {
         //Generate a player
         with(new __vinyl_player_gm_audio(asset))
@@ -24,7 +24,7 @@ function __vinyl_pattern_gm_audio(_asset) constructor
         }
     }
     
-    toString = function()
+    static toString = function()
     {
         return __vinyl_get_source_name(asset);
     }
@@ -39,7 +39,7 @@ function __vinyl_player_gm_audio(_asset) constructor
     
     __asset = _asset;
     
-    reset = function()
+    static reset = function()
     {
         __vinyl_player_common_reset();
         
@@ -48,7 +48,7 @@ function __vinyl_player_gm_audio(_asset) constructor
     
     reset();
     
-    play = function()
+    static play = function()
     {
         __vinyl_player_common_play(true);
         
@@ -60,14 +60,14 @@ function __vinyl_player_gm_audio(_asset) constructor
         audio_sound_pitch(__instance, __pitch);
     }
     
-    get_position = function()
+    static get_position = function()
     {
         if (!__started || __finished || !is_numeric(__instance) || !audio_is_playing(__instance)) return undefined;
         return audio_sound_get_track_position(__instance);
     }
     
     /// @param time
-    set_position = function(_time)
+    static set_position = function(_time)
     {
         if ((_time != undefined) && __started && !__finished && is_numeric(__instance) && audio_is_playing(__instance))
         {
@@ -76,7 +76,7 @@ function __vinyl_player_gm_audio(_asset) constructor
     }
     
     /// @param direct
-    stop = function(_direct)
+    static stop = function(_direct)
     {
         if (!__stopping && !__finished)
         {
@@ -87,13 +87,13 @@ function __vinyl_player_gm_audio(_asset) constructor
         }
     }
     
-    will_finish = function()
+    static will_finish = function()
     {
         if (!__started || __finished || !is_numeric(__instance) || !audio_is_playing(__instance)) return true;
         return (((audio_sound_length(__instance) - audio_sound_get_track_position(__instance)) / __pitch) <= (VINYL_STEP_DURATION/1000));
     }
     
-    finish = function()
+    static finish = function()
     {
         if (__started && !__finished && __VINYL_DEBUG) __vinyl_trace("Finished ", self);
         
@@ -107,7 +107,7 @@ function __vinyl_player_gm_audio(_asset) constructor
         }
     }
     
-    tick = function()
+    static tick = function()
     {
         if (!__started && !__stopping && !__finished)
         {
@@ -139,7 +139,7 @@ function __vinyl_player_gm_audio(_asset) constructor
         }
     }
     
-    toString = function()
+    static toString = function()
     {
         return __vinyl_get_source_name(__asset);
     }

@@ -33,7 +33,7 @@ function __vinyl_pattern_loop(_intro, _loop, _outro) constructor
     loop  = _loop;
     outro = _outro;
     
-    generate = function(_direct)
+    static generate = function(_direct)
     {
         var _intro = __vinyl_patternize_source(intro);
         var _loop  = __vinyl_patternize_source(loop );
@@ -54,7 +54,7 @@ function __vinyl_pattern_loop(_intro, _loop, _outro) constructor
         }
     }
     
-    toString = function()
+    static toString = function()
     {
         return "Loop [ " + __vinyl_get_source_name(intro) + "," + __vinyl_get_source_name(loop) + "," + __vinyl_get_source_name(outro) + " ]";
     }
@@ -80,7 +80,7 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
     loop.__parent = self;
     if (outro != undefined) outro.__parent = self;
     
-    reset = function()
+    static reset = function()
     {
         __vinyl_player_common_reset();
         
@@ -93,7 +93,7 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
     
     reset();
     
-    play = function()
+    static play = function()
     {
         __vinyl_player_common_play(false);
         
@@ -104,14 +104,14 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
         with(__current) play();
     }
     
-    get_position = function()
+    static get_position = function()
     {
         if (!__started || __finished || !is_struct(__current)) return undefined;
         return __current.get_position();
     }
     
     /// @param time
-    set_position = function(_time)
+    static set_position = function(_time)
     {
         //TODO - Make this more accuracte by taking into account the length of the intro (if one exists)
         if ((_time != undefined) && __started && !__finished && is_struct(__current))
@@ -121,7 +121,7 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
     }
     
     /// @param direct
-    stop = function(_direct)
+    static stop = function(_direct)
     {
         if (!__stopping && !__finished)
         {
@@ -132,7 +132,7 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
         }
     }
     
-    will_finish = function()
+    static will_finish = function()
     {
         if (intro != undefined)
         {
@@ -149,7 +149,7 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
         return true;
     }
     
-    finish = function()
+    static finish = function()
     {
         if (!__finished && __VINYL_DEBUG) __vinyl_trace("Finished ", self);
         
@@ -162,7 +162,7 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
         __current  = undefined;
     }
     
-    tick = function()
+    static tick = function()
     {
         //TODO - Much like queues, we should be checking to see if the loop source has changed and adjust accordingly
         
@@ -223,7 +223,7 @@ function __vinyl_player_loop(_intro, _loop, _outro, _wait_to_play_outro) constru
         }
     }
     
-    toString = function()
+    static toString = function()
     {
         return "Loop [ " + __vinyl_get_source_name(intro) + "," + __vinyl_get_source_name(loop) + "," + __vinyl_get_source_name(outro) + " ]";
     }
