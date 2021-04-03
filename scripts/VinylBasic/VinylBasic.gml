@@ -12,7 +12,14 @@ function __VinylPatternBasic(_asset) constructor
     
     asset = _asset;
     
-    static Play = function(_direct)
+    static Play = function()
+    {
+        var _instance = __Play(true);
+        ds_list_add(global.__vinylPlaying, _instance);
+        return _instance;
+    }
+    
+    static __Play = function(_direct)
     {
         //Generate a player
         with(new __VinyPlayerBasic(asset))

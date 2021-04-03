@@ -33,16 +33,23 @@ function __VinylPatternLoop(_intro, _loop, _outro) constructor
     loop  = _loop;
     outro = _outro;
     
-    static Play = function(_direct)
+    static Play = function()
+    {
+        var _instance = __Play(true);
+        ds_list_add(global.__vinylPlaying, _instance);
+        return _instance;
+    }
+    
+    static __Play = function(_direct)
     {
         var _intro = __VinylPatternizeSource(intro);
         var _loop  = __VinylPatternizeSource(loop );
         var _outro = __VinylPatternizeSource(outro);
         
         //Generate child players
-        _intro = (_intro != undefined)? _intro.Play(false) : undefined;
-        _loop  =                         _loop.Play(false);
-        _outro = (_outro != undefined)? _outro.Play(false) : undefined;
+        _intro = (_intro != undefined)? _intro.__Play(false) : undefined;
+        _loop  =                         _loop.__Play(false);
+        _outro = (_outro != undefined)? _outro.__Play(false) : undefined;
         
         //Generate our own player
         with(new __VinyPlayerLoop(_intro, _loop, _outro, wait_to_play_outro))

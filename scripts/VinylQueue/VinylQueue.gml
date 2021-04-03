@@ -39,7 +39,14 @@ function __VinylPatternQueue() constructor
     
     __source_stopping = [];
     
-    static Play = function(_direct)
+    static Play = function()
+    {
+        var _instance = __Play(true);
+        ds_list_add(global.__vinylPlaying, _instance);
+        return _instance;
+    }
+    
+    static __Play = function(_direct)
     {
         var _sources = array_create(array_length(sources));
         
@@ -48,7 +55,7 @@ function __VinylPatternQueue() constructor
         repeat(array_length(_sources))
         {
             var _source = __VinylPatternizeSource(sources[_i]);
-            _sources[@ _i] = _source.Play(false);
+            _sources[@ _i] = _source.__Play(false);
             ++_i;
         }
         
@@ -342,7 +349,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
                             __current = __VinylPatternizeSource(__current);
                             if (VinylIsPattern(__current))
                             {
-                                __current = __current.Play(false); //Generate the source
+                                __current = __current.__Play(false); //Generate the source
                                 sources[@ __index] = __current;
                             }
                             

@@ -1,6 +1,6 @@
 if (keyboard_check_pressed(vk_space))
 {
-    instance = VinylPlay(VinylLoop(snd_1, snd_2, snd_3));
+    instance = VinylLoop(snd_1, snd_2, snd_3).Play();
 }
 
 if (keyboard_check_pressed(ord("L")))
@@ -20,5 +20,5 @@ if (keyboard_check_pressed(ord("Q")))
 
 if (keyboard_check_pressed(ord("S")))
 {
-    VinylStop(instance);
+    instance.StopNow();
 }
