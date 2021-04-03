@@ -33,7 +33,7 @@ function __VinylPatternRandom() constructor
         ++_i;
     }
     
-    static generate = function(_direct)
+    static Play = function(_direct)
     {
         var _sources = array_create(array_length(sources));
         
@@ -42,7 +42,7 @@ function __VinylPatternRandom() constructor
         repeat(array_length(_sources))
         {
             var _source = __VinylPatternizeSource(sources[_i])
-            _sources[@ _i] = _source.generate(false);
+            _sources[@ _i] = _source.Play(false);
             ++_i;
         }
         
@@ -50,20 +50,20 @@ function __VinylPatternRandom() constructor
         with(new __VinyPlayerRandom(_sources))
         {
             __pattern = other;
-            reset();
+            __Reset();
             if (_direct) buss_name = other.buss_name;
             return self;
         }
     }
     
     //I don't trust GM not to mess up these functions if I put them in the common definition
-    static buss_set = function(_buss_name)
+    static BussSet = function(_buss_name)
     {
         buss_name = _buss_name;
         return self;
     }
     
-    static buss_get = function()
+    static BussGet = function()
     {
         return buss_name;
     }
@@ -90,7 +90,7 @@ function __VinyPlayerRandom(_sources) constructor
         ++_i;
     }
     
-    static reset = function()
+    static __Reset = function()
     {
         __VinylPlayerCommonReset();
         
@@ -100,14 +100,14 @@ function __VinyPlayerRandom(_sources) constructor
         var _i = 0;
         repeat(array_length(sources))
         {
-            sources[_i].reset();
+            sources[_i].__Reset();
             ++_i;
         }
     }
     
-    reset();
+    __Reset();
     
-    static play = function()
+    static __Play = function()
     {
         __VinylPlayerCommonPlay(false);
         
@@ -116,17 +116,17 @@ function __VinyPlayerRandom(_sources) constructor
         //Figure out what to play
         __index = irandom(array_length(sources) - 1);
         __current = sources[__index];
-        with(__current) play();
+        with(__current) __Play();
     }
     
-    static get_position = function()
+    static GetPosition = function()
     {
         if (!__started || __finished || !is_struct(__current)) return undefined;
         return __current.get_position();
     }
     
     /// @param time
-    static set_position = function(_time)
+    static SetPosition = function(_time)
     {
         if ((_time != undefined) && __started && !__finished && is_struct(__current))
         {
@@ -134,7 +134,7 @@ function __VinyPlayerRandom(_sources) constructor
         }
     }
     
-    static stop = function(_direct)
+    static Stop = function(_direct)
     {
         if (!__stopping && !__finished)
         {
@@ -147,26 +147,26 @@ function __VinyPlayerRandom(_sources) constructor
         }
     }
     
-    static will_finish = function()
+    static WillFinish = function()
     {
         var _i = 0;
         repeat(array_length(sources))
         {
-            if (!sources[_i].will_finish()) return false;
+            if (!sources[_i].WillFinish()) return false;
             ++_i;
         }
         
         return true;
     }
     
-    static finish = function()
+    static StopNow = function()
     {
         if (__started && !__finished && __VINYL_DEBUG) __VinylTrace("Finished ", self);
         
         var _i = 0;
         repeat(array_length(sources))
         {
-            with(sources[_i]) finish();
+            with(sources[_i]) StopNow();
             ++_i;
         }
         
@@ -175,39 +175,39 @@ function __VinyPlayerRandom(_sources) constructor
         __current  = undefined;
     }
     
-    static tick = function()
+    static __Tick = function()
     {
         //TODO - Much like queues, we should be checking to see if the loop source has changed and adjust accordingly
         
         if (!__started && !__stopping && !__finished)
         {
             //If we're not started and we're not stopping and we ain't finished, then play!
-            play();
+            __Play();
         }
         else
         {
             __VinylPlayerCommonTick(false);
             
             //Handle fade out
-            if (__stopping && (current_time - __time_stopping > time_fade_out)) finish();
+            if (__stopping && (current_time - __time_stopping > time_fade_out)) StopNow();
             
             if (__current != undefined)
             {
                 //Update the instance we're currently playing
-                with(__current) tick();
-                if (__current.__finished) finish();
+                with(__current) __Tick();
+                if (__current.__finished) StopNow();
             }
         }
     }
     
     //I don't trust GM not to mess up these functions if I put them in the common definition
-    static buss_set = function(_buss_name)
+    static BussSet = function(_buss_name)
     {
         buss_name = _buss_name;
         return self;
     }
     
-    static buss_get = function()
+    static BussGet = function()
     {
         return buss_name;
     }

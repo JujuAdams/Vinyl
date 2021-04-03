@@ -39,7 +39,7 @@ function __VinylPatternQueue() constructor
     
     __source_stopping = [];
     
-    static generate = function(_direct)
+    static Play = function(_direct)
     {
         var _sources = array_create(array_length(sources));
         
@@ -48,7 +48,7 @@ function __VinylPatternQueue() constructor
         repeat(array_length(_sources))
         {
             var _source = __VinylPatternizeSource(sources[_i]);
-            _sources[@ _i] = _source.generate(false);
+            _sources[@ _i] = _source.Play(false);
             ++_i;
         }
         
@@ -56,20 +56,20 @@ function __VinylPatternQueue() constructor
         with(new __VinyPlayerQueue(_sources, loop, pops, loop_on_last))
         {
             __pattern = other;
-            reset();
+            __Reset();
             if (_direct) buss_name = other.buss_name;
             return self;
         }
     }
     
     //I don't trust GM not to mess up these functions if I put them in the common definition
-    static buss_set = function(_buss_name)
+    static BussSet = function(_buss_name)
     {
         buss_name = _buss_name;
         return self;
     }
     
-    static buss_get = function()
+    static BussGet = function()
     {
         return buss_name;
     }
@@ -107,7 +107,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
     
     __source_stopping = [];
     
-    static reset = function()
+    static __Reset = function()
     {
         __VinylPlayerCommonReset();
         
@@ -123,14 +123,14 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
         var _i = 0;
         repeat(array_length(sources))
         {
-            sources[_i].reset();
+            sources[_i].__Reset();
             ++_i;
         }
     }
     
-    reset();
+    __Reset();
     
-    static play = function()
+    static __Play = function()
     {
         __VinylPlayerCommonPlay(false);
         
@@ -140,17 +140,17 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
         __index       = 0;
         playing_index = __index;
         __current     = sources[__index];
-        with(__current) play();
+        with(__current) __Play();
     }
     
-    static get_position = function()
+    static GetPosition = function()
     {
         if (!__started || __finished || !is_struct(__current)) return undefined;
         return __current.get_position();
     }
     
     /// @param time
-    static set_position = function(_time)
+    static SetPosition = function(_time)
     {
         if ((_time != undefined) && __started && !__finished && is_struct(__current))
         {
@@ -159,7 +159,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
     }
     
     /// @param direct
-    static stop = function(_direct)
+    static Stop = function(_direct)
     {
         if (!__stopping && !__finished)
         {
@@ -172,33 +172,33 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
         }
     }
     
-    static will_finish = function()
+    static WillFinish = function()
     {
         var _i = 0;
         repeat(array_length(sources))
         {
-            if (!sources[_i].will_finish()) return false;
+            if (!sources[_i].WillFinish()) return false;
             ++_i;
         }
         
         var _i = 0;
         repeat(array_length(__source_stopping))
         {
-            if (!__source_stopping[_i].will_finish()) return false;
+            if (!__source_stopping[_i].WillFinish()) return false;
             ++_i;
         }
         
         return true;
     }
     
-    static finish = function()
+    static StopNow = function()
     {
         if (!__finished && __VINYL_DEBUG) __VinylTrace("Finished ", self);
         
         var _i = 0;
         repeat(array_length(sources))
         {
-            with(sources[_i]) finish();
+            with(sources[_i]) StopNow();
             ++_i;
         }
         
@@ -206,7 +206,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
         var _i = 0;
         repeat(array_length(__source_stopping))
         {
-            with(__source_stopping[_i]) finish();
+            with(__source_stopping[_i]) StopNow();
             ++_i;
         }
         
@@ -217,7 +217,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
         __current  = undefined;
     }
     
-    static tick = function()
+    static __Tick = function()
     {
         if (playing_index != __index)
         {
@@ -230,25 +230,25 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
             //Change our index and start playing the appropriate source
             __index = playing_index;
             __current = sources[__index];
-            with(__current) play();
+            with(__current) __Play();
         }
         
         if (!__started && !__stopping && !__finished)
         {
             //If we're not started and we're not stopping and we ain't finished, then play!
-            play();
+            __Play();
         }
         else
         {
             __VinylPlayerCommonTick(false);
             
             //Handle fade out
-            if (__stopping && (current_time - __time_stopping > time_fade_out)) finish();
+            if (__stopping && (current_time - __time_stopping > time_fade_out)) StopNow();
             
             if (__current != undefined)
             {
                 //Update the instance we're currently playing
-                with(__current) tick();
+                with(__current) __Tick();
                 
                 //Iterate over all our sources that are fading out 
                 var _i = array_length(__source_stopping)-1;
@@ -264,7 +264,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
                         }
                         else
                         {
-                            with(_source) if (__started && !__finished) tick();
+                            with(_source) if (__started && !__finished) __Tick();
                         }
                     }
                     
@@ -273,7 +273,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
                 
                 if (!__stopping)
                 {
-                    if (__current.__stopping || __current.will_finish())
+                    if (__current.__stopping || __current.WillFinish())
                     {
                         if (pops)
                         {
@@ -291,7 +291,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
                         {
                             //Finish the queue if there are no sources left to play
                             playing_index = undefined;
-                            finish();
+                            StopNow();
                         }
                         else if (loop)
                         {
@@ -321,7 +321,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
                             else
                             {
                                 playing_index = undefined;
-                                finish();
+                                StopNow();
                             }
                         }
                         
@@ -332,30 +332,30 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
                             __current = __VinylPatternizeSource(__current);
                             if (VinylIsPattern(__current))
                             {
-                                __current = __current.generate(false); //Generate the source
+                                __current = __current.Play(false); //Generate the source
                                 sources[@ __index] = __current;
                             }
                             
-                            with(__current) play();
+                            with(__current) __Play();
                         }
                     }
                 }
                 else
                 {
-                    if (__current.__finished) finish();
+                    if (__current.__finished) StopNow();
                 }
             }
         }
     }
     
     //I don't trust GM not to mess up these functions if I put them in the common definition
-    static buss_set = function(_buss_name)
+    static BussSet = function(_buss_name)
     {
         buss_name = _buss_name;
         return self;
     }
     
-    static buss_get = function()
+    static BussGet = function()
     {
         return buss_name;
     }

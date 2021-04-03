@@ -31,14 +31,14 @@ repeat(9999)
  
 function VinylSystemEndStep()
 {
-    vinyl_master.tick();
+    vinyl_master.__Tick();
     
     var _i = 0;
     repeat(ds_list_size(global.__vinylPlaying))
     {
         with(global.__vinylPlaying[| _i])
         {
-            tick();
+            __Tick();
             
             if (__finished)
             {
@@ -121,8 +121,8 @@ function __VinylPlayerCommonReset()
 /// @param useBuss
 function __VinylPlayerCommonPlay(_use_buss)
 {
-    finish();
-    reset();
+    StopNow();
+    __Reset();
     
     //Set state
     __started = true;

@@ -12,26 +12,26 @@ function __VinylPatternBasic(_asset) constructor
     
     asset = _asset;
     
-    static generate = function(_direct)
+    static Play = function(_direct)
     {
         //Generate a player
         with(new __VinyPlayerBasic(asset))
         {
             __pattern = other;
-            reset();
+            __Reset();
             if (_direct) buss_name = other.buss_name;
             return self;
         }
     }
     
     //I don't trust GM not to mess up these functions if I put them in the common definition
-    static buss_set = function(_buss_name)
+    static BussSet = function(_buss_name)
     {
         buss_name = _buss_name;
         return self;
     }
     
-    static buss_get = function()
+    static BussGet = function()
     {
         return buss_name;
     }
@@ -51,16 +51,16 @@ function __VinyPlayerBasic(_asset) constructor
     
     __asset = _asset;
     
-    static reset = function()
+    static __Reset = function()
     {
         __VinylPlayerCommonReset();
         
         __instance = undefined;
     }
     
-    reset();
+    __Reset();
     
-    static play = function()
+    static __Play = function()
     {
         __VinylPlayerCommonPlay(true);
         
@@ -72,14 +72,14 @@ function __VinyPlayerBasic(_asset) constructor
         audio_sound_pitch(__instance, __pitch);
     }
     
-    static get_position = function()
+    static GetPosition = function()
     {
         if (!__started || __finished || !is_numeric(__instance) || !audio_is_playing(__instance)) return undefined;
         return audio_sound_get_track_position(__instance);
     }
     
     /// @param time
-    static set_position = function(_time)
+    static SetPosition = function(_time)
     {
         if ((_time != undefined) && __started && !__finished && is_numeric(__instance) && audio_is_playing(__instance))
         {
@@ -88,7 +88,7 @@ function __VinyPlayerBasic(_asset) constructor
     }
     
     /// @param direct
-    static stop = function(_direct)
+    static Stop = function(_direct)
     {
         if (!__stopping && !__finished)
         {
@@ -99,13 +99,13 @@ function __VinyPlayerBasic(_asset) constructor
         }
     }
     
-    static will_finish = function()
+    static WillFinish = function()
     {
         if (!__started || __finished || !is_numeric(__instance) || !audio_is_playing(__instance)) return true;
         return (((audio_sound_length(__instance) - audio_sound_get_track_position(__instance)) / __pitch) <= (VINYL_STEP_DURATION/1000));
     }
     
-    static finish = function()
+    static StopNow = function()
     {
         if (__started && !__finished && __VINYL_DEBUG) __VinylTrace("Finished ", self);
         
@@ -119,19 +119,19 @@ function __VinyPlayerBasic(_asset) constructor
         }
     }
     
-    static tick = function()
+    static __Tick = function()
     {
         if (!__started && !__stopping && !__finished)
         {
             //If we're not started and we're not stopping and we ain't finished, then play!
-            play();
+            __Play();
         }
         else
         {
             __VinylPlayerCommonTick(true);
             
             //Handle fade out
-            if (__stopping && (current_time - __time_stopping > time_fade_out)) finish();
+            if (__stopping && (current_time - __time_stopping > time_fade_out)) StopNow();
             
             if (is_numeric(__instance) && audio_is_playing(__instance))
             {
@@ -146,19 +146,19 @@ function __VinyPlayerBasic(_asset) constructor
             if (!__finished)
             {
                 //If our sound instance is somehow invalid, stop this player
-                if (!is_numeric(__instance) || !audio_is_playing(__instance)) finish();
+                if (!is_numeric(__instance) || !audio_is_playing(__instance)) StopNow();
             }
         }
     }
     
     //I don't trust GM not to mess up these functions if I put them in the common definition
-    static buss_set = function(_buss_name)
+    static BussSet = function(_buss_name)
     {
         buss_name = _buss_name;
         return self;
     }
     
-    static buss_get = function()
+    static BussGet = function()
     {
         return buss_name;
     }

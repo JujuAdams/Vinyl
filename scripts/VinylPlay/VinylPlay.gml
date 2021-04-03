@@ -36,7 +36,7 @@ function VinylPlay(_in_source)
         ||  (_instanceof == "__VinylPatternQueue" )
         ||  (_instanceof == "__VinylPatternMulti" ))
         {
-            var _instance = _source.generate(true);
+            var _instance = _source.Play(true);
             ds_list_add(global.__vinylPlaying, _instance);
             return _instance;
         }

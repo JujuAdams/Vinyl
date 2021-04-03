@@ -33,35 +33,35 @@ function __VinylPatternLoop(_intro, _loop, _outro) constructor
     loop  = _loop;
     outro = _outro;
     
-    static generate = function(_direct)
+    static Play = function(_direct)
     {
         var _intro = __VinylPatternizeSource(intro);
         var _loop  = __VinylPatternizeSource(loop );
         var _outro = __VinylPatternizeSource(outro);
         
         //Generate child players
-        _intro = (_intro != undefined)? _intro.generate(false) : undefined;
-        _loop  =                         _loop.generate(false);
-        _outro = (_outro != undefined)? _outro.generate(false) : undefined;
+        _intro = (_intro != undefined)? _intro.Play(false) : undefined;
+        _loop  =                         _loop.Play(false);
+        _outro = (_outro != undefined)? _outro.Play(false) : undefined;
         
         //Generate our own player
         with(new __VinyPlayerLoop(_intro, _loop, _outro, wait_to_play_outro))
         {
             __pattern = other;
-            reset();
+            __Reset();
             if (_direct) buss_name = other.buss_name;
             return self;
         }
     }
     
     //I don't trust GM not to mess up these functions if I put them in the common definition
-    static buss_set = function(_buss_name)
+    static BussSet = function(_buss_name)
     {
         buss_name = _buss_name;
         return self;
     }
     
-    static buss_get = function()
+    static BussGet = function()
     {
         return buss_name;
     }
@@ -92,20 +92,20 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
     loop.__parent = self;
     if (outro != undefined) outro.__parent = self;
     
-    static reset = function()
+    static __Reset = function()
     {
         __VinylPlayerCommonReset();
         
         __current = undefined;
     
-        if (intro != undefined) intro.reset();
-        loop.reset();
-        if (outro != undefined) outro.reset();
+        if (intro != undefined) intro.__Reset();
+        loop.__Reset();
+        if (outro != undefined) outro.__Reset();
     }
     
-    reset();
+    __Reset();
     
-    static play = function()
+    static __Play = function()
     {
         __VinylPlayerCommonPlay(false);
         
@@ -113,17 +113,17 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
         
         //Figure out what to play
         __current = (intro != undefined)? intro : loop;
-        with(__current) play();
+        with(__current) __Play();
     }
     
-    static get_position = function()
+    static GetPosition = function()
     {
         if (!__started || __finished || !is_struct(__current)) return undefined;
         return __current.get_position();
     }
     
     /// @param time
-    static set_position = function(_time)
+    static SetPosition = function(_time)
     {
         //TODO - Make this more accuracte by taking into account the length of the intro (if one exists)
         if ((_time != undefined) && __started && !__finished && is_struct(__current))
@@ -133,7 +133,7 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
     }
     
     /// @param direct
-    static stop = function(_direct)
+    static Stop = function(_direct)
     {
         if (!__stopping && !__finished)
         {
@@ -144,44 +144,44 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
         }
     }
     
-    static will_finish = function()
+    static WillFinish = function()
     {
         if (intro != undefined)
         {
-            if (!intro.will_finish()) return false;
+            if (!intro.WillFinish()) return false;
         }
         
-        if (!loop.will_finish()) return false;
+        if (!loop.WillFinish()) return false;
         
         if (outro != undefined)
         {
-            if (!outro.will_finish()) return false;
+            if (!outro.WillFinish()) return false;
         }
         
         return true;
     }
     
-    static finish = function()
+    static StopNow = function()
     {
         if (!__finished && __VINYL_DEBUG) __VinylTrace("Finished ", self);
         
-        if (intro != undefined) with(intro) finish();
-        with(loop) finish();
-        if (outro != undefined) with(outro) finish();
+        if (intro != undefined) with(intro) StopNow();
+        with(loop) StopNow();
+        if (outro != undefined) with(outro) StopNow();
         
         __stopping = false;
         __finished = true;
         __current  = undefined;
     }
     
-    static tick = function()
+    static __Tick = function()
     {
         //TODO - Much like queues, we should be checking to see if the loop source has changed and adjust accordingly
         
         if (!__started && !__stopping && !__finished)
         {
             //If we're not started and we're not stopping and we ain't finished, then play!
-            play();
+            __Play();
         }
         else
         {
@@ -190,59 +190,59 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
             //Handle fade out
             if (time_fade_out > 0.0)
             {
-                if (__stopping && (current_time - __time_stopping > time_fade_out)) finish();
+                if (__stopping && (current_time - __time_stopping > time_fade_out)) StopNow();
             }
             
             if (__current != undefined)
             {
-                with(__current) tick();
+                with(__current) __Tick();
                 
-                if (__current.will_finish())
+                if (__current.WillFinish())
                 {
                     if (__current == intro)
                     {
                         __current = loop;
-                        __current.play();
+                        __current.__Play();
                     }
                     else if (__current == loop)
                     {
                         if (!__stopping)
                         {
-                            loop.play();
+                            loop.__Play();
                         }
                         else if (outro != undefined)
                         {
                             __current = outro;
-                            __current.play();
+                            __current.__Play();
                         }
                         else
                         {
-                            finish();
+                            StopNow();
                         }
                     }
                     else
                     {
-                        finish();
+                        StopNow();
                     }
                 }
                 else if (__started && __stopping && !wait_to_play_outro && (outro != undefined) && (__current != outro))
                 {
-                    __current.finish();
+                    __current.StopNow();
                     __current = outro;
-                    __current.play();
+                    __current.__Play();
                 }
             }
         }
     }
     
     //I don't trust GM not to mess up these functions if I put them in the common definition
-    static buss_set = function(_buss_name)
+    static BussSet = function(_buss_name)
     {
         buss_name = _buss_name;
         return self;
     }
     
-    static buss_get = function()
+    static BussGet = function()
     {
         return buss_name;
     }

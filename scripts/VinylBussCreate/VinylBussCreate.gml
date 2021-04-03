@@ -58,7 +58,7 @@ function __VinylClassBuss() constructor
     __old_gain  = 1.0;
     __old_pitch = 1.0;
     
-    static tick = function(_parent)
+    static __Tick = function(_parent)
     {
         //Tween to target gain
         if (__old_gain != gain)
@@ -100,7 +100,7 @@ function __VinylClassBuss() constructor
         repeat(array_length(_names))
         {
             var _child = variable_struct_get(self, _names[_i]);
-            if (is_struct(_child)) _child.tick(self);
+            if (is_struct(_child)) _child.__Tick(self);
             ++_i;
         }
     }
