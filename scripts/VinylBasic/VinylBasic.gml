@@ -87,6 +87,16 @@ function __VinyPlayerBasic(_asset) constructor
         }
     }
     
+    static IsStopping = function()
+    {
+        return __stopping;
+    }
+    
+    static IsFinished = function()
+    {
+        return __finished;
+    }
+    
     /// @param direct
     static Stop = function(_direct)
     {

@@ -146,7 +146,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
     static GetPosition = function()
     {
         if (!__started || __finished || !is_struct(__current)) return undefined;
-        return __current.get_position();
+        return __current.GetPosition();
     }
     
     /// @param time
@@ -154,8 +154,18 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
     {
         if ((_time != undefined) && __started && !__finished && is_struct(__current))
         {
-            __current.set_position(_time);
+            __current.SetPosition(_time);
         }
+    }
+    
+    static IsStopping = function()
+    {
+        return __stopping;
+    }
+    
+    static IsFinished = function()
+    {
+        return __finished;
     }
     
     /// @param direct
@@ -165,7 +175,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
         {
             if (__VINYL_DEBUG) __VinylTrace("Stopping ", self);
             
-            with(__current) stop(false);
+            with(__current) Stop(false);
             
             __stopping = true;
             __time_stopping = current_time;
@@ -224,7 +234,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
             __VinylTrace("Playing index set to ", playing_index, " for ", self);
             
             //Stop our current source and reference it in our stopping array
-            __current.stop();
+            __current.Stop();
             __source_stopping[@ array_length(__source_stopping)] = __current;
             
             //Change our index and start playing the appropriate source

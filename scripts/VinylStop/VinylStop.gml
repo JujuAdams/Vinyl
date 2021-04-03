@@ -4,7 +4,7 @@ function VinylStop(_sound_instance)
 {
     if (VinylIsSoundInstance(_sound_instance))
     {
-        _sound_instance.stop(true);
+        _sound_instance.Stop(true);
     }
     else
     {

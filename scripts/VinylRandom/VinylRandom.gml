@@ -122,7 +122,7 @@ function __VinyPlayerRandom(_sources) constructor
     static GetPosition = function()
     {
         if (!__started || __finished || !is_struct(__current)) return undefined;
-        return __current.get_position();
+        return __current.GetPosition();
     }
     
     /// @param time
@@ -130,8 +130,18 @@ function __VinyPlayerRandom(_sources) constructor
     {
         if ((_time != undefined) && __started && !__finished && is_struct(__current))
         {
-            __current.set_position(_time);
+            __current.SetPosition(_time);
         }
+    }
+    
+    static IsStopping = function()
+    {
+        return __stopping;
+    }
+    
+    static IsFinished = function()
+    {
+        return __finished;
     }
     
     static Stop = function(_direct)
@@ -140,7 +150,7 @@ function __VinyPlayerRandom(_sources) constructor
         {
             if (__VINYL_DEBUG) __VinylTrace("Stopping ", self);
             
-            with(__current) stop(false);
+            with(__current) Stop(false);
             
             __stopping = true;
             __time_stopping = current_time;

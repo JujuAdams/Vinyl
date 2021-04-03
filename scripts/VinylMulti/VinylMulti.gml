@@ -134,7 +134,7 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
         var _i = 0;
         repeat(array_length(sources))
         {
-            var _time = sources[_i].get_position();
+            var _time = sources[_i].GetPosition();
             if (_time != undefined)
             {
                 _any_valid = true;
@@ -155,10 +155,20 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
             var _i = 0;
             repeat(array_length(sources))
             {
-                sources[_i].set_position(_time);
+                sources[_i].SetPosition(_time);
                 ++_i;
             }
         }
+    }
+    
+    static IsStopping = function()
+    {
+        return __stopping;
+    }
+    
+    static IsFinished = function()
+    {
+        return __finished;
     }
     
     /// @param direct
@@ -171,7 +181,7 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
             var _i = 0;
             repeat(array_length(sources))
             {
-                with(sources[_i]) stop(false);
+                with(sources[_i]) Stop(false);
                 ++_i;
             }
             
@@ -236,7 +246,7 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
                         with(sources[_i])
                         {
                             __Tick(); //Update the instances we're currently playing
-                            if (_time == undefined) _time = get_position() else set_position(_time);
+                            if (_time == undefined) _time = GetPosition() else SetPosition(_time);
                             if (WillFinish()) _finished = true;
                         }
                         
@@ -261,7 +271,7 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
                         with(sources[_i])
                         {
                             __Tick(); //Update the instances we're currently playing
-                            if (_time == undefined) _time = get_position() else set_position(_time);
+                            if (_time == undefined) _time = GetPosition() else SetPosition(_time);
                             if (__finished) _finished = true;
                         }
                         

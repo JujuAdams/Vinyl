@@ -119,7 +119,7 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
     static GetPosition = function()
     {
         if (!__started || __finished || !is_struct(__current)) return undefined;
-        return __current.get_position();
+        return __current.GetPosition();
     }
     
     /// @param time
@@ -128,8 +128,18 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
         //TODO - Make this more accuracte by taking into account the length of the intro (if one exists)
         if ((_time != undefined) && __started && !__finished && is_struct(__current))
         {
-            __current.set_position(_time);
+            __current.SetPosition(_time);
         }
+    }
+    
+    static IsStopping = function()
+    {
+        return __stopping;
+    }
+    
+    static IsFinished = function()
+    {
+        return __finished;
     }
     
     /// @param direct
