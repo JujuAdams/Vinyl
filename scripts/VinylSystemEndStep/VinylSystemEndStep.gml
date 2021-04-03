@@ -5,9 +5,9 @@
 
 #macro __VINYL_DEBUG  false
 
-#macro vinyl_lib       global.__vinylLibrary
-#macro vinyl_library   global.__vinylLibrary
-#macro vinyl_master    (global.__vinylBusses.master)
+#macro VINYL_LIB       global.__vinylLibrary
+#macro VINYL_LIBRARY   global.__vinylLibrary
+#macro VINYL_MASTER    (global.__vinylBusses.master)
 
 __VinylTrace("Welcome to Vinyl by @jujuadams! This is version " + __VINYL_VERSION + ", " + __VINYL_DATE);
 
@@ -17,8 +17,8 @@ global.__vinylPlaying         = ds_list_create(); //TODO - Replace this with an 
 global.__vinylGlobalAssetGain = ds_map_create();
 global.__vinylBusses          = {};
 
-vinyl_lib    = {};
-vinyl_master = new __VinylClassBuss();
+VINYL_LIB    = {};
+VINYL_MASTER = new __VinylClassBuss();
 
 //Iterate over all audio assets
 var _i = 0;
@@ -31,7 +31,7 @@ repeat(9999)
  
 function VinylSystemEndStep()
 {
-    vinyl_master.__Tick();
+    VINYL_MASTER.__Tick();
     
     var _i = 0;
     repeat(ds_list_size(global.__vinylPlaying))
@@ -153,7 +153,7 @@ function __VinylPlayerCommonTick(_use_buss)
     //If we want to factor in our buss' gain/pitch, do so here
     if (_use_buss)
     {
-        if (!is_struct(__buss)) __buss = vinyl_master;
+        if (!is_struct(__buss)) __buss = VINYL_MASTER;
         _final_gain  *= __buss.__gain;
         _final_pitch *= __buss.__pitch;
     }

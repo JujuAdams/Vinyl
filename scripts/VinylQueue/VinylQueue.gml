@@ -5,7 +5,7 @@ function VinylQueue()
 {
     switch(argument_count)
     {
-        case 0: __VinylError("Unsupported number of arguments (", argument_count, ") for vinyl_queue()\n(Should be at least 1)"); break;
+        case 0: __VinylError("Unsupported number of arguments (", argument_count, ") for VinylQueue()\n(Should be at least 1)"); break;
         
         case 1: return new __VinylPatternQueue(argument[0]); break;
         case 2: return new __VinylPatternQueue(argument[0], argument[1]); break;
@@ -13,7 +13,7 @@ function VinylQueue()
         case 4: return new __VinylPatternQueue(argument[0], argument[1], argument[2], argument[3]); break;
         case 5: return new __VinylPatternQueue(argument[0], argument[1], argument[2], argument[3], argument[4]); break
         
-        default: __VinylError("Unsupported number of arguments (", argument_count, ") for vinyl_queue()\n(Please add another case to the switch statement)"); break;
+        default: __VinylError("Unsupported number of arguments (", argument_count, ") for VinylQueue()\n(Please add another case to the switch statement)"); break;
     }
 }
 

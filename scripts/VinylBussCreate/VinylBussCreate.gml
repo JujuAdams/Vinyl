@@ -31,7 +31,7 @@ function VinylBussCreate(_name)
             }
             else
             {
-                variable_struct_set(vinyl_master, _name, self);
+                variable_struct_set(VINYL_MASTER, _name, self);
             }
         }
         else
@@ -83,7 +83,7 @@ function __VinylClassBuss() constructor
         }
         
         //Calculate our resultant gain
-        if (self != vinyl_master)
+        if (self != VINYL_MASTER)
         {
             __gain  = gain  * _parent.__gain;
             __pitch = pitch * _parent.__pitch;
