@@ -5,7 +5,7 @@ if (keyboard_check_pressed(vk_space))
 
 if (keyboard_check_pressed(ord("L")))
 {
-    instance = VinylPlay("loop_test");
+    instance = VINYL_LIB.loop_test.Play();
 }
 
 if (keyboard_check_pressed(ord("1"))) instance.playing_index = 0;
