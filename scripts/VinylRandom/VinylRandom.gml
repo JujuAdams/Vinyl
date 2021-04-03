@@ -144,7 +144,7 @@ function __VinyPlayerRandom(_sources) constructor
         return __finished;
     }
     
-    static Stop = function(_direct)
+    static Stop = function()
     {
         if (!__stopping && !__finished)
         {

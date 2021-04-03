@@ -143,7 +143,7 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
     }
     
     /// @param direct
-    static Stop = function(_direct)
+    static Stop = function()
     {
         if (!__stopping && !__finished)
         {

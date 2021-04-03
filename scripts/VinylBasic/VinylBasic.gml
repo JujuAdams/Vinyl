@@ -98,7 +98,7 @@ function __VinyPlayerBasic(_asset) constructor
     }
     
     /// @param direct
-    static Stop = function(_direct)
+    static Stop = function()
     {
         if (!__stopping && !__finished)
         {
