@@ -1,11 +1,11 @@
 if (keyboard_check_pressed(vk_space))
 {
-    instance = vinyl_play(vinyl_loop(snd_1, snd_2, snd_3));
+    instance = VinylPlay(VinylLoop(snd_1, snd_2, snd_3));
 }
 
 if (keyboard_check_pressed(ord("L")))
 {
-    instance = vinyl_play("loop_test");
+    instance = VinylPlay("loop_test");
 }
 
 if (keyboard_check_pressed(ord("1"))) instance.playing_index = 0;
@@ -20,5 +20,5 @@ if (keyboard_check_pressed(ord("Q")))
 
 if (keyboard_check_pressed(ord("S")))
 {
-    vinyl_stop(instance);
+    VinylStop(instance);
 }
