@@ -67,7 +67,7 @@ function __VinylPatternCommonConstruct()
     __timeFadeOut = undefined;
 }
 
-function __VinylPlayerCommonConstruct()
+function __VinylInstanceCommonConstruct()
 {
     __bussName = undefined;
     
@@ -93,7 +93,7 @@ function __VinylPlayerCommonConstruct()
     __finished     = false;
 }
 
-function __VinylPlayerCommonReset()
+function __VinylInstanceCommonReset()
 {
     __started      = false;
     __timeStarted  = -1;
@@ -117,7 +117,7 @@ function __VinylPlayerCommonReset()
 }
 
 /// @param useBuss
-function __VinylPlayerCommonPlay(_useBuss)
+function __VinylInstanceCommonPlay(_useBuss)
 {
     StopNow();
     __Reset();
@@ -126,11 +126,11 @@ function __VinylPlayerCommonPlay(_useBuss)
     __started = true;
     __timeStarted = current_time;
     
-    __VinylPlayerCommonTick(_useBuss);
+    __VinylInstanceCommonTick(_useBuss);
 }
 
 /// @param useBuss
-function __VinylPlayerCommonTick(_useBuss)
+function __VinylInstanceCommonTick(_useBuss)
 {
     var _finalGain  = 1.0;
     var _finalPitch = 1.0;

@@ -114,8 +114,8 @@ function __VinylPatternMulti() constructor
             ++_i;
         }
         
-        //Generate our own player
-        with(new __VinyPlayerMulti(_sources, __synchronize, __loop))
+        //Generate our own instance
+        with(new __VinyInstanceMulti(_sources, __synchronize, __loop))
         {
             __pattern = other;
             __Reset();
@@ -137,9 +137,9 @@ function __VinylPatternMulti() constructor
 }
 
 /// @param sources
-function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
+function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
 {
-    __VinylPlayerCommonConstruct();
+    __VinylInstanceCommonConstruct();
     
     __synchronize = _synchronize;
     __loop        = _loop;
@@ -287,7 +287,7 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
     
     static __Reset = function()
     {
-        __VinylPlayerCommonReset();
+        __VinylInstanceCommonReset();
         
         var _i = 0;
         repeat(array_length(__sources))
@@ -299,7 +299,7 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
     
     static __Play = function()
     {
-        __VinylPlayerCommonPlay(false);
+        __VinylInstanceCommonPlay(false);
         
         if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
@@ -323,7 +323,7 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
         }
         else
         {
-            __VinylPlayerCommonTick(false);
+            __VinylInstanceCommonTick(false);
             
             //Handle fade out
             if (__stopping && (current_time - __timeStopping > __timeFadeOut)) StopNow();
@@ -424,5 +424,5 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
     
     __Reset();
     
-    if (__VINYL_DEBUG) __VinylTrace("Created player ", self);
+    if (__VINYL_DEBUG) __VinylTrace("Created instance ", self);
 }

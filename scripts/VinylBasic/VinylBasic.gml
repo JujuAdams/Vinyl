@@ -45,8 +45,8 @@ function __VinylPatternBasic(_asset) constructor
     
     static __Play = function(_direct)
     {
-        //Generate a player
-        with(new __VinyPlayerBasic(__asset))
+        //Generate a instance
+        with(new __VinyInstanceBasic(__asset))
         {
             __pattern = other;
             __Reset();
@@ -68,9 +68,9 @@ function __VinylPatternBasic(_asset) constructor
 }
 
 /// @param asset
-function __VinyPlayerBasic(_asset) constructor
+function __VinyInstanceBasic(_asset) constructor
 {
-    __VinylPlayerCommonConstruct();
+    __VinylInstanceCommonConstruct();
     
     __asset = _asset;
     
@@ -151,14 +151,14 @@ function __VinyPlayerBasic(_asset) constructor
     
     static __Reset = function()
     {
-        __VinylPlayerCommonReset();
+        __VinylInstanceCommonReset();
         
         __instance = undefined;
     }
     
     static __Play = function()
     {
-        __VinylPlayerCommonPlay(true);
+        __VinylInstanceCommonPlay(true);
         
         if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
@@ -177,7 +177,7 @@ function __VinyPlayerBasic(_asset) constructor
         }
         else
         {
-            __VinylPlayerCommonTick(true);
+            __VinylInstanceCommonTick(true);
             
             //Handle fade out
             if (__stopping && (current_time - __timeStopping > __timeFadeOut)) StopNow();
@@ -194,7 +194,7 @@ function __VinyPlayerBasic(_asset) constructor
             
             if (!__finished)
             {
-                //If our sound instance is somehow invalid, stop this player
+                //If our sound instance is somehow invalid, stop this instance
                 if (!is_numeric(__instance) || !audio_is_playing(__instance)) StopNow();
             }
         }
@@ -211,5 +211,5 @@ function __VinyPlayerBasic(_asset) constructor
     
     __Reset();
     
-    if (__VINYL_DEBUG) __VinylTrace("Created player for ", self);
+    if (__VINYL_DEBUG) __VinylTrace("Created instance for ", self);
 }

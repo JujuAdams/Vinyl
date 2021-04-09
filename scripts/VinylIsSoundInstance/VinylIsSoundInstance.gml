@@ -3,11 +3,11 @@
 function VinylIsSoundInstance(_value)
 {
     var _instanceof = instanceof(_value);
-    if ((_instanceof == "__VinyPlayerBasic" )
-    ||  (_instanceof == "__VinyPlayerLoop"  )
-    ||  (_instanceof == "__VinyPlayerRandom")
-    ||  (_instanceof == "__VinyPlayerQueue" )
-    ||  (_instanceof == "__VinyPlayerMulti" ))
+    if ((_instanceof == "__VinyInstanceBasic" )
+    ||  (_instanceof == "__VinyInstanceLoop"  )
+    ||  (_instanceof == "__VinyInstanceRandom")
+    ||  (_instanceof == "__VinyInstanceQueue" )
+    ||  (_instanceof == "__VinyInstanceMulti" ))
     {
         return true;
     }

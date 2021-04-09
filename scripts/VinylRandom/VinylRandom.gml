@@ -90,8 +90,8 @@ function __VinylPatternRandom() constructor
             ++_i;
         }
         
-        //Generate our own player
-        with(new __VinyPlayerRandom(_sources))
+        //Generate our own instance
+        with(new __VinyInstanceRandom(_sources))
         {
             __pattern = other;
             __Reset();
@@ -113,9 +113,9 @@ function __VinylPatternRandom() constructor
 }
 
 /// @param sources
-function __VinyPlayerRandom(_sources) constructor
+function __VinyInstanceRandom(_sources) constructor
 {
-    __VinylPlayerCommonConstruct();
+    __VinylInstanceCommonConstruct();
     
     __sources = _sources;
     
@@ -222,7 +222,7 @@ function __VinyPlayerRandom(_sources) constructor
         }
         else
         {
-            __VinylPlayerCommonTick(false);
+            __VinylInstanceCommonTick(false);
             
             //Handle fade out
             if (__stopping && (current_time - __timeStopping > __timeFadeOut)) StopNow();
@@ -238,7 +238,7 @@ function __VinyPlayerRandom(_sources) constructor
     
     static __Reset = function()
     {
-        __VinylPlayerCommonReset();
+        __VinylInstanceCommonReset();
         
         __index   = undefined;
         __current = undefined;
@@ -253,7 +253,7 @@ function __VinyPlayerRandom(_sources) constructor
     
     static __Play = function()
     {
-        __VinylPlayerCommonPlay(false);
+        __VinylInstanceCommonPlay(false);
         
         if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
@@ -274,5 +274,5 @@ function __VinyPlayerRandom(_sources) constructor
     
     __Reset();
     
-    if (__VINYL_DEBUG) __VinylTrace("Created player ", self);
+    if (__VINYL_DEBUG) __VinylTrace("Created instance ", self);
 }

@@ -91,13 +91,13 @@ function __VinylPatternLoop(_intro, _loop, _outro) constructor
         var _loop  = __VinylPatternizeSource(__loop );
         var _outro = __VinylPatternizeSource(__outro);
         
-        //Generate child players
+        //Generate child instances
         _intro = (_intro != undefined)? _intro.__Play(false) : undefined;
         _loop  =                         _loop.__Play(false);
         _outro = (_outro != undefined)? _outro.__Play(false) : undefined;
         
-        //Generate our own player
-        with(new __VinyPlayerLoop(_intro, _loop, _outro, __waitToPlayOutro))
+        //Generate our own instance
+        with(new __VinyInstanceLoop(_intro, _loop, _outro, __waitToPlayOutro))
         {
             __pattern = other;
             __Reset();
@@ -122,9 +122,9 @@ function __VinylPatternLoop(_intro, _loop, _outro) constructor
 /// @param loop
 /// @param outro
 /// @param waitToPlayOutro
-function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructor
+function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) constructor
 {
-    __VinylPlayerCommonConstruct();
+    __VinylInstanceCommonConstruct();
     
     __waitToPlayOutro = _wait_to_play_outro;
     
@@ -224,7 +224,7 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
     
     static __Reset = function()
     {
-        __VinylPlayerCommonReset();
+        __VinylInstanceCommonReset();
         
         __current = undefined;
     
@@ -235,7 +235,7 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
     
     static __Play = function()
     {
-        __VinylPlayerCommonPlay(false);
+        __VinylInstanceCommonPlay(false);
         
         if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
@@ -255,7 +255,7 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
         }
         else
         {
-            __VinylPlayerCommonTick(false);
+            __VinylInstanceCommonTick(false);
             
             //Handle fade out
             if (__timeFadeOut > 0.0)
@@ -316,5 +316,5 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
     
     __Reset();
     
-    if (__VINYL_DEBUG) __VinylTrace("Created player ", self);
+    if (__VINYL_DEBUG) __VinylTrace("Created instance ", self);
 }

@@ -126,8 +126,8 @@ function __VinylPatternQueue() constructor
             ++_i;
         }
         
-        //Generate our own player
-        with(new __VinyPlayerQueue(_sources, __loop, __pops, __loopOnLast))
+        //Generate our own instance
+        with(new __VinyInstanceQueue(_sources, __loop, __pops, __loopOnLast))
         {
             __pattern = other;
             __Reset();
@@ -149,9 +149,9 @@ function __VinylPatternQueue() constructor
 }
 
 /// @param sources
-function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
+function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
 {
-    __VinylPlayerCommonConstruct();
+    __VinylInstanceCommonConstruct();
     
     __sources      = _sources;
     __playingIndex = undefined;
@@ -159,7 +159,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
     __pops         = _pops;
     __loopOnLast   = _loop_on_last;
     
-    //Make sure all the sources we've been given have this player as their parent
+    //Make sure all the sources we've been given have this instance as their parent
     var _i = 0;
     repeat(array_length(__sources))
     {
@@ -167,7 +167,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
         ++_i;
     }
     
-    //Create a backup of our sources to use when we reset this player
+    //Create a backup of our sources to use when we reset this instance
     __sourcesCopy = array_create(array_length(__sources));
     array_copy(__sourcesCopy, 0, __sources, 0, array_length(__sources));
     
@@ -277,7 +277,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
     
     static __Reset = function()
     {
-        __VinylPlayerCommonReset();
+        __VinylInstanceCommonReset();
         
         __index        = undefined;
         __playingIndex = __index;
@@ -298,7 +298,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
     
     static __Play = function()
     {
-        __VinylPlayerCommonPlay(false);
+        __VinylInstanceCommonPlay(false);
         
         if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
@@ -332,7 +332,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
         }
         else
         {
-            __VinylPlayerCommonTick(false);
+            __VinylInstanceCommonTick(false);
             
             //Handle fade out
             if (__stopping && (current_time - __timeStopping > __timeFadeOut)) StopNow();
@@ -451,5 +451,5 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
     
     __Reset();
     
-    if (__VINYL_DEBUG) __VinylTrace("Created player ", self);
+    if (__VINYL_DEBUG) __VinylTrace("Created instance ", self);
 }
