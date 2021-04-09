@@ -224,14 +224,14 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
         return true;
     }
     
-    static StopNow = function()
+    static Kill = function()
     {
-        if (!__finished && __VINYL_DEBUG) __VinylTrace("Finished ", self);
+        if (!__finished && __VINYL_DEBUG) __VinylTrace("Killed ", self);
         
         var _i = 0;
         repeat(array_length(__sources))
         {
-            with(__sources[_i]) StopNow();
+            with(__sources[_i]) Kill();
             ++_i;
         }
         
@@ -239,7 +239,7 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
         var _i = 0;
         repeat(array_length(__sourceStopping))
         {
-            with(__sourceStopping[_i]) StopNow();
+            with(__sourceStopping[_i]) Kill();
             ++_i;
         }
         
@@ -335,7 +335,7 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
             __VinylInstanceCommonTick(false);
             
             //Handle fade out
-            if (__stopping && (current_time - __timeStopping > __timeFadeOut)) StopNow();
+            if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();
             
             if (__current != undefined)
             {
@@ -383,7 +383,7 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
                         {
                             //Finish the queue if there are no sources left to play
                             __playingIndex = undefined;
-                            StopNow();
+                            Kill();
                         }
                         else if (__loop)
                         {
@@ -413,7 +413,7 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
                             else
                             {
                                 __playingIndex = undefined;
-                                StopNow();
+                                Kill();
                             }
                         }
                         
@@ -434,7 +434,7 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
                 }
                 else
                 {
-                    if (__current.__finished) StopNow();
+                    if (__current.__finished) Kill();
                 }
             }
         }

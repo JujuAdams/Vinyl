@@ -158,14 +158,14 @@ function __VinyInstanceRandom(_sources) constructor
         }
     }
     
-    static StopNow = function()
+    static Kill = function()
     {
-        if (__started && !__finished && __VINYL_DEBUG) __VinylTrace("Finished ", self);
+        if (__started && !__finished && __VINYL_DEBUG) __VinylTrace("Killed ", self);
         
         var _i = 0;
         repeat(array_length(__sources))
         {
-            with(__sources[_i]) StopNow();
+            with(__sources[_i]) Kill();
             ++_i;
         }
         
@@ -225,13 +225,13 @@ function __VinyInstanceRandom(_sources) constructor
             __VinylInstanceCommonTick(false);
             
             //Handle fade out
-            if (__stopping && (current_time - __timeStopping > __timeFadeOut)) StopNow();
+            if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();
             
             if (__current != undefined)
             {
                 //Update the instance we're currently playing
                 with(__current) __Tick();
-                if (__current.__finished) StopNow();
+                if (__current.__finished) Kill();
             }
         }
     }

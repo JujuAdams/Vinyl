@@ -56,6 +56,6 @@ if (keyboard_check_pressed(ord("S")))
     }
     else
     {
-        instance.StopNow();
+        instance.Kill();
     }
 }

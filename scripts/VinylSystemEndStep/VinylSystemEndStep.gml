@@ -119,7 +119,7 @@ function __VinylInstanceCommonReset()
 /// @param useBuss
 function __VinylInstanceCommonPlay(_useBuss)
 {
-    StopNow();
+    Kill();
     __Reset();
     
     //Set state

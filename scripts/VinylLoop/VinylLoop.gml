@@ -167,13 +167,13 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
         }
     }
     
-    static StopNow = function()
+    static Kill = function()
     {
-        if (!__finished && __VINYL_DEBUG) __VinylTrace("Finished ", self);
+        if (!__finished && __VINYL_DEBUG) __VinylTrace("Killed ", self);
         
-        if (__intro != undefined) with(__intro) StopNow();
-        with(__loop) StopNow();
-        if (__outro != undefined) with(__outro) StopNow();
+        if (__intro != undefined) with(__intro) Kill();
+        with(__loop) Kill();
+        if (__outro != undefined) with(__outro) Kill();
         
         __stopping = false;
         __finished = true;
@@ -260,7 +260,7 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
             //Handle fade out
             if (__timeFadeOut > 0.0)
             {
-                if (__stopping && (current_time - __timeStopping > __timeFadeOut)) StopNow();
+                if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();
             }
             
             if (__current != undefined)
@@ -287,17 +287,17 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
                         }
                         else
                         {
-                            StopNow();
+                            Kill();
                         }
                     }
                     else
                     {
-                        StopNow();
+                        Kill();
                     }
                 }
                 else if (__started && __stopping && !__waitToPlayOutro && (__outro != undefined) && (__current != __outro))
                 {
-                    __current.StopNow();
+                    __current.Kill();
                     __current = __outro;
                     __current.__Play();
                 }

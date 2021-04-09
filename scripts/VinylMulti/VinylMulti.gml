@@ -223,14 +223,14 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
         return true;
     }
     
-    static StopNow = function()
+    static Kill = function()
     {
-        if (__VINYL_DEBUG) __VinylTrace("Finished ", self);
+        if (__VINYL_DEBUG) __VinylTrace("Killed ", self);
         
         var _i = 0;
         repeat(array_length(__sources))
         {
-            with(__sources[_i]) StopNow();
+            with(__sources[_i]) Kill();
             ++_i;
         }
         
@@ -326,7 +326,7 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
             __VinylInstanceCommonTick(false);
             
             //Handle fade out
-            if (__stopping && (current_time - __timeStopping > __timeFadeOut)) StopNow();
+            if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();
             
             if (__synchronize)
             {
@@ -373,7 +373,7 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
                         ++_i;
                     }
                     
-                    if (_finished) StopNow();
+                    if (_finished) Kill();
                 }
             }
             else
@@ -407,7 +407,7 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
                         ++_i;
                     }
                     
-                    if (_finished) StopNow();
+                    if (_finished) Kill();
                 }
             }
         }
