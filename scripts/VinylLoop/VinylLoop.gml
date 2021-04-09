@@ -201,7 +201,7 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
     
     
     
-    #region Common Public Methods (Gain/pitch/fade time/buss)
+    #region Common Public Methods
     
     static GainSet        = __VinylInstanceGainSet;
     static GainTargetSet  = __VinylInstanceGainTargetSet;
@@ -213,6 +213,7 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
     static FadeTimeGet    = __VinylInstanceFadeTimeGet;
     static BussSet        = __VinylInstanceBussSet;
     static BussGet        = __VinylInstanceBussGet;
+    static PatternGet     = __VinylInstancePatternGet;
     static IsStopping     = __VinylInstanceIsStopping;
     static IsFinished     = __VinylInstanceIsFinished;
     

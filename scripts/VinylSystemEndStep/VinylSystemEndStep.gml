@@ -201,6 +201,7 @@ function __VinylPatternizeSource(_source)
 {
     if (is_numeric(_source))
     {
+        //TODO - Cache this
         return new __VinylPatternBasic(_source);
     }
     else
@@ -336,7 +337,7 @@ function __VinylPatternBussGet()
 
 
 #region Sound instance common methods
-    
+
 //Gain access
 function __VinylInstanceGainSet(_value)
 {
@@ -344,7 +345,7 @@ function __VinylInstanceGainSet(_value)
         
     return self;
 }
-    
+
 function __VinylInstanceGainTargetSet(_target, _rate)
 {
     __gainTarget = _target;
@@ -352,12 +353,12 @@ function __VinylInstanceGainTargetSet(_target, _rate)
         
     return self;
 }
-    
+
 function __VinylInstanceGainGet()
 {
     return __gain;
 }
-    
+
 //Pitch access
 function __VinylInstancePitchSet(_value)
 {
@@ -365,7 +366,7 @@ function __VinylInstancePitchSet(_value)
         
     return self;
 }
-    
+
 function __VinylInstancePitchTargetSet(_target, _rate)
 {
     __pitchTarget = _target;
@@ -373,12 +374,12 @@ function __VinylInstancePitchTargetSet(_target, _rate)
         
     return self;
 }
-    
+
 function __VinylInstancePitchGet()
 {
     return __pitch;
 }
-    
+
 //Fade time access
 function __VinylInstanceFadeTimeSet(_inTime, _outTime)
 {
@@ -387,7 +388,7 @@ function __VinylInstanceFadeTimeSet(_inTime, _outTime)
         
     return self;
 }
-    
+
 function __VinylInstanceFadeTimeGet()
 {
     return { in : __timeFadeIn, out : __timeFadeOut };
@@ -399,20 +400,75 @@ function __VinylInstanceBussSet(_buss_name)
         
     return self;
 }
-    
+
 function __VinylInstanceBussGet()
 {
     return __bussName;
 }
-    
+
+function __VinylInstancePatternGet()
+{
+    return __pattern;
+}
+
 function __VinylInstanceIsStopping()
 {
     return __stopping;
 }
-    
+
 function __VinylInstanceIsFinished()
 {
     return __finished;
+}
+
+#endregion
+
+
+
+#region Random / queue / multi methods
+
+function __VinylInstanceSourceGet(_index)
+{
+    if ((_index < 0) || (_index >= array_length(__sources))) return undefined;
+    return __sources[_index];
+}
+    
+function __VinylInstanceSourcesCountGet()
+{
+    return array_length(__sources);
+}
+
+function __VinylInstanceSourcesArrayGet()
+{
+    var _array = array_create(array_length(__sources));
+    array_copy(_array, 0, __sources, 0, array_length(__sources));
+    return _array;
+}
+
+function __VinylInstanceSourceFindIndex(_source)
+{
+    _source = __VinylPatternizeSource(_source);
+    
+    var _i = 0;
+    repeat(array_length(__sources))
+    {
+        if (__sources[_i].PatternGet() == _source) return _i;
+        ++_i;
+    }
+    
+    return undefined;
+}
+
+function __VinylInstanceInstanceFindIndex(_instance)
+{
+    var _i = 0;
+    repeat(array_length(__sources))
+    {
+        if (__sources[_i] == _instance) return _i;
+        ++_i;
+    }
+    
+    return undefined;
 }
     
 #endregion

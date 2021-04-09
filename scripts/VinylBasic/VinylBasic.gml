@@ -104,9 +104,9 @@ function __VinyInstanceBasic(_asset) constructor
         }
     }
     
-    static StopNow = function()
+    static Kill = function()
     {
-        if (__started && !__finished && __VINYL_DEBUG) __VinylTrace("Finished ", self);
+        if (__started && !__finished && __VINYL_DEBUG) __VinylTrace("Killed ", self);
         
         if (!__finished)
         {
@@ -128,7 +128,7 @@ function __VinyInstanceBasic(_asset) constructor
     
     
     
-    #region Common Public Methods (Gain/pitch/fade time/buss)
+    #region Common Public Methods
     
     static GainSet        = __VinylInstanceGainSet;
     static GainTargetSet  = __VinylInstanceGainTargetSet;
@@ -140,6 +140,7 @@ function __VinyInstanceBasic(_asset) constructor
     static FadeTimeGet    = __VinylInstanceFadeTimeGet;
     static BussSet        = __VinylInstanceBussSet;
     static BussGet        = __VinylInstanceBussGet;
+    static PatternGet     = __VinylInstancePatternGet;
     static IsStopping     = __VinylInstanceIsStopping;
     static IsFinished     = __VinylInstanceIsFinished;
     
@@ -180,7 +181,7 @@ function __VinyInstanceBasic(_asset) constructor
             __VinylInstanceCommonTick(true);
             
             //Handle fade out
-            if (__stopping && (current_time - __timeStopping > __timeFadeOut)) StopNow();
+            if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();
             
             if (is_numeric(__instance) && audio_is_playing(__instance))
             {
@@ -195,7 +196,7 @@ function __VinyInstanceBasic(_asset) constructor
             if (!__finished)
             {
                 //If our sound instance is somehow invalid, stop this instance
-                if (!is_numeric(__instance) || !audio_is_playing(__instance)) StopNow();
+                if (!is_numeric(__instance) || !audio_is_playing(__instance)) Kill();
             }
         }
     }

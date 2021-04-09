@@ -89,24 +89,6 @@ function __VinylPatternQueue() constructor
         return __loopOnLast;
     }
     
-    static SourceGet = function(_index)
-    {
-        if ((_index < 0) || (_index >= array_length(__sources))) return undefined;
-        return __sources[_index];
-    }
-    
-    static SourcesGetCount = function()
-    {
-        return array_length(__sources);
-    }
-    
-    static SourcesGetArray = function()
-    {
-        var _array = array_create(array_length(__sources));
-        array_copy(_array, 0, __sources, 0, array_length(__sources));
-        return _array;
-    }
-    
     #endregion
     
     
@@ -153,11 +135,11 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
 {
     __VinylInstanceCommonConstruct();
     
-    __sources      = _sources;
-    __playingIndex = undefined;
-    __loop         = _loop;
-    __pops         = _pops;
-    __loopOnLast   = _loop_on_last;
+    __sources    = _sources;
+    __index      = undefined;
+    __loop       = _loop;
+    __pops       = _pops;
+    __loopOnLast = _loop_on_last;
     
     //Make sure all the sources we've been given have this instance as their parent
     var _i = 0;
@@ -205,25 +187,6 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
         }
     }
     
-    static WillFinish = function()
-    {
-        var _i = 0;
-        repeat(array_length(__sources))
-        {
-            if (!__sources[_i].WillFinish()) return false;
-            ++_i;
-        }
-        
-        var _i = 0;
-        repeat(array_length(__sourceStopping))
-        {
-            if (!__sourceStopping[_i].WillFinish()) return false;
-            ++_i;
-        }
-        
-        return true;
-    }
-    
     static Kill = function()
     {
         if (!__finished && __VINYL_DEBUG) __VinylTrace("Killed ", self);
@@ -243,18 +206,80 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
             ++_i;
         }
         
-        __playingIndex = undefined;
-        
+        __index    = undefined;
         __stopping = false;
         __finished = true;
         __current  = undefined;
+    }
+    
+    static WillFinish = function()
+    {
+        var _i = 0;
+        repeat(array_length(__sources))
+        {
+            if (!__sources[_i].WillFinish()) return false;
+            ++_i;
+        }
+        
+        var _i = 0;
+        repeat(array_length(__sourceStopping))
+        {
+            if (!__sourceStopping[_i].WillFinish()) return false;
+            ++_i;
+        }
+        
+        return true;
+    }
+    
+    static Choose = function(_index)
+    {
+        if ((_index < 0) || (_index >= array_length(__sources)))
+        {
+            __VinylTrace("Invalid index (", _index, "), must be from 0 to ", array_length(__sources) - 1, " inclusive");
+        }
+        else if (__index != _index)
+        {
+            __VinylTrace("Index set to ", _index, " for ", self);
+            
+            //Stop our current source and reference it in our stopping array
+            __current.Stop();
+            __sourceStopping[@ array_length(__sourceStopping)] = __current;
+            
+            //Change our index and start playing the appropriate source
+            __index = _index;
+            __current = __sources[__index];
+            with(__current) __Play();
+        }
+    }
+    
+    static CurrentIndexGet = function()
+    {
+        return __index;
+    }
+    
+    static CurrentInstanceGet = function()
+    {
+        return __current;
+    }
+    
+    static CurrentStop = function()
+    {
+        var _instance = CurrentInstanceGet();
+        if (_instance != undefined) _instance.Stop();
+    }
+    
+    static Push = function(_source)
+    {
+        var _instance =  __VinylPatternizeSource(_source);
+        array_push(__sources, _instance.__Play(false));
+        return _instance;
     }
     
     #endregion
     
     
     
-    #region Common Public Methods (Gain/pitch/fade time/buss)
+    #region Common Public Methods
     
     static GainSet        = __VinylInstanceGainSet;
     static GainTargetSet  = __VinylInstanceGainTargetSet;
@@ -266,8 +291,15 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
     static FadeTimeGet    = __VinylInstanceFadeTimeGet;
     static BussSet        = __VinylInstanceBussSet;
     static BussGet        = __VinylInstanceBussGet;
+    static PatternGet     = __VinylInstancePatternGet;
     static IsStopping     = __VinylInstanceIsStopping;
     static IsFinished     = __VinylInstanceIsFinished;
+    
+    static SourceGet         = __VinylInstanceSourceGet;
+    static SourcesCountGet   = __VinylInstanceSourcesCountGet;
+    static SourcesArrayGet   = __VinylInstanceSourcesArrayGet;
+    static SourceFindIndex   = __VinylInstanceSourceFindIndex;
+    static InstanceFindIndex = __VinylInstanceInstanceFindIndex;
     
     #endregion
     
@@ -279,9 +311,8 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
     {
         __VinylInstanceCommonReset();
         
-        __index        = undefined;
-        __playingIndex = __index;
-        __current      = undefined;
+        __index   = undefined;
+        __current = undefined;
         
         //Restore our sources backup
         sources = array_create(array_length(__sourcesCopy));
@@ -303,28 +334,13 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
         if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
         //Play the first source
-        __index        = 0;
-        __playingIndex = __index;
-        __current      = __sources[__index];
+        __index   = 0;
+        __current = __sources[__index];
         with(__current) __Play();
     }
     
     static __Tick = function()
     {
-        if (__playingIndex != __index)
-        {
-            __VinylTrace("Playing index set to ", __playingIndex, " for ", self);
-            
-            //Stop our current source and reference it in our stopping array
-            __current.Stop();
-            __sourceStopping[@ array_length(__sourceStopping)] = __current;
-            
-            //Change our index and start playing the appropriate source
-            __index = __playingIndex;
-            __current = __sources[__index];
-            with(__current) __Play();
-        }
-        
         if (!__started && !__stopping && !__finished)
         {
             //If we're not started and we're not stopping and we ain't finished, then play!
@@ -382,14 +398,12 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
                         if (array_length(__sources) <= 0)
                         {
                             //Finish the queue if there are no sources left to play
-                            __playingIndex = undefined;
                             Kill();
                         }
                         else if (__loop)
                         {
                             //If we're looping, wrap around to the start of the queue if necessary and play the next source
                             __index = __index mod array_length(__sources);
-                            __playingIndex = __index;
                             __current = sources[__index];
                             _new_play = true;
                         }
@@ -397,7 +411,6 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
                         {
                             //If we're looping on the last source, loop that source
                             __index = array_length(__sources) - 1;
-                            __playingIndex = __index;
                             __current = __sources[__index];
                             _new_play = true;
                         }
@@ -406,13 +419,11 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
                             //If we're *not* looping, only play the next source if we have something to play!
                             if (__index < array_length(__sources))
                             {
-                                __playingIndex = __index;
                                 __current = __sources[__index];
                                 _new_play = true;
                             }
                             else
                             {
-                                __playingIndex = undefined;
                                 Kill();
                             }
                         }

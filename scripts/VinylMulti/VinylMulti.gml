@@ -67,18 +67,6 @@ function __VinylPatternMulti() constructor
         return __sources[_index];
     }
     
-    static SourcesGetCount = function()
-    {
-        return array_length(__sources);
-    }
-    
-    static SourcesGetArray = function()
-    {
-        var _array = array_create(array_length(__sources));
-        array_copy(_array, 0, __sources, 0, array_length(__sources));
-        return _array;
-    }
-    
     #endregion
     
     
@@ -264,7 +252,7 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
     
     
     
-    #region Common Public Methods (Gain/pitch/fade time/buss)
+    #region Common Public Methods
     
     static GainSet        = __VinylInstanceGainSet;
     static GainTargetSet  = __VinylInstanceGainTargetSet;
@@ -276,8 +264,15 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
     static FadeTimeGet    = __VinylInstanceFadeTimeGet;
     static BussSet        = __VinylInstanceBussSet;
     static BussGet        = __VinylInstanceBussGet;
+    static PatternGet     = __VinylInstancePatternGet;
     static IsStopping     = __VinylInstanceIsStopping;
     static IsFinished     = __VinylInstanceIsFinished;
+    
+    static SourceGet         = __VinylInstanceSourceGet;
+    static SourcesCountGet   = __VinylInstanceSourcesCountGet;
+    static SourcesArrayGet   = __VinylInstanceSourcesArrayGet;
+    static SourceFindIndex   = __VinylInstanceSourceFindIndex;
+    static InstanceFindIndex = __VinylInstanceInstanceFindIndex;
     
     #endregion
     
