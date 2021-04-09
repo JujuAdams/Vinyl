@@ -5,7 +5,7 @@ function VinylRandom()
 {
     switch(argument_count)
     {
-        case 0: __VinylError("Unsupported number of arguments (", argument_count, ") for VinylRandom()\n(Should be at least 1)"); break;
+        case 0: __VinylError("Unsupported number of arguments (0) for VinylRandom()\n(Should be at least 1)"); break;
         
         case 1: return new __VinylPatternRandom(argument[0]); break;
         case 2: return new __VinylPatternRandom(argument[0], argument[1]); break;
@@ -23,32 +23,45 @@ function __VinylPatternRandom() constructor
 {
     __VinylPatternCommonConstruct();
     
-    sources = array_create(argument_count, undefined);
+    __sources = array_create(argument_count, undefined);
     
     //Copy input sources into the actual array
     var _i = 0;
     repeat(argument_count)
     {
-        sources[@ _i] = argument[_i];
+        __sources[@ _i] = argument[_i];
         ++_i;
     }
     
-    static Play = function()
-    {
-        var _instance = __Play(true);
-        ds_list_add(global.__vinylPlaying, _instance);
-        return _instance;
-    }
+    
+    
+    #region Common Public Methods
+    
+    static Play        = __VinylPatternPlay;
+    static GainSet     = __VinylPatternGainSet;
+    static GainGet     = __VinylPatternGainGet;
+    static PitchSet    = __VinylPatternPitchSet;
+    static PitchGet    = __VinylPatternPitchGet;
+    static FadeTimeSet = __VinylPatternFadeTimeSet;
+    static FadeTimeGet = __VinylPatternFadeTimeGet;
+    static BussSet     = __VinylPatternBussSet;
+    static BussGet     = __VinylPatternBussGet;
+    
+    #endregion
+    
+    
+    
+    #region Private Methods
     
     static __Play = function(_direct)
     {
-        var _sources = array_create(array_length(sources));
+        var _sources = array_create(array_length(__sources));
         
         //Patternise and generate the sources
         var _i = 0;
         repeat(array_length(_sources))
         {
-            var _source = __VinylPatternizeSource(sources[_i])
+            var _source = __VinylPatternizeSource(__sources[_i])
             _sources[@ _i] = _source.__Play(false);
             ++_i;
         }
@@ -58,27 +71,19 @@ function __VinylPatternRandom() constructor
         {
             __pattern = other;
             __Reset();
-            if (_direct) buss_name = other.buss_name;
+            if (_direct) __bussName = other.__bussName;
             return self;
         }
     }
     
-    //I don't trust GM not to mess up these functions if I put them in the common definition
-    static BussSet = function(_buss_name)
-    {
-        buss_name = _buss_name;
-        return self;
-    }
-    
-    static BussGet = function()
-    {
-        return buss_name;
-    }
-    
     static toString = function()
     {
-        return "Random " + string(sources);
+        return "Random " + string(__sources);
     }
+    
+    #endregion
+    
+    
     
     if (__VINYL_DEBUG) __VinylTrace("Created pattern ", self);
 }
@@ -88,43 +93,18 @@ function __VinyPlayerRandom(_sources) constructor
 {
     __VinylPlayerCommonConstruct();
     
-    sources = _sources;
+    __sources = _sources;
     
     var _i = 0;
-    repeat(array_length(sources))
+    repeat(array_length(__sources))
     {
-        sources[_i].__parent = self;
+        __sources[_i].__parent = self;
         ++_i;
     }
     
-    static __Reset = function()
-    {
-        __VinylPlayerCommonReset();
-        
-        __index   = undefined;
-        __current = undefined;
-        
-        var _i = 0;
-        repeat(array_length(sources))
-        {
-            sources[_i].__Reset();
-            ++_i;
-        }
-    }
     
-    __Reset();
     
-    static __Play = function()
-    {
-        __VinylPlayerCommonPlay(false);
-        
-        if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ")");
-        
-        //Figure out what to play
-        __index = irandom(array_length(sources) - 1);
-        __current = sources[__index];
-        with(__current) __Play();
-    }
+    #region Public Methods
     
     static GetPosition = function()
     {
@@ -141,16 +121,6 @@ function __VinyPlayerRandom(_sources) constructor
         }
     }
     
-    static IsStopping = function()
-    {
-        return __stopping;
-    }
-    
-    static IsFinished = function()
-    {
-        return __finished;
-    }
-    
     static Stop = function()
     {
         if (!__stopping && !__finished)
@@ -164,10 +134,26 @@ function __VinyPlayerRandom(_sources) constructor
         }
     }
     
+    static StopNow = function()
+    {
+        if (__started && !__finished && __VINYL_DEBUG) __VinylTrace("Finished ", self);
+        
+        var _i = 0;
+        repeat(array_length(__sources))
+        {
+            with(__sources[_i]) StopNow();
+            ++_i;
+        }
+        
+        __stopping = false;
+        __finished = true;
+        __current  = undefined;
+    }
+    
     static WillFinish = function()
     {
         var _i = 0;
-        repeat(array_length(sources))
+        repeat(array_length(__sources))
         {
             if (!sources[_i].WillFinish()) return false;
             ++_i;
@@ -176,21 +162,30 @@ function __VinyPlayerRandom(_sources) constructor
         return true;
     }
     
-    static StopNow = function()
-    {
-        if (__started && !__finished && __VINYL_DEBUG) __VinylTrace("Finished ", self);
-        
-        var _i = 0;
-        repeat(array_length(sources))
-        {
-            with(sources[_i]) StopNow();
-            ++_i;
-        }
-        
-        __stopping = false;
-        __finished = true;
-        __current  = undefined;
-    }
+    #endregion
+    
+    
+    
+    #region Common Public Methods (Gain/pitch/fade time/buss)
+    
+    static GainSet        = __VinylInstanceGainSet;
+    static GainTargetSet  = __VinylInstanceGainTargetSet;
+    static GainGet        = __VinylInstanceGainGet;
+    static PitchSet       = __VinylInstancePitchSet;
+    static PitchTargetSet = __VinylInstancePitchTargetSet;
+    static PitchTargetSet = __VinylInstancePitchTargetSet;
+    static FadeTimeSet    = __VinylInstanceFadeTimeSet;
+    static FadeTimeGet    = __VinylInstanceFadeTimeGet;
+    static BussSet        = __VinylInstanceBussSet;
+    static BussGet        = __VinylInstanceBussGet;
+    static IsStopping     = __VinylInstanceIsStopping;
+    static IsFinished     = __VinylInstanceIsFinished;
+    
+    #endregion
+    
+    
+    
+    #region Private Methods
     
     static __Tick = function()
     {
@@ -206,7 +201,7 @@ function __VinyPlayerRandom(_sources) constructor
             __VinylPlayerCommonTick(false);
             
             //Handle fade out
-            if (__stopping && (current_time - __time_stopping > time_fade_out)) StopNow();
+            if (__stopping && (current_time - __timeStopping > __timeFadeOut)) StopNow();
             
             if (__current != undefined)
             {
@@ -217,22 +212,43 @@ function __VinyPlayerRandom(_sources) constructor
         }
     }
     
-    //I don't trust GM not to mess up these functions if I put them in the common definition
-    static BussSet = function(_buss_name)
+    static __Reset = function()
     {
-        buss_name = _buss_name;
-        return self;
+        __VinylPlayerCommonReset();
+        
+        __index   = undefined;
+        __current = undefined;
+        
+        var _i = 0;
+        repeat(array_length(__sources))
+        {
+            __sources[_i].__Reset();
+            ++_i;
+        }
     }
     
-    static BussGet = function()
+    static __Play = function()
     {
-        return buss_name;
+        __VinylPlayerCommonPlay(false);
+        
+        if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
+        
+        //Figure out what to play
+        __index = irandom(array_length(__sources) - 1);
+        __current = __sources[__index];
+        with(__current) __Play();
     }
     
     static toString = function()
     {
-        return "Random " + string(sources);
+        return "Random " + string(__sources);
     }
+    
+    #endregion
+    
+    
+    
+    __Reset();
     
     if (__VINYL_DEBUG) __VinylTrace("Created player ", self);
 }

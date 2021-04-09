@@ -27,24 +27,37 @@ function __VinylPatternLoop(_intro, _loop, _outro) constructor
 {
     __VinylPatternCommonConstruct();
     
-    wait_to_play_outro = true;
+    __waitToPlayOutro = true;
     
-    intro = _intro;
-    loop  = _loop;
-    outro = _outro;
+    __intro = _intro;
+    __loop  = _loop;
+    __outro = _outro;
     
-    static Play = function()
-    {
-        var _instance = __Play(true);
-        ds_list_add(global.__vinylPlaying, _instance);
-        return _instance;
-    }
+    
+    
+    #region Common Public Methods
+    
+    static Play        = __VinylPatternPlay;
+    static GainSet     = __VinylPatternGainSet;
+    static GainGet     = __VinylPatternGainGet;
+    static PitchSet    = __VinylPatternPitchSet;
+    static PitchGet    = __VinylPatternPitchGet;
+    static FadeTimeSet = __VinylPatternFadeTimeSet;
+    static FadeTimeGet = __VinylPatternFadeTimeGet;
+    static BussSet     = __VinylPatternBussSet;
+    static BussGet     = __VinylPatternBussGet;
+    
+    #endregion
+    
+    
+    
+    #region Private Methods
     
     static __Play = function(_direct)
     {
-        var _intro = __VinylPatternizeSource(intro);
-        var _loop  = __VinylPatternizeSource(loop );
-        var _outro = __VinylPatternizeSource(outro);
+        var _intro = __VinylPatternizeSource(__intro);
+        var _loop  = __VinylPatternizeSource(__loop );
+        var _outro = __VinylPatternizeSource(__outro);
         
         //Generate child players
         _intro = (_intro != undefined)? _intro.__Play(false) : undefined;
@@ -52,31 +65,23 @@ function __VinylPatternLoop(_intro, _loop, _outro) constructor
         _outro = (_outro != undefined)? _outro.__Play(false) : undefined;
         
         //Generate our own player
-        with(new __VinyPlayerLoop(_intro, _loop, _outro, wait_to_play_outro))
+        with(new __VinyPlayerLoop(_intro, _loop, _outro, __waitToPlayOutro))
         {
             __pattern = other;
             __Reset();
-            if (_direct) buss_name = other.buss_name;
+            if (_direct) __bussName = other.__bussName;
             return self;
         }
     }
     
-    //I don't trust GM not to mess up these functions if I put them in the common definition
-    static BussSet = function(_buss_name)
-    {
-        buss_name = _buss_name;
-        return self;
-    }
-    
-    static BussGet = function()
-    {
-        return buss_name;
-    }
-    
     static toString = function()
     {
-        return "Loop [ " + __VinylGetSourceName(intro) + "," + __VinylGetSourceName(loop) + "," + __VinylGetSourceName(outro) + " ]";
+        return "Loop [ " + __VinylGetSourceName(__intro) + "," + __VinylGetSourceName(__loop) + "," + __VinylGetSourceName(__outro) + " ]";
     }
+    
+    #endregion
+    
+    
     
     if (__VINYL_DEBUG) __VinylTrace("Created pattern ", self);
 }
@@ -89,39 +94,19 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
 {
     __VinylPlayerCommonConstruct();
     
-    wait_to_play_outro = _wait_to_play_outro;
+    __waitToPlayOutro = _wait_to_play_outro;
     
-    intro = _intro;
-    loop  = _loop;
-    outro = _outro;
+    __intro = _intro;
+    __loop  = _loop;
+    __outro = _outro;
     
-    if (intro != undefined) intro.__parent = self;
-    loop.__parent = self;
-    if (outro != undefined) outro.__parent = self;
+    if (__intro != undefined) __intro.__parent = self;
+    __loop.__parent = self;
+    if (__outro != undefined) __outro.__parent = self;
     
-    static __Reset = function()
-    {
-        __VinylPlayerCommonReset();
-        
-        __current = undefined;
     
-        if (intro != undefined) intro.__Reset();
-        loop.__Reset();
-        if (outro != undefined) outro.__Reset();
-    }
     
-    __Reset();
-    
-    static __Play = function()
-    {
-        __VinylPlayerCommonPlay(false);
-        
-        if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ")");
-        
-        //Figure out what to play
-        __current = (intro != undefined)? intro : loop;
-        with(__current) __Play();
-    }
+    #region Public Methods
     
     static GetPosition = function()
     {
@@ -139,16 +124,6 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
         }
     }
     
-    static IsStopping = function()
-    {
-        return __stopping;
-    }
-    
-    static IsFinished = function()
-    {
-        return __finished;
-    }
-    
     static Stop = function()
     {
         if (!__stopping && !__finished)
@@ -160,34 +135,81 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
         }
     }
     
+    static StopNow = function()
+    {
+        if (!__finished && __VINYL_DEBUG) __VinylTrace("Finished ", self);
+        
+        if (__intro != undefined) with(__intro) StopNow();
+        with(__loop) StopNow();
+        if (__outro != undefined) with(__outro) StopNow();
+        
+        __stopping = false;
+        __finished = true;
+        __current  = undefined;
+    }
+    
     static WillFinish = function()
     {
-        if (intro != undefined)
+        if (__intro != undefined)
         {
-            if (!intro.WillFinish()) return false;
+            if (!__intro.WillFinish()) return false;
         }
         
-        if (!loop.WillFinish()) return false;
+        if (!__loop.WillFinish()) return false;
         
-        if (outro != undefined)
+        if (__outro != undefined)
         {
-            if (!outro.WillFinish()) return false;
+            if (!__outro.WillFinish()) return false;
         }
         
         return true;
     }
     
-    static StopNow = function()
+    #endregion
+    
+    
+    
+    #region Common Public Methods (Gain/pitch/fade time/buss)
+    
+    static GainSet        = __VinylInstanceGainSet;
+    static GainTargetSet  = __VinylInstanceGainTargetSet;
+    static GainGet        = __VinylInstanceGainGet;
+    static PitchSet       = __VinylInstancePitchSet;
+    static PitchTargetSet = __VinylInstancePitchTargetSet;
+    static PitchTargetSet = __VinylInstancePitchTargetSet;
+    static FadeTimeSet    = __VinylInstanceFadeTimeSet;
+    static FadeTimeGet    = __VinylInstanceFadeTimeGet;
+    static BussSet        = __VinylInstanceBussSet;
+    static BussGet        = __VinylInstanceBussGet;
+    static IsStopping     = __VinylInstanceIsStopping;
+    static IsFinished     = __VinylInstanceIsFinished;
+    
+    #endregion
+    
+    
+    
+    #region Private Methods
+    
+    static __Reset = function()
     {
-        if (!__finished && __VINYL_DEBUG) __VinylTrace("Finished ", self);
+        __VinylPlayerCommonReset();
         
-        if (intro != undefined) with(intro) StopNow();
-        with(loop) StopNow();
-        if (outro != undefined) with(outro) StopNow();
+        __current = undefined;
+    
+        if (__intro != undefined) __intro.__Reset();
+        __loop.__Reset();
+        if (__outro != undefined) __outro.__Reset();
+    }
+    
+    static __Play = function()
+    {
+        __VinylPlayerCommonPlay(false);
         
-        __stopping = false;
-        __finished = true;
-        __current  = undefined;
+        if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
+        
+        //Figure out what to play
+        __current = (__intro != undefined)? __intro : __loop;
+        with(__current) __Play();
     }
     
     static __Tick = function()
@@ -204,9 +226,9 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
             __VinylPlayerCommonTick(false);
             
             //Handle fade out
-            if (time_fade_out > 0.0)
+            if (__timeFadeOut > 0.0)
             {
-                if (__stopping && (current_time - __time_stopping > time_fade_out)) StopNow();
+                if (__stopping && (current_time - __timeStopping > __timeFadeOut)) StopNow();
             }
             
             if (__current != undefined)
@@ -215,20 +237,20 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
                 
                 if (__current.WillFinish())
                 {
-                    if (__current == intro)
+                    if (__current == __intro)
                     {
-                        __current = loop;
+                        __current = __loop;
                         __current.__Play();
                     }
-                    else if (__current == loop)
+                    else if (__current == __loop)
                     {
                         if (!__stopping)
                         {
-                            loop.__Play();
+                            __loop.__Play();
                         }
-                        else if (outro != undefined)
+                        else if (__outro != undefined)
                         {
-                            __current = outro;
+                            __current = __outro;
                             __current.__Play();
                         }
                         else
@@ -241,32 +263,26 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
                         StopNow();
                     }
                 }
-                else if (__started && __stopping && !wait_to_play_outro && (outro != undefined) && (__current != outro))
+                else if (__started && __stopping && !__waitToPlayOutro && (__outro != undefined) && (__current != __outro))
                 {
                     __current.StopNow();
-                    __current = outro;
+                    __current = __outro;
                     __current.__Play();
                 }
             }
         }
     }
     
-    //I don't trust GM not to mess up these functions if I put them in the common definition
-    static BussSet = function(_buss_name)
-    {
-        buss_name = _buss_name;
-        return self;
-    }
-    
-    static BussGet = function()
-    {
-        return buss_name;
-    }
-    
     static toString = function()
     {
-        return "Loop [ " + __VinylGetSourceName(intro) + "," + __VinylGetSourceName(loop) + "," + __VinylGetSourceName(outro) + " ]";
+        return "Loop [ " + __VinylGetSourceName(__intro) + "," + __VinylGetSourceName(__loop) + "," + __VinylGetSourceName(__outro) + " ]";
     }
+    
+    #endregion
+    
+    
+    
+    __Reset();
     
     if (__VINYL_DEBUG) __VinylTrace("Created player ", self);
 }

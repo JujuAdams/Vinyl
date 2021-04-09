@@ -14,75 +14,17 @@ function __VinylPatternBasic(_asset) constructor
     
     
     
-    #region Public Methods
+    #region Common Public Methods
     
-    static Play = function()
-    {
-        var _instance = __Play(true);
-        ds_list_add(global.__vinylPlaying, _instance);
-        return _instance;
-    }
-    
-    //Gain access
-    static SetGain = function()
-    {
-        var _min = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : 1.0;
-        var _max = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : _min;
-        
-        __gainMin = _min;
-        __gainMax = _max;
-        
-        return self;
-    }
-    
-    static GetGain = function()
-    {
-        return { mini : __gainMin, maxi : __gainMax };
-    }
-    
-    //Pitch access
-    static SetPitch = function()
-    {
-        var _min = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : 1.0;
-        var _max = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : _min;
-        
-        __pitchMin = _min;
-        __pitchMax = _max;
-        
-        return self;
-    }
-    
-    static GetPitch = function()
-    {
-        return { mini : __pitchMin, maxi : __pitchMax };
-    }
-    
-    //Fade time access
-    static SetFadeTime = function(_inTime, _outTime)
-    {
-        __timeFadeIn  = _inTime;
-        __timeFadeOut = _outTime;
-        
-        return self;
-    }
-    
-    static GetFadeTime = function()
-    {
-        return { in : __timeFadeIn, out : __timeFadeOut };
-    }
-    
-    //Buss access
-    static BussSet = function(_bussName)
-    {
-        __bussName = _bussName;
-        
-        return self;
-    }
-    
-    static BussGet = function()
-    {
-        return __bussName;
-    }
+    static Play        = __VinylPatternPlay;
+    static GainSet     = __VinylPatternGainSet;
+    static GainGet     = __VinylPatternGainGet;
+    static PitchSet    = __VinylPatternPitchSet;
+    static PitchGet    = __VinylPatternPitchGet;
+    static FadeTimeSet = __VinylPatternFadeTimeSet;
+    static FadeTimeGet = __VinylPatternFadeTimeGet;
+    static BussSet     = __VinylPatternBussSet;
+    static BussGet     = __VinylPatternBussGet;
     
     #endregion
     
@@ -125,10 +67,6 @@ function __VinyPlayerBasic(_asset) constructor
     
     #region Public Methods
     
-    
-    
-    #region Position/stopping
-    
     static GetPosition = function()
     {
         if (!__started || __finished || !is_numeric(__instance) || !audio_is_playing(__instance)) return undefined;
@@ -142,16 +80,6 @@ function __VinyPlayerBasic(_asset) constructor
         {
             audio_sound_set_track_position(__instance, _time);
         }
-    }
-    
-    static IsStopping = function()
-    {
-        return __stopping;
-    }
-    
-    static IsFinished = function()
-    {
-        return __finished;
     }
     
     static Stop = function()
@@ -189,80 +117,20 @@ function __VinyPlayerBasic(_asset) constructor
     
     
     
-    #region Gain/pitch/fade time/buss
+    #region Common Public Methods (Gain/pitch/fade time/buss)
     
-    //Gain access
-    static SetGain = function(_value)
-    {
-        __gain = _value;
-        
-        return self;
-    }
-    
-    static SetGainTarget = function(_target, _rate)
-    {
-        __gainTarget = _target;
-        __gainRate = _rate;
-        
-        return self;
-    }
-    
-    static GetGain = function()
-    {
-        return __gain;
-    }
-    
-    //Pitch access
-    static SetPitch = function(_value)
-    {
-        __pitch = _value;
-        
-        return self;
-    }
-    
-    static SetPitchTarget = function(_target, _rate)
-    {
-        __pitchTarget = _target;
-        __pitchRate = _rate;
-        
-        return self;
-    }
-    
-    static GetPitch = function()
-    {
-        return __pitch;
-    }
-    
-    //Fade time access
-    static SetFadeTime = function(_inTime, _outTime)
-    {
-        __timeFadeIn  = _inTime;
-        __timeFadeOut = _outTime;
-        
-        return self;
-    }
-    
-    static GetFadeTime = function()
-    {
-        return { in : __timeFadeIn, out : __timeFadeOut };
-    }
-    
-    //I don't trust GM not to mess up these functions if I put them in the common definition
-    static BussSet = function(_buss_name)
-    {
-        __bussName = _buss_name;
-        
-        return self;
-    }
-    
-    static BussGet = function()
-    {
-        return __bussName;
-    }
-    
-    #endregion
-    
-    
+    static GainSet        = __VinylInstanceGainSet;
+    static GainTargetSet  = __VinylInstanceGainTargetSet;
+    static GainGet        = __VinylInstanceGainGet;
+    static PitchSet       = __VinylInstancePitchSet;
+    static PitchTargetSet = __VinylInstancePitchTargetSet;
+    static PitchTargetSet = __VinylInstancePitchTargetSet;
+    static FadeTimeSet    = __VinylInstanceFadeTimeSet;
+    static FadeTimeGet    = __VinylInstanceFadeTimeGet;
+    static BussSet        = __VinylInstanceBussSet;
+    static BussGet        = __VinylInstanceBussGet;
+    static IsStopping     = __VinylInstanceIsStopping;
+    static IsFinished     = __VinylInstanceIsFinished;
     
     #endregion
     
@@ -281,7 +149,7 @@ function __VinyPlayerBasic(_asset) constructor
     {
         __VinylPlayerCommonPlay(true);
         
-        if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ")");
+        if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
         //Play the audio asset
         __instance = audio_play_sound(__asset, 1, false);

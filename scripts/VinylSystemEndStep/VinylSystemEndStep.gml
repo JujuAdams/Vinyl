@@ -3,7 +3,7 @@
 #macro __VINYL_VERSION  "1.0.3"
 #macro __VINYL_DATE     "2021/03/26"
 
-#macro __VINYL_DEBUG  false
+#macro __VINYL_DEBUG  true
 
 #macro VINYL_LIB       global.__vinylLibrary
 #macro VINYL_LIBRARY   global.__vinylLibrary
@@ -257,4 +257,162 @@ function __VinylArrayDelete(_array, _index)
     array_resize(_array, array_length(_array)-1);
 }
 
+#endregion
+
+
+
+#region Pattern common methods
+
+function __VinylPatternPlay()
+{
+    var _instance = __Play(true);
+    ds_list_add(global.__vinylPlaying, _instance);
+    return _instance;
+}
+
+//Gain access
+function __VinylPatternGainSet()
+{
+    var _min = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : 1.0;
+    var _max = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : _min;
+    
+    __gainMin = _min;
+    __gainMax = _max;
+    
+    return self;
+}
+
+function __VinylPatternGainGet()
+{
+    return { mini : __gainMin, maxi : __gainMax };
+}
+
+//Pitch access
+function __VinylPatternPitchSet()
+{
+    var _min = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : 1.0;
+    var _max = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : _min;
+    
+    __pitchMin = _min;
+    __pitchMax = _max;
+    
+    return self;
+}
+
+function __VinylPatternPitchGet()
+{
+    return { mini : __pitchMin, maxi : __pitchMax };
+}
+
+//Fade time access
+function __VinylPatternFadeTimeSet(_inTime, _outTime)
+{
+    __timeFadeIn  = _inTime;
+    __timeFadeOut = _outTime;
+    
+    return self;
+}
+
+function __VinylPatternFadeTimeGet()
+{
+    return { in : __timeFadeIn, out : __timeFadeOut };
+}
+
+//Buss access
+function __VinylPatternBussSet(_bussName)
+{
+    __bussName = _bussName;
+    
+    return self;
+}
+
+function __VinylPatternBussGet()
+{
+    return __bussName;
+}
+
+#endregion
+
+
+
+#region Sound instance common methods
+    
+//Gain access
+function __VinylInstanceGainSet(_value)
+{
+    __gain = _value;
+        
+    return self;
+}
+    
+function __VinylInstanceGainTargetSet(_target, _rate)
+{
+    __gainTarget = _target;
+    __gainRate = _rate;
+        
+    return self;
+}
+    
+function __VinylInstanceGainGet()
+{
+    return __gain;
+}
+    
+//Pitch access
+function __VinylInstancePitchSet(_value)
+{
+    __pitch = _value;
+        
+    return self;
+}
+    
+function __VinylInstancePitchTargetSet(_target, _rate)
+{
+    __pitchTarget = _target;
+    __pitchRate = _rate;
+        
+    return self;
+}
+    
+function __VinylInstancePitchGet()
+{
+    return __pitch;
+}
+    
+//Fade time access
+function __VinylInstanceFadeTimeSet(_inTime, _outTime)
+{
+    __timeFadeIn  = _inTime;
+    __timeFadeOut = _outTime;
+        
+    return self;
+}
+    
+function __VinylInstanceFadeTimeGet()
+{
+    return { in : __timeFadeIn, out : __timeFadeOut };
+}
+
+function __VinylInstanceBussSet(_buss_name)
+{
+    __bussName = _buss_name;
+        
+    return self;
+}
+    
+function __VinylInstanceBussGet()
+{
+    return __bussName;
+}
+    
+function __VinylInstanceIsStopping()
+{
+    return __stopping;
+}
+    
+function __VinylInstanceIsFinished()
+{
+    return __finished;
+}
+    
 #endregion
