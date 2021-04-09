@@ -16,7 +16,7 @@ function VinylLoop()
     }
     else
     {
-        __VinylError("Unsupported number of arguments (", argument_count, ") for VinylLoop()\n(Should be 1 or 3, use <undefined> or \"\" for no source");
+        __VinylError("Unsupported number of arguments (", argument_count, ") for VinylLoop()\n(Should be 1, 2, or 3. Use <undefined> or \"\" as an argument for no source");
     }
 }
 

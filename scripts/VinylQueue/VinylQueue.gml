@@ -5,7 +5,7 @@ function VinylQueue()
 {
     switch(argument_count)
     {
-        case 0: __VinylError("Unsupported number of arguments (", argument_count, ") for VinylQueue()\n(Should be at least 1)"); break;
+        case 0: __VinylError("Unsupported number of arguments (0) for VinylQueue()\n(Should be at least 1)"); break;
         
         case 1: return new __VinylPatternQueue(argument[0]); break;
         case 2: return new __VinylPatternQueue(argument[0], argument[1]); break;
@@ -23,68 +23,71 @@ function __VinylPatternQueue() constructor
 {
     __VinylPatternCommonConstruct();
     
-    sources       = array_create(argument_count, undefined);
-    playing_index = undefined;
-    loop          = false;
-    pops          = false;
-    loop_on_last  = false;
+    __sources      = array_create(argument_count, undefined);
+    __playingIndex = undefined;
+    __loop         = false;
+    __pops         = false;
+    __loopOnLast = false;
     
     //Copy input sources into the actual array
     var _i = 0;
     repeat(argument_count)
     {
-        sources[@ _i] = argument[_i];
+        __sources[@ _i] = argument[_i];
         ++_i;
     }
     
-    __source_stopping = [];
     
-    static Play = function()
-    {
-        var _instance = __Play(true);
-        ds_list_add(global.__vinylPlaying, _instance);
-        return _instance;
-    }
+    
+    #region Common Public Methods
+    
+    static Play        = __VinylPatternPlay;
+    static GainSet     = __VinylPatternGainSet;
+    static GainGet     = __VinylPatternGainGet;
+    static PitchSet    = __VinylPatternPitchSet;
+    static PitchGet    = __VinylPatternPitchGet;
+    static FadeTimeSet = __VinylPatternFadeTimeSet;
+    static FadeTimeGet = __VinylPatternFadeTimeGet;
+    static BussSet     = __VinylPatternBussSet;
+    static BussGet     = __VinylPatternBussGet;
+    
+    #endregion
+    
+    
+    
+    #region Private Methods
     
     static __Play = function(_direct)
     {
-        var _sources = array_create(array_length(sources));
+        var _sources = array_create(array_length(__sources));
         
         //Patternise and generate sources
         var _i = 0;
         repeat(array_length(_sources))
         {
-            var _source = __VinylPatternizeSource(sources[_i]);
+            var _source = __VinylPatternizeSource(__sources[_i]);
             _sources[@ _i] = _source.__Play(false);
             ++_i;
         }
         
         //Generate our own player
-        with(new __VinyPlayerQueue(_sources, loop, pops, loop_on_last))
+        with(new __VinyPlayerQueue(_sources, __loop, __pops, __loopOnLast))
         {
             __pattern = other;
             __Reset();
-            if (_direct) buss_name = other.buss_name;
+            if (_direct) __bussName = other.__bussName;
             return self;
         }
     }
     
-    //I don't trust GM not to mess up these functions if I put them in the common definition
-    static BussSet = function(_buss_name)
-    {
-        buss_name = _buss_name;
-        return self;
-    }
-    
-    static BussGet = function()
-    {
-        return buss_name;
-    }
-    
     static toString = function()
     {
-        return "Queue " + string(sources);
+        return "Queue " + string(__sources);
     }
+    
+    #endregion
+    
+    
     
     if (__VINYL_DEBUG) __VinylTrace("Created pattern ", self);
 }
@@ -94,61 +97,29 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
 {
     __VinylPlayerCommonConstruct();
     
-    sources       = _sources;
-    playing_index = undefined;
-    loop          = _loop;
-    pops          = _pops;
-    loop_on_last  = _loop_on_last;
+    __sources      = _sources;
+    __playingIndex = undefined;
+    __loop         = _loop;
+    __pops         = _pops;
+    __loopOnLast   = _loop_on_last;
     
     //Make sure all the sources we've been given have this player as their parent
     var _i = 0;
-    repeat(array_length(sources))
+    repeat(array_length(__sources))
     {
-        sources[_i].__parent = self;
+        __sources[_i].__parent = self;
         ++_i;
     }
     
     //Create a backup of our sources to use when we reset this player
-    __sources_copy = array_create(array_length(sources));
-    array_copy(__sources_copy, 0, sources, 0, array_length(sources));
+    __sourcesCopy = array_create(array_length(__sources));
+    array_copy(__sourcesCopy, 0, __sources, 0, array_length(__sources));
     
-    __source_stopping = [];
+    __sourceStopping = [];
     
-    static __Reset = function()
-    {
-        __VinylPlayerCommonReset();
-        
-        __index       = undefined;
-        playing_index = __index;
-        __current     = undefined;
-        
-        //Restore our sources backup
-        sources = array_create(array_length(__sources_copy));
-        array_copy(sources, 0, __sources_copy, 0, array_length(__sources_copy));
-        
-        //Reset our sources too
-        var _i = 0;
-        repeat(array_length(sources))
-        {
-            sources[_i].__Reset();
-            ++_i;
-        }
-    }
     
-    __Reset();
     
-    static __Play = function()
-    {
-        __VinylPlayerCommonPlay(false);
-        
-        if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ")");
-        
-        //Play the first source
-        __index       = 0;
-        playing_index = __index;
-        __current     = sources[__index];
-        with(__current) __Play();
-    }
+    #region Public Methods
     
     static GetPosition = function()
     {
@@ -163,16 +134,6 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
         {
             __current.SetPosition(_time);
         }
-    }
-    
-    static IsStopping = function()
-    {
-        return __stopping;
-    }
-    
-    static IsFinished = function()
-    {
-        return __finished;
     }
     
     static Stop = function()
@@ -191,16 +152,16 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
     static WillFinish = function()
     {
         var _i = 0;
-        repeat(array_length(sources))
+        repeat(array_length(__sources))
         {
-            if (!sources[_i].WillFinish()) return false;
+            if (!__sources[_i].WillFinish()) return false;
             ++_i;
         }
         
         var _i = 0;
-        repeat(array_length(__source_stopping))
+        repeat(array_length(__sourceStopping))
         {
-            if (!__source_stopping[_i].WillFinish()) return false;
+            if (!__sourceStopping[_i].WillFinish()) return false;
             ++_i;
         }
         
@@ -212,40 +173,99 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
         if (!__finished && __VINYL_DEBUG) __VinylTrace("Finished ", self);
         
         var _i = 0;
-        repeat(array_length(sources))
+        repeat(array_length(__sources))
         {
-            with(sources[_i]) StopNow();
+            with(__sources[_i]) StopNow();
             ++_i;
         }
         
         //And also catch all of our stopping sources too
         var _i = 0;
-        repeat(array_length(__source_stopping))
+        repeat(array_length(__sourceStopping))
         {
-            with(__source_stopping[_i]) StopNow();
+            with(__sourceStopping[_i]) StopNow();
             ++_i;
         }
         
-        playing_index = undefined;
+        __playingIndex = undefined;
         
         __stopping = false;
         __finished = true;
         __current  = undefined;
     }
     
+    #endregion
+    
+    
+    
+    #region Common Public Methods (Gain/pitch/fade time/buss)
+    
+    static GainSet        = __VinylInstanceGainSet;
+    static GainTargetSet  = __VinylInstanceGainTargetSet;
+    static GainGet        = __VinylInstanceGainGet;
+    static PitchSet       = __VinylInstancePitchSet;
+    static PitchTargetSet = __VinylInstancePitchTargetSet;
+    static PitchTargetSet = __VinylInstancePitchTargetSet;
+    static FadeTimeSet    = __VinylInstanceFadeTimeSet;
+    static FadeTimeGet    = __VinylInstanceFadeTimeGet;
+    static BussSet        = __VinylInstanceBussSet;
+    static BussGet        = __VinylInstanceBussGet;
+    static IsStopping     = __VinylInstanceIsStopping;
+    static IsFinished     = __VinylInstanceIsFinished;
+    
+    #endregion
+    
+    
+    
+    #region Private Methods
+    
+    static __Reset = function()
+    {
+        __VinylPlayerCommonReset();
+        
+        __index        = undefined;
+        __playingIndex = __index;
+        __current      = undefined;
+        
+        //Restore our sources backup
+        sources = array_create(array_length(__sourcesCopy));
+        array_copy(sources, 0, __sourcesCopy, 0, array_length(__sourcesCopy));
+        
+        //Reset our sources too
+        var _i = 0;
+        repeat(array_length(__sources))
+        {
+            __sources[_i].__Reset();
+            ++_i;
+        }
+    }
+    
+    static __Play = function()
+    {
+        __VinylPlayerCommonPlay(false);
+        
+        if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
+        
+        //Play the first source
+        __index        = 0;
+        __playingIndex = __index;
+        __current      = __sources[__index];
+        with(__current) __Play();
+    }
+    
     static __Tick = function()
     {
-        if (playing_index != __index)
+        if (__playingIndex != __index)
         {
-            __VinylTrace("Playing index set to ", playing_index, " for ", self);
+            __VinylTrace("Playing index set to ", __playingIndex, " for ", self);
             
             //Stop our current source and reference it in our stopping array
             __current.Stop();
-            __source_stopping[@ array_length(__source_stopping)] = __current;
+            __sourceStopping[@ array_length(__sourceStopping)] = __current;
             
             //Change our index and start playing the appropriate source
-            __index = playing_index;
-            __current = sources[__index];
+            __index = __playingIndex;
+            __current = __sources[__index];
             with(__current) __Play();
         }
         
@@ -259,7 +279,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
             __VinylPlayerCommonTick(false);
             
             //Handle fade out
-            if (__stopping && (current_time - __time_stopping > time_fade_out)) StopNow();
+            if (__stopping && (current_time - __timeStopping > __timeFadeOut)) StopNow();
             
             if (__current != undefined)
             {
@@ -267,16 +287,16 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
                 with(__current) __Tick();
                 
                 //Iterate over all our sources that are fading out 
-                var _i = array_length(__source_stopping)-1;
-                repeat(array_length(__source_stopping))
+                var _i = array_length(__sourceStopping)-1;
+                repeat(array_length(__sourceStopping))
                 {
-                    var _source = __source_stopping[_i];
+                    var _source = __sourceStopping[_i];
                     
                     if (is_struct(_source))
                     {
                         if (_source.__finished)
                         {
-                            __VinylArrayDelete(__source_stopping, _i);
+                            __VinylArrayDelete(__sourceStopping, _i);
                         }
                         else
                         {
@@ -291,10 +311,10 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
                 {
                     if (__current.__stopping || __current.WillFinish())
                     {
-                        if (pops)
+                        if (__pops)
                         {
                             //Pop the current source so long as we're not on the last source in "loop on last" mode
-                            if (!loop_on_last || (array_length(sources) > 1)) __VinylArrayDelete(sources, __index);
+                            if (!__loopOnLast || (array_length(__sources) > 1)) __VinylArrayDelete(__sources, __index);
                         }
                         else
                         {
@@ -303,40 +323,40 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
                         
                         var _new_play = false;
                         
-                        if (array_length(sources) <= 0)
+                        if (array_length(__sources) <= 0)
                         {
                             //Finish the queue if there are no sources left to play
-                            playing_index = undefined;
+                            __playingIndex = undefined;
                             StopNow();
                         }
-                        else if (loop)
+                        else if (__loop)
                         {
                             //If we're looping, wrap around to the start of the queue if necessary and play the next source
-                            __index = __index mod array_length(sources);
-                            playing_index = __index;
+                            __index = __index mod array_length(__sources);
+                            __playingIndex = __index;
                             __current = sources[__index];
                             _new_play = true;
                         }
-                        else if (loop_on_last && (__index >= array_length(sources)))
+                        else if (__loopOnLast && (__index >= array_length(__sources)))
                         {
                             //If we're looping on the last source, loop that source
-                            __index = array_length(sources) - 1;
-                            playing_index = __index;
-                            __current = sources[__index];
+                            __index = array_length(__sources) - 1;
+                            __playingIndex = __index;
+                            __current = __sources[__index];
                             _new_play = true;
                         }
                         else
                         {
                             //If we're *not* looping, only play the next source if we have something to play!
-                            if (__index < array_length(sources))
+                            if (__index < array_length(__sources))
                             {
-                                playing_index = __index;
-                                __current = sources[__index];
+                                __playingIndex = __index;
+                                __current = __sources[__index];
                                 _new_play = true;
                             }
                             else
                             {
-                                playing_index = undefined;
+                                __playingIndex = undefined;
                                 StopNow();
                             }
                         }
@@ -349,7 +369,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
                             if (VinylIsPattern(__current))
                             {
                                 __current = __current.__Play(false); //Generate the source
-                                sources[@ __index] = __current;
+                                __sources[@ __index] = __current;
                             }
                             
                             with(__current) __Play();
@@ -364,22 +384,16 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
         }
     }
     
-    //I don't trust GM not to mess up these functions if I put them in the common definition
-    static BussSet = function(_buss_name)
-    {
-        buss_name = _buss_name;
-        return self;
-    }
-    
-    static BussGet = function()
-    {
-        return buss_name;
-    }
-    
     static toString = function()
     {
-        return "Queue " + string(sources);
+        return "Queue " + string(__sources);
     }
+    
+    #endregion
+    
+    
+    
+    __Reset();
     
     if (__VINYL_DEBUG) __VinylTrace("Created player ", self);
 }

@@ -18,6 +18,11 @@ if (keyboard_check_pressed(ord("4")))
     VINYL_LIB.footstep.Play();
 }
 
+if (keyboard_check_pressed(ord("5")))
+{
+    VinylQueue(snd_1, snd_2, snd_3, snd_4, snd_5).Play();
+}
+
 //if (keyboard_check_pressed(vk_space))
 //{
 //    instance = VinylLoop(snd_1, snd_2, snd_3).Play();
