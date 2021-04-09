@@ -51,6 +51,30 @@ function __VinylPatternRandom() constructor
     
     
     
+    #region Public Methods
+    
+    static SourceGet = function(_index)
+    {
+        if ((_index < 0) || (_index >= array_length(__sources))) return undefined;
+        return __sources[_index];
+    }
+    
+    static SourcesGetCount = function()
+    {
+        return array_length(__sources);
+    }
+    
+    static SourcesGetArray = function()
+    {
+        var _array = array_create(array_length(__sources));
+        array_copy(_array, 0, __sources, 0, array_length(__sources));
+        return _array;
+    }
+    
+    #endregion
+    
+    
+    
     #region Private Methods
     
     static __Play = function(_direct)

@@ -37,6 +37,52 @@ function __VinylPatternMulti() constructor
     
     
     
+    #region Public Methods
+    
+    static LoopSet = function(_state)
+    {
+        __loop = _state;
+        return self;
+    }
+    
+    static LoopGet = function()
+    {
+        return __loop;
+    }
+    
+    static SynchronizeSet = function(_state)
+    {
+        __synchronize = _state;
+        return self;
+    }
+    
+    static SynchronizeGet = function()
+    {
+        return __synchronize;
+    }
+    
+    static SourceGet = function(_index)
+    {
+        if ((_index < 0) || (_index >= array_length(__sources))) return undefined;
+        return __sources[_index];
+    }
+    
+    static SourcesGetCount = function()
+    {
+        return array_length(__sources);
+    }
+    
+    static SourcesGetArray = function()
+    {
+        var _array = array_create(array_length(__sources));
+        array_copy(_array, 0, __sources, 0, array_length(__sources));
+        return _array;
+    }
+    
+    #endregion
+    
+    
+    
     #region Common Public Methods
     
     static Play        = __VinylPatternPlay;
@@ -190,6 +236,28 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
         
         __stopping = false;
         __finished = true;
+    }
+    
+    static LoopSet = function(_state)
+    {
+        __loop = _state;
+        return self;
+    }
+    
+    static LoopGet = function()
+    {
+        return __loop;
+    }
+    
+    static SynchronizeSet = function(_state)
+    {
+        __synchronize = _state;
+        return self;
+    }
+    
+    static SynchronizeGet = function()
+    {
+        return __synchronize;
     }
     
     #endregion

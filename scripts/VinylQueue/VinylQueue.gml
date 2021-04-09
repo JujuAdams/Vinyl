@@ -23,10 +23,9 @@ function __VinylPatternQueue() constructor
 {
     __VinylPatternCommonConstruct();
     
-    __sources      = array_create(argument_count, undefined);
-    __playingIndex = undefined;
-    __loop         = false;
-    __pops         = false;
+    __sources    = array_create(argument_count, undefined);
+    __loop       = false;
+    __pops       = false;
     __loopOnLast = false;
     
     //Copy input sources into the actual array
@@ -50,6 +49,63 @@ function __VinylPatternQueue() constructor
     static FadeTimeGet = __VinylPatternFadeTimeGet;
     static BussSet     = __VinylPatternBussSet;
     static BussGet     = __VinylPatternBussGet;
+    
+    #endregion
+    
+    
+    
+    #region Public Methods
+    
+    static LoopSet = function(_state)
+    {
+        __loop = _state;
+        return self;
+    }
+    
+    static LoopGet = function()
+    {
+        return __loop;
+    }
+    
+    static PopSet = function(_state)
+    {
+        __pops = _state;
+        return self;
+    }
+    
+    static PopGet = function()
+    {
+        return __pops;
+    }
+    
+    static LoopOnLastSet = function(_state)
+    {
+        __loopOnLast = _state;
+        return self;
+    }
+    
+    static LoopOnLastGet = function()
+    {
+        return __loopOnLast;
+    }
+    
+    static SourceGet = function(_index)
+    {
+        if ((_index < 0) || (_index >= array_length(__sources))) return undefined;
+        return __sources[_index];
+    }
+    
+    static SourcesGetCount = function()
+    {
+        return array_length(__sources);
+    }
+    
+    static SourcesGetArray = function()
+    {
+        var _array = array_create(array_length(__sources));
+        array_copy(_array, 0, __sources, 0, array_length(__sources));
+        return _array;
+    }
     
     #endregion
     

@@ -30,6 +30,17 @@ function __VinylPatternBasic(_asset) constructor
     
     
     
+    #region Public Methods
+    
+    static AssetGet = function()
+    {
+        return __asset;
+    }
+    
+    #endregion
+    
+    
+    
     #region Private Methods
     
     static __Play = function(_direct)

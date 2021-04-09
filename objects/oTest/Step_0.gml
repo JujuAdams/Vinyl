@@ -25,8 +25,8 @@ if (keyboard_check_pressed(ord("5")))
 
 if (keyboard_check_pressed(ord("6")))
 {
-    VinylMulti(snd_1, snd_2, snd_3, snd_4, snd_5).Play();
-}
+    instance = VinylMulti(snd_1, snd_2, snd_3, snd_4, snd_5).LoopSet(true).Play();
+} 
 
 //if (keyboard_check_pressed(vk_space))
 //{

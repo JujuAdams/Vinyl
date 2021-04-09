@@ -51,6 +51,38 @@ function __VinylPatternLoop(_intro, _loop, _outro) constructor
     
     
     
+    #region Public Methods
+    
+    static WaitToPlayOutroSet = function(_state)
+    {
+        __waitToPlayOutro = _state;
+        return self;
+    }
+    
+    static WaitToPlayOutroGet = function()
+    {
+        return __waitToPlayOutro;
+    }
+    
+    static IntroGet = function()
+    {
+        return __intro;
+    }
+    
+    static LoopGet = function()
+    {
+        return __loop;
+    }
+    
+    static OutroGet = function()
+    {
+        return __outro;
+    }
+    
+    #endregion
+    
+    
+    
     #region Private Methods
     
     static __Play = function(_direct)
