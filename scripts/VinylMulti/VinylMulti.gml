@@ -156,7 +156,7 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
     
     #region Public Methods
     
-    static GetPosition = function()
+    static PositionGet = function()
     {
         if (!__started || __finished) return undefined;
         
@@ -166,7 +166,7 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
         var _i = 0;
         repeat(array_length(__sources))
         {
-            var _time = __sources[_i].GetPosition();
+            var _time = __sources[_i].PositionGet();
             if (_time != undefined)
             {
                 _any_valid = true;
@@ -180,14 +180,14 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
     }
     
     /// @param time
-    static SetPosition = function(_time)
+    static PositionSet = function(_time)
     {
         if ((_time != undefined) && __started && !__finished)
         {
             var _i = 0;
             repeat(array_length(__sources))
             {
-                __sources[_i].SetPosition(_time);
+                __sources[_i].PositionSet(_time);
                 ++_i;
             }
         }
@@ -341,7 +341,7 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
                         with(__sources[_i])
                         {
                             __Tick(); //Update the instances we're currently playing
-                            if (_time == undefined) _time = GetPosition() else SetPosition(_time);
+                            if (_time == undefined) _time = PositionGet() else PositionSet(_time);
                             if (WillFinish()) _finished = true;
                         }
                         
@@ -366,7 +366,7 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
                         with(__sources[_i])
                         {
                             __Tick(); //Update the instances we're currently playing
-                            if (_time == undefined) _time = GetPosition() else SetPosition(_time);
+                            if (_time == undefined) _time = PositionGet() else PositionSet(_time);
                             if (__finished) _finished = true;
                         }
                         

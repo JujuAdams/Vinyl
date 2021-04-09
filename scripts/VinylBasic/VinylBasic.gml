@@ -78,14 +78,14 @@ function __VinyInstanceBasic(_asset) constructor
     
     #region Public Methods
     
-    static GetPosition = function()
+    static PositionGet = function()
     {
         if (!__started || __finished || !is_numeric(__instance) || !audio_is_playing(__instance)) return undefined;
         return audio_sound_get_track_position(__instance);
     }
     
     /// @param time
-    static SetPosition = function(_time)
+    static PositionSet = function(_time)
     {
         if ((_time != undefined) && __started && !__finished && is_numeric(__instance) && audio_is_playing(__instance))
         {

@@ -130,18 +130,18 @@ function __VinyInstanceRandom(_sources) constructor
     
     #region Public Methods
     
-    static GetPosition = function()
+    static PositionGet = function()
     {
         if (!__started || __finished || !is_struct(__current)) return undefined;
-        return __current.GetPosition();
+        return __current.PositionGet();
     }
     
     /// @param time
-    static SetPosition = function(_time)
+    static PositionSet = function(_time)
     {
         if ((_time != undefined) && __started && !__finished && is_struct(__current))
         {
-            __current.SetPosition(_time);
+            __current.PositionSet(_time);
         }
     }
     
