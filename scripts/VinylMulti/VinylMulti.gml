@@ -5,7 +5,7 @@ function VinylMulti()
 {
     switch(argument_count)
     {
-        case 0: __VinylError("Unsupported number of arguments (", argument_count, ") for VinylMulti()\n(Should be at least 1)"); break;
+        case 0: __VinylError("Unsupported number of arguments (0) for VinylMulti()\n(Should be at least 1)"); break;
         
         case 1: return new __VinylPatternMulti(argument[0]); break;
         case 2: return new __VinylPatternMulti(argument[0], argument[1]); break;
@@ -23,64 +23,69 @@ function __VinylPatternMulti() constructor
 {
     __VinylPatternCommonConstruct();
     
-    sources     = array_create(argument_count, undefined);
-    synchronize = false;
-    loop        = false;
+    __sources     = array_create(argument_count, undefined);
+    __synchronize = false;
+    __loop        = false;
     
     //Copy input sources into the actual array
     var _i = 0;
     repeat(argument_count)
     {
-        sources[@ _i] = argument[_i];
+        __sources[@ _i] = argument[_i];
         ++_i;
     }
     
-    static Play = function()
-    {
-        var _instance = __Play(true);
-        ds_list_add(global.__vinylPlaying, _instance);
-        return _instance;
-    }
+    
+    
+    #region Common Public Methods
+    
+    static Play        = __VinylPatternPlay;
+    static GainSet     = __VinylPatternGainSet;
+    static GainGet     = __VinylPatternGainGet;
+    static PitchSet    = __VinylPatternPitchSet;
+    static PitchGet    = __VinylPatternPitchGet;
+    static FadeTimeSet = __VinylPatternFadeTimeSet;
+    static FadeTimeGet = __VinylPatternFadeTimeGet;
+    static BussSet     = __VinylPatternBussSet;
+    static BussGet     = __VinylPatternBussGet;
+    
+    #endregion
+    
+    
+    
+    #region Private Methods
     
     static __Play = function(_direct)
     {
-        var _sources = array_create(array_length(sources));
+        var _sources = array_create(array_length(__sources));
         
         //Patternise and generate sources
         var _i = 0;
         repeat(array_length(_sources))
         {
-            var _source = __VinylPatternizeSource(sources[_i]);
+            var _source = __VinylPatternizeSource(__sources[_i]);
             _sources[@ _i] = _source.__Play(false);
             ++_i;
         }
         
         //Generate our own player
-        with(new __VinyPlayerMulti(_sources, synchronize, loop))
+        with(new __VinyPlayerMulti(_sources, __synchronize, __loop))
         {
             __pattern = other;
             __Reset();
-            if (_direct) buss_name = other.buss_name;
+            if (_direct) __bussName = other.__bussName;
             return self;
         }
     }
     
-    //I don't trust GM not to mess up these functions if I put them in the common definition
-    static BussSet = function(_buss_name)
-    {
-        buss_name = _buss_name;
-        return self;
-    }
-    
-    static BussGet = function()
-    {
-        return buss_name;
-    }
-    
     static toString = function()
     {
-        return "Multi " + string(sources);
+        return "Multi " + string(__sources);
     }
+    
+    #endregion
+    
+    
     
     if (__VINYL_DEBUG) __VinylTrace("Created pattern ", self);
 }
@@ -90,46 +95,20 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
 {
     __VinylPlayerCommonConstruct();
     
-    synchronize = _synchronize;
-    loop        = _loop;
-    
-    sources = _sources;
+    __synchronize = _synchronize;
+    __loop        = _loop;
+    __sources     = _sources;
     
     var _i = 0;
-    repeat(array_length(sources))
+    repeat(array_length(__sources))
     {
-        if (is_struct(sources[_i])) sources[_i].__parent = self;
+        if (is_struct(__sources[_i])) __sources[_i].__parent = self;
         ++_i;
     }
     
-    static __Reset = function()
-    {
-        __VinylPlayerCommonReset();
-        
-        var _i = 0;
-        repeat(array_length(sources))
-        {
-            if (is_struct(sources[_i])) sources[_i].__Reset();
-            ++_i;
-        }
-    }
     
-    __Reset();
     
-    static __Play = function()
-    {
-        __VinylPlayerCommonPlay(false);
-        
-        if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", buss_name, "\", gain=", __gain, ", pitch=", __pitch, ")");
-        
-        //Figure out what to play
-        var _i = 0;
-        repeat(array_length(sources))
-        {
-            with(sources[_i]) __Play();
-            ++_i;
-        }
-    }
+    #region Public Methods
     
     static GetPosition = function()
     {
@@ -139,9 +118,9 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
         
         var _max_time = 0;
         var _i = 0;
-        repeat(array_length(sources))
+        repeat(array_length(__sources))
         {
-            var _time = sources[_i].GetPosition();
+            var _time = __sources[_i].GetPosition();
             if (_time != undefined)
             {
                 _any_valid = true;
@@ -160,22 +139,12 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
         if ((_time != undefined) && __started && !__finished)
         {
             var _i = 0;
-            repeat(array_length(sources))
+            repeat(array_length(__sources))
             {
-                sources[_i].SetPosition(_time);
+                __sources[_i].SetPosition(_time);
                 ++_i;
             }
         }
-    }
-    
-    static IsStopping = function()
-    {
-        return __stopping;
-    }
-    
-    static IsFinished = function()
-    {
-        return __finished;
     }
     
     static Stop = function()
@@ -185,23 +154,23 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
             if (__VINYL_DEBUG) __VinylTrace("Stopping ", self);
             
             var _i = 0;
-            repeat(array_length(sources))
+            repeat(array_length(__sources))
             {
-                with(sources[_i]) Stop(false);
+                with(__sources[_i]) Stop(false);
                 ++_i;
             }
             
             __stopping = true;
-            __time_stopping = current_time;
+            __timeStopping = current_time;
         }
     }
     
     static WillFinish = function()
     {
         var _i = 0;
-        repeat(array_length(sources))
+        repeat(array_length(__sources))
         {
-            if (!sources[_i].WillFinish()) return false;
+            if (!__sources[_i].WillFinish()) return false;
             ++_i;
         }
         
@@ -213,14 +182,66 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
         if (__VINYL_DEBUG) __VinylTrace("Finished ", self);
         
         var _i = 0;
-        repeat(array_length(sources))
+        repeat(array_length(__sources))
         {
-            with(sources[_i]) StopNow();
+            with(__sources[_i]) StopNow();
             ++_i;
         }
         
         __stopping = false;
         __finished = true;
+    }
+    
+    #endregion
+    
+    
+    
+    #region Common Public Methods (Gain/pitch/fade time/buss)
+    
+    static GainSet        = __VinylInstanceGainSet;
+    static GainTargetSet  = __VinylInstanceGainTargetSet;
+    static GainGet        = __VinylInstanceGainGet;
+    static PitchSet       = __VinylInstancePitchSet;
+    static PitchTargetSet = __VinylInstancePitchTargetSet;
+    static PitchTargetSet = __VinylInstancePitchTargetSet;
+    static FadeTimeSet    = __VinylInstanceFadeTimeSet;
+    static FadeTimeGet    = __VinylInstanceFadeTimeGet;
+    static BussSet        = __VinylInstanceBussSet;
+    static BussGet        = __VinylInstanceBussGet;
+    static IsStopping     = __VinylInstanceIsStopping;
+    static IsFinished     = __VinylInstanceIsFinished;
+    
+    #endregion
+    
+    
+    
+    #region Private Methods
+    
+    static __Reset = function()
+    {
+        __VinylPlayerCommonReset();
+        
+        var _i = 0;
+        repeat(array_length(__sources))
+        {
+            if (is_struct(__sources[_i])) __sources[_i].__Reset();
+            ++_i;
+        }
+    }
+    
+    static __Play = function()
+    {
+        __VinylPlayerCommonPlay(false);
+        
+        if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
+        
+        //Figure out what to play
+        var _i = 0;
+        repeat(array_length(__sources))
+        {
+            with(__sources[_i]) __Play();
+            ++_i;
+        }
     }
     
     static __Tick = function()
@@ -237,19 +258,19 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
             __VinylPlayerCommonTick(false);
             
             //Handle fade out
-            if (__stopping && (current_time - __time_stopping > time_fade_out)) StopNow();
+            if (__stopping && (current_time - __timeStopping > __timeFadeOut)) StopNow();
             
-            if (synchronize)
+            if (__synchronize)
             {
                 var _finished = false;
                 var _time = undefined;
                 
-                if (loop)
+                if (__loop)
                 {
                     var _i = 0;
-                    repeat(array_length(sources))
+                    repeat(array_length(__sources))
                     {
-                        with(sources[_i])
+                        with(__sources[_i])
                         {
                             __Tick(); //Update the instances we're currently playing
                             if (_time == undefined) _time = GetPosition() else SetPosition(_time);
@@ -262,9 +283,9 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
                     if (_finished)
                     {
                         var _i = 0;
-                        repeat(array_length(sources))
+                        repeat(array_length(__sources))
                         {
-                            sources[_i].__Play();
+                            __sources[_i].__Play();
                             ++_i;
                         }
                     }
@@ -272,9 +293,9 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
                 else
                 {
                     var _i = 0;
-                    repeat(array_length(sources))
+                    repeat(array_length(__sources))
                     {
-                        with(sources[_i])
+                        with(__sources[_i])
                         {
                             __Tick(); //Update the instances we're currently playing
                             if (_time == undefined) _time = GetPosition() else SetPosition(_time);
@@ -289,12 +310,12 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
             }
             else
             {
-                if (loop)
+                if (__loop)
                 {
                     var _i = 0;
-                    repeat(array_length(sources))
+                    repeat(array_length(__sources))
                     {
-                        with(sources[_i])
+                        with(__sources[_i])
                         {
                             __Tick(); //Update the instances we're currently playing
                             if (WillFinish()) __Play();
@@ -307,9 +328,9 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
                 {
                     var _finished = true;
                     var _i = 0;
-                    repeat(array_length(sources))
+                    repeat(array_length(__sources))
                     {
-                        with(sources[_i])
+                        with(__sources[_i])
                         {
                             __Tick(); //Update the instances we're currently playing
                             if (!__finished) _finished = false;
@@ -324,22 +345,16 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
         }
     }
     
-    //I don't trust GM not to mess up these functions if I put them in the common definition
-    static BussSet = function(_buss_name)
-    {
-        buss_name = _buss_name;
-        return self;
-    }
-    
-    static BussGet = function()
-    {
-        return buss_name;
-    }
-    
     static toString = function()
     {
-        return "Multi " + string(sources);
+        return "Multi " + string(__sources);
     }
+    
+    #endregion
+    
+    
+    
+    __Reset();
     
     if (__VINYL_DEBUG) __VinylTrace("Created player ", self);
 }
