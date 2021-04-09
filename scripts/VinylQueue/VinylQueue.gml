@@ -212,25 +212,6 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
         __current  = undefined;
     }
     
-    static WillFinish = function()
-    {
-        var _i = 0;
-        repeat(array_length(__sources))
-        {
-            if (!__sources[_i].WillFinish()) return false;
-            ++_i;
-        }
-        
-        var _i = 0;
-        repeat(array_length(__sourceStopping))
-        {
-            if (!__sourceStopping[_i].WillFinish()) return false;
-            ++_i;
-        }
-        
-        return true;
-    }
-    
     
     
     static Choose = function(_index)
@@ -454,7 +435,7 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
                 
                 if (!__stopping)
                 {
-                    if (__current.__stopping || __current.WillFinish())
+                    if (__current.__stopping || __current.__WillFinish())
                     {
                         if (__pops)
                         {
@@ -522,6 +503,25 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
                 }
             }
         }
+    }
+    
+    static __WillFinish = function()
+    {
+        var _i = 0;
+        repeat(array_length(__sources))
+        {
+            if (!__sources[_i].__WillFinish()) return false;
+            ++_i;
+        }
+        
+        var _i = 0;
+        repeat(array_length(__sourceStopping))
+        {
+            if (!__sourceStopping[_i].__WillFinish()) return false;
+            ++_i;
+        }
+        
+        return true;
     }
     
     static toString = function()

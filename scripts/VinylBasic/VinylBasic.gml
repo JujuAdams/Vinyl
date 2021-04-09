@@ -118,12 +118,6 @@ function __VinyInstanceBasic(_asset) constructor
         }
     }
     
-    static WillFinish = function()
-    {
-        if (!__started || __finished || !is_numeric(__GMInstance) || !audio_is_playing(__GMInstance)) return true;
-        return (((audio_sound_length(__GMInstance) - audio_sound_get_track_position(__GMInstance)) / __pitch) <= (VINYL_STEP_DURATION/1000));
-    }
-    
     static AssetGet = function()
     {
         return __asset;
@@ -209,6 +203,12 @@ function __VinyInstanceBasic(_asset) constructor
                 if (!is_numeric(__GMInstance) || !audio_is_playing(__GMInstance)) Kill();
             }
         }
+    }
+    
+    static __WillFinish = function()
+    {
+        if (!__started || __finished || !is_numeric(__GMInstance) || !audio_is_playing(__GMInstance)) return true;
+        return (((audio_sound_length(__GMInstance) - audio_sound_get_track_position(__GMInstance)) / __pitch) <= (VINYL_STEP_DURATION/1000));
     }
     
     static toString = function()

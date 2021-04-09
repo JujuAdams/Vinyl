@@ -61,12 +61,6 @@ function __VinylPatternMulti() constructor
         return __synchronize;
     }
     
-    static SourceGet = function(_index)
-    {
-        if ((_index < 0) || (_index >= array_length(__sources))) return undefined;
-        return __sources[_index];
-    }
-    
     #endregion
     
     
@@ -199,18 +193,6 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
         }
     }
     
-    static WillFinish = function()
-    {
-        var _i = 0;
-        repeat(array_length(__sources))
-        {
-            if (!__sources[_i].WillFinish()) return false;
-            ++_i;
-        }
-        
-        return true;
-    }
-    
     static Kill = function()
     {
         if (__VINYL_DEBUG) __VinylTrace("Killed ", self);
@@ -337,7 +319,7 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
                         {
                             __Tick(); //Update the instances we're currently playing
                             if (_time == undefined) _time = PositionGet() else PositionSet(_time);
-                            if (WillFinish()) _finished = true;
+                            if (__WillFinish()) _finished = true;
                         }
                         
                         ++_i;
@@ -381,7 +363,7 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
                         with(__sources[_i])
                         {
                             __Tick(); //Update the instances we're currently playing
-                            if (WillFinish()) __Play();
+                            if (__WillFinish()) __Play();
                         }
                     
                         ++_i;
@@ -406,6 +388,18 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
                 }
             }
         }
+    }
+    
+    static __WillFinish = function()
+    {
+        var _i = 0;
+        repeat(array_length(__sources))
+        {
+            if (!__sources[_i].__WillFinish()) return false;
+            ++_i;
+        }
+        
+        return true;
     }
     
     static toString = function()

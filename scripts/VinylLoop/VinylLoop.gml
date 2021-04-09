@@ -126,11 +126,11 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
 {
     __VinylInstanceCommonConstruct();
     
-    __waitToPlayOutro = _wait_to_play_outro;
-    
     __intro = _intro;
     __loop  = _loop;
     __outro = _outro;
+    
+    __waitToPlayOutro = _wait_to_play_outro;
     
     if (__intro != undefined) __intro.__parent = self;
     __loop.__parent = self;
@@ -171,30 +171,24 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
     {
         if (!__finished && __VINYL_DEBUG) __VinylTrace("Killed ", self);
         
-        if (__intro != undefined) with(__intro) Kill();
-        with(__loop) Kill();
-        if (__outro != undefined) with(__outro) Kill();
+        if (__intro != undefined) __intro.Kill();
+        __loop.Kill();
+        if (__outro != undefined) __outro.Kill();
         
         __stopping = false;
         __finished = true;
         __current  = undefined;
     }
     
-    static WillFinish = function()
+    static PhaseGet = function()
     {
-        if (__intro != undefined)
-        {
-            if (!__intro.WillFinish()) return false;
-        }
+        if (__current == undefined) return undefined;
         
-        if (!__loop.WillFinish()) return false;
+        if (__current == __intro) return 0;
+        if (__current == __loop ) return 1;
+        if (__current == __outro) return 2;
         
-        if (__outro != undefined)
-        {
-            if (!__outro.WillFinish()) return false;
-        }
-        
-        return true;
+        return undefined;
     }
     
     #endregion
@@ -247,8 +241,6 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
     
     static __Tick = function()
     {
-        //TODO - Much like queues, we should be checking to see if the loop source has changed and adjust accordingly
-        
         if (!__started && !__stopping && !__finished)
         {
             //If we're not started and we're not stopping and we ain't finished, then play!
@@ -268,7 +260,7 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
             {
                 with(__current) __Tick();
                 
-                if (__current.WillFinish())
+                if (__current.__WillFinish())
                 {
                     if (__current == __intro)
                     {
@@ -304,6 +296,23 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
                 }
             }
         }
+    }
+    
+    static __WillFinish = function()
+    {
+        if (__intro != undefined)
+        {
+            if (!__intro.__WillFinish()) return false;
+        }
+        
+        if (!__loop.__WillFinish()) return false;
+        
+        if (__outro != undefined)
+        {
+            if (!__outro.__WillFinish()) return false;
+        }
+        
+        return true;
     }
     
     static toString = function()

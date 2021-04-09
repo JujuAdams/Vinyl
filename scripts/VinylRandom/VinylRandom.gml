@@ -150,16 +150,14 @@ function __VinyInstanceRandom(_sources) constructor
         __current  = undefined;
     }
     
-    static WillFinish = function()
+    static CurrentIndexGet = function()
     {
-        var _i = 0;
-        repeat(array_length(__sources))
-        {
-            if (!sources[_i].WillFinish()) return false;
-            ++_i;
-        }
-        
-        return true;
+        return __index;
+    }
+    
+    static CurrentInstanceGet = function()
+    {
+        return __current;
     }
     
     #endregion
@@ -244,6 +242,18 @@ function __VinyInstanceRandom(_sources) constructor
         __index = irandom(array_length(__sources) - 1);
         __current = __sources[__index];
         with(__current) __Play();
+    }
+    
+    static __WillFinish = function()
+    {
+        var _i = 0;
+        repeat(array_length(__sources))
+        {
+            if (!sources[_i].__WillFinish()) return false;
+            ++_i;
+        }
+        
+        return true;
     }
     
     static toString = function()
