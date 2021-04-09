@@ -231,15 +231,17 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
         return true;
     }
     
+    
+    
     static Choose = function(_index)
     {
         if ((_index < 0) || (_index >= array_length(__sources)))
         {
-            __VinylTrace("Invalid index (", _index, "), must be from 0 to ", array_length(__sources) - 1, " inclusive");
+            __VinylError("Invalid index (", _index, "), must be from 0 to ", array_length(__sources) - 1, " inclusive (", self, ")");
         }
         else if (__index != _index)
         {
-            __VinylTrace("Index set to ", _index, " for ", self);
+            __VinylTrace("Index set to ", _index, " (", self, ")");
             
             //Stop our current source and reference it in our stopping array
             __current.Stop();
@@ -265,14 +267,85 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
     static CurrentStop = function()
     {
         var _instance = CurrentInstanceGet();
-        if (_instance != undefined) _instance.Stop();
+        if (_instance != undefined)
+        {
+            //Only try to stop this instance if it's actually an instance
+            _instance.Stop();
+        }
+        else
+        {
+            __VinylTrace("No instance is currently playing (", self, ")");
+        }
     }
     
     static Push = function(_source)
     {
+        return Insert(_source, __loop? __index : array_length(__sources));
+    }
+    
+    static Pop = function()
+    {
+        return Delete((__loop? __index : array_length(__sources)) - 1);
+    }
+    
+    static Insert = function(_source, _index)
+    {
+        //Spin up a new instance to play
         var _instance =  __VinylPatternizeSource(_source);
-        array_push(__sources, _instance.__Play(false));
+        _instance.__Play(false);
+        
+        if (__loop)
+        {
+            var _size = array_length(__sources);
+            if (_size <= 0)
+            {
+                _index = 0;
+            }
+            else
+            {
+                _index = (_index + _size) mod _size;
+            }
+        }
+        else
+        {
+            if ((_index < 0) || (_index > array_length(__sources)))
+            {
+                __VinylError("Invalid index (", _index, "), must be from 0 to ", array_length(__sources), " inclusive (", self, ")");
+            }
+        }
+        
+        array_insert(__sources, _index, _instance);
+        if (_index <= __index) __index++;
+        
         return _instance;
+    }
+    
+    static Delete = function(_index)
+    {
+        var _size = array_length(__sources);
+        if (_size <= 0)
+        {
+            __VinylTrace("Cannot delete index ", _index, ", there are no queued instances (", self, ")");
+        }
+        else
+        {
+            if (__loop)
+            {
+                _index = (_index + _size) mod _size;
+            }
+            else
+            {
+                if ((_index < 0) || (_index >= array_length(__sources)))
+                {
+                    __VinylError("Invalid index (", _index, "), must be from 0 to ", array_length(__sources) - 1, " inclusive (", self, ")");
+                }
+            }
+            
+            array_delete(__sources, _index, 1);
+            if (_index <= __index) __index--;
+        }
+        
+        return undefined;
     }
     
     #endregion
