@@ -29,7 +29,7 @@
     "path": "vinyl.yyp",
   },
   "resourceVersion": "1.0",
-  "name": "obj_test",
+  "name": "oTest",
   "tags": [],
   "resourceType": "GMObject",
 }

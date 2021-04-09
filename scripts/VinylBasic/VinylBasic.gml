@@ -23,16 +23,65 @@ function __VinylPatternBasic(_asset) constructor
         return _instance;
     }
     
-    //I don't trust GM not to mess up these functions if I put them in the common definition
-    static BussSet = function(_buss_name)
+    //Gain access
+    static SetGain = function()
     {
-        buss_name = _buss_name;
+        var _min = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : 1.0;
+        var _max = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : _min;
+        
+        __gainMin = _min;
+        __gainMax = _max;
+        
+        return self;
+    }
+    
+    static GetGain = function()
+    {
+        return { mini : __gainMin, maxi : __gainMax };
+    }
+    
+    //Pitch access
+    static SetPitch = function()
+    {
+        var _min = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : 1.0;
+        var _max = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : _min;
+        
+        __pitchMin = _min;
+        __pitchMax = _max;
+        
+        return self;
+    }
+    
+    static GetPitch = function()
+    {
+        return { mini : __pitchMin, maxi : __pitchMax };
+    }
+    
+    //Fade time access
+    static SetFadeTime = function(_inTime, _outTime)
+    {
+        __timeFadeIn  = _inTime;
+        __timeFadeOut = _outTime;
+        
+        return self;
+    }
+    
+    static GetFadeTime = function()
+    {
+        return { in : __timeFadeIn, out : __timeFadeOut };
+    }
+    
+    //Buss access
+    static BussSet = function(_bussName)
+    {
+        __bussName = _bussName;
+        
         return self;
     }
     
     static BussGet = function()
     {
-        return buss_name;
+        return __bussName;
     }
     
     #endregion
@@ -48,7 +97,7 @@ function __VinylPatternBasic(_asset) constructor
         {
             __pattern = other;
             __Reset();
-            if (_direct) buss_name = other.buss_name;
+            if (_direct) __bussName = other.__bussName;
             return self;
         }
     }
@@ -75,6 +124,10 @@ function __VinyPlayerBasic(_asset) constructor
     
     
     #region Public Methods
+    
+    
+    
+    #region Position/stopping
     
     static GetPosition = function()
     {
@@ -108,7 +161,7 @@ function __VinyPlayerBasic(_asset) constructor
             if (__VINYL_DEBUG) __VinylTrace("Stopping ", self);
             
             __stopping = true;
-            __time_stopping = current_time;
+            __timeStopping = current_time;
         }
     }
     
@@ -132,17 +185,84 @@ function __VinyPlayerBasic(_asset) constructor
         return (((audio_sound_length(__instance) - audio_sound_get_track_position(__instance)) / __pitch) <= (VINYL_STEP_DURATION/1000));
     }
     
+    #endregion
+    
+    
+    
+    #region Gain/pitch/fade time/buss
+    
+    //Gain access
+    static SetGain = function(_value)
+    {
+        __gain = _value;
+        
+        return self;
+    }
+    
+    static SetGainTarget = function(_target, _rate)
+    {
+        __gainTarget = _target;
+        __gainRate = _rate;
+        
+        return self;
+    }
+    
+    static GetGain = function()
+    {
+        return __gain;
+    }
+    
+    //Pitch access
+    static SetPitch = function(_value)
+    {
+        __pitch = _value;
+        
+        return self;
+    }
+    
+    static SetPitchTarget = function(_target, _rate)
+    {
+        __pitchTarget = _target;
+        __pitchRate = _rate;
+        
+        return self;
+    }
+    
+    static GetPitch = function()
+    {
+        return __pitch;
+    }
+    
+    //Fade time access
+    static SetFadeTime = function(_inTime, _outTime)
+    {
+        __timeFadeIn  = _inTime;
+        __timeFadeOut = _outTime;
+        
+        return self;
+    }
+    
+    static GetFadeTime = function()
+    {
+        return { in : __timeFadeIn, out : __timeFadeOut };
+    }
+    
     //I don't trust GM not to mess up these functions if I put them in the common definition
     static BussSet = function(_buss_name)
     {
-        buss_name = _buss_name;
+        __bussName = _buss_name;
+        
         return self;
     }
     
     static BussGet = function()
     {
-        return buss_name;
+        return __bussName;
     }
+    
+    #endregion
+    
+    
     
     #endregion
     
@@ -181,7 +301,7 @@ function __VinyPlayerBasic(_asset) constructor
             __VinylPlayerCommonTick(true);
             
             //Handle fade out
-            if (__stopping && (current_time - __time_stopping > time_fade_out)) StopNow();
+            if (__stopping && (current_time - __timeStopping > __timeFadeOut)) StopNow();
             
             if (is_numeric(__instance) && audio_is_playing(__instance))
             {

@@ -13,7 +13,7 @@
     {"id":{"name":"snd_5","path":"sounds/snd_5/snd_5.yy",},"order":4,},
     {"id":{"name":"snd_3","path":"sounds/snd_3/snd_3.yy",},"order":2,},
     {"id":{"name":"VinylQueue","path":"scripts/VinylQueue/VinylQueue.yy",},"order":3,},
-    {"id":{"name":"obj_test","path":"objects/obj_test/obj_test.yy",},"order":2,},
+    {"id":{"name":"oTest","path":"objects/oTest/oTest.yy",},"order":2,},
     {"id":{"name":"snd_music_outro","path":"sounds/snd_music_outro/snd_music_outro.yy",},"order":4,},
     {"id":{"name":"snd_music_intro","path":"sounds/snd_music_intro/snd_music_intro.yy",},"order":0,},
     {"id":{"name":"VinylIsPattern","path":"scripts/VinylIsPattern/VinylIsPattern.yy",},"order":2,},
@@ -23,7 +23,7 @@
     {"id":{"name":"VinylBussGet","path":"scripts/VinylBussGet/VinylBussGet.yy",},"order":1,},
     {"id":{"name":"snd_4","path":"sounds/snd_4/snd_4.yy",},"order":3,},
     {"id":{"name":"snd_1","path":"sounds/snd_1/snd_1.yy",},"order":0,},
-    {"id":{"name":"rm_main","path":"rooms/rm_main/rm_main.yy",},"order":1,},
+    {"id":{"name":"rmMain","path":"rooms/rmMain/rmMain.yy",},"order":1,},
   ],
   "Options": [
     {"name":"Amazon Fire","path":"options/amazonfire/options_amazonfire.yy",},
@@ -48,7 +48,7 @@
     "children": [],
   },
   "RoomOrderNodes": [
-    {"roomId":{"name":"rm_main","path":"rooms/rm_main/rm_main.yy",},},
+    {"roomId":{"name":"rmMain","path":"rooms/rmMain/rmMain.yy",},},
   ],
   "Folders": [
     {"folderPath":"folders/Vinyl.yy","order":3,"resourceVersion":"1.0","name":"Vinyl","tags":[],"resourceType":"GMFolder",},

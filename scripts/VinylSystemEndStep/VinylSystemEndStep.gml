@@ -55,53 +55,51 @@ function VinylSystemEndStep()
 
 function __VinylPatternCommonConstruct()
 {
-    buss_name = undefined;
+    __bussName = undefined;
     
-    gain          = 1.0;
-    gain_vary_min = 0.0;
-    gain_vary_max = 0.0;
+    __gainMin = 1.0;
+    __gainMax = 1.0;
     
-    pitch          = 1.0;
-    pitch_vary_min = 0.0;
-    pitch_vary_max = 0.0;
+    __pitchMin = 1.0;
+    __pitchMax = 1.0;
     
-    time_fade_in  = undefined;
-    time_fade_out = undefined;
+    __timeFadeIn  = undefined;
+    __timeFadeOut = undefined;
 }
 
 function __VinylPlayerCommonConstruct()
 {
-    buss_name = undefined;
+    __bussName = undefined;
     
-    gain        = 1.0;
-    gain_target = undefined;
-    gain_rate   = 0.1;
+    __gain       = 1.0;
+    __gainRate   = VINYL_DEFAULT_GAIN_RATE;
+    __gainTarget = undefined;
     
-    pitch        = 1.0;
-    pitch_target = undefined;
-    pitch_rate   = 0.1;
+    __pitch       = 1.0;
+    __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
+    __pitchTarget = undefined;
     
-    time_fade_in  = 0.0;
-    time_fade_out = 0.0;
+    __timeFadeIn  = undefined;
+    __timeFadeOut = undefined;
     
     __buss    = undefined;
     __pattern = undefined;
     __parent  = undefined;
     
-    __started       = false;
-    __time_started  = -1;
-    __stopping      = false;
-    __time_stopping = -1;
-    __finished      = false;
+    __started      = false;
+    __timeStarted  = -1;
+    __stopping     = false;
+    __timeStopping = -1;
+    __finished     = false;
 }
 
 function __VinylPlayerCommonReset()
 {
-    __started       = false;
-    __time_started  = -1;
-    __stopping      = false;
-    __time_stopping = -1;
-    __finished      = false;
+    __started      = false;
+    __timeStarted  = -1;
+    __stopping     = false;
+    __timeStopping = -1;
+    __finished     = false;
     
     __buss  = undefined;
     __gain  = undefined;
@@ -109,80 +107,80 @@ function __VinylPlayerCommonReset()
     
     if (__pattern != undefined)
     {
-        if (__pattern.time_fade_in  != undefined) time_fade_in  = __pattern.time_fade_in;
-        if (__pattern.time_fade_out != undefined) time_fade_out = __pattern.time_fade_out;
+        if (__pattern.__timeFadeIn  != undefined) __timeFadeIn  = __pattern.__timeFadeIn;
+        if (__pattern.__timeFadeOut != undefined) __timeFadeOut = __pattern.__timeFadeOut;
         
         //Randomise the gain/pitch as is appropriate
-        gain  = __pattern.gain  + random_range(__pattern.gain_vary_min , __pattern.gain_vary_max );
-        pitch = __pattern.pitch + random_range(__pattern.pitch_vary_min, __pattern.pitch_vary_max);
+        __gain  = random_range(__pattern.__gainMin , __pattern.__gainMax );
+        __pitch = random_range(__pattern.__pitchMin, __pattern.__pitchMax);
     }
 }
 
 /// @param useBuss
-function __VinylPlayerCommonPlay(_use_buss)
+function __VinylPlayerCommonPlay(_useBuss)
 {
     StopNow();
     __Reset();
     
     //Set state
     __started = true;
-    __time_started = current_time;
+    __timeStarted = current_time;
     
-    __VinylPlayerCommonTick(_use_buss);
+    __VinylPlayerCommonTick(_useBuss);
 }
 
 /// @param useBuss
-function __VinylPlayerCommonTick(_use_buss)
+function __VinylPlayerCommonTick(_useBuss)
 {
-    var _final_gain  = 1.0;
-    var _final_pitch = 1.0;
+    var _finalGain  = 1.0;
+    var _finalPitch = 1.0;
     
     //Find our parent's gain, pitch, and buss
     if (is_struct(__parent))
     {
-        _final_gain  *= __parent.__gain;
-        _final_pitch *= __parent.__pitch;
+        _finalGain  *= __parent.__gain;
+        _finalPitch *= __parent.__pitch;
         __buss = __parent.__buss;
     }
     else
     {
         //If we have no parent, find our own buss
-        __buss = VinylBussGet(buss_name);
+        __buss = VinylBussGet(__bussName);
     }
     
     //If we want to factor in our buss' gain/pitch, do so here
-    if (_use_buss)
+    if (_useBuss)
     {
         if (!is_struct(__buss)) __buss = VINYL_MASTER;
-        _final_gain  *= __buss.__gain;
-        _final_pitch *= __buss.__pitch;
+        _finalGain  *= __buss.__gain;
+        _finalPitch *= __buss.__pitch;
     }
     
     //Calculate and apply the fade gain
     if (!__finished)
     {
-        if (time_fade_in > 0)
+        if (__timeFadeIn > 0)
         {
-            _final_gain *= clamp((current_time - __time_started) / time_fade_in, 0.0, 1.0);
+            _finalGain *= clamp((current_time - __timeStarted) / __timeFadeIn, 0.0, 1.0);
         }
         
-        if (__stopping && (time_fade_out > 0))
+        if (__stopping && (__timeFadeOut > 0))
         {
-            _final_gain *= 1.0 - clamp((current_time - __time_stopping) / time_fade_out, 0.0, 1.0);
+            _finalGain *= 1.0 - clamp((current_time - __timeStopping) / __timeFadeOut, 0.0, 1.0);
         }
     }
     
     //If our gain or pitch targets are undefined then we should set them!
-    if (gain_target  == undefined) gain_target  = gain;
-    if (pitch_target == undefined) pitch_target = pitch;
+    if (__gainTarget  == undefined) __gainTarget  = __gain;
+    if (__pitchTarget == undefined) __pitchTarget = __pitch;
     
     //Tween to the gain/pitch target
-    if (gain  != gain_target ) gain  += clamp(gain_target  - gain , -gain_rate , gain_rate );
-    if (pitch != pitch_target) pitch += clamp(pitch_target - pitch, -pitch_rate, pitch_rate);
+    if (__gain  != __gainTarget ) gain  += clamp(__gainTarget  - __gain , -__gainRate , __gainRate );
+    if (__pitch != __pitchTarget) pitch += clamp(__pitchTarget - __pitch, -__pitchRate, __pitchRate);
     
     //Set our final gain
-    __gain  = gain*_final_gain;
-    __pitch = pitch*_final_pitch;
+    __gain  *= _finalGain;
+    __pitch *= _finalPitch;
 }
 
 /// @param value
