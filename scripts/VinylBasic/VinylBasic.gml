@@ -76,6 +76,7 @@ function __VinyInstanceBasic(_asset) constructor
     __GMInstance = undefined;
     
     
+    
     #region Public Methods
     
     static PositionGet = function()
