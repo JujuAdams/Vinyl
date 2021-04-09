@@ -145,7 +145,7 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
             with(__current) Stop(false);
             
             __stopping = true;
-            __time_stopping = current_time;
+            __timeStopping = current_time;
         }
     }
     

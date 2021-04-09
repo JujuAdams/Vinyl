@@ -130,7 +130,7 @@ function __VinyPlayerRandom(_sources) constructor
             with(__current) Stop(false);
             
             __stopping = true;
-            __time_stopping = current_time;
+            __timeStopping = current_time;
         }
     }
     

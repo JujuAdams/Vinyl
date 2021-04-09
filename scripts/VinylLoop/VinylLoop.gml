@@ -131,7 +131,7 @@ function __VinyPlayerLoop(_intro, _loop, _outro, _wait_to_play_outro) constructo
             if (__VINYL_DEBUG) __VinylTrace("Stopping ", self);
             
             __stopping = true;
-            __time_stopping = current_time;
+            __timeStopping = current_time;
         }
     }
     
