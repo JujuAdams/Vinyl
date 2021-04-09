@@ -72,24 +72,24 @@ function __VinyInstanceBasic(_asset) constructor
 {
     __VinylInstanceCommonConstruct();
     
-    __asset = _asset;
-    
+    __asset      = _asset;
+    __GMInstance = undefined;
     
     
     #region Public Methods
     
     static PositionGet = function()
     {
-        if (!__started || __finished || !is_numeric(__instance) || !audio_is_playing(__instance)) return undefined;
-        return audio_sound_get_track_position(__instance);
+        if (!__started || __finished || !is_numeric(__GMInstance) || !audio_is_playing(__GMInstance)) return undefined;
+        return audio_sound_get_track_position(__GMInstance);
     }
     
     /// @param time
     static PositionSet = function(_time)
     {
-        if ((_time != undefined) && __started && !__finished && is_numeric(__instance) && audio_is_playing(__instance))
+        if ((_time != undefined) && __started && !__finished && is_numeric(__GMInstance) && audio_is_playing(__GMInstance))
         {
-            audio_sound_set_track_position(__instance, _time);
+            audio_sound_set_track_position(__GMInstance, _time);
         }
     }
     
@@ -110,18 +110,28 @@ function __VinyInstanceBasic(_asset) constructor
         
         if (!__finished)
         {
-            if (is_numeric(__instance) && audio_is_playing(__instance)) audio_stop_sound(__instance);
+            if (is_numeric(__GMInstance) && audio_is_playing(__GMInstance)) audio_stop_sound(__GMInstance);
             
-            __stopping = false;
-            __finished = true;
-            __instance = undefined;
+            __stopping   = false;
+            __finished   = true;
+            __GMInstance = undefined;
         }
     }
     
     static WillFinish = function()
     {
-        if (!__started || __finished || !is_numeric(__instance) || !audio_is_playing(__instance)) return true;
-        return (((audio_sound_length(__instance) - audio_sound_get_track_position(__instance)) / __pitch) <= (VINYL_STEP_DURATION/1000));
+        if (!__started || __finished || !is_numeric(__GMInstance) || !audio_is_playing(__GMInstance)) return true;
+        return (((audio_sound_length(__GMInstance) - audio_sound_get_track_position(__GMInstance)) / __pitch) <= (VINYL_STEP_DURATION/1000));
+    }
+    
+    static AssetGet = function()
+    {
+        return __asset;
+    }
+    
+    static GMInstanceGet = function()
+    {
+        return __GMInstance;
     }
     
     #endregion
@@ -154,7 +164,7 @@ function __VinyInstanceBasic(_asset) constructor
     {
         __VinylInstanceCommonReset();
         
-        __instance = undefined;
+        __GMInstance = undefined;
     }
     
     static __Play = function()
@@ -164,9 +174,9 @@ function __VinyInstanceBasic(_asset) constructor
         if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
         //Play the audio asset
-        __instance = audio_play_sound(__asset, 1, false);
-        audio_sound_gain(__instance, __gain, 0.0);
-        audio_sound_pitch(__instance, __pitch);
+        __GMInstance = audio_play_sound(__asset, 1, false);
+        audio_sound_gain(__GMInstance, __gain, 0.0);
+        audio_sound_pitch(__GMInstance, __pitch);
     }
     
     static __Tick = function()
@@ -183,20 +193,20 @@ function __VinyInstanceBasic(_asset) constructor
             //Handle fade out
             if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();
             
-            if (is_numeric(__instance) && audio_is_playing(__instance))
+            if (is_numeric(__GMInstance) && audio_is_playing(__GMInstance))
             {
                 var _asset_gain = global.__vinylGlobalAssetGain[? __asset];
                 if (_asset_gain == undefined) _asset_gain = 1.0;
                 
                 //Update GM's sound instance
-                audio_sound_gain(__instance, __gain*_asset_gain, VINYL_STEP_DURATION);
-                audio_sound_pitch(__instance, __pitch);
+                audio_sound_gain(__GMInstance, __gain*_asset_gain, VINYL_STEP_DURATION);
+                audio_sound_pitch(__GMInstance, __pitch);
             }
             
             if (!__finished)
             {
                 //If our sound instance is somehow invalid, stop this instance
-                if (!is_numeric(__instance) || !audio_is_playing(__instance)) Kill();
+                if (!is_numeric(__GMInstance) || !audio_is_playing(__GMInstance)) Kill();
             }
         }
     }
