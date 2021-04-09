@@ -175,7 +175,6 @@ function __VinyPlayerQueue(_sources, _loop, _pops, _loop_on_last) constructor
         return __finished;
     }
     
-    /// @param direct
     static Stop = function()
     {
         if (!__stopping && !__finished)

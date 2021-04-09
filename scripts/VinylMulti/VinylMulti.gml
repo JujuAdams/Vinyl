@@ -178,7 +178,6 @@ function __VinyPlayerMulti(_sources, _synchronize, _loop) constructor
         return __finished;
     }
     
-    /// @param direct
     static Stop = function()
     {
         if (!__stopping && !__finished)
