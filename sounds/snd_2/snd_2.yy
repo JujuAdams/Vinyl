@@ -14,7 +14,7 @@
   "duration": 0.823186,
   "parent": {
     "name": "Sound",
-    "path": "folders/Test Audio/Sound.yy",
+    "path": "folders/Audio/Sound.yy",
   },
   "resourceVersion": "1.0",
   "name": "snd_2",

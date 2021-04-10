@@ -1,0 +1,1 @@
+if (keyboard_check_pressed(ord("S"))) instance.Stop();

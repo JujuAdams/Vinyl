@@ -14,7 +14,7 @@
   "duration": 34.914093,
   "parent": {
     "name": "Music",
-    "path": "folders/Test Audio/Music.yy",
+    "path": "folders/Audio/Music.yy",
   },
   "resourceVersion": "1.0",
   "name": "snd_music_outro",
