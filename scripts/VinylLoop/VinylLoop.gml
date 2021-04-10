@@ -115,7 +115,7 @@ function __VinylPatternLoop(_intro, _loop, _outro) constructor
     
     
     
-    if (__VINYL_DEBUG) __VinylTrace("Created pattern ", self);
+    if (VINYL_DEBUG) __VinylTrace("Created pattern ", self);
 }
 
 /// @param intro
@@ -160,7 +160,7 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
     {
         if (!__stopping && !__finished)
         {
-            if (__VINYL_DEBUG) __VinylTrace("Stopping ", self);
+            if (VINYL_DEBUG) __VinylTrace("Stopping ", self);
             
             __stopping = true;
             __timeStopping = current_time;
@@ -169,7 +169,7 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
     
     static Kill = function()
     {
-        if (!__finished && __VINYL_DEBUG) __VinylTrace("Killed ", self);
+        if (__started && !__finished && VINYL_DEBUG) __VinylTrace("Killed ", self);
         
         if (__intro != undefined) __intro.Kill();
         __loop.Kill();
@@ -232,7 +232,7 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
     {
         __VinylInstanceCommonPlay(false);
         
-        if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
+        if (VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
         //Figure out what to play
         __current = (__intro != undefined)? __intro : __loop;
@@ -326,5 +326,5 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
     
     __Reset();
     
-    if (__VINYL_DEBUG) __VinylTrace("Created instance ", self);
+    if (VINYL_DEBUG) __VinylTrace("Created instance ", self);
 }

@@ -1,9 +1,7 @@
 #region Internal Macro Definitions
 
-#macro __VINYL_VERSION  "1.0.3"
-#macro __VINYL_DATE     "2021/03/26"
-
-#macro __VINYL_DEBUG  true
+#macro __VINYL_VERSION  "2.0.0"
+#macro __VINYL_DATE     "2021/04/10"
 
 #macro VINYL_LIB       global.__vinylLibrary
 #macro VINYL_LIBRARY   global.__vinylLibrary
@@ -42,7 +40,7 @@ function VinylSystemEndStep()
             
             if (__finished)
             {
-                if (__VINYL_DEBUG) __VinylTrace("Deleted ", self);
+                if (VINYL_DEBUG) __VinylTrace("Deleted ", self);
                 ds_list_delete(global.__vinylPlaying, _i);
             }
             else

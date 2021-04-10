@@ -127,7 +127,7 @@ function __VinylPatternQueue() constructor
     
     
     
-    if (__VINYL_DEBUG) __VinylTrace("Created pattern ", self);
+    if (VINYL_DEBUG) __VinylTrace("Created pattern ", self);
 }
 
 /// @param sources
@@ -178,7 +178,7 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
     {
         if (!__stopping && !__finished)
         {
-            if (__VINYL_DEBUG) __VinylTrace("Stopping ", self);
+            if (VINYL_DEBUG) __VinylTrace("Stopping ", self);
             
             with(__current) Stop(false);
             
@@ -189,7 +189,7 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
     
     static Kill = function()
     {
-        if (!__finished && __VINYL_DEBUG) __VinylTrace("Killed ", self);
+        if (__started && !__finished && VINYL_DEBUG) __VinylTrace("Killed ", self);
         
         var _i = 0;
         repeat(array_length(__sources))
@@ -385,7 +385,7 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
     {
         __VinylInstanceCommonPlay(false);
         
-        if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
+        if (VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
         //Play the first source
         __index   = 0;
@@ -535,5 +535,5 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
     
     __Reset();
     
-    if (__VINYL_DEBUG) __VinylTrace("Created instance ", self);
+    if (VINYL_DEBUG) __VinylTrace("Created instance ", self);
 }

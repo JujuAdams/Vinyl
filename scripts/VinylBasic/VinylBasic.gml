@@ -64,7 +64,7 @@ function __VinylPatternBasic(_asset) constructor
     
     
     
-    if (__VINYL_DEBUG) __VinylTrace("Created pattern for ", self);
+    if (VINYL_DEBUG) __VinylTrace("Created pattern for ", self);
 }
 
 /// @param asset
@@ -98,7 +98,7 @@ function __VinyInstanceBasic(_asset) constructor
     {
         if (!__stopping && !__finished)
         {
-            if (__VINYL_DEBUG) __VinylTrace("Stopping ", self);
+            if (VINYL_DEBUG) __VinylTrace("Stopping ", self);
             
             __stopping = true;
             __timeStopping = current_time;
@@ -107,7 +107,7 @@ function __VinyInstanceBasic(_asset) constructor
     
     static Kill = function()
     {
-        if (__started && !__finished && __VINYL_DEBUG) __VinylTrace("Killed ", self);
+        if (__started && !__finished && VINYL_DEBUG) __VinylTrace("Killed ", self);
         
         if (!__finished)
         {
@@ -166,7 +166,7 @@ function __VinyInstanceBasic(_asset) constructor
     {
         __VinylInstanceCommonPlay(true);
         
-        if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
+        if (VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
         //Play the audio asset
         __GMInstance = audio_play_sound(__asset, 1, false);
@@ -223,5 +223,5 @@ function __VinyInstanceBasic(_asset) constructor
     
     __Reset();
     
-    if (__VINYL_DEBUG) __VinylTrace("Created instance for ", self);
+    if (VINYL_DEBUG) __VinylTrace("Created instance for ", self);
 }

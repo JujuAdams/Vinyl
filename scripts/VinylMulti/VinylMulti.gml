@@ -115,7 +115,7 @@ function __VinylPatternMulti() constructor
     
     
     
-    if (__VINYL_DEBUG) __VinylTrace("Created pattern ", self);
+    if (VINYL_DEBUG) __VinylTrace("Created pattern ", self);
 }
 
 /// @param sources
@@ -179,7 +179,7 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
     {
         if (!__stopping && !__finished)
         {
-            if (__VINYL_DEBUG) __VinylTrace("Stopping ", self);
+            if (VINYL_DEBUG) __VinylTrace("Stopping ", self);
             
             var _i = 0;
             repeat(array_length(__sources))
@@ -195,7 +195,7 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
     
     static Kill = function()
     {
-        if (__VINYL_DEBUG) __VinylTrace("Killed ", self);
+        if (__started && !__finished && VINYL_DEBUG) __VinylTrace("Killed ", self);
         
         var _i = 0;
         repeat(array_length(__sources))
@@ -278,7 +278,7 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
     {
         __VinylInstanceCommonPlay(false);
         
-        if (__VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
+        if (VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
         
         //Figure out what to play
         var _i = 0;
@@ -413,5 +413,5 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
     
     __Reset();
     
-    if (__VINYL_DEBUG) __VinylTrace("Created instance ", self);
+    if (VINYL_DEBUG) __VinylTrace("Created instance ", self);
 }
