@@ -272,8 +272,7 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
     static Insert = function(_source, _index)
     {
         //Spin up a new instance to play
-        var _instance =  __VinylPatternizeSource(_source);
-        _instance.__Play(false);
+        var _instance = __VinylPatternizeSource(_source).__Play(false);
         
         if (__loop)
         {
