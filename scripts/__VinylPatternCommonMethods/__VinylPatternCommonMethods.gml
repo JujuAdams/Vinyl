@@ -72,41 +72,57 @@ function __VinylPatternFadeTimeGet()
 
 #region Groups
 
-function __VinylPatternGroupAdd(_name)
+function __VinylPatternGroupAdd()
 {
-    if (!VinylGroupExists(_name))
+    var _i = 0;
+    repeat(argument_count)
     {
-        __VinylError("Group \"", _name, "\" not defined");
-    }
-    
-    if (!__VinylPatternGroupAssigned(_name))
-    {
-        if (VINYL_DEBUG) __VinylTrace(self, " added to group \"", _name, "\"");
-        array_push(__groups, _name);
+        var _name = argument[_i];
+        
+        if (!VinylGroupExists(_name))
+        {
+            __VinylError("Group \"", _name, "\" not defined");
+        }
+        
+        if (!__VinylPatternGroupAssigned(_name))
+        {
+            if (VINYL_DEBUG) __VinylTrace(self, " added to group \"", _name, "\"");
+            array_push(__groups, _name);
+        }
+        
+        ++_i;
     }
     
     return self;
 }
 
-function __VinylPatternGroupDelete(_name)
+function __VinylPatternGroupDelete()
 {
-    if (!VinylGroupExists(_name))
+    var _j = 0;
+    repeat(argument_count)
     {
-        __VinylError("Group \"", _name, "\" not defined");
-    }
-    
-    var _i = 0;
-    repeat(array_length(__groups))
-    {
-        if (__groups[_i] == _name)
+        var _name = argument[_j];
+        
+        if (!VinylGroupExists(_name))
         {
-            if (VINYL_DEBUG) __VinylTrace(self, " deleted from group \"", _name, "\"");
-            array_delete(__groups, _i, 1);
+            __VinylError("Group \"", _name, "\" not defined");
         }
-        else
+        
+        var _i = 0;
+        repeat(array_length(__groups))
         {
-            ++_i;
+            if (__groups[_i] == _name)
+            {
+                if (VINYL_DEBUG) __VinylTrace(self, " deleted from group \"", _name, "\"");
+                array_delete(__groups, _i, 1);
+            }
+            else
+            {
+                ++_i;
+            }
         }
+        
+        ++_j;
     }
     
     return self;

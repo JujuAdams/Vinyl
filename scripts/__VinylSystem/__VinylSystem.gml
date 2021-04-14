@@ -73,4 +73,27 @@ function __VinylError()
 	return _string;
 }
 
+function __VinylGroupArrayToString(_array)
+{
+    var _size = array_length(_array);
+    var _string = "[";
+    
+    if (_size > 0)
+    {
+        var _i = 0;
+        var _value = _array[_i];
+        if (weak_ref_alive(_value)) _string += string(_array[_i].ref);
+        
+        _i = 1;
+        repeat(_size - 1)
+        {
+            var _value = _array[_i];
+            if (weak_ref_alive(_value)) _string += "," + string(_array[_i].ref);
+            ++_i;
+        }
+    }
+    
+    return _string + "]";
+}
+
 #endregion

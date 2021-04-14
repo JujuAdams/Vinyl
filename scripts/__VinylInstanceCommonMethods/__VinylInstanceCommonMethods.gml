@@ -85,66 +85,82 @@ function __VinylInstanceFadeTimeGet()
 
 #region Groups
 
-function __VinylInstanceGroupAdd(_name)
+function __VinylInstanceGroupAdd()
 {
     if (VinylIsSoundInstance(__parent)) //TODO - Optimise
     {
         __VinylError("Groups can only be modified for sound instances without parents");
     }
     
-    if (!VinylGroupExists(_name))
+    var _j = 0;
+    repeat(argument_count)
     {
-        __VinylError("Group \"", _name, "\" not defined");
-    }
-    
-    if (!__VinylInstanceGroupAssigned(_name))
-    {
-        if (VINYL_DEBUG) __VinylTrace(self, " added to group \"", _name, "\"");
+        var _name = argument[_j];
         
-        var _group = global.__vinylGroupsMap[? _name];
-        array_push(__groups, weak_ref_create(_group));
-        _group.__ChildAdd(self);
+        if (!VinylGroupExists(_name))
+        {
+            __VinylError("Group \"", _name, "\" not defined");
+        }
+        
+        if (!__VinylInstanceGroupAssigned(_name))
+        {
+            if (VINYL_DEBUG) __VinylTrace(self, " added to group \"", _name, "\"");
+        
+            var _group = global.__vinylGroupsMap[? _name];
+            array_push(__groups, weak_ref_create(_group));
+            _group.__ChildAdd(self);
+        }
+        
+        ++_j;
     }
     
     return self;
 }
 
-function __VinylInstanceGroupDelete(_name)
+function __VinylInstanceGroupDelete()
 {
     if (VinylIsSoundInstance(__parent)) //TODO - Optimise
     {
         __VinylError("Groups can only be modified for sound instances without parents");
     }
     
-    if (!VinylGroupExists(_name))
+    var _j = 0;
+    repeat(argument_count)
     {
-        __VinylError("Group \"", _name, "\" not defined");
-    }
-    
-    var _group = global.__vinylGroupsMap[? _name];
-    _group.__ChildDelete(self);
-    
-    var _i = 0;
-    repeat(array_length(__groups))
-    {
-        var _groupRef = __groups[_i];
-        if (!weak_ref_alive(_groupRef))
+        var _name = argument[_j];
+        
+        if (!VinylGroupExists(_name))
         {
-            //If our group reference is invalid, delete this entry
-            array_delete(__groups, _i, 1);
+            __VinylError("Group \"", _name, "\" not defined");
         }
-        else
+        
+        var _group = global.__vinylGroupsMap[? _name];
+        _group.__ChildDelete(self);
+        
+        var _i = 0;
+        repeat(array_length(__groups))
         {
-            if (_groupRef.ref == _group)
+            var _groupRef = __groups[_i];
+            if (!weak_ref_alive(_groupRef))
             {
-                if (VINYL_DEBUG) __VinylTrace(self, " deleted from group \"", _name, "\"");
+                //If our group reference is invalid, delete this entry
                 array_delete(__groups, _i, 1);
             }
             else
             {
-                ++_i;
+                if (_groupRef.ref == _group)
+                {
+                    if (VINYL_DEBUG) __VinylTrace(self, " deleted from group \"", _name, "\"");
+                    array_delete(__groups, _i, 1);
+                }
+                else
+                {
+                    ++_i;
+                }
             }
         }
+        
+        ++_j;
     }
     
     return self;
@@ -300,7 +316,7 @@ function __VinylInstanceCommonPlay()
     
     __VinylInstanceCommonTick();
     
-    if (VINYL_DEBUG) __VinylTrace("(gain=", __outputGain, ", pitch=", __outputPitch, ")");
+    if (VINYL_DEBUG) __VinylTrace("(gain=", __outputGain, ", pitch=", __outputPitch, ", groups=", __VinylGroupArrayToString(__groups), ")");
 }
 
 function __VinylInstanceCommonTick()
