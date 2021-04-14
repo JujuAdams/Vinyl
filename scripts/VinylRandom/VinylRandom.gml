@@ -212,7 +212,7 @@ function __VinyInstanceRandom(_pattern) constructor
         var _i = 0;
         repeat(array_length(__sources))
         {
-            if (!sources[_i].__WillFinish()) return false;
+            if (!__sources[_i].__WillFinish()) return false;
             ++_i;
         }
         
