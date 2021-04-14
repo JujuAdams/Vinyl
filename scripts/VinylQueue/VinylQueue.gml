@@ -31,7 +31,7 @@ function __VinylPatternQueue() constructor
     var _i = 0;
     repeat(argument_count)
     {
-        __sources[@ _i] = argument[_i];
+        __sources[@ _i] = __VinylPatternizeSource(argument[_i]);
         ++_i;
     }
     
@@ -100,7 +100,7 @@ function __VinyInstanceQueue(_pattern) constructor
     
     __pops        = __pattern.__pops;
     __dontPopLast = __pattern.__dontPopLast;
-    __sources     = __VinylInstancePatternizeAll(self, __pattern.__sources);
+    __sources     = __VinylInstanceInstantiateAll(self, __pattern.__sources);
     __index       = undefined;
     
     //Create a backup of our sources to use when we reset this instance
@@ -189,28 +189,14 @@ function __VinyInstanceQueue(_pattern) constructor
         }
     }
     
-    static CurrentIndexGet = function()
+    static IndexGet = function()
     {
         return __index;
     }
     
-    static CurrentInstanceGet = function()
+    static InstanceGet = function()
     {
         return __current;
-    }
-    
-    static CurrentStop = function()
-    {
-        var _instance = CurrentInstanceGet();
-        if (_instance != undefined)
-        {
-            //Only try to stop this instance if it's actually an instance
-            _instance.Stop();
-        }
-        else
-        {
-            __VinylTrace("No instance is currently playing (", self, ")");
-        }
     }
     
     static Push = function(_source)
@@ -359,7 +345,7 @@ function __VinyInstanceQueue(_pattern) constructor
     static SourcesCountGet   = __VinylInstanceSourcesCountGet;
     static SourcesArrayGet   = __VinylInstanceSourcesArrayGet;
     static SourceFindIndex   = __VinylInstanceSourceFindIndex;
-    static InstanceFindIndex = __VinylInstanceInstanceFindIndex;
+    static InstanceFindIndex = __VinylInstanceFindIndex;
     
     #endregion
     
@@ -426,7 +412,7 @@ function __VinyInstanceQueue(_pattern) constructor
                     {
                         if (_source.__finished)
                         {
-                            __VinylArrayDelete(__sourceStopping, _i);
+                            array_delete(__sourceStopping, _i, 1);
                         }
                         else
                         {
@@ -444,7 +430,7 @@ function __VinyInstanceQueue(_pattern) constructor
                         if (__pops)
                         {
                             //Pop the current source so long as we're not on the last source in "loop on last" mode
-                            if (!__loopOnLast || (array_length(__sources) > 1)) __VinylArrayDelete(__sources, __index);
+                            if (!__loopOnLast || (array_length(__sources) > 1)) array_delete(__sources, __index, 1);
                         }
                         else
                         {

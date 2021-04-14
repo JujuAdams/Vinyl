@@ -25,30 +25,18 @@ function __VinylPatternMulti() constructor
     
     __sources     = array_create(argument_count, undefined);
     __synchronize = false;
-    __loop        = false;
     
     //Copy input sources into the actual array
     var _i = 0;
     repeat(argument_count)
     {
-        __sources[@ _i] = argument[_i];
+        __sources[@ _i] = __VinylPatternizeSource(argument[_i]);
         ++_i;
     }
     
     
     
     #region Public Methods
-    
-    static LoopSet = function(_state)
-    {
-        __loop = _state;
-        return self;
-    }
-    
-    static LoopGet = function()
-    {
-        return __loop;
-    }
     
     static SynchronizeSet = function(_state)
     {
@@ -99,8 +87,7 @@ function __VinyInstanceMulti(_pattern) constructor
     __VinylInstanceCommonConstruct(_pattern);
     
     __synchronize = __pattern.__synchronize;
-    __loop        = __pattern.__loop;
-    __sources     = __VinylInstancePatternizeAll(self, __pattern.__sources);
+    __sources     = __VinylInstanceInstantiateAll(self, __pattern.__sources);
     
     
     
@@ -176,17 +163,6 @@ function __VinyInstanceMulti(_pattern) constructor
         __finished = true;
     }
     
-    static LoopSet = function(_state)
-    {
-        __loop = _state;
-        return self;
-    }
-    
-    static LoopGet = function()
-    {
-        return __loop;
-    }
-    
     static SynchronizeSet = function(_state)
     {
         __synchronize = _state;
@@ -196,6 +172,11 @@ function __VinyInstanceMulti(_pattern) constructor
     static SynchronizeGet = function()
     {
         return __synchronize;
+    }
+    
+    static InstanceGet = function(_index)
+    {
+        return __sources[_index];
     }
     
     #endregion
@@ -220,7 +201,7 @@ function __VinyInstanceMulti(_pattern) constructor
     static SourcesCountGet   = __VinylInstanceSourcesCountGet;
     static SourcesArrayGet   = __VinylInstanceSourcesArrayGet;
     static SourceFindIndex   = __VinylInstanceSourceFindIndex;
-    static InstanceFindIndex = __VinylInstanceInstanceFindIndex;
+    static InstanceFindIndex = __VinylInstanceFindIndex;
     
     #endregion
     
@@ -274,82 +255,37 @@ function __VinyInstanceMulti(_pattern) constructor
                 var _finished = false;
                 var _time = undefined;
                 
-                if (__loop)
+                var _i = 0;
+                repeat(array_length(__sources))
                 {
-                    var _i = 0;
-                    repeat(array_length(__sources))
+                    with(__sources[_i])
                     {
-                        with(__sources[_i])
-                        {
-                            __Tick(); //Update the instances we're currently playing
-                            if (_time == undefined) _time = PositionGet() else PositionSet(_time);
-                            if (__WillFinish()) _finished = true;
-                        }
+                        __Tick(); //Update the instances we're currently playing
+                        if (_time == undefined) _time = PositionGet() else PositionSet(_time);
+                        if (__finished) _finished = true;
+                    }
                         
-                        ++_i;
-                    }
-                    
-                    if (_finished)
-                    {
-                        var _i = 0;
-                        repeat(array_length(__sources))
-                        {
-                            __sources[_i].__Play();
-                            ++_i;
-                        }
-                    }
+                    ++_i;
                 }
-                else
-                {
-                    var _i = 0;
-                    repeat(array_length(__sources))
-                    {
-                        with(__sources[_i])
-                        {
-                            __Tick(); //Update the instances we're currently playing
-                            if (_time == undefined) _time = PositionGet() else PositionSet(_time);
-                            if (__finished) _finished = true;
-                        }
-                        
-                        ++_i;
-                    }
-                    
-                    if (_finished) Kill();
-                }
+                
+                if (_finished) Kill();
             }
             else
             {
-                if (__loop)
+                var _finished = true;
+                var _i = 0;
+                repeat(array_length(__sources))
                 {
-                    var _i = 0;
-                    repeat(array_length(__sources))
+                    with(__sources[_i])
                     {
-                        with(__sources[_i])
-                        {
-                            __Tick(); //Update the instances we're currently playing
-                            if (__WillFinish()) __Play();
-                        }
-                    
-                        ++_i;
-                    }
-                }
-                else
-                {
-                    var _finished = true;
-                    var _i = 0;
-                    repeat(array_length(__sources))
-                    {
-                        with(__sources[_i])
-                        {
-                            __Tick(); //Update the instances we're currently playing
-                            if (!__finished) _finished = false;
-                        }
-                    
-                        ++_i;
+                        __Tick(); //Update the instances we're currently playing
+                        if (!__finished) _finished = false;
                     }
                     
-                    if (_finished) Kill();
+                    ++_i;
                 }
+                
+                if (_finished) Kill();
             }
         }
     }

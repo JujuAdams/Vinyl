@@ -1,35 +1,20 @@
-/// @param intro
-/// @param loop
-/// @param outro
+/// @param source
 
-function VinylLoop()
+function VinylLoop(_source)
 {
-    if (argument_count == 1)
-    {
-        return new __VinylPatternLoop(undefined, argument[0], undefined);
-    }
-    else if (argument_count == 3)
-    {
-        var _intro = (argument[0] == "")? undefined : argument[0];
-        var _outro = (argument[2] == "")? undefined : argument[2];
-        return new __VinylPatternLoop(_intro, argument[1], _outro);
-    }
-    else
-    {
-        __VinylError("Unsupported number of arguments (", argument_count, ") for VinylLoop()\n(Should be 1, 2, or 3. Use <undefined> or \"\" as an argument for no source");
-    }
+    return new __VinylPatternLoop(_source);
 }
 
+
+
 /// @param intro
 /// @param loop
 /// @param outro
-function __VinylPatternLoop(_intro, _loop, _outro) constructor
+function __VinylPatternLoop(_source) constructor
 {
     __VinylPatternCommonConstruct(__VinyInstanceLoop);
     
-    __intro = _intro;
-    __loop  = _loop;
-    __outro = _outro;
+    __source = __VinylPatternizeSource(_source);
     
     
     
@@ -49,19 +34,9 @@ function __VinylPatternLoop(_intro, _loop, _outro) constructor
     
     #region Public Methods
     
-    static IntroGet = function()
+    static SourceGet = function()
     {
-        return __intro;
-    }
-    
-    static LoopGet = function()
-    {
-        return __loop;
-    }
-    
-    static OutroGet = function()
-    {
-        return __outro;
+        return __source;
     }
     
     #endregion
@@ -72,7 +47,7 @@ function __VinylPatternLoop(_intro, _loop, _outro) constructor
     
     static toString = function()
     {
-        return "Loop [ " + __VinylGetSourceName(__intro) + "," + __VinylGetSourceName(__loop) + "," + __VinylGetSourceName(__outro) + " ]";
+        return "Loop [ " + string(__source) + " ]";
     }
     
     #endregion
@@ -90,36 +65,25 @@ function __VinyInstanceLoop(_pattern) constructor
 {
     __VinylInstanceCommonConstruct(_pattern);
     
-    //Generate child instances
-    __intro = __VinylPatternizeSource(__pattern.__intro);
-    __loop  = __VinylPatternizeSource(__pattern.__loop );
-    __outro = __VinylPatternizeSource(__pattern.__outro);
-    
-    __intro = (__intro != undefined)? __intro.__Play() : undefined;
-    __loop  =                          __loop.__Play();
-    __outro = (__outro != undefined)? __outro.__Play() : undefined;
-    
-    if (__intro != undefined) __intro.__parent = self;
-    __loop.__parent = self;
-    if (__outro != undefined) __outro.__parent = self;
-    
+    __source = __VinylPatternInstantiate(__pattern.__source);
+    __VinylTrace("Set source to ", __source);
     
     
     #region Public Methods
     
     static PositionGet = function()
     {
-        if (!__started || __finished || !is_struct(__current)) return undefined;
-        return __current.PositionGet();
+        if (!__started || __finished || !is_struct(__source)) return undefined;
+        return __source.PositionGet();
     }
     
     /// @param time
     static PositionSet = function(_time)
     {
         //TODO - Make this more accuracte by taking into account the length of the intro (if one exists)
-        if ((_time != undefined) && __started && !__finished && is_struct(__current))
+        if ((_time != undefined) && __started && !__finished && is_struct(__source))
         {
-            __current.PositionSet(_time);
+            with(__source) PositionSet(_time);
         }
     }
     
@@ -138,39 +102,15 @@ function __VinyInstanceLoop(_pattern) constructor
     {
         if (__started && !__finished && VINYL_DEBUG) __VinylTrace("Killed ", self);
         
-        if (__intro != undefined) __intro.Kill();
-        __loop.Kill();
-        if (__outro != undefined) __outro.Kill();
+        with(__source) Kill();
         
         __stopping = false;
         __finished = true;
-        __current  = undefined;
     }
     
-    static IntroGet = function()
+    static InstanceGet = function()
     {
-        return __intro;
-    }
-    
-    static LoopGet = function()
-    {
-        return __loop;
-    }
-    
-    static OutroGet = function()
-    {
-        return __outro;
-    }
-    
-    static PhaseGet = function()
-    {
-        if (__current == undefined) return undefined;
-        
-        if (__current == __intro) return 0;
-        if (__current == __loop ) return 1;
-        if (__current == __outro) return 2;
-        
-        return undefined;
+        return __source;
     }
     
     #endregion
@@ -201,20 +141,18 @@ function __VinyInstanceLoop(_pattern) constructor
     {
         __VinylInstanceCommonReset();
         
-        __current = undefined;
-    
-        if (__intro != undefined) __intro.__Reset();
-        __loop.__Reset();
-        if (__outro != undefined) __outro.__Reset();
+        if (__source != undefined) with(__source) __Reset();
     }
     
     static __Play = function()
     {
         __VinylInstanceCommonPlay();
         
-        //Figure out what to play
-        __current = (__intro != undefined)? __intro : __loop;
-        with(__current) __Play();
+        if (__source != undefined)
+        {
+            __VinylTrace("Loop playing");
+            with(__source) __Play();
+        }
     }
     
     static __Tick = function()
@@ -234,43 +172,21 @@ function __VinyInstanceLoop(_pattern) constructor
                 if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();
             }
             
-            if (__current != undefined)
+            if (__source != undefined)
             {
-                with(__current) __Tick();
+                with(__source) __Tick();
                 
-                if (__current.__WillFinish())
+                if (__source.__WillFinish())
                 {
-                    if (__current == __intro)
-                    {
-                        __current = __loop;
-                        __current.__Play();
-                    }
-                    else if (__current == __loop)
-                    {
-                        if (!__stopping)
-                        {
-                            __loop.__Play();
-                        }
-                        else if (__outro != undefined)
-                        {
-                            __current = __outro;
-                            __current.__Play();
-                        }
-                        else
-                        {
-                            Kill();
-                        }
-                    }
-                    else
+                    if (__stopping)
                     {
                         Kill();
                     }
-                }
-                else if (__started && __stopping && !__waitToPlayOutro && (__outro != undefined) && (__current != __outro))
-                {
-                    __current.Kill();
-                    __current = __outro;
-                    __current.__Play();
+                    else
+                    {
+                        if (VINYL_DEBUG) __VinylTrace(self, " is replaying ", __source);
+                        with(__source) __Play();
+                    }
                 }
             }
         }
@@ -278,24 +194,13 @@ function __VinyInstanceLoop(_pattern) constructor
     
     static __WillFinish = function()
     {
-        if (__intro != undefined)
-        {
-            if (!__intro.__WillFinish()) return false;
-        }
-        
-        if (!__loop.__WillFinish()) return false;
-        
-        if (__outro != undefined)
-        {
-            if (!__outro.__WillFinish()) return false;
-        }
-        
-        return true;
+        if (__source == undefined) return true;
+        with(__source) return __WillFinish();
     }
     
     static toString = function()
     {
-        return "Loop [ " + __VinylGetSourceName(__intro) + "," + __VinylGetSourceName(__loop) + "," + __VinylGetSourceName(__outro) + " ]";
+        return "Loop [ " + string(__source) + " ]";
     }
     
     #endregion

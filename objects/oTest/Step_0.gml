@@ -5,12 +5,12 @@ if (keyboard_check_pressed(ord("1")))
 
 if (keyboard_check_pressed(ord("2")))
 {
-    VinylBasic(snd_1).SetGain(0.5, 1.0).Play();
+    VinylBasic(snd_1).GainSet(0.5, 1.0).Play();
 }
 
 if (keyboard_check_pressed(ord("3")))
 {
-    VinylBasic(snd_1).SetPitch(0.5, 1.0).Play();
+    VinylBasic(snd_1).PitchSet(0.5, 1.0).Play();
 }
 
 if (keyboard_check_pressed(ord("4")))
@@ -25,13 +25,13 @@ if (keyboard_check_pressed(ord("5")))
 
 if (keyboard_check_pressed(ord("6")))
 {
-    instance = VinylMulti(snd_1, snd_2, snd_3, snd_4, snd_5).LoopSet(true).Play();
+    instance = VinylMulti(snd_1, snd_2, snd_3, snd_4, snd_5).Play();
 } 
 
-//if (keyboard_check_pressed(vk_space))
-//{
-//    instance = VinylLoop(snd_1, snd_2, snd_3).Play();
-//}
+if (keyboard_check_pressed(ord("7")))
+{
+    instance = VinylLoop(snd_1).Play();
+}
 
 if (keyboard_check_pressed(ord("L")))
 {

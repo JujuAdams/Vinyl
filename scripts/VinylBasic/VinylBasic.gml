@@ -1,14 +1,19 @@
-/// @param asset
+/// @param source
 
 function VinylBasic(_asset)
 {
-    return __VinylPatternizeSource(_asset);
+    return new __VinylPatternBasic(_asset);
 }
 
 /// @param asset
 function __VinylPatternBasic(_asset) constructor
 {
     __VinylPatternCommonConstruct(__VinyInstanceBasic);
+    
+    if (!is_numeric(_asset) || !audio_exists(_asset))
+    {
+        __VinylError("Asset \"", _asset, "\" is invalid");
+    }
     
     __asset = _asset;
     
@@ -43,7 +48,7 @@ function __VinylPatternBasic(_asset) constructor
     
     static toString = function()
     {
-        return __VinylGetSourceName(__asset);
+        return audio_get_name(__asset);
     }
     
     #endregion
@@ -196,7 +201,7 @@ function __VinyInstanceBasic(_pattern) constructor
     
     static toString = function()
     {
-        return __VinylGetSourceName(__asset);
+        return audio_get_name(__asset);
     }
     
     #endregion

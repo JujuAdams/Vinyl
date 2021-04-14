@@ -29,7 +29,7 @@ function __VinylPatternRandom() constructor
     var _i = 0;
     repeat(argument_count)
     {
-        __sources[@ _i] = argument[_i];
+        __sources[@ _i] = __VinylPatternizeSource(argument[_i]);
         ++_i;
     }
     
@@ -68,7 +68,8 @@ function __VinyInstanceRandom(_pattern) constructor
 {
     __VinylInstanceCommonConstruct(_pattern);
     
-    __sources = __VinylInstancePatternizeAll(self, __pattern.__sources);
+    __sources = __VinylInstanceInstantiateAll(self, __pattern.__sources);
+    __index   = undefined;
     
     
     
@@ -118,12 +119,12 @@ function __VinyInstanceRandom(_pattern) constructor
         __current  = undefined;
     }
     
-    static CurrentIndexGet = function()
+    static IndexGet = function()
     {
         return __index;
     }
     
-    static CurrentInstanceGet = function()
+    static InstanceGet = function()
     {
         return __current;
     }
@@ -150,7 +151,7 @@ function __VinyInstanceRandom(_pattern) constructor
     static SourcesCountGet   = __VinylInstanceSourcesCountGet;
     static SourcesArrayGet   = __VinylInstanceSourcesArrayGet;
     static SourceFindIndex   = __VinylInstanceSourceFindIndex;
-    static InstanceFindIndex = __VinylInstanceInstanceFindIndex;
+    static InstanceFindIndex = __VinylInstanceFindIndex;
     
     #endregion
     
@@ -160,8 +161,6 @@ function __VinyInstanceRandom(_pattern) constructor
     
     static __Tick = function()
     {
-        //TODO - Much like queues, we should be checking to see if the loop source has changed and adjust accordingly
-        
         if (!__started && !__stopping && !__finished)
         {
             //If we're not started and we're not stopping and we ain't finished, then play!
@@ -205,7 +204,7 @@ function __VinyInstanceRandom(_pattern) constructor
         //Figure out what to play
         __index = irandom(array_length(__sources) - 1);
         __current = __sources[__index];
-        with(__current) __Play();
+        __current.__Play();
     }
     
     static __WillFinish = function()
