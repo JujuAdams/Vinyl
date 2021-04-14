@@ -1,17 +1,15 @@
 #macro __VINYL_VERSION  "2.0.0"
 #macro __VINYL_DATE     "2021/04/10"
 
-#macro VINYL_LIB       global.__vinylLibrary
-#macro VINYL_LIBRARY   global.__vinylLibrary
-
 __VinylTrace("Welcome to Vinyl by @jujuadams! This is version " + __VINYL_VERSION + ", " + __VINYL_DATE);
 
 
 
 global.__vinylPlaying         = ds_list_create(); //TODO - Replace this with an array
+global.__vinylGroupsList      = ds_list_create();
+global.__vinylGroupsMap       = ds_map_create();
 global.__vinylGlobalAssetGain = ds_map_create();
-
-VINYL_LIB = {};
+global.__vinylLibraryMap      = ds_map_create();
 
 
 

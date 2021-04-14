@@ -63,6 +63,11 @@ function __VinylPatternMulti() constructor
     static FadeTimeSet = __VinylPatternFadeTimeSet;
     static FadeTimeGet = __VinylPatternFadeTimeGet;
     
+    static GroupAdd      = __VinylPatternGroupAdd;
+    static GroupDelete   = __VinylPatternGroupDelete;
+    static GroupClear    = __VinylPatternGroupClear;
+    static GroupAssigned = __VinylPatternGroupAssigned;
+    
     #endregion
     
     
@@ -188,9 +193,11 @@ function __VinyInstanceMulti(_pattern) constructor
     static GainSet        = __VinylInstanceGainSet;
     static GainTargetSet  = __VinylInstanceGainTargetSet;
     static GainGet        = __VinylInstanceGainGet;
+    static OutputGainGet  = __VinylInstanceOutputGainGet;
     static PitchSet       = __VinylInstancePitchSet;
     static PitchTargetSet = __VinylInstancePitchTargetSet;
     static PitchTargetSet = __VinylInstancePitchTargetSet;
+    static OutputPitchGet = __VinylInstanceOutputPitchGet;
     static FadeTimeSet    = __VinylInstanceFadeTimeSet;
     static FadeTimeGet    = __VinylInstanceFadeTimeGet;
     static PatternGet     = __VinylInstancePatternGet;
@@ -202,6 +209,11 @@ function __VinyInstanceMulti(_pattern) constructor
     static SourcesArrayGet   = __VinylInstanceSourcesArrayGet;
     static SourceFindIndex   = __VinylInstanceSourceFindIndex;
     static InstanceFindIndex = __VinylInstanceFindIndex;
+    
+    static GroupAdd      = __VinylInstanceGroupAdd;
+    static GroupDelete   = __VinylInstanceGroupDelete;
+    static GroupClear    = __VinylInstanceGroupClear;
+    static GroupAssigned = __VinylInstanceGroupAssigned;
     
     #endregion
     

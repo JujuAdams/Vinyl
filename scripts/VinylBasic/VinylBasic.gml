@@ -29,6 +29,11 @@ function __VinylPatternBasic(_asset) constructor
     static FadeTimeSet = __VinylPatternFadeTimeSet;
     static FadeTimeGet = __VinylPatternFadeTimeGet;
     
+    static GroupAdd      = __VinylPatternGroupAdd;
+    static GroupDelete   = __VinylPatternGroupDelete;
+    static GroupClear    = __VinylPatternGroupClear;
+    static GroupAssigned = __VinylPatternGroupAssigned;
+    
     #endregion
     
     
@@ -129,14 +134,21 @@ function __VinyInstanceBasic(_pattern) constructor
     static GainSet        = __VinylInstanceGainSet;
     static GainTargetSet  = __VinylInstanceGainTargetSet;
     static GainGet        = __VinylInstanceGainGet;
+    static OutputGainGet  = __VinylInstanceOutputGainGet;
     static PitchSet       = __VinylInstancePitchSet;
     static PitchTargetSet = __VinylInstancePitchTargetSet;
     static PitchTargetSet = __VinylInstancePitchTargetSet;
+    static OutputPitchGet = __VinylInstanceOutputPitchGet;
     static FadeTimeSet    = __VinylInstanceFadeTimeSet;
     static FadeTimeGet    = __VinylInstanceFadeTimeGet;
     static PatternGet     = __VinylInstancePatternGet;
     static IsStopping     = __VinylInstanceIsStopping;
     static IsFinished     = __VinylInstanceIsFinished;
+    
+    static GroupAdd      = __VinylInstanceGroupAdd;
+    static GroupDelete   = __VinylInstanceGroupDelete;
+    static GroupClear    = __VinylInstanceGroupClear;
+    static GroupAssigned = __VinylInstanceGroupAssigned;
     
     #endregion
     
@@ -157,8 +169,8 @@ function __VinyInstanceBasic(_pattern) constructor
         
         //Play the audio asset
         __GMInstance = audio_play_sound(__asset, 1, false);
-        audio_sound_gain(__GMInstance, __gain, 0.0);
-        audio_sound_pitch(__GMInstance, __pitch);
+        audio_sound_gain(__GMInstance, __outputGain, 0.0);
+        audio_sound_pitch(__GMInstance, __outputPitch);
     }
     
     static __Tick = function()
@@ -181,8 +193,8 @@ function __VinyInstanceBasic(_pattern) constructor
                 if (_asset_gain == undefined) _asset_gain = 1.0;
                 
                 //Update GM's sound instance
-                audio_sound_gain(__GMInstance, __gain*_asset_gain, VINYL_STEP_DURATION);
-                audio_sound_pitch(__GMInstance, __pitch);
+                audio_sound_gain(__GMInstance, __outputGain*_asset_gain, VINYL_STEP_DURATION);
+                audio_sound_pitch(__GMInstance, __outputPitch);
             }
             
             if (!__finished)
@@ -196,7 +208,7 @@ function __VinyInstanceBasic(_pattern) constructor
     static __WillFinish = function()
     {
         if (!__started || __finished || !is_numeric(__GMInstance) || !audio_is_playing(__GMInstance)) return true;
-        return (((audio_sound_length(__GMInstance) - audio_sound_get_track_position(__GMInstance)) / __pitch) <= (VINYL_STEP_DURATION/1000));
+        return (((audio_sound_length(__GMInstance) - audio_sound_get_track_position(__GMInstance)) / __outputPitch) <= (VINYL_STEP_DURATION/1000));
     }
     
     static toString = function()
