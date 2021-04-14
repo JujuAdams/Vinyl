@@ -21,12 +21,11 @@ function VinylQueue()
 /// @param ...
 function __VinylPatternQueue() constructor
 {
-    __VinylPatternCommonConstruct();
+    __VinylPatternCommonConstruct(__VinyInstanceQueue);
     
-    __sources    = array_create(argument_count, undefined);
-    __loop       = false;
-    __pops       = false;
-    __loopOnLast = false;
+    __sources     = array_create(argument_count, undefined);
+    __pops        = false;
+    __dontPopLast = false;
     
     //Copy input sources into the actual array
     var _i = 0;
@@ -54,17 +53,6 @@ function __VinylPatternQueue() constructor
     
     #region Public Methods
     
-    static LoopSet = function(_state)
-    {
-        __loop = _state;
-        return self;
-    }
-    
-    static LoopGet = function()
-    {
-        return __loop;
-    }
-    
     static PopSet = function(_state)
     {
         __pops = _state;
@@ -76,15 +64,15 @@ function __VinylPatternQueue() constructor
         return __pops;
     }
     
-    static LoopOnLastSet = function(_state)
+    static DontPopLasttSet = function(_state)
     {
-        __loopOnLast = _state;
+        __dontPopLast = _state;
         return self;
     }
     
-    static LoopOnLastGet = function()
+    static DontPopLastGet = function()
     {
-        return __loopOnLast;
+        return __dontPopLast;
     }
     
     #endregion
@@ -92,28 +80,6 @@ function __VinylPatternQueue() constructor
     
     
     #region Private Methods
-    
-    static __Play = function(_direct)
-    {
-        var _sources = array_create(array_length(__sources));
-        
-        //Patternise and generate sources
-        var _i = 0;
-        repeat(array_length(_sources))
-        {
-            var _source = __VinylPatternizeSource(__sources[_i]);
-            _sources[@ _i] = _source.__Play(false);
-            ++_i;
-        }
-        
-        //Generate our own instance
-        with(new __VinyInstanceQueue(_sources, __loop, __pops, __loopOnLast))
-        {
-            __pattern = other;
-            __Reset();
-            return self;
-        }
-    }
     
     static toString = function()
     {
@@ -128,23 +94,14 @@ function __VinylPatternQueue() constructor
 }
 
 /// @param sources
-function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
+function __VinyInstanceQueue(_pattern) constructor
 {
-    __VinylInstanceCommonConstruct();
+    __VinylInstanceCommonConstruct(_pattern);
     
-    __sources    = _sources;
-    __index      = undefined;
-    __loop       = _loop;
-    __pops       = _pops;
-    __loopOnLast = _loop_on_last;
-    
-    //Make sure all the sources we've been given have this instance as their parent
-    var _i = 0;
-    repeat(array_length(__sources))
-    {
-        __sources[_i].__parent = self;
-        ++_i;
-    }
+    __pops        = __pattern.__pops;
+    __dontPopLast = __pattern.__dontPopLast;
+    __sources     = __VinylInstancePatternizeAll(self, __pattern.__sources);
+    __index       = undefined;
     
     //Create a backup of our sources to use when we reset this instance
     __sourcesCopy = array_create(array_length(__sources));
@@ -449,7 +406,7 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
         }
         else
         {
-            __VinylInstanceCommonTick(false);
+            __VinylInstanceCommonTick();
             
             //Handle fade out
             if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();

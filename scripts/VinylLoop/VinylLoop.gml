@@ -25,9 +25,7 @@ function VinylLoop()
 /// @param outro
 function __VinylPatternLoop(_intro, _loop, _outro) constructor
 {
-    __VinylPatternCommonConstruct();
-    
-    __waitToPlayOutro = true;
+    __VinylPatternCommonConstruct(__VinyInstanceLoop);
     
     __intro = _intro;
     __loop  = _loop;
@@ -51,17 +49,6 @@ function __VinylPatternLoop(_intro, _loop, _outro) constructor
     
     #region Public Methods
     
-    static WaitToPlayOutroSet = function(_state)
-    {
-        __waitToPlayOutro = _state;
-        return self;
-    }
-    
-    static WaitToPlayOutroGet = function()
-    {
-        return __waitToPlayOutro;
-    }
-    
     static IntroGet = function()
     {
         return __intro;
@@ -83,26 +70,6 @@ function __VinylPatternLoop(_intro, _loop, _outro) constructor
     
     #region Private Methods
     
-    static __Play = function(_direct)
-    {
-        var _intro = __VinylPatternizeSource(__intro);
-        var _loop  = __VinylPatternizeSource(__loop );
-        var _outro = __VinylPatternizeSource(__outro);
-        
-        //Generate child instances
-        _intro = (_intro != undefined)? _intro.__Play(false) : undefined;
-        _loop  =                         _loop.__Play(false);
-        _outro = (_outro != undefined)? _outro.__Play(false) : undefined;
-        
-        //Generate our own instance
-        with(new __VinyInstanceLoop(_intro, _loop, _outro, __waitToPlayOutro))
-        {
-            __pattern = other;
-            __Reset();
-            return self;
-        }
-    }
-    
     static toString = function()
     {
         return "Loop [ " + __VinylGetSourceName(__intro) + "," + __VinylGetSourceName(__loop) + "," + __VinylGetSourceName(__outro) + " ]";
@@ -119,15 +86,18 @@ function __VinylPatternLoop(_intro, _loop, _outro) constructor
 /// @param loop
 /// @param outro
 /// @param waitToPlayOutro
-function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) constructor
+function __VinyInstanceLoop(_pattern) constructor
 {
-    __VinylInstanceCommonConstruct();
+    __VinylInstanceCommonConstruct(_pattern);
     
-    __intro = _intro;
-    __loop  = _loop;
-    __outro = _outro;
+    //Generate child instances
+    __intro = __VinylPatternizeSource(__pattern.__intro);
+    __loop  = __VinylPatternizeSource(__pattern.__loop );
+    __outro = __VinylPatternizeSource(__pattern.__outro);
     
-    __waitToPlayOutro = _wait_to_play_outro;
+    __intro = (__intro != undefined)? __intro.__Play() : undefined;
+    __loop  =                          __loop.__Play();
+    __outro = (__outro != undefined)? __outro.__Play() : undefined;
     
     if (__intro != undefined) __intro.__parent = self;
     __loop.__parent = self;
@@ -175,17 +145,6 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
         __stopping = false;
         __finished = true;
         __current  = undefined;
-    }
-    
-    static WaitToPlayOutroSet = function(_state)
-    {
-        __waitToPlayOutro = _state;
-        return self;
-    }
-    
-    static WaitToPlayOutroGet = function()
-    {
-        return __waitToPlayOutro;
     }
     
     static IntroGet = function()
@@ -267,7 +226,7 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
         }
         else
         {
-            __VinylInstanceCommonTick(false);
+            __VinylInstanceCommonTick();
             
             //Handle fade out
             if (__timeFadeOut > 0.0)

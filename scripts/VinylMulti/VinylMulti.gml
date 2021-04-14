@@ -21,7 +21,7 @@ function VinylMulti()
 /// @param ...
 function __VinylPatternMulti() constructor
 {
-    __VinylPatternCommonConstruct();
+    __VinylPatternCommonConstruct(__VinyInstanceMulti);
     
     __sources     = array_create(argument_count, undefined);
     __synchronize = false;
@@ -81,28 +81,6 @@ function __VinylPatternMulti() constructor
     
     #region Private Methods
     
-    static __Play = function(_direct)
-    {
-        var _sources = array_create(array_length(__sources));
-        
-        //Patternise and generate sources
-        var _i = 0;
-        repeat(array_length(_sources))
-        {
-            var _source = __VinylPatternizeSource(__sources[_i]);
-            _sources[@ _i] = _source.__Play(false);
-            ++_i;
-        }
-        
-        //Generate our own instance
-        with(new __VinyInstanceMulti(_sources, __synchronize, __loop))
-        {
-            __pattern = other;
-            __Reset();
-            return self;
-        }
-    }
-    
     static toString = function()
     {
         return "Multi " + string(__sources);
@@ -116,20 +94,13 @@ function __VinylPatternMulti() constructor
 }
 
 /// @param sources
-function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
+function __VinyInstanceMulti(_pattern) constructor
 {
-    __VinylInstanceCommonConstruct();
+    __VinylInstanceCommonConstruct(_pattern);
     
-    __synchronize = _synchronize;
-    __loop        = _loop;
-    __sources     = _sources;
-    
-    var _i = 0;
-    repeat(array_length(__sources))
-    {
-        if (is_struct(__sources[_i])) __sources[_i].__parent = self;
-        ++_i;
-    }
+    __synchronize = __pattern.__synchronize;
+    __loop        = __pattern.__loop;
+    __sources     = __VinylInstancePatternizeAll(self, __pattern.__sources);
     
     
     
@@ -293,7 +264,7 @@ function __VinyInstanceMulti(_sources, _synchronize, _loop) constructor
         }
         else
         {
-            __VinylInstanceCommonTick(false);
+            __VinylInstanceCommonTick();
             
             //Handle fade out
             if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();

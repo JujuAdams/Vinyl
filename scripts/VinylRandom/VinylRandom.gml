@@ -21,7 +21,7 @@ function VinylRandom()
 /// @param ...
 function __VinylPatternRandom() constructor
 {
-    __VinylPatternCommonConstruct();
+    __VinylPatternCommonConstruct(__VinyInstanceRandom);
     
     __sources = array_create(argument_count, undefined);
     
@@ -51,28 +51,6 @@ function __VinylPatternRandom() constructor
     
     #region Private Methods
     
-    static __Play = function(_direct)
-    {
-        var _sources = array_create(array_length(__sources));
-        
-        //Patternise and generate the sources
-        var _i = 0;
-        repeat(array_length(_sources))
-        {
-            var _source = __VinylPatternizeSource(__sources[_i])
-            _sources[@ _i] = _source.__Play(false);
-            ++_i;
-        }
-        
-        //Generate our own instance
-        with(new __VinyInstanceRandom(_sources))
-        {
-            __pattern = other;
-            __Reset();
-            return self;
-        }
-    }
-    
     static toString = function()
     {
         return "Random " + string(__sources);
@@ -86,18 +64,11 @@ function __VinylPatternRandom() constructor
 }
 
 /// @param sources
-function __VinyInstanceRandom(_sources) constructor
+function __VinyInstanceRandom(_pattern) constructor
 {
-    __VinylInstanceCommonConstruct();
+    __VinylInstanceCommonConstruct(_pattern);
     
-    __sources = _sources;
-    
-    var _i = 0;
-    repeat(array_length(__sources))
-    {
-        __sources[_i].__parent = self;
-        ++_i;
-    }
+    __sources = __VinylInstancePatternizeAll(self, __pattern.__sources);
     
     
     
@@ -198,7 +169,7 @@ function __VinyInstanceRandom(_sources) constructor
         }
         else
         {
-            __VinylInstanceCommonTick(false);
+            __VinylInstanceCommonTick();
             
             //Handle fade out
             if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();

@@ -46,8 +46,10 @@ function VinylSystemEndStep()
     }
 }
 
-function __VinylPatternCommonConstruct()
+function __VinylPatternCommonConstruct(_instanceConstructor)
 {
+    __instanceConstructor = _instanceConstructor;
+    
     __gainMin = 1.0;
     __gainMax = 1.0;
     
@@ -58,8 +60,11 @@ function __VinylPatternCommonConstruct()
     __timeFadeOut = undefined;
 }
 
-function __VinylInstanceCommonConstruct()
+function __VinylInstanceCommonConstruct(_pattern)
 {
+    __pattern = _pattern;
+    __parent  = undefined;
+    
     __gain       = 1.0;
     __gainRate   = VINYL_DEFAULT_GAIN_RATE;
     __gainTarget = undefined;
@@ -71,14 +76,37 @@ function __VinylInstanceCommonConstruct()
     __timeFadeIn  = undefined;
     __timeFadeOut = undefined;
     
-    __pattern = undefined;
-    __parent  = undefined;
-    
     __started      = false;
     __timeStarted  = -1;
     __stopping     = false;
     __timeStopping = -1;
     __finished     = false;
+}
+
+function __VinylInstancePatternizeAll(_parentInstance, _patternSources)
+{
+    var _instance_sources = array_create(array_length(_patternSources));
+    
+    //Patternise and generate the sources
+    var _i = 0;
+    repeat(array_length(_patternSources))
+    {
+        var _pattern = _patternSources[_i];
+        if (_pattern == undefined)
+        {
+            _instance_sources[@ _i] = undefined;
+        }
+        else
+        {
+            var _instance = __VinylPatternizeSource(_pattern).__Play();
+            _instance.__parent = _parentInstance;
+            _instance_sources[@ _i] = _instance;
+        }
+        
+        ++_i;
+    }
+    
+    return _instance_sources;
 }
 
 function __VinylInstanceCommonReset()
@@ -239,9 +267,12 @@ function __VinylArrayDelete(_array, _index)
 
 function __VinylPatternPlay()
 {
-    var _instance = __Play(true);
-    ds_list_add(global.__vinylPlaying, _instance);
-    return _instance;
+    with(new __instanceConstructor(self))
+    {
+        __Reset();
+        ds_list_add(global.__vinylPlaying, self);
+        return self;
+    }
 }
 
 //Gain access

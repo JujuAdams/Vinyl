@@ -8,7 +8,7 @@ function VinylBasic(_asset)
 /// @param asset
 function __VinylPatternBasic(_asset) constructor
 {
-    __VinylPatternCommonConstruct();
+    __VinylPatternCommonConstruct(__VinyInstanceBasic);
     
     __asset = _asset;
     
@@ -41,17 +41,6 @@ function __VinylPatternBasic(_asset) constructor
     
     #region Private Methods
     
-    static __Play = function(_direct)
-    {
-        //Generate a instance
-        with(new __VinyInstanceBasic(__asset))
-        {
-            __pattern = other;
-            __Reset();
-            return self;
-        }
-    }
-    
     static toString = function()
     {
         return __VinylGetSourceName(__asset);
@@ -65,11 +54,11 @@ function __VinylPatternBasic(_asset) constructor
 }
 
 /// @param asset
-function __VinyInstanceBasic(_asset) constructor
+function __VinyInstanceBasic(_pattern) constructor
 {
-    __VinylInstanceCommonConstruct();
+    __VinylInstanceCommonConstruct(_pattern);
     
-    __asset      = _asset;
+    __asset      = __pattern.__asset;
     __GMInstance = undefined;
     
     
@@ -176,7 +165,7 @@ function __VinyInstanceBasic(_asset) constructor
         }
         else
         {
-            __VinylInstanceCommonTick(true);
+            __VinylInstanceCommonTick();
             
             //Handle fade out
             if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();
