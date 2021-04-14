@@ -180,6 +180,17 @@ function __VinyInstanceLoop(_intro, _loop, _outro, _wait_to_play_outro) construc
         __current  = undefined;
     }
     
+    static WaitToPlayOutroSet = function(_state)
+    {
+        __waitToPlayOutro = _state;
+        return self;
+    }
+    
+    static WaitToPlayOutroGet = function()
+    {
+        return __waitToPlayOutro;
+    }
+    
     static IntroGet = function()
     {
         return __intro;

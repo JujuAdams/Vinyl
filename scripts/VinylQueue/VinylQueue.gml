@@ -180,7 +180,7 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
         {
             if (VINYL_DEBUG) __VinylTrace("Stopping ", self);
             
-            with(__current) Stop(false);
+            with(__current) Stop();
             
             __stopping = true;
             __timeStopping = current_time;
@@ -297,6 +297,8 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
         array_insert(__sources, _index, _instance);
         if (_index <= __index) __index++;
         
+        if (VINYL_DEBUG) __VinylTrace("Inserted instance into queue at position ", _index, ", is now ", self);
+        
         return _instance;
     }
     
@@ -312,6 +314,27 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
             if (__loop)
             {
                 _index = (_index + _size) mod _size;
+                
+                array_delete(__sources, _index, 1);
+                
+                if (_index == __index)
+                {
+                    with(__current) Stop();
+                    __sourceStopping[@ array_length(__sourceStopping)] = __current; 
+                }
+                
+                if (_size <= 1)
+                {
+                    __index   = undefined;
+                    __current = undefined;
+                }
+                else
+                {
+                    if (_index < __index)
+                    {
+                        __index = (__index - 1 + _size) mod _size;
+                    }
+                }
             }
             else
             {
@@ -319,11 +342,43 @@ function __VinyInstanceQueue(_sources, _loop, _pops, _loop_on_last) constructor
                 {
                     __VinylError("Invalid index (", _index, "), must be from 0 to ", array_length(__sources) - 1, " inclusive (", self, ")");
                 }
+                
+                array_delete(__sources, _index, 1);
+                
+                if (_index == __index)
+                {
+                    with(__current) Stop();
+                    __sourceStopping[@ array_length(__sourceStopping)] = __current; 
+                }
+                
+                if (_size <= 1)
+                {
+                    __index   = undefined;
+                    __current = undefined;
+                }
+                else
+                {
+                    if (_index < __index)
+                    {
+                        __index = (__index - 1 + _size) mod _size;
+                    }
+                }
             }
-            
-            array_delete(__sources, _index, 1);
-            if (_index <= __index) __index--;
         }
+        
+        if (VINYL_DEBUG) __VinylTrace("Deleted instance at index ", _index, " from queue, is now ", self);
+        
+        return undefined;
+    }
+    
+    static Clear = function()
+    {
+        with(__current) Stop();
+        __sourceStopping[@ array_length(__sourceStopping)] = __current;
+        
+        __sources = [];
+        
+        if (VINYL_DEBUG) __VinylTrace("Cleared queue, is now ", self);
         
         return undefined;
     }
