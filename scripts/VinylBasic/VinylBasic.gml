@@ -23,8 +23,6 @@ function __VinylPatternBasic(_asset) constructor
     static PitchGet    = __VinylPatternPitchGet;
     static FadeTimeSet = __VinylPatternFadeTimeSet;
     static FadeTimeGet = __VinylPatternFadeTimeGet;
-    static BussSet     = __VinylPatternBussSet;
-    static BussGet     = __VinylPatternBussGet;
     
     #endregion
     
@@ -50,7 +48,6 @@ function __VinylPatternBasic(_asset) constructor
         {
             __pattern = other;
             __Reset();
-            if (_direct) __bussName = other.__bussName;
             return self;
         }
     }
@@ -143,8 +140,6 @@ function __VinyInstanceBasic(_asset) constructor
     static PitchTargetSet = __VinylInstancePitchTargetSet;
     static FadeTimeSet    = __VinylInstanceFadeTimeSet;
     static FadeTimeGet    = __VinylInstanceFadeTimeGet;
-    static BussSet        = __VinylInstanceBussSet;
-    static BussGet        = __VinylInstanceBussGet;
     static PatternGet     = __VinylInstancePatternGet;
     static IsStopping     = __VinylInstanceIsStopping;
     static IsFinished     = __VinylInstanceIsFinished;
@@ -164,9 +159,7 @@ function __VinyInstanceBasic(_asset) constructor
     
     static __Play = function()
     {
-        __VinylInstanceCommonPlay(true);
-        
-        if (VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
+        __VinylInstanceCommonPlay();
         
         //Play the audio asset
         __GMInstance = audio_play_sound(__asset, 1, false);

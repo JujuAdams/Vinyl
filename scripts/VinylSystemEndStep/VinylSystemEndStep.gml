@@ -5,7 +5,6 @@
 
 #macro VINYL_LIB       global.__vinylLibrary
 #macro VINYL_LIBRARY   global.__vinylLibrary
-#macro VINYL_MASTER    (global.__vinylBusses.master)
 
 __VinylTrace("Welcome to Vinyl by @jujuadams! This is version " + __VINYL_VERSION + ", " + __VINYL_DATE);
 
@@ -13,10 +12,8 @@ __VinylTrace("Welcome to Vinyl by @jujuadams! This is version " + __VINYL_VERSIO
 
 global.__vinylPlaying         = ds_list_create(); //TODO - Replace this with an array
 global.__vinylGlobalAssetGain = ds_map_create();
-global.__vinylBusses          = {};
 
-VINYL_LIB    = {};
-VINYL_MASTER = new __VinylClassBuss();
+VINYL_LIB = {};
 
 //Iterate over all audio assets
 var _i = 0;
@@ -29,8 +26,6 @@ repeat(9999)
  
 function VinylSystemEndStep()
 {
-    VINYL_MASTER.__Tick();
-    
     var _i = 0;
     repeat(ds_list_size(global.__vinylPlaying))
     {
@@ -53,8 +48,6 @@ function VinylSystemEndStep()
 
 function __VinylPatternCommonConstruct()
 {
-    __bussName = undefined;
-    
     __gainMin = 1.0;
     __gainMax = 1.0;
     
@@ -67,8 +60,6 @@ function __VinylPatternCommonConstruct()
 
 function __VinylInstanceCommonConstruct()
 {
-    __bussName = undefined;
-    
     __gain       = 1.0;
     __gainRate   = VINYL_DEFAULT_GAIN_RATE;
     __gainTarget = undefined;
@@ -80,7 +71,6 @@ function __VinylInstanceCommonConstruct()
     __timeFadeIn  = undefined;
     __timeFadeOut = undefined;
     
-    __buss    = undefined;
     __pattern = undefined;
     __parent  = undefined;
     
@@ -99,7 +89,6 @@ function __VinylInstanceCommonReset()
     __timeStopping = -1;
     __finished     = false;
     
-    __buss  = undefined;
     __gain  = undefined;
     __pitch = undefined;
     
@@ -114,8 +103,7 @@ function __VinylInstanceCommonReset()
     }
 }
 
-/// @param useBuss
-function __VinylInstanceCommonPlay(_useBuss)
+function __VinylInstanceCommonPlay()
 {
     Kill();
     __Reset();
@@ -124,34 +112,21 @@ function __VinylInstanceCommonPlay(_useBuss)
     __started = true;
     __timeStarted = current_time;
     
-    __VinylInstanceCommonTick(_useBuss);
+    __VinylInstanceCommonTick();
+    
+    if (VINYL_DEBUG) __VinylTrace("Playing ", self, " (gain=", __gain, ", pitch=", __pitch, ")");
 }
 
-/// @param useBuss
-function __VinylInstanceCommonTick(_useBuss)
+function __VinylInstanceCommonTick()
 {
     var _finalGain  = 1.0;
     var _finalPitch = 1.0;
     
-    //Find our parent's gain, pitch, and buss
+    //Find our parent's gain and pitch
     if (is_struct(__parent))
     {
         _finalGain  *= __parent.__gain;
         _finalPitch *= __parent.__pitch;
-        __buss = __parent.__buss;
-    }
-    else
-    {
-        //If we have no parent, find our own buss
-        __buss = VinylBussGet(__bussName);
-    }
-    
-    //If we want to factor in our buss' gain/pitch, do so here
-    if (_useBuss)
-    {
-        if (!is_struct(__buss)) __buss = VINYL_MASTER;
-        _finalGain  *= __buss.__gain;
-        _finalPitch *= __buss.__pitch;
     }
     
     //Calculate and apply the fade gain
@@ -317,19 +292,6 @@ function __VinylPatternFadeTimeGet()
     return { in : __timeFadeIn, out : __timeFadeOut };
 }
 
-//Buss access
-function __VinylPatternBussSet(_bussName)
-{
-    __bussName = _bussName;
-    
-    return self;
-}
-
-function __VinylPatternBussGet()
-{
-    return __bussName;
-}
-
 #endregion
 
 
@@ -390,18 +352,6 @@ function __VinylInstanceFadeTimeSet(_inTime, _outTime)
 function __VinylInstanceFadeTimeGet()
 {
     return { in : __timeFadeIn, out : __timeFadeOut };
-}
-
-function __VinylInstanceBussSet(_buss_name)
-{
-    __bussName = _buss_name;
-        
-    return self;
-}
-
-function __VinylInstanceBussGet()
-{
-    return __bussName;
 }
 
 function __VinylInstancePatternGet()

@@ -44,8 +44,6 @@ function __VinylPatternRandom() constructor
     static PitchGet    = __VinylPatternPitchGet;
     static FadeTimeSet = __VinylPatternFadeTimeSet;
     static FadeTimeGet = __VinylPatternFadeTimeGet;
-    static BussSet     = __VinylPatternBussSet;
-    static BussGet     = __VinylPatternBussGet;
     
     #endregion
     
@@ -71,7 +69,6 @@ function __VinylPatternRandom() constructor
         {
             __pattern = other;
             __Reset();
-            if (_direct) __bussName = other.__bussName;
             return self;
         }
     }
@@ -174,8 +171,6 @@ function __VinyInstanceRandom(_sources) constructor
     static PitchTargetSet = __VinylInstancePitchTargetSet;
     static FadeTimeSet    = __VinylInstanceFadeTimeSet;
     static FadeTimeGet    = __VinylInstanceFadeTimeGet;
-    static BussSet        = __VinylInstanceBussSet;
-    static BussGet        = __VinylInstanceBussGet;
     static PatternGet     = __VinylInstancePatternGet;
     static IsStopping     = __VinylInstanceIsStopping;
     static IsFinished     = __VinylInstanceIsFinished;
@@ -234,9 +229,7 @@ function __VinyInstanceRandom(_sources) constructor
     
     static __Play = function()
     {
-        __VinylInstanceCommonPlay(false);
-        
-        if (VINYL_DEBUG) __VinylTrace("Playing ", self, " (buss=\"", __bussName, "\", gain=", __gain, ", pitch=", __pitch, ")");
+        __VinylInstanceCommonPlay();
         
         //Figure out what to play
         __index = irandom(array_length(__sources) - 1);
