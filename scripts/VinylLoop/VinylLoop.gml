@@ -148,11 +148,7 @@ function __VinyInstanceLoop(_pattern) constructor
     {
         __VinylInstanceCommonPlay();
         
-        if (__source != undefined)
-        {
-            __VinylTrace("Loop playing");
-            with(__source) __Play();
-        }
+        if (__source != undefined) with(__source) __Play();
     }
     
     static __Tick = function()
@@ -166,11 +162,11 @@ function __VinyInstanceLoop(_pattern) constructor
         {
             __VinylInstanceCommonTick();
             
-            //Handle fade out
-            if (__timeFadeOut > 0.0)
-            {
-                if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();
-            }
+            ////Handle fade out
+            //if (__timeFadeOut > 0.0)
+            //{
+            //    if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();
+            //}
             
             if (__source != undefined)
             {
@@ -178,6 +174,8 @@ function __VinyInstanceLoop(_pattern) constructor
                 
                 if (__source.__WillFinish())
                 {
+                    if (VINYL_DEBUG) __VinylTrace("Finished loop for ", self);
+                    
                     if (__stopping)
                     {
                         Kill();

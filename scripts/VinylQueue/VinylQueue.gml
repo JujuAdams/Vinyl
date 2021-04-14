@@ -23,9 +23,9 @@ function __VinylPatternQueue() constructor
 {
     __VinylPatternCommonConstruct(__VinyInstanceQueue);
     
-    __sources     = array_create(argument_count, undefined);
-    __pops        = false;
-    __dontPopLast = false;
+    __sources = array_create(argument_count, undefined);
+    __pop     = false;
+    __popLast = false;
     
     //Copy input sources into the actual array
     var _i = 0;
@@ -53,26 +53,19 @@ function __VinylPatternQueue() constructor
     
     #region Public Methods
     
-    static PopSet = function(_state)
+    static PopSet = function(_pop, _dontPopLast)
     {
-        __pops = _state;
+        __pop     = _pop;
+        __popLast = _dontPopLast;
         return self;
     }
     
     static PopGet = function()
     {
-        return __pops;
-    }
-    
-    static DontPopLasttSet = function(_state)
-    {
-        __dontPopLast = _state;
-        return self;
-    }
-    
-    static DontPopLastGet = function()
-    {
-        return __dontPopLast;
+        return {
+            pop : __pop,
+            popLast : __popLast
+        };
     }
     
     #endregion
@@ -98,10 +91,10 @@ function __VinyInstanceQueue(_pattern) constructor
 {
     __VinylInstanceCommonConstruct(_pattern);
     
-    __pops        = __pattern.__pops;
-    __dontPopLast = __pattern.__dontPopLast;
-    __sources     = __VinylInstanceInstantiateAll(self, __pattern.__sources);
-    __index       = undefined;
+    __pop     = __pattern.__pop;
+    __popLast = __pattern.__popLast;
+    __sources = __VinylInstanceInstantiateAll(self, __pattern.__sources);
+    __index   = undefined;
     
     //Create a backup of our sources to use when we reset this instance
     __sourcesCopy = array_create(array_length(__sources));
@@ -201,37 +194,22 @@ function __VinyInstanceQueue(_pattern) constructor
     
     static Push = function(_source)
     {
-        return Insert(_source, __loop? __index : array_length(__sources));
+        return Insert(_source, array_length(__sources));
     }
     
     static Pop = function()
     {
-        return Delete((__loop? __index : array_length(__sources)) - 1);
+        return Delete(array_length(__sources) - 1);
     }
     
     static Insert = function(_source, _index)
     {
         //Spin up a new instance to play
-        var _instance = __VinylPatternizeSource(_source).__Play(false);
+        var _instance = __VinylPatternInstantiate(__VinylPatternizeSource(_source));
         
-        if (__loop)
+        if ((_index < 0) || (_index > array_length(__sources)))
         {
-            var _size = array_length(__sources);
-            if (_size <= 0)
-            {
-                _index = 0;
-            }
-            else
-            {
-                _index = (_index + _size) mod _size;
-            }
-        }
-        else
-        {
-            if ((_index < 0) || (_index > array_length(__sources)))
-            {
-                __VinylError("Invalid index (", _index, "), must be from 0 to ", array_length(__sources), " inclusive (", self, ")");
-            }
+            __VinylError("Invalid index (", _index, "), must be from 0 to ", array_length(__sources), " inclusive (", self, ")");
         }
         
         array_insert(__sources, _index, _instance);
@@ -251,57 +229,29 @@ function __VinyInstanceQueue(_pattern) constructor
         }
         else
         {
-            if (__loop)
+            if ((_index < 0) || (_index >= array_length(__sources)))
             {
-                _index = (_index + _size) mod _size;
-                
-                array_delete(__sources, _index, 1);
-                
-                if (_index == __index)
-                {
-                    with(__current) Stop();
-                    __sourceStopping[@ array_length(__sourceStopping)] = __current; 
-                }
-                
-                if (_size <= 1)
-                {
-                    __index   = undefined;
-                    __current = undefined;
-                }
-                else
-                {
-                    if (_index < __index)
-                    {
-                        __index = (__index - 1 + _size) mod _size;
-                    }
-                }
+                __VinylError("Invalid index (", _index, "), must be from 0 to ", array_length(__sources) - 1, " inclusive (", self, ")");
+            }
+            
+            array_delete(__sources, _index, 1);
+            
+            if (_index == __index)
+            {
+                with(__current) Stop();
+                __sourceStopping[@ array_length(__sourceStopping)] = __current; 
+            }
+            
+            if (_size <= 1)
+            {
+                __index   = undefined;
+                __current = undefined;
             }
             else
             {
-                if ((_index < 0) || (_index >= array_length(__sources)))
+                if (_index < __index)
                 {
-                    __VinylError("Invalid index (", _index, "), must be from 0 to ", array_length(__sources) - 1, " inclusive (", self, ")");
-                }
-                
-                array_delete(__sources, _index, 1);
-                
-                if (_index == __index)
-                {
-                    with(__current) Stop();
-                    __sourceStopping[@ array_length(__sourceStopping)] = __current; 
-                }
-                
-                if (_size <= 1)
-                {
-                    __index   = undefined;
-                    __current = undefined;
-                }
-                else
-                {
-                    if (_index < __index)
-                    {
-                        __index = (__index - 1 + _size) mod _size;
-                    }
+                    __index = (__index - 1 + _size) mod _size;
                 }
             }
         }
@@ -321,6 +271,21 @@ function __VinyInstanceQueue(_pattern) constructor
         if (VINYL_DEBUG) __VinylTrace("Cleared queue, is now ", self);
         
         return undefined;
+    }
+    
+    static PopSet = function(_pop, _dontPopLast)
+    {
+        __pop     = _pop;
+        __popLast = _dontPopLast;
+        return self;
+    }
+    
+    static PopGet = function()
+    {
+        return {
+            pop : __pop,
+            popLast : __popLast
+        };
     }
     
     #endregion
@@ -425,12 +390,11 @@ function __VinyInstanceQueue(_pattern) constructor
                 
                 if (!__stopping)
                 {
-                    if (__current.__stopping || __current.__WillFinish())
+                    if (__current.__WillFinish())
                     {
-                        if (__pops)
+                        if (__pop && (__popLast || (array_length(__sources) > 1)))
                         {
-                            //Pop the current source so long as we're not on the last source in "loop on last" mode
-                            if (!__loopOnLast || (array_length(__sources) > 1)) array_delete(__sources, __index, 1);
+                            array_delete(__sources, __index, 1);
                         }
                         else
                         {
@@ -444,25 +408,12 @@ function __VinyInstanceQueue(_pattern) constructor
                             //Finish the queue if there are no sources left to play
                             Kill();
                         }
-                        else if (__loop)
-                        {
-                            //If we're looping, wrap around to the start of the queue if necessary and play the next source
-                            __index = __index mod array_length(__sources);
-                            __current = sources[__index];
-                            _new_play = true;
-                        }
-                        else if (__loopOnLast && (__index >= array_length(__sources)))
-                        {
-                            //If we're looping on the last source, loop that source
-                            __index = array_length(__sources) - 1;
-                            __current = __sources[__index];
-                            _new_play = true;
-                        }
                         else
                         {
-                            //If we're *not* looping, only play the next source if we have something to play!
+                            //Play the next source if we have something to play
                             if (__index < array_length(__sources))
                             {
+                                if (__current != undefined) with(__current) Kill();
                                 __current = __sources[__index];
                                 _new_play = true;
                             }
@@ -479,7 +430,7 @@ function __VinyInstanceQueue(_pattern) constructor
                             __current = __VinylPatternizeSource(__current);
                             if (VinylIsPattern(__current))
                             {
-                                __current = __current.__Play(false); //Generate the source
+                                __current = __current.__Play(); //Play the instance
                                 __sources[@ __index] = __current;
                             }
                             

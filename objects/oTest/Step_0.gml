@@ -25,12 +25,17 @@ if (keyboard_check_pressed(ord("5")))
 
 if (keyboard_check_pressed(ord("6")))
 {
-    instance = VinylMulti(snd_1, snd_2, snd_3, snd_4, snd_5).Play();
-} 
+    VinylMulti(snd_1, snd_2, snd_3, snd_4, snd_5).Play();
+}
 
 if (keyboard_check_pressed(ord("7")))
 {
-    instance = VinylLoop(snd_1).Play();
+    VinylLoop(snd_1).Play();
+}
+
+if (keyboard_check_pressed(ord("8")))
+{
+    VinylLoop(VinylQueue(snd_1, snd_2, snd_3, snd_4, snd_5).PopSet(true, false)).Play();
 }
 
 if (keyboard_check_pressed(ord("L")))
@@ -50,12 +55,12 @@ if (keyboard_check_pressed(ord("L")))
 
 if (keyboard_check_pressed(ord("S")))
 {
-    if (!keyboard_check(vk_shift))
+    if (keyboard_check(vk_shift))
     {
-        instance.Stop();
+        instance.InstanceGet().Kill();
     }
     else
     {
-        instance.Kill();
+        instance.InstanceGet().Stop();
     }
 }
