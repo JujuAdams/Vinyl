@@ -29,8 +29,9 @@ function __VinylPatternizeSource(_source)
 {
     if (is_numeric(_source))
     {
-        //TODO - Cache this
-        return new __VinylPatternBasic(_source);
+        var _pattern = VinylLibGet(_source);
+        if (_pattern == undefined) return new __VinylPatternBasic(_source);
+        return _pattern;
     }
     else
     {
