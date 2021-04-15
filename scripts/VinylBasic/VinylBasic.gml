@@ -15,7 +15,10 @@ function __VinylPatternBasic(_asset) constructor
         __VinylError("Asset \"", _asset, "\" is invalid");
     }
     
-    __asset = _asset;
+    __asset     = _asset;
+    __startTime = 0;
+    __endTime   = audio_sound_length(__asset);
+    __duration  = __endTime - __startTime;
     
     
     
@@ -45,6 +48,24 @@ function __VinylPatternBasic(_asset) constructor
         return __asset;
     }
     
+    static PeriodSet = function(_startTime, _endTime)
+    {
+        __startTime = _startTime;
+        __endTime   = _endTime;
+        __duration  = __endTime - __startTime;
+        
+        return self;
+    }
+    
+    static PeriodGet = function()
+    {
+        return {
+            startTime : __startTime,
+            endTime   : __endTime,
+            duration  : __duration,
+        };
+    }
+    
     #endregion
     
     
@@ -70,6 +91,9 @@ function __VinyInstanceBasic(_pattern) constructor
     
     __asset      = __pattern.__asset;
     __GMInstance = undefined;
+    __startTime  = __pattern.__startTime;
+    __endTime    = __pattern.__endTime;
+    __duration   = __endTime - __startTime;
     
     
     
@@ -78,7 +102,7 @@ function __VinyInstanceBasic(_pattern) constructor
     static PositionGet = function()
     {
         if (!__started || __finished || !is_numeric(__GMInstance) || !audio_is_playing(__GMInstance)) return undefined;
-        return audio_sound_get_track_position(__GMInstance);
+        return audio_sound_get_track_position(__GMInstance) - __startTime;
     }
     
     /// @param time
@@ -86,7 +110,7 @@ function __VinyInstanceBasic(_pattern) constructor
     {
         if ((_time != undefined) && __started && !__finished && is_numeric(__GMInstance) && audio_is_playing(__GMInstance))
         {
-            audio_sound_set_track_position(__GMInstance, _time);
+            audio_sound_set_track_position(__GMInstance, _time + __startTime);
         }
     }
     
@@ -123,6 +147,24 @@ function __VinyInstanceBasic(_pattern) constructor
     static GMInstanceGet = function()
     {
         return __GMInstance;
+    }
+    
+    static PeriodSet = function(_startTime, _endTime)
+    {
+        __startTime = _startTime;
+        __endTime   = _endTime;
+        __duration  = __endTime - __startTime;
+        
+        return self;
+    }
+    
+    static PeriodGet = function()
+    {
+        return {
+            startTime : __startTime,
+            endTime   : __endTime,
+            duration  : __duration,
+        };
     }
     
     #endregion
@@ -169,6 +211,7 @@ function __VinyInstanceBasic(_pattern) constructor
         
         //Play the audio asset
         __GMInstance = audio_play_sound(__asset, 1, false);
+        audio_sound_set_track_position(__GMInstance, __startTime);
         audio_sound_gain(__GMInstance, __outputGain, 0.0);
         audio_sound_pitch(__GMInstance, __outputPitch);
     }
@@ -208,7 +251,7 @@ function __VinyInstanceBasic(_pattern) constructor
     static __WillFinish = function()
     {
         if (!__started || __finished || !is_numeric(__GMInstance) || !audio_is_playing(__GMInstance)) return true;
-        return (((audio_sound_length(__GMInstance) - audio_sound_get_track_position(__GMInstance)) / __outputPitch) <= (VINYL_STEP_DURATION/1000));
+        return (((__endTime - audio_sound_get_track_position(__GMInstance)) / __outputPitch) <= (VINYL_STEP_DURATION/1000));
     }
     
     static toString = function()
