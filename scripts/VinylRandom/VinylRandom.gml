@@ -219,6 +219,19 @@ function __VinyInstanceRandom(_pattern) constructor
         __current.__Play();
     }
     
+    static __ReplayViaLoop = function()
+    {
+        if (!__started && !__stopping && !__finished)
+        {
+            __Play();
+        }
+        else
+        {
+            if (VINYL_DEBUG) __VinylTrace("Replaying ", self);
+            with(__current) __ReplayViaLoop();
+        }
+    }
+    
     static __WillFinish = function()
     {
         var _i = 0;

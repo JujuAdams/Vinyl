@@ -163,6 +163,19 @@ function __VinyInstanceLoop(_pattern) constructor
         if (__source != undefined) with(__source) __Play();
     }
     
+    static __ReplayViaLoop = function()
+    {
+        if (!__started && !__stopping && !__finished)
+        {
+            __Play();
+        }
+        else
+        {
+            if (VINYL_DEBUG) __VinylTrace("Replaying ", self);
+            with(__source) __ReplayViaLoop();
+        }
+    }
+    
     static __Tick = function()
     {
         if (!__started && !__stopping && !__finished)
@@ -182,8 +195,6 @@ function __VinyInstanceLoop(_pattern) constructor
             
             if (__source != undefined)
             {
-                with(__source) __Tick();
-                
                 if (__source.__WillFinish())
                 {
                     if (VINYL_DEBUG) __VinylTrace("Finished loop for ", self);
@@ -195,9 +206,11 @@ function __VinyInstanceLoop(_pattern) constructor
                     else
                     {
                         if (VINYL_DEBUG) __VinylTrace(self, " is replaying ", __source);
-                        with(__source) __Play();
+                        with(__source) __ReplayViaLoop();
                     }
                 }
+                
+                with(__source) __Tick();
             }
         }
     }

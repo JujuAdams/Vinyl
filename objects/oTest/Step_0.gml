@@ -43,6 +43,16 @@ if (keyboard_check_pressed(ord("9")))
     instance = VinylLoop(VinylMulti(snd_music_loop_1, snd_music_loop_2, snd_music_loop_3).SynchronizeSet(true).BlendSet(0)).Play();
 }
 
+if (keyboard_check_pressed(ord("Q")))
+{
+    VinylLoop(VinylBasic(snd_music_loop_1).SectionSet(0.5*audio_sound_length(snd_music_loop_1), audio_sound_length(snd_music_loop_1))).Play();
+}
+
+if (keyboard_check_pressed(ord("W")))
+{
+    VinylBasic(snd_music_loop_1).Play();
+}
+
 if (keyboard_check_pressed(ord("L")))
 {
     instance = VinylLibPlay("loop test");

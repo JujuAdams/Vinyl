@@ -354,6 +354,32 @@ function __VinyInstanceMulti(_pattern) constructor
         }
     }
     
+    static __ReplayViaLoop = function()
+    {
+        if (!__started && !__stopping && !__finished)
+        {
+            __Play();
+        }
+        else
+        {
+            if (VINYL_DEBUG) __VinylTrace("Replaying ", self);
+            
+            //Figure out what to play
+            var _blendGains = __blendGains;
+            var _i = 0;
+            repeat(array_length(__sources))
+            {
+                with(__sources[_i])
+                {
+                    __inheritedBlendGain = _blendGains[_i];
+                    __ReplayViaLoop();
+                }
+                
+                ++_i;
+            }
+        }
+    }
+    
     static __Tick = function()
     {
         if (!__started && !__stopping && !__finished)

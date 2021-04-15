@@ -360,6 +360,19 @@ function __VinyInstanceQueue(_pattern) constructor
         with(__current) __Play();
     }
     
+    static __ReplayViaLoop = function()
+    {
+        if (!__started && !__stopping && !__finished)
+        {
+            __Play();
+        }
+        else
+        {
+            if (VINYL_DEBUG) __VinylTrace("Replaying ", self);
+            with(__current) __ReplayViaLoop();
+        }
+    }
+    
     static __Tick = function()
     {
         if (!__started && !__stopping && !__finished)

@@ -51,7 +51,7 @@ function __VinylPatternBasic(_asset) constructor
     static SectionSet = function(_startTime, _endTime)
     {
         __startTime = _startTime;
-        __endTime   = _endTime;
+        __endTime   = (_endTime == undefined)? audio_sound_length(__asset) : _endTime;
         __duration  = __endTime - __startTime;
         
         return self;
@@ -152,7 +152,7 @@ function __VinyInstanceBasic(_pattern) constructor
     static SectionSet = function(_startTime, _endTime)
     {
         __startTime = _startTime;
-        __endTime   = _endTime;
+        __endTime   = (_endTime == undefined)? audio_sound_length(__asset) : _endTime;
         __duration  = __endTime - __startTime;
         
         return self;
@@ -214,6 +214,20 @@ function __VinyInstanceBasic(_pattern) constructor
         audio_sound_set_track_position(__GMInstance, __startTime);
         audio_sound_gain(__GMInstance, __outputGain, 0.0);
         audio_sound_pitch(__GMInstance, __outputPitch);
+    }
+    
+    static __ReplayViaLoop = function()
+    {
+        if (__GMInstance == undefined)
+        {
+            __Play();
+        }
+        else
+        {
+            var _newPosition = audio_sound_get_track_position(__GMInstance) - __duration;
+            if (VINYL_DEBUG) __VinylTrace("Replaying ", self, " (new pos = ", _newPosition, ")");
+            audio_sound_set_track_position(__GMInstance, _newPosition);
+        }
     }
     
     static __Tick = function()
