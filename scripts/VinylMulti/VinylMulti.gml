@@ -248,8 +248,6 @@ function __VinyInstanceMulti(_pattern) constructor
     
     static __Tick = function()
     {
-        //TODO - Much like queues, we should be checking to see if the loop source has changed and adjust accordingly
-        
         if (!__started && !__stopping && !__finished)
         {
             //If we're not started and we're not stopping and we ain't finished, then play!
