@@ -23,8 +23,7 @@ function __VinylPatternMulti() constructor
 {
     __VinylPatternCommonConstruct(__VinyInstanceMulti);
     
-    __sources     = array_create(argument_count, undefined);
-    __synchronize = false;
+    __sources = array_create(argument_count, undefined);
     
     //Copy input sources into the actual array
     var _i = 0;
@@ -33,6 +32,12 @@ function __VinylPatternMulti() constructor
         __sources[@ _i] = __VinylPatternizeSource(argument[_i]);
         ++_i;
     }
+    __synchronize    = false;
+    __blendParam     = undefined;
+    __blendAnimCurve = undefined;
+    __blendGains     = undefined;
+    
+    __VinylBlendUpdate();
     
     
     
@@ -47,6 +52,52 @@ function __VinylPatternMulti() constructor
     static SynchronizeGet = function()
     {
         return __synchronize;
+    }
+    
+    static BlendSet = function()
+    {
+        var _oldAnimCurve = __blendAnimCurve;
+        
+        var _param     = argument[0];
+        var _animCurve = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : undefined;
+        
+        if (_oldAnimCurve != _animCurve)
+        {
+            var _channelCount = array_length(animcurve_get(_animCurve).channels);
+            if (_channelCount < array_length(__sources)) __VinylError("Channel count in animation curve ", _animCurve, " (", _channelCount, ") is smaller than source count (", array_length(__sources));
+            if (_channelCount > array_length(__sources)) __VinylTrace("Warning! Channel count in animation curve ", _animCurve, " (", _channelCount, ") is greater than source count (", array_length(__sources));
+        }
+        
+        __blendParam     = _param;
+        __blendAnimCurve = _animCurve;
+        
+        __VinylBlendUpdate();
+        
+        return self;
+    }
+    
+    static BlendReset = function()
+    {
+        __blendParam     = undefined;
+        __blendAnimCurve = undefined;
+        __blendGains     = undefined;
+        
+        return self;
+    }
+    
+    static BlendGet = function()
+    {
+        return {
+            parameter : __blendParam,
+            animCurve : __blendAnimCurve,
+        };
+    }
+    
+    static BlendGainGet = function(_index)
+    {
+        if (!is_array(__blendGains)) return 1.0;
+        if ((_index < 0) || (_index >= array_length(__blendGains))) __VinylError("Index provided (", _index, ") is invalid (0 <= index <= ", array_length(__blendGains) - 1, ")");
+        return __blendGains[_index];
     }
     
     #endregion
@@ -91,8 +142,13 @@ function __VinyInstanceMulti(_pattern) constructor
 {
     __VinylInstanceCommonConstruct(_pattern);
     
-    __synchronize = __pattern.__synchronize;
-    __sources     = __VinylInstanceInstantiateAll(self, __pattern.__sources);
+    __synchronize    = __pattern.__synchronize;
+    __sources        = __VinylInstanceInstantiateAll(self, __pattern.__sources);
+    __blendParam     = __pattern.__blendParam;
+    __blendAnimCurve = __pattern.__blendAnimCurve;
+    __blendGains     = undefined;
+    
+    __VinylBlendUpdate();
     
     
     
@@ -184,6 +240,52 @@ function __VinyInstanceMulti(_pattern) constructor
         return __sources[_index];
     }
     
+    static BlendSet = function()
+    {
+        var _oldAnimCurve = __blendAnimCurve;
+        
+        var _param     = argument[0];
+        var _animCurve = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : undefined;
+        
+        if (_oldAnimCurve != _animCurve)
+        {
+            var _channelCount = array_length(animcurve_get(_animCurve).channels);
+            if (_channelCount < array_length(__sources)) __VinylError("Channel count in animation curve ", _animCurve, " (", _channelCount, ") is smaller than source count (", array_length(__sources));
+            if (_channelCount > array_length(__sources)) __VinylTrace("Warning! Channel count in animation curve ", _animCurve, " (", _channelCount, ") is greater than source count (", array_length(__sources));
+        }
+        
+        __blendParam     = _param;
+        __blendAnimCurve = _animCurve;
+        
+        __VinylBlendUpdate();
+        
+        return self;
+    }
+    
+    static BlendReset = function()
+    {
+        __blendParam     = undefined;
+        __blendAnimCurve = undefined;
+        __blendGains     = undefined;
+        
+        return self;
+    }
+    
+    static BlendGet = function()
+    {
+        return {
+            parameter : __blendParam,
+            animCurve : __blendAnimCurve,
+        };
+    }
+    
+    static BlendGainGet = function(_index)
+    {
+        if (!is_array(__blendGains)) return 1.0;
+        if ((_index < 0) || (_index >= array_length(__blendGains))) __VinylError("Index provided (", _index, ") is invalid (0 <= index <= ", array_length(__blendGains) - 1, ")");
+        return __blendGains[_index];
+    }
+    
     #endregion
     
     
@@ -238,10 +340,16 @@ function __VinyInstanceMulti(_pattern) constructor
         __VinylInstanceCommonPlay();
         
         //Figure out what to play
+        var _blendGains = __blendGains;
         var _i = 0;
         repeat(array_length(__sources))
         {
-            with(__sources[_i]) __Play();
+            with(__sources[_i])
+            {
+                __inheritedBlendGain = _blendGains[_i];
+                __Play();
+            }
+            
             ++_i;
         }
     }
@@ -265,11 +373,13 @@ function __VinyInstanceMulti(_pattern) constructor
                 var _finished = false;
                 var _time = undefined;
                 
+                var _blendGains = __blendGains;
                 var _i = 0;
                 repeat(array_length(__sources))
                 {
                     with(__sources[_i])
                     {
+                        __inheritedBlendGain = _blendGains[_i];
                         __Tick(); //Update the instances we're currently playing
                         if (_time == undefined) _time = PositionGet() else PositionSet(_time);
                         if (__finished) _finished = true;
@@ -282,12 +392,14 @@ function __VinyInstanceMulti(_pattern) constructor
             }
             else
             {
+                var _blendGains = __blendGains;
                 var _finished = true;
                 var _i = 0;
                 repeat(array_length(__sources))
                 {
                     with(__sources[_i])
                     {
+                        __inheritedBlendGain = _blendGains[_i];
                         __Tick(); //Update the instances we're currently playing
                         if (!__finished) _finished = false;
                     }

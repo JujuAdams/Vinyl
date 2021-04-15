@@ -38,6 +38,11 @@ if (keyboard_check_pressed(ord("8")))
     VinylLoop(VinylQueue(snd_1, snd_2, snd_3, snd_4, snd_5).PopSet(true, false)).Play();
 }
 
+if (keyboard_check_pressed(ord("9")))
+{
+    instance = VinylLoop(VinylMulti(snd_music_loop_1, snd_music_loop_2, snd_music_loop_3).SynchronizeSet(true).BlendSet(0)).Play();
+}
+
 if (keyboard_check_pressed(ord("L")))
 {
     instance = VinylLibPlay("loop test");
@@ -53,4 +58,9 @@ if (keyboard_check_pressed(ord("S")))
     {
         instance.InstanceGet().Stop();
     }
+}
+
+if (VinylIsSoundInstance(instance))
+{
+    instance.InstanceGet().BlendSet(mouse_x/room_width);
 }

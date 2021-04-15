@@ -246,14 +246,16 @@ function __VinylInstanceIsFinished()
 
 function __VinylInstanceCommonConstruct(_pattern)
 {
-    __pattern = _pattern;
-    __parent  = undefined;
-    __groups  = [];
+    __pattern    = _pattern;
+    __parent     = undefined;
+    __groups     = [];
     
     __gain       = 1.0;
     __gainRate   = VINYL_DEFAULT_GAIN_RATE;
     __gainTarget = undefined;
     __outputGain = 1.0;
+    
+    __inheritedBlendGain = 1.0;
     
     __pitch       = 1.0;
     __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
@@ -335,7 +337,7 @@ function __VinylInstanceCommonTick()
     //If we have a parent, multiply our output gain/pitch by their gain/pitch
     if (is_struct(__parent))
     {
-        __outputGain  *= __parent.__outputGain;
+        __outputGain  *= __parent.__outputGain*__inheritedBlendGain;
         __outputPitch *= __parent.__outputPitch;
     }
     else
