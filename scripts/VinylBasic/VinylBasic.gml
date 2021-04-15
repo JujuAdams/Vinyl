@@ -48,7 +48,7 @@ function __VinylPatternBasic(_asset) constructor
         return __asset;
     }
     
-    static PeriodSet = function(_startTime, _endTime)
+    static SectionSet = function(_startTime, _endTime)
     {
         __startTime = _startTime;
         __endTime   = _endTime;
@@ -57,7 +57,7 @@ function __VinylPatternBasic(_asset) constructor
         return self;
     }
     
-    static PeriodGet = function()
+    static SectionGet = function()
     {
         return {
             startTime : __startTime,
@@ -149,7 +149,7 @@ function __VinyInstanceBasic(_pattern) constructor
         return __GMInstance;
     }
     
-    static PeriodSet = function(_startTime, _endTime)
+    static SectionSet = function(_startTime, _endTime)
     {
         __startTime = _startTime;
         __endTime   = _endTime;
@@ -158,7 +158,7 @@ function __VinyInstanceBasic(_pattern) constructor
         return self;
     }
     
-    static PeriodGet = function()
+    static SectionGet = function()
     {
         return {
             startTime : __startTime,
@@ -240,11 +240,7 @@ function __VinyInstanceBasic(_pattern) constructor
                 audio_sound_pitch(__GMInstance, __outputPitch);
             }
             
-            if (!__finished)
-            {
-                //If our sound instance is somehow invalid, stop this instance
-                if (!is_numeric(__GMInstance) || !audio_is_playing(__GMInstance)) Kill();
-            }
+            if (__WillFinish()) Kill();
         }
     }
     
