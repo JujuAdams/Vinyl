@@ -5,6 +5,8 @@ __VinylTrace("Welcome to Vinyl by @jujuadams! This is version " + __VINYL_VERSIO
 
 
 
+FAudioGMS_Init(50, 1/60);
+
 global.__vinylPlaying         = ds_list_create(); //TODO - Replace this with an array
 global.__vinylGroupsList      = ds_list_create();
 global.__vinylGroupsMap       = ds_map_create();

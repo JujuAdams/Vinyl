@@ -1,0 +1,15 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    compileSdkVersion 28
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.getkeepsafe.relinker:relinker:1.4.4'
+}
