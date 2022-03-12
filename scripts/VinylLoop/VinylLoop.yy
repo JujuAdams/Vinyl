@@ -3,7 +3,7 @@
   "isCompatibility": false,
   "parent": {
     "name": "Patterns",
-    "path": "folders/Vinyl/Patterns.yy",
+    "path": "folders/Vinyl/This way to the party/Patterns.yy",
   },
   "resourceVersion": "1.0",
   "name": "VinylLoop",

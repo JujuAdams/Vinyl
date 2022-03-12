@@ -3,7 +3,7 @@
   "isCompatibility": false,
   "parent": {
     "name": "Library",
-    "path": "folders/Vinyl/Library.yy",
+    "path": "folders/Vinyl/This way to the party/Library.yy",
   },
   "resourceVersion": "1.0",
   "name": "VinylLibAdd",
