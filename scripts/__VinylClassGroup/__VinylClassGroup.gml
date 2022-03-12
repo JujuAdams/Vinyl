@@ -1,7 +1,8 @@
 function __VinylClassGroup(_name) constructor
 {
-    __name     = _name;
-    __children = [];
+    __name         = _name;
+    __children     = [];
+    __inheritArray = [];
     
     __gain       = 1.0;
     __gainRate   = VINYL_DEFAULT_GAIN_RATE;
@@ -10,6 +11,8 @@ function __VinylClassGroup(_name) constructor
     __pitch       = 1.0;
     __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
     __pitchTarget = undefined;
+    
+    __gainFinal = 1.0;
     
     
     
@@ -35,6 +38,11 @@ function __VinylClassGroup(_name) constructor
         return __gain;
     }
     
+    static GainAtTarget = function()
+    {
+        return (__gain == __gainTarget);
+    }
+    
     static PitchSet = function(_value)
     {
         __pitch = _value;
@@ -55,6 +63,76 @@ function __VinylClassGroup(_name) constructor
         return __pitch;
     }
     
+    static PitchAtTarget = function()
+    {
+        return (__pitch == __pitchTarget);
+    }
+    
+    static GroupInherit = function(_groupOrArray)
+    {
+        //If we passed in an array, iterate over it and re-execute the function
+        if (is_array(_groupOrArray))
+        {
+            var _i = 0;
+            repeat(array_length(_groupOrArray))
+            {
+                GroupInherit(_groupOrArray[_i]);
+                ++_i;
+            }
+            
+            return self;
+        }
+        
+        var _i = 0;
+        repeat(array_length(__inheritArray))
+        {
+            if (__inheritArray[_i] == _groupOrArray) return self;
+            ++_i;
+        }
+        
+        array_push(__inheritArray, _groupOrArray);
+        
+        return self;
+    }
+    
+    static GroupDisinherit = function(_groupOrArray)
+    {
+        //If we passed in an array, iterate over it and re-execute the function
+        if (is_array(_groupOrArray))
+        {
+            var _i = 0;
+            repeat(array_length(_groupOrArray))
+            {
+                GroupDisinherit(_groupOrArray[_i]);
+                ++_i;
+            }
+            
+            return self;
+        }
+        
+        var _i = 0;
+        repeat(array_length(__inheritArray))
+        {
+            if (__inheritArray[_i] == _groupOrArray)
+            {
+                array_delete(__inheritArray, _i, 1);
+            }
+            else
+            {
+                ++_i;
+            }
+        }
+        
+        return self;
+    }
+    
+    static GroupClear = function()
+    {
+        __inheritArray = [];
+        
+        return self;
+    }
+    
     #endregion
     
     
@@ -70,6 +148,8 @@ function __VinylClassGroup(_name) constructor
         //Tween to the gain/pitch target
         if (__gain  != __gainTarget ) gain  += clamp(__gainTarget  - __gain , -__gainRate , __gainRate );
         if (__pitch != __pitchTarget) pitch += clamp(__pitchTarget - __pitch, -__pitchRate, __pitchRate);
+        
+        __gainFinal = __gain*__VinylGroupsGainFinalGet(__inheritArray);
     }
     
     static __ChildAdd = function(_instance)
@@ -139,4 +219,23 @@ function __VinylClassGroup(_name) constructor
     }
     
     #endregion
+}
+
+//Returns the resultant gain for the given set of groups
+//TODO - Optimise using a cache I suppose?
+function __VinylGroupsGainFinalGet(_groupArray)
+{
+    if (!is_array(_groupArray)) return 0;
+    
+    var _gain = 0;
+    
+    var _i = 0;
+    repeat(array_length(_groupArray))
+    {
+        var _group = global.__vinylGroupsMap[? _groupArray[_i]];
+        if (is_struct(_group)) _gain *= _group.__gainFinal;
+        ++_i;
+    }
+    
+    return _gain;
 }
