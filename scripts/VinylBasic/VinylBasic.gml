@@ -5,12 +5,20 @@ function VinylBasic(_asset)
     return new __VinylPatternBasic(_asset);
 }
 
-/// @param alias
-function __VinylPatternBasic(_alias) constructor
+/// @param asset
+function __VinylPatternBasic(_asset) constructor
 {
     __VinylPatternCommonConstruct(__VinyInstanceBasic);
     
-    __alias = _alias;
+    if (!is_numeric(_asset) || !audio_exists(_asset))
+    {
+        __VinylError("Asset \"", _asset, "\" is invalid");
+    }
+    
+    __asset     = _asset;
+    __startTime = 0;
+    __endTime   = audio_sound_length(__asset);
+    __duration  = __endTime - __startTime;
     
     
     
@@ -35,9 +43,27 @@ function __VinylPatternBasic(_alias) constructor
     
     #region Public Methods
     
-    static AliasGet = function()
+    static AssetGet = function()
     {
-        return __alias;
+        return __asset;
+    }
+    
+    static SectionSet = function(_startTime, _endTime)
+    {
+        __startTime = _startTime;
+        __endTime   = (_endTime == undefined)? audio_sound_length(__asset) : _endTime;
+        __duration  = __endTime - __startTime;
+        
+        return self;
+    }
+    
+    static SectionGet = function()
+    {
+        return {
+            startTime : __startTime,
+            endTime   : __endTime,
+            duration  : __duration,
+        };
     }
     
     #endregion
@@ -48,7 +74,7 @@ function __VinylPatternBasic(_alias) constructor
     
     static toString = function()
     {
-        return __alias;
+        return audio_get_name(__asset);
     }
     
     #endregion
@@ -63,9 +89,11 @@ function __VinyInstanceBasic(_pattern) constructor
 {
     __VinylInstanceCommonConstruct(_pattern);
     
-    __alias    = __pattern.__alias;
-    __instance = undefined;
-    __duration = undefined;
+    __asset      = __pattern.__asset;
+    __GMInstance = undefined;
+    __startTime  = __pattern.__startTime;
+    __endTime    = __pattern.__endTime;
+    __duration   = __endTime - __startTime;
     
     
     
@@ -73,16 +101,16 @@ function __VinyInstanceBasic(_pattern) constructor
     
     static PositionGet = function()
     {
-        if (!__started || __finished || !is_numeric(__instance) || !audio_is_playing(__instance)) return undefined;
-        return FAudioGMS_SoundInstance_GetTrackPositionInSeconds(__instance);
+        if (!__started || __finished || !is_numeric(__GMInstance) || !audio_is_playing(__GMInstance)) return undefined;
+        return audio_sound_get_track_position(__GMInstance) - __startTime;
     }
     
     /// @param time
     static PositionSet = function(_time)
     {
-        if ((_time != undefined) && __started && !__finished && is_numeric(__instance) && audio_is_playing(__instance))
+        if ((_time != undefined) && __started && !__finished && is_numeric(__GMInstance) && audio_is_playing(__GMInstance))
         {
-            FAudioGMS_SoundInstance_SetTrackPositionInSeconds(__instance, _time);
+            audio_sound_set_track_position(__GMInstance, _time + __startTime);
         }
     }
     
@@ -103,11 +131,11 @@ function __VinyInstanceBasic(_pattern) constructor
         
         if (!__finished)
         {
-            if (is_numeric(__instance)) FAudioGMS_StaticSound_Destroy(__instance);
+            if (is_numeric(__GMInstance) && audio_is_playing(__GMInstance)) audio_stop_sound(__GMInstance);
             
-            __stopping = false;
-            __finished = true;
-            __instance = undefined;
+            __stopping   = false;
+            __finished   = true;
+            __GMInstance = undefined;
         }
     }
     
@@ -116,9 +144,27 @@ function __VinyInstanceBasic(_pattern) constructor
         return __asset;
     }
     
-    static InstanceGet = function()
+    static GMInstanceGet = function()
     {
-        return __instance;
+        return __GMInstance;
+    }
+    
+    static SectionSet = function(_startTime, _endTime)
+    {
+        __startTime = _startTime;
+        __endTime   = (_endTime == undefined)? audio_sound_length(__asset) : _endTime;
+        __duration  = __endTime - __startTime;
+        
+        return self;
+    }
+    
+    static SectionGet = function()
+    {
+        return {
+            startTime : __startTime,
+            endTime   : __endTime,
+            duration  : __duration,
+        };
     }
     
     #endregion
@@ -156,7 +202,7 @@ function __VinyInstanceBasic(_pattern) constructor
     {
         __VinylInstanceCommonReset();
         
-        __instance = undefined;
+        __GMInstance = undefined;
     }
     
     static __Play = function()
@@ -164,25 +210,23 @@ function __VinyInstanceBasic(_pattern) constructor
         __VinylInstanceCommonPlay();
         
         //Play the audio asset
-        if (!VinylLoaded(__alias)) __VinylError("Alias \"", _alias, "\" is not loaded");
-        
-        __instance = FAudioGMS_SoundInstance_Play(global.__vinylAssetMap[? __alias].Instantiate());
-        FAudioGMS_SoundInstance_SetVolume(__instance, __outputGain);
-        FAudioGMS_SoundInstance_SetPitch(__instance, __outputPitch);
-        __duration = FAudioGMS_SoundInstance_GetTrackLengthInSeconds(__instance);
+        __GMInstance = audio_play_sound(__asset, 1, false);
+        audio_sound_set_track_position(__GMInstance, __startTime);
+        audio_sound_gain(__GMInstance, __outputGain, 0.0);
+        audio_sound_pitch(__GMInstance, __outputPitch);
     }
     
     static __ReplayViaLoop = function()
     {
-        if (!is_numeric(__instance))
+        if (__GMInstance == undefined)
         {
             __Play();
         }
         else
         {
-            var _newPosition = FAudioGMS_SoundInstance_GetTrackPositionInSeconds(__instance) - __duration;
+            var _newPosition = audio_sound_get_track_position(__GMInstance) - __duration;
             if (VINYL_DEBUG) __VinylTrace("Replaying ", self, " (new pos = ", _newPosition, ")");
-            FAudioGMS_SoundInstance_SetTrackPositionInSeconds(__instance, _newPosition);
+            audio_sound_set_track_position(__GMInstance, _newPosition);
         }
     }
     
@@ -200,14 +244,14 @@ function __VinyInstanceBasic(_pattern) constructor
             //Handle fade out
             if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();
             
-            if (is_numeric(__instance) && audio_is_playing(__instance))
+            if (is_numeric(__GMInstance) && audio_is_playing(__GMInstance))
             {
-                var _asset_gain = global.__vinylGlobalAssetGain[? __alias];
+                var _asset_gain = global.__vinylGlobalAssetGain[? __asset];
                 if (_asset_gain == undefined) _asset_gain = 1.0;
                 
                 //Update GM's sound instance
-                FAudioGMS_SoundInstance_SetVolumeOverTime(__instance, __outputGain*_asset_gain, VINYL_STEP_DURATION);
-                FAudioGMS_SoundInstance_SetPitch(__instance, __outputPitch);
+                audio_sound_gain(__GMInstance, __outputGain*_asset_gain, VINYL_STEP_DURATION);
+                audio_sound_pitch(__GMInstance, __outputPitch);
             }
             
             if (__WillFinish()) Kill();
@@ -216,13 +260,13 @@ function __VinyInstanceBasic(_pattern) constructor
     
     static __WillFinish = function()
     {
-        if (!__started || __finished || !is_numeric(__instance)) return true;
-        return (((__duration - 3.9*FAudioGMS_SoundInstance_GetTrackPositionInSeconds(__instance)) / __outputPitch) <= (VINYL_STEP_DURATION/1000));
+        if (!__started || __finished || !is_numeric(__GMInstance) || !audio_is_playing(__GMInstance)) return true;
+        return (((__endTime - audio_sound_get_track_position(__GMInstance)) / __outputPitch) <= (VINYL_STEP_DURATION/1000));
     }
     
     static toString = function()
     {
-        return __alias;
+        return audio_get_name(__asset);
     }
     
     #endregion
