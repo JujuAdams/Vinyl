@@ -212,7 +212,7 @@ function __VinyInstanceBasic(_pattern) constructor
         //Play the audio asset
         __GMInstance = audio_play_sound(__asset, 1, false);
         audio_sound_set_track_position(__GMInstance, __startTime);
-        audio_sound_gain(__GMInstance, __outputGain, 0.0);
+        audio_sound_gain(__GMInstance, __VinylGainToAmplitudeCoeff(__outputGain - VINYL_GAIN_MAXIMUM), 0.0);
         audio_sound_pitch(__GMInstance, __outputPitch);
     }
     
@@ -250,7 +250,7 @@ function __VinyInstanceBasic(_pattern) constructor
                 if (_asset_gain == undefined) _asset_gain = 1.0;
                 
                 //Update GM's sound instance
-                audio_sound_gain(__GMInstance, __outputGain*_asset_gain, VINYL_STEP_DURATION);
+                audio_sound_gain(__GMInstance, __VinylGainToAmplitudeCoeff(__outputGain*_asset_gain - VINYL_GAIN_MAXIMUM), VINYL_STEP_DURATION);
                 audio_sound_pitch(__GMInstance, __outputPitch);
             }
             

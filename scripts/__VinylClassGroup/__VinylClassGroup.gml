@@ -4,7 +4,7 @@ function __VinylClassGroup(_name) constructor
     __children     = [];
     __inheritArray = [];
     
-    __gain       = 1.0;
+    __gain       = 0.0;
     __gainRate   = VINYL_DEFAULT_GAIN_RATE;
     __gainTarget = undefined;
     
@@ -12,7 +12,7 @@ function __VinylClassGroup(_name) constructor
     __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
     __pitchTarget = undefined;
     
-    __gainFinal = 1.0;
+    __gainFinal = 0.0;
     
     
     
@@ -149,7 +149,7 @@ function __VinylClassGroup(_name) constructor
         if (__gain  != __gainTarget ) gain  += clamp(__gainTarget  - __gain , -__gainRate , __gainRate );
         if (__pitch != __pitchTarget) pitch += clamp(__pitchTarget - __pitch, -__pitchRate, __pitchRate);
         
-        __gainFinal = __gain*__VinylGroupsGainFinalGet(__inheritArray);
+        __gainFinal = __gain + __VinylGroupsGainFinalGet(__inheritArray);
     }
     
     static __ChildAdd = function(_instance)
@@ -233,7 +233,7 @@ function __VinylGroupsGainFinalGet(_groupArray)
     repeat(array_length(_groupArray))
     {
         var _group = global.__vinylGroupsMap[? _groupArray[_i]];
-        if (is_struct(_group)) _gain *= _group.__gainFinal;
+        if (is_struct(_group)) _gain += _group.__gainFinal;
         ++_i;
     }
     

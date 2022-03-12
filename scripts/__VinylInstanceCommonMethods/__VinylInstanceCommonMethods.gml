@@ -38,6 +38,13 @@ function __VinylInstancePitchSet(_value)
     return self;
 }
 
+function __VinylInstanceMusicalPitchSet(_value)
+{
+    __pitch = __VinylPitchToFreqCoeff(_value);
+        
+    return self;
+}
+
 function __VinylInstancePitchTargetSet(_target, _rate)
 {
     __pitchTarget = _target;
@@ -49,6 +56,11 @@ function __VinylInstancePitchTargetSet(_target, _rate)
 function __VinylInstancePitchGet()
 {
     return __pitch;
+}
+
+function __VinylInstanceMusicalPitchGet()
+{
+    return __VinylFreqCoeffToPitch(__pitch);
 }
 
 function __VinylInstanceOutputPitchGet()
@@ -250,10 +262,10 @@ function __VinylInstanceCommonConstruct(_pattern)
     __parent     = undefined;
     __groups     = [];
     
-    __gain       = 1.0;
+    __gain       = 0.0;
     __gainRate   = VINYL_DEFAULT_GAIN_RATE;
     __gainTarget = undefined;
-    __outputGain = 1.0;
+    __outputGain = 0.0;
     
     __inheritedBlendGain = 1.0;
     
@@ -300,8 +312,16 @@ function __VinylInstanceCommonReset()
         if (__pattern.__timeFadeOut != undefined) __timeFadeOut = __pattern.__timeFadeOut;
         
         //Randomise the gain/pitch as is appropriate
-        __gain  = random_range(__pattern.__gainMin , __pattern.__gainMax );
-        __pitch = random_range(__pattern.__pitchMin, __pattern.__pitchMax);
+        __gain = random_range(__pattern.__gainMin, __pattern.__gainMax);
+        
+        if (__pattern.__pitchMusical)
+        {
+            __pitch = __VinylPitchToFreqCoeff(irandom_range(__pattern.__pitchMin, __pattern.__pitchMax));
+        }
+        else
+        {
+            __pitch = random_range(__pattern.__pitchMin, __pattern.__pitchMax);
+        }
     }
 }
 
@@ -337,7 +357,7 @@ function __VinylInstanceCommonTick()
     //If we have a parent, multiply our output gain/pitch by their gain/pitch
     if (is_struct(__parent))
     {
-        __outputGain  *= __parent.__outputGain*__inheritedBlendGain;
+        __outputGain  += __parent.__outputGain + __inheritedBlendGain;
         __outputPitch *= __parent.__outputPitch;
     }
     else
@@ -355,7 +375,7 @@ function __VinylInstanceCommonTick()
             else
             {
                 var _group = _groupRef.ref;
-                __outputGain  *= _group.__gain;
+                __outputGain  += _group.__gain;
                 __outputPitch *= _group.__pitch;
                 
                 ++_i;
@@ -368,12 +388,12 @@ function __VinylInstanceCommonTick()
     {
         if (__timeFadeIn > 0)
         {
-            __outputGain *= clamp((current_time - __timeStarted) / __timeFadeIn, 0.0, 1.0);
+            __outputGain += lerp(VINYL_GAIN_SILENT, 0, clamp((current_time - __timeStarted) / __timeFadeIn, 0.0, 1.0));
         }
         
         if (__stopping && (__timeFadeOut > 0))
         {
-            __outputGain *= 1.0 - clamp((current_time - __timeStopping) / __timeFadeOut, 0.0, 1.0);
+            __outputGain += lerp(VINYL_GAIN_SILENT, 0, 1.0 - clamp((current_time - __timeStopping) / __timeFadeOut, 0.0, 1.0));
         }
     }
 }

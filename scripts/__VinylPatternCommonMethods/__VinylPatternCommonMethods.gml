@@ -30,8 +30,21 @@ function __VinylPatternPitchSet()
     var _min = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : 1.0;
     var _max = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : _min;
     
-    __pitchMin = _min;
-    __pitchMax = _max;
+    __pitchMin     = _min;
+    __pitchMax     = _max;
+    __pitchMusical = false;
+    
+    return self;
+}
+
+function __VinylPatternMusicalPitchSet()
+{
+    var _min = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : 1.0;
+    var _max = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : _min;
+    
+    __pitchMin     = _min;
+    __pitchMax     = _max;
+    __pitchMusical = true;
     
     return self;
 }
@@ -39,8 +52,9 @@ function __VinylPatternPitchSet()
 function __VinylPatternPitchGet()
 {
     return {
-        mini : __pitchMin,
-        maxi : __pitchMax
+        mini:    __pitchMin,
+        maxi:    __pitchMax,
+        musical: __pitchMusical,
     };
 }
 
@@ -164,11 +178,12 @@ function __VinylPatternCommonConstruct(_instanceConstructor)
     
     __groups = [];
     
-    __gainMin = 1.0;
-    __gainMax = 1.0;
+    __gainMin = 0.0;
+    __gainMax = 0.0;
     
-    __pitchMin = 1.0;
-    __pitchMax = 1.0;
+    __pitchMin     = 1.0;
+    __pitchMax     = 1.0;
+    __pitchMusical = false;
     
     __timeFadeIn  = undefined;
     __timeFadeOut = undefined;

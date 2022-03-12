@@ -3,6 +3,8 @@
 
 __VinylTrace("Welcome to Vinyl by @jujuadams! This is version " + __VINYL_VERSION + ", " + __VINYL_DATE);
 
+VinylSystemGain(0);
+
 
 
 global.__vinylPlaying         = ds_list_create(); //TODO - Replace this with an array

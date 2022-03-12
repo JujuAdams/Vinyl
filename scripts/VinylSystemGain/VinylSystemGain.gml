@@ -2,6 +2,5 @@
 
 function VinylSystemGain(_gain)
 {
-    //Things don't have to be complicated...!
-    audio_master_gain(_gain);
+    audio_master_gain(__VinylGainToAmplitudeCoeff(_gain + VINYL_GAIN_MAXIMUM));
 }
