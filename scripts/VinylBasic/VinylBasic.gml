@@ -201,6 +201,7 @@ function __VinyInstanceBasic(_pattern) constructor
     {
         __VinylInstanceCommonReset();
         
+        if (__GMInstance != undefined) audio_stop_sound(__GMInstance);
         __GMInstance = undefined;
     }
     
