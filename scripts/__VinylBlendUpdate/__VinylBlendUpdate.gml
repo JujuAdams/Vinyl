@@ -1,29 +1,25 @@
-function __VinylBlendUpdate() //FIXME - Broken using new decibel gains
+function __VinylBlendUpdate()
 {
+    var _size = array_length(__sources);
+    
     if (__blendParam == undefined)
     {
-        __blendGains = undefined;
-        exit;
+        __blendGains = array_create(_size, 0);
+        return;
     }
     
     if (__blendAnimCurve == undefined)
     {
-        var _size = array_length(__sources);
-        __blendGains = array_create(_size, 1.0);
-        
         var _t = __blendParam*(_size - 1);
         var _i = 0;
         repeat(_size)
         {
-            __blendGains[@ _i] = max(0.0, 1.0 - abs(_t - _i));
+            __blendGains[@ _i] = VINYL_GAIN_SILENT*abs(_t - _i);
             ++_i;
         }
         
-        exit;
+        return;
     }
-    
-    var _size = array_length(__sources);
-    __blendGains = array_create(_size, 1.0);
     
     var _i = 0;
     repeat(_size)

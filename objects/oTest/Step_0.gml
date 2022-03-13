@@ -72,5 +72,5 @@ if (keyboard_check_pressed(ord("S")))
 
 if (VinylIsSoundInstance(instance))
 {
-    //instance.InstanceGet().BlendSet(mouse_x/room_width);
+    instance.ChildGet().BlendSet(mouse_x/room_width);
 }

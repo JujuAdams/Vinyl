@@ -37,7 +37,7 @@ function __VinylPatternMulti() constructor
     __synchronize    = false;
     __blendParam     = undefined;
     __blendAnimCurve = undefined;
-    __blendGains     = undefined;
+    __blendGains     = array_create(array_length(__sources), 0);
     
     __VinylBlendUpdate();
     
@@ -56,14 +56,9 @@ function __VinylPatternMulti() constructor
         return __synchronize;
     }
     
-    static BlendSet = function()
+    static BlendSet = function(_param, _animCurve = undefined)
     {
-        var _oldAnimCurve = __blendAnimCurve;
-        
-        var _param     = argument[0];
-        var _animCurve = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : undefined;
-        
-        if (_oldAnimCurve != _animCurve)
+        if (__blendAnimCurve != _animCurve)
         {
             var _channelCount = array_length(animcurve_get(_animCurve).channels);
             if (_channelCount < array_length(__sources)) __VinylError("Channel count in animation curve ", _animCurve, " (", _channelCount, ") is smaller than source count (", array_length(__sources));
@@ -82,7 +77,7 @@ function __VinylPatternMulti() constructor
     {
         __blendParam     = undefined;
         __blendAnimCurve = undefined;
-        __blendGains     = undefined;
+        __blendGains     = array_create(array_length(__sources), 0);
         
         return self;
     }
@@ -97,7 +92,7 @@ function __VinylPatternMulti() constructor
     
     static BlendGainGet = function(_index)
     {
-        if (!is_array(__blendGains)) return 1.0;
+        if (!is_array(__blendGains)) return 0.0;
         if ((_index < 0) || (_index >= array_length(__blendGains))) __VinylError("Index provided (", _index, ") is invalid (0 <= index <= ", array_length(__blendGains) - 1, ")");
         return __blendGains[_index];
     }

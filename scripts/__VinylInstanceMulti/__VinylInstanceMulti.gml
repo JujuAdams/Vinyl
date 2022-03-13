@@ -7,7 +7,7 @@ function __VinyInstanceMulti(_pattern) constructor
     __sources        = __VinylInstanceInstantiateAll(self, __pattern.__sources);
     __blendParam     = __pattern.__blendParam;
     __blendAnimCurve = __pattern.__blendAnimCurve;
-    __blendGains     = undefined;
+    __blendGains     = array_create(array_length(__sources), 0);
     
     __VinylBlendUpdate();
     
@@ -131,7 +131,7 @@ function __VinyInstanceMulti(_pattern) constructor
     {
         __blendParam     = undefined;
         __blendAnimCurve = undefined;
-        __blendGains     = undefined;
+        __blendGains     = array_create(array_length(__sources), 0);
         
         return self;
     }
@@ -146,7 +146,7 @@ function __VinyInstanceMulti(_pattern) constructor
     
     static BlendGainGet = function(_index)
     {
-        if (!is_array(__blendGains)) return 1.0;
+        if (!is_array(__blendGains)) return 0.0;
         if ((_index < 0) || (_index >= array_length(__blendGains))) __VinylError("Index provided (", _index, ") is invalid (0 <= index <= ", array_length(__blendGains) - 1, ")");
         return __blendGains[_index];
     }
