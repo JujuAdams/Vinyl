@@ -28,6 +28,11 @@ function __VinylPatternLoop(_source) constructor
     static FadeTimeSet = __VinylPatternFadeTimeSet;
     static FadeTimeGet = __VinylPatternFadeTimeGet;
     
+    static GroupAdd      = __VinylPatternGroupAdd;
+    static GroupDelete   = __VinylPatternGroupDelete;
+    static GroupClear    = __VinylPatternGroupClear;
+    static GroupAssigned = __VinylPatternGroupAssigned;
+    
     #endregion
     
     
@@ -132,11 +137,6 @@ function __VinyInstanceLoop(_pattern) constructor
     static PatternGet     = __VinylInstancePatternGet;
     static IsStopping     = __VinylInstanceIsStopping;
     static IsFinished     = __VinylInstanceIsFinished;
-    
-    static GroupAdd      = __VinylInstanceGroupAdd;
-    static GroupDelete   = __VinylInstanceGroupDelete;
-    static GroupClear    = __VinylInstanceGroupClear;
-    static GroupAssigned = __VinylInstanceGroupAssigned;
     
     #endregion
     
