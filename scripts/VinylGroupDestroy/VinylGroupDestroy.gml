@@ -1,6 +1,6 @@
 /// @param name
 
-function VinylGroupDelete(_name)
+function VinylGroupDestroy(_name)
 {
     if (VinylGroupExists(_name))
     {

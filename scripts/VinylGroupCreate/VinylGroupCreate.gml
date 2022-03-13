@@ -1,6 +1,6 @@
 /// @param name
 
-function VinylGroupAdd(_name)
+function VinylGroupCreate(_name)
 {
     if (ds_map_exists(global.__vinylGroupsMap, _name))
     {

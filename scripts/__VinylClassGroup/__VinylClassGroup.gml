@@ -69,31 +69,72 @@ function __VinylClassGroup(_name) constructor
         return (__pitch == __pitchTarget);
     }
     
-    static GroupInherit = function(_groupOrArray)
+    static GroupInherit = function()
     {
-        //If we passed in an array, iterate over it and re-execute the function
-        if (is_array(_groupOrArray))
+        if (argument_count <= 0) return self;
+        
+        //If we passed in multiple arguments, iterate over it and re-execute the function
+        if (argument_count > 1)
         {
             var _i = 0;
-            repeat(array_length(_groupOrArray))
+            repeat(argument_count)
             {
-                GroupInherit(_groupOrArray[_i]);
+                GroupInherit(argument[_i]);
                 ++_i;
             }
             
             return self;
         }
         
+        var _groupName = argument[0];
+        
+        //If we passed in an array, iterate over it and re-execute the function
+        if (is_array(_groupName))
+        {
+            var _i = 0;
+            repeat(array_length(_groupName))
+            {
+                GroupInherit(_groupName[_i]);
+                ++_i;
+            }
+            
+            return self;
+        }
+        
+        var _group = VinylGroupGet(_groupName);
+        if (_group == undefined) __VinylError("Group \"", _groupName, "\" doesn't exist");
+        
+        //Don't allow duplicate groups
         var _i = 0;
         repeat(array_length(__inheritArray))
         {
-            if (__inheritArray[_i] == _groupOrArray) return self;
+            if (__inheritArray[_i] == _groupName) return self;
             ++_i;
         }
         
-        array_push(__inheritArray, _groupOrArray);
+        var _inheritanceStack = _group.__CheckInheritanceCycle(__name, __name)
+        if (is_string(_inheritanceStack)) __VinylError("Group \"", __name, "\" inheriting \"", _groupName, "\" causes an inheritance cycle\n", _inheritanceStack);
+        
+        array_push(__inheritArray, _groupName);
         
         return self;
+    }
+    
+    static __CheckInheritanceCycle = function(_groupName, _stack)
+    {
+        _stack += " -> " + __name;
+        
+        if (_groupName == __name) return _stack;
+        
+        var _i = 0;
+        repeat(array_length(__inheritArray))
+        {
+            var _newStack = VinylGroupGet(__inheritArray[_i]).__CheckInheritanceCycle(_groupName, _stack);
+            if (is_string(_newStack)) return _newStack;
+            ++_i;
+        }
+        
+        return undefined;
     }
     
     static GroupDisinherit = function(_groupOrArray)
