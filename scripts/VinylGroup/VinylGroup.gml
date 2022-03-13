@@ -2,5 +2,5 @@
 
 function VinylGroup(_name)
 {
-    return global.__vinylGroupsMap[? _name];
+    return global.__vinylGroupsDict[$ _name];
 }

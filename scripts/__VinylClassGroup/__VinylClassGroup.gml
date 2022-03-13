@@ -275,7 +275,7 @@ function __VinylGroupsGainFinalGet(_groupArray)
     var _i = 0;
     repeat(array_length(_groupArray))
     {
-        var _group = global.__vinylGroupsMap[? _groupArray[_i]];
+        var _group = global.__vinylGroupsDict[$ _groupArray[_i]];
         if (is_struct(_group)) _gain += _group.__gainFinal;
         ++_i;
     }
@@ -294,7 +294,7 @@ function __VinylGroupsPitchFinalGet(_groupArray)
     var _i = 0;
     repeat(array_length(_groupArray))
     {
-        var _group = global.__vinylGroupsMap[? _groupArray[_i]];
+        var _group = global.__vinylGroupsDict[$ _groupArray[_i]];
         if (is_struct(_group)) _pitch *= _group.__pitchFinal;
         ++_i;
     }

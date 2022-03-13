@@ -1,9 +1,9 @@
 function VinylEndStep()
 {
     var _i = 0;
-    repeat(ds_list_size(global.__vinylGroupsList))
+    repeat(array_length(global.__vinylGroupsArray))
     {
-        with(global.__vinylGroupsList[| _i]) __Tick();
+        with(global.__vinylGroupsArray[_i]) __Tick();
         ++_i;
     }
     

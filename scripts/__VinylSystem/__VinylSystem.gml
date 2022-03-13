@@ -3,11 +3,11 @@
 
 __VinylTrace("Welcome to Vinyl by @jujuadams! This is version " + __VINYL_VERSION + ", " + __VINYL_DATE);
 
-global.__vinylMasterGain      = 0;
-global.__vinylPlaying         = [];
-global.__vinylGroupsList      = ds_list_create();
-global.__vinylGroupsMap       = ds_map_create();
-global.__vinylGlobalAssetGain = ds_map_create();
+global.__vinylMasterGain    = 0;
+global.__vinylPlaying       = [];
+global.__vinylGroupsArray   = [];
+global.__vinylGroupsDict    = {};
+global.__vinylAssetGainDict = {};
 
 VinylMasterGainSet(0);
 
@@ -18,7 +18,7 @@ var _i = 0;
 repeat(9999)
 {
     if (!audio_exists(_i)) break;
-    global.__vinylGlobalAssetGain[? _i] = audio_sound_get_gain(_i);
+    global.__vinylAssetGainDict[$ string(_i)] = audio_sound_get_gain(_i);
     ++_i;
 }
 

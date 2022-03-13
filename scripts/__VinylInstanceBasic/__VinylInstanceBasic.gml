@@ -7,7 +7,7 @@ function __VinyInstanceBasic(_pattern) constructor
     __startTime  = __pattern.__startTime;
     __endTime    = __pattern.__endTime;
     __duration   = __endTime - __startTime;
-    __assetGain  = global.__vinylGlobalAssetGain[? __asset] ?? 0;
+    __assetGain  = global.__vinylAssetGainDict[$ string(__asset)] ?? 0;
     
     __Reset();
     

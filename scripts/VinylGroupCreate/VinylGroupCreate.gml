@@ -2,7 +2,7 @@
 
 function VinylGroupCreate(_name)
 {
-    if (ds_map_exists(global.__vinylGroupsMap, _name))
+    if (variable_struct_exists(global.__vinylGroupsDict, _name))
     {
         __VinylError("Group \"", _name, "\" has already been defined");
         exit;
@@ -12,8 +12,8 @@ function VinylGroupCreate(_name)
     
     var _group = new __VinylClassGroup(_name);
     
-    global.__vinylGroupsMap[? _name] = _group;
-    ds_list_add(global.__vinylGroupsList, _group);
+    global.__vinylGroupsDict[$ _name] = _group;
+    array_push(global.__vinylGroupsArray, _group);
     
     return _group;
 }

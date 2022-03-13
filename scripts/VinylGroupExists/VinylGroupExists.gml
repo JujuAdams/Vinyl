@@ -2,5 +2,5 @@
 
 function VinylGroupExists(_name)
 {
-    return ds_map_exists(global.__vinylGroupsMap, _name);
+    return variable_struct_exists(global.__vinylGroupsDict, _name);
 }

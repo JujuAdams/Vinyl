@@ -35,7 +35,7 @@ if (keyboard_check_pressed(ord("7")))
 
 if (keyboard_check_pressed(ord("8")))
 {
-    VinylLoop(VinylQueue(snd_1, snd_2, snd_3, snd_4, snd_5).PopSet(true)).Play();
+    VinylLoop(VinylQueue(snd_1, snd_2, snd_3, snd_4, snd_5).PopSet(true, false)).Play();
 }
 
 if (keyboard_check_pressed(ord("9")))

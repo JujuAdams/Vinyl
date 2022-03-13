@@ -114,7 +114,7 @@ function __VinylInstanceGroupAdd()
         {
             if (VINYL_DEBUG) __VinylTrace(self, " added to group \"", _name, "\"");
         
-            var _group = global.__vinylGroupsMap[? _name];
+            var _group = global.__vinylGroupsDict[$ _name];
             array_push(__groups, weak_ref_create(_group));
             _group.__ChildAdd(self);
         }
@@ -142,7 +142,7 @@ function __VinylInstanceGroupDelete()
             __VinylError("Group \"", _name, "\" not defined");
         }
         
-        var _group = global.__vinylGroupsMap[? _name];
+        var _group = global.__vinylGroupsDict[$ _name];
         _group.__ChildDelete(self);
         
         var _i = 0;
@@ -186,7 +186,7 @@ function __VinylInstanceGroupAssigned(_name)
         __VinylError("Group \"", _name, "\" not defined");
     }
     
-    var _group = global.__vinylGroupsMap[? _name];
+    var _group = global.__vinylGroupsDict[$ _name];
     
     var _i = 0;
     repeat(array_length(__groups))
