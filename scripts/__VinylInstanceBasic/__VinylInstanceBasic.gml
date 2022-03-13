@@ -112,16 +112,9 @@ function __VinyInstanceBasic(_pattern) constructor
     
     static __ReplayViaLoop = function()
     {
-        if (__GMInstance == undefined)
-        {
-            __Play();
-        }
-        else
-        {
-            var _newPosition = audio_sound_get_track_position(__GMInstance) - __duration;
-            if (VINYL_DEBUG) __VinylTrace("Replaying ", self, " (new pos = ", _newPosition, ")");
-            audio_sound_set_track_position(__GMInstance, _newPosition);
-        }
+        if (VINYL_DEBUG) __VinylTrace("Replaying ", self);
+        Kill();
+        __Play();
     }
     
     static __Tick = function()
