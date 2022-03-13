@@ -27,7 +27,7 @@
     "path": "folders/Test Cases.yy",
   },
   "resourceVersion": "1.0",
-  "name": "oTestGroupCylicalInheritance",
+  "name": "oTestGroupCyclicalInheritance",
   "tags": [],
   "resourceType": "GMObject",
 }

@@ -37,7 +37,7 @@
     {"id":{"name":"__VinylBlendUpdate","path":"scripts/__VinylBlendUpdate/__VinylBlendUpdate.yy",},"order":5,},
     {"id":{"name":"VinylEndStep","path":"scripts/VinylEndStep/VinylEndStep.yy",},"order":1,},
     {"id":{"name":"VinylIsSoundInstance","path":"scripts/VinylIsSoundInstance/VinylIsSoundInstance.yy",},"order":6,},
-    {"id":{"name":"oTestGroupCylicalInheritance","path":"objects/oTestGroupCylicalInheritance/oTestGroupCylicalInheritance.yy",},"order":2,},
+    {"id":{"name":"oTestGroupCyclicalInheritance","path":"objects/oTestGroupCyclicalInheritance/oTestGroupCyclicalInheritance.yy",},"order":2,},
     {"id":{"name":"snd_4","path":"sounds/snd_4/snd_4.yy",},"order":3,},
     {"id":{"name":"__VinylPatternCommonMethods","path":"scripts/__VinylPatternCommonMethods/__VinylPatternCommonMethods.yy",},"order":1,},
     {"id":{"name":"snd_1","path":"sounds/snd_1/snd_1.yy",},"order":0,},

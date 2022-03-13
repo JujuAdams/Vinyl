@@ -7,5 +7,5 @@ VinylGroupCreate("e");
 VinylGroupGet("a").GroupInherit("b", "c");
 VinylGroupGet("b").GroupInherit("c");
 VinylGroupGet("c").GroupInherit("d", "e");
-//VinylGroupGet("d").GroupInherit("e");
+VinylGroupGet("d").GroupInherit("e");
 VinylGroupGet("e").GroupInherit("a");
