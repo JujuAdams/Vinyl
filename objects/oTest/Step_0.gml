@@ -5,7 +5,7 @@ if (keyboard_check_pressed(ord("1")))
 
 if (keyboard_check_pressed(ord("2")))
 {
-    VinylBasic(snd_1).GainSet(0.5, 1.0).Play();
+    VinylBasic(snd_1).GainSet(-10, 0).Play();
 }
 
 if (keyboard_check_pressed(ord("3")))
@@ -15,7 +15,7 @@ if (keyboard_check_pressed(ord("3")))
 
 if (keyboard_check_pressed(ord("4")))
 {
-    VinylLibPlay("footstep");
+    footstep.Play();
 }
 
 if (keyboard_check_pressed(ord("5")))
@@ -55,7 +55,7 @@ if (keyboard_check_pressed(ord("W")))
 
 if (keyboard_check_pressed(ord("L")))
 {
-    instance = VinylLibPlay("loop test");
+    instance = loopTest.Play();
 }
 
 if (keyboard_check_pressed(ord("S")))
