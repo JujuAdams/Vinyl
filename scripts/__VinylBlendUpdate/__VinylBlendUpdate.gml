@@ -14,7 +14,8 @@ function __VinylBlendUpdate()
         var _i = 0;
         repeat(_size)
         {
-            __blendGains[@ _i] = VINYL_GAIN_SILENT*abs(_t - _i);
+            var _coeff = abs(_t - _i);
+            __blendGains[@ _i] = VINYL_GAIN_SILENT*_coeff*_coeff*_coeff;
             ++_i;
         }
         
