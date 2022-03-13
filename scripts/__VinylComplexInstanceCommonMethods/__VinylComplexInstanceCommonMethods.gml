@@ -58,8 +58,7 @@ function __VinylInstanceInstantiateAll(_parentInstance, _patternSources)
         }
         else
         {
-            var _instance = __VinylPatternInstantiate(_pattern);
-            _instance.__parent = _parentInstance;
+            var _instance = __VinylPatternInstantiate(_parentInstance, _pattern);
             _instance_sources[@ _i] = _instance;
         }
         

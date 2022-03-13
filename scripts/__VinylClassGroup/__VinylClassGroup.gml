@@ -12,7 +12,8 @@ function __VinylClassGroup(_name) constructor
     __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
     __pitchTarget = undefined;
     
-    __gainFinal = 0.0;
+    __gainFinal  = 0.0;
+    __pitchFinal = 1.0;
     
     
     
@@ -146,10 +147,11 @@ function __VinylClassGroup(_name) constructor
         if (__pitchTarget == undefined) __pitchTarget = __pitch;
         
         //Tween to the gain/pitch target
-        if (__gain  != __gainTarget ) gain  += clamp(__gainTarget  - __gain , -__gainRate , __gainRate );
-        if (__pitch != __pitchTarget) pitch += clamp(__pitchTarget - __pitch, -__pitchRate, __pitchRate);
+        if (__gain  != __gainTarget ) __gain  += clamp(__gainTarget  - __gain , -__gainRate , __gainRate );
+        if (__pitch != __pitchTarget) __pitch += clamp(__pitchTarget - __pitch, -__pitchRate, __pitchRate);
         
-        __gainFinal = __gain + __VinylGroupsGainFinalGet(__inheritArray);
+        __gainFinal  = __gain + __VinylGroupsGainFinalGet(__inheritArray);
+        __pitchFinal = __pitch*__VinylGroupsPitchFinalGet(__inheritArray);
     }
     
     static __ChildAdd = function(_instance)
@@ -238,4 +240,23 @@ function __VinylGroupsGainFinalGet(_groupArray)
     }
     
     return _gain;
+}
+
+//Returns the resultant pitch for the given set of groups
+//TODO - Optimise using a cache I suppose?
+function __VinylGroupsPitchFinalGet(_groupArray)
+{
+    if (!is_array(_groupArray)) return 0;
+    
+    var _pitch = 1;
+    
+    var _i = 0;
+    repeat(array_length(_groupArray))
+    {
+        var _group = global.__vinylGroupsMap[? _groupArray[_i]];
+        if (is_struct(_group)) _pitch *= _group.__pitchFinal;
+        ++_i;
+    }
+    
+    return _pitch;
 }

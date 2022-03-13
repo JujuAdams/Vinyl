@@ -267,7 +267,7 @@ function __VinylInstanceCommonConstruct(_pattern)
     __gainTarget = undefined;
     __outputGain = 0.0;
     
-    __inheritedBlendGain = 1.0;
+    __inheritedBlendGain = 0.0;
     
     __pitch       = 1.0;
     __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
@@ -287,10 +287,15 @@ function __VinylInstanceCommonConstruct(_pattern)
 function __VinylInstanceCommonApplyPatternGroups()
 {
     var _array = __pattern.__groups;
+    
     var _i = 0;
     repeat(array_length(_array))
     {
-        GroupAdd(_array[_i]);
+        var _group = VinylGroupGet(_array[_i]);
+        
+        _group.__ChildAdd(self);
+        __groups[@ _i] = weak_ref_create(_group);
+        
         ++_i;
     }
 }
@@ -357,6 +362,7 @@ function __VinylInstanceCommonTick()
     //If we have a parent, multiply our output gain/pitch by their gain/pitch
     if (is_struct(__parent))
     {
+        if (keyboard_check_pressed(ord("J"))) __VinylTrace(self, "    __parent = ", __parent, "    __outputGain = ", __parent.__outputGain);
         __outputGain  += __parent.__outputGain + __inheritedBlendGain;
         __outputPitch *= __parent.__outputPitch;
     }
@@ -375,8 +381,8 @@ function __VinylInstanceCommonTick()
             else
             {
                 var _group = _groupRef.ref;
-                __outputGain  += _group.__gain;
-                __outputPitch *= _group.__pitch;
+                __outputGain  += _group.__gainFinal;
+                __outputPitch *= _group.__pitchFinal;
                 
                 ++_i;
             }

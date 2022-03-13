@@ -70,12 +70,13 @@ function __VinyInstanceLoop(_pattern) constructor
 {
     __VinylInstanceCommonConstruct(_pattern);
     
-    __source = __VinylPatternInstantiate(__pattern.__source);
+    __source = __VinylPatternInstantiate(self, __pattern.__source);
     __VinylTrace("Set source to ", __source);
     
     __Reset();
     
     if (VINYL_DEBUG) __VinylTrace("Created instance for ", self);
+    
     
     
     #region Public Methods

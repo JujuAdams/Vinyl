@@ -191,7 +191,7 @@ function __VinylPatternCommonConstruct(_instanceConstructor)
 
 function __VinylPatternPlay()
 {
-    with(__VinylPatternInstantiate(self))
+    with(__VinylPatternInstantiate(undefined, self))
     {
         array_push(global.__vinylPlaying, self);
         
@@ -203,10 +203,12 @@ function __VinylPatternPlay()
     }
 }
 
-function __VinylPatternInstantiate(_pattern)
+function __VinylPatternInstantiate(_parentInstance, _pattern)
 {
     with(_pattern)
     {
-        return new __instanceConstructor(self);
+        var _instance = new __instanceConstructor(self);
+        _instance.__parent = _parentInstance;
+        return _instance;
     }
 }
