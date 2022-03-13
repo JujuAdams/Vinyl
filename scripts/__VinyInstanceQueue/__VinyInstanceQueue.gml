@@ -8,10 +8,6 @@ function __VinyInstanceQueue(_pattern) constructor
     __sources = __VinylInstanceInstantiateAll(self, __pattern.__sources);
     __index   = undefined;
     
-    //Create a backup of our sources to use when we reset this instance
-    __sourcesCopy = array_create(array_length(__sources));
-    array_copy(__sourcesCopy, 0, __sources, 0, array_length(__sources));
-    
     __sourceStopping = [];
     
     __Reset();
@@ -243,10 +239,6 @@ function __VinyInstanceQueue(_pattern) constructor
         __index   = undefined;
         __current = undefined;
         
-        //Restore our sources backup
-        sources = array_create(array_length(__sourcesCopy));
-        array_copy(sources, 0, __sourcesCopy, 0, array_length(__sourcesCopy));
-        
         //Reset our sources too
         var _i = 0;
         repeat(array_length(__sources))
@@ -293,31 +285,31 @@ function __VinyInstanceQueue(_pattern) constructor
             //Handle fade out
             if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();
             
+            //Iterate over all our sources that are fading out 
+            var _i = array_length(__sourceStopping)-1;
+            repeat(array_length(__sourceStopping))
+            {
+                var _source = __sourceStopping[_i];
+                    
+                if (is_struct(_source))
+                {
+                    if (_source.__finished)
+                    {
+                        array_delete(__sourceStopping, _i, 1);
+                    }
+                    else
+                    {
+                        with(_source) if (__started && !__finished) __Tick();
+                    }
+                }
+                
+                --_i;
+            }
+            
             if (__current != undefined)
             {
                 //Update the instance we're currently playing
                 with(__current) __Tick();
-                
-                //Iterate over all our sources that are fading out 
-                var _i = array_length(__sourceStopping)-1;
-                repeat(array_length(__sourceStopping))
-                {
-                    var _source = __sourceStopping[_i];
-                    
-                    if (is_struct(_source))
-                    {
-                        if (_source.__finished)
-                        {
-                            array_delete(__sourceStopping, _i, 1);
-                        }
-                        else
-                        {
-                            with(_source) if (__started && !__finished) __Tick();
-                        }
-                    }
-                    
-                    --_i;
-                }
                 
                 if (!__stopping)
                 {
