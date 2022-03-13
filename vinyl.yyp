@@ -30,7 +30,7 @@
     {"id":{"name":"snd_3","path":"sounds/snd_3/snd_3.yy",},"order":2,},
     {"id":{"name":"VinylQueue","path":"scripts/VinylQueue/VinylQueue.yy",},"order":3,},
     {"id":{"name":"oTest","path":"objects/oTest/oTest.yy",},"order":2,},
-    {"id":{"name":"__VinylComplexInstanceCommonMethods","path":"scripts/__VinylComplexInstanceCommonMethods/__VinylComplexInstanceCommonMethods.yy",},"order":3,},
+    {"id":{"name":"__VinylInstanceExtendedMethods","path":"scripts/__VinylInstanceExtendedMethods/__VinylInstanceExtendedMethods.yy",},"order":3,},
     {"id":{"name":"snd_music_outro","path":"sounds/snd_music_outro/snd_music_outro.yy",},"order":4,},
     {"id":{"name":"snd_music_intro","path":"sounds/snd_music_intro/snd_music_intro.yy",},"order":0,},
     {"id":{"name":"VinylIsPattern","path":"scripts/VinylIsPattern/VinylIsPattern.yy",},"order":5,},
