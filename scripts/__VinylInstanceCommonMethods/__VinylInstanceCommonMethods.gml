@@ -1,3 +1,20 @@
+#macro __VINYL_INSTANCE_COMMON  __VinylInstanceCommonConstruct(_pattern);\
+                                static GainSet        = __VinylInstanceGainSet;\
+                                static GainTargetSet  = __VinylInstanceGainTargetSet;\
+                                static GainGet        = __VinylInstanceGainGet;\
+                                static OutputGainGet  = __VinylInstanceOutputGainGet;\
+                                static PitchSet       = __VinylInstancePitchSet;\
+                                static PitchTargetSet = __VinylInstancePitchTargetSet;\
+                                static PitchTargetSet = __VinylInstancePitchTargetSet;\
+                                static OutputPitchGet = __VinylInstanceOutputPitchGet;\
+                                static FadeTimeSet    = __VinylInstanceFadeTimeSet;\
+                                static FadeTimeGet    = __VinylInstanceFadeTimeGet;\
+                                static PatternGet     = __VinylInstancePatternGet;\
+                                static IsStopping     = __VinylInstanceIsStopping;\
+                                static IsFinished     = __VinylInstanceIsFinished;
+
+
+
 #region Gain
 
 function __VinylInstanceGainSet(_value)

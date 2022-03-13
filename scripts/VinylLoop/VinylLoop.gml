@@ -68,7 +68,7 @@ function __VinylPatternLoop(_source) constructor
 /// @param waitToPlayOutro
 function __VinyInstanceLoop(_pattern) constructor
 {
-    __VinylInstanceCommonConstruct(_pattern);
+    __VINYL_INSTANCE_COMMON
     
     __source = __VinylPatternInstantiate(self, __pattern.__source);
     __VinylTrace("Set source to ", __source);
@@ -122,26 +122,6 @@ function __VinyInstanceLoop(_pattern) constructor
     {
         return __source;
     }
-    
-    #endregion
-    
-    
-    
-    #region Common Public Methods
-    
-    static GainSet        = __VinylInstanceGainSet;
-    static GainTargetSet  = __VinylInstanceGainTargetSet;
-    static GainGet        = __VinylInstanceGainGet;
-    static OutputGainGet  = __VinylInstanceOutputGainGet;
-    static PitchSet       = __VinylInstancePitchSet;
-    static PitchTargetSet = __VinylInstancePitchTargetSet;
-    static PitchTargetSet = __VinylInstancePitchTargetSet;
-    static OutputPitchGet = __VinylInstanceOutputPitchGet;
-    static FadeTimeSet    = __VinylInstanceFadeTimeSet;
-    static FadeTimeGet    = __VinylInstanceFadeTimeGet;
-    static PatternGet     = __VinylInstancePatternGet;
-    static IsStopping     = __VinylInstanceIsStopping;
-    static IsFinished     = __VinylInstanceIsFinished;
     
     #endregion
     

@@ -6,7 +6,7 @@
     "path": "folders/Vinyl/This way to the party.yy",
   },
   "resourceVersion": "1.0",
-  "name": "VinylSystemEndStep",
+  "name": "VinylMasterGainGet",
   "tags": [],
   "resourceType": "GMScript",
 }

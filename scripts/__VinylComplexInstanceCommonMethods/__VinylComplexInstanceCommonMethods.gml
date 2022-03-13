@@ -1,3 +1,9 @@
+#macro __VINYL_INSTANCE_COMMON_EXTENDED  static SourceGet         = __VinylInstanceSourceGet;\
+                                         static SourcesCountGet   = __VinylInstanceSourcesCountGet;\
+                                         static SourcesArrayGet   = __VinylInstanceSourcesArrayGet;\
+                                         static SourceFindIndex   = __VinylInstanceSourceFindIndex;\
+                                         static InstanceFindIndex = __VinylInstanceFindIndex;
+
 function __VinylInstanceSourceGet(_index)
 {
     if ((_index < 0) || (_index >= array_length(__sources))) return undefined;

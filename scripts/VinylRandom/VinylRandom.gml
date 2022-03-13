@@ -71,7 +71,8 @@ function __VinylPatternRandom() constructor
 /// @param sources
 function __VinyInstanceRandom(_pattern) constructor
 {
-    __VinylInstanceCommonConstruct(_pattern);
+    __VINYL_INSTANCE_COMMON
+    __VINYL_INSTANCE_COMMON_EXTENDED
     
     __sources = __VinylInstanceInstantiateAll(self, __pattern.__sources);
     __index   = undefined;
@@ -137,32 +138,6 @@ function __VinyInstanceRandom(_pattern) constructor
     {
         return __current;
     }
-    
-    #endregion
-    
-    
-    
-    #region Common Public Methods
-    
-    static GainSet        = __VinylInstanceGainSet;
-    static GainTargetSet  = __VinylInstanceGainTargetSet;
-    static GainGet        = __VinylInstanceGainGet;
-    static OutputGainGet  = __VinylInstanceOutputGainGet;
-    static PitchSet       = __VinylInstancePitchSet;
-    static PitchTargetSet = __VinylInstancePitchTargetSet;
-    static PitchTargetSet = __VinylInstancePitchTargetSet;
-    static OutputPitchGet = __VinylInstanceOutputPitchGet;
-    static FadeTimeSet    = __VinylInstanceFadeTimeSet;
-    static FadeTimeGet    = __VinylInstanceFadeTimeGet;
-    static PatternGet     = __VinylInstancePatternGet;
-    static IsStopping     = __VinylInstanceIsStopping;
-    static IsFinished     = __VinylInstanceIsFinished;
-    
-    static SourceGet         = __VinylInstanceSourceGet;
-    static SourcesCountGet   = __VinylInstanceSourcesCountGet;
-    static SourcesArrayGet   = __VinylInstanceSourcesArrayGet;
-    static SourceFindIndex   = __VinylInstanceSourceFindIndex;
-    static InstanceFindIndex = __VinylInstanceFindIndex;
     
     #endregion
     

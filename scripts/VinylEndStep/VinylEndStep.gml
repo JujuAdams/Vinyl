@@ -1,4 +1,4 @@
-function VinylSystemEndStep()
+function VinylEndStep()
 {
     var _i = 0;
     repeat(ds_list_size(global.__vinylGroupsList))

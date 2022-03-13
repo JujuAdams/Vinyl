@@ -87,13 +87,14 @@ function __VinylPatternBasic(_asset) constructor
 /// @param asset
 function __VinyInstanceBasic(_pattern) constructor
 {
-    __VinylInstanceCommonConstruct(_pattern);
+    __VINYL_INSTANCE_COMMON
     
     __asset      = __pattern.__asset;
     __GMInstance = undefined;
     __startTime  = __pattern.__startTime;
     __endTime    = __pattern.__endTime;
     __duration   = __endTime - __startTime;
+    __assetGain  = global.__vinylGlobalAssetGain[? __asset] ?? 0;
     
     __Reset();
     
@@ -175,26 +176,6 @@ function __VinyInstanceBasic(_pattern) constructor
     
     
     
-    #region Common Public Methods
-    
-    static GainSet        = __VinylInstanceGainSet;
-    static GainTargetSet  = __VinylInstanceGainTargetSet;
-    static GainGet        = __VinylInstanceGainGet;
-    static OutputGainGet  = __VinylInstanceOutputGainGet;
-    static PitchSet       = __VinylInstancePitchSet;
-    static PitchTargetSet = __VinylInstancePitchTargetSet;
-    static PitchTargetSet = __VinylInstancePitchTargetSet;
-    static OutputPitchGet = __VinylInstanceOutputPitchGet;
-    static FadeTimeSet    = __VinylInstanceFadeTimeSet;
-    static FadeTimeGet    = __VinylInstanceFadeTimeGet;
-    static PatternGet     = __VinylInstancePatternGet;
-    static IsStopping     = __VinylInstanceIsStopping;
-    static IsFinished     = __VinylInstanceIsFinished;
-    
-    #endregion
-    
-    
-    
     #region Private Methods
     
     static __Reset = function()
@@ -246,11 +227,8 @@ function __VinyInstanceBasic(_pattern) constructor
             
             if (is_numeric(__GMInstance) && audio_is_playing(__GMInstance))
             {
-                var _asset_gain = global.__vinylGlobalAssetGain[? __asset];
-                if (_asset_gain == undefined) _asset_gain = 1.0;
-                
                 //Update GM's sound instance
-                audio_sound_gain(__GMInstance, __VinylGainToAmplitudeCoeff(__outputGain + _asset_gain - VINYL_GAIN_MAXIMUM), VINYL_STEP_DURATION);
+                audio_sound_gain(__GMInstance, __VinylGainToAmplitudeCoeff(__outputGain + __assetGain - VINYL_GAIN_MAXIMUM), VINYL_STEP_DURATION);
                 audio_sound_pitch(__GMInstance, __outputPitch);
             }
             

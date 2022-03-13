@@ -140,7 +140,8 @@ function __VinylPatternMulti() constructor
 /// @param sources
 function __VinyInstanceMulti(_pattern) constructor
 {
-    __VinylInstanceCommonConstruct(_pattern);
+    __VINYL_INSTANCE_COMMON
+    __VINYL_INSTANCE_COMMON_EXTENDED
     
     __synchronize    = __pattern.__synchronize;
     __sources        = __VinylInstanceInstantiateAll(self, __pattern.__sources);
@@ -289,32 +290,6 @@ function __VinyInstanceMulti(_pattern) constructor
         if ((_index < 0) || (_index >= array_length(__blendGains))) __VinylError("Index provided (", _index, ") is invalid (0 <= index <= ", array_length(__blendGains) - 1, ")");
         return __blendGains[_index];
     }
-    
-    #endregion
-    
-    
-    
-    #region Common Public Methods
-    
-    static GainSet        = __VinylInstanceGainSet;
-    static GainTargetSet  = __VinylInstanceGainTargetSet;
-    static GainGet        = __VinylInstanceGainGet;
-    static OutputGainGet  = __VinylInstanceOutputGainGet;
-    static PitchSet       = __VinylInstancePitchSet;
-    static PitchTargetSet = __VinylInstancePitchTargetSet;
-    static PitchTargetSet = __VinylInstancePitchTargetSet;
-    static OutputPitchGet = __VinylInstanceOutputPitchGet;
-    static FadeTimeSet    = __VinylInstanceFadeTimeSet;
-    static FadeTimeGet    = __VinylInstanceFadeTimeGet;
-    static PatternGet     = __VinylInstancePatternGet;
-    static IsStopping     = __VinylInstanceIsStopping;
-    static IsFinished     = __VinylInstanceIsFinished;
-    
-    static SourceGet         = __VinylInstanceSourceGet;
-    static SourcesCountGet   = __VinylInstanceSourcesCountGet;
-    static SourcesArrayGet   = __VinylInstanceSourcesArrayGet;
-    static SourceFindIndex   = __VinylInstanceSourceFindIndex;
-    static InstanceFindIndex = __VinylInstanceFindIndex;
     
     #endregion
     

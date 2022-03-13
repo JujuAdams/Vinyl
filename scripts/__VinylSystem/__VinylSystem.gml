@@ -3,14 +3,13 @@
 
 __VinylTrace("Welcome to Vinyl by @jujuadams! This is version " + __VINYL_VERSION + ", " + __VINYL_DATE);
 
-VinylSystemGain(0);
-
-
-
+global.__vinylMasterGain      = 0;
 global.__vinylPlaying         = [];
 global.__vinylGroupsList      = ds_list_create();
 global.__vinylGroupsMap       = ds_map_create();
 global.__vinylGlobalAssetGain = ds_map_create();
+
+VinylMasterGainSet(0);
 
 
 
