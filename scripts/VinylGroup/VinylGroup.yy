@@ -6,7 +6,7 @@
     "path": "folders/Vinyl/This way to the party/Groups.yy",
   },
   "resourceVersion": "1.0",
-  "name": "VinylGroupGet",
+  "name": "VinylGroup",
   "tags": [],
   "resourceType": "GMScript",
 }

@@ -3,11 +3,11 @@ function __VinyInstanceLoop(_pattern) constructor
     __VINYL_INSTANCE_COMMON
     
     __source = __VinylPatternInstantiate(self, __pattern.__source);
-    __VinylTrace("Set source to ", __source);
     
     __Reset();
     
     if (VINYL_DEBUG) __VinylTrace("Created instance for ", self);
+    if (VINYL_DEBUG) __VinylTrace("Set source to ", __source);
     
     
     
@@ -118,11 +118,23 @@ function __VinyInstanceLoop(_pattern) constructor
                     else
                     {
                         if (VINYL_DEBUG) __VinylTrace(self, " is replaying ", __source);
-                        with(__source) __ReplayViaLoop();
+                        __source.__ReplayViaLoop();
+                        
+                        if (__source.IsFinished())
+                        {
+                            if (VINYL_DEBUG) __VinylTrace(__source, " unable to replay");
+                            Kill();
+                        }
+                        else
+                        {
+                            __source.__Tick();
+                        }
                     }
                 }
-                
-                with(__source) __Tick();
+                else
+                {
+                    __source.__Tick();
+                }
             }
         }
     }

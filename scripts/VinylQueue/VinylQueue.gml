@@ -41,18 +41,18 @@ function __VinylPatternQueue() constructor
     
     #region Public Methods
     
-    static PopSet = function(_pop, _dontPopLast)
+    static PopSet = function(_pop, _popLast = _pop)
     {
         __pop     = _pop;
-        __popLast = _dontPopLast;
+        __popLast = _popLast;
         return self;
     }
     
     static PopGet = function()
     {
         return {
-            pop : __pop,
-            popLast : __popLast
+            pop:     __pop,
+            popLast: __popLast,
         };
     }
     

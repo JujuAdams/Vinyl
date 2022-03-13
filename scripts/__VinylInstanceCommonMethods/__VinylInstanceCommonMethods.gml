@@ -287,7 +287,7 @@ function __VinylInstanceCommonApplyPatternGroups()
     var _i = 0;
     repeat(array_length(_array))
     {
-        var _group = VinylGroupGet(_array[_i]);
+        var _group = VinylGroup(_array[_i]);
         
         _group.__ChildAdd(self);
         __groups[@ _i] = weak_ref_create(_group);
@@ -339,7 +339,7 @@ function __VinylInstanceCommonPlay()
     
     __VinylInstanceCommonTick();
     
-    if (VINYL_DEBUG) __VinylTrace("(gain=", __outputGain, ", pitch=", __outputPitch, ", groups=", __VinylGroupArrayToString(__groups), ")");
+    if (VINYL_DEBUG) __VinylTrace("(gain=", __outputGain, "dB, pitch=", __outputPitch, ", groups=", __VinylGroupArrayToString(__groups), ")");
 }
 
 function __VinylInstanceCommonTick()

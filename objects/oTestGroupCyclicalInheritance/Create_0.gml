@@ -4,8 +4,8 @@ VinylGroupCreate("c");
 VinylGroupCreate("d");
 VinylGroupCreate("e");
 
-VinylGroupGet("a").GroupInherit("b", "c");
-VinylGroupGet("b").GroupInherit("c");
-VinylGroupGet("c").GroupInherit("d", "e");
-VinylGroupGet("d").GroupInherit("e");
-VinylGroupGet("e").GroupInherit("a");
+VinylGroup("a").GroupInherit("b", "c");
+VinylGroup("b").GroupInherit("c");
+VinylGroup("c").GroupInherit("d", "e");
+VinylGroup("d").GroupInherit("e");
+VinylGroup("e").GroupInherit("a");

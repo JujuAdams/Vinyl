@@ -8,7 +8,7 @@
     {"id":{"name":"__VinylSystem","path":"scripts/__VinylSystem/__VinylSystem.yy",},"order":0,},
     {"id":{"name":"VinylGroupCreate","path":"scripts/VinylGroupCreate/VinylGroupCreate.yy",},"order":1,},
     {"id":{"name":"BeepBox_Song_2","path":"sounds/BeepBox_Song_2/BeepBox_Song_2.yy",},"order":7,},
-    {"id":{"name":"VinylGroupGet","path":"scripts/VinylGroupGet/VinylGroupGet.yy",},"order":0,},
+    {"id":{"name":"VinylGroup","path":"scripts/VinylGroup/VinylGroup.yy",},"order":0,},
     {"id":{"name":"VinylLoop","path":"scripts/VinylLoop/VinylLoop.yy",},"order":1,},
     {"id":{"name":"Vinyl Readme","path":"notes/Vinyl Readme/Vinyl Readme.yy",},"order":0,},
     {"id":{"name":"VinylBasic","path":"scripts/VinylBasic/VinylBasic.yy",},"order":0,},

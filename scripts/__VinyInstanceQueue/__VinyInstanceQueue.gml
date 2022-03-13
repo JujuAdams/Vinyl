@@ -195,8 +195,8 @@ function __VinyInstanceQueue(_pattern) constructor
     static PopGet = function()
     {
         return {
-            pop : __pop,
-            popLast : __popLast
+            pop:     __pop,
+            popLast: __popLast,
         };
     }
     
@@ -224,6 +224,12 @@ function __VinyInstanceQueue(_pattern) constructor
     
     static __Play = function()
     {
+        if (array_length(__sources) <= 0)
+        {
+            Kill();
+            return;
+        }
+        
         __VinylInstanceCommonPlay();
         
         //Play the first source
@@ -241,6 +247,8 @@ function __VinyInstanceQueue(_pattern) constructor
         else
         {
             if (VINYL_DEBUG) __VinylTrace("Replaying ", self);
+            
+            if ((__current != undefined) && __current.__WillFinish() && __pop && (__popLast || (array_length(__sources) > 1))) array_delete(__sources, __index, 1);
             
             __Reset();
             __Tick();

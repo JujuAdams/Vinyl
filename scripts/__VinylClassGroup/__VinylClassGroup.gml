@@ -101,7 +101,7 @@ function __VinylClassGroup(_name) constructor
             return self;
         }
         
-        var _group = VinylGroupGet(_groupName);
+        var _group = VinylGroup(_groupName);
         if (_group == undefined) __VinylError("Group \"", _groupName, "\" doesn't exist");
         
         //Don't allow duplicate groups
@@ -129,7 +129,7 @@ function __VinylClassGroup(_name) constructor
         var _i = 0;
         repeat(array_length(__inheritArray))
         {
-            var _newStack = VinylGroupGet(__inheritArray[_i]).__CheckInheritanceCycle(_groupName, _stack);
+            var _newStack = VinylGroup(__inheritArray[_i]).__CheckInheritanceCycle(_groupName, _stack);
             if (is_string(_newStack)) return _newStack;
             ++_i;
         }

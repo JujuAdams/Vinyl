@@ -1,6 +1,6 @@
 /// @param name
 
-function VinylGroupGet(_name)
+function VinylGroup(_name)
 {
     return global.__vinylGroupsMap[? _name];
 }
