@@ -3,31 +3,8 @@
 
 function VinylMulti()
 {
-    var _source = [];
-    
-    var _i = 0;
-    repeat(argument_count)
-    {
-        var _argument = argument[_i];
-        
-        if (is_array(_argument))
-        {
-            var _j = 0;
-            repeat(array_length(_argument))
-            {
-                array_push(_source, _argument[_j]);
-                ++_j;
-            }
-        }
-        else
-        {
-            array_push(_source, _argument);
-        }
-        
-        ++_i;
-    }
-    
-    return new __VinylPatternMulti(_source);
+    __VINYL_COLLECT_ARGUMENTS_INTO_ARRAY
+    return new __VinylPatternMulti(_argumentArray);
 }
 
 /// @param source
@@ -37,8 +14,7 @@ function __VinylPatternMulti(_sources) constructor
     __VINYL_PATTERN_COMMON
     __instanceConstructor = __VinyInstanceMulti;
     
-    __sources = _sources;
-    
+    __sources        = _sources;
     __synchronize    = false;
     __blendParam     = undefined;
     __blendAnimCurve = undefined;

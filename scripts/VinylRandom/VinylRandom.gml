@@ -3,37 +3,18 @@
 
 function VinylRandom()
 {
-    switch(argument_count)
-    {
-        case 0: __VinylError("Unsupported number of arguments (0) for VinylRandom()\n(Should be at least 1)"); break;
-        
-        case 1: return new __VinylPatternRandom(argument[0]); break;
-        case 2: return new __VinylPatternRandom(argument[0], argument[1]); break;
-        case 3: return new __VinylPatternRandom(argument[0], argument[1], argument[2]); break;
-        case 4: return new __VinylPatternRandom(argument[0], argument[1], argument[2], argument[3]); break;
-        case 5: return new __VinylPatternRandom(argument[0], argument[1], argument[2], argument[3], argument[4]); break
-        
-        default: __VinylError("Unsupported number of arguments (", argument_count, ") for VinylRandom()\n(Please add another case to the switch statement)"); break;
-    }
+    __VINYL_COLLECT_ARGUMENTS_INTO_ARRAY
+    return new __VinylPatternRandom(_argumentArray);
 }
 
 /// @param source
 /// @param ...
-function __VinylPatternRandom() constructor
+function __VinylPatternRandom(_sources) constructor
 {
     __VINYL_PATTERN_COMMON
     __instanceConstructor = __VinyInstanceRandom;
     
-    __sources = array_create(argument_count, undefined);
-    
-    //Copy input sources into the actual array
-    var _i = 0;
-    repeat(argument_count)
-    {
-        __sources[@ _i] = __VinylPatternizeSource(argument[_i]);
-        ++_i;
-    }
-    
+    __sources               = _sources;
     __allowRepeat           = (array_length(__sources) <= 2);
     __globalLastIndexPlayed = undefined;
     

@@ -4,6 +4,30 @@
                                          static SourceFindIndex   = __VinylInstanceSourceFindIndex;\
                                          static InstanceFindIndex = __VinylInstanceFindIndex;
 
+#macro __VINYL_COLLECT_ARGUMENTS_INTO_ARRAY  var _argumentArray = [];\
+                                             ;\
+                                             var _i = 0;\
+                                             repeat(argument_count)\
+                                             {\
+                                                 var _argument = argument[_i];\
+                                                 ;\
+                                                 if (is_array(_argument))\
+                                                 {\
+                                                     var _j = 0;\
+                                                     repeat(array_length(_argument))\
+                                                     {\
+                                                         array_push(_argumentArray, _argument[_j]);\
+                                                         ++_j;\
+                                                     }\
+                                                 }\
+                                                 else\
+                                                 {\
+                                                     array_push(_argumentArray, _argument);\
+                                                 }\
+                                                 ;\
+                                                 ++_i;\
+                                             }
+
 function __VinylInstanceSourceGet(_index)
 {
     if ((_index < 0) || (_index >= array_length(__sources))) return undefined;
