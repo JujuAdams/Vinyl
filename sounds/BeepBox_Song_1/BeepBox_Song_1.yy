@@ -11,14 +11,14 @@
     "name": "audiogroup_default",
     "path": "audiogroups/audiogroup_default",
   },
-  "soundFile": "snd_music_loop_1.wav",
-  "duration": 34.9090919,
+  "soundFile": "BeepBox_Song_1.wav",
+  "duration": 3.2,
   "parent": {
     "name": "Music",
     "path": "folders/Audio/Music.yy",
   },
   "resourceVersion": "1.0",
-  "name": "snd_music_loop_1",
+  "name": "BeepBox_Song_1",
   "tags": [],
   "resourceType": "GMSound",
 }

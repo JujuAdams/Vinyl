@@ -1,4 +1,3 @@
-/// @param sources
 function __VinyInstanceQueue(_pattern) constructor
 {
     __VINYL_INSTANCE_COMMON
