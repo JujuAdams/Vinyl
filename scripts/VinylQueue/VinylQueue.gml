@@ -47,11 +47,6 @@ function __VinylPatternQueue() constructor
     static FadeTimeSet = __VinylPatternFadeTimeSet;
     static FadeTimeGet = __VinylPatternFadeTimeGet;
     
-    static GroupAdd      = __VinylPatternGroupAdd;
-    static GroupDelete   = __VinylPatternGroupDelete;
-    static GroupClear    = __VinylPatternGroupClear;
-    static GroupAssigned = __VinylPatternGroupAssigned;
-    
     #endregion
     
     

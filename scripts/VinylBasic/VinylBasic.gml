@@ -187,11 +187,6 @@ function __VinyInstanceBasic(_pattern) constructor
     static IsStopping     = __VinylInstanceIsStopping;
     static IsFinished     = __VinylInstanceIsFinished;
     
-    static GroupAdd      = __VinylInstanceGroupAdd;
-    static GroupDelete   = __VinylInstanceGroupDelete;
-    static GroupClear    = __VinylInstanceGroupClear;
-    static GroupAssigned = __VinylInstanceGroupAssigned;
-    
     #endregion
     
     
