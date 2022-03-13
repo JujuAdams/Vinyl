@@ -21,7 +21,8 @@ function VinylMulti()
 /// @param ...
 function __VinylPatternMulti() constructor
 {
-    __VinylPatternCommonConstruct(__VinyInstanceMulti);
+    __VINYL_PATTERN_COMMON
+    __instanceConstructor = __VinyInstanceMulti;
     
     __sources = array_create(argument_count, undefined);
     
@@ -99,25 +100,6 @@ function __VinylPatternMulti() constructor
         if ((_index < 0) || (_index >= array_length(__blendGains))) __VinylError("Index provided (", _index, ") is invalid (0 <= index <= ", array_length(__blendGains) - 1, ")");
         return __blendGains[_index];
     }
-    
-    #endregion
-    
-    
-    
-    #region Common Public Methods
-    
-    static Play        = __VinylPatternPlay;
-    static GainSet     = __VinylPatternGainSet;
-    static GainGet     = __VinylPatternGainGet;
-    static PitchSet    = __VinylPatternPitchSet;
-    static PitchGet    = __VinylPatternPitchGet;
-    static FadeTimeSet = __VinylPatternFadeTimeSet;
-    static FadeTimeGet = __VinylPatternFadeTimeGet;
-    
-    static GroupAdd      = __VinylPatternGroupAdd;
-    static GroupDelete   = __VinylPatternGroupDelete;
-    static GroupClear    = __VinylPatternGroupClear;
-    static GroupAssigned = __VinylPatternGroupAssigned;
     
     #endregion
     

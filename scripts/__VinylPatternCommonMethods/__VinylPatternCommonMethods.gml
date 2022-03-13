@@ -1,3 +1,18 @@
+#macro __VINYL_PATTERN_COMMON  __VinylPatternCommonConstruct();\
+                               static Play        = __VinylPatternPlay;\
+                               static GainSet     = __VinylPatternGainSet;\
+                               static GainGet     = __VinylPatternGainGet;\
+                               static PitchSet    = __VinylPatternPitchSet;\
+                               static PitchGet    = __VinylPatternPitchGet;\
+                               static FadeTimeSet = __VinylPatternFadeTimeSet;\
+                               static FadeTimeGet = __VinylPatternFadeTimeGet;\
+                               static GroupAdd      = __VinylPatternGroupAdd;\
+                               static GroupDelete   = __VinylPatternGroupDelete;\
+                               static GroupClear    = __VinylPatternGroupClear;\
+                               static GroupAssigned = __VinylPatternGroupAssigned;
+
+
+
 #region Gain
 
 function __VinylPatternGainSet()
@@ -172,10 +187,8 @@ function __VinylPatternGroupClear()
 
 
 
-function __VinylPatternCommonConstruct(_instanceConstructor)
+function __VinylPatternCommonConstruct()
 {
-    __instanceConstructor = _instanceConstructor;
-    
     __groups = [];
     
     __gainMin = 0.0;

@@ -21,7 +21,8 @@ function VinylRandom()
 /// @param ...
 function __VinylPatternRandom() constructor
 {
-    __VinylPatternCommonConstruct(__VinyInstanceRandom);
+    __VINYL_PATTERN_COMMON
+    __instanceConstructor = __VinyInstanceRandom;
     
     __sources = array_create(argument_count, undefined);
     
@@ -32,25 +33,6 @@ function __VinylPatternRandom() constructor
         __sources[@ _i] = __VinylPatternizeSource(argument[_i]);
         ++_i;
     }
-    
-    
-    
-    #region Common Public Methods
-    
-    static Play        = __VinylPatternPlay;
-    static GainSet     = __VinylPatternGainSet;
-    static GainGet     = __VinylPatternGainGet;
-    static PitchSet    = __VinylPatternPitchSet;
-    static PitchGet    = __VinylPatternPitchGet;
-    static FadeTimeSet = __VinylPatternFadeTimeSet;
-    static FadeTimeGet = __VinylPatternFadeTimeGet;
-    
-    static GroupAdd      = __VinylPatternGroupAdd;
-    static GroupDelete   = __VinylPatternGroupDelete;
-    static GroupClear    = __VinylPatternGroupClear;
-    static GroupAssigned = __VinylPatternGroupAssigned;
-    
-    #endregion
     
     
     

@@ -12,28 +12,10 @@ function VinylLoop(_source)
 /// @param outro
 function __VinylPatternLoop(_source) constructor
 {
-    __VinylPatternCommonConstruct(__VinyInstanceLoop);
+    __VINYL_PATTERN_COMMON
+    __instanceConstructor = __VinyInstanceLoop;
     
     __source = __VinylPatternizeSource(_source);
-    
-    
-    
-    #region Common Public Methods
-    
-    static Play        = __VinylPatternPlay;
-    static GainSet     = __VinylPatternGainSet;
-    static GainGet     = __VinylPatternGainGet;
-    static PitchSet    = __VinylPatternPitchSet;
-    static PitchGet    = __VinylPatternPitchGet;
-    static FadeTimeSet = __VinylPatternFadeTimeSet;
-    static FadeTimeGet = __VinylPatternFadeTimeGet;
-    
-    static GroupAdd      = __VinylPatternGroupAdd;
-    static GroupDelete   = __VinylPatternGroupDelete;
-    static GroupClear    = __VinylPatternGroupClear;
-    static GroupAssigned = __VinylPatternGroupAssigned;
-    
-    #endregion
     
     
     

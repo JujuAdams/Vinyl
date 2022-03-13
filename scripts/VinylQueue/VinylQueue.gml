@@ -21,7 +21,8 @@ function VinylQueue()
 /// @param ...
 function __VinylPatternQueue() constructor
 {
-    __VinylPatternCommonConstruct(__VinyInstanceQueue);
+    __VINYL_PATTERN_COMMON
+    __instanceConstructor = __VinyInstanceQueue;
     
     __sources = array_create(argument_count, undefined);
     __pop     = false;
@@ -35,24 +36,6 @@ function __VinylPatternQueue() constructor
         ++_i;
     }
     
-    
-    
-    #region Common Public Methods
-    
-    static Play        = __VinylPatternPlay;
-    static GainSet     = __VinylPatternGainSet;
-    static GainGet     = __VinylPatternGainGet;
-    static PitchSet    = __VinylPatternPitchSet;
-    static PitchGet    = __VinylPatternPitchGet;
-    static FadeTimeSet = __VinylPatternFadeTimeSet;
-    static FadeTimeGet = __VinylPatternFadeTimeGet;
-    
-    static GroupAdd      = __VinylPatternGroupAdd;
-    static GroupDelete   = __VinylPatternGroupDelete;
-    static GroupClear    = __VinylPatternGroupClear;
-    static GroupAssigned = __VinylPatternGroupAssigned;
-    
-    #endregion
     
     
     

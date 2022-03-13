@@ -8,7 +8,8 @@ function VinylBasic(_asset)
 /// @param asset
 function __VinylPatternBasic(_asset) constructor
 {
-    __VinylPatternCommonConstruct(__VinyInstanceBasic);
+    __VINYL_PATTERN_COMMON
+    __instanceConstructor = __VinyInstanceBasic;
     
     if (!is_numeric(_asset) || !audio_exists(_asset))
     {
@@ -23,19 +24,6 @@ function __VinylPatternBasic(_asset) constructor
     
     
     #region Common Public Methods
-    
-    static Play        = __VinylPatternPlay;
-    static GainSet     = __VinylPatternGainSet;
-    static GainGet     = __VinylPatternGainGet;
-    static PitchSet    = __VinylPatternPitchSet;
-    static PitchGet    = __VinylPatternPitchGet;
-    static FadeTimeSet = __VinylPatternFadeTimeSet;
-    static FadeTimeGet = __VinylPatternFadeTimeGet;
-    
-    static GroupAdd      = __VinylPatternGroupAdd;
-    static GroupDelete   = __VinylPatternGroupDelete;
-    static GroupClear    = __VinylPatternGroupClear;
-    static GroupAssigned = __VinylPatternGroupAssigned;
     
     #endregion
     
