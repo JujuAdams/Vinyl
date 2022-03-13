@@ -33,7 +33,7 @@ function __VinylPatternMulti() constructor
         __sources[@ _i] = __VinylPatternizeSource(argument[_i]);
         ++_i;
     }
-    __synchronize    = false;
+    
     __blendParam     = undefined;
     __blendAnimCurve = undefined;
     __blendGains     = undefined;
@@ -43,17 +43,6 @@ function __VinylPatternMulti() constructor
     
     
     #region Public Methods
-    
-    static SynchronizeSet = function(_state)
-    {
-        __synchronize = _state;
-        return self;
-    }
-    
-    static SynchronizeGet = function()
-    {
-        return __synchronize;
-    }
     
     static BlendSet = function()
     {
@@ -125,7 +114,6 @@ function __VinyInstanceMulti(_pattern) constructor
     __VINYL_INSTANCE_COMMON
     __VINYL_INSTANCE_COMMON_EXTENDED
     
-    __synchronize    = __pattern.__synchronize;
     __sources        = __VinylInstanceInstantiateAll(self, __pattern.__sources);
     __blendParam     = __pattern.__blendParam;
     __blendAnimCurve = __pattern.__blendAnimCurve;
@@ -209,17 +197,6 @@ function __VinyInstanceMulti(_pattern) constructor
         
         __stopping = false;
         __finished = true;
-    }
-    
-    static SynchronizeSet = function(_state)
-    {
-        __synchronize = _state;
-        return self;
-    }
-    
-    static SynchronizeGet = function()
-    {
-        return __synchronize;
     }
     
     static InstanceGet = function(_index)
@@ -350,47 +327,22 @@ function __VinyInstanceMulti(_pattern) constructor
             //Handle fade out
             if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();
             
-            if (__synchronize)
+            var _blendGains = __blendGains;
+            var _finished = true;
+            var _i = 0;
+            repeat(array_length(__sources))
             {
-                var _finished = false;
-                var _time = undefined;
-                
-                var _blendGains = __blendGains;
-                var _i = 0;
-                repeat(array_length(__sources))
+                with(__sources[_i])
                 {
-                    with(__sources[_i])
-                    {
-                        __inheritedBlendGain = _blendGains[_i];
-                        __Tick(); //Update the instances we're currently playing
-                        if (_time == undefined) _time = PositionGet() else PositionSet(_time);
-                        if (__finished) _finished = true;
-                    }
-                        
-                    ++_i;
+                    __inheritedBlendGain = _blendGains[_i];
+                    __Tick(); //Update the instances we're currently playing
+                    if (!__finished) _finished = false;
                 }
                 
-                if (_finished) Kill();
+                ++_i;
             }
-            else
-            {
-                var _blendGains = __blendGains;
-                var _finished = true;
-                var _i = 0;
-                repeat(array_length(__sources))
-                {
-                    with(__sources[_i])
-                    {
-                        __inheritedBlendGain = _blendGains[_i];
-                        __Tick(); //Update the instances we're currently playing
-                        if (!__finished) _finished = false;
-                    }
-                    
-                    ++_i;
-                }
-                
-                if (_finished) Kill();
-            }
+            
+            if (_finished) Kill();
         }
     }
     
