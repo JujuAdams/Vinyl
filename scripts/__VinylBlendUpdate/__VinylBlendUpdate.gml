@@ -1,4 +1,4 @@
-function __VinylBlendUpdate()
+function __VinylBlendUpdate() //FIXME - Broken using new decibel gains
 {
     if (__blendParam == undefined)
     {

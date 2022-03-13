@@ -213,7 +213,7 @@ function __VinyInstanceRandom(_pattern) constructor
         __VinylInstanceCommonPlay();
         
         //Figure out what to play
-        __index = irandom(array_length(__sources) - 1);
+        __index = irandom(array_length(__sources) - 1); //FIXME - Use custom PRNG
         __current = __sources[__index];
         __current.__Play();
     }
