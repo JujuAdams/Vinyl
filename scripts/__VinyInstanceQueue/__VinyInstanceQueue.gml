@@ -117,7 +117,7 @@ function __VinyInstanceQueue(_pattern) constructor
     static Insert = function(_source, _index)
     {
         //Spin up a new instance to play
-        var _instance = __VinylPatternInstantiate(__VinylPatternizeSource(_source));
+        var _instance = __VinylPatternInstantiate(self, __VinylPatternizeSource(_source));
         
         if ((_index < 0) || (_index > array_length(__sources)))
         {
@@ -267,7 +267,9 @@ function __VinyInstanceQueue(_pattern) constructor
         else
         {
             if (VINYL_DEBUG) __VinylTrace("Replaying ", self);
-            with(__current) __ReplayViaLoop();
+            
+            __Reset();
+            __Tick();
         }
     }
     
@@ -374,7 +376,7 @@ function __VinyInstanceQueue(_pattern) constructor
         var _i = 0;
         repeat(array_length(__sources))
         {
-            if (!__sources[_i].__WillFinish()) return false;
+            if (!__sources[_i].__WillFinish() || !__sources[_i].__started) return false;
             ++_i;
         }
         
