@@ -150,6 +150,10 @@ function __VinyInstanceMulti(_pattern) constructor
     
     __VinylBlendUpdate();
     
+    __Reset();
+    
+    if (VINYL_DEBUG) __VinylTrace("Created instance for ", self);
+    
     
     
     #region Public Methods
@@ -451,10 +455,4 @@ function __VinyInstanceMulti(_pattern) constructor
     }
     
     #endregion
-    
-    
-    
-    __Reset();
-    
-    if (VINYL_DEBUG) __VinylTrace("Created instance ", self);
 }

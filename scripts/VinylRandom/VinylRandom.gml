@@ -76,6 +76,10 @@ function __VinyInstanceRandom(_pattern) constructor
     __sources = __VinylInstanceInstantiateAll(self, __pattern.__sources);
     __index   = undefined;
     
+    __Reset();
+    
+    if (VINYL_DEBUG) __VinylTrace("Created instance for ", self);
+    
     
     
     #region Public Methods
@@ -245,10 +249,4 @@ function __VinyInstanceRandom(_pattern) constructor
     }
     
     #endregion
-    
-    
-    
-    __Reset();
-    
-    if (VINYL_DEBUG) __VinylTrace("Created instance ", self);
 }

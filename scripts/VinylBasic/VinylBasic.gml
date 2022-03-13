@@ -74,7 +74,7 @@ function __VinylPatternBasic(_asset) constructor
     
     static toString = function()
     {
-        return audio_get_name(__asset);
+        return audio_get_name(__asset) + "[" + string(__startTime) + "->" + string(__endTime) + "]";
     }
     
     #endregion
@@ -94,6 +94,10 @@ function __VinyInstanceBasic(_pattern) constructor
     __startTime  = __pattern.__startTime;
     __endTime    = __pattern.__endTime;
     __duration   = __endTime - __startTime;
+    
+    __Reset();
+    
+    if (VINYL_DEBUG) __VinylTrace("Created instance for ", self);
     
     
     
@@ -261,14 +265,8 @@ function __VinyInstanceBasic(_pattern) constructor
     
     static toString = function()
     {
-        return audio_get_name(__asset);
+        return audio_get_name(__asset) + "[" + string(__startTime) + "->" + string(__endTime) + "]";
     }
     
     #endregion
-    
-    
-    
-    __Reset();
-    
-    if (VINYL_DEBUG) __VinylTrace("Created instance for ", self);
 }

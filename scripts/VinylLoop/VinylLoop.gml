@@ -73,6 +73,10 @@ function __VinyInstanceLoop(_pattern) constructor
     __source = __VinylPatternInstantiate(__pattern.__source);
     __VinylTrace("Set source to ", __source);
     
+    __Reset();
+    
+    if (VINYL_DEBUG) __VinylTrace("Created instance for ", self);
+    
     
     #region Public Methods
     
@@ -222,10 +226,4 @@ function __VinyInstanceLoop(_pattern) constructor
     }
     
     #endregion
-    
-    
-    
-    __Reset();
-    
-    if (VINYL_DEBUG) __VinylTrace("Created instance ", self);
 }
