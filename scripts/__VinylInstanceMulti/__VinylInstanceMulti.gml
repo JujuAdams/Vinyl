@@ -3,6 +3,7 @@ function __VinyInstanceMulti(_pattern) constructor
     __VINYL_INSTANCE_COMMON
     __VINYL_INSTANCE_COMMON_EXTENDED
     
+    __synchronize    = __pattern.__synchronize;
     __sources        = __VinylInstanceInstantiateAll(self, __pattern.__sources);
     __blendParam     = __pattern.__blendParam;
     __blendAnimCurve = __pattern.__blendAnimCurve;
@@ -86,6 +87,17 @@ function __VinyInstanceMulti(_pattern) constructor
         
         __stopping = false;
         __finished = true;
+    }
+    
+    static SynchronizeSet = function(_state)
+    {
+        __synchronize = _state;
+        return self;
+    }
+    
+    static SynchronizeGet = function()
+    {
+        return __synchronize;
     }
     
     static ChildGet = function(_index)
@@ -216,19 +228,44 @@ function __VinyInstanceMulti(_pattern) constructor
             //Handle fade out
             if (__stopping && (current_time - __timeStopping > __timeFadeOut)) Kill();
             
-            var _blendGains = __blendGains;
-            var _finished = true;
-            var _i = 0;
-            repeat(array_length(__sources))
+            if (__synchronize)
             {
-                with(__sources[_i])
+                var _finished = false;
+                var _time = undefined;
+                
+                var _blendGains = __blendGains;
+                var _i = 0;
+                repeat(array_length(__sources))
                 {
-                    __inheritedBlendGain = _blendGains[_i];
-                    __Tick(); //Update the instances we're currently playing
-                    if (!__finished) _finished = false;
+                    with(__sources[_i])
+                    {
+                        __inheritedBlendGain = _blendGains[_i];
+                        __Tick(); //Update the instances we're currently playing
+                        if (_time == undefined) _time = PositionGet() else PositionSet(_time);
+                        if (__finished) _finished = true;
+                    }
+                        
+                    ++_i;
                 }
                 
-                ++_i;
+                if (_finished) Kill();
+            }
+            else
+            {
+                var _blendGains = __blendGains;
+                var _finished = true;
+                var _i = 0;
+                repeat(array_length(__sources))
+                {
+                    with(__sources[_i])
+                    {
+                        __inheritedBlendGain = _blendGains[_i];
+                        __Tick(); //Update the instances we're currently playing
+                        if (!__finished) _finished = false;
+                    }
+                    
+                    ++_i;
+                }
             }
             
             if (_finished) Kill();

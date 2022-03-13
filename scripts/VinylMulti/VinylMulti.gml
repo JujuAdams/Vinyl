@@ -34,6 +34,7 @@ function __VinylPatternMulti() constructor
         ++_i;
     }
     
+    __synchronize    = false;
     __blendParam     = undefined;
     __blendAnimCurve = undefined;
     __blendGains     = undefined;
@@ -43,6 +44,17 @@ function __VinylPatternMulti() constructor
     
     
     #region Public Methods
+    
+    static SynchronizeSet = function(_state)
+    {
+        __synchronize = _state;
+        return self;
+    }
+    
+    static SynchronizeGet = function()
+    {
+        return __synchronize;
+    }
     
     static BlendSet = function()
     {
