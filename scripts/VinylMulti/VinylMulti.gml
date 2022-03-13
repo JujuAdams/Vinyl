@@ -3,36 +3,41 @@
 
 function VinylMulti()
 {
-    switch(argument_count)
+    var _source = [];
+    
+    var _i = 0;
+    repeat(argument_count)
     {
-        case 0: __VinylError("Unsupported number of arguments (0) for VinylMulti()\n(Should be at least 1)"); break;
+        var _argument = argument[_i];
         
-        case 1: return new __VinylPatternMulti(argument[0]); break;
-        case 2: return new __VinylPatternMulti(argument[0], argument[1]); break;
-        case 3: return new __VinylPatternMulti(argument[0], argument[1], argument[2]); break;
-        case 4: return new __VinylPatternMulti(argument[0], argument[1], argument[2], argument[3]); break;
-        case 5: return new __VinylPatternMulti(argument[0], argument[1], argument[2], argument[3], argument[4]); break
+        if (is_array(_argument))
+        {
+            var _j = 0;
+            repeat(array_length(_argument))
+            {
+                array_push(_source, _argument[_j]);
+                ++_j;
+            }
+        }
+        else
+        {
+            array_push(_source, _argument);
+        }
         
-        default: __VinylError("Unsupported number of arguments (", argument_count, ") for VinylMulti()\n(Please add another case to the switch statement)"); break;
+        ++_i;
     }
+    
+    return new __VinylPatternMulti(_source);
 }
 
 /// @param source
 /// @param ...
-function __VinylPatternMulti() constructor
+function __VinylPatternMulti(_sources) constructor
 {
     __VINYL_PATTERN_COMMON
     __instanceConstructor = __VinyInstanceMulti;
     
-    __sources = array_create(argument_count, undefined);
-    
-    //Copy input sources into the actual array
-    var _i = 0;
-    repeat(argument_count)
-    {
-        __sources[@ _i] = __VinylPatternizeSource(argument[_i]);
-        ++_i;
-    }
+    __sources = _sources;
     
     __synchronize    = false;
     __blendParam     = undefined;
