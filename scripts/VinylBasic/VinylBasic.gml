@@ -23,12 +23,6 @@ function __VinylPatternBasic(_asset) constructor
     
     
     
-    #region Common Public Methods
-    
-    #endregion
-    
-    
-    
     #region Public Methods
     
     static AssetGet = function()

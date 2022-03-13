@@ -3,8 +3,9 @@ function __VinyInstanceRandom(_pattern) constructor
     __VINYL_INSTANCE_COMMON
     __VINYL_INSTANCE_COMMON_EXTENDED
     
-    __sources = __VinylInstanceInstantiateAll(self, __pattern.__sources);
-    __index   = undefined;
+    __noRepeat = __pattern.__noRepeat;
+    __sources  = __VinylInstanceInstantiateAll(self, __pattern.__sources);
+    __index    = undefined;
     
     __Reset();
     
@@ -116,8 +117,23 @@ function __VinyInstanceRandom(_pattern) constructor
     {
         __VinylInstanceCommonPlay();
         
+        var _size = array_length(__sources);
+        
         //Figure out what to play
-        __index = irandom(array_length(__sources) - 1); //FIXME - Use custom PRNG
+        __index = irandom(_size-1); //FIXME - Use custom PRNG
+        
+        if (__noRepeat)
+        {
+            //Try to not repeat the same source twice in a row
+            repeat(_size)
+            {
+                if (__index != __pattern.__globalLastIndexPlayed) break;
+                __index = (__index + 1) mod _size;
+            }
+            
+            __pattern.__globalLastIndexPlayed = __index;
+        }
+        
         __current = __sources[__index];
         __current.__Play();
     }

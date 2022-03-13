@@ -34,6 +34,9 @@ function __VinylPatternRandom() constructor
         ++_i;
     }
     
+    __noRepeat              = (array_length(__sources) > 2);
+    __globalLastIndexPlayed = undefined;
+    
     
     
     #region Private Methods
