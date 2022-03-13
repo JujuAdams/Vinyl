@@ -62,11 +62,11 @@ if (keyboard_check_pressed(ord("S")))
 {
     if (keyboard_check(vk_shift))
     {
-        instance.InstanceGet().Kill();
+        instance.ChildGet().Kill();
     }
     else
     {
-        instance.InstanceGet().Stop();
+        instance.ChildGet().Stop();
     }
 }
 

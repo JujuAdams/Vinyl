@@ -76,7 +76,7 @@ function __VinyInstanceRandom(_pattern) constructor
         return __index;
     }
     
-    static InstanceGet = function()
+    static ChildGet = function()
     {
         return __current;
     }

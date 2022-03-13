@@ -50,7 +50,7 @@ function __VinyInstanceLoop(_pattern) constructor
         __finished = true;
     }
     
-    static InstanceGet = function()
+    static ChildGet = function()
     {
         return __source;
     }

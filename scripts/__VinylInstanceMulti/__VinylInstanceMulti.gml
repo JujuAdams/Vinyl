@@ -88,7 +88,7 @@ function __VinyInstanceMulti(_pattern) constructor
         __finished = true;
     }
     
-    static InstanceGet = function(_index)
+    static ChildGet = function(_index)
     {
         return __sources[_index];
     }
