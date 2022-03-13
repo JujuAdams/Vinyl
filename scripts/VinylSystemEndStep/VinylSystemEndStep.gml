@@ -8,16 +8,16 @@ function VinylSystemEndStep()
     }
     
     var _i = 0;
-    repeat(ds_list_size(global.__vinylPlaying))
+    repeat(array_length(global.__vinylPlaying))
     {
-        with(global.__vinylPlaying[| _i])
+        with(global.__vinylPlaying[_i])
         {
             __Tick();
             
             if (__finished)
             {
                 if (VINYL_DEBUG) __VinylTrace("Deleted ", self);
-                ds_list_delete(global.__vinylPlaying, _i);
+                array_delete(global.__vinylPlaying, _i, 1);
             }
             else
             {

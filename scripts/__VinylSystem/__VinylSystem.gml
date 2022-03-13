@@ -7,7 +7,7 @@ VinylSystemGain(0);
 
 
 
-global.__vinylPlaying         = ds_list_create(); //TODO - Replace this with an array
+global.__vinylPlaying         = [];
 global.__vinylGroupsList      = ds_list_create();
 global.__vinylGroupsMap       = ds_map_create();
 global.__vinylGlobalAssetGain = ds_map_create();

@@ -193,7 +193,7 @@ function __VinylPatternPlay()
 {
     with(__VinylPatternInstantiate(self))
     {
-        ds_list_add(global.__vinylPlaying, self);
+        array_push(global.__vinylPlaying, self);
         
         __Reset();
         
