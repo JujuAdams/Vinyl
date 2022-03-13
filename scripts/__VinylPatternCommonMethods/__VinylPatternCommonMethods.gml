@@ -1,15 +1,17 @@
 #macro __VINYL_PATTERN_COMMON  __VinylPatternCommonConstruct();\
-                               static Play        = __VinylPatternPlay;\
-                               static GainSet     = __VinylPatternGainSet;\
-                               static GainGet     = __VinylPatternGainGet;\
-                               static PitchSet    = __VinylPatternPitchSet;\
-                               static PitchGet    = __VinylPatternPitchGet;\
-                               static FadeTimeSet = __VinylPatternFadeTimeSet;\
-                               static FadeTimeGet = __VinylPatternFadeTimeGet;\
-                               static GroupAdd      = __VinylPatternGroupAdd;\
-                               static GroupDelete   = __VinylPatternGroupDelete;\
-                               static GroupClear    = __VinylPatternGroupClear;\
-                               static GroupAssigned = __VinylPatternGroupAssigned;
+                               static Play            = __VinylPatternPlay;\
+                               static GainSet         = __VinylPatternGainSet;\
+                               static GainGet         = __VinylPatternGainGet;\
+                               static PitchSet        = __VinylPatternPitchSet;\
+                               static PitchGet        = __VinylPatternPitchGet;\
+                               static MusicalPitchSet = __VinylPatternMusicalPitchSet;\
+                               static MusicalPitchGet = __VinylPatternMusicalPitchGet;\
+                               static FadeTimeSet     = __VinylPatternFadeTimeSet;\
+                               static FadeTimeGet     = __VinylPatternFadeTimeGet;\
+                               static GroupAdd        = __VinylPatternGroupAdd;\
+                               static GroupDelete     = __VinylPatternGroupDelete;\
+                               static GroupClear      = __VinylPatternGroupClear;\
+                               static GroupAssigned   = __VinylPatternGroupAssigned;
 
 
 
@@ -66,11 +68,38 @@ function __VinylPatternMusicalPitchSet()
 
 function __VinylPatternPitchGet()
 {
-    return {
-        mini:    __pitchMin,
-        maxi:    __pitchMax,
-        musical: __pitchMusical,
-    };
+    if (__pitchMusical)
+    {
+        return {
+            mini: __VinylPitchToFreqCoeff(__pitchMin),
+            maxi: __VinylPitchToFreqCoeff(__pitchMax),
+        };
+    }
+    else
+    {
+        return {
+            mini: __pitchMin,
+            maxi: __pitchMax,
+        };
+    }
+}
+
+function __VinylPatternMusicalPitchGet()
+{
+    if (__pitchMusical)
+    {
+        return {
+            mini: __pitchMin,
+            maxi: __pitchMax,
+        };
+    }
+    else
+    {
+        return {
+            mini: __VinylFreqCoeffToPitch(__pitchMin),
+            maxi: __VinylFreqCoeffToPitch(__pitchMax),
+        };
+    }
 }
 
 #endregion

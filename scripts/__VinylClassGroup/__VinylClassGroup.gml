@@ -5,11 +5,11 @@ function __VinylClassGroup(_name) constructor
     __inheritArray = [];
     
     __gain       = 0.0;
-    __gainRate   = VINYL_DEFAULT_GAIN_RATE;
+    __gainRate   = infinity;
     __gainTarget = undefined;
     
     __pitch       = 1.0;
-    __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
+    __pitchRate   = infinity;
     __pitchTarget = undefined;
     
     __gainFinal  = 0.0;
@@ -19,17 +19,12 @@ function __VinylClassGroup(_name) constructor
     
     #region Public Methods
     
-    static GainSet = function(_value)
-    {
-        __gain = _value;
-        
-        return self;
-    }
-    
-    static GainTargetSet = function(_target, _rate)
+    static GainSet = function(_target, _rate = infinity)
     {
         __gainTarget = _target;
         __gainRate   = _rate;
+        
+        if (__gainRate == infinity) __gain = _target;
         
         return self;
     }
@@ -39,22 +34,22 @@ function __VinylClassGroup(_name) constructor
         return __gain;
     }
     
+    static GainTargetGet = function()
+    {
+        return __gainTarget;
+    }
+    
     static GainAtTarget = function()
     {
         return (__gain == __gainTarget);
     }
     
-    static PitchSet = function(_value)
-    {
-        __pitch = _value;
-        
-        return self;
-    }
-    
-    static PitchTargetSet = function(_target, _rate)
+    static PitchSet = function(_target, _rate = infinity)
     {
         __pitchTarget = _target;
         __pitchRate   = _rate;
+        
+        if (__pitchRate == infinity) __pitch = _target;
         
         return self;
     }
@@ -62,6 +57,11 @@ function __VinylClassGroup(_name) constructor
     static PitchGet = function()
     {
         return __pitch;
+    }
+    
+    static PitchTargetGet = function()
+    {
+        return __pitchTarget;
     }
     
     static PitchAtTarget = function()

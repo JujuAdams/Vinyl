@@ -1,34 +1,27 @@
 #macro __VINYL_INSTANCE_COMMON  __VinylInstanceCommonConstruct(_pattern);\
-                                static GainSet        = __VinylInstanceGainSet;\
-                                static GainTargetSet  = __VinylInstanceGainTargetSet;\
-                                static GainGet        = __VinylInstanceGainGet;\
-                                static OutputGainGet  = __VinylInstanceOutputGainGet;\
-                                static PitchSet       = __VinylInstancePitchSet;\
-                                static PitchTargetSet = __VinylInstancePitchTargetSet;\
-                                static PitchTargetSet = __VinylInstancePitchTargetSet;\
-                                static OutputPitchGet = __VinylInstanceOutputPitchGet;\
-                                static FadeTimeSet    = __VinylInstanceFadeTimeSet;\
-                                static FadeTimeGet    = __VinylInstanceFadeTimeGet;\
-                                static PatternGet     = __VinylInstancePatternGet;\
-                                static IsStopping     = __VinylInstanceIsStopping;\
-                                static IsFinished     = __VinylInstanceIsFinished;
+                                static GainSet         = __VinylInstanceGainSet;\
+                                static GainGet         = __VinylInstanceGainGet;\
+                                static PitchSet        = __VinylInstancePitchSet;\
+                                static PitchGet        = __VinylInstancePitchGet;\
+                                static MusicalPitchSet = __VinylInstanceMusicalPitchSet;\
+                                static MusicalPitchGet = __VinylInstanceMusicalPitchGet;\
+                                static FadeTimeSet     = __VinylInstanceFadeTimeSet;\
+                                static FadeTimeGet     = __VinylInstanceFadeTimeGet;\
+                                static PatternGet      = __VinylInstancePatternGet;\
+                                static IsStopping      = __VinylInstanceIsStopping;\
+                                static IsFinished      = __VinylInstanceIsFinished;
 
 
 
 #region Gain
 
-function __VinylInstanceGainSet(_value)
-{
-    __gain = _value;
-        
-    return self;
-}
-
-function __VinylInstanceGainTargetSet(_target, _rate)
+function __VinylInstanceGainSet(_target, _rate = infinity)
 {
     __gainTarget = _target;
     __gainRate   = _rate;
-        
+    
+    if (_rate == infinity) __gain = __gainTarget;
+    
     return self;
 }
 
@@ -37,35 +30,18 @@ function __VinylInstanceGainGet()
     return __gain;
 }
 
-function __VinylInstanceOutputGainGet()
-{
-    return __outputGain;
-}
-
 #endregion
 
 
 
 #region Pitch
 
-function __VinylInstancePitchSet(_value)
-{
-    __pitch = _value;
-        
-    return self;
-}
-
-function __VinylInstanceMusicalPitchSet(_value)
-{
-    __pitch = __VinylPitchToFreqCoeff(_value);
-        
-    return self;
-}
-
-function __VinylInstancePitchTargetSet(_target, _rate)
+function __VinylInstancePitchSet(_target, _rate = infinity)
 {
     __pitchTarget = _target;
     __pitchRate   = _rate;
+    
+    if (_rate == infinity) __pitch = __pitchTarget;
         
     return self;
 }
@@ -75,14 +51,17 @@ function __VinylInstancePitchGet()
     return __pitch;
 }
 
+function __VinylInstanceMusicalPitchSet(_value)
+{
+    __pitch       = __VinylPitchToFreqCoeff(_value);
+    __pitchTarget = __pitch;
+    
+    return self;
+}
+
 function __VinylInstanceMusicalPitchGet()
 {
     return __VinylFreqCoeffToPitch(__pitch);
-}
-
-function __VinylInstanceOutputPitchGet()
-{
-    return __outputPitch;
 }
 
 #endregion
@@ -280,14 +259,14 @@ function __VinylInstanceCommonConstruct(_pattern)
     __groups     = [];
     
     __gain       = 0.0;
-    __gainRate   = VINYL_DEFAULT_GAIN_RATE;
+    __gainRate   = infinity;
     __gainTarget = undefined;
     __outputGain = 0.0;
     
     __inheritedBlendGain = 0.0;
     
     __pitch       = 1.0;
-    __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
+    __pitchRate   = infinity;
     __pitchTarget = undefined;
     __outputPitch = 1.0;
     
