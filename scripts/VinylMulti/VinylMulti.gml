@@ -3,7 +3,7 @@
 
 function VinylMulti()
 {
-    __VINYL_COLLECT_ARGUMENTS_INTO_ARRAY
+    __VINYL_COLLECT_ARGUMENTS_INTO_SOURCE_ARRAY
     return new __VinylPatternMulti(_argumentArray);
 }
 
