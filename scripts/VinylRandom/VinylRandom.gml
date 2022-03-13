@@ -34,8 +34,26 @@ function __VinylPatternRandom() constructor
         ++_i;
     }
     
-    __noRepeat              = (array_length(__sources) > 2);
+    __allowRepeat           = (array_length(__sources) <= 2);
     __globalLastIndexPlayed = undefined;
+    
+    
+    
+    #region Public Methods
+    
+    static AllowRepeatSet = function(_state)
+    {
+        __allowRepeat = _state;
+        
+        return self;
+    }
+    
+    static AllowRepeatGet = function()
+    {
+        return __allowRepeat;
+    }
+    
+    #endregion
     
     
     

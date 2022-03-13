@@ -3,9 +3,9 @@ function __VinyInstanceRandom(_pattern) constructor
     __VINYL_INSTANCE_COMMON
     __VINYL_INSTANCE_COMMON_EXTENDED
     
-    __noRepeat = __pattern.__noRepeat;
-    __sources  = __VinylInstanceInstantiateAll(self, __pattern.__sources);
-    __index    = undefined;
+    __allowRepeat = __pattern.__allowRepeat;
+    __sources     = __VinylInstanceInstantiateAll(self, __pattern.__sources);
+    __index       = undefined;
     
     __Reset();
     
@@ -14,6 +14,18 @@ function __VinyInstanceRandom(_pattern) constructor
     
     
     #region Public Methods
+    
+    static AllowRepeatSet = function(_state)
+    {
+        __allowRepeat = _state;
+        
+        return self;
+    }
+    
+    static AllowRepeatGet = function()
+    {
+        return __allowRepeat;
+    }
     
     static PositionGet = function()
     {
@@ -122,7 +134,7 @@ function __VinyInstanceRandom(_pattern) constructor
         //Figure out what to play
         __index = irandom(_size-1); //FIXME - Use custom PRNG
         
-        if (__noRepeat)
+        if (!__allowRepeat)
         {
             //Try to not repeat the same source twice in a row
             repeat(_size)
