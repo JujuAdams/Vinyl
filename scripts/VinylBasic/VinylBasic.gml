@@ -250,7 +250,7 @@ function __VinyInstanceBasic(_pattern) constructor
                 if (_asset_gain == undefined) _asset_gain = 1.0;
                 
                 //Update GM's sound instance
-                audio_sound_gain(__GMInstance, __VinylGainToAmplitudeCoeff(__outputGain*_asset_gain - VINYL_GAIN_MAXIMUM), VINYL_STEP_DURATION);
+                audio_sound_gain(__GMInstance, __VinylGainToAmplitudeCoeff(__outputGain + _asset_gain - VINYL_GAIN_MAXIMUM), VINYL_STEP_DURATION);
                 audio_sound_pitch(__GMInstance, __outputPitch);
             }
             
