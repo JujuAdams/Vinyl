@@ -33,12 +33,10 @@ function __VinylPatternMulti() constructor
         __sources[@ _i] = __VinylPatternizeSource(argument[_i]);
         ++_i;
     }
-    __synchronize    = false;
-    __blendParam     = undefined;
-    __blendAnimCurve = undefined;
-    __blendGains     = undefined;
     
-    __VinylBlendUpdate();
+    __synchronize    = false;
+    __blendParam     = 0;
+    __blendAnimCurve = undefined;
     
     
     
@@ -55,33 +53,18 @@ function __VinylPatternMulti() constructor
         return __synchronize;
     }
     
-    static BlendSet = function()
+    static BlendSet = function(_param, _animCurve = undefined)
     {
-        var _oldAnimCurve = __blendAnimCurve;
-        
-        var _param     = argument[0];
-        var _animCurve = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : undefined;
-        
-        if (_oldAnimCurve != _animCurve)
-        {
-            var _channelCount = array_length(animcurve_get(_animCurve).channels);
-            if (_channelCount < array_length(__sources)) __VinylError("Channel count in animation curve ", _animCurve, " (", _channelCount, ") is smaller than source count (", array_length(__sources));
-            if (_channelCount > array_length(__sources)) __VinylTrace("Warning! Channel count in animation curve ", _animCurve, " (", _channelCount, ") is greater than source count (", array_length(__sources));
-        }
-        
         __blendParam     = _param;
         __blendAnimCurve = _animCurve;
-        
-        __VinylBlendUpdate();
         
         return self;
     }
     
     static BlendReset = function()
     {
-        __blendParam     = undefined;
+        __blendParam     = 0;
         __blendAnimCurve = undefined;
-        __blendGains     = undefined;
         
         return self;
     }
@@ -129,7 +112,7 @@ function __VinyInstanceMulti(_pattern) constructor
     __sources        = __VinylInstanceInstantiateAll(self, __pattern.__sources);
     __blendParam     = __pattern.__blendParam;
     __blendAnimCurve = __pattern.__blendAnimCurve;
-    __blendGains     = undefined;
+    __blendGains     = array_create(array_length(__sources), 0);
     
     __VinylBlendUpdate();
     

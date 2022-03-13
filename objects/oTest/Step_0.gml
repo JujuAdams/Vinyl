@@ -70,6 +70,22 @@ if (keyboard_check_pressed(ord("S")))
     }
 }
 
+if (keyboard_check_pressed(ord("G")))
+{
+    instance = VinylLoop(VinylMulti(BeepBox_Song_0, BeepBox_Song_1, BeepBox_Song_2, BeepBox_Song_3).SynchronizeSet(true)).Play();
+}
+
+if (instance != undefined)
+{
+    with(instance.__source)
+    {
+        __blendGains[0] = 0;
+        __blendGains[1] = VINYL_GAIN_SILENT;
+        __blendGains[2] = VINYL_GAIN_SILENT;
+        __blendGains[3] = 0;
+    }
+}
+
 if (VinylIsSoundInstance(instance))
 {
     //instance.InstanceGet().BlendSet(mouse_x/room_width);
