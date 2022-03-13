@@ -30,9 +30,7 @@ function __VinylPatternizeSource(_source)
 {
     if (is_numeric(_source))
     {
-        var _pattern = VinylLibGet(_source);
-        if (_pattern == undefined) return new __VinylPatternBasic(_source);
-        return _pattern;
+        return new __VinylPatternBasic(_source);
     }
     else
     {
