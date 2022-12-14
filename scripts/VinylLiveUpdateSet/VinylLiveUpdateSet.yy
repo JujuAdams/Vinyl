@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylPlay",
+  "name": "VinylLiveUpdateSet",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

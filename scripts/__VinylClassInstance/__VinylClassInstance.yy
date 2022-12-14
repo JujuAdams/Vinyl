@@ -5,7 +5,7 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "(System)",
-    "path": "folders/Vinyl/(System).yy",
+    "name": "VIPs only in the green room",
+    "path": "folders/Vinyl/This way to the party/(System)/VIPs only in the green room.yy",
   },
 }

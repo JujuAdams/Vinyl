@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylLiveUpdateSetPeriod",
+  "name": "VinylSystemGain",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Vinyl",
-    "path": "folders/Vinyl.yy",
+    "name": "This way to the party",
+    "path": "folders/Vinyl/This way to the party.yy",
   },
 }

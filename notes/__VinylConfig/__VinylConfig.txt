@@ -4,26 +4,24 @@
 
 
 # Audio assets may have three properties defined:
-#   1. "volume", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
-#   2. "pitch", either a number, a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
-#   3. "label", either a string containing the name of the label, or a list of labels. Label volume and pitch are applied multiplicatively if more than one label is defined
+#   1. "gain", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
+#   2. "freq", either a number, a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
+#   3. "label", either a string containing the name of the label, or a list of labels. Label gain and pitch are applied multiplicatively if more than one label is defined
 # 
 # Any audio asset not explicitly defined uses the "default" audio asset definition (as such, an audio asset cannot be named "default")
 
 assets:
     default:
-        volume: 1.0
         label: sfx
     snd_footstep_wood:
-        volume: 0.8
         label: [gameplay, footsteps]   # The "footsteps" label inherits from the "sfx" label, see below
 
 
 
 # Labels may have three properties defined:
-#   1. "volume", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
-#   2. "pitch", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
-#   3. "children", a dictionary containing labels that should inherit their parent's volume and pitch (applied multiplicatively)
+#   1. "gain", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
+#   2. "freq", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
+#   3. "children", a dictionary containing labels that should inherit their parent's gain and pitch (applied multiplicatively)
 #   4. "exclusive", a dictionary containing exactly the following key:value pairs:
 #       i.   "max count", a number indicating the maximum number of audio instances that can be played using this label
 #       ii.  "prefer newest", a boolean indicating whether newest audio instances should be preferred if "max count" is exceeded
@@ -32,26 +30,24 @@ assets:
 
 labels:
     music:
-        volume: 1.0
         exclusive:
             max count: 1
             prefer newest: true
             fade out time: 2200
     ambience:
-        volume: 0.9
+        gain: -2
         exclusive:
             max count: 2
             prefer newest: true
             fade out time: 5000
     sfx:
-        volume: 0.7
+        gain: -4
         children:
             gunshots:
-                volume: 1.0
             footsteps:
-                volume: 0.6
-                pitch:
+                gain: -3
+                freq:
                     min: 0.9
                     max: 1.1
     gameplay:
-        volume: 1.0
+        gain: 0

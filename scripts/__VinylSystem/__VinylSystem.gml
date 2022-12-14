@@ -14,12 +14,14 @@ function __VinylInitialize()
     
     __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
     
-    global.__vinylLiveUpdatePeriod = 15;
-    global.__vinylLiveUpdateTS = undefined;
+    global.__vinylLiveUpdate = (VINYL_LIVE_UPDATE_PERIOD > 0);
     
     global.__vinylData = undefined;
     
-    global.__vinylPool = array_create(VINYL_STARTING_POOL_SIZE, undefined);
+    global.__vinylPlaying   = [];
+	global.__vinylInstances = ds_map_create();
+    global.__vinylPool      = array_create(VINYL_STARTING_POOL_SIZE, undefined);
+	
     var _i = 0;
     repeat(VINYL_STARTING_POOL_SIZE)
     {
@@ -27,14 +29,12 @@ function __VinylInitialize()
         ++_i;
     }
     
-    global.__vinylPlaying = [];
-    
+	VinylSystemGain(0);
     __VinylUpdateData();
     
     if (__VinylGetLiveUpdateEnabled())
     {
-        global.__vinylLiveUpdateTS = time_source_create(time_source_global, global.__vinylLiveUpdatePeriod, time_source_units_frames, __VinylUpdateData, [], -1);
-        time_source_start(global.__vinylLiveUpdateTS);
+        time_source_start(time_source_create(time_source_global, VINYL_LIVE_UPDATE_PERIOD, time_source_units_frames, __VinylUpdateData, [], -1));
     }
     else if (GM_build_type == "run")
     {
@@ -45,6 +45,10 @@ function __VinylInitialize()
 function __VinylUpdateData()
 {
     static _fileHash = undefined;
+	
+	//Always allow data to be updated once on boot
+	if (!global.__vinylLiveUpdate && (_fileHash != undefined)) return;
+	
     var _filename = __VinylGetDatafilePath();
     
     if (__VinylGetLiveUpdateEnabled())
@@ -148,7 +152,7 @@ function __VinylGetLiveUpdateEnabled()
     static _result = undefined;
     if (_result == undefined)
     {
-        _result = (VINYL_LIVE_UPDATE && (GM_build_type == "run") && ((os_type == os_windows) || (os_type == os_macosx) || (os_type == os_linux)));
+        _result = ((VINYL_LIVE_UPDATE_PERIOD > 0) && (GM_build_type == "run") && ((os_type == os_windows) || (os_type == os_macosx) || (os_type == os_linux)));
     }
     
     return _result;

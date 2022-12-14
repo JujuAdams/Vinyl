@@ -1,7 +1,8 @@
-/// @param vinylInstance
+/// @param vinylID
 
-function VinylStop(_instance)
+function VinylStop(_id)
 {
-    if (!is_struct(_instance)) return;
-    return _instance.Stop();
+	var _instance = global.__vinylInstances[? _id];
+	if (_instance == undefined) return;
+    return _instance.__Stop();
 }

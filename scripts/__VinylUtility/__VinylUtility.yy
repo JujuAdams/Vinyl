@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylSystem",
+  "name": "__VinylUtility",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
