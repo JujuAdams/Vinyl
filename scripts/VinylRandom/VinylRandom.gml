@@ -12,7 +12,7 @@ function VinylRandom()
 function __VinylPatternRandom(_sources) constructor
 {
     __VINYL_PATTERN_COMMON
-    __instanceConstructor = __VinyInstanceRandom;
+    __instanceConstructor = __VinylInstanceRandom;
     
     __sources               = _sources;
     __allowRepeat           = (array_length(__sources) <= 2);

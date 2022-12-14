@@ -12,7 +12,7 @@ function VinylMulti()
 function __VinylPatternMulti(_sources) constructor
 {
     __VINYL_PATTERN_COMMON
-    __instanceConstructor = __VinyInstanceMulti;
+    __instanceConstructor = __VinylInstanceMulti;
     
     __sources        = _sources;
     __synchronize    = false;

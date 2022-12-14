@@ -1,4 +1,4 @@
-function __VinyInstanceRandom(_pattern) constructor
+function __VinylInstanceRandom(_pattern) constructor
 {
     __VINYL_INSTANCE_COMMON
     __VINYL_INSTANCE_COMMON_EXTENDED

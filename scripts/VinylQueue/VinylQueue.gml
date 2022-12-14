@@ -12,7 +12,7 @@ function VinylQueue()
 function __VinylPatternQueue(_sources) constructor
 {
     __VINYL_PATTERN_COMMON
-    __instanceConstructor = __VinyInstanceQueue;
+    __instanceConstructor = __VinylInstanceQueue;
     
     __sources = _sources;
     __pop     = false;

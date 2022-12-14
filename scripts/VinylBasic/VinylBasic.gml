@@ -9,7 +9,7 @@ function VinylBasic(_asset)
 function __VinylPatternBasic(_asset) constructor
 {
     __VINYL_PATTERN_COMMON
-    __instanceConstructor = __VinyInstanceBasic;
+    __instanceConstructor = __VinylInstanceBasic;
     
     if (!is_numeric(_asset) || !audio_exists(_asset))
     {

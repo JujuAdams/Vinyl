@@ -1,4 +1,4 @@
-function __VinyInstanceLoop(_pattern) constructor
+function __VinylInstanceLoop(_pattern) constructor
 {
     __VINYL_INSTANCE_COMMON
     
@@ -59,7 +59,7 @@ function __VinyInstanceLoop(_pattern) constructor
     
     
     
-    #region Private Methods
+      #region Private Methods
     
     static __Reset = function()
     {

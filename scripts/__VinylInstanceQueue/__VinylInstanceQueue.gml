@@ -1,4 +1,4 @@
-function __VinyInstanceQueue(_pattern) constructor
+function __VinylInstanceQueue(_pattern) constructor
 {
     __VINYL_INSTANCE_COMMON
     __VINYL_INSTANCE_COMMON_EXTENDED

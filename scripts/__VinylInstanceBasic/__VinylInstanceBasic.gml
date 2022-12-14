@@ -1,4 +1,4 @@
-function __VinyInstanceBasic(_pattern) constructor
+function __VinylInstanceBasic(_pattern) constructor
 {
     __VINYL_INSTANCE_COMMON
     

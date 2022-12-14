@@ -13,7 +13,7 @@ function VinylLoop(_source)
 function __VinylPatternLoop(_source) constructor
 {
     __VINYL_PATTERN_COMMON
-    __instanceConstructor = __VinyInstanceLoop;
+    __instanceConstructor = __VinylInstanceLoop;
     
     __source = __VinylPatternizeSource(_source);
     

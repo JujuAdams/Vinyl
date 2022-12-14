@@ -1,4 +1,4 @@
-function __VinyInstanceMulti(_pattern) constructor
+function __VinylInstanceMulti(_pattern) constructor
 {
     __VINYL_INSTANCE_COMMON
     __VINYL_INSTANCE_COMMON_EXTENDED

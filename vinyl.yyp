@@ -16,7 +16,7 @@
     {"id":{"name":"snd_2","path":"sounds/snd_2/snd_2.yy",},"order":1,},
     {"id":{"name":"__VinylInstanceLoop","path":"scripts/__VinylInstanceLoop/__VinylInstanceLoop.yy",},"order":7,},
     {"id":{"name":"snd_music_loop_2","path":"sounds/snd_music_loop_2/snd_music_loop_2.yy",},"order":2,},
-    {"id":{"name":"__VinyInstanceQueue","path":"scripts/__VinyInstanceQueue/__VinyInstanceQueue.yy",},"order":9,},
+    {"id":{"name":"__VinylInstanceQueue","path":"scripts/__VinylInstanceQueue/__VinylInstanceQueue.yy",},"order":9,},
     {"id":{"name":"snd_music_loop_3","path":"sounds/snd_music_loop_3/snd_music_loop_3.yy",},"order":3,},
     {"id":{"name":"snd_music_loop_1","path":"sounds/snd_music_loop_1/snd_music_loop_1.yy",},"order":1,},
     {"id":{"name":"VinylMasterGainSet","path":"scripts/VinylMasterGainSet/VinylMasterGainSet.yy",},"order":2,},
