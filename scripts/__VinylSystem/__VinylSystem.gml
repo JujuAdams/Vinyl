@@ -2,7 +2,7 @@
 #macro __VINYL_DATE     "2022-12-13"
 
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.dat"
-#macro __VINYL_JSON_NOTE_NAME        "__VinylAudioSettingsJSON"
+#macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
 
 __VinylInitialize();
 
@@ -40,7 +40,7 @@ function __VinylUpdateData()
     {
         if (!file_exists(_filename))
         {
-            __VinylError("Could not find \"", _filename, "\"\n- Ensure that \"", __VINYL_JSON_NOTE_NAME, "\" exists as a Notes asset in your project\n- Turn on the \"Disable file system sandbox\" game option for this platform");
+            __VinylError("Could not find \"", _filename, "\"\n- Ensure that \"", __VINYL_CONFIG_NOTE_NAME, "\" exists as a Notes asset in your project\n- Turn on the \"Disable file system sandbox\" game option for this platform");
             return;
         }
         
@@ -69,23 +69,23 @@ function __VinylUpdateData()
     try
     {
         var _buffer = buffer_load(_filename);
-        global.__vinylData = SnapBufferReadJSON(_buffer);
+        global.__vinylData = SnapBufferReadYAML(_buffer, 0);
         
         _success = true;
         __VinylTrace("Loaded data in ", (get_timer() - _t)/1000, "ms");
     }
     catch(_error)
     {
+        show_debug_message(_error);
+        
         if (global.__vinylData == undefined)
         {
-            __VinylError("There was an error whilst reading \"", _filename, "\"\nPlease check it is valid JSON");
+            __VinylError("There was an error whilst reading \"", _filename, "\"\nPlease check it is valid YAML");
         }
         else
         {
-            __VinylTrace("There was an error whilst reading \"", _filename, "\". Please check it is valid JSON");
+            __VinylTrace("There was an error whilst reading \"", _filename, "\". Please check it is valid YAML");
         }
-        
-        show_debug_message(_error);
     }
     finally
     {
@@ -150,7 +150,7 @@ function __VinylGetDatafilePath()
     {
         if (__VinylGetLiveUpdateEnabled())
         {
-            _result = filename_dir(GM_project_filename) + "/notes/" + __VINYL_JSON_NOTE_NAME + "/" + __VINYL_JSON_NOTE_NAME + ".txt";
+            _result = filename_dir(GM_project_filename) + "/notes/" + __VINYL_CONFIG_NOTE_NAME + "/" + __VINYL_CONFIG_NOTE_NAME + ".txt";
         }
         else
         {

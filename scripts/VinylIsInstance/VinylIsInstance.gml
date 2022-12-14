@@ -1,3 +1,4 @@
-function VinylStop(){
-
+function VinylIsInstance()
+{
+    
 }

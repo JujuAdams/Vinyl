@@ -55,37 +55,3 @@ labels:
                     max: 1.1
     gameplay:
         volume: 1.0
-
-
-
-# There are five types of pattern components:
-#   1. Basic audio playback, a string which is the name of the audio asset to play
-#   2. LOOP, a list of exactly three components, or a nested component
-#   3. RANDOM, a list of components to be played at random
-#   4. QUEUE, a list of components to be played sequentially
-#   5. MULTI, a list of components to be played simultaneously (though not necessarily synchronised)
-# 
-# A pattern may further have three properties defined:
-#   1. "volume", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
-#   2. "pitch", either a number, a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
-#   3. "labels", either a string containing the name of the label, or a list of labels
-# 
-# If a pattern has a label (or labels) defined then this overrides any labels defined in their children.
-
-patterns:
-    ptn_exampe_queue:
-        QUEUE:
-        - snd_example
-        - MULTI:
-            - snd_example
-            - snd_example
-            - snd_example
-        - snd_example
-        - snd_example
-    ptn_example_loop:
-        LOOP:
-        - snd_example
-        - RANDOM:
-            - snd_example
-            - snd_example
-        - snd_example

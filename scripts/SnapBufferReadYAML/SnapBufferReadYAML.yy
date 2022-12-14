@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "SnapBufferReadJSON",
+  "name": "SnapBufferReadYAML",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
