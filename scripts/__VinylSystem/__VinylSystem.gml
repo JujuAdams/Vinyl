@@ -14,9 +14,20 @@ function __VinylInitialize()
     
     __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
     
-    global.__vinylData = undefined;
     global.__vinylLiveUpdatePeriod = 15;
     global.__vinylLiveUpdateTS = undefined;
+    
+    global.__vinylData = undefined;
+    
+    global.__vinylPool = array_create(VINYL_STARTING_POOL_SIZE, undefined);
+    var _i = 0;
+    repeat(VINYL_STARTING_POOL_SIZE)
+    {
+        global.__vinylPool[@ _i] = new __VinylClassInstance();
+        ++_i;
+    }
+    
+    global.__vinylPlaying = [];
     
     __VinylUpdateData();
     

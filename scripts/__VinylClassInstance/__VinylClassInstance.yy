@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylPlayExt",
+  "name": "__VinylClassInstance",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Vinyl",
-    "path": "folders/Vinyl.yy",
+    "name": "(System)",
+    "path": "folders/Vinyl/(System).yy",
   },
 }

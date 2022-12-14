@@ -1,3 +1,5 @@
 #macro VINYL_LIVE_UPDATE  true
 
 #macro VINYL_VERBOSE  true
+
+#macro VINYL_STARTING_POOL_SIZE  30
