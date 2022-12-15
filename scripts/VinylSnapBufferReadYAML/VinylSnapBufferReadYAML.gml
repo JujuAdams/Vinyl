@@ -29,7 +29,7 @@ enum __SNAP_YAML
     JSON_COLON,        // 11
 }
 
-function SnapBufferReadYAML(_buffer, _offset, _replaceKeywords = true, _tracekFieldOrder = false, _tabSize = 2)
+function __VinylSnapBufferReadYAML(_buffer, _offset, _replaceKeywords = true, _tracekFieldOrder = false, _tabSize = 2)
 {
     if (_offset != undefined)
     {
@@ -37,17 +37,17 @@ function SnapBufferReadYAML(_buffer, _offset, _replaceKeywords = true, _tracekFi
         buffer_seek(_buffer, buffer_seek_start, _offset);
     }
     
-    var _tokensArray = (new __SnapFromYAMLBufferTokenizer(_buffer)).result;
+    var _tokensArray = (new __VinylSnapFromYAMLBufferTokenizer(_buffer)).result;
     
     if (_offset != undefined)
     {
         buffer_seek(_buffer, buffer_seek_start, _oldOffset);
     }
     
-    return (new __SnapFromYAMLBufferBuilder(_tokensArray, _replaceKeywords, _tracekFieldOrder, _tabSize)).result;
+    return (new __VinylSnapFromYAMLBufferBuilder(_tokensArray, _replaceKeywords, _tracekFieldOrder, _tabSize)).result;
 }
 
-function __SnapFromYAMLBufferTokenizer(_buffer) constructor
+function __VinylSnapFromYAMLBufferTokenizer(_buffer) constructor
 {
     buffer = _buffer;
     var _buffer_size = buffer_get_size(_buffer);
@@ -301,7 +301,7 @@ function __SnapFromYAMLBufferTokenizer(_buffer) constructor
     _tokens_array[@ array_length(_tokens_array)] = [__SNAP_YAML.NEWLINE];
 }
 
-function __SnapFromYAMLBufferBuilder(_tokens_array, _replace_keywords, _track_field_order, _tab_size) constructor
+function __VinylSnapFromYAMLBufferBuilder(_tokens_array, _replace_keywords, _track_field_order, _tab_size) constructor
 {
     tokens_array = _tokens_array;
     replace_keywords = _replace_keywords;

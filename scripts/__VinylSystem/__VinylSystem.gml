@@ -84,7 +84,7 @@ function __VinylUpdateData()
     try
     {
         var _buffer = buffer_load(_filename);
-        global.__vinylData = SnapBufferReadYAML(_buffer, 0);
+        global.__vinylData = __VinylSnapBufferReadYAML(_buffer, 0);
         
         _success = true;
         __VinylTrace("Loaded data in ", (get_timer() - _t)/1000, "ms");
