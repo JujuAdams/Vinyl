@@ -4,8 +4,9 @@ function __VinylClassInstance() constructor
 	
 	static __ResetState = function()
 	{
-		__inPool = true;
-		__id     = undefined;
+		__inPool    = true;
+		__inPlaying = false;
+		__id        = undefined;
 		
 	    __sound           = undefined;
 	    __loops           = undefined;
@@ -46,21 +47,29 @@ function __VinylClassInstance() constructor
         audio_stop_sound(__instance);
 		__instance = undefined;
 		
-		__ReturnToPool();
+		__Pool();
     }
+	
+	static __Depool = function(_id)
+	{
+		__id = _id;
+		global.__vinylInstanceIDs[? _id] = self;
     
-    static __ReturnToPool = function()
+		if (!__inPlaying)
+		{
+			__inPlaying = true;
+			array_push(global.__vinylPlaying, self);
+		}
+	}
+    
+    static __Pool = function()
     {
 		if (!__inPool)
 		{
 			__inPool = true;
-			
 			__Stop();
 			
-			//Remove ourselves from the map of instance IDs
 			ds_map_delete(global.__vinylInstanceIDs, __id);
-			
-			//Return this instance to the pool
 			array_push(global.__vinylPool, self);
 			
 			__ResetState();

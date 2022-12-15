@@ -121,6 +121,7 @@ function __VinylTick()
 		if (_instance.__inPool)
 		{
 			array_delete(global.__vinylPlaying, _i, 1);
+			_instance.__inPlaying = false;
 		}
 		else
 		{
