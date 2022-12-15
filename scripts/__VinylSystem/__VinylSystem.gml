@@ -4,6 +4,14 @@
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.dat"
 #macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
 
+enum __VINYL_POOL_STATE
+{
+    __POOLED,
+    __PLAYING,
+}
+
+
+
 __VinylInitialize();
 
 function __VinylInitialize()
@@ -14,20 +22,18 @@ function __VinylInitialize()
     
     __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
     
+    //Whether to allow live update
     global.__vinylLiveUpdate = (VINYL_LIVE_UPDATE_PERIOD > 0);
     
-    global.__vinylData = undefined;
+    global.__vinylAssetDict  = {};
+    global.__vinylLabelDict  = {};
+    global.__vinylLabelOrder = [];
     
-    global.__vinylPlaying = [];
-	global.__vinylInstanceIDs = ds_map_create();
+	global.__vinylIdToInstanceDict = ds_map_create();
 	
-    global.__vinylPool = array_create(VINYL_STARTING_POOL_SIZE, undefined);
-    var _i = 0;
-    repeat(VINYL_STARTING_POOL_SIZE)
-    {
-        global.__vinylPool[@ _i] = new __VinylClassInstance();
-        ++_i;
-    }
+    global.__vinylPool       = [];
+    global.__vinylPlaying    = [];
+    global.__vinylPoolReturn = [];
     
 	VinylSystemGain(0);
     __VinylUpdateData();
@@ -47,6 +53,7 @@ function __VinylInitialize()
 function __VinylUpdateData()
 {
     static _fileHash = undefined;
+    var _firstUpdate = (_fileHash == undefined);
 	
 	//Always allow data to be updated once on boot
 	if (!global.__vinylLiveUpdate && (_fileHash != undefined)) return;
@@ -86,22 +93,32 @@ function __VinylUpdateData()
     try
     {
         var _buffer = buffer_load(_filename);
-        global.__vinylData = __VinylSnapBufferReadYAML(_buffer, 0);
+        var _data = __VinylSnapBufferReadYAML(_buffer, 0);
         
         _success = true;
         __VinylTrace("Loaded data in ", (get_timer() - _t)/1000, "ms");
+        
+        var _t = get_timer();
+        __VinylParseData(_data, _firstUpdate);
+        __VinylTrace("Parsed data in ", (get_timer() - _t)/1000, "ms");
     }
     catch(_error)
     {
-        show_debug_message(_error);
+        show_debug_message("");
+        __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        __VinylTrace(_error);
+        __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        show_debug_message("");
         
-        if (global.__vinylData == undefined)
+        if (_firstUpdate)
         {
-            __VinylError("There was an error whilst reading \"", _filename, "\"\nPlease check it is valid YAML");
+            __VinylError("There was an error whilst reading \"", _filename, "\"\n- Check the file contains valid YAML\n- Check that the config meets Vinyl's requirements\n- Check the nature of error by reading the output log");
         }
         else
         {
-            __VinylTrace("There was an error whilst reading \"", _filename, "\". Please check it is valid YAML");
+            __VinylTrace("There was an error whilst reading \"", _filename, "\"\n- Check the file contains valid YAML\n- Check that the config meets Vinyl's requirements\n- Check the nature of error by reading the output log");
         }
     }
     finally
@@ -110,25 +127,6 @@ function __VinylUpdateData()
     }
     
     return _success;
-}
-
-function __VinylTick()
-{
-	var _i = 0;
-	repeat(array_length(global.__vinylPlaying))
-	{
-		var _instance = global.__vinylPlaying[_i];
-		if (_instance.__inPool)
-		{
-			array_delete(global.__vinylPlaying, _i, 1);
-			_instance.__inPlaying = false;
-		}
-		else
-		{
-			_instance.__Tick();
-			++_i;
-		}
-	}
 }
 
 function __VinylTrace()
