@@ -14,7 +14,7 @@ assets:
     default:
         label: sfx
     snd_footstep_wood:
-        label: [gameplay, footsteps]   # The "footsteps" label inherits from the "sfx" label, see below
+        label: ["gameplay", "footsteps"]   # The "footsteps" label inherits from the "sfx" label, see below
 
 
 
