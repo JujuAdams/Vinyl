@@ -18,10 +18,10 @@ function __VinylInitialize()
     
     global.__vinylData = undefined;
     
-    global.__vinylPlaying   = [];
-	global.__vinylInstances = ds_map_create();
-    global.__vinylPool      = array_create(VINYL_STARTING_POOL_SIZE, undefined);
+    global.__vinylPlaying = [];
+	global.__vinylInstanceIDs = ds_map_create();
 	
+    global.__vinylPool = array_create(VINYL_STARTING_POOL_SIZE, undefined);
     var _i = 0;
     repeat(VINYL_STARTING_POOL_SIZE)
     {
@@ -40,6 +40,8 @@ function __VinylInitialize()
     {
         __VinylTrace("Live update *not* enabled");
     }
+	
+    time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylTick, [], -1));
 }
 
 function __VinylUpdateData()
@@ -108,6 +110,24 @@ function __VinylUpdateData()
     }
     
     return _success;
+}
+
+function __VinylTick()
+{
+	var _i = 0;
+	repeat(array_length(global.__vinylPlaying))
+	{
+		var _instance = global.__vinylPlaying[_i];
+		if (_instance.__inPool)
+		{
+			array_delete(global.__vinylPlaying, _i, 1);
+		}
+		else
+		{
+			_instance.__Tick();
+			++_i;
+		}
+	}
 }
 
 function __VinylTrace()

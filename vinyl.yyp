@@ -16,7 +16,7 @@
     {"id":{"name":"__VinylClassInstance","path":"scripts/__VinylClassInstance/__VinylClassInstance.yy",},"order":1,},
     {"id":{"name":"__VinylDepoolInstance","path":"scripts/__VinylDepoolInstance/__VinylDepoolInstance.yy",},"order":3,},
     {"id":{"name":"VinylLiveUpdateSet","path":"scripts/VinylLiveUpdateSet/VinylLiveUpdateSet.yy",},"order":2,},
-    {"id":{"name":"VinylSnapBufferReadYAML","path":"scripts/VinylSnapBufferReadYAML/VinylSnapBufferReadYAML.yy",},"order":4,},
+    {"id":{"name":"VinylSnapBufferReadYAML","path":"scripts/VinylSnapBufferReadYAML/VinylSnapBufferReadYAML.yy",},"order":5,},
     {"id":{"name":"rMain","path":"rooms/rMain/rMain.yy",},"order":2,},
   ],
   "Options": [

@@ -1,16 +1,21 @@
 function __VinylClassInstance() constructor
 {
-	__inPool = true;
-	__id     = undefined;
+	__ResetState();
 	
-    __sound           = undefined;
-    __loops           = undefined;
-    __inputGain       = 0.0;
-    __inputFreqCoeff  = 1.0;
-	
-    __instance        = undefined;
-	__outputAmplitude = 1.0;
-	__outputFreqCoeff = 1.0;
+	static __ResetState = function()
+	{
+		__inPool = true;
+		__id     = undefined;
+		
+	    __sound           = undefined;
+	    __loops           = undefined;
+	    __inputGain       = 0.0;
+	    __inputFreqCoeff  = 1.0;
+		
+	    __instance        = undefined;
+		__outputAmplitude = 1.0;
+		__outputFreqCoeff = 1.0;
+	}
     
     static __Play = function(_sound, _loops, _gain, _freqCoeff)
     {
@@ -50,24 +55,20 @@ function __VinylClassInstance() constructor
 		{
 			__inPool = true;
 			
-			Stop();
+			__Stop();
 			
-			var _i = 0;
-			repeat(array_length(global.__vinylPlaying))
-			{
-				if (global.__vinylPlaying[_i] == self)
-				{
-					array_delete(global.__vinylPlaying, _i, 1);
-				}
-				else
-				{
-					++_i;
-				}
-			}
+			//Remove ourselves from the map of instance IDs
+			ds_map_delete(global.__vinylInstanceIDs, __id);
 			
+			//Return this instance to the pool
 			array_push(global.__vinylPool, self);
 			
-			ds_map_delete(global.__vinylInstances, __id);
+			__ResetState();
 		}
     }
+	
+	static __Tick = function()
+	{
+		
+	}
 }
