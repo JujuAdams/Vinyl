@@ -1,4 +1,8 @@
-#macro VINYL_LIVE_UPDATE_PERIOD  500  //milliseconds
+//How often to scan the Vinyl config file for changes, in milliseconds
+//Set this value to zero (or a negative number) to turn off live update
+//Live update can further be toggled using VinylLiveUpdateGet()
+//Live update only works when running from the IDE on Windows, Mac, or Linux
+#macro VINYL_LIVE_UPDATE_PERIOD  500
 
 #macro VINYL_VERBOSE  true
 

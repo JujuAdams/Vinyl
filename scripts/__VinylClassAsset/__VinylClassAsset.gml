@@ -40,10 +40,10 @@ function __VinylClassAsset(_sound, _newLabelDict, _gain = 0, _freq = 1, _labelSt
         }
     }
     
-    static __UpdateInstances = function(_oldLabel)
+    static __UpdateInstances = function(_oldAsset)
     {
-        var _gainDelta = __gain - _oldLabel.__gain;
-        var _freqDelta = __freq / _oldLabel.__freq;
+        var _gainDelta = __gain - _oldAsset.__gain;
+        var _freqDelta = __freq / _oldAsset.__freq;
         
         if ((_gainDelta != 0) || (_freqDelta != 1))
         {

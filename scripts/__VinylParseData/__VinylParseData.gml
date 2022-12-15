@@ -112,7 +112,8 @@ function __VinylParseData(_rawData, _strict)
     repeat(array_length(_newLabelOrder))
     {
         var _newLabel = _newLabelOrder[_i];
-        _newLabel.__CopyOldState(global.__vinylLabelDict[$ _newLabel.__name]);
+        var _oldLabel = global.__vinylLabelDict[$ _newLabel.__name];
+        if (is_struct(_oldLabel)) _newLabel.__CopyOldState(_oldLabel);
         ++_i;
     }
     

@@ -47,8 +47,6 @@ labels:
             gunshots:
             footsteps:
                 gain: -3
-                freq:
-                    min: 0.9
-                    max: 1.1
+                freq: 0.9
     gameplay:
         gain: 0
