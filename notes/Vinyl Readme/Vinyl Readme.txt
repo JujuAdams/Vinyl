@@ -42,6 +42,6 @@ the functional lower bound instead. This is defined by VINYL_GAIN_SILENCE.
 
 Unlike GameMaker, Vinyl supports making audio louder than what would normally be possible
 with GameMaker's native functions. We do need to set an upper limit however to prevent
-clipping and other distortion; this is controlled by VINYL_GAIN_MAXIMUM. A master
+clipping and other distortion; this is controlled by VINYL_GAIN_MAXIMUM. A system-wide
 "trim" gain is also available to correct for per-platform loudness differences or to
 adjust the overall loudness of the game without having to change each individual gain.
