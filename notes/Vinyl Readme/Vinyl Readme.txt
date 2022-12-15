@@ -5,7 +5,7 @@ In contrast to GameMaker's native functions, Vinyl uses a different system of un
 control audio gain. Vinyl is *not* a drop-in replacement for GameMaker's audio system
 therefore and you'll need to learn a bit about audio before implementing it.
 
-Vinyl uses dBFS (decibels) to control playback volume. A value of 0 in Vinyl is
+Vinyl uses the decibel scale to control playback volume. A value of 0 in Vinyl is
 equivalent to a value of 1 for GameMaker's native audio functions. Using negative gain
 values in Vinyl reduces the volume. -10 dB halves the perceived loudness, -20 dB halves
 it again and so on. By default, -60 dB is considered "silent" and is functionally
