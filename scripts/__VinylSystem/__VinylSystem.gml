@@ -34,7 +34,7 @@ function __VinylInitialize()
     
     if (__VinylGetLiveUpdateEnabled())
     {
-        time_source_start(time_source_create(time_source_global, VINYL_LIVE_UPDATE_PERIOD, time_source_units_frames, __VinylUpdateData, [], -1));
+        time_source_start(time_source_create(time_source_global, VINYL_LIVE_UPDATE_PERIOD/1000, time_source_units_seconds, __VinylUpdateData, [], -1));
     }
     else if (GM_build_type == "run")
     {

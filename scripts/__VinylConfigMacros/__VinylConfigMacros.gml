@@ -1,4 +1,4 @@
-#macro VINYL_LIVE_UPDATE_PERIOD  20
+#macro VINYL_LIVE_UPDATE_PERIOD  500  //milliseconds
 
 #macro VINYL_VERBOSE  true
 
