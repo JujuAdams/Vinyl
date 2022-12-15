@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylSnapBufferReadYAML",
+  "name": "__VinylSnapBufferReadYAML",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
