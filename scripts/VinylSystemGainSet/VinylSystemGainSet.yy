@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylSystemGain",
+  "name": "VinylSystemGainSet",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

@@ -35,7 +35,7 @@ function __VinylInitialize()
     global.__vinylPlaying    = [];
     global.__vinylPoolReturn = [];
     
-	VinylSystemGain(0);
+	VinylSystemGainSet(0);
     __VinylUpdateData();
     
     if (__VinylGetLiveUpdateEnabled())

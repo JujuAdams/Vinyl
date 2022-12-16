@@ -1,6 +1,6 @@
 /// @param gain
 
-function VinylSystemGain(_gain)
+function VinylSystemGainSet(_gain)
 {
 	static _oldGain = undefined;
 	if (_gain != _oldGain)

@@ -1,3 +1,3 @@
 music = undefined;
 
-VinylSystemGain(0);
+VinylSystemGainSet(0);
