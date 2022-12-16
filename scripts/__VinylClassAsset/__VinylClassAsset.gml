@@ -10,7 +10,7 @@ function __VinylClassAsset(_sound, _newLabelDict, _gain = 0, _freq = 1, _labelSt
     __gain  = _gain;
     __freq  = _freq;
     
-    if (VINYL_DEBUG || VINYL_VERBOSE) __name = audio_get_name(__sound);
+    if (VINYL_DEBUG) __name = audio_get_name(__sound);
     
     __labelArray = [];
     

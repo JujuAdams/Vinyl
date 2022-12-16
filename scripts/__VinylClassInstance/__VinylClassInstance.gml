@@ -9,7 +9,7 @@ function __VinylClassInstance() constructor
 		__id = undefined;
 		
 	    __sound     = undefined;
-	    __loops     = undefined;
+	    __loop      = undefined;
 	    __inputGain = 0.0;
 	    __inputFreq = 1.0;
 		
@@ -20,17 +20,28 @@ function __VinylClassInstance() constructor
 	    __instance = undefined;
 	}
     
-    static __Play = function(_sound, _loops, _gain, _freq)
+    static __Play = function(_sound, _loop, _gain, _freq)
     {
 	    __sound     = _sound;
-	    __loops     = _loops;
+	    __loop      = _loop;
 	    __inputGain = _gain;
 	    __inputFreq = _freq;
 		
         __AddToLabels();
         __RecalculateOutputValues();
-        
-	    __instance = audio_play_sound(__sound, 1, __loops, __VinylGainToAmplitudeCoeff(__outputGain - VINYL_HEADROOM), 0, __outputFreq);
+		
+		var _amplitude = __VinylGainToAmplitudeCoeff(__outputGain - VINYL_HEADROOM);
+	    __instance = audio_play_sound(__sound, 1, __loop, _amplitude, 0, __outputFreq);
+		
+		if (VINYL_DEBUG)
+		{
+			__VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), ", loop=", _loop? "true" : "false", ", gain in=", __inputGain, "dB/out=", __outputGain, "dB, pitch=", 100*_freq, "% (GMinst=", __instance, ", amplitude=", 100*_amplitude, "%)");
+		}
+		
+		if (__outputGain > VINYL_HEADROOM)
+		{
+			__VinylTrace("Warning! Gain value ", __outputGain, " exceeds VINYL_HEADROOM (", VINYL_HEADROOM, ")");
+		}
     }
     
     static __AddToLabels = function()
@@ -86,6 +97,8 @@ function __VinylClassInstance() constructor
     {
 		if (__instance == undefined) return;
 		
+		if (VINYL_DEBUG) __VinylTrace("Forcing instance ", __id, " to stop (GMinst=", __instance, ")");
+		
         audio_stop_sound(__instance);
 		__instance = undefined;
 		
@@ -100,6 +113,8 @@ function __VinylClassInstance() constructor
 		__id = _id;
 		global.__vinylIdToInstanceDict[? _id] = self;
 		array_push(global.__vinylPlaying, self);
+		
+		if (VINYL_DEBUG) __VinylTrace("Depooling an instance as ID ", __id);
 	}
     
     static __Pool = function()
@@ -108,6 +123,8 @@ function __VinylClassInstance() constructor
 		__pooled = true;
         
 		__Stop();
+		
+		if (VINYL_DEBUG) __VinylTrace("Pooling instance ", __id, " and resetting state");
 		
 		ds_map_delete(global.__vinylIdToInstanceDict, __id);
         
@@ -123,10 +140,13 @@ function __VinylClassInstance() constructor
     {
         if (!audio_is_playing(__instance))
         {
+			if (VINYL_DEBUG) __VinylTrace("Instance ", __id, " has stopped played, returning to pooling");
             __Pool();
         }
         else if (__outputChanged)
         {
+			__outputChanged = false;
+			if (VINYL_DEBUG) __VinylTrace("Instance ", __id, " output values changed, updating GM audio instance");
             audio_sound_gain(__instance, __VinylGainToAmplitudeCoeff(__outputGain), VINYL_STEP_DURATION);
             audio_sound_pitch(__instance, __outputFreq);
         }

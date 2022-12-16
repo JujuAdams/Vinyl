@@ -8,6 +8,8 @@ function __VinylTick()
         array_resize(global.__vinylPool, _poolSize + _returnSize);
         array_copy(global.__vinylPool, _poolSize, global.__vinylPoolReturn, 0, _returnSize);
         array_resize(global.__vinylPoolReturn, 0);
+		
+		if (VINYL_DEBUG) __VinylTrace("Returned ", _returnSize, " instance(s) to pool, ", _poolSize + _returnSize, " instances now in pool");
     }
     
     //Update labels

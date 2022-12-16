@@ -4,8 +4,6 @@
 //Live update only works when running from the IDE on Windows, Mac, or Linux
 #macro VINYL_LIVE_UPDATE_PERIOD  500
 
-#macro VINYL_VERBOSE  true
-
 #macro VINYL_STEP_DURATION       50   //milliseconds
 #macro VINYL_DEFAULT_GAIN_RATE   0.1
 #macro VINYL_DEFAULT_PITCH_RATE  0.1
