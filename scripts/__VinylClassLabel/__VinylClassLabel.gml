@@ -17,20 +17,27 @@ function __VinylClassLabel(_name, _parent, _gain = 0, _freq = 1) constructor
 	
 	
 	
-	static __GainSet = function(_gain)
+	static __InputGainSet = function(_gain)
+	{
+		__inputGain = _gain;
+	}
+	
+	static __InputGainTargetSet = function(_targetGain, _rate, _stopAtSilence)
 	{
 		
 	}
 	
-	static __GainGet = function()
+	static __InputGainGet = function()
 	{
-		
+		return __inputGain;
 	}
 	
-	static __GainTargetSet = function(_targetGain, _rate, _stopAtSilence)
+	static __OutputGainGet = function()
 	{
-		
+		return __outputGain;
 	}
+	
+	
 	
 	static __Stop = function()
 	{

@@ -10,6 +10,6 @@ function VinylSystemGain(_gain)
 		var _amplitude = __VinylGainToAmplitudeCoeff(_gain + VINYL_SYSTEM_HEADROOM);
 		audio_master_gain(_amplitude);
 		
-		__VinylTrace("Set system gain to ", _gain, " dB (+ VINYL_SYSTEM_HEADROOM=", _gain + VINYL_SYSTEM_HEADROOM, " db)");
+		__VinylTrace("Set system gain to ", _gain, " dB (inc. VINYL_SYSTEM_HEADROOM=", _gain + VINYL_SYSTEM_HEADROOM, " db)");
 	}
 }

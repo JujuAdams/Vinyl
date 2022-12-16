@@ -5,7 +5,7 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "This way to the party",
-    "path": "folders/Vinyl/This way to the party.yy",
+    "name": "Gain",
+    "path": "folders/Vinyl/This way to the party/Gain.yy",
   },
 }

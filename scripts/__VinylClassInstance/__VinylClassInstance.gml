@@ -20,20 +20,33 @@ function __VinylClassInstance() constructor
 	    __instance = undefined;
 	}
 	
-	static __GainSet = function(_gain)
+	static __InputGainSet = function(_gain)
+	{
+		if (__inputGain != _gain)
+		{
+			__outputChanged = true;
+			
+			__outputGain += _gain - __inputGain;
+			__inputGain = _gain;
+		}
+	}
+	
+	static __InputGainTargetSet = function(_targetGain, _rate, _stopAtSilence)
 	{
 		
 	}
 	
-	static __GainGet = function()
+	static __InputGainGet = function()
 	{
-		
+		return __inputGain;
 	}
 	
-	static __GainTargetSet = function(_targetGain, _rate, _stopAtSilence)
+	static __OutputGainGet = function()
 	{
-		
+		return __outputGain;
 	}
+	
+	
     
     static __Play = function(_sound, _loop, _gain, _freq)
     {
