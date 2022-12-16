@@ -19,6 +19,21 @@ function __VinylClassInstance() constructor
         
 	    __instance = undefined;
 	}
+	
+	static __GainSet = function(_gain)
+	{
+		
+	}
+	
+	static __GainGet = function()
+	{
+		
+	}
+	
+	static __GainTargetSet = function(_targetGain, _rate, _stopAtSilence)
+	{
+		
+	}
     
     static __Play = function(_sound, _loop, _gain, _freq)
     {
@@ -30,17 +45,36 @@ function __VinylClassInstance() constructor
         __AddToLabels();
         __RecalculateOutputValues();
 		
-		var _amplitude = __VinylGainToAmplitudeCoeff(__outputGain - VINYL_HEADROOM);
+		var _amplitude = __VinylGainToAmplitudeCoeff(__outputGain - VINYL_SYSTEM_HEADROOM);
 	    __instance = audio_play_sound(__sound, 1, __loop, _amplitude, 0, __outputFreq);
 		
 		if (VINYL_DEBUG)
 		{
-			__VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), ", loop=", _loop? "true" : "false", ", gain in=", __inputGain, "dB/out=", __outputGain, "dB, pitch=", 100*_freq, "% (GMinst=", __instance, ", amplitude=", 100*_amplitude, "%)");
+			var _labelReadable = "";
+	        var _asset = global.__vinylAssetDict[$ __sound] ?? global.__vinylAssetDict.fallback;
+	        if (is_struct(_asset))
+	        {
+	            var _labelArray = _asset.__labelArray;
+				var _size = array_length(_labelArray);
+				if (_size > 1) _labelReadable += "[";
+				
+				var _i = 0;
+				repeat(_size)
+				{
+					_labelReadable += _labelArray[_i].__name;
+					if (_i < _size-1) _labelReadable += ", ";
+					++_i;
+				}
+				
+				if (_size > 1) _labelReadable += "]";
+			}
+			
+			__VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), ", loop=", _loop? "true" : "false", ", gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch=", 100*_freq, "%, label=", _labelReadable, " (GMinst=", __instance, ", amplitude=", 100*_amplitude, "%)");
 		}
 		
-		if (__outputGain > VINYL_HEADROOM)
+		if (__outputGain > VINYL_SYSTEM_HEADROOM)
 		{
-			__VinylTrace("Warning! Gain value ", __outputGain, " exceeds VINYL_HEADROOM (", VINYL_HEADROOM, ")");
+			__VinylTrace("Warning! Gain value ", __outputGain, " exceeds VINYL_SYSTEM_HEADROOM (", VINYL_SYSTEM_HEADROOM, ")");
 		}
     }
     

@@ -68,11 +68,11 @@ function __VinylParseData(_rawData, _strict)
         var _assetName = _assetNameArray[_i];
         
         var _assetIndex = asset_get_index(_assetName);
-        if (_assetIndex < 0)
+        if ((_assetIndex < 0) && (_assetName != "fallback"))
         {
             __VinylTrace("Warning! Asset \"", _assetName, "\" doesn't exist");
         }
-        else if (asset_get_type(_assetName) != asset_sound)
+        else if ((asset_get_type(_assetName) != asset_sound) && (_assetName != "fallback"))
         {
             __VinylTrace("Warning! Asset \"", _assetName, "\" isn't a sound");
         }
@@ -81,16 +81,17 @@ function __VinylParseData(_rawData, _strict)
             var _assetData = _inputAssetDict[$ _assetName];
             if (is_struct(_assetData))
             {
-                var _newAsset = new __VinylClassAsset(_assetName, _newLabelDict, _assetData[$ "gain"], _assetData[$ "freq"], _assetData[$ "label"]);
+                var _newAsset = new __VinylClassAsset(_assetIndex, _newLabelDict, _assetData[$ "gain"], _assetData[$ "freq"], _assetData[$ "label"]);
             }
             else
             {
-                var _newAsset = new __VinylClassAsset(_assetName, _newLabelDict);
+                var _newAsset = new __VinylClassAsset(_assetIndex, _newLabelDict);
             }
             
-            _newAssetDict[$ string(_assetIndex)] = _newAsset;
+			var _key = (_assetName == "fallback")? "fallback" : string(_assetIndex);
+            _newAssetDict[$ _key] = _newAsset;
             
-            var _oldAsset = global.__vinylAssetDict[$ string(_assetIndex)];
+            var _oldAsset = global.__vinylAssetDict[$ _key];
             if (is_struct(_oldAsset)) _newAsset.__UpdateInstances(_oldAsset);
         }
         

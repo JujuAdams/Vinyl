@@ -93,7 +93,7 @@ function __VinylUpdateData()
     try
     {
         var _buffer = buffer_load(_filename);
-        var _data = __VinylSnapBufferReadYAML(_buffer, 0);
+        var _data = __VinylSnapBufferReadYAML(_buffer, 0, undefined, undefined, VINYL_YAML_TAB_SIZE);
         
         _success = true;
         __VinylTrace("Loaded data in ", (get_timer() - _t)/1000, "ms");

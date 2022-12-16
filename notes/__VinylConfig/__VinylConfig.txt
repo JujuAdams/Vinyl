@@ -15,6 +15,8 @@ assets:
         label: sfx
     snd_footstep_wood:
         label: gameplay, footsteps   # The "footsteps" label inherits from the "sfx" label, see below
+    sndTestMusic:
+        label: music, ambience
 
 
 
@@ -31,12 +33,13 @@ assets:
 
 labels:
     music:
+		gain: 0
         exclusive:
             max count: 1
             prefer newest: true
             fade out time: 2200
     ambience:
-        gain: -2
+        gain: 0
         exclusive:
             max count: 2
             prefer newest: true

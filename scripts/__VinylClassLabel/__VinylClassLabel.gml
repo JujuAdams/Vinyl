@@ -14,6 +14,37 @@ function __VinylClassLabel(_name, _parent, _gain = 0, _freq = 1) constructor
     
     __outputGain = 0;
     __outputFreq = 1;
+	
+	
+	
+	static __GainSet = function(_gain)
+	{
+		
+	}
+	
+	static __GainGet = function()
+	{
+		
+	}
+	
+	static __GainTargetSet = function(_targetGain, _rate, _stopAtSilence)
+	{
+		
+	}
+	
+	static __Stop = function()
+	{
+		if (VINYL_DEBUG) __VinylTrace("Stopping ", array_length(__audioArray), " audio instances playing with label \"", __name, "\"");
+		
+        var _i = 0;
+        repeat(array_length(__audioArray))
+        {
+			VinylStop(__audioArray[_i]);
+			++_i;
+        }
+		
+		array_resize(__audioArray, 0);
+	}
     
     static __HasAncestor = function(_label)
     {
