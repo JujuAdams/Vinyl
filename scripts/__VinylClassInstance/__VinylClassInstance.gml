@@ -140,7 +140,7 @@ function __VinylClassInstance() constructor
     {
         if (!audio_is_playing(__instance))
         {
-			if (VINYL_DEBUG) __VinylTrace("Instance ", __id, " has stopped played, returning to pooling");
+			if (VINYL_DEBUG) __VinylTrace("Instance ", __id, " has stopped played, returning to pool");
             __Pool();
         }
         else if (__outputChanged)
