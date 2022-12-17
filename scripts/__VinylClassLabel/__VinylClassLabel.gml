@@ -84,7 +84,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _gain = 0, _pitch = 1) cons
             __outputPitch *= __parent.__outputPitch;
         }
         
-        _gainDelta = __outputGain - _gainDelta;
+        _gainDelta  = __outputGain  - _gainDelta;
         _pitchDelta = __outputPitch / _pitchDelta;
         
         //If our values have changed at all, iterate over instances that are labelled to use us
@@ -100,8 +100,11 @@ function __VinylClassLabel(_name, _parent, _dynamic, _gain = 0, _pitch = 1) cons
                 }
                 else
                 {
-                    _instance.__outputGain += _gainDelta;
+					_instance.__outputChanged = true;
+					
+                    _instance.__outputGain  += _gainDelta;
                     _instance.__outputPitch *= _pitchDelta;
+					
                     ++_i;
                 }
             }

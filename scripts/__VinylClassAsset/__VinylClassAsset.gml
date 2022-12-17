@@ -42,7 +42,7 @@ function __VinylClassAsset(_sound, _newLabelDict, _gain = 0, _pitch = 1, _labelS
     
     static __UpdateInstances = function(_oldAsset)
     {
-        var _gainDelta = __gain - _oldAsset.__gain;
+        var _gainDelta  = __gain - _oldAsset.__gain;
         var _pitchDelta = __pitch / _oldAsset.__pitch;
         
         if ((_gainDelta != 0) || (_pitchDelta != 1))
@@ -53,6 +53,8 @@ function __VinylClassAsset(_sound, _newLabelDict, _gain = 0, _pitch = 1, _labelS
                 var _instance = global.__vinylPlaying[_i];
                 if (_instance.__sound == __sound)
                 {
+					_instance.__outputChanged = true;
+					
                     _instance.__outputGain += _gainDelta;
                     _instance.__outputPitch *= _pitchDelta;
                 }

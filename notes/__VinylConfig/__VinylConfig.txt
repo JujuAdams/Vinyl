@@ -13,10 +13,12 @@
 assets:
     fallback:
         label: sfx
-    snd_footstep_wood:
-        label: gameplay, footsteps   # The "footsteps" label inherits from the "sfx" label, see below
-    sndTestMusic:
-        label: music, ambience
+    sndTestTone:
+        label: music
+	sndChickenNuggets:
+		gain: 0
+		pitch: 1.3333
+		label: music
 
 
 
@@ -33,23 +35,14 @@ assets:
 
 labels:
     music:
-		gain: 0
         exclusive:
             max count: 1
             prefer newest: true
             fade out time: 2200
     ambience:
-        gain: 0
         exclusive:
             max count: 2
             prefer newest: true
             fade out time: 5000
     sfx:
-        gain: -4
-        children:
-            gunshots:
-            footsteps:
-                gain: -3
-                pitch: 0.9
-    gameplay:
-        gain: 0
+		gain: 0

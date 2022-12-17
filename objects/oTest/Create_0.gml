@@ -1,3 +1,1 @@
-music = undefined;
-
-VinylSystemGainSet(0);
+music = VinylPlay(sndChickenNuggets);

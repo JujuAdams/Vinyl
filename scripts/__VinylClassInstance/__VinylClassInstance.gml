@@ -8,10 +8,18 @@ function __VinylClassInstance() constructor
         
 		__id = undefined;
 		
-	    __sound     = undefined;
-	    __loop      = undefined;
-	    __inputGain = 0.0;
+	    __sound      = undefined;
+	    __loop       = undefined;
+	    __inputGain  = 0.0;
 	    __inputPitch = 1.0;
+		
+		__gainTarget    = 0.0;
+		__gainRate      = VINYL_DEFAULT_GAIN_RATE;
+		__stopOnSilence = true;
+		
+		__pitchTarget  = 1.0;
+		__pitchRate    = VINYL_DEFAULT_PITCH_RATE;
+		__stopOnTarget = false;
 		
         __outputChanged = false;
 		__outputGain    = 0.0;
@@ -37,12 +45,19 @@ function __VinylClassInstance() constructor
 	
 	static __InputGainTargetSet = function(_targetGain, _rate, _stopAtSilence)
 	{
-		
+		__gainTarget    = _targetGain;
+		__gainRate      = _rate;
+		__stopOnSilence = _stopAtSilence;
 	}
 	
 	static __InputGainGet = function()
 	{
 		return __inputGain;
+	}
+	
+	static __GainTargetGet = function()
+	{
+		return __gainTarget;
 	}
 	
 	static __OutputGainGet = function()
@@ -67,14 +82,21 @@ function __VinylClassInstance() constructor
 		}
 	}
 	
-	static __InputPitchTargetSet = function(_targetPitch, _rate, _stopAtSilence)
+	static __InputPitchTargetSet = function(_targetPitch, _rate, _stopOnTarget)
 	{
-		
+		__pitchTarget  = _targetPitch;
+		__pitchRate    = _rate;
+		__stopOnTarget = _stopOnTarget;
 	}
 	
 	static __InputPitchGet = function()
 	{
 		return __inputPitch;
+	}
+	
+	static __PitchTargetGet = function()
+	{
+		return __pitchTarget;
 	}
 	
 	static __OutputPitchGet = function()
@@ -88,10 +110,18 @@ function __VinylClassInstance() constructor
     
     static __Play = function(_sound, _loop, _gain, _pitch)
     {
-	    __sound     = _sound;
-	    __loop      = _loop;
-	    __inputGain = _gain;
+	    __sound      = _sound;
+	    __loop       = _loop;
+	    __inputGain  = _gain;
 	    __inputPitch = _pitch;
+		
+		__gainTarget    = __inputGain;
+		__gainRate      = VINYL_DEFAULT_GAIN_RATE;
+		__stopOnSilence = true;
+		
+		__pitchTarget  = __inputPitch;
+		__pitchRate    = VINYL_DEFAULT_PITCH_RATE;
+		__stopOnTarget = false;
 		
         __AddToLabels();
         __RecalculateOutputValues();
@@ -129,16 +159,16 @@ function __VinylClassInstance() constructor
     
     static __RecalculateOutputValues = function()
     {
-        var _prevGain = __outputGain;
+        var _prevGain  = __outputGain;
         var _prevPitch = __outputPitch;
         
-		__outputGain = __inputGain;
+		__outputGain  = __inputGain;
 		__outputPitch = __inputPitch;
         
         var _asset = global.__vinylAssetDict[$ __sound] ?? global.__vinylAssetDict.fallback;
         if (is_struct(_asset))
         {
-            __outputGain += _asset.__gain;
+            __outputGain  += _asset.__gain;
             __outputPitch *= _asset.__pitch;
             
             var _labelArray = _asset.__labelArray;
@@ -146,7 +176,7 @@ function __VinylClassInstance() constructor
             repeat(array_length(_labelArray))
             {
                 var _label = _labelArray[_i];
-                __outputGain += _label.__outputGain;
+                __outputGain  += _label.__outputGain;
                 __outputPitch *= _label.__outputPitch;
                 ++_i;
             }
@@ -209,17 +239,49 @@ function __VinylClassInstance() constructor
 			if (VINYL_DEBUG) __VinylTrace("Instance ", __id, " has stopped played, returning to pool");
             __Pool();
         }
-        else if (__outputChanged)
-        {
-			__outputChanged = false;
-			if (VINYL_DEBUG)
+        else
+		{
+			var _gainDelta = clamp(__gainTarget - __inputGain, -__gainRate, __gainRate);
+			if (_gainDelta != 0)
 			{
-				__VinylTrace("Updated instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch=", 100*__outputPitch, "%, label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", 100*__VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), "%)");
+				__inputGain  += _gainDelta;
+				__outputGain += _gainDelta;
+				__outputChanged = true;
+				
+				if (__stopOnSilence && (_gainDelta < 0) && (__outputGain <= VINYL_SILENCE))
+				{
+					__Stop();
+					return;
+				}
 			}
 			
-            audio_sound_gain(__instance, __VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), VINYL_STEP_DURATION);
-            audio_sound_pitch(__instance, __outputPitch);
-        }
+			var _pitchDelta = clamp(__pitchTarget - __inputPitch, -__pitchRate, __pitchRate);
+			if (_pitchDelta != 0)
+			{
+				__inputPitch  += _pitchDelta;
+				__outputPitch += _pitchDelta;
+				__outputChanged = true;
+				
+				if (__stopOnTarget && (__inputPitch == __pitchTarget))
+				{
+					__Stop();
+					return;
+				}
+			}
+			
+			if (__outputChanged)
+	        {
+				__outputChanged = false;
+				
+				if (VINYL_DEBUG)
+				{
+					__VinylTrace("Updated instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch=", 100*__outputPitch, "%, label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", 100*__VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), "%)");
+				}
+				
+	            audio_sound_gain(__instance, __VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), VINYL_STEP_DURATION);
+	            audio_sound_pitch(__instance, __outputPitch);
+	        }
+		}
     }
 	
 	static __DebugLabelNames = function()

@@ -7,4 +7,6 @@ function VinylGainGet(_id)
 	
 	var _label = global.__vinylLabelDict[$ _id];
 	if (is_struct(_label)) return _label.__InputGainGet();
+	
+	return VINYL_SILENCE;
 }
