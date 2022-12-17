@@ -1,14 +1,14 @@
 /// @param sound
 /// @param newLabelDict
 /// @param [gain=0]
-/// @param [freq=1]
+/// @param [pitch=1]
 /// @param [labelString]
 
-function __VinylClassAsset(_sound, _newLabelDict, _gain = 0, _freq = 1, _labelString = undefined) constructor
+function __VinylClassAsset(_sound, _newLabelDict, _gain = 0, _pitch = 1, _labelString = undefined) constructor
 {
     __sound = _sound;
     __gain  = _gain;
-    __freq  = _freq;
+    __pitch  = _pitch;
     
     if (VINYL_DEBUG) __name = audio_get_name(__sound);
     
@@ -43,9 +43,9 @@ function __VinylClassAsset(_sound, _newLabelDict, _gain = 0, _freq = 1, _labelSt
     static __UpdateInstances = function(_oldAsset)
     {
         var _gainDelta = __gain - _oldAsset.__gain;
-        var _freqDelta = __freq / _oldAsset.__freq;
+        var _pitchDelta = __pitch / _oldAsset.__pitch;
         
-        if ((_gainDelta != 0) || (_freqDelta != 1))
+        if ((_gainDelta != 0) || (_pitchDelta != 1))
         {
             var _i = 0;
             repeat(array_length(global.__vinylPlaying))
@@ -54,7 +54,7 @@ function __VinylClassAsset(_sound, _newLabelDict, _gain = 0, _freq = 1, _labelSt
                 if (_instance.__sound == __sound)
                 {
                     _instance.__outputGain += _gainDelta;
-                    _instance.__outputFreq *= _freqDelta;
+                    _instance.__outputPitch *= _pitchDelta;
                 }
                 
                 ++_i;

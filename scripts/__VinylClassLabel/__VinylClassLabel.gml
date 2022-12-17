@@ -1,19 +1,21 @@
 /// @param name
 /// @param parent
+/// @param dynamic
 /// @param [gain=0]
-/// @param [freq=1]
+/// @param [pitch=1]
 
-function __VinylClassLabel(_name, _parent, _gain = 0, _freq = 1) constructor
+function __VinylClassLabel(_name, _parent, _dynamic, _gain = 0, _pitch = 1) constructor
 {
-    __name      = _name;
-    __parent    = _parent;
-    __inputGain = _gain;
-    __inputFreq = _freq;
+    __name       = _name;
+    __parent     = _parent;
+	__dynamic    = _dynamic;
+    __inputGain  = _gain;
+    __inputPitch = _pitch;
     
     __audioArray = [];
     
     __outputGain = 0;
-    __outputFreq = 1;
+    __outputPitch = 1;
 	
 	
 	
@@ -65,28 +67,28 @@ function __VinylClassLabel(_name, _parent, _gain = 0, _freq = 1) constructor
         array_resize(__audioArray, array_length(_oldLabel.__audioArray));
         array_copy(__audioArray, 0, _oldLabel.__audioArray, 0, array_length(_oldLabel.__audioArray));
         __outputGain = _oldLabel.__outputGain;
-        __outputFreq = _oldLabel.__outputFreq;
+        __outputPitch = _oldLabel.__outputPitch;
     }
     
     static __Tick = function()
     {
         var _gainDelta = __outputGain;
-        var _freqDelta = __outputFreq;
+        var _pitchDelta = __outputPitch;
         
         __outputGain = __inputGain;
-        __outputFreq = __inputFreq;
+        __outputPitch = __inputPitch;
         
         if (is_struct(__parent))
         {
             __outputGain += __parent.__outputGain;
-            __outputFreq *= __parent.__outputFreq;
+            __outputPitch *= __parent.__outputPitch;
         }
         
         _gainDelta = __outputGain - _gainDelta;
-        _freqDelta = __outputFreq / _freqDelta;
+        _pitchDelta = __outputPitch / _pitchDelta;
         
         //If our values have changed at all, iterate over instances that are labelled to use us
-        if ((_gainDelta != 0) || (_freqDelta != 1))
+        if ((_gainDelta != 0) || (_pitchDelta != 1))
         {
             var _i = 0;
             repeat(array_length(__audioArray))
@@ -99,7 +101,7 @@ function __VinylClassLabel(_name, _parent, _gain = 0, _freq = 1) constructor
                 else
                 {
                     _instance.__outputGain += _gainDelta;
-                    _instance.__outputFreq *= _freqDelta;
+                    _instance.__outputPitch *= _pitchDelta;
                     ++_i;
                 }
             }

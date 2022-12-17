@@ -5,7 +5,7 @@
 
 # Audio assets may have three properties defined:
 #   1. "gain", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
-#   2. "freq", either a number, a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
+#   2. "pitch", either a number, a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
 #   3. "label", a string containing the name of the label, or a comma-separated list of labels. Label gain and pitch are applied multiplicatively if more than one label is defined
 # 
 # Any audio asset not explicitly defined uses the "fallback" audio asset definition
@@ -23,7 +23,7 @@ assets:
 # Label names must not contain spaces
 # Labels may have four properties defined:
 #   1. "gain", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
-#   2. "freq", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
+#   2. "pitch", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
 #   3. "children", a dictionary containing labels that should inherit their parent's gain and pitch (applied multiplicatively)
 #   4. "exclusive", a dictionary containing exactly the following key:value pairs:
 #       i.   "max count", a number indicating the maximum number of audio instances that can be played using this label
@@ -50,6 +50,6 @@ labels:
             gunshots:
             footsteps:
                 gain: -3
-                freq: 0.9
+                pitch: 0.9
     gameplay:
         gain: 0

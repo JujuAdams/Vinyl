@@ -28,11 +28,11 @@ function __VinylParseData(_rawData, _strict)
             var _labelData = _inputLabelDict[$ _labelName];
             if (is_struct(_labelData))
             {
-                var _label = new __VinylClassLabel(_labelName, _parent, _labelData[$ "gain"], _labelData[$ "freq"]);
+                var _label = new __VinylClassLabel(_labelName, _parent, false, _labelData[$ "gain"], _labelData[$ "pitch"]);
             }
             else
             {
-                var _label = new __VinylClassLabel(_labelName, _parent);
+                var _label = new __VinylClassLabel(_labelName, _parent, false);
             }
             
             _newLabelDict[$ _labelName] = _label;
@@ -81,7 +81,7 @@ function __VinylParseData(_rawData, _strict)
             var _assetData = _inputAssetDict[$ _assetName];
             if (is_struct(_assetData))
             {
-                var _newAsset = new __VinylClassAsset(_assetIndex, _newLabelDict, _assetData[$ "gain"], _assetData[$ "freq"], _assetData[$ "label"]);
+                var _newAsset = new __VinylClassAsset(_assetIndex, _newLabelDict, _assetData[$ "gain"], _assetData[$ "pitch"], _assetData[$ "label"]);
             }
             else
             {

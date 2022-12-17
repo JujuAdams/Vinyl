@@ -1,6 +1,6 @@
 /// @param vinylID/labelName
 
-function VinylGainGet(_id)
+function VinylOutputGainGet(_id)
 {
 	var _instance = global.__vinylIdToInstanceDict[? _id];
 	if (is_struct(_instance)) return _instance.__OutputGainGet();

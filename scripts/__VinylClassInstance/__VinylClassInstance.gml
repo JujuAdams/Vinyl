@@ -11,14 +11,18 @@ function __VinylClassInstance() constructor
 	    __sound     = undefined;
 	    __loop      = undefined;
 	    __inputGain = 0.0;
-	    __inputFreq = 1.0;
+	    __inputPitch = 1.0;
 		
         __outputChanged = false;
 		__outputGain    = 0.0;
-		__outputFreq    = 1.0;
+		__outputPitch   = 1.0;
         
 	    __instance = undefined;
 	}
+	
+	
+	
+	#region Gain
 	
 	static __InputGainSet = function(_gain)
 	{
@@ -46,43 +50,57 @@ function __VinylClassInstance() constructor
 		return __outputGain;
 	}
 	
+	#endregion
+	
+	
+	
+	#region Pitch
+	
+	static __InputPitchSet = function(_pitch)
+	{
+		if (__inputPitch != _pitch)
+		{
+			__outputChanged = true;
+			
+			__outputPitch *= _pitch / __inputPitch;
+			__inputPitch = _pitch;
+		}
+	}
+	
+	static __InputPitchTargetSet = function(_targetPitch, _rate, _stopAtSilence)
+	{
+		
+	}
+	
+	static __InputPitchGet = function()
+	{
+		return __inputPitch;
+	}
+	
+	static __OutputPitchGet = function()
+	{
+		return __outputPitch;
+	}
+	
+	#endregion
+	
 	
     
-    static __Play = function(_sound, _loop, _gain, _freq)
+    static __Play = function(_sound, _loop, _gain, _pitch)
     {
 	    __sound     = _sound;
 	    __loop      = _loop;
 	    __inputGain = _gain;
-	    __inputFreq = _freq;
+	    __inputPitch = _pitch;
 		
         __AddToLabels();
         __RecalculateOutputValues();
 		
-		var _amplitude = __VinylGainToAmplitudeCoeff(__outputGain - VINYL_SYSTEM_HEADROOM);
-	    __instance = audio_play_sound(__sound, 1, __loop, _amplitude, 0, __outputFreq);
+	    __instance = audio_play_sound(__sound, 1, __loop, __VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), 0, __outputPitch);
 		
 		if (VINYL_DEBUG)
 		{
-			var _labelReadable = "";
-	        var _asset = global.__vinylAssetDict[$ __sound] ?? global.__vinylAssetDict.fallback;
-	        if (is_struct(_asset))
-	        {
-	            var _labelArray = _asset.__labelArray;
-				var _size = array_length(_labelArray);
-				if (_size > 1) _labelReadable += "[";
-				
-				var _i = 0;
-				repeat(_size)
-				{
-					_labelReadable += _labelArray[_i].__name;
-					if (_i < _size-1) _labelReadable += ", ";
-					++_i;
-				}
-				
-				if (_size > 1) _labelReadable += "]";
-			}
-			
-			__VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), ", loop=", _loop? "true" : "false", ", gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch=", 100*_freq, "%, label=", _labelReadable, " (GMinst=", __instance, ", amplitude=", 100*_amplitude, "%)");
+			__VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch=", 100*__outputPitch, "%, label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", 100*__VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), "%)");
 		}
 		
 		if (__outputGain > VINYL_SYSTEM_HEADROOM)
@@ -112,16 +130,16 @@ function __VinylClassInstance() constructor
     static __RecalculateOutputValues = function()
     {
         var _prevGain = __outputGain;
-        var _prevFreq = __outputFreq;
+        var _prevPitch = __outputPitch;
         
 		__outputGain = __inputGain;
-		__outputFreq = __inputFreq;
+		__outputPitch = __inputPitch;
         
         var _asset = global.__vinylAssetDict[$ __sound] ?? global.__vinylAssetDict.fallback;
         if (is_struct(_asset))
         {
             __outputGain += _asset.__gain;
-            __outputFreq *= _asset.__freq;
+            __outputPitch *= _asset.__pitch;
             
             var _labelArray = _asset.__labelArray;
             var _i = 0;
@@ -129,12 +147,12 @@ function __VinylClassInstance() constructor
             {
                 var _label = _labelArray[_i];
                 __outputGain += _label.__outputGain;
-                __outputFreq *= _label.__outputFreq;
+                __outputPitch *= _label.__outputPitch;
                 ++_i;
             }
         }
         
-        if (!__outputChanged && ((__outputGain != _prevGain) || (__outputFreq != _prevFreq)))
+        if (!__outputChanged && ((__outputGain != _prevGain) || (__outputPitch != _prevPitch)))
         {
             __outputChanged = true;
         }
@@ -171,6 +189,7 @@ function __VinylClassInstance() constructor
         
 		__Stop();
 		
+		
 		if (VINYL_DEBUG) __VinylTrace("Pooling instance ", __id, " and resetting state");
 		
 		ds_map_delete(global.__vinylIdToInstanceDict, __id);
@@ -193,9 +212,39 @@ function __VinylClassInstance() constructor
         else if (__outputChanged)
         {
 			__outputChanged = false;
-			if (VINYL_DEBUG) __VinylTrace("Instance ", __id, " output values changed, updating GM audio instance");
-            audio_sound_gain(__instance, __VinylGainToAmplitudeCoeff(__outputGain), VINYL_STEP_DURATION);
-            audio_sound_pitch(__instance, __outputFreq);
+			if (VINYL_DEBUG)
+			{
+				__VinylTrace("Updated instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch=", 100*__outputPitch, "%, label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", 100*__VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), "%)");
+			}
+			
+            audio_sound_gain(__instance, __VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), VINYL_STEP_DURATION);
+            audio_sound_pitch(__instance, __outputPitch);
         }
     }
+	
+	static __DebugLabelNames = function()
+	{
+		if (!VINYL_DEBUG) return "";
+		
+		var _labelReadable = "";
+	    var _asset = global.__vinylAssetDict[$ __sound] ?? global.__vinylAssetDict.fallback;
+	    if (is_struct(_asset))
+	    {
+	        var _labelArray = _asset.__labelArray;
+			var _size = array_length(_labelArray);
+			if (_size > 1) _labelReadable += "[";
+			
+			var _i = 0;
+			repeat(_size)
+			{
+				_labelReadable += _labelArray[_i].__name;
+				if (_i < _size-1) _labelReadable += ", ";
+				++_i;
+			}
+			
+			if (_size > 1) _labelReadable += "]";
+		}
+		
+		return _labelReadable;
+	}
 }
