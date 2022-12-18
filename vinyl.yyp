@@ -32,6 +32,7 @@
     {"id":{"name":"sndTestTone","path":"sounds/sndTestTone/sndTestTone.yy",},"order":2,},
     {"id":{"name":"VinylGainGet","path":"scripts/VinylGainGet/VinylGainGet.yy",},"order":2,},
     {"id":{"name":"VinylFadeOut","path":"scripts/VinylFadeOut/VinylFadeOut.yy",},"order":0,},
+    {"id":{"name":"__VinylBuildScripts","path":"extensions/__VinylBuildScripts/__VinylBuildScripts.yy",},"order":11,},
     {"id":{"name":"__VinylClassInstance","path":"scripts/__VinylClassInstance/__VinylClassInstance.yy",},"order":5,},
     {"id":{"name":"VinylPitchTargetSet","path":"scripts/VinylPitchTargetSet/VinylPitchTargetSet.yy",},"order":2,},
     {"id":{"name":"oTest","path":"objects/oTest/oTest.yy",},"order":3,},
@@ -82,7 +83,7 @@
     {"resourceType":"GMTextureGroup","resourceVersion":"1.3","name":"Default","isScaled":true,"compressFormat":"bz2","loadType":"default","directory":"","autocrop":true,"border":2,"mipsToGenerate":0,"groupParent":null,"targets":-1,},
   ],
   "IncludedFiles": [
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"vinyl.dat","CopyToMask":-1,"filePath":"datafiles",},
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"vinyl.yaml","CopyToMask":-1,"filePath":"datafiles",},
   ],
   "MetaData": {
     "IDEVersion": "2022.0.0.19",

@@ -1,7 +1,7 @@
 #macro __VINYL_VERSION  "0.0.0"
 #macro __VINYL_DATE     "2022-12-13"
 
-#macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.dat"
+#macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.yaml"
 #macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
 
 enum __VINYL_POOL_STATE
@@ -23,6 +23,12 @@ function __VinylInitialize()
     __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
     
     __VinylValidateMacros();
+    
+    if (!file_exists(__VINYL_DATA_BUNDLE_FILENAME))
+    {
+        __VinylError("Could not find \"", __VINYL_DATA_BUNDLE_FILENAME, "\"\n- Ensure that \"", __VINYL_DATA_BUNDLE_FILENAME, "\" has been added to your project's Included Files");
+        return;
+    }
     
     //Whether to allow live update
     global.__vinylLiveUpdate = (VINYL_LIVE_UPDATE_PERIOD > 0);
@@ -46,7 +52,7 @@ function __VinylInitialize()
     }
     else if (GM_build_type == "run")
     {
-        __VinylTrace("Live update *not* enabled");
+        __VinylTrace("Live update *not* enabled (VINYL_LIVE_UPDATE_PERIOD=", VINYL_LIVE_UPDATE_PERIOD, ")");
     }
     
     time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylTick, [], -1));
@@ -85,12 +91,6 @@ function __VinylUpdateData()
         if (_fileHash != undefined) return false;
         
         var _filename = __VINYL_DATA_BUNDLE_FILENAME;
-        if (!file_exists(_filename))
-        {
-            __VinylError("Could not find \"", _filename, "\"\n- Ensure that \"", __VINYL_DATA_BUNDLE_FILENAME, "\" has been added to your project's Included Files");
-            return;
-        }
-        
         var _foundHash = "loaded";
     }
     
