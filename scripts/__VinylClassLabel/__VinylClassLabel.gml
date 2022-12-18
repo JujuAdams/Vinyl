@@ -20,13 +20,10 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     __inputGain  = 0;
     __inputPitch = 1;
     
-    __gainTarget    = 0.0;
-    __gainRate      = VINYL_DEFAULT_GAIN_RATE;
-    __stopAtSilence = false;
-    
-    __pitchTarget  = 1.0;
-    __pitchRate    = VINYL_DEFAULT_PITCH_RATE;
-    __stopOnTarget = false;
+    __gainTarget  = 0.0;
+    __gainRate    = VINYL_DEFAULT_GAIN_RATE;
+    __pitchTarget = 1.0;
+    __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
     
     __outputGain  = 0;
     __outputPitch = 1;
@@ -116,7 +113,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
                 if (is_struct(_oldestInstance))
                 {
                     if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Label \"", __name, "\" will exceed ", __limitMaxCount, " playing instance(s), fading out oldest instance ", _oldestInstance.__id, " playing ", audio_get_name(_oldestInstance.__sound));
-                    _oldestInstance.__InputGainTargetSet(VINYL_SILENCE, __limitFadeOutRate, true, true);
+                    _oldestInstance.__FadeOut(__limitFadeOutRate);
                 }
             }
         }
@@ -142,16 +139,15 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         __gainTarget = _gain;
     }
     
-    static __InputGainTargetSet = function(_targetGain, _rate, _stopAtSilence, _shutdown)
+    static __InputGainTargetSet = function(_targetGain, _rate)
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Label \"", __name, "\" gain target=", _targetGain, " db, rate=", _rate, " db/frame, stop at silence=", _stopAtSilence? "true" : "false");
+            __VinylTrace("Label \"", __name, "\" gain target=", _targetGain, " db, rate=", _rate, " db/frame");
         }
         
-        __gainTarget    = _targetGain;
-        __gainRate      = _rate;
-        __stopAtSilence = _stopAtSilence;
+        __gainTarget = _targetGain;
+        __gainRate   = _rate;
     }
     
     static __FadeOut = function(_rate)
@@ -183,16 +179,15 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         __pitchTarget = _pitch;
     }
     
-    static __InputPitchTargetSet = function(_targetPitch, _rate, _stopOnTarget, _shutdown)
+    static __InputPitchTargetSet = function(_targetPitch, _rate)
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Label \"", __name, "\" pitch target=", 100*_targetPitch, "%, rate=", 100*_rate, "%/frame, stop on target=", _stopOnTarget? "true" : "false");
+            __VinylTrace("Label \"", __name, "\" pitch target=", 100*_targetPitch, "%, rate=", 100*_rate, "%/frame");
         }
         
-        __pitchTarget  = _targetPitch;
-        __pitchRate    = _rate;
-        __stopOnTarget = _stopOnTarget;
+        __pitchTarget = _targetPitch;
+        __pitchRate   = _rate;
     }
     
     #endregion
@@ -202,19 +197,8 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     static __Tick = function()
     {
         //Update input values based on gain/pitch target
-        var _delta = clamp(__gainTarget - __inputGain, -__gainRate, __gainRate);
-        if (_delta != 0)
-        {
-            __inputGain += _delta;
-            if (__stopAtSilence && (_delta < 0) && ((__inputGain <= VINYL_SILENCE) || (__outputGain <= VINYL_SILENCE))) __Stop();
-        }
-        
-        var _delta = clamp(__pitchTarget - __inputPitch, -__pitchRate, __pitchRate);
-        if (_delta != 0)
-        {
-            __inputPitch += _delta;
-            if (__stopOnTarget && (__inputPitch == __pitchTarget)) __Stop();
-        }
+        __inputGain  += clamp(__gainTarget  - __inputGain,  -__gainRate,  __gainRate );
+        __inputPitch += clamp(__pitchTarget - __inputPitch, -__pitchRate, __pitchRate);
         
         //Update the output gain
         var _gainDelta  = __outputGain;
