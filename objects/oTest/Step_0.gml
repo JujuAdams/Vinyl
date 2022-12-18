@@ -29,3 +29,13 @@ if (keyboard_check_pressed(ord("F")))
 {
     VinylFadeOut(music);
 }
+
+if (keyboard_check_pressed(ord("P")))
+{
+    VinylPause("music");
+}
+
+if (keyboard_check_pressed(ord("R")))
+{
+    VinylResume("music");
+}
