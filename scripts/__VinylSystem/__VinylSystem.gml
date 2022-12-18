@@ -108,8 +108,8 @@ function __VinylUpdateData()
         __VinylTrace("Loaded data in ", (get_timer() - _t)/1000, "ms");
         
         var _t = get_timer();
-        __VinylParseData(_data, _firstUpdate);
-        __VinylTrace("Parsed data in ", (get_timer() - _t)/1000, "ms");
+        VinylSystemReadConfig(_data, _firstUpdate);
+        __VinylTrace("Read data in ", (get_timer() - _t)/1000, "ms");
     }
     catch(_error)
     {

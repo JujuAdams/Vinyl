@@ -1,7 +1,6 @@
-/// @param rawData
-/// @param strict
+/// @param configData
 
-function __VinylParseData(_rawData, _strict)
+function VinylSystemReadConfig(_configData)
 {
     var _newAssetDict  = {};
     var _newLabelDict  = {};
@@ -46,10 +45,10 @@ function __VinylParseData(_rawData, _strict)
         }
     }
     
-    _loadLabelsFunc(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _rawData.labels, undefined);
+    _loadLabelsFunc(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _configData.labels, undefined);
     
     //Instantiate assets
-    var _inputAssetDict = _rawData.assets;
+    var _inputAssetDict = _configData.assets;
     var _assetNameArray = variable_struct_get_names(_inputAssetDict);
     var _i = 0;
     repeat(array_length(_assetNameArray))
