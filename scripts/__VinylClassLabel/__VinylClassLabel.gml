@@ -49,13 +49,15 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
 		array_resize(__audioArray, 0);
 	}
     
+	/*
     static __HasAncestor = function(_label)
     {
         if (__parent == _label) return true;
         if (is_struct(__parent)) return __parent.__HasAncestor(_label);
         return false;
     }
-    
+    */
+	
     static __CopyOldState = function(_oldLabel)
     {
         __inputGain  = _oldLabel.__inputGain;

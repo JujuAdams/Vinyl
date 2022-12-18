@@ -29,7 +29,7 @@ assets:
 #       i.   "max count", a number indicating the maximum number of audio instances that can be played using this label
 #       ii.  "prefer newest", a boolean indicating whether newest audio instances should be preferred if "max count" is exceeded
 #       iii. "fade out time", a number indicating the number of milliseconds over which audio should be faded out. Use 0 for instant
-#       Audio instances played under child labels count towards the exclusivity counter for the parent label(s)
+#       N.B. Audio instances played under child labels count do NOT towards the exclusivity counter for the parent label(s)
 
 labels:
     music:
