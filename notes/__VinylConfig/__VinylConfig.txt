@@ -30,6 +30,7 @@ assets:
 
 labels:
     music:
+        loop: true
         limit: 1
     sfx:
         gain: 0
