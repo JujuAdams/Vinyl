@@ -12,10 +12,9 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     __assetGain  = _labelData[$ "gain" ] ?? 0;
     __assetPitch = _labelData[$ "pitch"] ?? 1;
     
-    var _exclusiveData = _labelData[$ "exclusive"] ?? {};
-    __exclusiveMaxCount     = _exclusiveData[$ "max count"    ] ?? infinity;
-    __exclusivePreferNewest = _exclusiveData[$ "prefer newest"] ?? true;
-    __exclusiveFadeOutRate  = _exclusiveData[$ "fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE;
+    __exclusiveMaxCount     = _labelData[$ "limit"              ] ?? infinity;
+    __exclusivePreferNewest = _labelData[$ "limit prefer newest"] ?? true;
+    __exclusiveFadeOutRate  = abs(_labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE);
     
     __audioArray = [];
     

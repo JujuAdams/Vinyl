@@ -21,22 +21,18 @@ assets:
 
 
 # Label names must not contain spaces
-# Labels may have four properties defined:
+# Labels may have six properties defined:
 #   1. "gain", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
 #   2. "pitch", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
 #   3. "children", a dictionary containing labels that should inherit their parent's gain and pitch (applied multiplicatively)
-#   4. "exclusive", a dictionary containing exactly the following key:value pairs:
-#       i.   "max count", a number indicating the maximum number of audio instances that can be played using this label
-#       ii.  "prefer newest", a boolean indicating whether newest audio instances should be preferred if "max count" is exceeded
-#       iii. "fade out time", a number indicating the number of milliseconds over which audio should be faded out. Use 0 for instant
-#       N.B. Audio instances played under child labels count do NOT towards the exclusivity counter for the parent label(s)
+#   4. "limit, a number indicating the maximum number of audio instances that can be played using this label
+#   5. "limit prefer newest", a boolean indicating whether newest audio instances should be preferred if "max count" is exceeded
+#   6. "limit fade out rate", a number indicating the rate that audio should be faded out, in decibels per frame
+#       N.B. Audio instances played under child labels count do NOT towards the limit counter for their parent label(s)
 
 labels:
     music:
-        exclusive:
-            max count: 1
-    ambience:
-        exclusive:
-            max count: 2
+        limit: 1
+        limit fade out rate: 5
     sfx:
         gain: 0
