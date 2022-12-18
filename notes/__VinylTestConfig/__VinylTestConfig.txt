@@ -1,0 +1,12 @@
+assets:
+    sndTestTone:
+        label: music
+    sndChickenNuggets:
+        label: music
+
+labels:
+    music:
+        loop: true
+        limit: 2
+    sfx:
+        gain: 0

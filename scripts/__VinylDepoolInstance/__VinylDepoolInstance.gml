@@ -1,6 +1,6 @@
 function __VinylDepoolInstance()
 {
-    static _id = 0xF0000000;
+    static _id = int64(99000000);
     ++_id;
     
     var _instance = array_pop(global.__vinylPool);

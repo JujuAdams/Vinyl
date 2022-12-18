@@ -4,8 +4,8 @@
 
 
 # Audio assets may have three properties defined:
-#   1. "gain", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
-#   2. "pitch", either a number, a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
+#   1. "gain", either a number, or a dictionary that contains a "min" and "max" value for randomization
+#   2. "pitch", either a number, a dictionary that contains a "min" and "max" value for randomization
 #   3. "label", a string containing the name of the label, or a comma-separated list of labels. Label gain and pitch are applied multiplicatively if more than one label is defined
 # 
 # Any audio asset not explicitly defined uses the "fallback" audio asset definition
@@ -20,8 +20,8 @@ assets:
 
 # Label names must not contain spaces
 # Labels may have siz properties defined:
-#   1. "gain", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
-#   2. "pitch", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
+#   1. "gain", either a number, or a dictionary that contains a "min" and "max" value for randomization
+#   2. "pitch", either a number, or a dictionary that contains a "min" and "max" value for randomization
 #   3. "children", a dictionary containing labels that should inherit their parent's gain and pitch (applied multiplicatively)
 #   4. "loop", a boolean, whether the asset should default to looping when played. This is overriden by the [loop] argument in VinylPlay()
 #   5. "limit, a number indicating the maximum number of audio instances that can be played using this label
@@ -32,5 +32,18 @@ labels:
     music:
         loop: true
         limit: 1
+    ambience:
+        loop: true
+        limit: 1
+    menu:
+    gameplay:
     sfx:
-        gain: 0
+        children:
+            speech:
+                gain: 0
+            footsteps:
+                gain: 0
+            ui:
+                gain: 0
+            
+            
