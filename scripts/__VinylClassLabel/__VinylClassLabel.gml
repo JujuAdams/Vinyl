@@ -84,20 +84,17 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         __inputGain  = _oldLabel.__inputGain;
         __inputPitch = _oldLabel.__inputPitch;
         
-        __gainTarget    = _oldLabel.__gainTarget;
-        __gainRate      = _oldLabel.__gainRate;
-        __stopAtSilence = _oldLabel.__stopAtSilence;
-        
-        __pitchTarget  = _oldLabel.__pitchTarget;
-        __pitchRate    = _oldLabel.__pitchRate;
-        __stopOnTarget = _oldLabel.__stopOnTarget;
+        __gainTarget  = _oldLabel.__gainTarget;
+        __gainRate    = _oldLabel.__gainRate;
+        __pitchTarget = _oldLabel.__pitchTarget;
+        __pitchRate   = _oldLabel.__pitchRate;
         
         if (VINYL_DEBUG_PARSER)
         {
             __VinylTrace("Copying state to label \"", __name, "\":");
             __VinylTrace("    gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch in=", 100*__inputPitch, "%/out=", 100*__outputPitch, "%");
-            __VinylTrace("    gain target=", __gainTarget, " dB, rate=", __gainRate, " dB, stop on silence=", __stopAtSilence? "true" : "false");
-            __VinylTrace("    pitch target=", __pitchTarget, "%, rate=", __pitchRate, " dB, stop on target=", __stopOnTarget? "true" : "false");
+            __VinylTrace("    gain target=", __gainTarget, " dB, rate=", __gainRate, " dB");
+            __VinylTrace("    pitch target=", __pitchTarget, "%, rate=", __pitchRate, " dB");
         }
     }
     

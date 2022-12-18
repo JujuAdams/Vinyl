@@ -16,13 +16,10 @@ function __VinylClassInstance() constructor
         
         __shutdown = false;
         
-        __gainTarget    = 0.0;
-        __gainRate      = VINYL_DEFAULT_GAIN_RATE;
-        __stopAtSilence = true;
-        
-        __pitchTarget  = 1.0;
-        __pitchRate    = VINYL_DEFAULT_PITCH_RATE;
-        __stopOnTarget = false;
+        __gainTarget  = 0.0;
+        __gainRate    = VINYL_DEFAULT_GAIN_RATE;
+        __pitchTarget = 1.0;
+        __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
         
         __outputChanged = false;
         __outputGain    = 0.0;
@@ -65,10 +62,9 @@ function __VinylClassInstance() constructor
             __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " gain target=", _targetGain, " db, rate=", _rate, " db/frame, stop at silence=", _stopAtSilence? "true" : "false");
         }
         
-        __gainTarget    = _targetGain;
-        __gainRate      = _rate;
-        __stopAtSilence = _stopAtSilence;
-        __shutdown      = _stopAtSilence;
+        __gainTarget = _targetGain;
+        __gainRate   = _rate;
+        __shutdown   = _stopAtSilence;
     }
     
     static __FadeOut = function(_rate)
@@ -99,7 +95,7 @@ function __VinylClassInstance() constructor
         __pitchTarget = _pitch;
     }
     
-    static __InputPitchTargetSet = function(_targetPitch, _rate, _stopOnTarget)
+    static __InputPitchTargetSet = function(_targetPitch, _rate)
     {
         if (__shutdown)
         {
@@ -109,13 +105,11 @@ function __VinylClassInstance() constructor
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " pitch target=", 100*_targetPitch, "%, rate=", 100*_rate, "%/frame, stop at silence=", _stopOnTarget? "true" : "false", ", shutdown=", _shutdown? "true" : "false");
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " pitch target=", 100*_targetPitch, "%, rate=", 100*_rate, "%/frame");
         }
         
-        __pitchTarget  = _targetPitch;
-        __pitchRate    = _rate;
-        __stopOnTarget = _stopOnTarget;
-        __shutdown     = _stopOnTarget;
+        __pitchTarget = _targetPitch;
+        __pitchRate   = _rate;
     }
     
     #endregion
@@ -281,7 +275,7 @@ function __VinylClassInstance() constructor
                 __outputGain += _delta;
                 __outputChanged = true;
                 
-                if (__stopAtSilence && (_delta < 0) && ((__inputGain <= VINYL_SILENCE) || (__outputGain <= VINYL_SILENCE)))
+                if (__shutdown && (_delta < 0) && ((__inputGain <= VINYL_SILENCE) || (__outputGain <= VINYL_SILENCE)))
                 {
                     __Stop();
                     return;
@@ -294,12 +288,6 @@ function __VinylClassInstance() constructor
                 __inputPitch  += _delta;
                 __outputPitch += _delta;
                 __outputChanged = true;
-                
-                if (__stopOnTarget && (__inputPitch == __pitchTarget))
-                {
-                    __Stop();
-                    return;
-                }
             }
             
             if (__outputChanged)
