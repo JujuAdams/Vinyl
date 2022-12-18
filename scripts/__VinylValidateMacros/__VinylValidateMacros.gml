@@ -20,9 +20,14 @@ function __VinylValidateMacros()
         __VinylError("VINYL_DEFAULT_PITCH_RATE must be a number greater than zero");
     }
     
-    if not (is_bool(VINYL_DEBUG))
+    if not (is_bool(VINYL_DEBUG_PARSER))
     {
-        __VinylError("VINYL_DEBUG must be a boolean (<true> or <false>)");
+        __VinylError("VINYL_DEBUG_PARSER must be a boolean (either <true> or <false>)");
+    }
+    
+    if not (is_numeric(VINYL_DEBUG_LEVEL))
+    {
+        __VinylError("VINYL_DEBUG_LEVEL must be a number");
     }
     
     if not (is_numeric(VINYL_SYSTEM_HEADROOM) && (VINYL_SYSTEM_HEADROOM >= 0) && (VINYL_SYSTEM_HEADROOM <= 30))

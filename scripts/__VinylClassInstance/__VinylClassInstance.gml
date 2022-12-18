@@ -7,7 +7,7 @@ function __VinylClassInstance() constructor
     
     static __ResetState = function()
     {
-        if (VINYL_DEBUG && (__id != undefined)) __VinylTrace("Resetting state for instance ", __id);
+        if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for instance ", __id);
         
         __sound      = undefined;
         __loop       = undefined;
@@ -138,7 +138,7 @@ function __VinylClassInstance() constructor
         __RecalculateLabels();
         __instance = audio_play_sound(__sound, 1, __loop, __VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), 0, __outputPitch);
         
-        if (VINYL_DEBUG)
+        if (VINYL_DEBUG_LEVEL >= 1)
         {
             __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch=", 100*__outputPitch, "%, label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", 100*__VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), "%)");
         }
@@ -170,12 +170,7 @@ function __VinylClassInstance() constructor
                 __outputGain  += _label.__outputGain;
                 __outputPitch *= _label.__outputPitch;
                 
-                _label.__PushExclusivity();
-                
-                //Add this instance to each label's playing array
-                //Playing instances are removed from labels inside the label's __Tick() method
-                //  N.B. This has no protection for duplicate entries!
-                array_push(_label.__audioArray, __id);
+                _label.__AddInstance(__id);
                 
                 ++_i;
             }
@@ -186,7 +181,7 @@ function __VinylClassInstance() constructor
     {
         if (__instance == undefined) return;
         
-        if (VINYL_DEBUG) __VinylTrace("Forcing instance ", __id, " to stop (GMinst=", __instance, ")");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Forcing instance ", __id, " to stop (GMinst=", __instance, ")");
         
         audio_stop_sound(__instance);
         __instance = undefined;
@@ -203,7 +198,7 @@ function __VinylClassInstance() constructor
         global.__vinylIdToInstanceDict[? _id] = self;
         array_push(global.__vinylPlaying, self);
         
-        if (VINYL_DEBUG) __VinylTrace("Depooling an instance as ID ", __id);
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling an instance as ID ", __id);
     }
     
     static __Pool = function()
@@ -211,7 +206,7 @@ function __VinylClassInstance() constructor
         if (__pooled) return;
         __pooled = true;
         
-        if (VINYL_DEBUG) __VinylTrace("Pooling instance ", __id);
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pooling instance ", __id);
         
         __Stop();
         
@@ -257,7 +252,7 @@ function __VinylClassInstance() constructor
     {
         if (!audio_is_playing(__instance))
         {
-            if (VINYL_DEBUG) __VinylTrace("Instance ", __id, " has stopped played, returning to pool");
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Instance ", __id, " has stopped played, returning to pool");
             __Pool();
         }
         else
@@ -294,7 +289,7 @@ function __VinylClassInstance() constructor
             {
                 __outputChanged = false;
                 
-                if (VINYL_DEBUG)
+                if (VINYL_DEBUG_LEVEL >= 2)
                 {
                     __VinylTrace("Updated instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch=", 100*__outputPitch, "%, label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", 100*__VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), "%)");
                 }
@@ -307,27 +302,7 @@ function __VinylClassInstance() constructor
     
     static __DebugLabelNames = function()
     {
-        if (!VINYL_DEBUG) return "";
-        
-        var _labelReadable = "";
         var _asset = global.__vinylAssetDict[$ __sound] ?? global.__vinylAssetDict.fallback;
-        if (is_struct(_asset))
-        {
-            var _labelArray = _asset.__labelArray;
-            var _size = array_length(_labelArray);
-            if (_size > 1) _labelReadable += "[";
-            
-            var _i = 0;
-            repeat(_size)
-            {
-                _labelReadable += _labelArray[_i].__name;
-                if (_i < _size-1) _labelReadable += ", ";
-                ++_i;
-            }
-            
-            if (_size > 1) _labelReadable += "]";
-        }
-        
-        return _labelReadable;
+        return is_struct(_asset)? _asset.__DebugLabelNames() : "";
     }
 }

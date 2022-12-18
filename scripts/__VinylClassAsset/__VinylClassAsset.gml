@@ -1,19 +1,21 @@
 /// @param sound
 /// @param newLabelDict
-/// @param [gain=0]
-/// @param [pitch=1]
-/// @param [labelString]
+/// @param [assetData]
 
-function __VinylClassAsset(_sound, _newLabelDict, _gain = 0, _pitch = 1, _labelString = undefined) constructor
-{
+function __VinylClassAsset(_sound, _newLabelDict, _assetData = {}) constructor
+{ 
     __sound = _sound;
-    __gain  = _gain;
-    __pitch = _pitch;
+    __gain  = _assetData[$ "gain" ] ?? 0;
+    __pitch = _assetData[$ "pitch"] ?? 1;
     
-    if (VINYL_DEBUG) __name = audio_get_name(__sound);
+    if (VINYL_DEBUG_LEVEL >= 1) __name = audio_get_name(__sound);
     
     __labelArray = [];
     
+    
+    
+    //Process label string to extract each label name
+    var _labelString = _assetData[$ "label"] ?? _assetData[$ "labels"];
     if (is_string(_labelString))
     {
         _labelString += ",";
@@ -38,5 +40,31 @@ function __VinylClassAsset(_sound, _newLabelDict, _gain = 0, _pitch = 1, _labelS
             _prevPos = _pos+1;
             _pos = string_pos_ext(",", _labelString, _prevPos);
         }
+    }
+    
+    if (VINYL_DEBUG_PARSER) __VinylTrace("Creating asset definition for \"", audio_get_name(__sound), "\", gain=", __gain, " db, pitch=", 100*__pitch, "%, label=", __DebugLabelNames());
+    
+    
+    
+    static __DebugLabelNames = function()
+    {
+        if (VINYL_DEBUG_LEVEL <= 0) return "";
+        
+        var _labelReadable = "";
+        
+        var _size = array_length(__labelArray);
+        if (_size > 1) _labelReadable += "[";
+        
+        var _i = 0;
+        repeat(_size)
+        {
+            _labelReadable += __labelArray[_i].__name;
+            if (_i < _size-1) _labelReadable += ", ";
+            ++_i;
+        }
+        
+        if (_size > 1) _labelReadable += "]";
+        
+        return _labelReadable;
     }
 }

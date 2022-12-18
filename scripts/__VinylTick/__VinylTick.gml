@@ -9,7 +9,7 @@ function __VinylTick()
         array_copy(global.__vinylPool, _poolSize, global.__vinylPoolReturn, 0, _returnSize);
         array_resize(global.__vinylPoolReturn, 0);
         
-        if (VINYL_DEBUG) __VinylTrace("Returned ", _returnSize, " instance(s) to pool, ", _poolSize + _returnSize, " instances now in pool");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Returned ", _returnSize, " instance(s) to pool, ", _poolSize + _returnSize, " instances now in pool");
     }
     
     //Update labels

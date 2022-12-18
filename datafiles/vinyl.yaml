@@ -11,8 +11,6 @@
 # Any audio asset not explicitly defined uses the "fallback" audio asset definition
 
 assets:
-    fallback:
-        label: sfx
     sndTestTone:
         label: music
     sndChickenNuggets:
@@ -21,13 +19,12 @@ assets:
 
 
 # Label names must not contain spaces
-# Labels may have six properties defined:
+# Labels may have five properties defined:
 #   1. "gain", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
 #   2. "pitch", either a number, or a dictionary that contains a "min" and "max" value for randomization, or a list of possible values (discontinuous randomization)
 #   3. "children", a dictionary containing labels that should inherit their parent's gain and pitch (applied multiplicatively)
 #   4. "limit, a number indicating the maximum number of audio instances that can be played using this label
-#   5. "limit prefer newest", a boolean indicating whether newest audio instances should be preferred if "max count" is exceeded
-#   6. "limit fade out rate", a number indicating the rate that audio should be faded out, in decibels per frame
+#   5. "limit fade out rate", a number indicating the rate that audio should be faded out, in decibels per frame
 #       N.B. Audio instances played under child labels count do NOT towards the limit counter for their parent label(s)
 
 labels:

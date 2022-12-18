@@ -7,7 +7,9 @@
 #macro VINYL_STEP_DURATION       50   //milliseconds
 #macro VINYL_DEFAULT_GAIN_RATE   0.5
 #macro VINYL_DEFAULT_PITCH_RATE  0.05
-#macro VINYL_DEBUG               true //Set to <true> to spit out a TON of information about what Vinyl is doing. Very useful to track down audio bugs
+
+#macro VINYL_DEBUG_PARSER  false
+#macro VINYL_DEBUG_LEVEL   0 //Set to <true> to spit out a TON of information about what Vinyl is doing. Very useful to track down audio bugs
 
 #macro VINYL_SYSTEM_HEADROOM  12  //In decibels
 

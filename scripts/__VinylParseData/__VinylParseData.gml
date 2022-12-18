@@ -68,14 +68,7 @@ function __VinylParseData(_rawData, _strict)
         else
         {
             var _assetData = _inputAssetDict[$ _assetName];
-            if (is_struct(_assetData))
-            {
-                var _newAsset = new __VinylClassAsset(_assetIndex, _newLabelDict, _assetData[$ "gain"], _assetData[$ "pitch"], _assetData[$ "label"]);
-            }
-            else
-            {
-                var _newAsset = new __VinylClassAsset(_assetIndex, _newLabelDict);
-            }
+            var _newAsset = new __VinylClassAsset(_assetIndex, _newLabelDict, _assetData);
             
             var _key = (_assetName == "fallback")? "fallback" : string(_assetIndex);
             _newAssetDict[$ _key] = _newAsset;
@@ -87,7 +80,8 @@ function __VinylParseData(_rawData, _strict)
     //Ensure we have a fallback struct for audio assets
     if (!variable_struct_exists(_newAssetDict, "fallback"))
     {
-        _newAssetDict.fallback = new __VinylClassAsset(0, 1, undefined);
+        if (VINYL_DEBUG_PARSER) __VinylTrace("Fallback asset case doesn't exist, creating one");
+        _newAssetDict.fallback = new __VinylClassAsset(-1, _newLabelDict);
     }
     
     //Copy state data from old labels to new labels
@@ -111,15 +105,8 @@ function __VinylParseData(_rawData, _strict)
     {
         with(global.__vinylPlaying[_i])
         {
-            if (!__VinylCheckExclusivity(__sound))
-            {
-                __Stop();
-            }
-            else
-            {
-                __RecalculateLabels();
-                __outputChanged = true;
-            }
+            __RecalculateLabels();
+            __outputChanged = true;
         }
         
         ++_i;

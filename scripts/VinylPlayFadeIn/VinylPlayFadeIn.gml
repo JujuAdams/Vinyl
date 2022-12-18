@@ -6,8 +6,6 @@
 
 function VinylPlayFadeIn(_sound, _loop = false, _targetGain = 0, _rate = VINYL_DEFAULT_GAIN_RATE, _pitch = 1)
 {
-    if (!__VinylCheckExclusivity(_sound)) return undefined;
-    
     var _id = __VinylDepoolInstance();
     var _instance = global.__vinylIdToInstanceDict[? _id];
     _instance.__Play(_sound, _loop, VINYL_SILENCE, _pitch);

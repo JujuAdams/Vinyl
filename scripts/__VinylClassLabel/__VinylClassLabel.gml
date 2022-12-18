@@ -12,9 +12,8 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     __assetGain  = _labelData[$ "gain" ] ?? 0;
     __assetPitch = _labelData[$ "pitch"] ?? 1;
     
-    __exclusiveMaxCount     = _labelData[$ "limit"              ] ?? infinity;
-    __exclusivePreferNewest = _labelData[$ "limit prefer newest"] ?? true;
-    __exclusiveFadeOutRate  = abs(_labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE);
+    __limitMaxCount    = _labelData[$ "limit"] ?? infinity;
+    __limitFadeOutRate = abs(_labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE);
     
     __audioArray = [];
     
@@ -32,11 +31,13 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     __outputGain  = 0;
     __outputPitch = 1;
     
+    if (VINYL_DEBUG_PARSER) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __assetGain, " db, pitch=", 100*__assetPitch, "%, max instances=", __limitMaxCount);
+    
     
     
     static __Stop = function()
     {
-        if (VINYL_DEBUG) __VinylTrace("Stopping ", array_length(__audioArray), " audio instances playing with label \"", __name, "\"");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Stopping ", array_length(__audioArray), " audio instances playing with label \"", __name, "\"");
         
         var _i = 0;
         repeat(array_length(__audioArray))
@@ -70,7 +71,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         __pitchRate    = _oldLabel.__pitchRate;
         __stopOnTarget = _oldLabel.__stopOnTarget;
         
-        if (VINYL_DEBUG)
+        if (VINYL_DEBUG_PARSER)
         {
             __VinylTrace("Copying state to label \"", __name, "\":");
             __VinylTrace("    gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch in=", 100*__inputPitch, "%/out=", 100*__outputPitch, "%");
@@ -79,26 +80,27 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         }
     }
     
-    static __CheckExclusivity = function()
+    static __AddInstance = function(_id)
     {
-        if (__exclusiveMaxCount <= 0) return false;
-        if (array_length(__audioArray) < __exclusiveMaxCount) return true;
-        if (!__exclusivePreferNewest) return false;
-        return true;
-    }
-    
-    static __PushExclusivity = function()
-    {
-        if (__exclusivePreferNewest && (array_length(__audioArray) >= __exclusiveMaxCount))
+        if (__limitMaxCount >= 0)
         {
-            var _oldestInstance = global.__vinylIdToInstanceDict[? __audioArray[0]];
-            if (_oldestInstance == undefined) return;
-            
-            if (VINYL_DEBUG) __VinylTrace("Label \"", __name, "\" will exceed ", __exclusiveMaxCount, " playing instance(s), fading out oldest instance ", _oldestInstance.__id, " playing ", audio_get_name(_oldestInstance.__sound));
-            
-            _oldestInstance.__InputGainTargetSet(VINYL_SILENCE, __exclusiveFadeOutRate, true, true);
-            array_delete(__audioArray, 0, 1);
+            while (array_length(__audioArray) >= __limitMaxCount)
+            {
+                var _oldestInstance = global.__vinylIdToInstanceDict[? __audioArray[0]];
+                array_delete(__audioArray, 0, 1);
+                
+                if (is_struct(_oldestInstance))
+                {
+                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Label \"", __name, "\" will exceed ", __limitMaxCount, " playing instance(s), fading out oldest instance ", _oldestInstance.__id, " playing ", audio_get_name(_oldestInstance.__sound));
+                    _oldestInstance.__InputGainTargetSet(VINYL_SILENCE, __limitFadeOutRate, true, true);
+                }
+            }
         }
+        
+        //Add this instance to each label's playing array
+        //Playing instances are removed from labels inside the label's __Tick() method
+        //  N.B. This has no protection for duplicate entries!
+        array_push(__audioArray, _id);
     }
     
     
