@@ -4,17 +4,44 @@
 //Live update only works when running from the IDE on Windows, Mac, or Linux
 #macro VINYL_LIVE_UPDATE_PERIOD  250
 
-#macro VINYL_STEP_DURATION       50   //milliseconds
-#macro VINYL_DEFAULT_GAIN_RATE   0.5
+//Length of moment-to-moment gain adjustments, in milliseconds
+//Choose lower values for tigher, quicker gain adjustment
+//Choose higher values for smooth, less glitchy gain adjustment
+#macro VINYL_STEP_DURATION  50
+
+//Default rate of gain adjument when approaching a gain target
+//Measured in decibels/frame
+#macro VINYL_DEFAULT_GAIN_RATE  0.5
+
+//Default rate of pitch adjument when approaching a pitch target
+//Measured in %/frame
 #macro VINYL_DEFAULT_PITCH_RATE  0.05
 
+//Maximum output gain for audio instances. Must be greater than or equal to zero
+//Choose lower values to get more resolution in perceived volume levels
+//Choose higher values to allow audio to get louder relative to 0 dB
+#macro VINYL_SYSTEM_HEADROOM  12
+
+
+
+#region Advanced
+
+//How much debug spam to chuck at the debug log
+//  0 = minimum, warnings only
+//  1 = some, messages created when interacting with most API functions
+//  2 = obnoxious amounts, updates for virtually every internal operation
+#macro VINYL_DEBUG_LEVEL  0
+
+//Whether to output extra debug information when reading configuration data
 #macro VINYL_DEBUG_PARSER  false
-#macro VINYL_DEBUG_LEVEL   0 //Set to <true> to spit out a TON of information about what Vinyl is doing. Very useful to track down audio bugs
 
-#macro VINYL_SYSTEM_HEADROOM  12  //In decibels
+//Decibel level that is functionally silent to the ear
+#macro VINYL_SILENCE  -60
 
-#macro VINYL_SILENCE  -60  //In decibels
-
+//Size of a tab when reading YAML, measured in number-of-spaces
 #macro VINYL_YAML_TAB_SIZE  4
 
-#macro VINYL_POOL_START_SIZE  30  //Number of audio instances pre-created in the pool
+//Number of audio instances pre-created in the pool
+#macro VINYL_POOL_START_SIZE  30
+
+#endregion
