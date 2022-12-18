@@ -16,6 +16,14 @@ function __VinylClassLabel(_name, _parent, _dynamic, _gain = 0, _pitch = 1) cons
 	
     __inputGain  = 0;
     __inputPitch = 1;
+	
+	__gainTarget    = 0.0;
+	__gainRate      = VINYL_DEFAULT_GAIN_RATE;
+	__stopOnSilence = true;
+	
+	__pitchTarget  = 1.0;
+	__pitchRate    = VINYL_DEFAULT_PITCH_RATE;
+	__stopOnTarget = false;
     
     __outputGain  = 0;
     __outputPitch = 1;
@@ -55,8 +63,92 @@ function __VinylClassLabel(_name, _parent, _dynamic, _gain = 0, _pitch = 1) cons
 		
     }
     
+	
+	
+	#region Gain
+	
+	static __InputGainSet = function(_gain)
+	{
+		__inputGain = _gain;
+	}
+	
+	static __InputGainTargetSet = function(_targetGain, _rate, _stopAtSilence)
+	{
+		__gainTarget    = _targetGain;
+		__gainRate      = _rate;
+		__stopOnSilence = _stopAtSilence;
+	}
+	
+	static __InputGainGet = function()
+	{
+		return __inputGain;
+	}
+	
+	static __GainTargetGet = function()
+	{
+		return __gainTarget;
+	}
+	
+	static __OutputGainGet = function()
+	{
+		return __outputGain;
+	}
+	
+	#endregion
+	
+	
+	
+	#region Pitch
+	
+	static __InputPitchSet = function(_pitch)
+	{
+		__inputPitch = _pitch;
+	}
+	
+	static __InputPitchTargetSet = function(_targetPitch, _rate, _stopOnTarget)
+	{
+		__pitchTarget  = _targetPitch;
+		__pitchRate    = _rate;
+		__stopOnTarget = _stopOnTarget;
+	}
+	
+	static __InputPitchGet = function()
+	{
+		return __inputPitch;
+	}
+	
+	static __PitchTargetGet = function()
+	{
+		return __pitchTarget;
+	}
+	
+	static __OutputPitchGet = function()
+	{
+		return __outputPitch;
+	}
+	
+	#endregion
+	
+	
+    
     static __Tick = function()
     {
+		//Update input values based on gain/pitch target
+		var _delta = clamp(__gainTarget - __inputGain, -__gainRate, __gainRate);
+		if (_delta != 0)
+		{
+			__inputGain += _delta;
+			if (__stopOnSilence && (_delta < 0) && (__outputGain <= VINYL_SILENCE)) __Stop();
+		}
+		
+		var _delta = clamp(__pitchTarget - __inputPitch, -__pitchRate, __pitchRate);
+		if (_delta != 0)
+		{
+			__inputPitch += _delta;
+			if (__stopOnTarget && (__inputPitch == __pitchTarget)) __Stop();
+		}
+		
+		//Update the output gain
         var _gainDelta  = __outputGain;
         var _pitchDelta = __outputPitch;
         

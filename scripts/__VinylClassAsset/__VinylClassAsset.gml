@@ -8,7 +8,7 @@ function __VinylClassAsset(_sound, _newLabelDict, _gain = 0, _pitch = 1, _labelS
 {
     __sound = _sound;
     __gain  = _gain;
-    __pitch  = _pitch;
+    __pitch = _pitch;
     
     if (VINYL_DEBUG) __name = audio_get_name(__sound);
     
