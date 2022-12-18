@@ -1,6 +1,6 @@
 if (keyboard_check_pressed(ord("M")))
 {
-    music = VinylPlay(sndChickenNuggets, true);
+    music = VinylPlayFadeIn(sndChickenNuggets, true);
 }
 
 if (keyboard_check_pressed(vk_up))
