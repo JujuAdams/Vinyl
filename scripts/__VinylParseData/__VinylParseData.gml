@@ -7,8 +7,6 @@ function __VinylParseData(_rawData, _strict)
     var _newLabelDict  = {};
     var _newLabelOrder = [];
     
-    
-    
     //Instantiate labels, creating a dictionary for lookup and an array that contains the order to update the labels to respect parenting
     static _loadLabelsFunc = function(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _inputLabelDict, _parent)
     {
@@ -57,8 +55,6 @@ function __VinylParseData(_rawData, _strict)
     
     _loadLabelsFunc(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _rawData.labels, undefined);
     
-    
-    
     //Instantiate assets
     var _inputAssetDict = _rawData.assets;
     var _assetNameArray = variable_struct_get_names(_inputAssetDict);
@@ -90,25 +86,18 @@ function __VinylParseData(_rawData, _strict)
             
 			var _key = (_assetName == "fallback")? "fallback" : string(_assetIndex);
             _newAssetDict[$ _key] = _newAsset;
-            
-            var _oldAsset = global.__vinylAssetDict[$ _key];
-            if (is_struct(_oldAsset)) _newAsset.__UpdateInstances(_oldAsset);
         }
         
         ++_i;
     }
     
-    
-    
-    //Ensure we have a fallback struct
+    //Ensure we have a fallback struct for audio assets
     if (!variable_struct_exists(_newAssetDict, "fallback"))
     {
         _newAssetDict.fallback = new __VinylClassAsset(0, 1, undefined);
     }
     
-    
-    
-    //Copy playing data from old labels to new labels
+    //Copy state data from old labels to new labels
     var _i = 0;
     repeat(array_length(_newLabelOrder))
     {
@@ -118,9 +107,21 @@ function __VinylParseData(_rawData, _strict)
         ++_i;
     }
     
-    
-    
+	//Update our global label/asset tracking
     global.__vinylAssetDict  = _newAssetDict;
     global.__vinylLabelDict  = _newLabelDict;
     global.__vinylLabelOrder = _newLabelOrder;
+	
+	//Force an update for all playing instances
+	var _i = 0;
+	repeat(array_length(global.__vinylPlaying))
+	{
+		with(global.__vinylPlaying[_i])
+		{
+	        __RecalculateLabels();
+			__outputChanged = true;
+		}
+		
+		++_i;
+	}
 }

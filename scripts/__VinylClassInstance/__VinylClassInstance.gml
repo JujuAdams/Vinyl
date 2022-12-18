@@ -123,8 +123,7 @@ function __VinylClassInstance() constructor
 		__pitchRate    = VINYL_DEFAULT_PITCH_RATE;
 		__stopOnTarget = false;
 		
-        __AddToLabels();
-        __RecalculateOutputValues();
+        __RecalculateLabels();
 		
 	    __instance = audio_play_sound(__sound, 1, __loop, __VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), 0, __outputPitch);
 		
@@ -139,8 +138,10 @@ function __VinylClassInstance() constructor
 		}
     }
     
-    static __AddToLabels = function()
+    static __RecalculateLabels = function()
     {
+		//Add this instance to each label's playing array
+		
         //Playing instances are removed from labels inside the label's __Tick() method
         //  N.B. This has no protection for duplicate entries!
         
@@ -155,13 +156,8 @@ function __VinylClassInstance() constructor
                 ++_i;
             }
         }
-    }
-    
-    static __RecalculateOutputValues = function()
-    {
-        var _prevGain  = __outputGain;
-        var _prevPitch = __outputPitch;
-        
+		
+		//Update the output values based on the asset and labels
 		__outputGain  = __inputGain;
 		__outputPitch = __inputPitch;
         
@@ -180,11 +176,6 @@ function __VinylClassInstance() constructor
                 __outputPitch *= _label.__outputPitch;
                 ++_i;
             }
-        }
-        
-        if (!__outputChanged && ((__outputGain != _prevGain) || (__outputPitch != _prevPitch)))
-        {
-            __outputChanged = true;
         }
     }
     

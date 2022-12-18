@@ -9,35 +9,16 @@ function __VinylClassLabel(_name, _parent, _dynamic, _gain = 0, _pitch = 1) cons
     __name       = _name;
     __parent     = _parent;
 	__dynamic    = _dynamic;
-    __inputGain  = _gain;
-    __inputPitch = _pitch;
+    __assetGain  = _gain;
+    __assetPitch = _pitch;
     
     __audioArray = [];
+	
+    __inputGain  = 0;
+    __inputPitch = 1;
     
-    __outputGain = 0;
+    __outputGain  = 0;
     __outputPitch = 1;
-	
-	
-	
-	static __InputGainSet = function(_gain)
-	{
-		__inputGain = _gain;
-	}
-	
-	static __InputGainTargetSet = function(_targetGain, _rate, _stopAtSilence)
-	{
-		
-	}
-	
-	static __InputGainGet = function()
-	{
-		return __inputGain;
-	}
-	
-	static __OutputGainGet = function()
-	{
-		return __outputGain;
-	}
 	
 	
 	
@@ -64,23 +45,27 @@ function __VinylClassLabel(_name, _parent, _dynamic, _gain = 0, _pitch = 1) cons
     
     static __CopyOldState = function(_oldLabel)
     {
-        array_resize(__audioArray, array_length(_oldLabel.__audioArray));
-        array_copy(__audioArray, 0, _oldLabel.__audioArray, 0, array_length(_oldLabel.__audioArray));
-        __outputGain = _oldLabel.__outputGain;
-        __outputPitch = _oldLabel.__outputPitch;
+        __inputGain  = _oldLabel.__inputGain;
+        __inputPitch = _oldLabel.__inputPitch;
+		
+		if (VINYL_DEBUG)
+		{
+			__VinylTrace("Copying state to label \"", __name, "\": gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch in=", 100*__inputPitch, "%/out=", 100*__outputPitch, "%");
+		}
+		
     }
     
     static __Tick = function()
     {
-        var _gainDelta = __outputGain;
+        var _gainDelta  = __outputGain;
         var _pitchDelta = __outputPitch;
         
-        __outputGain = __inputGain;
-        __outputPitch = __inputPitch;
+        __outputGain  = __inputGain  + __assetGain;
+        __outputPitch = __inputPitch * __assetPitch;
         
         if (is_struct(__parent))
         {
-            __outputGain += __parent.__outputGain;
+            __outputGain  += __parent.__outputGain;
             __outputPitch *= __parent.__outputPitch;
         }
         

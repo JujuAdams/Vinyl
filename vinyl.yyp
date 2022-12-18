@@ -66,8 +66,8 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"(Internals)","folderPath":"folders/Vinyl/This way to the party/(Internals).yy","order":8,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"VIPs only in the green room","folderPath":"folders/Vinyl/This way to the party/(Internals)/VIPs only in the green room.yy","order":0,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Configuration","folderPath":"folders/Vinyl/This way to the party/Configuration.yy","order":0,},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Pitch","folderPath":"folders/Vinyl/This way to the party/Pitch.yy","order":6,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Gain","folderPath":"folders/Vinyl/This way to the party/Gain.yy","order":5,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Pitch","folderPath":"folders/Vinyl/This way to the party/Pitch.yy","order":6,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"System","folderPath":"folders/Vinyl/This way to the party/System.yy","order":7,},
   ],
   "AudioGroups": [
