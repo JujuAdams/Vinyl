@@ -1,12 +1,13 @@
 function __VinylClassInstance() constructor
 {
+    __id = undefined;
+    __pooled = true;
+    
     __ResetState();
     
     static __ResetState = function()
     {
-        __pooled = true;
-        
-        __id = undefined;
+        if (VINYL_DEBUG && (__id != undefined)) __VinylTrace("Resetting state for instance ", __id);
         
         __sound      = undefined;
         __loop       = undefined;
@@ -210,10 +211,37 @@ function __VinylClassInstance() constructor
         if (__pooled) return;
         __pooled = true;
         
+        if (VINYL_DEBUG) __VinylTrace("Pooling instance ", __id);
+        
         __Stop();
         
+        //Remove this instance from all labels that we're attached to
+        var _asset = global.__vinylAssetDict[$ __sound] ?? global.__vinylAssetDict.fallback;
+        if (is_struct(_asset))
+        {
+            var _id = __id;
+            var _labelArray = _asset.__labelArray;
+            var _i = 0;
+            repeat(array_length(_labelArray))
+            {
+                var _audioArray = _labelArray[_i].__audioArray;
+                var _j = 0;
+                repeat(array_length(_audioArray))
+                {
+                    if (_audioArray[_j] == _id)
+                    {
+                        array_delete(_audioArray, _j, 1);
+                        break;
+                    }
+                    
+                    ++_j;
+                }
+                
+                ++_i;
+            }
+        }
         
-        if (VINYL_DEBUG) __VinylTrace("Pooling instance ", __id, " and resetting state");
+        __ResetState();
         
         ds_map_delete(global.__vinylIdToInstanceDict, __id);
         
@@ -222,7 +250,7 @@ function __VinylClassInstance() constructor
         //which would lead to problems with labels tracking what they're playing
         array_push(global.__vinylPoolReturn, self);
         
-        __ResetState();
+        __id = undefined;
     }
     
     static __Tick = function()

@@ -16,7 +16,6 @@ assets:
     sndTestTone:
         label: music
     sndChickenNuggets:
-        gain: 0
         label: music
 
 

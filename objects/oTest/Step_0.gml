@@ -24,3 +24,8 @@ if (keyboard_check_pressed(ord("S")))
         VinylStop(music);
     }
 }
+
+if (keyboard_check_pressed(ord("F")))
+{
+    VinylFadeOut(music);
+}

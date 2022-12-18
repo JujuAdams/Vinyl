@@ -13,7 +13,12 @@ function __VinylTick()
     }
     
     //Update labels
-    __VinylTickLabels();
+    var _i = 0;
+    repeat(array_length(global.__vinylLabelOrder))
+    {
+        global.__vinylLabelOrder[_i].__Tick();
+        ++_i;
+    }
     
     //Update instances
     var _i = 0;
@@ -29,15 +34,5 @@ function __VinylTick()
             _instance.__Tick();
             ++_i;
         }
-    }
-}
-
-function __VinylTickLabels()
-{
-    var _i = 0;
-    repeat(array_length(global.__vinylLabelOrder))
-    {
-        global.__vinylLabelOrder[_i].__Tick();
-        ++_i;
     }
 }
