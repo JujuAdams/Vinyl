@@ -11,6 +11,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     
     __assetGain  = _labelData[$ "gain" ] ?? 0;
     __assetPitch = _labelData[$ "pitch"] ?? 1;
+    __assetLoop  = _labelData[$ "loop" ] ?? undefined;
     
     __limitMaxCount    = _labelData[$ "limit"] ?? infinity;
     __limitFadeOutRate = abs(_labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE);

@@ -1,1 +1,1 @@
-music = VinylPlay(sndChickenNuggets, true);
+music = VinylPlay(sndChickenNuggets);
