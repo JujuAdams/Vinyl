@@ -22,8 +22,8 @@ function __VinylInitialize()
     
     __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
     
-	__VinylValidateMacros();
-	
+    __VinylValidateMacros();
+    
     //Whether to allow live update
     global.__vinylLiveUpdate = (VINYL_LIVE_UPDATE_PERIOD > 0);
     
@@ -31,13 +31,13 @@ function __VinylInitialize()
     global.__vinylLabelDict  = {};
     global.__vinylLabelOrder = [];
     
-	global.__vinylIdToInstanceDict = ds_map_create();
-	
+    global.__vinylIdToInstanceDict = ds_map_create();
+    
     global.__vinylPool       = [];
     global.__vinylPlaying    = [];
     global.__vinylPoolReturn = [];
     
-	VinylSystemGainSet(0);
+    VinylSystemGainSet(0);
     __VinylUpdateData();
     
     if (__VinylGetLiveUpdateEnabled())
@@ -48,23 +48,23 @@ function __VinylInitialize()
     {
         __VinylTrace("Live update *not* enabled");
     }
-	
+    
     time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylTick, [], -1));
-	
-	repeat(VINYL_POOL_START_SIZE)
-	{
-		array_push(global.__vinylPool, new __VinylClassInstance());
-	}
+    
+    repeat(VINYL_POOL_START_SIZE)
+    {
+        array_push(global.__vinylPool, new __VinylClassInstance());
+    }
 }
 
 function __VinylUpdateData()
 {
     static _fileHash = undefined;
     var _firstUpdate = (_fileHash == undefined);
-	
-	//Always allow data to be updated once on boot
-	if (!global.__vinylLiveUpdate && (_fileHash != undefined)) return;
-	
+    
+    //Always allow data to be updated once on boot
+    if (!global.__vinylLiveUpdate && (_fileHash != undefined)) return;
+    
     var _filename = __VinylGetDatafilePath();
     
     if (__VinylGetLiveUpdateEnabled())

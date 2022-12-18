@@ -77,7 +77,7 @@ function __VinylParseData(_rawData, _strict)
                 var _newAsset = new __VinylClassAsset(_assetIndex, _newLabelDict);
             }
             
-			var _key = (_assetName == "fallback")? "fallback" : string(_assetIndex);
+            var _key = (_assetName == "fallback")? "fallback" : string(_assetIndex);
             _newAssetDict[$ _key] = _newAsset;
         }
         
@@ -100,28 +100,28 @@ function __VinylParseData(_rawData, _strict)
         ++_i;
     }
     
-	//Update our global label/asset tracking
+    //Update our global label/asset tracking
     global.__vinylAssetDict  = _newAssetDict;
     global.__vinylLabelDict  = _newLabelDict;
     global.__vinylLabelOrder = _newLabelOrder;
-	
-	//Force an update for all playing instances
-	var _i = 0;
-	repeat(array_length(global.__vinylPlaying))
-	{
-		with(global.__vinylPlaying[_i])
-		{
-			if (!__VinylCheckExclusivity(__sound))
-			{
-				__Stop();
-			}
-			else
-			{
-		        __RecalculateLabels();
-				__outputChanged = true;
-			}
-		}
-		
-		++_i;
-	}
+    
+    //Force an update for all playing instances
+    var _i = 0;
+    repeat(array_length(global.__vinylPlaying))
+    {
+        with(global.__vinylPlaying[_i])
+        {
+            if (!__VinylCheckExclusivity(__sound))
+            {
+                __Stop();
+            }
+            else
+            {
+                __RecalculateLabels();
+                __outputChanged = true;
+            }
+        }
+        
+        ++_i;
+    }
 }

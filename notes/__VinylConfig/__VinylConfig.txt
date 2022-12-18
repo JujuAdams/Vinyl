@@ -15,8 +15,8 @@ assets:
         label: sfx
     sndTestTone:
         label: music
-	sndChickenNuggets:
-		label: music
+    sndChickenNuggets:
+        label: music
 
 
 
@@ -39,4 +39,4 @@ labels:
         exclusive:
             max count: 2
     sfx:
-		gain: 0
+        gain: 0

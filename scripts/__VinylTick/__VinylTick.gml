@@ -8,28 +8,28 @@ function __VinylTick()
         array_resize(global.__vinylPool, _poolSize + _returnSize);
         array_copy(global.__vinylPool, _poolSize, global.__vinylPoolReturn, 0, _returnSize);
         array_resize(global.__vinylPoolReturn, 0);
-		
-		if (VINYL_DEBUG) __VinylTrace("Returned ", _returnSize, " instance(s) to pool, ", _poolSize + _returnSize, " instances now in pool");
+        
+        if (VINYL_DEBUG) __VinylTrace("Returned ", _returnSize, " instance(s) to pool, ", _poolSize + _returnSize, " instances now in pool");
     }
     
     //Update labels
     __VinylTickLabels();
     
     //Update instances
-	var _i = 0;
-	repeat(array_length(global.__vinylPlaying))
-	{
-		var _instance = global.__vinylPlaying[_i];
-		if (_instance.__pooled)
-		{
-			array_delete(global.__vinylPlaying, _i, 1);
-		}
-		else
-		{
-			_instance.__Tick();
-			++_i;
-		}
-	}
+    var _i = 0;
+    repeat(array_length(global.__vinylPlaying))
+    {
+        var _instance = global.__vinylPlaying[_i];
+        if (_instance.__pooled)
+        {
+            array_delete(global.__vinylPlaying, _i, 1);
+        }
+        else
+        {
+            _instance.__Tick();
+            ++_i;
+        }
+    }
 }
 
 function __VinylTickLabels()

@@ -1,7 +1,7 @@
 function __VinylCheckExclusivity(_sound)
 {
-	//Pre-check for label exclusivity
-	//This stops us from depooling an instance if we cannot play it
+    //Pre-check for label exclusivity
+    //This stops us from depooling an instance if we cannot play it
     var _asset = global.__vinylAssetDict[$ _sound] ?? global.__vinylAssetDict.fallback;
     if (is_struct(_asset))
     {
@@ -13,6 +13,6 @@ function __VinylCheckExclusivity(_sound)
             ++_i;
         }
     }
-	
-	return true;
+    
+    return true;
 }

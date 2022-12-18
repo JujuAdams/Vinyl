@@ -6,7 +6,7 @@ function VinylLiveUpdateSet(_state)
     
     if (_state != global.__vinylLiveUpdate)
     {
-		__VinylTrace(_state? "Turned live update on" : "Turned live update off");
+        __VinylTrace(_state? "Turned live update on" : "Turned live update off");
         global.__vinylLiveUpdate = _state;
     }
 }
