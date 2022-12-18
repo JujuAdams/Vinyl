@@ -1,3 +1,5 @@
+/// Instantly stops a playback instance
+/// 
 /// @param vinylID/labelName
 
 function VinylStop(_id)

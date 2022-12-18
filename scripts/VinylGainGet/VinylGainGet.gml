@@ -1,3 +1,5 @@
+/// Returns the current input gain for a Vinyl playback instance, or a Vinyl label
+/// 
 /// @param vinylID/labelName
 
 function VinylGainGet(_id)

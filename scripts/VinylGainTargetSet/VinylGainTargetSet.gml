@@ -1,3 +1,6 @@
+/// Sets the input gain target for a Vinyl playback instance, or a Vinyl label
+/// The input gain will approach the target smoothly over a few frames, determined by the rate
+/// 
 /// @param vinylID/labelName
 /// @param targetGain
 /// @param [rate=VINYL_DEFAULT_GAIN_RATE]

@@ -1,3 +1,5 @@
+/// Returns whether the a Vinyl playback instance is fading out (in "shutdown" mode)
+/// 
 /// @param vinylID
 
 function VinylShutdownGet(_id)

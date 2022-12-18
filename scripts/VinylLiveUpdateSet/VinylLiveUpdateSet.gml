@@ -1,3 +1,6 @@
+/// Enables and disables live update
+///   N.B. This function only works when running from the IDE for the Windows, Mac, or Linux export targets
+/// 
 /// @param state
 
 function VinylLiveUpdateSet(_state)

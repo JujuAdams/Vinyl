@@ -1,3 +1,5 @@
+/// Immediately stops all playback instances
+
 function VinylStopAll()
 {
     var _i = 0;

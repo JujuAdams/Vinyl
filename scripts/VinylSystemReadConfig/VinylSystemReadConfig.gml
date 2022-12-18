@@ -1,3 +1,5 @@
+/// Reads in a data struct, seting asset and labels definition as required
+/// 
 /// @param configData
 
 function VinylSystemReadConfig(_configData)

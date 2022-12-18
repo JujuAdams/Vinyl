@@ -1,3 +1,6 @@
+/// Sets the pitch of a Vinyl playback instance, or Vinyl label
+/// Setting pitch with this function immediately resets the pitch target (as set by VinylPitchTargetSet())
+/// 
 /// @param vinylID/labelName
 /// @param pitch
 

@@ -1,3 +1,5 @@
+/// Starts playing a sound by fading it in, and returns a Vinyl ID to identify the playback instance
+/// 
 /// @param sound
 /// @param [loop]
 /// @param [targetGain=0]

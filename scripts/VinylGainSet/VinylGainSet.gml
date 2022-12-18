@@ -1,3 +1,6 @@
+/// Sets the input gain of a Vinyl playback instance, or Vinyl label
+/// Setting gain with this function immediately resets the gain target (as set by VinylGainTargetSet())
+/// 
 /// @param vinylID/labelName
 /// @param gain
 

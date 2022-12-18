@@ -1,3 +1,5 @@
+/// Returns the current input pitch for a Vinyl playback instance, or a Vinyl label
+/// 
 /// @param vinylID/labelName
 
 function VinylPitchGet(_id)

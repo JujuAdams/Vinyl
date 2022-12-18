@@ -1,3 +1,5 @@
+/// Pauses a Vinyl playback instance
+/// 
 /// @param vinylID/labelName
 
 function VinylPause(_id)

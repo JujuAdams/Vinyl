@@ -1,3 +1,5 @@
+/// Sets the system-wide gain for Vinyl
+/// 
 /// @param gain
 
 function VinylSystemGainSet(_gain)

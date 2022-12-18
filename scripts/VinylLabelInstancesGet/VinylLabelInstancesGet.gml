@@ -1,3 +1,6 @@
+/// Returns the playback instance IDs for a VInyl label as an array
+///   N.B. Do not edit this array! Doing so will lead to undefined behaviour
+/// 
 /// @param labelName
 
 function VinylLabelInstancesGet(_id)

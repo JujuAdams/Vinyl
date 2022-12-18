@@ -1,3 +1,5 @@
+/// Returns if a Vinyl playback instance is paused
+/// 
 /// @param vinylID
 
 function VinylGetPaused()

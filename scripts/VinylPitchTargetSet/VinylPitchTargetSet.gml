@@ -1,3 +1,6 @@
+/// Sets the input pitch target for a Vinyl playback instance, or a Vinyl label
+/// The input pitch will approach the target smoothly over a few frames, determined by the rate
+/// 
 /// @param vinylID/labelName
 /// @param targetPitch
 /// @param [rate=VINYL_DEFAULT_PITCH_RATE]
