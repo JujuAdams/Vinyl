@@ -42,7 +42,7 @@ function __VinylClassAsset(_sound, _newLabelDict, _assetData = {}) constructor
         }
     }
     
-    if (VINYL_DEBUG_PARSER) __VinylTrace("Creating asset definition for \"", audio_get_name(__sound), "\", gain=", __gain, " db, pitch=", 100*__pitch, "%, label=", __DebugLabelNames());
+    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for \"", audio_get_name(__sound), "\", gain=", __gain, " db, pitch=", 100*__pitch, "%, label=", __DebugLabelNames());
     
     static __GetLoopFromLabel = function()
     {

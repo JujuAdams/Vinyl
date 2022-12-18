@@ -33,7 +33,7 @@
 #macro VINYL_DEBUG_LEVEL  0
 
 //Whether to output extra debug information when reading configuration data
-#macro VINYL_DEBUG_PARSER  false
+#macro VINYL_DEBUG_READ_CONFIG  false
 
 //Decibel level that is functionally silent to the ear
 #macro VINYL_SILENCE  -60

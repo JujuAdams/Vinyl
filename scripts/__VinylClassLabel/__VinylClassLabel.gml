@@ -29,7 +29,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     __outputGain  = 0;
     __outputPitch = 1;
     
-    if (VINYL_DEBUG_PARSER) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __assetGain, " db, pitch=", 100*__assetPitch, "%, max instances=", __limitMaxCount);
+    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __assetGain, " db, pitch=", 100*__assetPitch, "%, max instances=", __limitMaxCount);
     
     
     
@@ -90,7 +90,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         __pitchTarget = _oldLabel.__pitchTarget;
         __pitchRate   = _oldLabel.__pitchRate;
         
-        if (VINYL_DEBUG_PARSER)
+        if (VINYL_DEBUG_READ_CONFIG)
         {
             __VinylTrace("Copying state to label \"", __name, "\":");
             __VinylTrace("    gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch in=", 100*__inputPitch, "%/out=", 100*__outputPitch, "%");

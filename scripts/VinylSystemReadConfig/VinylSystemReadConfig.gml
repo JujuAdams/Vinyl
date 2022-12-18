@@ -81,7 +81,7 @@ function VinylSystemReadConfig(_configData)
     //Ensure we have a fallback struct for audio assets
     if (!variable_struct_exists(_newAssetDict, "fallback"))
     {
-        if (VINYL_DEBUG_PARSER) __VinylTrace("Fallback asset case doesn't exist, creating one");
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Fallback asset case doesn't exist, creating one");
         _newAssetDict.fallback = new __VinylClassAsset(-1, _newLabelDict);
     }
     

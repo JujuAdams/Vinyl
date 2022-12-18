@@ -20,9 +20,9 @@ function __VinylValidateMacros()
         __VinylError("VINYL_DEFAULT_PITCH_RATE must be a number greater than zero");
     }
     
-    if not (is_bool(VINYL_DEBUG_PARSER))
+    if not (is_bool(VINYL_DEBUG_READ_CONFIG))
     {
-        __VinylError("VINYL_DEBUG_PARSER must be a boolean (either <true> or <false>)");
+        __VinylError("VINYL_DEBUG_READ_CONFIG must be a boolean (either <true> or <false>)");
     }
     
     if not (is_numeric(VINYL_DEBUG_LEVEL))
