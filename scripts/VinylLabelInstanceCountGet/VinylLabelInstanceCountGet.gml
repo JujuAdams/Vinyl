@@ -1,7 +1,9 @@
 /// @param labelName
 
-function VinylLabelInstancesGet(_id)
+function VinylLabelInstancesCountGet(_id)
 {
+    if (_id == undefined) return 0;
+    
     var _label = global.__vinylLabelDict[$ _id];
     return is_struct(_label)? array_length(_label.__audioArray) : 0;
 }
