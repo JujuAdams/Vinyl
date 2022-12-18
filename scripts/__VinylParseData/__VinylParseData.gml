@@ -24,14 +24,7 @@ function __VinylParseData(_rawData, _strict)
             }
             
             var _labelData = _inputLabelDict[$ _labelName];
-            if (is_struct(_labelData))
-            {
-                var _label = new __VinylClassLabel(_labelName, _parent, false, _labelData[$ "gain"], _labelData[$ "pitch"]);
-            }
-            else
-            {
-                var _label = new __VinylClassLabel(_labelName, _parent, false);
-            }
+            var _label = new __VinylClassLabel(_labelName, _parent, false, _labelData);
             
             _newLabelDict[$ _labelName] = _label;
             array_push(_newLabelOrder, _label);
@@ -118,8 +111,15 @@ function __VinylParseData(_rawData, _strict)
 	{
 		with(global.__vinylPlaying[_i])
 		{
-	        __RecalculateLabels();
-			__outputChanged = true;
+			if (!__VinylCheckExclusivity(__sound))
+			{
+				__Stop();
+			}
+			else
+			{
+		        __RecalculateLabels();
+				__outputChanged = true;
+			}
 		}
 		
 		++_i;

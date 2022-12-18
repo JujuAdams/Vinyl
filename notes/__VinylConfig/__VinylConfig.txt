@@ -16,7 +16,6 @@ assets:
     sndTestTone:
         label: music
 	sndChickenNuggets:
-		pitch: 1
 		label: music
 
 
@@ -36,12 +35,8 @@ labels:
     music:
         exclusive:
             max count: 1
-            prefer newest: true
-            fade out time: 2200
     ambience:
         exclusive:
             max count: 2
-            prefer newest: true
-            fade out time: 5000
     sfx:
 		gain: 0

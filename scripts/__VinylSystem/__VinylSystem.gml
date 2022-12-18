@@ -50,6 +50,11 @@ function __VinylInitialize()
     }
 	
     time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylTick, [], -1));
+	
+	repeat(VINYL_POOL_START_SIZE)
+	{
+		array_push(global.__vinylPool, new __VinylClassInstance());
+	}
 }
 
 function __VinylUpdateData()

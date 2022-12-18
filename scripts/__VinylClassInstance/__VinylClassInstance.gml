@@ -13,6 +13,8 @@ function __VinylClassInstance() constructor
 	    __inputGain  = 0.0;
 	    __inputPitch = 1.0;
 		
+		__shutdown = false;
+		
 		__gainTarget    = 0.0;
 		__gainRate      = VINYL_DEFAULT_GAIN_RATE;
 		__stopOnSilence = true;
@@ -27,27 +29,34 @@ function __VinylClassInstance() constructor
         
 	    __instance = undefined;
 	}
-	
+    
 	
 	
 	#region Gain
 	
 	static __InputGainSet = function(_gain)
 	{
-		if (__inputGain != _gain)
+		if (__shutdown)
 		{
-			__outputChanged = true;
-			
-			__outputGain += _gain - __inputGain;
-			__inputGain = _gain;
+			__VinylTrace("Cannot set gain for instance ", __id, " (playing ", audio_get_name(__sound), "), it is set to shut down");
+			return;
 		}
+		
+		__inputGain = _gain;
 	}
 	
-	static __InputGainTargetSet = function(_targetGain, _rate, _stopAtSilence)
+	static __InputGainTargetSet = function(_targetGain, _rate, _stopAtSilence, _shutdown)
 	{
+		if (__shutdown)
+		{
+			__VinylTrace("Cannot set gain target for instance ", __id, " (playing ", audio_get_name(__sound), "), it is set to shut down");
+			return;
+		}
+		
 		__gainTarget    = _targetGain;
 		__gainRate      = _rate;
 		__stopOnSilence = _stopAtSilence;
+		__shutdown      = (_stopAtSilence && _shutdown);
 	}
 	
 	static __InputGainGet = function()
@@ -55,7 +64,7 @@ function __VinylClassInstance() constructor
 		return __inputGain;
 	}
 	
-	static __GainTargetGet = function()
+	static __InputGainTargetGet = function()
 	{
 		return __gainTarget;
 	}
@@ -73,20 +82,27 @@ function __VinylClassInstance() constructor
 	
 	static __InputPitchSet = function(_pitch)
 	{
-		if (__inputPitch != _pitch)
+		if (__shutdown)
 		{
-			__outputChanged = true;
-			
-			__outputPitch *= _pitch / __inputPitch;
-			__inputPitch = _pitch;
+			__VinylTrace("Cannot set pitch for instance ", __id, " (playing ", audio_get_name(__sound), "), it is set to shut down");
+			return;
 		}
+		
+		__inputPitch = _pitch;
 	}
 	
-	static __InputPitchTargetSet = function(_targetPitch, _rate, _stopOnTarget)
+	static __InputPitchTargetSet = function(_targetPitch, _rate, _stopOnTarget, _shutdown)
 	{
+		if (__shutdown)
+		{
+			__VinylTrace("Cannot set pitch target for instance ", __id, " (playing ", audio_get_name(__sound), "), it is set to shut down");
+			return;
+		}
+		
 		__pitchTarget  = _targetPitch;
 		__pitchRate    = _rate;
 		__stopOnTarget = _stopOnTarget;
+		__shutdown     = (_stopOnTarget && _shutdown);
 	}
 	
 	static __InputPitchGet = function()
@@ -115,16 +131,10 @@ function __VinylClassInstance() constructor
 	    __inputGain  = _gain;
 	    __inputPitch = _pitch;
 		
-		__gainTarget    = __inputGain;
-		__gainRate      = VINYL_DEFAULT_GAIN_RATE;
-		__stopOnSilence = true;
-		
-		__pitchTarget  = __inputPitch;
-		__pitchRate    = VINYL_DEFAULT_PITCH_RATE;
-		__stopOnTarget = false;
+		__gainTarget  = __inputGain;
+		__pitchTarget = __inputPitch;
 		
         __RecalculateLabels();
-		
 	    __instance = audio_play_sound(__sound, 1, __loop, __VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), 0, __outputPitch);
 		
 		if (VINYL_DEBUG)
@@ -140,23 +150,6 @@ function __VinylClassInstance() constructor
     
     static __RecalculateLabels = function()
     {
-		//Add this instance to each label's playing array
-		
-        //Playing instances are removed from labels inside the label's __Tick() method
-        //  N.B. This has no protection for duplicate entries!
-        
-        var _asset = global.__vinylAssetDict[$ __sound] ?? global.__vinylAssetDict.fallback;
-        if (is_struct(_asset))
-        {
-            var _labelArray = _asset.__labelArray;
-            var _i = 0;
-            repeat(array_length(_labelArray))
-            {
-                array_push(_labelArray[_i].__audioArray, __id);
-                ++_i;
-            }
-        }
-		
 		//Update the output values based on the asset and labels
 		__outputGain  = __inputGain;
 		__outputPitch = __inputPitch;
@@ -172,8 +165,17 @@ function __VinylClassInstance() constructor
             repeat(array_length(_labelArray))
             {
                 var _label = _labelArray[_i];
+				
                 __outputGain  += _label.__outputGain;
                 __outputPitch *= _label.__outputPitch;
+				
+				_label.__PushExclusivity();
+				
+				//Add this instance to each label's playing array
+		        //Playing instances are removed from labels inside the label's __Tick() method
+		        //  N.B. This has no protection for duplicate entries!
+                array_push(_label.__audioArray, __id);
+				
                 ++_i;
             }
         }
@@ -232,25 +234,25 @@ function __VinylClassInstance() constructor
         }
         else
 		{
-			var _gainDelta = clamp(__gainTarget - __inputGain, -__gainRate, __gainRate);
-			if (_gainDelta != 0)
+			var _delta = clamp(__gainTarget - __inputGain, -__gainRate, __gainRate);
+			if (_delta != 0)
 			{
-				__inputGain  += _gainDelta;
-				__outputGain += _gainDelta;
+				__inputGain  += _delta;
+				__outputGain += _delta;
 				__outputChanged = true;
 				
-				if (__stopOnSilence && (_gainDelta < 0) && (__outputGain <= VINYL_SILENCE))
+				if (__stopOnSilence && (_delta < 0) && ((__inputGain <= VINYL_SILENCE) || (__outputGain <= VINYL_SILENCE)))
 				{
 					__Stop();
 					return;
 				}
 			}
 			
-			var _pitchDelta = clamp(__pitchTarget - __inputPitch, -__pitchRate, __pitchRate);
-			if (_pitchDelta != 0)
+			var _delta = clamp(__pitchTarget - __inputPitch, -__pitchRate, __pitchRate);
+			if (_delta != 0)
 			{
-				__inputPitch  += _pitchDelta;
-				__outputPitch += _pitchDelta;
+				__inputPitch  += _delta;
+				__outputPitch += _delta;
 				__outputChanged = true;
 				
 				if (__stopOnTarget && (__inputPitch == __pitchTarget))
