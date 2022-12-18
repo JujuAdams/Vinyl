@@ -4,6 +4,8 @@
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.yaml"
 #macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
 
+#macro __VINYL_GAIN_EXPONENTIAL_CURVE  true
+
 enum __VINYL_POOL_STATE
 {
     __POOLED,
