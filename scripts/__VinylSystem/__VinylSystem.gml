@@ -1,4 +1,4 @@
-#macro __VINYL_VERSION  "4.0.1 alpha"
+#macro __VINYL_VERSION  "4.0.2 alpha"
 #macro __VINYL_DATE     "2022-12-18"
 
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.yaml"
