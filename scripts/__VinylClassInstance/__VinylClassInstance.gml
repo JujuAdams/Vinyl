@@ -18,7 +18,7 @@ function __VinylClassInstance() constructor
         
         __gainTarget    = 0.0;
         __gainRate      = VINYL_DEFAULT_GAIN_RATE;
-        __stopOnSilence = true;
+        __stopAtSilence = true;
         
         __pitchTarget  = 1.0;
         __pitchRate    = VINYL_DEFAULT_PITCH_RATE;
@@ -43,7 +43,13 @@ function __VinylClassInstance() constructor
             return;
         }
         
-        __inputGain = _gain;
+        if (VINYL_DEBUG_LEVEL >= 1)
+        {
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " gain=", _gain, " db");
+        }
+        
+        __inputGain  = _gain;
+        __gainTarget = _gain;
     }
     
     static __InputGainTargetSet = function(_targetGain, _rate, _stopAtSilence, _shutdown)
@@ -54,25 +60,20 @@ function __VinylClassInstance() constructor
             return;
         }
         
+        if (VINYL_DEBUG_LEVEL >= 1)
+        {
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " gain target=", _targetGain, " db, rate=", _rate, " db/frame, stop at silence=", _stopAtSilence? "true" : "false", ", shutdown=", _shutdown? "true" : "false");
+        }
+        
         __gainTarget    = _targetGain;
         __gainRate      = _rate;
-        __stopOnSilence = _stopAtSilence;
+        __stopAtSilence = _stopAtSilence;
         __shutdown      = (_stopAtSilence && _shutdown);
     }
     
-    static __InputGainGet = function()
+    static __FadeOut = function(_rate)
     {
-        return __inputGain;
-    }
-    
-    static __InputGainTargetGet = function()
-    {
-        return __gainTarget;
-    }
-    
-    static __OutputGainGet = function()
-    {
-        return __outputGain;
+        __InputGainTargetSet(VINYL_SILENCE, _rate, true, true)
     }
     
     #endregion
@@ -89,7 +90,13 @@ function __VinylClassInstance() constructor
             return;
         }
         
-        __inputPitch = _pitch;
+        if (VINYL_DEBUG_LEVEL >= 1)
+        {
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " pitch=", 100*_pitch, "%");
+        }
+        
+        __inputPitch  = _pitch;
+        __pitchTarget = _pitch;
     }
     
     static __InputPitchTargetSet = function(_targetPitch, _rate, _stopOnTarget, _shutdown)
@@ -100,25 +107,15 @@ function __VinylClassInstance() constructor
             return;
         }
         
+        if (VINYL_DEBUG_LEVEL >= 1)
+        {
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " pitch target=", 100*_targetPitch, "%, rate=", 100*_rate, "%/frame, stop at silence=", _stopOnTarget? "true" : "false", ", shutdown=", _shutdown? "true" : "false");
+        }
+        
         __pitchTarget  = _targetPitch;
         __pitchRate    = _rate;
         __stopOnTarget = _stopOnTarget;
         __shutdown     = (_stopOnTarget && _shutdown);
-    }
-    
-    static __InputPitchGet = function()
-    {
-        return __inputPitch;
-    }
-    
-    static __PitchTargetGet = function()
-    {
-        return __pitchTarget;
-    }
-    
-    static __OutputPitchGet = function()
-    {
-        return __outputPitch;
     }
     
     #endregion
@@ -175,6 +172,26 @@ function __VinylClassInstance() constructor
                 ++_i;
             }
         }
+    }
+    
+    static __Pause = function()
+    {
+        if (!is_numeric(__instance)) return;
+        if (audio_is_paused(__instance)) return;
+        
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pausing instance ", __id, " playing ", audio_get_name(__sound), " (GMinst=", __instance, ")");
+        
+        audio_pause_sound(__instance);
+    }
+    
+    static __Resume = function()
+    {
+        if (!is_numeric(__instance)) return;
+        if (!audio_is_paused(__instance)) return;
+        
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming instance ", __id, " playing ", audio_get_name(__sound), " (GMinst=", __instance, ")");
+        
+        audio_resume_sound(__instance);
     }
     
     static __Stop = function()
@@ -264,7 +281,7 @@ function __VinylClassInstance() constructor
                 __outputGain += _delta;
                 __outputChanged = true;
                 
-                if (__stopOnSilence && (_delta < 0) && ((__inputGain <= VINYL_SILENCE) || (__outputGain <= VINYL_SILENCE)))
+                if (__stopAtSilence && (_delta < 0) && ((__inputGain <= VINYL_SILENCE) || (__outputGain <= VINYL_SILENCE)))
                 {
                     __Stop();
                     return;

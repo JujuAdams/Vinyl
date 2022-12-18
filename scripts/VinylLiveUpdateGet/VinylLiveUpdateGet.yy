@@ -5,7 +5,7 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "System",
-    "path": "folders/Vinyl/This way to the party/System.yy",
+    "name": "Advanced",
+    "path": "folders/Vinyl/This way to the party/Advanced.yy",
   },
 }

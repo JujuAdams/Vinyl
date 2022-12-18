@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylStopAll",
+  "name": "VinylGetPaused",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
