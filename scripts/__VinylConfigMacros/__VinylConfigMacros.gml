@@ -38,9 +38,6 @@
 //Decibel level that is functionally silent to the ear
 #macro VINYL_SILENCE  -60
 
-//Size of a tab when reading YAML, measured in number-of-spaces
-#macro VINYL_YAML_TAB_SIZE  4
-
 //Number of audio instances pre-created in the pool
 #macro VINYL_POOL_START_SIZE  30
 

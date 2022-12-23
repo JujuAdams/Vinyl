@@ -39,10 +39,4 @@ function __VinylValidateMacros()
     {
         __VinylError("VINYL_SILENCE must be a number greater than or equal to -60, and less than 0");
     }
-    
-    if not (is_numeric(VINYL_YAML_TAB_SIZE) && (VINYL_YAML_TAB_SIZE == floor(VINYL_YAML_TAB_SIZE)) && (VINYL_YAML_TAB_SIZE > 0))
-    {
-        
-        __VinylError("VINYL_YAML_TAB_SIZE must be an integer greater than zero");
-    }
 }

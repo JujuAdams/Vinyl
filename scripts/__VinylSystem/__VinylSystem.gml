@@ -1,7 +1,7 @@
 #macro __VINYL_VERSION  "4.0.2 alpha"
 #macro __VINYL_DATE     "2022-12-18"
 
-#macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.yaml"
+#macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.json"
 #macro __VINYL_CONFIG_NOTE_NAME      ((asset_get_index("__Vinyl_Test_Marker__") >= 0)? "__VinylTestConfig" : "__VinylConfig")
 
 #macro __VINYL_GAIN_EXPONENTIAL_CURVE  true
@@ -125,11 +125,11 @@ function __VinylUpdateData()
         
         if (_firstUpdate)
         {
-            __VinylError("There was an error whilst reading \"", _filename, "\"\n- Check the file contains valid YAML\n- Check that the config meets Vinyl's requirements\n- Check the nature of error by reading the output log");
+            __VinylError("There was an error whilst reading \"", _filename, "\"\n- Check the file contains valid JSON\n- Check that the config meets Vinyl's requirements\n- Check the nature of error by reading the output log");
         }
         else
         {
-            __VinylTrace("There was an error whilst reading \"", _filename, "\"\n- Check the file contains valid YAML\n- Check that the config meets Vinyl's requirements\n- Check the nature of error by reading the output log");
+            __VinylTrace("There was an error whilst reading \"", _filename, "\"\n- Check the file contains valid JSON\n- Check that the config meets Vinyl's requirements\n- Check the nature of error by reading the output log");
         }
     }
     finally
