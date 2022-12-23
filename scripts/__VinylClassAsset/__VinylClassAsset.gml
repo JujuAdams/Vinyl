@@ -1,8 +1,8 @@
 /// @param sound
-/// @param newLabelDict
+/// @param labelDict
 /// @param [assetData]
 
-function __VinylClassAsset(_sound, _newLabelDict, _assetData = {}) constructor
+function __VinylClassAsset(_sound, _labelDict, _assetData = {}) constructor
 { 
     __sound = _sound;
     __gain  = _assetData[$ "gain" ] ?? 0;
@@ -27,7 +27,7 @@ function __VinylClassAsset(_sound, _newLabelDict, _assetData = {}) constructor
             var _substring = string_copy(_labelString, _prevPos, _pos - _prevPos);
                 _substring = string_replace_all(_substring, " ", "");
             
-            var _labelData = _newLabelDict[$ _substring];
+            var _labelData = _labelDict[$ _substring];
             if (_labelData == undefined)
             {
                 __VinylTrace("Warning! Label \"", _substring, "\" could not be found (asset was \"", audio_get_name(__sound), "\")");
@@ -43,6 +43,8 @@ function __VinylClassAsset(_sound, _newLabelDict, _assetData = {}) constructor
     }
     
     if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for \"", audio_get_name(__sound), "\", gain=", __gain, " db, pitch=", 100*__pitch, "%, label=", __DebugLabelNames());
+    
+    
     
     static __GetLoopFromLabel = function()
     {
