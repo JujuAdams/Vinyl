@@ -2,7 +2,7 @@
 #macro __VINYL_DATE     "2022-12-18"
 
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.json"
-#macro __VINYL_CONFIG_NOTE_NAME      ((asset_get_index("__Vinyl_Test_Marker__") >= 0)? "__VinylTestConfig" : "__VinylConfig")
+#macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
 
 #macro __VINYL_GAIN_EXPONENTIAL_CURVE  true
 
@@ -25,8 +25,6 @@ function __VinylInitialize()
     __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
     
     __VinylValidateMacros();
-    
-    if (asset_get_index("__Vinyl_Test_Marker__") >= 0) __VinylTrace("Using test rig");
     
     if (!file_exists(__VINYL_DATA_BUNDLE_FILENAME))
     {

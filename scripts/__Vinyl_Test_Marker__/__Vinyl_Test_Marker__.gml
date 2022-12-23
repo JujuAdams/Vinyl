@@ -1,1 +1,0 @@
-function __Vinyl_Test_Marker__() {}
