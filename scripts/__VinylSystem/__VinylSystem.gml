@@ -26,6 +26,8 @@ function __VinylInitialize()
     
     __VinylValidateMacros();
     
+    if (asset_get_index("__Vinyl_Test_Marker__") >= 0) __VinylTrace("Using test rig");
+    
     if (!file_exists(__VINYL_DATA_BUNDLE_FILENAME))
     {
         __VinylError("Could not find \"", __VINYL_DATA_BUNDLE_FILENAME, "\"\n- Ensure that \"", __VINYL_DATA_BUNDLE_FILENAME, "\" has been added to your project's Included Files");
@@ -102,7 +104,7 @@ function __VinylUpdateData()
     try
     {
         var _buffer = buffer_load(_filename);
-        var _data = __VinylSnapBufferReadYAML(_buffer, 0, undefined, undefined, VINYL_YAML_TAB_SIZE);
+        var _data = __VinylBufferReadLooseJSON(_buffer, 0);
         
         _success = true;
         __VinylTrace("Loaded data in ", (get_timer() - _t)/1000, "ms");

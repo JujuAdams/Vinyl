@@ -1,24 +1,37 @@
-assets:
-    sndTestTone:
-        label: music
-    sndChickenNuggets:
-        gain: -8
-        label: music
-
-labels:
-    music:
-        loop: true
-        limit: 1
-    ambience:
-        loop: true
-        limit: 1
-    menu:
-    gameplay:
-    sfx:
-        children:
-            speech:
-                gain: 0
-            footsteps:
-                gain: 0
-            ui:
-                gain: 0
+{
+    assets: {
+        sndTestTone: {
+            label: music
+        }
+        sndChickenNuggets: {
+            gain: -8
+            label: music
+        }
+    }
+    
+    labels: {
+        music: {
+            loop: true
+            limit: 1
+        }
+        ambience: {
+            loop: true
+            limit: 1
+        }
+        menu: {}
+        gameplay: {}
+        sfx: {
+            children: {
+                speech: {
+                    gain: 0
+                }
+                footsteps: {
+                    gain: 0
+                }
+                ui: {
+                    gain: 0
+                }
+            }
+        }
+    }
+}
