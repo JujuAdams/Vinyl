@@ -15,30 +15,28 @@ function __VinylClassAsset(_sound, _labelDict, _assetData = {}) constructor
     
     
     //Process label string to extract each label name
-    var _labelString = _assetData[$ "label"] ?? _assetData[$ "labels"];
-    if (is_string(_labelString))
+    var _labelNameArray = _assetData[$ "label"] ?? _assetData[$ "labels"];
+    if (is_string(_labelNameArray)) _labelNameArray = [_labelNameArray];
+    
+    if (is_array(_labelNameArray))
     {
-        _labelString += ",";
-        
-        var _prevPos = 1;
-        var _pos = string_pos_ext(",", _labelString, _prevPos);
-        while(_pos > 0)
+        var _foundLabelDict = {};
+        var _i = 0;
+        repeat(array_length(_labelNameArray))
         {
-            var _substring = string_copy(_labelString, _prevPos, _pos - _prevPos);
-                _substring = string_replace_all(_substring, " ", "");
+            var _labelName =_labelNameArray[_i];
             
-            var _labelData = _labelDict[$ _substring];
+            var _labelData = _labelDict[$ _labelName];
             if (_labelData == undefined)
             {
-                __VinylTrace("Warning! Label \"", _substring, "\" could not be found (asset was \"", audio_get_name(__sound), "\")");
+                __VinylTrace("Warning! Label \"", _labelName, "\" could not be found (asset was \"", audio_get_name(__sound), "\")");
             }
             else
             {
-                array_push(__labelArray, _labelData);
+                _labelData.__BuildAssetLabelArray(__labelArray, _foundLabelDict);
             }
             
-            _prevPos = _pos+1;
-            _pos = string_pos_ext(",", _labelString, _prevPos);
+            ++_i;
         }
     }
     
@@ -60,8 +58,6 @@ function __VinylClassAsset(_sound, _labelDict, _assetData = {}) constructor
     
     static __DebugLabelNames = function()
     {
-        if (VINYL_DEBUG_LEVEL <= 0) return "";
-        
         var _labelReadable = "";
         
         var _size = array_length(__labelArray);

@@ -1,20 +1,4 @@
 {
-    // Audio assets may have three properties defined:
-    //   1. "gain", a number, the gain for the asset in decibels
-    //   2. "pitch", a number, the pitch for the asset as a coefficient
-    //   3. "label", a string containing the name of the label, or a comma-separated list of labels. Label gain and pitch are applied multiplicatively if more than one label is defined
-    // 
-    // Any audio asset not explicitly defined uses the "fallback" audio asset definition
-    
-    assets: {
-        sndTestTone: {
-            label: music
-        }
-        sndChickenNuggets: {
-            label: music
-        }
-    }
-    
     // Label names must not contain spaces
     // Labels may have siz properties defined:
     //   1. "gain", a number, the gain for the asset in decibels
@@ -48,6 +32,24 @@
                     gain: 0
                 }
             }
+        }
+    }
+    
+    
+    
+    // Audio assets may have three properties defined:
+    //   1. "gain", a number, the gain for the asset in decibels
+    //   2. "pitch", a number, the pitch for the asset as a coefficient
+    //   3. "label", a string containing the name of the label, or an array of label names. Label gain and pitch are applied multiplicatively if more than one label is defined
+    // 
+    // Any audio asset not explicitly defined uses the "fallback" audio asset definition
+    
+    assets: {
+        sndTestTone: {
+            label: music
+        }
+        sndChickenNuggets: {
+            label: music
         }
     }
 }

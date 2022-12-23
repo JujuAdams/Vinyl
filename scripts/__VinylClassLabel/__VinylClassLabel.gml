@@ -71,15 +71,6 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         }
     }
     
-    /*
-    static __HasAncestor = function(_label)
-    {
-        if (__parent == _label) return true;
-        if (is_struct(__parent)) return __parent.__HasAncestor(_label);
-        return false;
-    }
-    */
-    
     static __CopyOldState = function(_oldLabel)
     {
         __inputGain  = _oldLabel.__inputGain;
@@ -120,6 +111,17 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         //Playing instances are removed from labels inside the label's __Tick() method
         //  N.B. This has no protection for duplicate entries!
         array_push(__audioArray, _id);
+    }
+    
+    static __BuildAssetLabelArray = function(_labelArray, _labelDict)
+    {
+        if (!variable_struct_exists(_labelDict, __name))
+        {
+            _labelDict[$ __name] = self;
+            array_push(_labelArray, self);
+        }
+        
+        if (is_struct(__parent)) __parent.__BuildAssetLabelArray(_labelArray, _labelDict);
     }
     
     
@@ -204,12 +206,6 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         
         __outputGain  = __inputGain  + __assetGain;
         __outputPitch = __inputPitch * __assetPitch;
-        
-        if (is_struct(__parent))
-        {
-            __outputGain  += __parent.__outputGain;
-            __outputPitch *= __parent.__outputPitch;
-        }
         
         _gainDelta  = __outputGain  - _gainDelta;
         _pitchDelta = __outputPitch / _pitchDelta;

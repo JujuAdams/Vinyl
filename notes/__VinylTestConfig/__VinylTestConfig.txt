@@ -1,14 +1,4 @@
 {
-    assets: {
-        sndTestTone: {
-            label: music
-        }
-        sndChickenNuggets: {
-            gain: -8
-            label: music
-        }
-    }
-    
     labels: {
         music: {
             loop: true
@@ -32,6 +22,17 @@
                     gain: 0
                 }
             }
+        }
+    }
+    
+    
+    
+    assets: {
+        sndTestTone: {
+            label: music
+        }
+        sndChickenNuggets: {
+            label: [music, ui, sfx]
         }
     }
 }

@@ -15,7 +15,6 @@
         }
     }
     
-    
     // Label names must not contain spaces
     // Labels may have siz properties defined:
     //   1. "gain", a number, the gain for the asset in decibels
