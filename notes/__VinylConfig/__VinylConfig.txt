@@ -1,3 +1,13 @@
+// This Note asset contains configuration information for audio in your games. This functions only
+// affect audio played by Vinyl functions. If live updating is enabled (VINYL_LIVE_UPDATE_PERIOD is
+// set larger than 0, and VinylLiveUpdateSet() is set to <true>) then editing this Note asset will
+// affect audio in-game.
+// 
+// Configuration in this script can be defined using JSON, although the parser used to read JSON
+// from this Note asset is very relaxed.
+
+
+
 {
     // Label names must not contain spaces
     // Labels may have siz properties defined:
