@@ -27,7 +27,7 @@
         ambience: {
             loop: true
             limit: 1
-        {
+        }
         menu: {}
         gameplay: {}
         sfx: {
