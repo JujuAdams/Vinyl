@@ -1,20 +1,14 @@
+// This Note asset contains configuration information for audio in your games. This functions only
+// affect audio played by Vinyl functions. If live updating is enabled (VINYL_LIVE_UPDATE_PERIOD is
+// set larger than 0, and VinylLiveUpdateSet() is set to <true>) then editing this Note asset will
+// affect audio in-game.
+// 
+// Configuration in this script can be defined using JSON, although the parser used to read JSON
+// from this Note asset is very relaxed.
+
+
+
 {
-    // Audio assets may have three properties defined:
-    //   1. "gain", a number, the gain for the asset in decibels
-    //   2. "pitch", a number, the pitch for the asset as a coefficient
-    //   3. "label", a string containing the name of the label, or a comma-separated list of labels. Label gain and pitch are applied multiplicatively if more than one label is defined
-    // 
-    // Any audio asset not explicitly defined uses the "fallback" audio asset definition
-    
-    assets: {
-        sndTestTone: {
-            label: music
-        }
-        sndChickenNuggets: {
-            label: music
-        }
-    }
-    
     // Label names must not contain spaces
     // Labels may have siz properties defined:
     //   1. "gain", a number, the gain for the asset in decibels
@@ -33,7 +27,7 @@
         ambience: {
             loop: true
             limit: 1
-        {
+        }
         menu: {}
         gameplay: {}
         sfx: {
@@ -48,6 +42,24 @@
                     gain: 0
                 }
             }
+        }
+    }
+    
+    
+    
+    // Audio assets may have three properties defined:
+    //   1. "gain", a number, the gain for the asset in decibels
+    //   2. "pitch", a number, the pitch for the asset as a coefficient
+    //   3. "label", a string containing the name of the label, or an array of label names. Label gain and pitch are applied multiplicatively if more than one label is defined
+    // 
+    // Any audio asset not explicitly defined uses the "fallback" audio asset definition
+    
+    assets: {
+        sndTestTone: {
+            label: music
+        }
+        sndChickenNuggets: {
+            label: music
         }
     }
 }
