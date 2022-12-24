@@ -10,7 +10,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     __dynamic = _dynamic;
     
     __assetGain  = _labelData[$ "gain" ] ?? 0;
-    __assetPitch = _labelData[$ "pitch"] ?? 1;
+    __assetPitch = _labelData[$ "pitch"] ?? 100;
     __assetLoop  = _labelData[$ "loop" ] ?? undefined;
     
     __limitMaxCount    = _labelData[$ "limit"] ?? infinity;
@@ -29,7 +29,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     __outputGain  = 0;
     __outputPitch = 1;
     
-    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __assetGain, " db, pitch=", 100*__assetPitch, "%, max instances=", __limitMaxCount);
+    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __assetGain, " db, pitch=", __assetPitch, "%, max instances=", __limitMaxCount);
     
     
     
@@ -84,9 +84,9 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         if (VINYL_DEBUG_READ_CONFIG)
         {
             __VinylTrace("Copying state to label \"", __name, "\":");
-            __VinylTrace("    gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch in=", 100*__inputPitch, "%/out=", 100*__outputPitch, "%");
-            __VinylTrace("    gain target=", __gainTarget, " dB, rate=", __gainRate, " dB");
-            __VinylTrace("    pitch target=", __pitchTarget, "%, rate=", __pitchRate, " dB");
+            __VinylTrace("    gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch in=", __inputPitch, "%/out=", __outputPitch, "%");
+            __VinylTrace("    gain target=", __gainTarget, " dB, rate=", __gainRate, " dB/s");
+            __VinylTrace("    pitch target=", __pitchTarget, "%, rate=", __pitchRate, "%/s");
         }
     }
     
@@ -172,7 +172,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Label \"", __name, "\" pitch=", 100*_pitch, "%");
+            __VinylTrace("Label \"", __name, "\" pitch=", _pitch, "%");
         }
         
         __inputPitch  = _pitch;
@@ -183,7 +183,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Label \"", __name, "\" pitch target=", 100*_targetPitch, "%, rate=", 100*_rate, "%/s");
+            __VinylTrace("Label \"", __name, "\" pitch target=", _targetPitch, "%, rate=", _rate, "%/s");
         }
         
         __pitchTarget = _targetPitch;

@@ -2,7 +2,7 @@
 /// Setting pitch with this function immediately resets the pitch target (as set by VinylPitchTargetSet())
 /// 
 /// @param vinylID/labelName
-/// @param pitch
+/// @param pitch%
 
 function VinylPitchSet(_id, _pitch)
 {

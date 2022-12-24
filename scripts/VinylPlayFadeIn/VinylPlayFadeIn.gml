@@ -6,7 +6,7 @@
 /// @param [rate=VINYL_DEFAULT_GAIN_RATE]
 /// @param [pitch=1]
 
-function VinylPlayFadeIn(_sound, _loop = undefined, _targetGain = 0, _rate = VINYL_DEFAULT_GAIN_RATE, _pitch = 1)
+function VinylPlayFadeIn(_sound, _loop = undefined, _targetGain = 0, _rate = VINYL_DEFAULT_GAIN_RATE, _pitch = 100)
 {
     var _id = __VinylDepoolInstance();
     var _instance = global.__vinylIdToInstanceDict[? _id];

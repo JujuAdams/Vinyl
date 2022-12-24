@@ -15,7 +15,7 @@
 
 //Default rate of pitch adjument when approaching a pitch target
 //Measured in %/second
-#macro VINYL_DEFAULT_PITCH_RATE  0.3
+#macro VINYL_DEFAULT_PITCH_RATE  30
 
 //Maximum output gain for audio instances. Must be greater than or equal to zero
 //Choose lower values to get more resolution in perceived volume levels

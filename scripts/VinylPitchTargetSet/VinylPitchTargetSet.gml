@@ -2,7 +2,7 @@
 /// The input pitch will approach the target smoothly over a few frames, determined by the rate
 /// 
 /// @param vinylID/labelName
-/// @param targetPitch
+/// @param targetPitch%
 /// @param [rate=VINYL_DEFAULT_PITCH_RATE]
 
 function VinylPitchTargetSet(_id, _targetPitch, _rate = VINYL_DEFAULT_PITCH_RATE)

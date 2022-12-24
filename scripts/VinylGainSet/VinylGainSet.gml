@@ -2,7 +2,7 @@
 /// Setting gain with this function immediately resets the gain target (as set by VinylGainTargetSet())
 /// 
 /// @param vinylID/labelName
-/// @param gain
+/// @param gainDB
 
 function VinylGainSet(_id, _gain)
 {

@@ -2,7 +2,7 @@
 /// The input gain will approach the target smoothly over a few frames, determined by the rate
 /// 
 /// @param vinylID/labelName
-/// @param targetGain
+/// @param targetGainDB
 /// @param [rate=VINYL_DEFAULT_GAIN_RATE]
 
 function VinylGainTargetSet(_id, _targetGain, _rate = VINYL_DEFAULT_GAIN_RATE)

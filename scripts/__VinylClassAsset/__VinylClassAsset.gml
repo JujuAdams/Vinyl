@@ -6,7 +6,7 @@ function __VinylClassAsset(_sound, _labelDict, _assetData = {}) constructor
 { 
     __sound = _sound;
     __gain  = _assetData[$ "gain" ] ?? 0;
-    __pitch = _assetData[$ "pitch"] ?? 1;
+    __pitch = _assetData[$ "pitch"] ?? 100;
     
     if (VINYL_DEBUG_LEVEL >= 1) __name = audio_get_name(__sound);
     
@@ -40,7 +40,7 @@ function __VinylClassAsset(_sound, _labelDict, _assetData = {}) constructor
         }
     }
     
-    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for \"", audio_get_name(__sound), "\", gain=", __gain, " db, pitch=", 100*__pitch, "%, label=", __DebugLabelNames());
+    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for \"", audio_get_name(__sound), "\", gain=", __gain, " db, pitch=", __pitch, "%, label=", __DebugLabelNames());
     
     
     
