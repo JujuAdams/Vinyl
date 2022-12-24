@@ -2,7 +2,7 @@
 /// 
 /// @param sound
 /// @param [loop]
-/// @param [targetGain=0]
+/// @param [targetGain=0dB]
 /// @param [rate=VINYL_DEFAULT_GAIN_RATE]
 /// @param [pitch=100%]
 
