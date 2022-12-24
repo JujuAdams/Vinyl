@@ -5,8 +5,45 @@
 function __VinylClassAsset(_sound, _labelDict, _assetData = {}) constructor
 { 
     __sound = _sound;
-    __gain  = _assetData[$ "gain" ] ?? 0;
-    __pitch = _assetData[$ "pitch"] ?? 100;
+    
+    var _gain  = _assetData[$ "gain" ] ?? 0;
+    var _pitch = _assetData[$ "pitch"] ?? 100;
+    
+    if (!is_numeric(_gain)) __VinylError("Error in label \"", __name, "\"\nGain must be a number");
+    __gain = _gain;
+    
+    if (is_numeric(_pitch) && (_pitch >= 0))
+    {
+        __pitchLo = _pitch;
+        __pitchHi = _pitch;
+    }
+    else if (is_array(_pitch))
+    {
+        if (array_length(_pitch) != 2) __VinylError("Error in label \"", __name, "\"\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
+        
+        __pitchLo = _pitch[0];
+        __pitchHi = _pitch[1];
+        
+        if (__pitchLo > __pitchHi)
+        {
+            if (GM_build_type == "run")
+            {
+                __VinylError("Warning! Error in label \"", __name, "\"\nLow pitch (", __pitchLo, ") is greater than high pitch (", __pitchHi, ")");
+            }
+            else
+            {
+                __VinylTrace("Warning! Error in label \"", __name, "\". Low pitch (", __pitchLo, ") is greater than high pitch (", __pitchHi, ")");
+            }
+            
+            var _temp = __pitchLo;
+            __pitchLo = __pitchHi;
+            __pitchHi = _temp;
+        }
+    }
+    else
+    {
+        __VinylError("Error in label \"", __name, "\"\nPitch must be either a number greater than or equal to zero, or a two-element array");
+    }
     
     if (VINYL_DEBUG_LEVEL >= 1) __name = audio_get_name(__sound);
     
@@ -40,7 +77,7 @@ function __VinylClassAsset(_sound, _labelDict, _assetData = {}) constructor
         }
     }
     
-    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for \"", audio_get_name(__sound), "\", gain=", __gain, " db, pitch=", __pitch, "%, label=", __DebugLabelNames());
+    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for \"", audio_get_name(__sound), "\", gain=", __gain, " db, pitch=", __pitchLo, "% -> ", __pitchHi, "%, label=", __DebugLabelNames());
     
     
     

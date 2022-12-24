@@ -16,10 +16,13 @@ function __VinylClassInstance() constructor
         
         __shutdown = false;
         
-        __gainTarget  = 0.0;
+        __gainTarget  = __inputGain;
         __gainRate    = VINYL_DEFAULT_GAIN_RATE;
-        __pitchTarget = 100;
+        __pitchTarget = __inputPitch;
         __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
+        
+        __randomQ     = 0.5;
+        __randomPitch = 100;
         
         __outputChanged = false;
         __outputGain    = 0.0;
@@ -126,6 +129,8 @@ function __VinylClassInstance() constructor
         __gainTarget  = __inputGain;
         __pitchTarget = __inputPitch;
         
+        __randomQ = __VinylRandom(1);
+        
         __RecalculateLabels();
         __instance = audio_play_sound(__sound, 1, __loop, __VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), 0, __outputPitch/100);
         
@@ -160,8 +165,9 @@ function __VinylClassInstance() constructor
         var _asset = __GetAsset();
         if (is_struct(_asset))
         {
-            __outputGain  += _asset.__gain;
-            __outputPitch *= _asset.__pitch/100;
+            __outputGain += _asset.__gain;
+            var _assetPitch = lerp(_label.__pitchLo, _label.__pitchHi, __randomQ);
+            __outputPitch *= _assetPitch/100;
             
             var _labelArray = _asset.__labelArray;
             var _i = 0;
@@ -169,8 +175,9 @@ function __VinylClassInstance() constructor
             {
                 var _label = _labelArray[_i];
                 
-                __outputGain  += _label.__outputGain;
-                __outputPitch *= _label.__outputPitch/100;
+                __outputGain += _label.__outputGain;
+                var _labelPitch = lerp(_label.__outputPitchLo, _label.__outputPitchHi, __randomQ);
+                __outputPitch *= _labelPitch/100;
                 
                 _label.__AddInstance(__id);
                 

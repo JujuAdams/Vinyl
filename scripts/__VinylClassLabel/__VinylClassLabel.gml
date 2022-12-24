@@ -9,27 +9,80 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     __parent  = _parent;
     __dynamic = _dynamic;
     
-    __assetGain  = _labelData[$ "gain" ] ?? 0;
-    __assetPitch = _labelData[$ "pitch"] ?? 100;
-    __assetLoop  = _labelData[$ "loop" ] ?? undefined;
     
-    __limitMaxCount    = _labelData[$ "limit"] ?? infinity;
-    __limitFadeOutRate = abs(_labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE);
     
+    //Unpack the definition data
+    var _gain         = _labelData[$ "gain" ] ?? 0;
+    var _pitch        = _labelData[$ "pitch"] ?? 100;
+    var _loop         = _labelData[$ "loop" ] ?? undefined;
+    var _limit        = _labelData[$ "limit"] ?? 100;
+    var _limitFadeOut = _labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE;
+    
+    if (!is_numeric(_gain)) __VinylError("Error in label \"", __name, "\"\nGain must be a number");
+    __assetGain = _gain;
+    
+    if (!is_bool(_loop) && !is_undefined(_loop)) __VinylError("Error in label \"", __name, "\"\nLoop behaviour must be a boolean (<true> or <false>)");
+    __assetLoop = _loop;
+    
+    if (is_numeric(_pitch) && (_pitch >= 0))
+    {
+        __assetPitchLo = _pitch;
+        __assetPitchHi = _pitch;
+    }
+    else if (is_array(_pitch))
+    {
+        if (array_length(_pitch) != 2) __VinylError("Error in label \"", __name, "\"\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
+        
+        __assetPitchLo = _pitch[0];
+        __assetPitchHi = _pitch[1];
+        
+        if (__assetPitchLo > __assetPitchHi)
+        {
+            if (GM_build_type == "run")
+            {
+                __VinylError("Warning! Error in label \"", __name, "\"\nLow pitch (", __assetPitchLo, ") is greater than high pitch (", __assetPitchHi, ")");
+            }
+            else
+            {
+                __VinylTrace("Warning! Error in label \"", __name, "\". Low pitch (", __assetPitchLo, ") is greater than high pitch (", __assetPitchHi, ")");
+            }
+            
+            var _temp = __assetPitchLo;
+            __assetPitchLo = __assetPitchHi;
+            __assetPitchHi = _temp;
+        }
+    }
+    else
+    {
+        __VinylError("Error in label \"", __name, "\"\nPitch must be either a number greater than or equal to zero, or a two-element array");
+    }
+    
+    if (!is_numeric(_limit) || (_limit <= 0)) __VinylError("Error in label \"", __name, "\"\nInstance limit must be a number greater than zero");
+    __limitMaxCount = _limit;
+    
+    if (!is_numeric(_limitFadeOut) || (_limitFadeOut <= 0)) __VinylError("Error in label \"", __name, "\"\nLimit-related fade in rate must be a number greater than zero");
+    __limitFadeOutRate = _limitFadeOut;
+    
+    
+    
+    //Set remainder of the state
     __audioArray = [];
     
     __inputGain  = 0;
-    __inputPitch = 1;
+    __inputPitch = 100;
     
-    __gainTarget  = 0.0;
+    __gainTarget  = __inputGain;
     __gainRate    = VINYL_DEFAULT_GAIN_RATE;
-    __pitchTarget = 1.0;
+    __pitchTarget = __inputPitch;
     __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
     
-    __outputGain  = 0;
-    __outputPitch = 1;
+    __outputGain  = __inputGain;
+    __outputPitch = __inputPitch;
     
-    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __assetGain, " db, pitch=", __assetPitch, "%, max instances=", __limitMaxCount);
+    __outputPitchLo = __assetPitchLo;
+    __outputPitchHi = __assetPitchHi;
+    
+    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __outputGain, " db, pitch=", __outputPitchLo, "% -> ", __outputPitchHi, "%, max instances=", __limitMaxCount);
     
     
     
@@ -204,8 +257,10 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         var _gainDelta  = __outputGain;
         var _pitchDelta = __outputPitch;
         
-        __outputGain  = __inputGain  + __assetGain;
-        __outputPitch = __inputPitch * __assetPitch;
+        __outputGain    = __inputGain  + __assetGain;
+        __outputPitch   = __inputPitch * __assetPitch;
+        __outputPitchLo = __inputPitch * __assetPitchLo;
+        __outputPitchHi = __inputPitch * __assetPitchHi;
         
         _gainDelta  = __outputGain  - _gainDelta;
         _pitchDelta = __outputPitch / _pitchDelta;
