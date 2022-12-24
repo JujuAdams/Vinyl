@@ -4,7 +4,7 @@
 /// @param [loop]
 /// @param [targetGain=0]
 /// @param [rate=VINYL_DEFAULT_GAIN_RATE]
-/// @param [pitch=1]
+/// @param [pitch=100%]
 
 function VinylPlayFadeIn(_sound, _loop = undefined, _targetGain = 0, _rate = VINYL_DEFAULT_GAIN_RATE, _pitch = 100)
 {

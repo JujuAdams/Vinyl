@@ -3,7 +3,7 @@
 /// @param sound
 /// @param [loop]
 /// @param [gain=+0db]
-/// @param [pitch=1]
+/// @param [pitch=100%]
 
 function VinylPlay(_sound, _loop = undefined, _gain = 0, _pitch = 100)
 {
