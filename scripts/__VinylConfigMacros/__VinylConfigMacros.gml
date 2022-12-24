@@ -10,12 +10,12 @@
 #macro VINYL_STEP_DURATION  50
 
 //Default rate of gain adjument when approaching a gain target
-//Measured in decibels/frame
-#macro VINYL_DEFAULT_GAIN_RATE  0.5
+//Measured in decibels/second
+#macro VINYL_DEFAULT_GAIN_RATE  30
 
 //Default rate of pitch adjument when approaching a pitch target
-//Measured in %/frame
-#macro VINYL_DEFAULT_PITCH_RATE  0.05
+//Measured in %/second
+#macro VINYL_DEFAULT_PITCH_RATE  0.3
 
 //Maximum output gain for audio instances. Must be greater than or equal to zero
 //Choose lower values to get more resolution in perceived volume levels

@@ -59,7 +59,7 @@ function __VinylClassInstance() constructor
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " gain target=", _targetGain, " db, rate=", _rate, " db/frame, stop at silence=", _stopAtSilence? "true" : "false");
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " gain target=", _targetGain, " db, rate=", _rate, " db/s, stop at silence=", _stopAtSilence? "true" : "false");
         }
         
         __gainTarget = _targetGain;
@@ -105,7 +105,7 @@ function __VinylClassInstance() constructor
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " pitch target=", 100*_targetPitch, "%, rate=", 100*_rate, "%/frame");
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " pitch target=", 100*_targetPitch, "%, rate=", 100*_rate, "%/s");
         }
         
         __pitchTarget = _targetPitch;
@@ -270,7 +270,7 @@ function __VinylClassInstance() constructor
         __id = undefined;
     }
     
-    static __Tick = function()
+    static __Tick = function(_deltaTime)
     {
         if (!audio_is_playing(__instance))
         {
@@ -279,7 +279,7 @@ function __VinylClassInstance() constructor
         }
         else
         {
-            var _delta = clamp(__gainTarget - __inputGain, -__gainRate, __gainRate);
+            var _delta = clamp(__gainTarget - __inputGain, -_deltaTime*__gainRate, _deltaTime*__gainRate);
             if (_delta != 0)
             {
                 __inputGain  += _delta;
@@ -293,7 +293,7 @@ function __VinylClassInstance() constructor
                 }
             }
             
-            var _delta = clamp(__pitchTarget - __inputPitch, -__pitchRate, __pitchRate);
+            var _delta = clamp(__pitchTarget - __inputPitch, -_deltaTime*__pitchRate, _deltaTime*__pitchRate);
             if (_delta != 0)
             {
                 __inputPitch  += _delta;

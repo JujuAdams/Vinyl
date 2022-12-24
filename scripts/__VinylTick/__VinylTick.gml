@@ -1,5 +1,7 @@
 function __VinylTick()
 {
+    var _deltaTime = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
+    
     //Move instances returning to the pool back into the pool
     var _returnSize = array_length(global.__vinylPoolReturn);
     if (_returnSize > 0)
@@ -16,7 +18,7 @@ function __VinylTick()
     var _i = 0;
     repeat(array_length(global.__vinylLabelOrder))
     {
-        global.__vinylLabelOrder[_i].__Tick();
+        global.__vinylLabelOrder[_i].__Tick(_deltaTime);
         ++_i;
     }
     
@@ -31,7 +33,7 @@ function __VinylTick()
         }
         else
         {
-            _instance.__Tick();
+            _instance.__Tick(_deltaTime);
             ++_i;
         }
     }

@@ -143,7 +143,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Label \"", __name, "\" gain target=", _targetGain, " db, rate=", _rate, " db/frame");
+            __VinylTrace("Label \"", __name, "\" gain target=", _targetGain, " db, rate=", _rate, " db/s");
         }
         
         __gainTarget = _targetGain;
@@ -183,7 +183,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Label \"", __name, "\" pitch target=", 100*_targetPitch, "%, rate=", 100*_rate, "%/frame");
+            __VinylTrace("Label \"", __name, "\" pitch target=", 100*_targetPitch, "%, rate=", 100*_rate, "%/s");
         }
         
         __pitchTarget = _targetPitch;
@@ -194,11 +194,11 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     
     
     
-    static __Tick = function()
+    static __Tick = function(_deltaTime)
     {
         //Update input values based on gain/pitch target
-        __inputGain  += clamp(__gainTarget  - __inputGain,  -__gainRate,  __gainRate );
-        __inputPitch += clamp(__pitchTarget - __inputPitch, -__pitchRate, __pitchRate);
+        __inputGain  += clamp(__gainTarget  - __inputGain,  -_deltaTime*__gainRate,  _deltaTime*__gainRate );
+        __inputPitch += clamp(__pitchTarget - __inputPitch, -_deltaTime*__pitchRate, _deltaTime*__pitchRate);
         
         //Update the output gain
         var _gainDelta  = __outputGain;
