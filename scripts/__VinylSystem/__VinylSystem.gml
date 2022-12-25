@@ -1,5 +1,5 @@
-#macro __VINYL_VERSION  "4.0.3 alpha"
-#macro __VINYL_DATE     "2022-12-23"
+#macro __VINYL_VERSION  "4.0.4 alpha"
+#macro __VINYL_DATE     "2022-12-25"
 
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.json"
 #macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
