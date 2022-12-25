@@ -32,25 +32,9 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     else if (is_array(_pitch))
     {
         if (array_length(_pitch) != 2) __VinylError("Error in label \"", __name, "\"\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
-        
-        __assetPitchLo = _pitch[0];
-        __assetPitchHi = _pitch[1];
-        
-        if (__assetPitchLo > __assetPitchHi)
-        {
-            if (GM_build_type == "run")
-            {
-                __VinylError("Warning! Error in label \"", __name, "\"\nLow pitch (", __assetPitchLo, ") is greater than high pitch (", __assetPitchHi, ")");
-            }
-            else
-            {
-                __VinylTrace("Warning! Error in label \"", __name, "\". Low pitch (", __assetPitchLo, ") is greater than high pitch (", __assetPitchHi, ")");
-            }
-            
-            var _temp = __assetPitchLo;
-            __assetPitchLo = __assetPitchHi;
-            __assetPitchHi = _temp;
-        }
+        var _temp = __assetPitchLo;
+        __assetPitchLo = __assetPitchHi;
+        __assetPitchHi = _temp;
     }
     else
     {
@@ -79,10 +63,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     __outputGain  = __inputGain;
     __outputPitch = __inputPitch;
     
-    __outputPitchLo = __assetPitchLo;
-    __outputPitchHi = __assetPitchHi;
-    
-    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __outputGain, " db, pitch=", __outputPitchLo, "% -> ", __outputPitchHi, "%, max instances=", __limitMaxCount);
+    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __outputGain, " db, pitch=", __outputPitch*__assetPitchLo/100, "% -> ", __outputPitch*__assetPitchHi/100, "%, max instances=", __limitMaxCount);
     
     
     
@@ -257,10 +238,8 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         var _gainDelta  = __outputGain;
         var _pitchDelta = __outputPitch;
         
-        __outputGain    = __inputGain  + __assetGain;
-        __outputPitch   = __inputPitch * __assetPitch;
-        __outputPitchLo = __inputPitch * __assetPitchLo;
-        __outputPitchHi = __inputPitch * __assetPitchHi;
+        __outputGain  = __inputGain + __assetGain;
+        __outputPitch = __inputPitch;
         
         _gainDelta  = __outputGain  - _gainDelta;
         _pitchDelta = __outputPitch / _pitchDelta;
