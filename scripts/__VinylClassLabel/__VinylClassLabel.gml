@@ -32,9 +32,17 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     else if (is_array(_pitch))
     {
         if (array_length(_pitch) != 2) __VinylError("Error in label \"", __name, "\"\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
-        var _temp = __assetPitchLo;
-        __assetPitchLo = __assetPitchHi;
-        __assetPitchHi = _temp;
+        
+        __assetPitchLo = _pitch[0];
+        __assetPitchHi = _pitch[1];
+        
+        if (__assetPitchLo > __assetPitchHi)
+        {
+            __VinylTrace("Warning! Error in audio asset \"", audio_get_name(__sound), "\". Low pitch (", __assetPitchLo, ") is greater than high pitch (", __assetPitchHi, ")");
+            var _temp = __assetPitchLo;
+            __assetPitchLo = __assetPitchHi;
+            __assetPitchHi = _temp;
+        }
     }
     else
     {
