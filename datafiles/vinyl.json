@@ -1,10 +1,14 @@
 // This Note asset contains configuration information for audio in your games. This functions only
 // affect audio played by Vinyl functions. If live updating is enabled (VINYL_LIVE_UPDATE_PERIOD is
 // set larger than 0, and VinylLiveUpdateSet() is set to <true>) then editing this Note asset will
-// affect audio in-game.
+// affect audio in-game. This allows you to adjust audio behaviour on the fly, speeding up mixing.
 // 
 // Configuration in this script can be defined using JSON, although the parser used to read JSON
-// from this Note asset is very relaxed.
+// from this Note asset is very relaxed. You typically won't need to use "" quote marks for struct
+// variable names (keys) and commas may be omitted if you're using a newline instead. The parser
+// also allows the use of single line and multiline comments.
+// 
+// Don't forget that gain values measured in decibels, and pitch values are measured in percentages!
 
 
 
@@ -33,14 +37,14 @@
         sfx: {
             children: {
                 speech: {
+                    pitch: [90, 110]
                     gain: 0
                 }
                 footsteps: {
+                    pitch: [80, 120]
                     gain: 0
                 }
-                ui: {
-                    gain: 0
-                }
+                ui: {}
             }
         }
     }
@@ -56,9 +60,6 @@
     
     assets: {
         fallback: {}
-        sndTestTone: {
-            label: music
-        }
         sndChickenNuggets: {
             label: music
         }
