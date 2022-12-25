@@ -165,7 +165,7 @@ function __VinylClassInstance() constructor
         if (is_struct(_asset))
         {
             __outputGain += _asset.__gain;
-            var _assetPitch = lerp(_label.__pitchLo, _label.__pitchHi, __randomPitchParam);
+            var _assetPitch = lerp(_asset.__pitchLo, _asset.__pitchHi, __randomPitchParam);
             __outputPitch *= _assetPitch/100;
             
             var _labelArray = _asset.__labelArray;
@@ -175,7 +175,7 @@ function __VinylClassInstance() constructor
                 var _label = _labelArray[_i];
                 
                 __outputGain += _label.__outputGain;
-                var _labelPitch = lerp(_label.__pitchLo, _label.__pitchHi, __randomPitchParam)/100;
+                var _labelPitch = lerp(_label.__assetPitchLo, _label.__assetPitchHi, __randomPitchParam)/100;
                 __outputPitch *= _labelPitch*_label.__outputPitch/100;
                 
                 _label.__AddInstance(__id);
