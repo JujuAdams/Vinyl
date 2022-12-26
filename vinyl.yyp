@@ -39,7 +39,7 @@
     {"id":{"name":"__VinylBuildScripts","path":"extensions/__VinylBuildScripts/__VinylBuildScripts.yy",},"order":10,},
     {"id":{"name":"__VinylClassBasic","path":"scripts/__VinylClassBasic/__VinylClassBasic.yy",},"order":4,},
     {"id":{"name":"VinylPitchTargetSet","path":"scripts/VinylPitchTargetSet/VinylPitchTargetSet.yy",},"order":2,},
-    {"id":{"name":"VinylGetPaused","path":"scripts/VinylGetPaused/VinylGetPaused.yy",},"order":9,},
+    {"id":{"name":"VinylPausedGet","path":"scripts/VinylPausedGet/VinylPausedGet.yy",},"order":9,},
     {"id":{"name":"oTest","path":"objects/oTest/oTest.yy",},"order":5,},
     {"id":{"name":"__VinylDepoolInstance","path":"scripts/__VinylDepoolInstance/__VinylDepoolInstance.yy",},"order":6,},
     {"id":{"name":"__VinylRandom","path":"scripts/__VinylRandom/__VinylRandom.yy",},"order":9,},
