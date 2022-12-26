@@ -1,4 +1,4 @@
-function __VinylClassInstance() constructor
+function __VinylClassBasic() constructor
 {
     __id = undefined;
     __pooled = true;
