@@ -1,4 +1,5 @@
 /// Returns if a Vinyl playback instance is paused
+/// This function will return <undefined> for audio played using VinylPlaySimple()
 /// 
 /// @param vinylID
 

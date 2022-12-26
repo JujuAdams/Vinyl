@@ -1,5 +1,6 @@
 /// Fades out a Vinyl playback instance, stopping it once it reaches silence
 /// Once a playback instance is fading it, the process cannot be halted or paused
+/// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
 /// @param vinylID/labelName
 /// @param [rate=VINYL_DEFAULT_GAIN_RATE]

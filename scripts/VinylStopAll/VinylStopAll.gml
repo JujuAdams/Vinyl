@@ -1,4 +1,5 @@
 /// Immediately stops all playback instances
+/// This function will NOT affect audio played by VinylPlaySimple()
 
 function VinylStopAll()
 {
