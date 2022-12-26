@@ -1,14 +1,3 @@
-//How often to scan the Vinyl config file for changes, in milliseconds
-//Set this value to zero (or a negative number) to turn off live update
-//Live update can further be toggled using VinylLiveUpdateGet()
-//Live update only works when running from the IDE on Windows, Mac, or Linux
-#macro VINYL_LIVE_UPDATE_PERIOD  250
-
-//Length of moment-to-moment gain adjustments, in milliseconds
-//Choose lower values for tigher, quicker gain adjustment
-//Choose higher values for smooth, less glitchy gain adjustment
-#macro VINYL_STEP_DURATION  50
-
 //Default rate of gain adjument when approaching a gain target
 //Measured in decibels/second
 #macro VINYL_DEFAULT_GAIN_RATE  30
@@ -20,11 +9,23 @@
 //Maximum output gain for audio instances. Must be greater than or equal to zero
 //Choose lower values to get more resolution in perceived volume levels
 //Choose higher values to allow audio to get louder relative to 0 dB
+//The default value (+12dB) allows audio to get approximately 4x louder than source
 #macro VINYL_SYSTEM_HEADROOM  12
 
 
 
 #region Advanced
+
+//How often to scan the Vinyl config file for changes, in milliseconds
+//Set this value to zero (or a negative number) to turn off live update
+//Live update can further be toggled using VinylLiveUpdateGet()
+//Live update only works when running from the IDE on Windows, Mac, or Linux
+#macro VINYL_LIVE_UPDATE_PERIOD  250
+
+//Length of moment-to-moment gain adjustments, in milliseconds
+//Choose lower values for tigher, quicker gain adjustment
+//Choose higher values for smooth, less glitchy gain adjustment
+#macro VINYL_STEP_DURATION  50
 
 //How much debug spam to chuck at the debug log
 //  0 = minimum, warnings only
