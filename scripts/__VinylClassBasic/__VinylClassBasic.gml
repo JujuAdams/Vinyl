@@ -129,7 +129,7 @@ function __VinylClassBasic() constructor
         __pitchTarget = __inputPitch;
         
         __randomPitchParam = __VinylRandom(1);
-        __RecalculateLabels();
+        __ApplyLabel();
         
         __instance = audio_play_sound(__sound, 1, __loop, __VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), 0, __outputPitch/100);
         
@@ -150,7 +150,7 @@ function __VinylClassBasic() constructor
         return is_struct(_asset)? _asset.__GetLoopFromLabel() : false;
     }
     
-    static __RecalculateLabels = function()
+    static __ApplyLabel = function()
     {
         //Update the output values based on the asset and labels
         __outputGain  = __inputGain;

@@ -106,7 +106,7 @@ function VinylSystemReadConfig(_configData)
     {
         with(global.__vinylPlaying[_i])
         {
-            __RecalculateLabels();
+            __ApplyLabel();
             __outputChanged = true;
         }
         
