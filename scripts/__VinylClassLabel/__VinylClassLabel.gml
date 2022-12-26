@@ -199,7 +199,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         var _i = 0;
         repeat(array_length(__audioArray))
         {
-            VinylFadeOut(__audioArray[_i]);
+            __audioArray[_i].__FadeOut(_rate);
             ++_i;
         }
     }

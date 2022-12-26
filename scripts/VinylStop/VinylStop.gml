@@ -1,4 +1,5 @@
-/// Instantly stops a playback instance
+/// Instantly stops a playback instance, or all instances assigned to the given label
+/// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
 /// @param vinylID/labelName

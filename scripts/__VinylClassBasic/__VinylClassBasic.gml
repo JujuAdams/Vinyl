@@ -51,7 +51,7 @@ function __VinylClassBasic() constructor
         __gainTarget = _gain;
     }
     
-    static __InputGainTargetSet = function(_targetGain, _rate, _stopAtSilence)
+    static __InputGainTargetSet = function(_targetGain, _rate, _stopAtSilence = false)
     {
         if (__shutdown)
         {

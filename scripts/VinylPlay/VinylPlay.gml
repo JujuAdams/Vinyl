@@ -1,4 +1,5 @@
 /// Starts playing a sound and returns a Vinyl ID to identify the playback instance
+/// 
 /// Vinyl IDs are separate from GameMaker's native audio instances IDs and the two sets of
 /// IDs cannot be used interchangeably
 /// 

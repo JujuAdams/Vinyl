@@ -11,6 +11,6 @@ function VinylPlayFadeIn(_sound, _loop = undefined, _targetGain = 0, _rate = VIN
     var _id = __VinylDepoolInstance();
     var _instance = global.__vinylIdToInstanceDict[? _id];
     _instance.__Play(_sound, _loop, VINYL_SILENCE, _pitch);
-    _instance.__InputGainTargetSet(_targetGain, _rate, false);
+    _instance.__InputGainTargetSet(_targetGain, _rate);
     return _id;
 }

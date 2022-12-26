@@ -1,6 +1,7 @@
 /// Starts playing an untracked soumd and returns a native GameMaker audio instance ID
+/// 
 /// You cannot use Vinyl functions to later control/manipulate audio playback when using this function
-/// This function should only be used for short, oft-played sound effects
+/// This function should only be used for short sound effects such as collecting coins
 /// 
 /// @param sound
 /// @param [gain=0dB]
