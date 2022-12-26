@@ -144,14 +144,9 @@ function __VinylClassBasic() constructor
         }
     }
     
-    static __GetAsset = function()
-    {
-        return global.__vinylAssetDict[$ __sound] ?? global.__vinylAssetDict.fallback;
-    }
-    
     static __GetLoopFromLabel = function()
     {
-        var _asset = __GetAsset();
+        var _asset = __VinylAssetGet(__sound);
         return is_struct(_asset)? _asset.__GetLoopFromLabel() : false;
     }
     
@@ -161,7 +156,7 @@ function __VinylClassBasic() constructor
         __outputGain  = __inputGain;
         __outputPitch = __inputPitch;
         
-        var _asset = __GetAsset();
+        var _asset = __VinylAssetGet(__sound);
         if (is_struct(_asset))
         {
             __outputGain += _asset.__gain;
@@ -239,7 +234,7 @@ function __VinylClassBasic() constructor
         __Stop();
         
         //Remove this instance from all labels that we're attached to
-        var _asset = __GetAsset();
+        var _asset = __VinylAssetGet(__sound);
         if (is_struct(_asset))
         {
             var _id = __id;
@@ -324,7 +319,7 @@ function __VinylClassBasic() constructor
     
     static __DebugLabelNames = function()
     {
-        var _asset = __GetAsset();
+        var _asset = __VinylAssetGet(__sound);
         return is_struct(_asset)? _asset.__DebugLabelNames() : "";
     }
 }
