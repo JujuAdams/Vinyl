@@ -10,7 +10,7 @@
     {"id":{"name":"__VinylUtility","path":"scripts/__VinylUtility/__VinylUtility.yy",},"order":5,},
     {"id":{"name":"__VinylConfigMacros","path":"scripts/__VinylConfigMacros/__VinylConfigMacros.yy",},"order":0,},
     {"id":{"name":"Vinyl Readme","path":"notes/Vinyl Readme/Vinyl Readme.yy",},"order":9,},
-    {"id":{"name":"VinylPlayFadeIn","path":"scripts/VinylPlayFadeIn/VinylPlayFadeIn.yy",},"order":1,},
+    {"id":{"name":"VinylPlayFadeIn","path":"scripts/VinylPlayFadeIn/VinylPlayFadeIn.yy",},"order":2,},
     {"id":{"name":"VinylGainTargetGet","path":"scripts/VinylGainTargetGet/VinylGainTargetGet.yy",},"order":4,},
     {"id":{"name":"VinylStopAll","path":"scripts/VinylStopAll/VinylStopAll.yy",},"order":5,},
     {"id":{"name":"VinylLiveUpdateGet","path":"scripts/VinylLiveUpdateGet/VinylLiveUpdateGet.yy",},"order":7,},
@@ -48,7 +48,7 @@
     {"id":{"name":"VinylSystemPlayCountGet","path":"scripts/VinylSystemPlayCountGet/VinylSystemPlayCountGet.yy",},"order":4,},
     {"id":{"name":"__VinylBufferReadLooseJSON","path":"scripts/__VinylBufferReadLooseJSON/__VinylBufferReadLooseJSON.yy",},"order":7,},
     {"id":{"name":"VinylOutputPitchGet","path":"scripts/VinylOutputPitchGet/VinylOutputPitchGet.yy",},"order":4,},
-    {"id":{"name":"VinylPlaySimple","path":"scripts/VinylPlaySimple/VinylPlaySimple.yy",},"order":2,},
+    {"id":{"name":"VinylPlaySimple","path":"scripts/VinylPlaySimple/VinylPlaySimple.yy",},"order":1,},
     {"id":{"name":"rMain","path":"rooms/rMain/rMain.yy",},"order":6,},
   ],
   "Options": [

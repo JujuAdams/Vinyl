@@ -1,5 +1,7 @@
 /// Sets the input gain target for a Vinyl playback instance, or a Vinyl label
 /// The input gain will approach the target smoothly over a few frames, determined by the rate
+/// If this function is given a label name then all currently playing audio assigned with that label will
+/// be affected. This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
 /// @param vinylID/labelName
 /// @param targetGainDB

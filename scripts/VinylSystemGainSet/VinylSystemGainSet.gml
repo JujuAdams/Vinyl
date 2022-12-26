@@ -1,6 +1,7 @@
 /// Sets the system-wide gain for Vinyl
+/// This number is NOT constrained by the VINYL_SYSTEM_HEADROOM value
 /// 
-/// @param gain
+/// @param gainDB
 
 function VinylSystemGainSet(_gain)
 {

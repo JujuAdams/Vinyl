@@ -1,4 +1,5 @@
-/// Reads in a data struct, seting asset and labels definition as required
+/// Reads in a data struct, seting asset and label definitions as required
+/// This is useful for e.g. writing your own live mixing system
 /// 
 /// @param configData
 

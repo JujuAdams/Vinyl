@@ -1,4 +1,5 @@
 /// Returns whether the a Vinyl playback instance is fading out (in "shutdown" mode)
+/// This function cannot be used to target Vinyl labels
 /// 
 /// @param vinylID
 
