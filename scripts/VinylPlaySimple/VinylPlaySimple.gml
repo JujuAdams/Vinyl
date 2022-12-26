@@ -9,5 +9,5 @@
 
 function VinylPlaySimple(_sound, _gain = 0, _pitch = 100)
 {
-    return __VinylAssetGet(_sound).__PlaySimple(_gain, _pitch, _sound);
+    return __VinylPatternGet(_sound).__PlaySimple(_gain, _pitch, _sound);
 }

@@ -1,4 +1,4 @@
-function __VinylClassBasic() constructor
+function __VinylClassBasicInstance() constructor
 {
     __id = undefined;
     __pooled = true;
@@ -146,7 +146,7 @@ function __VinylClassBasic() constructor
     
     static __GetLoopFromLabel = function()
     {
-        var _asset = __VinylAssetGet(__sound);
+        var _asset = __VinylPatternGet(__sound);
         return is_struct(_asset)? _asset.__GetLoopFromLabel() : false;
     }
     
@@ -156,7 +156,7 @@ function __VinylClassBasic() constructor
         __outputGain  = __inputGain;
         __outputPitch = __inputPitch;
         
-        var _asset = __VinylAssetGet(__sound);
+        var _asset = __VinylPatternGet(__sound);
         if (is_struct(_asset))
         {
             __outputGain += _asset.__gain;
@@ -170,7 +170,7 @@ function __VinylClassBasic() constructor
                 var _label = _labelArray[_i];
                 
                 __outputGain += _label.__outputGain;
-                var _labelPitch = lerp(_label.__assetPitchLo, _label.__assetPitchHi, __randomPitchParam)/100;
+                var _labelPitch = lerp(_label.__configPitchLo, _label.__configPitchHi, __randomPitchParam)/100;
                 __outputPitch *= _labelPitch*_label.__outputPitch/100;
                 
                 _label.__AddInstance(__id);
@@ -234,7 +234,7 @@ function __VinylClassBasic() constructor
         __Stop();
         
         //Remove this instance from all labels that we're attached to
-        var _asset = __VinylAssetGet(__sound);
+        var _asset = __VinylPatternGet(__sound);
         if (is_struct(_asset))
         {
             var _id = __id;
@@ -319,7 +319,7 @@ function __VinylClassBasic() constructor
     
     static __DebugLabelNames = function()
     {
-        var _asset = __VinylAssetGet(__sound);
+        var _asset = __VinylPatternGet(__sound);
         return is_struct(_asset)? _asset.__DebugLabelNames() : "";
     }
 }

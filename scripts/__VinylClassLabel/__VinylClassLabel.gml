@@ -19,29 +19,29 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     var _limitFadeOut = _labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE;
     
     if (!is_numeric(_gain)) __VinylError("Error in label \"", __name, "\"\nGain must be a number");
-    __assetGain = _gain;
+    __configGain = _gain;
     
     if (!is_bool(_loop) && !is_undefined(_loop)) __VinylError("Error in label \"", __name, "\"\nLoop behaviour must be a boolean (<true> or <false>)");
-    __assetLoop = _loop;
+    __configLoop = _loop;
     
     if (is_numeric(_pitch) && (_pitch >= 0))
     {
-        __assetPitchLo = _pitch;
-        __assetPitchHi = _pitch;
+        __configPitchLo = _pitch;
+        __configPitchHi = _pitch;
     }
     else if (is_array(_pitch))
     {
         if (array_length(_pitch) != 2) __VinylError("Error in label \"", __name, "\"\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
         
-        __assetPitchLo = _pitch[0];
-        __assetPitchHi = _pitch[1];
+        __configPitchLo = _pitch[0];
+        __configPitchHi = _pitch[1];
         
-        if (__assetPitchLo > __assetPitchHi)
+        if (__configPitchLo > __configPitchHi)
         {
-            __VinylTrace("Warning! Error in audio asset \"", audio_get_name(__sound), "\". Low pitch (", __assetPitchLo, ") is greater than high pitch (", __assetPitchHi, ")");
-            var _temp = __assetPitchLo;
-            __assetPitchLo = __assetPitchHi;
-            __assetPitchHi = _temp;
+            __VinylTrace("Warning! Error in audio asset \"", audio_get_name(__sound), "\". Low pitch (", __configPitchLo, ") is greater than high pitch (", __configPitchHi, ")");
+            var _temp = __configPitchLo;
+            __configPitchLo = __configPitchHi;
+            __configPitchHi = _temp;
         }
     }
     else
@@ -71,7 +71,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     __outputGain  = __inputGain;
     __outputPitch = __inputPitch;
     
-    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __outputGain, " db, pitch=", __outputPitch*__assetPitchLo/100, "% -> ", __outputPitch*__assetPitchHi/100, "%, max instances=", __limitMaxCount);
+    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __outputGain, " db, pitch=", __outputPitch*__configPitchLo/100, "% -> ", __outputPitch*__configPitchHi/100, "%, max instances=", __limitMaxCount);
     
     
     
@@ -246,7 +246,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         var _gainDelta  = __outputGain;
         var _pitchDelta = __outputPitch;
         
-        __outputGain  = __inputGain + __assetGain;
+        __outputGain  = __inputGain + __configGain;
         __outputPitch = __inputPitch;
         
         _gainDelta  = __outputGain  - _gainDelta;

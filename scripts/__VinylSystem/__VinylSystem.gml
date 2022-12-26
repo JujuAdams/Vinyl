@@ -35,13 +35,13 @@ function __VinylInitialize()
     //Whether to allow live update
     global.__vinylLiveUpdate = (VINYL_LIVE_UPDATE_PERIOD > 0);
     
-    global.__vinylAssetDict  = {};
-    global.__vinylLabelDict  = {};
-    global.__vinylLabelOrder = [];
+    global.__vinylPatternDict = {};
+    global.__vinylLabelDict   = {};
+    global.__vinylLabelOrder  = [];
     
     global.__vinylIdToInstanceDict = ds_map_create();
     
-    global.__vinylBasicPool       = [];
+    global.__vinylBasicPool  = [];
     global.__vinylPlaying    = [];
     global.__vinylPoolReturn = [];
     
@@ -61,8 +61,10 @@ function __VinylInitialize()
     
     repeat(VINYL_POOL_START_SIZE)
     {
-        array_push(global.__vinylBasicPool, new __VinylClassBasic());
+        array_push(global.__vinylBasicPool, new __VinylClassBasicInstance());
     }
+    
+    show_debug_message("!");
 }
 
 function __VinylUpdateData()

@@ -64,4 +64,20 @@
             label: music
         }
     }
+    
+    
+    
+    patterns: {
+        random pitch test: {
+            basic: sndTestTone
+            pitch: [80, 120]
+        }
+        
+        shuffle test: {
+            shuffle: [
+                sndTestTone
+                sndChickenNuggets
+            ]
+        }
+    }
 }

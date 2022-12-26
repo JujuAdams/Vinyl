@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylAssetGet",
+  "name": "__vinylPatternDict",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

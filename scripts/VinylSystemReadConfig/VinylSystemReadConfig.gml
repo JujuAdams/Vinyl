@@ -5,9 +5,9 @@
 
 function VinylSystemReadConfig(_configData)
 {
-    var _newAssetDict  = {};
-    var _newLabelDict  = {};
-    var _newLabelOrder = [];
+    var _newPatternDict = {};
+    var _newLabelDict   = {};
+    var _newLabelOrder  = [];
     
     //Instantiate labels, creating a dictionary for lookup and an array that contains the order to update the labels to respect parenting
     static _loadLabelsFunc = function(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _inputLabelDict, _parent)
@@ -70,20 +70,20 @@ function VinylSystemReadConfig(_configData)
         else
         {
             var _assetData = _inputAssetDict[$ _assetName];
-            var _newAsset = new __VinylClassAsset(_assetIndex, _newLabelDict, _assetData);
+            var _newAsset = new __VinylClassBasicPattern(_assetIndex, _newLabelDict, _assetData);
             
             var _key = (_assetName == "fallback")? "fallback" : string(_assetIndex);
-            _newAssetDict[$ _key] = _newAsset;
+            _newPatternDict[$ _key] = _newAsset;
         }
         
         ++_i;
     }
     
     //Ensure we have a fallback struct for audio assets
-    if (!variable_struct_exists(_newAssetDict, "fallback"))
+    if (!variable_struct_exists(_newPatternDict, "fallback"))
     {
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Fallback asset case doesn't exist, creating one");
-        _newAssetDict.fallback = new __VinylClassAsset(-1, _newLabelDict);
+        _newPatternDict.fallback = new __VinylClassBasicPattern(-1, _newLabelDict);
     }
     
     //Copy state data from old labels to new labels
@@ -96,10 +96,10 @@ function VinylSystemReadConfig(_configData)
         ++_i;
     }
     
-    //Update our global label/asset tracking
-    global.__vinylAssetDict  = _newAssetDict;
-    global.__vinylLabelDict  = _newLabelDict;
-    global.__vinylLabelOrder = _newLabelOrder;
+    //Update our global label/pattern tracking
+    global.__vinylPatternDict = _newPatternDict;
+    global.__vinylLabelDict   = _newLabelDict;
+    global.__vinylLabelOrder  = _newLabelOrder;
     
     //Force an update for all playing instances
     var _i = 0;

@@ -1,13 +1,13 @@
 /// @param sound
 /// @param labelDict
-/// @param [assetData]
+/// @param [patternData]
 
-function __VinylClassAsset(_sound, _labelDict, _assetData = {}) constructor
+function __VinylClassBasicPattern(_sound, _labelDict, _patternData = {}) constructor
 { 
     __sound = _sound;
     
-    var _gain  = _assetData[$ "gain" ] ?? 0;
-    var _pitch = _assetData[$ "pitch"] ?? 100;
+    var _gain  = _patternData[$ "gain" ] ?? 0;
+    var _pitch = _patternData[$ "pitch"] ?? 100;
     
     if (!is_numeric(_gain)) __VinylError("Error in audio asset \"", audio_get_name(__sound), "\"\nGain must be a number");
     __gain = _gain;
@@ -44,7 +44,7 @@ function __VinylClassAsset(_sound, _labelDict, _assetData = {}) constructor
     
     
     //Process label string to extract each label name
-    var _labelNameArray = _assetData[$ "label"] ?? _assetData[$ "labels"];
+    var _labelNameArray = _patternData[$ "label"] ?? _patternData[$ "labels"];
     if (is_string(_labelNameArray)) _labelNameArray = [_labelNameArray];
     
     if (is_array(_labelNameArray))
@@ -78,7 +78,7 @@ function __VinylClassAsset(_sound, _labelDict, _assetData = {}) constructor
         var _i = 0;
         repeat(array_length(__labelArray))
         {
-            if (__labelArray[_i].__assetLoop == true) return true;
+            if (__labelArray[_i].__configLoop == true) return true;
             ++_i;
         }
         
@@ -99,7 +99,7 @@ function __VinylClassAsset(_sound, _labelDict, _assetData = {}) constructor
             var _label = __labelArray[_i];
             
             _gain += _label.__outputGain;
-            var _labelPitch = lerp(_label.__assetPitchLo, _label.__assetPitchHi, _randomPitchParam)/100;
+            var _labelPitch = lerp(_label.__configPitchLo, _label.__configPitchHi, _randomPitchParam)/100;
             _pitch *= _labelPitch*_label.__outputPitch/100;
             
             ++_i;
