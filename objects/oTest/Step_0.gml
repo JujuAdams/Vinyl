@@ -30,6 +30,8 @@ if (keyboard_check_pressed(ord("F")))
     VinylFadeOut(music);
 }
 
+if (keyboard_check_pressed(vk_space)) VinylPlaySimple(sndTestTone);
+
 if (keyboard_check_pressed(ord("P")))
 {
     VinylPause("music");

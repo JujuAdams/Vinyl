@@ -1,4 +1,5 @@
 /// Starts playing a sound and returns a Vinyl ID to identify the playback instance
+/// In resource-constrained situations, you may want to consider using VinylPlaySimple()
 /// 
 /// @param sound
 /// @param [loop]

@@ -85,6 +85,52 @@ function __VinylClassAsset(_sound, _labelDict, _assetData = {}) constructor
         return false;
     }
     
+    static __PlaySimple = function(_gain = 0, _pitch = 100)
+    {
+        var _randomPitchParam = __VinylRandom(1);
+        
+        var _asset = __VinylAssetGet(_sound);
+        if (is_struct(_asset))
+        {
+            _gain += __gain;
+            var _assetPitch = lerp(__pitchLo, __pitchHi, _randomPitchParam);
+            _pitch *= _assetPitch/100;
+            
+            var _labelArray = _asset.__labelArray;
+            var _i = 0;
+            repeat(array_length(_labelArray))
+            {
+                var _label = _labelArray[_i];
+                
+                _gain += _label.__outputGain;
+                var _labelPitch = lerp(_label.__assetPitchLo, _label.__assetPitchHi, _randomPitchParam)/100;
+                _pitch *= _labelPitch*_label.__outputPitch/100;
+                
+                ++_i;
+            }
+        }
+        
+        var _instance = audio_play_sound(__sound, 1, false, __VinylGainToAmplitude(_gain - VINYL_SYSTEM_HEADROOM), 0, _pitch/100);
+        
+        if (VINYL_DEBUG_LEVEL >= 1)
+        {
+            __VinylTrace("Playing ", audio_get_name(__sound), ", gain=", _gain, " dB, pitch=", _pitch, "%, label=", __DebugLabelNames(), " (GMinst=", _instance, ", amplitude=", 100*__VinylGainToAmplitude(_gain - VINYL_SYSTEM_HEADROOM), "%)");
+        }
+        
+        if (_gain > VINYL_SYSTEM_HEADROOM)
+        {
+            __VinylTrace("Warning! Gain value ", _gain, " exceeds VINYL_SYSTEM_HEADROOM (", VINYL_SYSTEM_HEADROOM, ")");
+        }
+        
+        return _instance;
+    }
+    
+    static __GetLoopFromLabel = function()
+    {
+        var _asset = __VinylAssetGet(__sound);
+        return is_struct(_asset)? _asset.__GetLoopFromLabel() : false;
+    }
+    
     static __DebugLabelNames = function()
     {
         var _labelReadable = "";
