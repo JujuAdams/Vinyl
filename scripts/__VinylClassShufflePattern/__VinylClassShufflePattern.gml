@@ -5,7 +5,7 @@
 function __VinylClassShufflePattern(_name, _labelDict, _patternData = {}) constructor
 { 
     __name         = _name;
-    __patternArray = _patternData[? "shuffle"] ?? [];
+    __patternArray = _patternData[$ "shuffle"] ?? [];
     
     __currentIndex = 0;
     __currentSize  = ceil(array_length(__patternArray)/3);
@@ -130,13 +130,13 @@ function __VinylClassShufflePattern(_name, _labelDict, _patternData = {}) constr
         return _pattern;
     }
     
-    static __Play = function(_gain = 0, _pitch = 100, _pattern)
+    static __Play = function(_gain = 0, _pitch = 100, _pattern_UNUSED)
     {
         var _pattern = __PopPattern();
         return __VinylPatternGet(_pattern).__Play(_gain, _pitch, _pattern);
     }
     
-    static __PlaySimple = function(_gain = 0, _pitch = 100, _pattern)
+    static __PlaySimple = function(_gain = 0, _pitch = 100, _pattern_UNUSED)
     {
         var _pattern = __PopPattern();
         return __VinylPatternGet(_pattern).__PlaySimple(_gain, _pitch, _pattern);

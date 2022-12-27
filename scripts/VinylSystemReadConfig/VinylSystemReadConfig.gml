@@ -50,6 +50,16 @@ function VinylSystemReadConfig(_configData)
     
     _loadLabelsFunc(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _configData.labels, undefined);
     
+    //Copy state data from old labels to new labels
+    var _i = 0;
+    repeat(array_length(_newLabelOrder))
+    {
+        var _newLabel = _newLabelOrder[_i];
+        var _oldLabel = global.__vinylLabelDict[$ _newLabel.__name];
+        if (is_struct(_oldLabel)) _newLabel.__CopyOldState(_oldLabel);
+        ++_i;
+    }
+    
     //Instantiate assets
     var _inputAssetDict = _configData.assets;
     var _assetNameArray = variable_struct_get_names(_inputAssetDict);
@@ -86,13 +96,31 @@ function VinylSystemReadConfig(_configData)
         _newPatternDict.fallback = new __VinylClassBasicPattern(-1, _newLabelDict);
     }
     
-    //Copy state data from old labels to new labels
+    //Instantiate patterns
+    var _inputPatternsDict = _configData.patterns;
+    var _patternNameArray = variable_struct_get_names(_inputPatternsDict);
     var _i = 0;
-    repeat(array_length(_newLabelOrder))
+    repeat(array_length(_patternNameArray))
     {
-        var _newLabel = _newLabelOrder[_i];
-        var _oldLabel = global.__vinylLabelDict[$ _newLabel.__name];
-        if (is_struct(_oldLabel)) _newLabel.__CopyOldState(_oldLabel);
+        var _patternName = _patternNameArray[_i];
+        
+        var _patternData = _inputPatternsDict[$ _patternName];
+        
+        if (variable_struct_exists(_patternData, "basic"))
+        {
+            var _newPattern = new __VinylClassBasicPattern(asset_get_index(_patternData.basic), _newLabelDict, _patternData);
+        }
+        else if (variable_struct_exists(_patternData, "shuffle"))
+        {
+            var _newPattern = new __VinylClassShufflePattern(_patternName, _newLabelDict, _patternData);
+        }
+        else
+        {
+            __VinylError("Defintion for pattern \"", _patternName, "\" is invalid");
+        }
+        
+        _newPatternDict[$ _patternName] = _newPattern;
+        
         ++_i;
     }
     

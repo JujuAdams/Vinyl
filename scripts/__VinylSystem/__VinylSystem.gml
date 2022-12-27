@@ -63,8 +63,6 @@ function __VinylInitialize()
     {
         array_push(global.__vinylBasicPool, new __VinylClassBasicInstance());
     }
-    
-    show_debug_message("!");
 }
 
 function __VinylUpdateData()

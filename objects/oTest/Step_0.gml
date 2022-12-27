@@ -41,3 +41,8 @@ if (keyboard_check_pressed(ord("R")))
 {
     VinylResume("music");
 }
+
+if (keyboard_check_pressed(ord("T")))
+{
+    VinylPlaySimple("shuffle test");
+}
