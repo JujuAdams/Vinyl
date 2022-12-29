@@ -45,6 +45,8 @@ function __VinylInitialize()
     global.__vinylPlaying    = [];
     global.__vinylPoolReturn = [];
     
+    global.__vinylTransposeSemitones = 0;
+    
     VinylSystemGainSet(0);
     __VinylUpdateData();
     
