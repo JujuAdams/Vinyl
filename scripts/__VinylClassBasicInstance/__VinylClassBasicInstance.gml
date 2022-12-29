@@ -14,6 +14,10 @@ function __VinylClassBasicInstance() constructor
         __inputGain  = 0.0;
         __inputPitch = 100;
         
+        __transposeUsing     = false;
+        __transposeSemitones = 0;
+        __transposePitch     = 1; //Internal value, stored as normalized percentage
+        
         __shutdown = false;
         
         __gainTarget  = __inputGain;
@@ -112,6 +116,58 @@ function __VinylClassBasicInstance() constructor
         
         __pitchTarget = _targetPitch;
         __pitchRate   = _rate;
+    }
+    
+    #endregion
+    
+    
+    
+    #region Semitones
+    
+    static __TransposeSet = function(_semitones)
+    {
+        if (__shutdown)
+        {
+            __VinylTrace("Cannot set transposition for instance ", __id, " (playing ", audio_get_name(__sound), "), it is set to shut down");
+            return;
+        }
+        
+        if (__transposeSemitones != _semitones)
+        {
+            if (VINYL_DEBUG_LEVEL >= 1)
+            {
+                __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " transposition=", _semitones);
+            }
+            
+            __transposeUsing = true;
+            
+            __transposePitch     = __VinylSemitoneToPitch(_semitones + global.__vinylTransposeSemitones);
+        }
+    }
+    
+    static __TransposeReset = function()
+    {
+        if (__shutdown)
+        {
+            __VinylTrace("Cannot reset transposition for instance ", __id, " (playing ", audio_get_name(__sound), "), it is set to shut down");
+            return;
+        }
+        
+        if (__transposeUsing)
+        {
+            if (VINYL_DEBUG_LEVEL >= 1)
+            {
+                __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " transposition=0");
+            }
+            
+            __outputPitch /= __transposePitch;
+            
+            __transposeUsing     = false;
+            __transposeSemitones = 0;
+            __transposePitch     = 1;
+            
+            __outputChanged = true;
+        }
     }
     
     #endregion

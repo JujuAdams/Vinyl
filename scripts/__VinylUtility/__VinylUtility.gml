@@ -1,11 +1,11 @@
 function __VinylSemitoneToPitch(_semitone)
 {
-    return power(2, _semitone/12);
+    return 100*power(2, _semitone/12);
 }
 
 function __VinylPitchToSemitone(_pitch)
 {
-    return (_pitch <= 0)? -infinity : (ln(_pitch)*17.3123404906675608883190961); //12 * ln(2)
+    return (_pitch <= 0)? -infinity : (ln(_pitch/100)*17.3123404906675608883190961); //12 * ln(2)
 }
 
 function __VinylGainToAmplitude(_gain)
