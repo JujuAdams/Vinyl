@@ -3,13 +3,13 @@ function __VinylTick()
     var _deltaTime = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
     
     //Move instances returning to the pool back into the pool
-    var _returnSize = array_length(global.__vinylPoolReturn);
+    var _returnSize = array_length(global.__vinylBasicPoolReturn);
     if (_returnSize > 0)
     {
         var _poolSize = array_length(global.__vinylBasicPool);
         array_resize(global.__vinylBasicPool, _poolSize + _returnSize);
-        array_copy(global.__vinylBasicPool, _poolSize, global.__vinylPoolReturn, 0, _returnSize);
-        array_resize(global.__vinylPoolReturn, 0);
+        array_copy(global.__vinylBasicPool, _poolSize, global.__vinylBasicPoolReturn, 0, _returnSize);
+        array_resize(global.__vinylBasicPoolReturn, 0);
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Returned ", _returnSize, " instance(s) to pool, ", _poolSize + _returnSize, " instances now in pool");
     }
@@ -24,12 +24,12 @@ function __VinylTick()
     
     //Update instances
     var _i = 0;
-    repeat(array_length(global.__vinylPlaying))
+    repeat(array_length(global.__vinylBasicPlaying))
     {
-        var _instance = global.__vinylPlaying[_i];
+        var _instance = global.__vinylBasicPlaying[_i];
         if (_instance.__pooled)
         {
-            array_delete(global.__vinylPlaying, _i, 1);
+            array_delete(global.__vinylBasicPlaying, _i, 1);
         }
         else
         {

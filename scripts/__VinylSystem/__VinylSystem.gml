@@ -41,9 +41,9 @@ function __VinylInitialize()
     
     global.__vinylIdToInstanceDict = ds_map_create();
     
-    global.__vinylBasicPool  = [];
-    global.__vinylPlaying    = [];
-    global.__vinylPoolReturn = [];
+    global.__vinylBasicPool       = [];
+    global.__vinylBasicPlaying    = [];
+    global.__vinylBasicPoolReturn = [];
     
     global.__vinylTransposeSemitones = 0;
     

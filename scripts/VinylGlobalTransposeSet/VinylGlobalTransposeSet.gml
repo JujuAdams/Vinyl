@@ -8,9 +8,9 @@ function VinylGlobalTransposeSet(_semitone)
         global.__vinylTransposeSemitones = _semitone;
         
         var _i = 0;
-        repeat(array_length(global.__vinylPlaying))
+        repeat(array_length(global.__vinylBasicPlaying))
         {
-            with(global.__vinylPlaying[_i])
+            with(global.__vinylBasicPlaying[_i])
             {
                 if (__transposeUsing)
                 {

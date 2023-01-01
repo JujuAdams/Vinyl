@@ -131,9 +131,9 @@ function VinylSystemReadConfig(_configData)
     
     //Force an update for all playing instances
     var _i = 0;
-    repeat(array_length(global.__vinylPlaying))
+    repeat(array_length(global.__vinylBasicPlaying))
     {
-        with(global.__vinylPlaying[_i])
+        with(global.__vinylBasicPlaying[_i])
         {
             __ApplyLabel();
             __outputChanged = true;

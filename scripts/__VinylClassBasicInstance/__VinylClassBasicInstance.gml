@@ -275,7 +275,7 @@ function __VinylClassBasicInstance() constructor
         
         __id = _id;
         global.__vinylIdToInstanceDict[? _id] = self;
-        array_push(global.__vinylPlaying, self);
+        array_push(global.__vinylBasicPlaying, self);
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling an instance as ID ", __id);
     }
