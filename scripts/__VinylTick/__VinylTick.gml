@@ -14,6 +14,18 @@ function __VinylTick()
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Returned ", _returnSize, " instance(s) to pool, ", _poolSize + _returnSize, " instances now in pool");
     }
     
+    //Move emitters returning to the pool back into the pool
+    var _returnSize = array_length(global.__vinylEmitterPoolReturn);
+    if (_returnSize > 0)
+    {
+        var _poolSize = array_length(global.__vinylEmitterPool);
+        array_resize(global.__vinylEmitterPool, _poolSize + _returnSize);
+        array_copy(global.__vinylEmitterPool, _poolSize, global.__vinylEmitterPoolReturn, 0, _returnSize);
+        array_resize(global.__vinylEmitterPoolReturn, 0);
+        
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Returned ", _returnSize, " emitter(s) to pool, ", _poolSize + _returnSize, " emitters now in pool");
+    }
+    
     //Update labels
     var _i = 0;
     repeat(array_length(global.__vinylLabelOrder))

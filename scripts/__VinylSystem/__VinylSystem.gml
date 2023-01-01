@@ -45,6 +45,9 @@ function __VinylInitialize()
     global.__vinylBasicPlaying    = [];
     global.__vinylBasicPoolReturn = [];
     
+    global.__vinylEmitterPool       = [];
+    global.__vinylEmitterPoolReturn = [];
+    
     global.__vinylTransposeSemitones = 0;
     
     VinylSystemGainSet(0);
@@ -61,9 +64,15 @@ function __VinylInitialize()
     
     time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylTick, [], -1));
     
+    //Pre-populate the instance and emitter pools
     repeat(VINYL_POOL_START_SIZE)
     {
         array_push(global.__vinylBasicPool, new __VinylClassBasicInstance());
+    }
+    
+    repeat(VINYL_POOL_START_SIZE)
+    {
+        array_push(global.__vinylEmitterPool, audio_emitter_create());
     }
 }
 
