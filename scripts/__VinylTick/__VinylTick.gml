@@ -49,4 +49,7 @@ function __VinylTick()
             ++_i;
         }
     }
+    
+    var _map = audio_listener_get_data(0);
+    ds_map_destroy(_map);
 }

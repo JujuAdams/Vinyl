@@ -6,6 +6,8 @@
 
 #macro __VINYL_GAIN_EXPONENTIAL_CURVE  true
 
+#macro __VINYL_PAN_WIDTH  100
+
 enum __VINYL_POOL_STATE
 {
     __POOLED,
@@ -32,6 +34,11 @@ function __VinylInitialize()
         return;
     }
     
+    //Set up default behaviours within GM's audio system
+    audio_falloff_set_model(audio_falloff_exponent_distance_scaled);
+    audio_listener_set_orientation(0,   0, 0, 1,   0, -1, 0);
+    audio_listener_set_position(0,   0, 0, 0);
+    
     //Whether to allow live update
     global.__vinylLiveUpdate = (VINYL_LIVE_UPDATE_PERIOD > 0);
     
@@ -49,6 +56,11 @@ function __VinylInitialize()
     global.__vinylEmitterPoolReturn = [];
     
     global.__vinylTransposeSemitones = 0;
+    
+    global.__vinylListener = {
+        x: 0,
+        y: 0,
+    };
     
     VinylSystemGainSet(0);
     __VinylUpdateData();

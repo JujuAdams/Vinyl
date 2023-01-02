@@ -8,7 +8,7 @@
 /// 
 /// @param vinylID/labelName
 
-function VinylTransposeSet(_id)
+function VinylTransposeReset(_id)
 {
     var _instance = global.__vinylIdToInstanceDict[? _id];
     if (is_struct(_instance)) return _instance.__TransposeReset();

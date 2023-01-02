@@ -1,0 +1,9 @@
+sound
+loop
+gain
+pitch
+transpose
+pan
+x/y
+emitter
+area (circular/rectangle)
