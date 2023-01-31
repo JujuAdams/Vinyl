@@ -1,7 +1,7 @@
 #macro __VINYL_VERSION  "4.0.4 alpha"
 #macro __VINYL_DATE     "2022-12-25"
 
-#macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.json"
+#macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.dat"
 #macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
 
 #macro __VINYL_GAIN_EXPONENTIAL_CURVE   true
@@ -126,7 +126,21 @@ function __VinylUpdateData()
     try
     {
         var _buffer = buffer_load(_filename);
-        var _data = __VinylBufferReadLooseJSON(_buffer, 0);
+        try
+        {
+            var _data = __VinylBufferReadLooseJSON(_buffer, 0);
+            __VinylTrace("Read config in plaintext");
+        }
+        catch(_error)
+        {
+            buffer_seek(_buffer, buffer_seek_start, 0);
+            var _string = buffer_read(_buffer, buffer_text);
+            buffer_delete(_buffer);
+            _buffer = buffer_base64_decode(_string);
+            var _data = __VinylBufferReadLooseJSON(_buffer, 0);
+            
+            __VinylTrace("Read config in base64");
+        }
         
         _success = true;
         __VinylTrace("Loaded data in ", (get_timer() - _t)/1000, "ms");
