@@ -360,6 +360,8 @@ function __VinylClassBasicInstance() constructor
     
     static __Tick = function(_deltaTime)
     {
+        static _silenceGain = VINYL_GAIN_DECIBEL_MODE? VINYL_SILENCE : 0;
+        
         if (!audio_is_playing(__instance))
         {
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Instance ", __id, " has stopped played, returning to pool");
@@ -374,7 +376,7 @@ function __VinylClassBasicInstance() constructor
                 __outputGain += _delta;
                 __outputChanged = true;
                 
-                if (__shutdown && (_delta < 0) && ((__inputGain <= 0) || (__outputGain <= 0)))
+                if (__shutdown && (_delta < 0) && ((__inputGain <= _silenceGain) || (__outputGain <= _silenceGain)))
                 {
                     __Stop();
                     return;
