@@ -30,8 +30,11 @@ function __VinylClassShufflePattern(_name, _labelDict, _patternData = {}) constr
     
     
     //Set the gain/pitch state from the provided struct
-    var _gain  = _patternData[$ "gain" ] ?? 0;
-    var _pitch = _patternData[$ "pitch"] ?? 100;
+    var _gain  = _patternData[$ "gain" ] ?? (VINYL_GAIN_DECIBEL_MODE? 0 : 1);
+    var _pitch = _patternData[$ "pitch"] ?? (VINYL_PITCH_PERCENTAGE_MODE? 100 : 1);
+    
+    if (VINYL_GAIN_DECIBEL_MODE) _gain = __VinylGainToAmplitude(_gain);
+    if (VINYL_PITCH_PERCENTAGE_MODE) _pitch /= 100;
     
     if (!is_numeric(_gain)) __VinylError("Error in pattern \"", __name, "\"\nGain must be a number");
     __gain = _gain;
@@ -91,7 +94,7 @@ function __VinylClassShufflePattern(_name, _labelDict, _patternData = {}) constr
         }
     }
     
-    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for \"", __name, "\", gain=", __gain, " db, pitch=", __pitchLo, "% -> ", __pitchHi, "%, label=", __DebugLabelNames());
+    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for \"", __name, "\", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", label=", __DebugLabelNames());
     
     
     
@@ -130,13 +133,13 @@ function __VinylClassShufflePattern(_name, _labelDict, _patternData = {}) constr
         return _pattern;
     }
     
-    static __Play = function(_gain = 0, _pitch = 100, _pattern_UNUSED)
+    static __Play = function(_gain = (VINYL_GAIN_DECIBEL_MODE? 0 : 1), _pitch = (VINYL_PITCH_PERCENTAGE_MODE? 100 : 1), _pattern_UNUSED)
     {
         var _pattern = __PopPattern();
         return __VinylPatternGet(_pattern).__Play(_gain, _pitch, _pattern);
     }
     
-    static __PlaySimple = function(_gain = 0, _pitch = 100, _pattern_UNUSED)
+    static __PlaySimple = function(_gain = (VINYL_GAIN_DECIBEL_MODE? 0 : 1), _pitch = (VINYL_PITCH_PERCENTAGE_MODE? 100 : 1), _pattern_UNUSED)
     {
         var _pattern = __PopPattern();
         return __VinylPatternGet(_pattern).__PlaySimple(_gain, _pitch, _pattern);

@@ -5,13 +5,23 @@
 
 function VinylPitchTargetGet(_id)
 {
+    var _pitchTarget = 1;
+    
     var _instance = global.__vinylIdToInstanceDict[? _id];
-    if (is_struct(_instance)) return _instance.__pitchTarget;
+    if (is_struct(_instance))
+    {
+        _pitchTarget = _instance.__pitchTarget;
+    }
+    else if (_id == undefined)
+    {
+        //Do nothing
+    }
+    else
+    {
+        var _label = global.__vinylLabelDict[$ _id];
+        if (is_struct(_label)) _pitchTarget = _label.__pitchTarget;
+    }
     
-    if (_id == undefined) return;
-    
-    var _label = global.__vinylLabelDict[$ _id];
-    if (is_struct(_label)) return _label.__pitchTarget;
-    
-    return 0;
+    if (VINYL_PITCH_PERCENTAGE_MODE) _pitchTarget *= 100;
+    return _pitchTarget;
 }

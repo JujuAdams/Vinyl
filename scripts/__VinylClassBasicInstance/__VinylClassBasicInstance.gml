@@ -49,7 +49,7 @@ function __VinylClassBasicInstance() constructor
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " gain=", _gain, " db");
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " gain=", _gain);
         }
         
         __inputGain  = _gain;
@@ -66,7 +66,7 @@ function __VinylClassBasicInstance() constructor
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " gain target=", _targetGain, " db, rate=", _rate, " db/s, stop at silence=", _stopAtSilence? "true" : "false");
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " gain target=", _targetGain, ", rate=", _rate, "/s, stop at silence=", _stopAtSilence? "true" : "false");
         }
         
         __gainTarget = _targetGain;
@@ -76,7 +76,7 @@ function __VinylClassBasicInstance() constructor
     
     static __FadeOut = function(_rate)
     {
-        __InputGainTargetSet(VINYL_SILENCE, _rate, true);
+        __InputGainTargetSet(0, _rate, true);
     }
     
     #endregion
@@ -95,7 +95,7 @@ function __VinylClassBasicInstance() constructor
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " pitch=", _pitch, "%");
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " pitch=", _pitch);
         }
         
         __inputPitch  = _pitch;
@@ -112,7 +112,7 @@ function __VinylClassBasicInstance() constructor
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " pitch target=", _targetPitch, "%, rate=", _rate, "%/s");
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " pitch target=", _targetPitch, ", rate=", _rate, "/s");
         }
         
         __pitchTarget = _targetPitch;
@@ -193,11 +193,11 @@ function __VinylClassBasicInstance() constructor
     { 
         __PlaySetState(_sound, _loop, _gain, _pitch);
         
-        __instance = audio_play_sound(__sound, 1, __loop, __VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), 0, __outputPitch/100);
+        __instance = audio_play_sound(__sound, 1, __loop, __outputGain/VINYL_SYSTEM_HEADROOM, 0, __outputPitch);
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch=", __outputPitch, "%, label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", 100*__VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), "%)");
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_SYSTEM_HEADROOM, ")");
         }
         
         if (__outputGain > VINYL_SYSTEM_HEADROOM)
@@ -212,11 +212,11 @@ function __VinylClassBasicInstance() constructor
         
         __emitter = _emitter ?? __VinylDepoolEmitter();
         
-        __instance = audio_play_sound_on(__emitter, __sound, __loop, 1, __VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), 0, __outputPitch/100);
+        __instance = audio_play_sound_on(__emitter, __sound, __loop, 1, __outputGain/VINYL_SYSTEM_HEADROOM, 0, __outputPitch);
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " on emitter ", __emitter, ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch=", __outputPitch, "%, label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", 100*__VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), "%)");
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " on emitter ", __emitter, ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_SYSTEM_HEADROOM, ")");
         }
         
         if (__outputGain > VINYL_SYSTEM_HEADROOM)
@@ -240,9 +240,9 @@ function __VinylClassBasicInstance() constructor
         var _asset = __VinylPatternGet(__sound);
         if (is_struct(_asset))
         {
-            __outputGain += _asset.__gain;
+            __outputGain *= _asset.__gain;
             var _assetPitch = lerp(_asset.__pitchLo, _asset.__pitchHi, __randomPitchParam);
-            __outputPitch *= _assetPitch/100;
+            __outputPitch *= _assetPitch;
             
             var _labelArray = _asset.__labelArray;
             var _i = 0;
@@ -250,9 +250,9 @@ function __VinylClassBasicInstance() constructor
             {
                 var _label = _labelArray[_i];
                 
-                __outputGain += _label.__outputGain;
-                var _labelPitch = lerp(_label.__configPitchLo, _label.__configPitchHi, __randomPitchParam)/100;
-                __outputPitch *= _labelPitch*_label.__outputPitch/100;
+                __outputGain *= _label.__outputGain;
+                var _labelPitch = lerp(_label.__configPitchLo, _label.__configPitchHi, __randomPitchParam);
+                __outputPitch *= _labelPitch*_label.__outputPitch;
                 
                 _label.__AddInstance(__id);
                 
@@ -374,7 +374,7 @@ function __VinylClassBasicInstance() constructor
                 __outputGain += _delta;
                 __outputChanged = true;
                 
-                if (__shutdown && (_delta < 0) && ((__inputGain <= VINYL_SILENCE) || (__outputGain <= VINYL_SILENCE)))
+                if (__shutdown && (_delta < 0) && ((__inputGain <= 0) || (__outputGain <= 0)))
                 {
                     __Stop();
                     return;
@@ -395,11 +395,11 @@ function __VinylClassBasicInstance() constructor
                 
                 if (VINYL_DEBUG_LEVEL >= 2)
                 {
-                    __VinylTrace("Updated instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch=", __outputPitch, "%, label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", 100*__VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), "%)");
+                    __VinylTrace("Updated instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_SYSTEM_HEADROOM, ")");
                 }
                 
-                audio_sound_gain(__instance, __VinylGainToAmplitude(__outputGain - VINYL_SYSTEM_HEADROOM), VINYL_STEP_DURATION);
-                audio_sound_pitch(__instance, __outputPitch/100);
+                audio_sound_gain(__instance, __outputGain/VINYL_SYSTEM_HEADROOM, VINYL_STEP_DURATION);
+                audio_sound_pitch(__instance, __outputPitch);
             }
         }
     }

@@ -5,13 +5,22 @@
 
 function VinylGainGet(_id)
 {
+    var _gain = 0;
+    
     var _instance = global.__vinylIdToInstanceDict[? _id];
-    if (is_struct(_instance)) return _instance.__inputGain;
+    if (is_struct(_instance))
+    {
+        _gain = _instance.__inputGain;
+    }
+    else if (_id == undefined)
+    {
+        //Do nothing
+    }
+    else
+    {    
+        var _label = global.__vinylLabelDict[$ _id];
+        if (is_struct(_label)) _gain = _label.__inputGain;
+    }
     
-    if (_id == undefined) return;
-    
-    var _label = global.__vinylLabelDict[$ _id];
-    if (is_struct(_label)) return _label.__inputGain;
-    
-    return VINYL_SILENCE;
+    return VINYL_GAIN_DECIBEL_MODE? __VinylAmplitudeToGain(_gain) : _gain;
 }

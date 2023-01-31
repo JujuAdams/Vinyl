@@ -1,7 +1,7 @@
 /// Sets the system-wide gain for Vinyl
 /// This number is NOT constrained by the VINYL_SYSTEM_HEADROOM value
 /// 
-/// @param gainDB
+/// @param gain
 
 function VinylSystemGainSet(_gain)
 {
@@ -10,9 +10,9 @@ function VinylSystemGainSet(_gain)
     {
         _oldGain = _gain;
         
-        var _amplitude = __VinylGainToAmplitude(_gain + VINYL_SYSTEM_HEADROOM);
+        var _amplitude = VINYL_GAIN_DECIBEL_MODE? __VinylGainToAmplitude(_gain + VINYL_SYSTEM_HEADROOM) : VINYL_SYSTEM_HEADROOM*_gain;
         audio_master_gain(_amplitude);
         
-        __VinylTrace("Set system gain to ", _gain, " dB (VINYL_SYSTEM_HEADROOM=", _gain + VINYL_SYSTEM_HEADROOM, " db, resultant amplitude=", 100*_amplitude, "%)");
+        __VinylTrace("Set system gain to ", _gain, " (VINYL_SYSTEM_HEADROOM=", VINYL_SYSTEM_HEADROOM, ", resultant amplitude=", _amplitude, ")");
     }
 }

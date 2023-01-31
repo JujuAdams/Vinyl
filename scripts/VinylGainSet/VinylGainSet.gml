@@ -7,10 +7,12 @@
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
 /// @param vinylID/labelName
-/// @param gainDB
+/// @param gain
 
 function VinylGainSet(_id, _gain)
 {
+    if (VINYL_GAIN_DECIBEL_MODE) _gain = __VinylGainToAmplitude(_gain);
+    
     var _instance = global.__vinylIdToInstanceDict[? _id];
     if (is_struct(_instance)) return _instance.__InputGainSet(_gain);
     

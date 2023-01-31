@@ -12,11 +12,14 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     
     
     //Unpack the definition data
-    var _gain         = _labelData[$ "gain" ] ?? 0;
-    var _pitch        = _labelData[$ "pitch"] ?? 100;
+    var _gain         = _labelData[$ "gain" ] ?? (VINYL_GAIN_DECIBEL_MODE? 0 : 1);
+    var _pitch        = _labelData[$ "pitch"] ?? (VINYL_PITCH_PERCENTAGE_MODE? 100 : 1);
     var _loop         = _labelData[$ "loop" ] ?? undefined;
     var _limit        = _labelData[$ "limit"] ?? 100;
     var _limitFadeOut = _labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE;
+    
+    if (VINYL_GAIN_DECIBEL_MODE) _gain = __VinylGainToAmplitude(_gain);
+    if (VINYL_PITCH_PERCENTAGE_MODE) _pitch /= 100;
     
     if (!is_numeric(_gain)) __VinylError("Error in label \"", __name, "\"\nGain must be a number");
     __configGain = _gain;
@@ -60,8 +63,8 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     //Set remainder of the state
     __audioArray = [];
     
-    __inputGain  = 0;
-    __inputPitch = 100;
+    __inputGain  = 1;
+    __inputPitch = 1;
     
     __gainTarget  = __inputGain;
     __gainRate    = VINYL_DEFAULT_GAIN_RATE;
@@ -71,7 +74,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     __outputGain  = __inputGain;
     __outputPitch = __inputPitch;
     
-    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __outputGain, " db, pitch=", __outputPitch*__configPitchLo/100, "% -> ", __outputPitch*__configPitchHi/100, "%, max instances=", __limitMaxCount);
+    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __outputGain, ", pitch=", __outputPitch*__configPitchLo, " -> ", __outputPitch*__configPitchHi, ", max instances=", __limitMaxCount);
     
     
     
@@ -126,9 +129,9 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         if (VINYL_DEBUG_READ_CONFIG)
         {
             __VinylTrace("Copying state to label \"", __name, "\":");
-            __VinylTrace("    gain in=", __inputGain, " dB/out=", __outputGain, " dB, pitch in=", __inputPitch, "%/out=", __outputPitch, "%");
-            __VinylTrace("    gain target=", __gainTarget, " dB, rate=", __gainRate, " dB/s");
-            __VinylTrace("    pitch target=", __pitchTarget, "%, rate=", __pitchRate, "%/s");
+            __VinylTrace("    gain in=", __inputGain, "/out=", __outputGain, ", pitch in=", __inputPitch, "/out=", __outputPitch);
+            __VinylTrace("    gain target=", __gainTarget, ", rate=", __gainRate, "/s");
+            __VinylTrace("    pitch target=", __pitchTarget, ", rate=", __pitchRate, "/s");
         }
     }
     
@@ -174,7 +177,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Label \"", __name, "\" gain=", _gain, " db");
+            __VinylTrace("Label \"", __name, "\" gain=", _gain);
         }
         
         __inputGain  = _gain;
@@ -185,7 +188,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Label \"", __name, "\" gain target=", _targetGain, " db, rate=", _rate, " db/s");
+            __VinylTrace("Label \"", __name, "\" gain target=", _targetGain, ", rate=", _rate, "/s");
         }
         
         __gainTarget = _targetGain;
@@ -214,7 +217,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Label \"", __name, "\" pitch=", _pitch, "%");
+            __VinylTrace("Label \"", __name, "\" pitch=", _pitch);
         }
         
         __inputPitch  = _pitch;
@@ -225,7 +228,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Label \"", __name, "\" pitch target=", _targetPitch, "%, rate=", _rate, "%/s");
+            __VinylTrace("Label \"", __name, "\" pitch target=", _targetPitch, ", rate=", _rate, "/s");
         }
         
         __pitchTarget = _targetPitch;
@@ -246,10 +249,10 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         var _gainDelta  = __outputGain;
         var _pitchDelta = __outputPitch;
         
-        __outputGain  = __inputGain + __configGain;
+        __outputGain  = __inputGain*__configGain;
         __outputPitch = __inputPitch;
         
-        _gainDelta  = __outputGain  - _gainDelta;
+        _gainDelta  = __outputGain  / _gainDelta;
         _pitchDelta = __outputPitch / _pitchDelta;
         
         //If our values have changed at all, iterate over instances that are labelled to use us
@@ -267,7 +270,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
                 {
                     _instance.__outputChanged = true;
                     
-                    _instance.__outputGain  += _gainDelta;
+                    _instance.__outputGain  *= _gainDelta;
                     _instance.__outputPitch *= _pitchDelta;
                     
                     ++_i;

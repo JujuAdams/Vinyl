@@ -37,12 +37,10 @@
         sfx: {
             children: {
                 speech: {
-                    pitch: [90, 110]
-                    gain: 0
+                    pitch: [0.9, 1.1]
                 }
                 footsteps: {
-                    pitch: [80, 120]
-                    gain: 0
+                    pitch: [0.8, 1.2]
                 }
                 ui: {}
             }
@@ -70,7 +68,7 @@
     patterns: {
         random pitch test: {
             basic: sndTestTone
-            pitch: [80, 120]
+            pitch: [0.8, 1.2]
         }
         
         shuffle test: {

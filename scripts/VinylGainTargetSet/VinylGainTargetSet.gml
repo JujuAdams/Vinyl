@@ -12,6 +12,8 @@
 
 function VinylGainTargetSet(_id, _targetGain, _rate = VINYL_DEFAULT_GAIN_RATE)
 {
+    if (VINYL_GAIN_DECIBEL_MODE) _targetGain = __VinylGainToAmplitude(_targetGain);
+    
     var _instance = global.__vinylIdToInstanceDict[? _id];
     if (is_struct(_instance)) return _instance.__InputGainTargetSet(_targetGain, _rate);
     

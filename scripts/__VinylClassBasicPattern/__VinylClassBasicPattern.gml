@@ -6,8 +6,11 @@ function __VinylClassBasicPattern(_sound, _labelDict, _patternData = {}) constru
 { 
     __sound = _sound;
     
-    var _gain  = _patternData[$ "gain" ] ?? 0;
-    var _pitch = _patternData[$ "pitch"] ?? 100;
+    var _gain  = _patternData[$ "gain" ] ?? (VINYL_GAIN_DECIBEL_MODE? 0 : 1);
+    var _pitch = _patternData[$ "pitch"] ?? (VINYL_PITCH_PERCENTAGE_MODE? 100 : 1);
+    
+    if (VINYL_GAIN_DECIBEL_MODE) _gain = __VinylGainToAmplitude(_gain);
+    if (VINYL_PITCH_PERCENTAGE_MODE) _pitch /= 100;
     
     if (!is_numeric(_gain)) __VinylError("Error in audio asset \"", audio_get_name(__sound), "\"\nGain must be a number");
     __gain = _gain;
@@ -69,7 +72,7 @@ function __VinylClassBasicPattern(_sound, _labelDict, _patternData = {}) constru
         }
     }
     
-    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for \"", audio_get_name(__sound), "\", gain=", __gain, " db, pitch=", __pitchLo, "% -> ", __pitchHi, "%, label=", __DebugLabelNames());
+    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for \"", audio_get_name(__sound), "\", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", label=", __DebugLabelNames());
     
     
     
@@ -85,13 +88,16 @@ function __VinylClassBasicPattern(_sound, _labelDict, _patternData = {}) constru
         return false;
     }
     
-    static __PlaySimple = function(_gain = 0, _pitch = 100, _sound = __sound)
+    static __PlaySimple = function(_gain = (VINYL_GAIN_DECIBEL_MODE? 0 : 1), _pitch = (VINYL_PITCH_PERCENTAGE_MODE? 100 : 1), _sound = __sound)
     {
+        if (VINYL_GAIN_DECIBEL_MODE) _gain = __VinylGainToAmplitude(_gain);
+        if (VINYL_PITCH_PERCENTAGE_MODE) _pitch /= 100;
+        
         var _randomPitchParam = __VinylRandom(1);
         
-        _gain += __gain;
+        _gain *= __gain;
         var _assetPitch = lerp(__pitchLo, __pitchHi, _randomPitchParam);
-        _pitch *= _assetPitch/100;
+        _pitch *= _assetPitch;
         
         var _i = 0;
         repeat(array_length(__labelArray))
@@ -99,17 +105,17 @@ function __VinylClassBasicPattern(_sound, _labelDict, _patternData = {}) constru
             var _label = __labelArray[_i];
             
             _gain += _label.__outputGain;
-            var _labelPitch = lerp(_label.__configPitchLo, _label.__configPitchHi, _randomPitchParam)/100;
-            _pitch *= _labelPitch*_label.__outputPitch/100;
+            var _labelPitch = lerp(_label.__configPitchLo, _label.__configPitchHi, _randomPitchParam);
+            _pitch *= _labelPitch*_label.__outputPitch;
             
             ++_i;
         }
         
-        var _instance = audio_play_sound(_sound, 1, false, __VinylGainToAmplitude(_gain - VINYL_SYSTEM_HEADROOM), 0, _pitch/100);
+        var _instance = audio_play_sound(_sound, 1, false, _gain/VINYL_SYSTEM_HEADROOM, 0, _pitch);
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Playing ", audio_get_name(_sound), ", gain=", _gain, " dB, pitch=", _pitch, "%, label=", __DebugLabelNames(), " (GMinst=", _instance, ", amplitude=", 100*__VinylGainToAmplitude(_gain - VINYL_SYSTEM_HEADROOM), "%)");
+            __VinylTrace("Playing ", audio_get_name(_sound), ", gain=", _gain, ", pitch=", _pitch, ", label=", __DebugLabelNames(), " (GMinst=", _instance, ", amplitude=", _gain/VINYL_SYSTEM_HEADROOM, ")");
         }
         
         if (_gain > VINYL_SYSTEM_HEADROOM)

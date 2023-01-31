@@ -96,8 +96,8 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Configuration","folderPath":"folders/Vinyl/This way to the party/Configuration.yy","order":0,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Gain","folderPath":"folders/Vinyl/This way to the party/Gain.yy","order":2,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Pitch","folderPath":"folders/Vinyl/This way to the party/Pitch.yy","order":3,},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Semitones","folderPath":"folders/Vinyl/This way to the party/Semitones.yy","order":5,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Positional","folderPath":"folders/Vinyl/This way to the party/Positional.yy","order":4,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Semitones","folderPath":"folders/Vinyl/This way to the party/Semitones.yy","order":5,},
   ],
   "AudioGroups": [
     {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},

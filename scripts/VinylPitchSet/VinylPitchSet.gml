@@ -11,6 +11,8 @@
 
 function VinylPitchSet(_id, _pitch)
 {
+    if (VINYL_PITCH_PERCENTAGE_MODE) _pitch /= 100;
+    
     var _instance = global.__vinylIdToInstanceDict[? _id];
     if (is_struct(_instance)) return _instance.__InputPitchSet(_pitch);
     

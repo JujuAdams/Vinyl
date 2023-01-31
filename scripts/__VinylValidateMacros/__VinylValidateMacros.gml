@@ -30,13 +30,13 @@ function __VinylValidateMacros()
         __VinylError("VINYL_DEBUG_LEVEL must be a number");
     }
     
-    if not (is_numeric(VINYL_SYSTEM_HEADROOM) && (VINYL_SYSTEM_HEADROOM >= 0) && (VINYL_SYSTEM_HEADROOM <= 30))
+    if not (is_numeric(VINYL_SYSTEM_HEADROOM))
     {
-        __VinylError("VINYL_SYSTEM_HEADROOM must be a number greater than or equal to zero, and less than or equal to 30");
+        __VinylError("VINYL_SYSTEM_HEADROOM must be a number");
     }
     
-    if not (is_numeric(VINYL_SILENCE) && (VINYL_SILENCE >= -60) && (VINYL_SILENCE < 0))
+    if not (is_numeric(VINYL_SILENCE))
     {
-        __VinylError("VINYL_SILENCE must be a number greater than or equal to -60, and less than 0");
+        __VinylError("VINYL_SILENCE must be a number");
     }
 }
