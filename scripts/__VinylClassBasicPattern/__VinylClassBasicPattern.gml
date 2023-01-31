@@ -1,9 +1,12 @@
 /// @param sound
+/// @param patternArray
 /// @param labelDict
 /// @param [patternData]
 
-function __VinylClassBasicPattern(_sound, _labelDict, _patternData = {}) constructor
-{ 
+function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternData = {}) constructor
+{
+    array_push(_patternArray, self);
+    
     __sound = _sound;
     
     var _gain  = _patternData[$ "gain" ] ?? (VINYL_GAIN_DECIBEL_MODE? 0 : 1);
@@ -43,6 +46,7 @@ function __VinylClassBasicPattern(_sound, _labelDict, _patternData = {}) constru
     if (VINYL_DEBUG_LEVEL >= 1) __name = audio_get_name(__sound);
     
     __labelArray = [];
+    __labelDictTemp__ = {}; //Removed at the end of VinylSystemReadConfig()
     
     
     
@@ -52,7 +56,6 @@ function __VinylClassBasicPattern(_sound, _labelDict, _patternData = {}) constru
     
     if (is_array(_labelNameArray))
     {
-        var _foundLabelDict = {};
         var _i = 0;
         repeat(array_length(_labelNameArray))
         {
@@ -65,7 +68,7 @@ function __VinylClassBasicPattern(_sound, _labelDict, _patternData = {}) constru
             }
             else
             {
-                _labelData.__BuildAssetLabelArray(__labelArray, _foundLabelDict);
+                _labelData.__BuildAssetLabelArray(__labelArray, __labelDictTemp__);
             }
             
             ++_i;

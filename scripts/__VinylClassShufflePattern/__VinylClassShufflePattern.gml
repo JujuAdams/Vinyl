@@ -1,9 +1,12 @@
 /// @param name
+/// @param patternArray
 /// @param labelDict
 /// @param [patternData]
 
-function __VinylClassShufflePattern(_name, _labelDict, _patternData = {}) constructor
+function __VinylClassShufflePattern(_name, _patternArray, _labelDict, _patternData = {}) constructor
 { 
+    array_push(_patternArray, self);
+    
     __name         = _name;
     __patternArray = _patternData[$ "shuffle"] ?? [];
     
@@ -65,6 +68,7 @@ function __VinylClassShufflePattern(_name, _labelDict, _patternData = {}) constr
     }
     
     __labelArray = [];
+    __labelDictTemp__ = {}; //Removed at the end of VinylSystemReadConfig()
     
     
     
@@ -74,7 +78,6 @@ function __VinylClassShufflePattern(_name, _labelDict, _patternData = {}) constr
     
     if (is_array(_labelNameArray))
     {
-        var _foundLabelDict = {};
         var _i = 0;
         repeat(array_length(_labelNameArray))
         {
@@ -87,7 +90,7 @@ function __VinylClassShufflePattern(_name, _labelDict, _patternData = {}) constr
             }
             else
             {
-                _labelData.__BuildAssetLabelArray(__labelArray, _foundLabelDict);
+                _labelData.__BuildAssetLabelArray(__labelArray, __labelDictTemp__);
             }
             
             ++_i;
