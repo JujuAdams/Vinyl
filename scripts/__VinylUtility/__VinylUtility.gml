@@ -40,7 +40,7 @@ function __VinylCurveAmplitude(_value)
     }
     else
     {
-        if (__VINYL_GAIN_EXPONENTIAL_CURVE)
+        if (__VINYL_FORCE_EXPONENTIAL_CURVE)
         {
             return (power(20, _value/VINYL_SYSTEM_MAX_GAIN)-1)/19;
         }

@@ -4,7 +4,8 @@
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.json"
 #macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
 
-#macro __VINYL_GAIN_EXPONENTIAL_CURVE  true
+#macro __VINYL_GAIN_EXPONENTIAL_CURVE   true
+#macro __VINYL_FORCE_EXPONENTIAL_CURVE  true
 
 #macro __VINYL_PAN_WIDTH  100
 
