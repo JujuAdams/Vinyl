@@ -10,7 +10,7 @@
 //Maximum output gain for audio instances. Must be greater than or equal to zero
 //Choose lower values to get more resolution in perceived volume levels
 //If you set VINYL_GAIN_DECIBEL_MODE to <true> then you will also need to change this value
-#macro VINYL_SYSTEM_MAX_GAIN  4
+#macro VINYL_SYSTEM_MAX_GAIN  1
 
 //Decibel level that is functionally silent to the ear
 //This is only relevant when VINYL_GAIN_DECIBEL_MODE is set to <true>
