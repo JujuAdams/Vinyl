@@ -104,7 +104,7 @@ function __VinylClassBasicPattern(_sound, _labelDict, _patternData = {}) constru
         {
             var _label = __labelArray[_i];
             
-            _gain += _label.__outputGain;
+            _gain *= _label.__outputGain;
             var _labelPitch = lerp(_label.__configPitchLo, _label.__configPitchHi, _randomPitchParam);
             _pitch *= _labelPitch*_label.__outputPitch;
             
