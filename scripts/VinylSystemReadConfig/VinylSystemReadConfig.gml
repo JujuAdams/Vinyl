@@ -79,11 +79,58 @@ function VinylSystemReadConfig(_configData)
         }
         else
         {
-            var _assetData = _inputAssetDict[$ _assetName];
-            var _newAsset = new __VinylClassBasicPattern(_assetIndex, _newLabelDict, _assetData);
-            
             var _key = (_assetName == "fallback")? "fallback" : string(_assetIndex);
-            _newPatternDict[$ _key] = _newAsset;
+            if (variable_struct_exists(_newPatternDict, _key))
+            {
+                __VinylTrace("Warning! Asset \"", _key, "\" has already been defined");
+            }
+            else
+            {
+                //Pull out the asset data
+                var _assetData = _inputAssetDict[$ _assetName];
+                
+                //Make a new basic pattern for this asset
+                _newPatternDict[$ _key] = new __VinylClassBasicPattern(_assetIndex, _newLabelDict, _assetData);
+                
+                //Apply this asset data to all of the named "copyTo" assets
+                var _copyToArray = _assetData[$ "copyTo"];
+                if (is_string(_copyToArray)) _copyToArray = [_copyToArray]; //Create an array out of a string if needed
+                
+                if (is_array(_copyToArray))
+                {
+                    var _j = 0;
+                    repeat(array_length(_copyToArray))
+                    {
+                        var _copyToName = _copyToArray[_j];
+                        var _copyToIndex = asset_get_index(_copyToName);
+                        var _copyToKey = string(_copyToIndex);
+                        
+                        if (_copyToName == "fallback")
+                        {
+                            __VinylTrace("Warning! Cannot copy to fallback asset (parent asset=\"", _assetName, "\")");;
+                        }
+                        else if (_copyToIndex < 0)
+                        {
+                            __VinylTrace("Warning! copyTo asset \"", _copyToName, "\" doesn't exist (parent asset=\"", _assetName, "\")");
+                        }
+                        else if (asset_get_type(_copyToName) != asset_sound)
+                        {
+                            __VinylTrace("Warning! copyTo asset \"", _copyToName, "\" isn't a sound (parent asset=\"", _assetName, "\")");
+                        }
+                        else if (variable_struct_exists(_newPatternDict, _copyToKey))
+                        {
+                            __VinylTrace("Warning! copyTo asset \"", _copyToName, "\" has already been defined (parent asset=\"", _assetName, "\")");
+                        }
+                        else
+                        {
+                            //Make a basic pattern for this copyTo asset
+                            _newPatternDict[$ _copyToKey] = new __VinylClassBasicPattern(_copyToIndex, _newLabelDict, _assetData);
+                        }
+                        
+                        ++_j;
+                    }
+                }
+            }
         }
         
         ++_i;

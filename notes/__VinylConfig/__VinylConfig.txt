@@ -60,6 +60,7 @@
         fallback: {}
         sndChickenNuggets: {
             label: music
+            copyTo: sndTestTone
         }
     }
     
