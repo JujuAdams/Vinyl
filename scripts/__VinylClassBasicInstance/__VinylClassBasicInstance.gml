@@ -193,7 +193,7 @@ function __VinylClassBasicInstance() constructor
     { 
         __PlaySetState(_sound, _loop, _gain, _pitch);
         
-        __instance = audio_play_sound(__sound, 1, __loop, __outputGain/VINYL_SYSTEM_HEADROOM, 0, __outputPitch);
+        __instance = audio_play_sound(__sound, 1, __loop, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
@@ -212,7 +212,7 @@ function __VinylClassBasicInstance() constructor
         
         __emitter = _emitter ?? __VinylDepoolEmitter();
         
-        __instance = audio_play_sound_on(__emitter, __sound, __loop, 1, __outputGain/VINYL_SYSTEM_HEADROOM, 0, __outputPitch);
+        __instance = audio_play_sound_on(__emitter, __sound, __loop, 1, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
@@ -400,7 +400,7 @@ function __VinylClassBasicInstance() constructor
                     __VinylTrace("Updated instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_SYSTEM_HEADROOM, ")");
                 }
                 
-                audio_sound_gain(__instance, __outputGain/VINYL_SYSTEM_HEADROOM, VINYL_STEP_DURATION);
+                audio_sound_gain(__instance, __VinylCurveAmplitude(__outputGain), VINYL_STEP_DURATION);
                 audio_sound_pitch(__instance, __outputPitch);
             }
         }

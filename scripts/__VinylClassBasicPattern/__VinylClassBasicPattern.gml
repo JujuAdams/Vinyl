@@ -111,7 +111,7 @@ function __VinylClassBasicPattern(_sound, _labelDict, _patternData = {}) constru
             ++_i;
         }
         
-        var _instance = audio_play_sound(_sound, 1, false, _gain/VINYL_SYSTEM_HEADROOM, 0, _pitch);
+        var _instance = audio_play_sound(_sound, 1, false, __VinylCurveAmplitude(_gain), 0, _pitch);
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {

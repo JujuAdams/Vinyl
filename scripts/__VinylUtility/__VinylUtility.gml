@@ -31,3 +31,22 @@ function __VinylAmplitudeToGain(_amplitudeCoeff)
         return lerp(VINYL_SILENCE, VINYL_SYSTEM_HEADROOM, _amplitudeCoeff);
     }
 }
+
+function __VinylCurveAmplitude(_value)
+{
+    if (VINYL_GAIN_DECIBEL_MODE)
+    {
+        return __VinylGainToAmplitude(_value);
+    }
+    else
+    {
+        if (__VINYL_GAIN_EXPONENTIAL_CURVE)
+        {
+            return (power(20, _value/VINYL_SYSTEM_HEADROOM)-1)/19;
+        }
+        else
+        {
+            return _value/VINYL_SYSTEM_HEADROOM;
+        }
+    }
+}
