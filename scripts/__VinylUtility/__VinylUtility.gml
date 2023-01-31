@@ -16,7 +16,7 @@ function __VinylGainToAmplitude(_gain)
     }
     else
     {
-        return clamp((_gain - VINYL_SILENCE) / (VINYL_SYSTEM_HEADROOM - VINYL_SILENCE), 0, 1);
+        return clamp((_gain - VINYL_SILENCE) / (VINYL_SYSTEM_MAX_GAIN - VINYL_SILENCE), 0, 1);
     }
 }
 
@@ -28,7 +28,7 @@ function __VinylAmplitudeToGain(_amplitudeCoeff)
     }
     else
     {
-        return lerp(VINYL_SILENCE, VINYL_SYSTEM_HEADROOM, _amplitudeCoeff);
+        return lerp(VINYL_SILENCE, VINYL_SYSTEM_MAX_GAIN, _amplitudeCoeff);
     }
 }
 
@@ -42,11 +42,11 @@ function __VinylCurveAmplitude(_value)
     {
         if (__VINYL_GAIN_EXPONENTIAL_CURVE)
         {
-            return (power(20, _value/VINYL_SYSTEM_HEADROOM)-1)/19;
+            return (power(20, _value/VINYL_SYSTEM_MAX_GAIN)-1)/19;
         }
         else
         {
-            return _value/VINYL_SYSTEM_HEADROOM;
+            return _value/VINYL_SYSTEM_MAX_GAIN;
         }
     }
 }

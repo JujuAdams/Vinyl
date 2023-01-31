@@ -115,12 +115,12 @@ function __VinylClassBasicPattern(_sound, _labelDict, _patternData = {}) constru
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Playing ", audio_get_name(_sound), ", gain=", _gain, ", pitch=", _pitch, ", label=", __DebugLabelNames(), " (GMinst=", _instance, ", amplitude=", _gain/VINYL_SYSTEM_HEADROOM, ")");
+            __VinylTrace("Playing ", audio_get_name(_sound), ", gain=", _gain, ", pitch=", _pitch, ", label=", __DebugLabelNames(), " (GMinst=", _instance, ", amplitude=", _gain/VINYL_SYSTEM_MAX_GAIN, ")");
         }
         
-        if (_gain > VINYL_SYSTEM_HEADROOM)
+        if (_gain > VINYL_SYSTEM_MAX_GAIN)
         {
-            __VinylTrace("Warning! Gain value ", _gain, " exceeds VINYL_SYSTEM_HEADROOM (", VINYL_SYSTEM_HEADROOM, ")");
+            __VinylTrace("Warning! Gain value ", _gain, " exceeds VINYL_SYSTEM_MAX_GAIN (", VINYL_SYSTEM_MAX_GAIN, ")");
         }
         
         return _instance;

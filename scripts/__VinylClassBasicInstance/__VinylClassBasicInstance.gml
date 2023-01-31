@@ -197,12 +197,12 @@ function __VinylClassBasicInstance() constructor
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_SYSTEM_HEADROOM, ")");
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_SYSTEM_MAX_GAIN, ")");
         }
         
-        if (__outputGain > VINYL_SYSTEM_HEADROOM)
+        if (__outputGain > VINYL_SYSTEM_MAX_GAIN)
         {
-            __VinylTrace("Warning! Gain value ", __outputGain, " exceeds VINYL_SYSTEM_HEADROOM (", VINYL_SYSTEM_HEADROOM, ")");
+            __VinylTrace("Warning! Gain value ", __outputGain, " exceeds VINYL_SYSTEM_MAX_GAIN (", VINYL_SYSTEM_MAX_GAIN, ")");
         }
     }
     
@@ -216,12 +216,12 @@ function __VinylClassBasicInstance() constructor
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " on emitter ", __emitter, ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_SYSTEM_HEADROOM, ")");
+            __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " on emitter ", __emitter, ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_SYSTEM_MAX_GAIN, ")");
         }
         
-        if (__outputGain > VINYL_SYSTEM_HEADROOM)
+        if (__outputGain > VINYL_SYSTEM_MAX_GAIN)
         {
-            __VinylTrace("Warning! Gain value ", __outputGain, " exceeds VINYL_SYSTEM_HEADROOM (", VINYL_SYSTEM_HEADROOM, ")");
+            __VinylTrace("Warning! Gain value ", __outputGain, " exceeds VINYL_SYSTEM_MAX_GAIN (", VINYL_SYSTEM_MAX_GAIN, ")");
         }
     }
     
@@ -397,7 +397,7 @@ function __VinylClassBasicInstance() constructor
                 
                 if (VINYL_DEBUG_LEVEL >= 2)
                 {
-                    __VinylTrace("Updated instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_SYSTEM_HEADROOM, ")");
+                    __VinylTrace("Updated instance ", __id, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_SYSTEM_MAX_GAIN, ")");
                 }
                 
                 audio_sound_gain(__instance, __VinylCurveAmplitude(__outputGain), VINYL_STEP_DURATION);

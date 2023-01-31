@@ -47,5 +47,5 @@ to -60 dB.
 
 Unlike GameMaker, Vinyl supports making audio louder than what would normally be possible
 with GameMaker's native functions. We do need to set an upper limit however to prevent
-clipping and other distortion; this is controlled by VINYL_SYSTEM_HEADROOM which defaults
+clipping and other distortion; this is controlled by VINYL_SYSTEM_MAX_GAIN which defaults
 to +12 dB.

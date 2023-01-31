@@ -30,9 +30,9 @@ function __VinylValidateMacros()
         __VinylError("VINYL_DEBUG_LEVEL must be a number");
     }
     
-    if not (is_numeric(VINYL_SYSTEM_HEADROOM))
+    if not (is_numeric(VINYL_SYSTEM_MAX_GAIN))
     {
-        __VinylError("VINYL_SYSTEM_HEADROOM must be a number");
+        __VinylError("VINYL_SYSTEM_MAX_GAIN must be a number");
     }
     
     if not (is_numeric(VINYL_SILENCE))
