@@ -144,7 +144,7 @@ function VinylSystemReadConfig(_configData)
         _newPatternDict.fallback = new __VinylClassBasicPattern(-1, _newPatternOrder, _newLabelDict);
     }
     
-    //
+    //Iterate over every label and collect up sound assets with tags that match the label's definition
     var _i = 0;
     repeat(array_length(_newLabelOrder))
     {
