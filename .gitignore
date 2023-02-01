@@ -1,2 +1,3 @@
-
-datafiles/vinyl.dat
+.DS_Store
+datafiles\vinyl.dat
+datafiles\vinyl.json
