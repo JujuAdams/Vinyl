@@ -186,7 +186,7 @@ function __VinylClassBasicInstance() constructor
         __pitchTarget = __inputPitch;
         
         __randomPitchParam = __VinylRandom(1);
-        __ApplyLabel();
+        __ApplyLabel(true);
     }
        
     static __Play = function(_sound, _loop, _gain, _pitch)
@@ -231,7 +231,7 @@ function __VinylClassBasicInstance() constructor
         return is_struct(_asset)? _asset.__GetLoopFromLabel() : false;
     }
     
-    static __ApplyLabel = function()
+    static __ApplyLabel = function(_initialize)
     {
         //Update the output values based on the asset and labels
         __outputGain  = __inputGain;
@@ -254,7 +254,7 @@ function __VinylClassBasicInstance() constructor
                 var _labelPitch = lerp(_label.__configPitchLo, _label.__configPitchHi, __randomPitchParam);
                 __outputPitch *= _labelPitch*_label.__outputPitch;
                 
-                _label.__AddInstance(__id);
+                if (_initialize) _label.__AddInstance(__id);
                 
                 ++_i;
             }

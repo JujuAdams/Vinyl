@@ -251,17 +251,17 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         __inputPitch += clamp(__pitchTarget - __inputPitch, -_deltaTime*__pitchRate, _deltaTime*__pitchRate);
         
         //Update the output gain
-        var _gainDelta  = __outputGain;
-        var _pitchDelta = __outputPitch;
+        var _oldGain  = __outputGain;
+        var _oldPitch = __outputPitch;
         
         __outputGain  = __inputGain*__configGain;
         __outputPitch = __inputPitch;
         
-        _gainDelta  = __outputGain  / _gainDelta;
-        _pitchDelta = __outputPitch / _pitchDelta;
+        var _gainDelta  = __outputGain  / _oldGain;
+        var _pitchDelta = __outputPitch / _oldPitch;
         
         //If our values have changed at all, iterate over instances that are labelled to use us
-        if ((_gainDelta != 0) || (_pitchDelta != 1))
+        if ((_gainDelta != 1) || (_pitchDelta != 1))
         {
             var _i = 0;
             repeat(array_length(__audioArray))
@@ -275,8 +275,16 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
                 {
                     _instance.__outputChanged = true;
                     
-                    _instance.__outputGain  *= _gainDelta;
-                    _instance.__outputPitch *= _pitchDelta;
+                    if ((_oldGain == 0) || (_oldPitch == 0))
+                    {
+                        _instance.__ApplyLabel(false);
+                        _instance.__outputChanged = true;
+                    }
+                    else
+                    {
+                        _instance.__outputGain  *= _gainDelta;
+                        _instance.__outputPitch *= _pitchDelta;
+                    }
                     
                     ++_i;
                 }
