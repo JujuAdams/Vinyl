@@ -6,6 +6,6 @@
   "isCompatibility": false,
   "parent": {
     "name": "VIPs only in the green room",
-    "path": "folders/Vinyl/This way to the party/(Internals)/VIPs only in the green room.yy",
+    "path": "folders/Vinyl/(Internals)/VIPs only in the green room.yy",
   },
 }

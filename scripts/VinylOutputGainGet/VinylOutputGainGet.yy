@@ -6,6 +6,6 @@
   "isCompatibility": false,
   "parent": {
     "name": "Gain",
-    "path": "folders/Vinyl/This way to the party/Gain.yy",
+    "path": "folders/Vinyl/Gain.yy",
   },
 }
