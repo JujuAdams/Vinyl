@@ -7,13 +7,11 @@
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
 /// @param vinylID/labelName
-/// @param targetPitch%
+/// @param targetPitch
 /// @param [rate=VINYL_DEFAULT_PITCH_RATE]
 
 function VinylPitchTargetSet(_id, _targetPitch, _rate = VINYL_DEFAULT_PITCH_RATE)
 {
-    if (VINYL_CONFIG_PERCENTAGE_PITCH) _targetPitch /= 100;
-    
     var _instance = global.__vinylIdToInstanceDict[? _id];
     if (is_struct(_instance)) return _instance.__InputPitchTargetSet(_targetPitch, _rate);
     

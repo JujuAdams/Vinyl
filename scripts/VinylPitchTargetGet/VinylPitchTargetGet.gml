@@ -22,6 +22,5 @@ function VinylPitchTargetGet(_id)
         if (is_struct(_label)) _pitchTarget = _label.__pitchTarget;
     }
     
-    if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitchTarget *= 100;
     return _pitchTarget;
 }
