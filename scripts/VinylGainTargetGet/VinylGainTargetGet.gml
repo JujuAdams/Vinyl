@@ -21,5 +21,5 @@ function VinylGainTargetGet(_id)
         if (is_struct(_label)) _gainTarget = _label.__gainTarget;
     }
     
-    return VINYL_GAIN_DECIBEL_MODE? __VinylAmplitudeToGain(_gainTarget) : _gainTarget;
+    return _gainTarget;
 }

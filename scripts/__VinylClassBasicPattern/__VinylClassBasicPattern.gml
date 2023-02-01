@@ -91,11 +91,8 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
         return false;
     }
     
-    static __PlaySimple = function(_gain = (VINYL_GAIN_DECIBEL_MODE? 0 : 1), _pitch = (VINYL_PITCH_PERCENTAGE_MODE? 100 : 1), _sound = __sound)
+    static __PlaySimple = function(_gain = 1, _pitch = 1, _sound = __sound)
     {
-        if (VINYL_GAIN_DECIBEL_MODE) _gain = __VinylGainToAmplitude(_gain);
-        if (VINYL_PITCH_PERCENTAGE_MODE) _pitch /= 100;
-        
         var _randomPitchParam = __VinylRandom(1);
         
         _gain *= __gain;

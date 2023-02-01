@@ -63,7 +63,7 @@ function __VinylInitialize()
         y: 0,
     };
     
-    VinylSystemGainSet(VINYL_GAIN_DECIBEL_MODE? 0 : 1);
+    VinylSystemGainSet(1);
     __VinylUpdateData();
     
     if (__VinylGetLiveUpdateEnabled())

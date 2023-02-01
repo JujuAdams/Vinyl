@@ -34,19 +34,12 @@ function __VinylAmplitudeToGain(_amplitudeCoeff)
 
 function __VinylCurveAmplitude(_value)
 {
-    if (VINYL_GAIN_DECIBEL_MODE)
+    if (__VINYL_FORCE_EXPONENTIAL_CURVE)
     {
-        return __VinylGainToAmplitude(_value);
+        return (power(20, _value/VINYL_SYSTEM_MAX_GAIN)-1)/19;
     }
     else
     {
-        if (__VINYL_FORCE_EXPONENTIAL_CURVE)
-        {
-            return (power(20, _value/VINYL_SYSTEM_MAX_GAIN)-1)/19;
-        }
-        else
-        {
-            return _value/VINYL_SYSTEM_MAX_GAIN;
-        }
+        return _value/VINYL_SYSTEM_MAX_GAIN;
     }
 }

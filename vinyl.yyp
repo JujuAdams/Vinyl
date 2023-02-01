@@ -11,7 +11,6 @@
     {"id":{"name":"VinylEmitterGet","path":"scripts/VinylEmitterGet/VinylEmitterGet.yy",},"order":1,},
     {"id":{"name":"__VinylUtility","path":"scripts/__VinylUtility/__VinylUtility.yy",},"order":6,},
     {"id":{"name":"__VinylConfigMacros","path":"scripts/__VinylConfigMacros/__VinylConfigMacros.yy",},"order":0,},
-    {"id":{"name":"Vinyl Readme","path":"notes/Vinyl Readme/Vinyl Readme.yy",},"order":9,},
     {"id":{"name":"VinylPlayFadeIn","path":"scripts/VinylPlayFadeIn/VinylPlayFadeIn.yy",},"order":2,},
     {"id":{"name":"VinylTransposeSet","path":"scripts/VinylTransposeSet/VinylTransposeSet.yy",},"order":2,},
     {"id":{"name":"VinylGainTargetGet","path":"scripts/VinylGainTargetGet/VinylGainTargetGet.yy",},"order":4,},
