@@ -1,39 +1,29 @@
-#region Gain
-
-#macro VINYL_GAIN_DECIBEL_MODE  false
+//Maximum output gain for audio instances. Must be greater than or equal to zero
+//Choose lower values to get more resolution in perceived volume levels
+#macro VINYL_SYSTEM_MAX_GAIN  1
 
 //Default rate of gain adjument when approaching a gain target
 //Measured in units/second
-//If you set VINYL_GAIN_DECIBEL_MODE to <true> then you will also need to change this value
 #macro VINYL_DEFAULT_GAIN_RATE  0.3
-
-//Maximum output gain for audio instances. Must be greater than or equal to zero
-//Choose lower values to get more resolution in perceived volume levels
-//If you set VINYL_GAIN_DECIBEL_MODE to <true> then you will also need to change this value
-#macro VINYL_SYSTEM_MAX_GAIN  1
-
-//Decibel level that is functionally silent to the ear
-//This is only relevant when VINYL_GAIN_DECIBEL_MODE is set to <true>
-#macro VINYL_SILENCE  -60
-
-#endregion
-
-
-
-#region Pitch
-
-#macro VINYL_PITCH_PERCENTAGE_MODE  false
 
 //Default rate of pitch adjument when approaching a pitch target
 //Measured in units/second
-//If you set VINYL_PITCH_PERCENTAGE_MODE to <true> then you will also need to change this value
 #macro VINYL_DEFAULT_PITCH_RATE  0.3
-
-#endregion
 
 
 
 #region Advanced
+
+//Controls how the config file (__VinylConfig) is read regarding gain values
+//Setting this macro to <true> will cause Vinyl to treat gain values as decibels (dbFS)
+//A decibel value of 0 will be translated to an unchanged gain i.e. a GM amplitude value of 1
+//Negative decibel values will be translated to an attenuation of audio amplitude
+#macro VINYL_CONFIG_DECIBEL_GAIN  false
+
+//Controls how the config file (__VinylConfig) is read regarding pitches
+//Setting this macro to <true> will cause Vinyl to treat pitch values as percentages
+//This means a value of 50 will be translated into 50%, or a halving of a sound's pitch
+#macro VINYL_CONFIG_PERCENTAGE_PITCH  false
 
 //How often to scan the Vinyl config file for changes, in milliseconds
 //Set this value to zero (or a negative number) to turn off live update

@@ -9,11 +9,11 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
     
     __sound = _sound;
     
-    var _gain  = _patternData[$ "gain" ] ?? (VINYL_GAIN_DECIBEL_MODE? 0 : 1);
-    var _pitch = _patternData[$ "pitch"] ?? (VINYL_PITCH_PERCENTAGE_MODE? 100 : 1);
+    var _gain  = _patternData[$ "gain" ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+    var _pitch = _patternData[$ "pitch"] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
     
-    if (VINYL_GAIN_DECIBEL_MODE) _gain = __VinylGainToAmplitude(_gain);
-    if (VINYL_PITCH_PERCENTAGE_MODE) _pitch /= 100;
+    if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
+    if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
     
     if (!is_numeric(_gain)) __VinylError("Error in audio asset \"", audio_get_name(__sound), "\"\nGain must be a number");
     __gain = _gain;

@@ -34,9 +34,4 @@ function __VinylValidateMacros()
     {
         __VinylError("VINYL_SYSTEM_MAX_GAIN must be a number");
     }
-    
-    if not (is_numeric(VINYL_SILENCE))
-    {
-        __VinylError("VINYL_SILENCE must be a number");
-    }
 }

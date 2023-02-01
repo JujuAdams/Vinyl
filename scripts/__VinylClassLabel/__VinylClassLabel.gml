@@ -12,15 +12,15 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     
     
     //Unpack the definition data
-    var _gain         = _labelData[$ "gain" ] ?? (VINYL_GAIN_DECIBEL_MODE? 0 : 1);
-    var _pitch        = _labelData[$ "pitch"] ?? (VINYL_PITCH_PERCENTAGE_MODE? 100 : 1);
+    var _gain         = _labelData[$ "gain" ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+    var _pitch        = _labelData[$ "pitch"] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
     var _loop         = _labelData[$ "loop" ] ?? undefined;
     var _limit        = _labelData[$ "limit"] ?? 100;
     var _limitFadeOut = _labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE;
     var _tagArray     = _labelData[$ "tag"] ?? _labelData[$ "tags"];
     
-    if (VINYL_GAIN_DECIBEL_MODE) _gain = __VinylGainToAmplitude(_gain);
-    if (VINYL_PITCH_PERCENTAGE_MODE) _pitch /= 100;
+    if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
+    if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
     
     if (!is_numeric(_gain)) __VinylError("Error in label \"", __name, "\"\nGain must be a number");
     __configGain = _gain;

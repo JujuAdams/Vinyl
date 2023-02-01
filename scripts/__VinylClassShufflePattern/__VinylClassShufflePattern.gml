@@ -33,11 +33,11 @@ function __VinylClassShufflePattern(_name, _patternArray, _labelDict, _patternDa
     
     
     //Set the gain/pitch state from the provided struct
-    var _gain  = _patternData[$ "gain" ] ?? (VINYL_GAIN_DECIBEL_MODE? 0 : 1);
-    var _pitch = _patternData[$ "pitch"] ?? (VINYL_PITCH_PERCENTAGE_MODE? 100 : 1);
+    var _gain  = _patternData[$ "gain" ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+    var _pitch = _patternData[$ "pitch"] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
     
-    if (VINYL_GAIN_DECIBEL_MODE) _gain = __VinylGainToAmplitude(_gain);
-    if (VINYL_PITCH_PERCENTAGE_MODE) _pitch /= 100;
+    if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
+    if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
     
     if (!is_numeric(_gain)) __VinylError("Error in pattern \"", __name, "\"\nGain must be a number");
     __gain = _gain;

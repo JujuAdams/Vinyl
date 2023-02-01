@@ -12,7 +12,7 @@
 
 function VinylPitchTargetSet(_id, _targetPitch, _rate = VINYL_DEFAULT_PITCH_RATE)
 {
-    if (VINYL_PITCH_PERCENTAGE_MODE) _targetPitch /= 100;
+    if (VINYL_CONFIG_PERCENTAGE_PITCH) _targetPitch /= 100;
     
     var _instance = global.__vinylIdToInstanceDict[? _id];
     if (is_struct(_instance)) return _instance.__InputPitchTargetSet(_targetPitch, _rate);

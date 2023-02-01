@@ -22,6 +22,6 @@ function VinylPitchGet(_id)
         if (is_struct(_label)) _pitch = _label.__inputPitch;
     }
     
-    if (VINYL_PITCH_PERCENTAGE_MODE) _pitch *= 100;
+    if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch *= 100;
     return _pitch;
 }

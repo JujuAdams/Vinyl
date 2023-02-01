@@ -10,26 +10,12 @@ function __VinylPitchToSemitone(_pitch)
 
 function __VinylGainToAmplitude(_gain)
 {
-    if (__VINYL_GAIN_EXPONENTIAL_CURVE)
-    {
-        return power(10, _gain/20);
-    }
-    else
-    {
-        return clamp((_gain - VINYL_SILENCE) / (VINYL_SYSTEM_MAX_GAIN - VINYL_SILENCE), 0, 1);
-    }
+    return power(10, _gain/20);
 }
 
 function __VinylAmplitudeToGain(_amplitudeCoeff)
 {
-    if (__VINYL_GAIN_EXPONENTIAL_CURVE)
-    {
-        return ((_amplitudeCoeff <= 0)? -infinity : 20*log10(_amplitudeCoeff));
-    }
-    else
-    {
-        return lerp(VINYL_SILENCE, VINYL_SYSTEM_MAX_GAIN, _amplitudeCoeff);
-    }
+    return ((_amplitudeCoeff <= 0)? -infinity : 20*log10(_amplitudeCoeff));
 }
 
 function __VinylCurveAmplitude(_value)
