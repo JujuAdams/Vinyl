@@ -15,7 +15,7 @@ function __VinylClassPanEmitter() constructor
     __emitter = audio_emitter_create();
     audio_emitter_falloff(__emitter, 1, 1, 1);
     __UpdatePosition();
-    audio_falloff_set_model(audio_falloff_exponent_distance);
+    audio_falloff_set_model(__VINYL_FALLOFF_MODEL);
     
     
     

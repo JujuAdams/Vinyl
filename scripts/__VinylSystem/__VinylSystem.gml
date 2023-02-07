@@ -6,6 +6,8 @@
 
 #macro __VINYL_FORCE_EXPONENTIAL_CURVE  true
 
+#macro __VINYL_FALLOFF_MODEL  audio_falloff_exponent_distance_scaled
+
 enum __VINYL_POOL_STATE
 {
     __POOLED,
@@ -33,7 +35,7 @@ function __VinylInitialize()
     }
     
     //Set up default behaviours within GM's audio system
-    audio_falloff_set_model(audio_falloff_exponent_distance_scaled);
+    audio_falloff_set_model(__VINYL_FALLOFF_MODEL);
     audio_listener_set_orientation(0,   0, 0, 1,   0, -1, 0);
     audio_listener_set_position(0,   0, 0, 0);
     
