@@ -1,5 +1,9 @@
 function __VinylTick()
 {
+    static _globalData = __VinylGlobalData();
+    static _panEmitterPool       = _globalData.__panEmitterPool;
+    static _panEmitterPoolReturn = _globalData.__panEmitterPoolReturn;
+    
     var _deltaTime = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
     
     //Move instances returning to the pool back into the pool
@@ -24,6 +28,18 @@ function __VinylTick()
         array_resize(global.__vinylEmitterPoolReturn, 0);
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Returned ", _returnSize, " emitter(s) to pool, ", _poolSize + _returnSize, " emitters now in pool");
+    }
+    
+    //Move pan emitters returning to the pool back into the pool
+    var _returnSize = array_length(_panEmitterPoolReturn);
+    if (_returnSize > 0)
+    {
+        var _poolSize = array_length(_panEmitterPoolReturn);
+        array_resize(_panEmitterPool, _poolSize + _returnSize);
+        array_copy(_panEmitterPool, _poolSize, _panEmitterPoolReturn, 0, _returnSize);
+        array_resize(_panEmitterPoolReturn, 0);
+        
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Returned ", _returnSize, " pan emitter(s) to pool, ", _poolSize + _returnSize, " pan emitters now in pool");
     }
     
     //Update labels

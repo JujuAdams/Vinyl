@@ -48,4 +48,7 @@
 //Number of audio instances pre-created in the pool
 #macro VINYL_POOL_START_SIZE  30
 
+//Listener index to use for Vinyl functions
+#macro VINYL_LISTENER_INDEX  0
+
 #endregion

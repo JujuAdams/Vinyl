@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylListenerGet",
+  "name": "VinylPanGet",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

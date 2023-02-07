@@ -55,11 +55,6 @@ function __VinylInitialize()
     
     global.__vinylTransposeSemitones = 0;
     
-    global.__vinylListener = {
-        x: 0,
-        y: 0,
-    };
-    
     VinylSystemGainSet(1);
     __VinylUpdateData();
     

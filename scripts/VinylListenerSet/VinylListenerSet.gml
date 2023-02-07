@@ -3,20 +3,20 @@
 
 function VinylListenerSet(_x, _y)
 {
-    static _globalData = __VinylGlobalData();
-    static _panArray   = _globalData.__panArray;
+    static _globalData       = __VinylGlobalData();
+    static _panEmitterActive = _globalData.__panEmitterActive;
     
-    if ((_x != global.__vinylListener.x) || (_y != global.__vinylListener.y))
+    if ((_x != _globalData.__listenerX) || (_y != _globalData.__listenerY))
     {
-        global.__vinylListener.x = _x;
-        global.__vinylListener.y = _y;
+        _globalData.__listenerX = _x;
+        _globalData.__listenerY = _y;
         
-        audio_listener_set_position(0,   _x, _y, 0);
+        audio_listener_set_position(VINYL_LISTENER_INDEX, _x, _y, 0);
         
         var _i = 0;
-        repeat(array_length(_panArray))
+        repeat(array_length(_panEmitterActive))
         {
-            _panArray[_i].__UpdatePosition();
+            _panEmitterActive[_i].__UpdatePosition();
             ++_i;
         }
     }
