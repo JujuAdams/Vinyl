@@ -7,7 +7,8 @@
 
 function VinylPanSet(_id, _pan)
 {
-    static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+    static _globalData       = __VinylGlobalData();
+    static _idToInstanceDict = _globalData.__idToInstanceDict;
     
     var _instance = _idToInstanceDict[? _id];
     if (is_struct(_instance))
@@ -25,6 +26,6 @@ function VinylPanSet(_id, _pan)
     
     if (_id == undefined) return;
     
-    var _label = global.__vinylLabelDict[$ _id];
+    var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) __VinylError("Cannot get or set panning for labels");
 }

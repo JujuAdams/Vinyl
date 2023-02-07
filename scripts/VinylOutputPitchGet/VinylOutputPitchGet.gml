@@ -4,7 +4,8 @@
 
 function VinylOutputPitchGet(_id)
 {
-    static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+    static _globalData       = __VinylGlobalData();
+    static _idToInstanceDict = _globalData.__idToInstanceDict;
     
     var _outputPitch = 1;
     
@@ -19,7 +20,7 @@ function VinylOutputPitchGet(_id)
     }
     else
     {
-        var _label = global.__vinylLabelDict[$ _id];
+        var _label = _globalData.__labelDict[$ _id];
         if (is_struct(_label)) _outputPitch = _label.__outputPitch;
     }
     

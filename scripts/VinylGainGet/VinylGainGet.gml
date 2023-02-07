@@ -21,7 +21,7 @@ function VinylGainGet(_id)
     }
     else
     {    
-        var _label = global.__vinylLabelDict[$ _id];
+        var _label = _globalData.__labelDict[$ _id];
         if (is_struct(_label)) _gain = _label.__inputGain;
     }
     

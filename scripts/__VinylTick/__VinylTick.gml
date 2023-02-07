@@ -1,6 +1,6 @@
 function __VinylTick()
 {
-    static _globalData = __VinylGlobalData();
+    static _globalData           = __VinylGlobalData();
     static _basicPoolPlaying     = _globalData.__basicPoolPlaying;
     static _basicPool            = _globalData.__basicPool;
     static _basicPoolReturn      = _globalData.__basicPoolReturn;
@@ -48,10 +48,11 @@ function __VinylTick()
     }
     
     //Update labels
+    var _labelOrder = _globalData.__labelOrder; //Don't use a struct here because this struct can be recreated
     var _i = 0;
-    repeat(array_length(global.__vinylLabelOrder))
+    repeat(array_length(_labelOrder))
     {
-        global.__vinylLabelOrder[_i].__Tick(_deltaTime);
+        _labelOrder[_i].__Tick(_deltaTime);
         ++_i;
     }
     

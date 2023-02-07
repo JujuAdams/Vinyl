@@ -27,6 +27,7 @@ function __VinylInitialize()
     __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
     
     __VinylValidateMacros();
+    __VinylGlobalData();
     
     if (!file_exists(__VINYL_DATA_BUNDLE_FILENAME))
     {
@@ -38,13 +39,6 @@ function __VinylInitialize()
     audio_falloff_set_model(__VINYL_FALLOFF_MODEL);
     audio_listener_set_orientation(0,   0, 0, 1,   0, -1, 0);
     audio_listener_set_position(0,   0, 0, 0);
-    
-    //Whether to allow live update
-    global.__vinylLiveUpdate = (VINYL_LIVE_UPDATE_PERIOD > 0);
-    
-    global.__vinylPatternDict = {};
-    global.__vinylLabelDict   = {};
-    global.__vinylLabelOrder  = [];
     
     VinylSystemGainSet(1);
     __VinylUpdateData();
@@ -74,11 +68,13 @@ function __VinylInitialize()
 
 function __VinylUpdateData()
 {
+    static _globalData = __VinylGlobalData();
+    
     static _fileHash = undefined;
     var _firstUpdate = (_fileHash == undefined);
     
     //Always allow data to be updated once on boot
-    if (!global.__vinylLiveUpdate && (_fileHash != undefined)) return;
+    if (!_globalData.__liveUpdate && (_fileHash != undefined)) return;
     
     var _filename = __VinylGetDatafilePath();
     

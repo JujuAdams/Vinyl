@@ -5,11 +5,13 @@
 
 function VinylLiveUpdateSet(_state)
 {
+    static _globalData = __VinylGlobalData();
+    
     if (!__VinylGetLiveUpdateEnabled()) return;
     
-    if (_state != global.__vinylLiveUpdate)
+    if (_state != _globalData.__liveUpdate)
     {
         __VinylTrace(_state? "Turned live update on" : "Turned live update off");
-        global.__vinylLiveUpdate = _state;
+        _globalData.__liveUpdate = _state;
     }
 }

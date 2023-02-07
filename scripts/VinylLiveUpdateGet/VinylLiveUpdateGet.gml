@@ -2,6 +2,7 @@
 
 function VinylLiveUpdateGet()
 {
+    static _globalData = __VinylGlobalData();
     if (!__VinylGetLiveUpdateEnabled()) return false;
-    return global.__vinylLiveUpdate;
+    return _globalData.__liveUpdate;
 }

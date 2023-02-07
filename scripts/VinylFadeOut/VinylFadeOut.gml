@@ -20,6 +20,6 @@ function VinylFadeOut(_id, _rate = VINYL_DEFAULT_GAIN_RATE)
     
     if (_id == undefined) return;
     
-    var _label = global.__vinylLabelDict[$ _id];
+    var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__FadeOut(_rate);
 }

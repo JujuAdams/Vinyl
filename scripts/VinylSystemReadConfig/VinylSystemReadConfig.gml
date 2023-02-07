@@ -5,7 +5,8 @@
 
 function VinylSystemReadConfig(_configData)
 {
-    static _basicPoolPlaying = __VinylGlobalData().__basicPoolPlaying;
+    static _globalData       = __VinylGlobalData();
+    static _basicPoolPlaying = _globalData.__basicPoolPlaying;
     
     var _newPatternDict  = {};
     var _newPatternOrder = [];
@@ -54,11 +55,12 @@ function VinylSystemReadConfig(_configData)
     _loadLabelsFunc(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _configData.labels, undefined);
     
     //Copy state data from old labels to new labels
+    var _oldLabelDict = _globalData.__labelDict;
     var _i = 0;
     repeat(array_length(_newLabelOrder))
     {
         var _newLabel = _newLabelOrder[_i];
-        var _oldLabel = global.__vinylLabelDict[$ _newLabel.__name];
+        var _oldLabel = _oldLabelDict[$ _newLabel.__name];
         if (is_struct(_oldLabel)) _newLabel.__CopyOldState(_oldLabel);
         ++_i;
     }
@@ -226,9 +228,9 @@ function VinylSystemReadConfig(_configData)
     }
     
     //Update our global label/pattern tracking
-    global.__vinylPatternDict = _newPatternDict;
-    global.__vinylLabelDict   = _newLabelDict;
-    global.__vinylLabelOrder  = _newLabelOrder;
+    _globalData.__patternDict = _newPatternDict;
+    _globalData.__labelDict   = _newLabelDict;
+    _globalData.__labelOrder  = _newLabelOrder;
     
     //Force an update for all playing instances
     var _i = 0;

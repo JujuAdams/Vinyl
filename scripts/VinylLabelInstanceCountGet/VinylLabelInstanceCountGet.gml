@@ -6,6 +6,6 @@ function VinylLabelInstancesCountGet(_id)
 {
     if (_id == undefined) return 0;
     
-    var _label = global.__vinylLabelDict[$ _id];
+    var _label = __VinylGlobalData().__labelDict[$ _id];
     return is_struct(_label)? array_length(_label.__audioArray) : 0;
 }
