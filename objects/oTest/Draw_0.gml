@@ -14,3 +14,5 @@ _string += "\n";
 _string += "\n";
 
 draw_text(10, 10, _string);
+
+draw_circle(room_width/2, room_height/2, 5, true);

@@ -6,8 +6,6 @@
 
 #macro __VINYL_FORCE_EXPONENTIAL_CURVE  true
 
-#macro __VINYL_PAN_WIDTH  100
-
 enum __VINYL_POOL_STATE
 {
     __POOLED,
