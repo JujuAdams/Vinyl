@@ -5,6 +5,8 @@
 
 function VinylSystemReadConfig(_configData)
 {
+    static _basicPoolPlaying = __VinylGlobalData().__basicPoolPlaying;
+    
     var _newPatternDict  = {};
     var _newPatternOrder = [];
     var _newLabelDict    = {};
@@ -230,9 +232,9 @@ function VinylSystemReadConfig(_configData)
     
     //Force an update for all playing instances
     var _i = 0;
-    repeat(array_length(global.__vinylBasicPlaying))
+    repeat(array_length(_basicPoolPlaying))
     {
-        with(global.__vinylBasicPlaying[_i])
+        with(_basicPoolPlaying[_i])
         {
             __ApplyLabel(true);
             __outputChanged = true;

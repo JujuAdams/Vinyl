@@ -2,15 +2,17 @@
 
 function VinylGlobalTransposeSet(_semitone)
 {
+    static _basicPoolPlaying = __VinylGlobalData().__basicPoolPlaying;
+    
     if (_semitone != global.__vinylTransposeSemitones)
     {
         __VinylTrace("Setting transpose to ", _semitone, " semitones");
         global.__vinylTransposeSemitones = _semitone;
         
         var _i = 0;
-        repeat(array_length(global.__vinylBasicPlaying))
+        repeat(array_length(_basicPoolPlaying))
         {
-            with(global.__vinylBasicPlaying[_i])
+            with(_basicPoolPlaying[_i])
             {
                 if (__transposeUsing)
                 {

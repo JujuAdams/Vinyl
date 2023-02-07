@@ -1,5 +1,8 @@
 function __VinylClassBasicInstance() constructor
 {
+    static __basicPoolReturn  = __VinylGlobalData().__basicPoolReturn;
+    static __basicPoolPlaying = __VinylGlobalData().__basicPoolPlaying;
+    
     __id = undefined;
     __pooled = true;
     
@@ -317,7 +320,7 @@ function __VinylClassBasicInstance() constructor
         
         __id = _id;
         global.__vinylIdToInstanceDict[? _id] = self;
-        array_push(global.__vinylBasicPlaying, self);
+        array_push(__basicPoolPlaying, self);
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling an instance as ID ", __id);
     }
@@ -364,9 +367,9 @@ function __VinylClassBasicInstance() constructor
         //Move this instance to the "return" array
         //This prevents an instance being pooled and depooled in the same step
         //which would lead to problems with labels tracking what they're playing
-        array_push(global.__vinylBasicPoolReturn, self);
+        array_push(__basicPoolReturn, self);
         
-        //If we're playing on an pan emitter, pool it
+        //If we're playing on a pan emitter, pool it
         if (__panEmitter != undefined)
         {
             __panEmitter.__Pool();

@@ -48,10 +48,6 @@ function __VinylInitialize()
     
     global.__vinylIdToInstanceDict = ds_map_create();
     
-    global.__vinylBasicPool       = [];
-    global.__vinylBasicPlaying    = [];
-    global.__vinylBasicPoolReturn = [];
-    
     global.__vinylTransposeSemitones = 0;
     
     VinylSystemGainSet(1);
@@ -71,7 +67,7 @@ function __VinylInitialize()
     //Pre-populate the instance and emitter pools
     repeat(VINYL_POOL_START_SIZE)
     {
-        array_push(global.__vinylBasicPool, new __VinylClassBasicInstance());
+        array_push(__VinylGlobalData().__basicPool, new __VinylClassBasicInstance());
     }
     
     repeat(VINYL_POOL_START_SIZE)

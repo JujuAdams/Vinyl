@@ -1,6 +1,9 @@
 function __VinylTick()
 {
     static _globalData = __VinylGlobalData();
+    static _basicPoolPlaying     = _globalData.__basicPoolPlaying;
+    static _basicPool            = _globalData.__basicPool;
+    static _basicPoolReturn      = _globalData.__basicPoolReturn;
     static _emitterPool          = _globalData.__emitterPool;
     static _emitterPoolReturn    = _globalData.__emitterPoolReturn;
     static _panEmitterPool       = _globalData.__panEmitterPool;
@@ -9,13 +12,13 @@ function __VinylTick()
     var _deltaTime = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
     
     //Move instances returning to the pool back into the pool
-    var _returnSize = array_length(global.__vinylBasicPoolReturn);
+    var _returnSize = array_length(_basicPoolReturn);
     if (_returnSize > 0)
     {
-        var _poolSize = array_length(global.__vinylBasicPool);
-        array_resize(global.__vinylBasicPool, _poolSize + _returnSize);
-        array_copy(global.__vinylBasicPool, _poolSize, global.__vinylBasicPoolReturn, 0, _returnSize);
-        array_resize(global.__vinylBasicPoolReturn, 0);
+        var _poolSize = array_length(_basicPool);
+        array_resize(_basicPool, _poolSize + _returnSize);
+        array_copy(_basicPool, _poolSize,_basicPoolReturn, 0, _returnSize);
+        array_resize(_basicPoolReturn, 0);
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Returned ", _returnSize, " instance(s) to pool, ", _poolSize + _returnSize, " instances now in pool");
     }
@@ -54,12 +57,12 @@ function __VinylTick()
     
     //Update instances
     var _i = 0;
-    repeat(array_length(global.__vinylBasicPlaying))
+    repeat(array_length(_basicPoolPlaying))
     {
-        var _instance = global.__vinylBasicPlaying[_i];
+        var _instance = _basicPoolPlaying[_i];
         if (_instance.__pooled)
         {
-            array_delete(global.__vinylBasicPlaying, _i, 1);
+            array_delete(_basicPoolPlaying, _i, 1);
         }
         else
         {

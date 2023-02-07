@@ -4,5 +4,6 @@
 
 function VinylSystemPlayingCountGet()
 {
-    return array_length(global.__vinylBasicPlaying);
+    static _basicPoolPlaying = __VinylGlobalData().__basicPoolPlaying;
+    return array_length(_basicPoolPlaying);
 }
