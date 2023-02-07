@@ -25,6 +25,7 @@
   "option_android_lint": false,
   "option_android_install_location": 0,
   "option_android_sleep_margin": 4,
+  "option_android_logcat": "yoyo:V DEBUG:V AndroidRuntime:V",
   "option_android_splash_screens_landscape": "${base_options_dir}/android/splash/landscape.png",
   "option_android_splash_screens_portrait": "${base_options_dir}/android/splash/portrait.png",
   "option_android_splash_time": 0,
