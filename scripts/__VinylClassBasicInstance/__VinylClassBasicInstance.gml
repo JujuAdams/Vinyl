@@ -140,8 +140,8 @@ function __VinylClassBasicInstance() constructor
                 __VinylTrace("Instance ", __id, " playing ", audio_get_name(__sound), " transposition=", _semitones);
             }
             
-            __transposeUsing = true;
-            
+            __transposeUsing     = true;
+            __transposeSemitones = _semitones;
             __transposePitch     = __VinylSemitoneToPitch(_semitones + global.__vinylTransposeSemitones);
         }
     }
