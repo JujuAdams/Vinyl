@@ -50,9 +50,6 @@ function __VinylInitialize()
     global.__vinylBasicPlaying    = [];
     global.__vinylBasicPoolReturn = [];
     
-    global.__vinylEmitterPool       = [];
-    global.__vinylEmitterPoolReturn = [];
-    
     global.__vinylTransposeSemitones = 0;
     
     VinylSystemGainSet(1);
@@ -77,7 +74,7 @@ function __VinylInitialize()
     
     repeat(VINYL_POOL_START_SIZE)
     {
-        array_push(global.__vinylEmitterPool, audio_emitter_create());
+        array_push(__VinylGlobalData().__emitterPool, audio_emitter_create());
     }
 }
 

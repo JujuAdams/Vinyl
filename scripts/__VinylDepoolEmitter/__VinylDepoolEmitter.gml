@@ -1,6 +1,8 @@
 function __VinylDepoolEmitter()
 {
-    var _emitter = array_pop(global.__vinylEmitterPool);
+    static _emitterPool = __VinylGlobalData().__emitterPool;
+    
+    var _emitter = array_pop(_emitterPool);
     if (_emitter == undefined)
     {
         __VinylTrace("No emitters in pool, creating a new one");
