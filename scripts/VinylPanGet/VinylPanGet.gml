@@ -5,9 +5,12 @@
 
 function VinylPanGet(_id)
 {
+    static _globalData = __VinylGlobalData();
+    static _idToInstanceDict = _globalData.__idToInstanceDict;
+    
     var _pan = 0;
     
-    var _instance = global.__vinylIdToInstanceDict[? _id];
+    var _instance = _idToInstanceDict[? _id];
     if (is_struct(_instance))
     {
         var _panEmitter = _instance.__panEmitter;

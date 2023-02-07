@@ -10,7 +10,10 @@
 
 function VinylResume(_id)
 {
-    var _instance = global.__vinylIdToInstanceDict[? _id];
+    static _globalData = __VinylGlobalData();
+    static _idToInstanceDict = _globalData.__idToInstanceDict;
+    
+    var _instance = _idToInstanceDict[? _id];
     if (is_struct(_instance)) _instance.__Resume();
     
     if (_id == undefined) return;

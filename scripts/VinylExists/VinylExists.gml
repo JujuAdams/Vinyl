@@ -6,5 +6,6 @@
 
 function VinylExists(_id)
 {
-    return ds_map_exists(global.__vinylIdToInstanceDict, _id);
+    static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+    return ds_map_exists(_idToInstanceDict, _id);
 }

@@ -4,7 +4,9 @@
 
 function VinylSemitoneGet(_id)
 {
-    var _instance = global.__vinylIdToInstanceDict[? _id];
+    static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+    
+    var _instance = _idToInstanceDict[? _id];
     if (is_struct(_instance)) return _instance.__transposeSemitones;
     
     if (_id == undefined) return;

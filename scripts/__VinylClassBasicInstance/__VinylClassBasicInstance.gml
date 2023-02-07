@@ -3,6 +3,7 @@ function __VinylClassBasicInstance() constructor
     static __globalData       = __VinylGlobalData();
     static __basicPoolReturn  = __globalData.__basicPoolReturn;
     static __basicPoolPlaying = __globalData.__basicPoolPlaying;
+    static __idToInstanceDict = __globalData.__idToInstanceDict;
     
     __id = undefined;
     __pooled = true;
@@ -320,7 +321,7 @@ function __VinylClassBasicInstance() constructor
         __pooled = false;
         
         __id = _id;
-        global.__vinylIdToInstanceDict[? _id] = self;
+        __idToInstanceDict[? _id] = self;
         array_push(__basicPoolPlaying, self);
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling an instance as ID ", __id);
@@ -363,7 +364,7 @@ function __VinylClassBasicInstance() constructor
         
         __ResetState();
         
-        ds_map_delete(global.__vinylIdToInstanceDict, __id);
+        ds_map_delete(__idToInstanceDict, __id);
         
         //Move this instance to the "return" array
         //This prevents an instance being pooled and depooled in the same step

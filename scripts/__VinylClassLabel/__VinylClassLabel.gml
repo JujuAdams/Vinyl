@@ -5,6 +5,8 @@
 
 function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructor
 {
+    static __idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+    
     __name    = _name;
     __parent  = _parent;
     __dynamic = _dynamic;
@@ -146,7 +148,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         {
             while (array_length(__audioArray) >= __limitMaxCount)
             {
-                var _oldestInstance = global.__vinylIdToInstanceDict[? __audioArray[0]];
+                var _oldestInstance = __idToInstanceDict[? __audioArray[0]];
                 array_delete(__audioArray, 0, 1);
                 
                 if (is_struct(_oldestInstance))
@@ -266,7 +268,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
             var _i = 0;
             repeat(array_length(__audioArray))
             {
-                var _instance = global.__vinylIdToInstanceDict[? __audioArray[_i]];
+                var _instance = __idToInstanceDict[? __audioArray[_i]];
                 if (!is_struct(_instance))
                 {
                     array_delete(__audioArray, _i, 1);

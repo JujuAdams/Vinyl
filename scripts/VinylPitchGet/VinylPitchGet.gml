@@ -5,9 +5,12 @@
 
 function VinylPitchGet(_id)
 {
+    static _globalData = __VinylGlobalData();
+    static _idToInstanceDict = _globalData.__idToInstanceDict;
+    
     var _pitch = 1;
     
-    var _instance = global.__vinylIdToInstanceDict[? _id];
+    var _instance = _idToInstanceDict[? _id];
     if (is_struct(_instance))
     {
         _pitch = _instance.__inputPitch;

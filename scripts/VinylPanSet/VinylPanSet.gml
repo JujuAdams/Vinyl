@@ -7,7 +7,9 @@
 
 function VinylPanSet(_id, _pan)
 {
-    var _instance = global.__vinylIdToInstanceDict[? _id];
+    static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+    
+    var _instance = _idToInstanceDict[? _id];
     if (is_struct(_instance))
     {
         var _panEmitter = _instance.__panEmitter;

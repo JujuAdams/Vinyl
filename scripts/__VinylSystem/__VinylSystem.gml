@@ -46,8 +46,6 @@ function __VinylInitialize()
     global.__vinylLabelDict   = {};
     global.__vinylLabelOrder  = [];
     
-    global.__vinylIdToInstanceDict = ds_map_create();
-    
     VinylSystemGainSet(1);
     __VinylUpdateData();
     

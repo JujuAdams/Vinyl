@@ -6,8 +6,9 @@
 /// 
 /// @param vinylID
 
-function VinylPausedGet()
+function VinylPausedGet(_id)
 {
-    var _instance = global.__vinylIdToInstanceDict[? _id];
+    static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+    var _instance = _idToInstanceDict[? _id];
     return (is_struct(_instance) && is_numeric(_instance.__instance))? audio_is_paused(_instance.__instance) : undefined;
 }

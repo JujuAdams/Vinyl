@@ -11,7 +11,10 @@
 
 function VinylTransposeSet(_id, _semitone)
 {
-    var _instance = global.__vinylIdToInstanceDict[? _id];
+    static _globalData = __VinylGlobalData();
+    static _idToInstanceDict = _globalData.__idToInstanceDict;
+    
+    var _instance = _idToInstanceDict[? _id];
     if (is_struct(_instance)) return _instance.__TransposeSet(_semitone);
     
     if (_id == undefined) return;
