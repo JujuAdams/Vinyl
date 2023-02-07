@@ -1,4 +1,5 @@
 function VinylGlobalTransposeGet()
 {
-    return global.__vinylTransposeSemitones;
+    static _globalData = __VinylGlobalData();
+    return _globalData.__transposeSemitones;
 }

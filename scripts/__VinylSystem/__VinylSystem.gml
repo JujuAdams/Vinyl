@@ -48,8 +48,6 @@ function __VinylInitialize()
     
     global.__vinylIdToInstanceDict = ds_map_create();
     
-    global.__vinylTransposeSemitones = 0;
-    
     VinylSystemGainSet(1);
     __VinylUpdateData();
     

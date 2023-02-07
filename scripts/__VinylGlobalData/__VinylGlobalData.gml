@@ -4,6 +4,8 @@ function __VinylGlobalData()
         __listenerX: 0,
         __listenerY: 0,
         
+        __transposeSemitones: 0,
+        
         __basicPoolPlaying: [],
         __basicPool:        [],
         __basicPoolReturn:  [],

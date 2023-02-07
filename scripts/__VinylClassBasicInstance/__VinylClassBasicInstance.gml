@@ -1,7 +1,8 @@
 function __VinylClassBasicInstance() constructor
 {
-    static __basicPoolReturn  = __VinylGlobalData().__basicPoolReturn;
-    static __basicPoolPlaying = __VinylGlobalData().__basicPoolPlaying;
+    static __globalData       = __VinylGlobalData();
+    static __basicPoolReturn  = __globalData.__basicPoolReturn;
+    static __basicPoolPlaying = __globalData.__basicPoolPlaying;
     
     __id = undefined;
     __pooled = true;
@@ -145,7 +146,7 @@ function __VinylClassBasicInstance() constructor
             
             __transposeUsing     = true;
             __transposeSemitones = _semitones;
-            __transposePitch     = __VinylSemitoneToPitch(_semitones + global.__vinylTransposeSemitones);
+            __transposePitch     = __VinylSemitoneToPitch(_semitones + __globalData.__transposeSemitones);
         }
     }
     
