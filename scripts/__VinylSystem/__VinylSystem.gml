@@ -31,8 +31,8 @@ function __VinylInitialize()
     
     //Set up default behaviours within GM's audio system
     audio_falloff_set_model(__VINYL_FALLOFF_MODEL);
-    audio_listener_set_orientation(0,   0, 0, 1,   0, -1, 0);
-    audio_listener_set_position(0,   0, 0, 0);
+    audio_listener_set_orientation(VINYL_LISTENER_INDEX,   0, 0, 1,   0, -1, 0);
+    audio_listener_set_position(VINYL_LISTENER_INDEX,   0, 0, 0);
     
     VinylSystemGainSet(1);
     __VinylEnsureEffectBus("main");

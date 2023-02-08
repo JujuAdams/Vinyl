@@ -10,6 +10,7 @@
 //Measured in units/second
 #macro VINYL_DEFAULT_PITCH_RATE  0.3
 
+//Falloff values to use for emitters when first created
 #macro VINYL_DEFAULT_FALLOFF_MIN      50
 #macro VINYL_DEFAULT_FALLOFF_MAX     200
 #macro VINYL_DEFAULT_FALLOFF_FACTOR    1
@@ -49,7 +50,7 @@
 //Whether to output extra debug information when reading configuration data
 #macro VINYL_DEBUG_READ_CONFIG  false
 
-//Number of audio instances pre-created in the pool
+//Number of audio instances / emitters pre-created in the pool
 #macro VINYL_POOL_START_SIZE  30
 
 //Listener index to use for Vinyl functions
