@@ -45,7 +45,14 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
         __VinylError("Error in audio asset \"", __name, "\"\nPitch must be either a number greater than or equal to zero, or a two-element array");
     }
     
-    __busName = _busName;
+    if (is_string(_busName) || is_undefined(_busName))
+    {
+        __busName = _busName;
+    }
+    else
+    {
+        __VinylError("Error in audio asset \"", __name, "\"\nBus must be a name (as a string)");
+    }
     
     __labelArray = [];
     __labelDictTemp__ = {}; //Removed at the end of VinylSystemReadConfig()

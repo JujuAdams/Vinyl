@@ -248,7 +248,7 @@ function VinylSystemReadConfig(_configData)
         var _effectBusStruct = _effectBusArray[_i];
         var _effectBusName = _effectBusStruct.__name;
         
-        if (!variable_struct_exists(_inputEffectBusesDict, _effectBusName))
+        if ((_effectBusName != "main") && !variable_struct_exists(_inputEffectBusesDict, _effectBusName))
         {
             _effectBusStruct.__Destroy();
             variable_struct_remove(_effectBusDict, _effectBusName);
@@ -290,6 +290,11 @@ function VinylSystemReadConfig(_configData)
                 }
                 
                 if (__busName == undefined) __busName = "main";
+            }
+            
+            if (!variable_struct_exists(_effectBusDict, __busName))
+            {
+                __VinylError("Bus \"", __busName, "\" for pattern \"", __name, "\" doesn't exist");
             }
         }
         
