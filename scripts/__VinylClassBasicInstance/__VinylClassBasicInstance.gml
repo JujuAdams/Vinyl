@@ -237,7 +237,7 @@ function __VinylClassBasicInstance() constructor
     {
         __PlaySetState(_sound, _loop, _gain, _pitch);
         
-        __instance = audio_play_sound_on(_emitter.GetEmitter(), __sound, __loop, 1, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
+        __instance = audio_play_sound_on(_emitter.__GetEmitter(), __sound, __loop, 1, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
         array_push(_emitter.__emitter.__instanceIDArray, __id);
         
         if (VINYL_DEBUG_LEVEL >= 1)

@@ -21,7 +21,7 @@ function __VinylClassEmitter() constructor
         
         __reference = undefined;
         
-        __mode = 0; //0 = Point, 1 = Circle, 2 = Rectangle
+        __mode = 0; //0 = __Point, 1 = __Circle, 2 = __Rectangle
         
         __actualX = 0;
         __actualY = 0;
@@ -51,7 +51,7 @@ function __VinylClassEmitter() constructor
     
     #region Public
     
-    static Falloff = function(_min, _max, _factor = 1)
+    static __Falloff = function(_min, _max, _factor = 1)
     {
         _min = max(0, _min);
         _max = max(_min + math_get_epsilon(), _max);
@@ -63,7 +63,7 @@ function __VinylClassEmitter() constructor
         audio_emitter_falloff(__emitter, __falloffMin, __falloffMax, __falloffFactor);
     }
     
-    static Point = function(_x, _y)
+    static __Point = function(_x, _y)
     {
         __mode = 0;
         
@@ -79,7 +79,7 @@ function __VinylClassEmitter() constructor
         __ManagePosition();
     }
     
-    static Circle = function(_x, _y, _radius)
+    static __Circle = function(_x, _y, _radius)
     {
         __mode = 1;
         
@@ -95,7 +95,7 @@ function __VinylClassEmitter() constructor
         __ManagePosition();
     }
     
-    static Rectangle = function(_left, _top, _right, _bottom)
+    static __Rectangle = function(_left, _top, _right, _bottom)
     {
         __mode = 2;
         
@@ -111,7 +111,7 @@ function __VinylClassEmitter() constructor
         __ManagePosition();
     }
     
-    static DebugDraw = function()
+    static __DebugDraw = function()
     {
         draw_line(__x-7, __y-7, __x+7, __y+7);
         draw_line(__x+7, __y-7, __x-7, __y+7);
@@ -171,8 +171,6 @@ function __VinylClassEmitter() constructor
         
         audio_emitter_position(__emitter, __actualX, __actualY, 0);
     }
-    
-    
     
     static __Depool = function(_id)
     {
