@@ -33,8 +33,9 @@ function __VinylClassShufflePattern(_name, _patternArray, _labelDict, _patternDa
     
     
     //Set the gain/pitch state from the provided struct
-    var _gain  = _patternData[$ "gain" ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-    var _pitch = _patternData[$ "pitch"] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+    var _gain    = _patternData[$ "gain" ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+    var _pitch   = _patternData[$ "pitch"] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+    var _busName = _patternData[$ "bus"  ] ?? _patternData[$ "buss"];
     
     if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
     if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
@@ -66,6 +67,8 @@ function __VinylClassShufflePattern(_name, _patternArray, _labelDict, _patternDa
     {
         __VinylError("Error in pattern \"", __name, "\"\nPitch must be either a number greater than or equal to zero, or a two-element array");
     }
+    
+    __busName = _busName;
     
     __labelArray = [];
     __labelDictTemp__ = {}; //Removed at the end of VinylSystemReadConfig()

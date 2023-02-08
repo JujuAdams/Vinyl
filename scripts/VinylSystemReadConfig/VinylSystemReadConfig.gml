@@ -15,6 +15,8 @@ function VinylSystemReadConfig(_configData)
     var _newLabelDict    = {};
     var _newLabelOrder   = [];
     
+    
+    
     //Instantiate labels, creating a dictionary for lookup and an array that contains the order to update the labels to respect parenting
     static _loadLabelsFunc = function(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _inputLabelDict, _parent)
     {
@@ -66,6 +68,8 @@ function VinylSystemReadConfig(_configData)
         if (is_struct(_oldLabel)) _newLabel.__CopyOldState(_oldLabel);
         ++_i;
     }
+    
+    
     
     //Instantiate assets
     var _inputAssetDict = _configData.assets;
@@ -150,6 +154,8 @@ function VinylSystemReadConfig(_configData)
         _newPatternDict.fallback = new __VinylClassBasicPattern(-1, _newPatternOrder, _newLabelDict);
     }
     
+    
+    
     //Iterate over every label and collect up sound assets with tags that match the label's definition
     var _i = 0;
     repeat(array_length(_newLabelOrder))
@@ -191,6 +197,8 @@ function VinylSystemReadConfig(_configData)
         
         ++_i;
     }
+    
+    
     
     //Instantiate patterns
     var _inputPatternsDict = _configData.patterns;
@@ -254,14 +262,44 @@ function VinylSystemReadConfig(_configData)
     
     
     
-    //Clean up some unnecesasry memory
     var _i = 0;
     repeat(array_length(_newPatternOrder))
     {
         var _pattern = _newPatternOrder[_i];
+        
+        //Try to figure out what bus to use
+        with(_pattern)
+        {
+            if (__busName == undefined)
+            {
+                var _j = 0;
+                repeat(array_length(__labelArray))
+                {
+                    var _labelStruct = __labelArray[_i];
+                
+                    if (__busName == undefined)
+                    {
+                        __busName = _labelStruct.__busName;
+                    }
+                    else if (_labelStruct.__busName != __busName)
+                    {
+                        __VinylTrace("Warning! Pattern \"", __name, "\" has conflicting buses (chosen = \"", __busName, "\", conflict = \"", _labelStruct.__busName, "\" from label \"", _labelStruct.__name, "\")");
+                    }
+                    
+                    ++_j;
+                }
+                
+                if (__busName == undefined) __busName = "main";
+            }
+        }
+        
+        //Clean up some unnecesasry memory
         variable_struct_remove(_pattern, "__labelDictTemp__");
+        
         ++_i;
     }
+    
+    
     
     //Update our global label/pattern tracking
     _globalData.__patternDict = _newPatternDict;
@@ -280,6 +318,8 @@ function VinylSystemReadConfig(_configData)
         
         ++_i;
     }
+    
+    
     
     //Workaround for problems setting effects on the main audio bus in 2023.1
     gc_collect();

@@ -8,6 +8,7 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
     array_push(_patternArray, self);
     
     __sound = _sound;
+    __name  = audio_get_name(__sound);
     
     var _gain    = _patternData[$ "gain" ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
     var _pitch   = _patternData[$ "pitch"] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
@@ -16,7 +17,7 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
     if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
     if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
     
-    if (!is_numeric(_gain)) __VinylError("Error in audio asset \"", audio_get_name(__sound), "\"\nGain must be a number");
+    if (!is_numeric(_gain)) __VinylError("Error in audio asset \"", __name, "\"\nGain must be a number");
     __gain = _gain;
     
     if (is_numeric(_pitch) && (_pitch >= 0))
@@ -26,14 +27,14 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
     }
     else if (is_array(_pitch))
     {
-        if (array_length(_pitch) != 2) __VinylError("Error in audio asset \"", audio_get_name(__sound), "\"\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
+        if (array_length(_pitch) != 2) __VinylError("Error in audio asset \"", __name, "\"\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
         
         __pitchLo = _pitch[0];
         __pitchHi = _pitch[1];
         
         if (__pitchLo > __pitchHi)
         {
-            __VinylTrace("Warning! Error in audio asset \"", audio_get_name(__sound), "\". Low pitch (", __pitchLo, ") is greater than high pitch (", __pitchHi, ")");
+            __VinylTrace("Warning! Error in audio asset \"", __name, "\". Low pitch (", __pitchLo, ") is greater than high pitch (", __pitchHi, ")");
             var _temp = __pitchLo;
             __pitchLo = __pitchHi;
             __pitchHi = _temp;
@@ -41,12 +42,10 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
     }
     else
     {
-        __VinylError("Error in audio asset \"", audio_get_name(__sound), "\"\nPitch must be either a number greater than or equal to zero, or a two-element array");
+        __VinylError("Error in audio asset \"", __name, "\"\nPitch must be either a number greater than or equal to zero, or a two-element array");
     }
     
     __busName = _busName;
-    
-    if (VINYL_DEBUG_LEVEL >= 1) __name = audio_get_name(__sound);
     
     __labelArray = [];
     __labelDictTemp__ = {}; //Removed at the end of VinylSystemReadConfig()
@@ -67,7 +66,7 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
             var _labelData = _labelDict[$ _labelName];
             if (_labelData == undefined)
             {
-                __VinylTrace("Warning! Label \"", _labelName, "\" could not be found (asset was \"", audio_get_name(__sound), "\")");
+                __VinylTrace("Warning! Label \"", _labelName, "\" could not be found (asset was \"", __name, "\")");
             }
             else
             {
@@ -78,7 +77,7 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
         }
     }
     
-    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for \"", audio_get_name(__sound), "\", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", label=", __DebugLabelNames());
+    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for \"", __name, "\", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", label=", __DebugLabelNames());
     
     
     
@@ -126,7 +125,7 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Playing ", audio_get_name(_sound), ", gain=", _gain, ", pitch=", _pitch, ", label=", __DebugLabelNames(), " (GMinst=", _instance, ", amplitude=", _gain/VINYL_SYSTEM_MAX_GAIN, ")");
+            __VinylTrace("Playing ", __name, ", gain=", _gain, ", pitch=", _pitch, ", label=", __DebugLabelNames(), " (GMinst=", _instance, ", amplitude=", _gain/VINYL_SYSTEM_MAX_GAIN, ")");
         }
         
         if (_gain > VINYL_SYSTEM_MAX_GAIN)

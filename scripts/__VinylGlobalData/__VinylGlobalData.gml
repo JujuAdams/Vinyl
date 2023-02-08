@@ -28,6 +28,8 @@ function __VinylGlobalData()
         
         __effectBusDict:  {},
         __effectBusArray: [],
+        
+        __labelTrackingDict: {},
     };
     
     return _struct;
