@@ -277,6 +277,7 @@ function VinylSystemReadConfig(_configData)
                     }
                     
                     audio_bus_main.effects[_j] = _effect;
+                    if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("audio_bus_main.effects[", _j, "] = ", json_stringify(_effect));
                 }
                 
                 ++_j;
@@ -286,6 +287,8 @@ function VinylSystemReadConfig(_configData)
             repeat(8 - _j)
             {
                 audio_bus_main.effects[_j] = undefined;
+                if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("audio_bus_main.effects[", _j, "] = undefined");
+                
                 ++_j;
             }
         }
