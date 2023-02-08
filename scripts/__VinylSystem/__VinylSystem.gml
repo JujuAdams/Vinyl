@@ -8,12 +8,6 @@
 
 #macro __VINYL_FALLOFF_MODEL  audio_falloff_exponent_distance_scaled
 
-enum __VINYL_POOL_STATE
-{
-    __POOLED,
-    __PLAYING,
-}
-
 
 
 __VinylInitialize();
