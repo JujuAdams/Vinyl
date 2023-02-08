@@ -5,7 +5,7 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Basics",
-    "path": "folders/Vinyl/Basics.yy",
+    "name": "Positional",
+    "path": "folders/Vinyl/Positional.yy",
   },
 }
