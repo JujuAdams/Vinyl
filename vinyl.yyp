@@ -28,7 +28,6 @@
     {"id":{"name":"VinylLabelInstancesGet","path":"scripts/VinylLabelInstancesGet/VinylLabelInstancesGet.yy",},"order":2,},
     {"id":{"name":"__VinylPatternGet","path":"scripts/__VinylPatternGet/__VinylPatternGet.yy",},"order":16,},
     {"id":{"name":"VinylResume","path":"scripts/VinylResume/VinylResume.yy",},"order":9,},
-    {"id":{"name":"Note3","path":"notes/Note3/Note3.yy",},"order":11,},
     {"id":{"name":"__VinylArrayShuffle","path":"scripts/__VinylArrayShuffle/__VinylArrayShuffle.yy",},"order":17,},
     {"id":{"name":"__VinylTick","path":"scripts/__VinylTick/__VinylTick.yy",},"order":13,},
     {"id":{"name":"VinylPanGet","path":"scripts/VinylPanGet/VinylPanGet.yy",},"order":2,},
