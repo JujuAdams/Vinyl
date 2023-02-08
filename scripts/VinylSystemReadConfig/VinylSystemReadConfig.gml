@@ -236,7 +236,11 @@ function VinylSystemReadConfig(_configData)
                 var _effectData = _effectArray[_j];
                 var _effectType = string_lower(_effectData.type);
                 
-                if (_effectType == "delay")
+                if (_effectType == "bitcrusher")
+                {
+                    var _effect = audio_effect_create(AudioEffectType.Bitcrusher);
+                }
+                else if (_effectType == "delay")
                 {
                     var _effect = audio_effect_create(AudioEffectType.Delay);
                 }
