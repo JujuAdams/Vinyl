@@ -4,6 +4,7 @@ function __VinylClassBasicInstance() constructor
     static __basicPoolReturn  = __globalData.__basicPoolReturn;
     static __basicPoolPlaying = __globalData.__basicPoolPlaying;
     static __idToInstanceDict = __globalData.__idToInstanceDict;
+    static __effectBusDict    = __globalData.__effectBusDict;
     
     __id = undefined;
     __pooled = true;
@@ -38,6 +39,8 @@ function __VinylClassBasicInstance() constructor
         
         __instance   = undefined;
         __panEmitter = undefined;
+        
+        __busName    = "main";
         __busEmitter = undefined;
     }
     
@@ -194,6 +197,10 @@ function __VinylClassBasicInstance() constructor
         __pitchTarget = __inputPitch;
         
         __randomPitchParam = __VinylRandom(1);
+        
+        __busName    = "main";
+        __busEmitter = __VinylGetEffectBusEmitter(__busName);
+        
         __ApplyLabel(true);
     }
        
@@ -201,7 +208,14 @@ function __VinylClassBasicInstance() constructor
     { 
         __PlaySetState(_sound, _loop, _gain, _pitch);
         
-        __instance = audio_play_sound(__sound, 1, __loop, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
+        if (__busEmitter == undefined) //Playing on main bus, no emitter needed
+        {
+            __instance = audio_play_sound(__sound, 1, __loop, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
+        }
+        else
+        {
+            __instance = audio_play_sound_on(__busEmitter, __sound, __loop, 1, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
+        }
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
@@ -220,6 +234,7 @@ function __VinylClassBasicInstance() constructor
         
         __panEmitter = __VinylDepoolPanEmitter();
         __panEmitter.__Pan(_pan);
+        __panEmitter.__Bus(__busName);
         
         __instance = audio_play_sound_on(__panEmitter.__emitter, __sound, __loop, 1, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
         

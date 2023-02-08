@@ -83,12 +83,5 @@
     
     
     buses: {
-        main: [
-            {
-                type: reverb
-                size: 0.6
-                mix: 0.5
-            }
-        ]
     }
 }

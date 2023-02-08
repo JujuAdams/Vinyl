@@ -107,8 +107,9 @@ function __VinylClassBus(_name) constructor
         }
     }
     
-    static __Tick = function()
+    static __UpdatePosition = function()
     {
+        //Keep this emitter right underneath the listener
         if (__emitter != undefined) audio_emitter_position(__emitter, __globalData.__listenerX, __globalData.__listenerY, 0);
     }
 }
