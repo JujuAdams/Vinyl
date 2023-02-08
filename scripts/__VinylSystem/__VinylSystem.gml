@@ -4,7 +4,7 @@
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.dat"
 #macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
 
-#macro __VINYL_FORCE_EXPONENTIAL_CURVE  true
+#macro __VINYL_FORCE_EXPONENTIAL_CURVE  false
 
 #macro __VINYL_FALLOFF_MODEL  audio_falloff_exponent_distance_scaled
 
