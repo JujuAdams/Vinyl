@@ -60,7 +60,9 @@
         fallback: {}
         sndChickenNuggets: {
             label: music
-            copyTo: sndTestTone
+        }
+        sndTestTone: {
+            bus: test
         }
     }
     
@@ -83,5 +85,10 @@
     
     
     buses: {
+        test: [
+            {
+                type: delay
+            }
+        ]
     }
 }
