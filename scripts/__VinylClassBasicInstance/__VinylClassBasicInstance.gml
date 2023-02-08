@@ -38,6 +38,7 @@ function __VinylClassBasicInstance() constructor
         
         __instance   = undefined;
         __panEmitter = undefined;
+        __busEmitter = undefined;
     }
     
     

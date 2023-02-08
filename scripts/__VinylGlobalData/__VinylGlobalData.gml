@@ -26,7 +26,8 @@ function __VinylGlobalData()
         __labelDict:   {},
         __labelOrder:  [],
         
-        __effectBusDict: {},
+        __effectBusDict:  {},
+        __effectBusArray: [],
     };
     
     return _struct;

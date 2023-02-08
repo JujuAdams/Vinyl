@@ -82,7 +82,7 @@
     
     
     
-    effect buses: {
+    buses: {
         main: [
             {
                 type: reverb

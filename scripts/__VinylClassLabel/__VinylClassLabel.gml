@@ -20,6 +20,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     var _limit        = _labelData[$ "limit"] ?? 100;
     var _limitFadeOut = _labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE;
     var _tagArray     = _labelData[$ "tag"] ?? _labelData[$ "tags"];
+    var _bus          = _labelData[$ "bus"  ] ?? _labelData[$ "buss"];
     
     if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
     if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
@@ -64,6 +65,8 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     //Convert the tag array into an array if necessary
     if (is_string(_tagArray)) _tagArray = [_tagArray];
     __tagArray = _tagArray;
+    
+    __bus = _bus;
     
     
     

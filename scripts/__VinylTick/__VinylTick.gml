@@ -9,6 +9,7 @@ function __VinylTick()
     static _emitterPoolReturn    = _globalData.__emitterPoolReturn;
     static _panEmitterPool       = _globalData.__panEmitterPool;
     static _panEmitterPoolReturn = _globalData.__panEmitterPoolReturn;
+    static _effectBusArray       = _globalData.__effectBusArray;
     
     var _deltaTime = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
     
@@ -87,6 +88,14 @@ function __VinylTick()
             _emitter.__Tick();
             ++_i;
         }
+    }
+    
+    //Update bus emitters
+    var _i = 0;
+    repeat(array_length(_effectBusArray))
+    {
+        _effectBusArray[_i].__Tick();
+        ++_i;
     }
     
     var _map = audio_listener_get_data(0);
