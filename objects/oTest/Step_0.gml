@@ -32,8 +32,7 @@ if (keyboard_check_pressed(ord("F")))
 
 if (keyboard_check_pressed(vk_space))
 {
-    //VinylPlaySimple(sndTestTone);
-    audio_play_sound_on(emitter, sndTestTone, false, 0);
+    VinylPlaySimple(sndTestTone);
 }
 
 if (keyboard_check_pressed(ord("P")))

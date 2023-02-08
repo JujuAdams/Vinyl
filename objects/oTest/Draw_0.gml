@@ -14,5 +14,3 @@ _string += "\n";
 _string += "\n";
 
 draw_text(10, 10, _string);
-
-VinylEmitterDebugDraw(emitter);

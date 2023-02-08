@@ -218,6 +218,83 @@ function VinylSystemReadConfig(_configData)
         ++_i;
     }
     
+    
+    
+    //Set up effect buses
+    var _inputEffectBusesDict = _configData[$ "effect buses"];
+    var _effectBusNameArray = variable_struct_get_names(_inputEffectBusesDict);
+    var _i = 0;
+    repeat(array_length(_effectBusNameArray))
+    {
+        var _effectBusName = _effectBusNameArray[_i];
+        if (_effectBusName == "main")
+        {
+            var _effectArray = _inputEffectBusesDict[$ _effectBusName];
+            var _j = 0;
+            repeat(array_length(_effectArray))
+            {
+                var _effectData = _effectArray[_j];
+                var _effectType = string_lower(_effectData.type);
+                
+                if (_effectType == "delay")
+                {
+                    var _effect = audio_effect_create(AudioEffectType.Delay);
+                }
+                else if (_effectType == "gain")
+                {
+                    var _effect = audio_effect_create(AudioEffectType.Gain);
+                }
+                else if ((_effectType == "hpf") || (_effectType == "hpf2"))
+                {
+                    var _effect = audio_effect_create(AudioEffectType.HPF2);
+                }
+                else if ((_effectType == "lpf") || (_effectType == "lpf2"))
+                {
+                    var _effect = audio_effect_create(AudioEffectType.LPF2);
+                }
+                else if ((_effectType == "reverb") || (_effectType == "reverb1"))
+                {
+                    var _effect = audio_effect_create(AudioEffectType.Reverb1);
+                }
+                else if (_effectType == "tremolo")
+                {
+                    var _effect = audio_effect_create(AudioEffectType.Tremolo);
+                }
+                else
+                {
+                    __VinylError("Effect type \"", _effectType, "\" not recognised (effect bus=\"", _effectBusName, "\", index=", _j, ")");
+                }
+                
+                if (_effect != undefined)
+                {
+                    var _effectDataNameArray = variable_struct_get_names(_effectData);
+                    var _k = 0;
+                    repeat(array_length(_effectDataNameArray))
+                    {
+                        var _effectDataField = _effectDataNameArray[_k];
+                        if (_effectDataField != "type") _effect[$ _effectDataField] = _effectData[$ _effectDataField];
+                        ++_k;
+                    }
+                    
+                    audio_bus_main.effects[_j] = _effect;
+                }
+                
+                ++_j;
+            }
+            
+            //Finish out the rest of the effect bus with <undefined>
+            repeat(8 - _j)
+            {
+                audio_bus_main.effects[_j] = undefined;
+                ++_j;
+            }
+        }
+        
+        ++_i;
+    }
+    
+    
+    
     //Clean up some unnecesasry memory
     var _i = 0;
     repeat(array_length(_newPatternOrder))
