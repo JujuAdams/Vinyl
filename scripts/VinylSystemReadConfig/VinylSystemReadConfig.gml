@@ -276,7 +276,7 @@ function VinylSystemReadConfig(_configData)
                 repeat(array_length(__labelArray))
                 {
                     var _labelStruct = __labelArray[_i];
-                
+                    
                     if (__busName == undefined)
                     {
                         __busName = _labelStruct.__busName;
