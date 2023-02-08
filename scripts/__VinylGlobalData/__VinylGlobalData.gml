@@ -14,6 +14,7 @@ function __VinylGlobalData()
         __basicPool:        [],
         __basicPoolReturn:  [],
         
+        __emitterActive:     [],
         __emitterPool:       [],
         __emitterPoolReturn: [],
         

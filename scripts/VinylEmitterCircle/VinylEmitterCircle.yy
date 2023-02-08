@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylEmitterCreate",
+  "name": "VinylEmitterCircle",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

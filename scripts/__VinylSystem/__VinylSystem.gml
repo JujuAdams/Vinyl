@@ -1,5 +1,5 @@
-#macro __VINYL_VERSION  "4.0.10 alpha"
-#macro __VINYL_DATE     "2023-02-07"
+#macro __VINYL_VERSION  "4.0.11"
+#macro __VINYL_DATE     "2023-02-08"
 
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.dat"
 #macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
@@ -62,7 +62,7 @@ function __VinylInitialize()
     
     repeat(VINYL_POOL_START_SIZE)
     {
-        array_push(__VinylGlobalData().__emitterPool, audio_emitter_create());
+        array_push(__VinylGlobalData().__emitterPool, new __VinylClassEmitter());
     }
 }
 

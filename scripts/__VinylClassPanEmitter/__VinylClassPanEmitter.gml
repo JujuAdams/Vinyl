@@ -9,21 +9,22 @@ function __VinylClassPanEmitter() constructor
     __id = undefined;
     __pooled = true;
     
-    __ResetState();
-    
     audio_falloff_set_model(audio_falloff_none);
     __emitter = audio_emitter_create();
     audio_emitter_falloff(__emitter, 1, 1, 1);
-    __UpdatePosition();
     audio_falloff_set_model(__VINYL_FALLOFF_MODEL);
+    
+    __ResetState();
     
     
     
     static __ResetState = function()
     {
-        if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for pan emitter ", __id);
+        if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);
         
         __pan = 0;
+        
+        __UpdatePosition();
     }
     
     
@@ -44,17 +45,16 @@ function __VinylClassPanEmitter() constructor
         }
     }
     
-    static __Depool = function(_id, _pan)
+    static __Depool = function(_id)
     {
         if (!__pooled) return;
         __pooled = false;
         
         __id = _id;
-        __Pan(_pan);
         
         array_push(__panEmitterActive, self);
         
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling a pan emitter as ID ", __id);
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling ", self);
     }
     
     static __Pool = function()

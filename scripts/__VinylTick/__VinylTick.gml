@@ -4,6 +4,7 @@ function __VinylTick()
     static _basicPoolPlaying     = _globalData.__basicPoolPlaying;
     static _basicPool            = _globalData.__basicPool;
     static _basicPoolReturn      = _globalData.__basicPoolReturn;
+    static _emitterActive        = _globalData.__emitterActive;
     static _emitterPool          = _globalData.__emitterPool;
     static _emitterPoolReturn    = _globalData.__emitterPoolReturn;
     static _panEmitterPool       = _globalData.__panEmitterPool;
@@ -68,6 +69,22 @@ function __VinylTick()
         else
         {
             _instance.__Tick(_deltaTime);
+            ++_i;
+        }
+    }
+    
+    //Update emitters
+    var _i = 0;
+    repeat(array_length(_emitterActive))
+    {
+        var _emitter = _emitterActive[_i];
+        if (_emitter.__pooled)
+        {
+            array_delete(_emitterActive, _i, 1);
+        }
+        else
+        {
+            _emitter.__Tick();
             ++_i;
         }
     }
