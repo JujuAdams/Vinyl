@@ -1,6 +1,6 @@
 /// @param name
 
-function __VinylGetEffectBusEmitter(_name)
+function __VinylEffectBusGetEmitter(_name)
 {
     static _effectBusDict = __VinylGlobalData().__effectBusDict;
     

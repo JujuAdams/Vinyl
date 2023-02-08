@@ -120,7 +120,7 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
             ++_i;
         }
         
-        var _busEmitter = __VinylGetEffectBusEmitter(__busName);
+        var _busEmitter = __VinylEffectBusGetEmitter(__busName);
         if (_busEmitter == undefined)
         {
             var _instance = audio_play_sound(_sound, 1, false, __VinylCurveAmplitude(_gain), 0, _pitch);

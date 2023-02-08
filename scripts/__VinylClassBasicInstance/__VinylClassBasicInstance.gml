@@ -202,7 +202,7 @@ function __VinylClassBasicInstance() constructor
         
         var _pattern = __VinylPatternGet(__sound);
         __busName    = is_struct(_pattern)? _pattern.__busName : "main";
-        __busEmitter = __VinylGetEffectBusEmitter(__busName);
+        __busEmitter = __VinylEffectBusGetEmitter(__busName);
     }
        
     static __Play = function(_sound, _loop, _gain, _pitch)
