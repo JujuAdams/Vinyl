@@ -153,7 +153,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
                 
                 if (is_struct(_oldestInstance))
                 {
-                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Label \"", __name, "\" will exceed ", __limitMaxCount, " playing instance(s), fading out oldest instance ", _oldestInstance.__id, " playing ", audio_get_name(_oldestInstance.__sound));
+                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Label \"", __name, "\" will exceed ", __limitMaxCount, " playing instance(s), fading out oldest ", _oldestInstance, " playing ", audio_get_name(_oldestInstance.__sound));
                     _oldestInstance.__FadeOut(__limitFadeOutRate);
                 }
             }

@@ -15,4 +15,4 @@ _string += "\n";
 
 draw_text(10, 10, _string);
 
-emitter.__DrawDebug();
+if (is_struct(emitter)) emitter.DebugDraw();

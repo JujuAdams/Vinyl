@@ -4,7 +4,7 @@
 
 function VinylEmitterCircle(_x, _y, _radius)
 {
-    var _emitter = __VinylDepoolEmitter();
-    _emitter.__Circle(_x, _y, _radius);
-    return _emitter;
+    var _emitterRef = new __VinylClassEmitterRef();
+    _emitterRef.Circle(_x, _y, _radius);
+    return _emitterRef;
 }

@@ -17,7 +17,9 @@ function __VinylClassEmitter() constructor
     
     static __ResetState = function()
     {
-        if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for emitter ", __id);
+        if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);
+        
+        __reference = undefined;
         
         __mode = 0; //0 = Point, 1 = Circle, 2 = Rectangle
         
@@ -37,6 +39,8 @@ function __VinylClassEmitter() constructor
         __falloffMax    = VINYL_DEFAULT_FALLOFF_MAX;
         __falloffFactor = VINYL_DEFAULT_FALLOFF_FACTOR;
         
+        __instanceIDArray = [];
+        
         audio_emitter_position(__emitter, __actualX, __actualY, 0);
         audio_emitter_velocity(__emitter, 0, 0, 0);
         audio_emitter_gain(__emitter, 1);
@@ -45,7 +49,9 @@ function __VinylClassEmitter() constructor
     
     
     
-    static __Falloff = function(_min, _max, _factor = 1)
+    #region Public
+    
+    static Falloff = function(_min, _max, _factor = 1)
     {
         _min = max(0, _min);
         _max = max(_min + math_get_epsilon(), _max);
@@ -57,7 +63,7 @@ function __VinylClassEmitter() constructor
         audio_emitter_falloff(__emitter, __falloffMin, __falloffMax, __falloffFactor);
     }
     
-    static __Point = function(_x, _y)
+    static Point = function(_x, _y)
     {
         __mode = 0;
         
@@ -73,7 +79,7 @@ function __VinylClassEmitter() constructor
         __ManagePosition();
     }
     
-    static __Circle = function(_x, _y, _radius)
+    static Circle = function(_x, _y, _radius)
     {
         __mode = 1;
         
@@ -89,7 +95,7 @@ function __VinylClassEmitter() constructor
         __ManagePosition();
     }
     
-    static __Rectangle = function(_left, _top, _right, _bottom)
+    static Rectangle = function(_left, _top, _right, _bottom)
     {
         __mode = 2;
         
@@ -104,6 +110,31 @@ function __VinylClassEmitter() constructor
         
         __ManagePosition();
     }
+    
+    static DebugDraw = function()
+    {
+        draw_line(__x-7, __y-7, __x+7, __y+7);
+        draw_line(__x+7, __y-7, __x-7, __y+7);
+        draw_rectangle(__actualX-3, __actualY-3, __actualX+3, __actualY+3, true);
+        
+        if (__mode == 1)
+        {
+            draw_circle(__x, __y, __radius, true);
+        }
+        else if (__mode == 2)
+        {
+            draw_rectangle(__left, __top, __right, __bottom, true);
+        }
+        
+        draw_circle(__actualX, __actualY, __falloffMin, true);
+        draw_circle(__actualX, __actualY, __falloffMax, true);
+    }
+    
+    #endregion
+    
+    
+    
+    #region Private
     
     static __ManagePosition = function()
     {
@@ -152,7 +183,7 @@ function __VinylClassEmitter() constructor
         
         array_push(__emitterActive, self);
         
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling an emitter as ID ", __id);
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling ", self);
     }
     
     static __Pool = function()
@@ -160,21 +191,16 @@ function __VinylClassEmitter() constructor
         if (__pooled) return;
         __pooled = true;
         
-        __ResetState();
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pooling ", self);
         
-        //Remove this pan emitter from the active array
         var _i = 0;
-        repeat(array_length(__emitterActive))
+        repeat(array_length(__instanceIDArray))
         {
-            if (__emitterActive[_i] == self)
-            {
-                array_delete(__emitterActive, _i, 1);
-            }
-            else
-            {
-                ++_i;
-            }
+            VinylStop(__instanceIDArray[_i]);
+            ++_i;
         }
+        
+        __ResetState();
         
         //Move this instance to the "return" array
         //This prevents an instance being pooled and depooled in the same step
@@ -186,30 +212,25 @@ function __VinylClassEmitter() constructor
     
     static __Tick = function()
     {
-        __ManagePosition();
-    }
-    
-    static __DrawDebug = function()
-    {
-        draw_line(__x-7, __y-7, __x+7, __y+7);
-        draw_line(__x+7, __y-7, __x-7, __y+7);
-        draw_rectangle(__actualX-3, __actualY-3, __actualX+3, __actualY+3, true);
-        
-        if (__mode == 1)
+        if (__reference == undefined)
         {
-            draw_circle(__x, __y, __radius, true);
+            __Pool();
         }
-        else if (__mode == 2)
+        else if (!weak_ref_alive(__reference))
         {
-            draw_rectangle(__left, __top, __right, __bottom, true);
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Lost reference for ", self);
+            __Pool();
         }
-        
-        draw_circle(__actualX, __actualY, __falloffMin, true);
-        draw_circle(__actualX, __actualY, __falloffMax, true);
+        else
+        {
+            __ManagePosition();
+        }
     }
     
     static toString = function()
     {
         return "<emitter " + string(__id) + ">";
     }
+    
+    #endregion
 }

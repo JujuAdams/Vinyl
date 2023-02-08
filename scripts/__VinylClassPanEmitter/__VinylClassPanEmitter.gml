@@ -20,7 +20,7 @@ function __VinylClassPanEmitter() constructor
     
     static __ResetState = function()
     {
-        if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for pan emitter ", __id);
+        if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);
         
         __pan = 0;
         
@@ -54,7 +54,7 @@ function __VinylClassPanEmitter() constructor
         
         array_push(__panEmitterActive, self);
         
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling a pan emitter as ID ", __id);
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling ", self);
     }
     
     static __Pool = function()

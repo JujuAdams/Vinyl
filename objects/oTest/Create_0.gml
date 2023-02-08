@@ -6,4 +6,4 @@
 //emitter = VinylEmitterCircle(room_width/2, room_height/2, 100);
 emitter = VinylEmitterRectangle(room_width/2-100, room_height/2-100, room_width/2+100, room_height/2+100);
 
-audio_play_sound_on(emitter.__emitter, sndChickenNuggets, true, 0);
+VinylPlayOnEmitter(emitter, snd1KHz, true);
