@@ -4,7 +4,7 @@
   "name": "Windows",
   "option_windows_display_name": "Vinyl",
   "option_windows_executable_name": "${project_name}.exe",
-  "option_windows_version": "4.0.10.0",
+  "option_windows_version": "4.0.11.0",
   "option_windows_company_info": "Juju Adams",
   "option_windows_product_info": "Vinyl",
   "option_windows_copyright_info": "Juju Adams 2023",
