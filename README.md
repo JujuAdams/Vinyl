@@ -1,6 +1,6 @@
-<h1 align="center">Vinyl 4.0.11</h1>
+<h1 align="center">Vinyl 5</h1>
 
-<p align="center">Modular audio system for GameMaker 2022 LTS by <b>@jujuadams</b></p>
+<p align="center">Modular audio system for GameMaker 2023.1 and above by <b>@jujuadams</b></p>
 
 <p align="center"><a href="https://github.com/JujuAdams/Vinyl/releases/">Download the .yymps</a></p>
 
