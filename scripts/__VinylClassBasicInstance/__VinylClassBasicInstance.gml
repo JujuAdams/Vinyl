@@ -180,6 +180,8 @@ function __VinylClassBasicInstance() constructor
     
     
     
+    #region Play
+    
     static __PlaySetState = function(_sound, _loop, _gain, _pitch)
     {
         __sound      = _sound;
@@ -215,7 +217,8 @@ function __VinylClassBasicInstance() constructor
     {
         __PlaySetState(_sound, _loop, _gain, _pitch);
         
-        __panEmitter = __VinylDepoolPanEmitter(_pan);
+        __panEmitter = __VinylDepoolPanEmitter();
+        __panEmitter.__Pan(_pan);
         
         __instance = audio_play_sound_on(__panEmitter.__emitter, __sound, __loop, 1, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
         
@@ -246,6 +249,10 @@ function __VinylClassBasicInstance() constructor
             __VinylTrace("Warning! Gain value ", __outputGain, " exceeds VINYL_SYSTEM_MAX_GAIN (", VINYL_SYSTEM_MAX_GAIN, ")");
         }
     }
+    
+    #endregion
+    
+    
     
     static __GetLoopFromLabel = function()
     {

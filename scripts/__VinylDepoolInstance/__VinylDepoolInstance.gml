@@ -1,6 +1,6 @@
 function __VinylDepoolInstance()
 {
-    static _id = int64(99000000);
+    static _id = int64(97000000);
     ++_id;
     
     static _basicPool = __VinylGlobalData().__basicPool;

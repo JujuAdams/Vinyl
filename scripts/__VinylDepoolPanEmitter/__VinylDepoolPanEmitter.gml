@@ -1,4 +1,4 @@
-function __VinylDepoolPanEmitter(_pan = 0)
+function __VinylDepoolPanEmitter()
 {
     static _id = int64(99000000);
     ++_id;
@@ -12,6 +12,6 @@ function __VinylDepoolPanEmitter(_pan = 0)
         _panEmitter = new __VinylClassPanEmitter();
     }
     
-    _panEmitter.__Depool(_id, _pan);
+    _panEmitter.__Depool(_id);
     return _panEmitter;
 }

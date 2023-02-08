@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylEmitterCreate",
+  "name": "VinylEmitterPoint",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

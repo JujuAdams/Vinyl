@@ -62,7 +62,7 @@ function __VinylInitialize()
     
     repeat(VINYL_POOL_START_SIZE)
     {
-        array_push(__VinylGlobalData().__emitterPool, audio_emitter_create());
+        array_push(__VinylGlobalData().__emitterPool, new __VinylClassEmitter());
     }
 }
 
