@@ -328,4 +328,7 @@ function VinylSystemReadConfig(_configData)
         
         ++_i;
     }
+    
+    //Workaround for problems setting effects on the main audio bus in 2023.1
+    gc_collect();
 }
