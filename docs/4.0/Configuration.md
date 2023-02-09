@@ -125,7 +125,7 @@ If this property is set to `null` then the fade out speed defaults to `VINYL_DEF
 
 ### `tag`
 
-*Default value: `undefined`*
+*Default value: `null`*
 
 Links this label to a GameMaker asset tag. This value will usually be given a single GameMaker asset tag, but it can also be given an array of tags. Any sound asset with any of the tags will be assigned to the respective Vinyl label.
 
