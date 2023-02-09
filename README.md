@@ -2,6 +2,10 @@
 
 <p align="center">Modular audio system for GameMaker 2022 LTS by <b>@jujuadams</b></p>
 
-<p align="center"><a href="https://github.com/JujuAdams/Vinyl/releases/">Download the .yymps</a></p>
+&nbsp;
 
-<p align="center">Chat about Vinyl on the <a href="https://discord.gg/8krYCqr">Discord server</a></p>
+&nbsp;
+
+- ### [Download the .yymps](https://github.com/JujuAdams/Vinyl/releases/)
+- ### Read the [documentation](http://jujuadams.github.io/Vinyl)
+- ### Talk about Vinyl on the [Discord server](https://discord.gg/8krYCqr)
