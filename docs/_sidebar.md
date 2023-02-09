@@ -1,15 +1,10 @@
-- [Introduction](README)
-- [Quick Start Guide](Quick-Start-Guide)
-
----
-
+- [Home](README)
+- [Terminology](Terminology)
 - [Configuration](Configuration)
-- [Function Index](Function-Index)
-
----
-
-- [Input Sources](Input-Sources)
-- [Verbs and Alternate Bindings](Verbs-and-Alternate-Bindings)
-- [Binding Names](Binding-Names)
-- [Input Quirks](Input-Quirks)
-- [Supplementary Notes](Reference-Notes)
+- [Config Macros](Config-Macros)
+- [Basics](Basics)
+- [Gain](Gain)
+- [Pitch](Pitch)
+- [Positional](Positional)
+- [Semitones](Semitones)
+- [Advanced](Advanced)
