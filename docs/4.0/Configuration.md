@@ -31,11 +31,7 @@ Here's a standard JSON example:
 		"id": 4578,
 		"value": "File",
 		"popup": {
-			"menuitem": [
-				{"value": "New", "onclick": "CreateNewDoc()"},
-				{"value": "Open", "onclick": "OpenDoc()"},
-				{"value": "Close", "onclick": "CloseDoc()"}
-			]
+			"menuitem": ["New", "Open", "Close"]
 		}
 	}
 }
@@ -47,13 +43,9 @@ And here's an equivalent Loose JSON example:
 {
 	menu: {
 		id: 4578,
-		value: File,
+		value: File
 		popup: {
-			menuitem: [
-				{ value: New, onclick: CreateNewDoc() }
-				{ value: Open, onclick: OpenDoc() }
-				{ value: Close, onclick: CloseDoc() }
-			]
+			menuitem: [New, Open, Close]
 		}
 	}
 }
