@@ -8,7 +8,7 @@ This configuration file can be edited whilst the game is running from the IDE on
 
 ?> If you're changing values inside the configuration file and nothing seems to be happening, check your debug log for any errors, and then check your [config macros](Config-Macros).
 
-The gain and pitch values `__VinylConfig` default to GameMaker's standard normalised values: a gain of `0` is silent and a gain of `1` is unaffected, a pitch of `0.5` is half the frequenct and a pitch of `1` is unaffected. These can be changed to decibel and percentage values respectively by toggling a couple of [config macros](Config-Macros).
+The gain and pitch values `__VinylConfig` default to GameMaker's standard normalised values: a gain of `0` is silent and a gain of `1` is unaffected, a pitch of `0.5` is half the frequency and a pitch of `1` is unaffected. These can be changed to decibel and percentage values respectively by toggling a couple of [config macros](Config-Macros).
 
 &nbsp;
 
@@ -125,11 +125,9 @@ If this property is set to `null` then the fade out speed defaults to `VINYL_DEF
 
 ### `tag`
 
-*Default value: `[]`*
+*Default value: `undefined`*
 
-Links this label to
-
-This value will usually be given a single GameMaker asset tag, but it can also be given an array of tags. Any sound asset with any of the tags will be assigned to the respective Vinyl label.
+Links this label to a GameMaker asset tag. This value will usually be given a single GameMaker asset tag, but it can also be given an array of tags. Any sound asset with any of the tags will be assigned to the respective Vinyl label.
 
 ### `children`
 
