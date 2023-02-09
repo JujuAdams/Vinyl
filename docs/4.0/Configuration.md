@@ -79,8 +79,6 @@ Vinyl expects - and requires - that the top-level object contains three child ob
 }
 ```
 
-These child objects don't necessarily need to be in this order, of course, but to utilise 
-
 &nbsp;
 
 ## Labels
