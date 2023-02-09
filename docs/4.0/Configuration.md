@@ -227,7 +227,7 @@ Copies the configuration for this asset to another asset, or to an array of asse
 
 ## Patterns
 
-Patterns are a convenient way to execute common audio playback behaviours.
+Patterns are a convenient way to execute common audio playback behaviours. A pattern can be specified in lieu of a sound asset when executing any [Vinyl playback function](Basics).
 
 Patterns can have the following properties:
 
@@ -253,15 +253,13 @@ Which label this pattern is assigned to. If an array is specified, the pattern w
 
 &nbsp;
 
-Patterns **must** further have one of the following types. These determine the 
+Patterns **must** further have one of the following types. These determine the behaviour of the pattern when played.
 
-### `basic`
+### `basic` behaviour
 
 Plays the specified audio asset.
 
-&nbsp;
-
-### `shuffle`
+### `shuffle` behaviour
 
 Plays a random audio asset from an array of audio assets.
 
