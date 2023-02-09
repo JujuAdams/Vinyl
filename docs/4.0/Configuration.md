@@ -55,6 +55,8 @@ And here's an equivalent Loose JSON example:
 
 ## High-level Structure
 
+Vinyl expects - and requires - that the top-level object contains three child objects, called `labels`, `assets`, and `patterns`. Each of these child objects represent different categories of Vinyl's operation. You can read more about the precise meaning of ["Label", "Asset", and "Pattern" here](Terminology). Each category has its own rules and expectations for setup; scroll down for info.
+
 ```
 {
     labels: {
