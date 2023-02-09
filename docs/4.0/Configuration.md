@@ -173,6 +173,8 @@ Each element in the child object specifies a child label. An asset assigned to a
 
 These are the basic sound organisation units in Vinyl (and, indeed, GameMaker). A Vinyl asset is the same as a GameMaker asset - a specific, finite audio clip. The names of assets as defined in Vinyl's configuration file must be **identical** to the names of assets in GameMaker's asset browser.
 
+?> The special asset name `fallback` can be used to define properties for sound assets that have not otherwise been specified. This is helpful to protect against audio configuration problems, or to simplify certain configuration tasks (such as defaulting audio to the `sfx` label if not otherwise defined).
+
 Assets can have the following properties:
 
 ### `gain`
@@ -204,7 +206,6 @@ Copies the configuration for this asset to another asset, or to an array of asse
 !> Trying to copy configuration to an asset that has already got configuration data will lead to unexpected behaviour.
 
 &nbsp;
-
 
 ```
 {
