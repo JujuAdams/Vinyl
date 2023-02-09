@@ -95,6 +95,10 @@ Loop
 
 Limit
 
+### `tag`
+
+Tag
+
 ### `children`
 
 Children
@@ -104,16 +108,6 @@ Children
 ```
 {
 	...
-
-    // Label names must not contain spaces
-    // Labels may have six properties defined:
-    //   1. "gain", a number, the gain for the asset in decibels
-    //   2. "pitch", a number, the pitch for the asset as a percentage, or a two-element array containing the minimum and maximum pitch values to randomize between
-    //   3. "children", a dictionary containing labels that should inherit their parent's gain and pitch (applied multiplicatively)
-    //   4. "loop", a boolean, whether the asset should default to looping when played. This is overriden by the [loop] argument in VinylPlay()
-    //   5. "limit, a number indicating the maximum number of audio instances that can be played using this label
-    //   6. "limit fade out rate", a number indicating the rate that audio should be faded out, in decibels per second
-    //       N.B. Audio instances played under child labels count towards the limit counter for their parent label(s)
     
 	labels: {
 	    music: {
@@ -140,7 +134,7 @@ Children
 	        }
 	    }
 	}
-
+    
 	...
 }
 ```
@@ -149,17 +143,31 @@ Children
 
 ## Assets
 
+Assets
+
+### `gain`
+
+Gain
+
+### `pitch`
+
+Pitch
+
+### `label`
+
+Label
+
+### `copyTo`
+
+copyTo
+
+&nbsp;
+
+
 ```
 {
 	...
 	
-    // Audio assets may have three properties defined:
-    //   1. "gain", a number, the gain for the asset in decibels
-    //   2. "pitch", a number, the pitch for the asset as a percentage, or a two-element array containing the minimum and maximum pitch values to randomize between
-    //   3. "label", a string containing the name of the label, or an array of label names. Label gain and pitch are applied multiplicatively if more than one label is defined
-    // 
-    // Any audio asset not explicitly defined uses the "fallback" audio asset definition
-    
     assets: {
         fallback: {}
         sndChickenNuggets: {
@@ -167,7 +175,7 @@ Children
             copyTo: sndTestTone
         }
     }
-
+    
 	...
 }
 ```
