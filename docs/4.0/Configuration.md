@@ -134,7 +134,9 @@ Children
 	            footsteps: {
 	                pitch: [0.8, 1.2]
 	            }
-	            ui: {}
+	            ui: {
+	            	gain: 0.8
+	            }
 	        }
 	    }
 	}
