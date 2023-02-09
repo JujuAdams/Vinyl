@@ -79,29 +79,25 @@ Vinyl expects - and requires - that the top-level object contains three child ob
 
 Labels are the way that Vinyl categorises assets and patterns, and the primary way to control the behaviour of audio in groups. You can read more about the capabilities of labels [here](Terminology).
 
-&nbsp;
+### `gain`
 
-### Gain
+Gain
 
-&nbsp;
+### `pitch`
 
-### Pitch
+Pitch
 
-&nbsp;
+### `loop`
 
-### Loop
+Loop
 
-&nbsp;
+### `limit` and `limit fade out rate`
 
-### Limit
+Limit
 
-&nbsp;
+### `children`
 
-### Limit Fade Out Rate
-
-&nbsp;
-
-### Children
+Children
 
 &nbsp;
 
