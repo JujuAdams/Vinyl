@@ -87,43 +87,49 @@ Labels can have the following properties:
 
 *Default value: `1.0` (or `0` db in decibel mode)*
 
-Gain
+The [gain](Terminology) multiplication factor for all assets/patterns assigned to this label. If multiple labels are specified for an asset/pattern then the gain values for all labels are multiplied together. The gain factor is further multiplied with other gains, including asset/pattern gain, [instance gain](Basics), and [system gain](Advanced).
 
 ### `pitch`
 
 *Default value: `1.0` (or `100%` in percentage mode)*
 
-Pitch
+The [pitch](Terminology) multiplication factor for all assets/patterns assigned to this label. If multiple labels are specified for an asset/pattern then the pitch values for all labels are multiplied together. The pitch factor is further multiplied with other pitch multipliers, including asset/pattern pitch and [instance pitch](Basics).
+
+A pitch value can be specified as either a number, or as a two-element array containing two numbers. If a two-element array is provided then the pitch value is randomised between the two values.
 
 ### `loop`
 
 *Default value: `false`*
 
-Loop
+Whether to loop assets (but not patterns) assigned to this label, by default. You can override this looping behaviour by setting the `loop` argument when [playing audio](Basic).
 
 ### `limit`
 
 *Default value: `infinity`*
 
-Limit
+The total number of instances (assigned to this label) that can simultaneously play. This is very useful for automatically managing music tracks: set `limit` to `1` and only one music track can play at a time, allowing for automatic management of background music. It is only useful for frequent audio effects, such as a coin pickup sound, where audio stacking up can sound unpleasant.
 
 ### `limit fade out rate`
 
 *Default value: `null`*
 
-Limit
+This property controls how quickly audio fades out when the instance count limit is exceeded. This value is measured in units/second: a value of `0.5` means that an instance will take 2 seconds to fully fade out.
+
+If this property is set to `null` then the fade out speed defaults to `VINYL_DEFAULT_GAIN_RATE`.
 
 ### `tag`
 
 *Default value: `[]`*
 
-Tag
+Links this label to
+
+This value will usually be given a single GameMaker asset tag, but it can also be given an array of tags. Any sound asset with any of the tags will be assigned to the respective Vinyl label.
 
 ### `children`
 
-*Default value: `[]`*
+*Default value: `{}`*
 
-Children
+Each element in the child object specifies a child label. An asset assigned to a child label also inherits behaviour from the parent label (recursively), including any values changed at runtime.
 
 &nbsp;
 
@@ -171,25 +177,29 @@ Assets
 
 *Default value: `1.0` (or `0` db in decibel mode)*
 
-Gain
+The [gain](Terminology) multiplication factor for this asset. The gain factor is further multiplied with other gains, including label gain, [instance gain](Basics), and [system gain](Advanced).
 
 ### `pitch`
 
 *Default value: `1.0` (or `100%` in percentage mode)*
 
-Pitch
+The [pitch](Terminology) multiplication factor for this assets. The pitch factor is further multiplied with other pitch multipliers, including label pitch and [instance pitch](Basics).
+
+A pitch value can be specified as either a number, or as a two-element array containing two numbers. If a two-element array is provided then the pitch value is randomised between the two values.
 
 ### `label`
 
 *Default value: `null`*
 
-Label
+Which label this asset is assigned to. If an array is specified, the asset will be assigned to all labels. If no label is specified (the default, `null`) then the asset will not be assigned to any label at all.
 
 ### `copyTo`
 
 *Default value: `[]`*
 
-copyTo
+Copies the configuration for this asset to another asset, or to an array of assets. This is useful to share basic configuration across multiple assets without requiring a whole label for it.
+
+!> Trying to copy configuration to an asset that has already got configuration data will lead to unexpected behaviour.
 
 &nbsp;
 
@@ -220,19 +230,21 @@ Assets
 
 *Default value: `1.0` (or `0` db in decibel mode)*
 
-Gain
+The [gain](Terminology) multiplication factor for all assets/patterns assigned to this label. The gain factor is further multiplied with other gains, including label gain, asset gain, and [system gain](Advanced).
 
 ### `pitch`
 
 *Default value: `1.0` (or `100%` in percentage mode)*
 
-Pitch
+The [pitch](Terminology) multiplication factor for all assets/patterns assigned to this label. The pitch factor is further multiplied with other pitch multipliers, including label pitch, asset pitch and [instance pitch](Basics).
+
+A pitch value can be specified as either a number, or as a two-element array containing two numbers. If a two-element array is provided then the pitch value is randomised between the two values.
 
 ### `label`
 
-*Default value: `undefined`*
+*Default value: `null`*
 
-Label
+Which label this pattern is assigned to. If an array is specified, the pattern will be assigned to all labels. If no label is specified (the default, `null`) then the pattern will not be assigned to any label at all.
 
 &nbsp;
 
