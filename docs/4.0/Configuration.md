@@ -73,33 +73,55 @@ Vinyl expects - and requires - that the top-level object contains three child ob
 }
 ```
 
+These child objects don't necessarily need to be in this order, of course, but to utilise 
+
 &nbsp;
 
 ## Labels
 
 Labels are the way that Vinyl categorises assets and patterns, and the primary way to control the behaviour of audio in groups. You can read more about the capabilities of labels [here](Terminology).
 
+Labels can have the following properties:
+
 ### `gain`
+
+*Default value: `1.0` (or `0` db in decibel mode)*
 
 Gain
 
 ### `pitch`
 
+*Default value: `1.0` (or `100%` in percentage mode)*
+
 Pitch
 
 ### `loop`
 
+*Default value: `false`*
+
 Loop
 
-### `limit` and `limit fade out rate`
+### `limit`
+
+*Default value: `infinity`*
+
+Limit
+
+### `limit fade out rate`
+
+*Default value: `null`*
 
 Limit
 
 ### `tag`
 
+*Default value: `[]`*
+
 Tag
 
 ### `children`
+
+*Default value: `[]`*
 
 Children
 
@@ -147,17 +169,25 @@ Assets
 
 ### `gain`
 
+*Default value: `1.0` (or `0` db in decibel mode)*
+
 Gain
 
 ### `pitch`
+
+*Default value: `1.0` (or `100%` in percentage mode)*
 
 Pitch
 
 ### `label`
 
+*Default value: `null`*
+
 Label
 
 ### `copyTo`
+
+*Default value: `[]`*
 
 copyTo
 
@@ -188,13 +218,19 @@ Assets
 
 ### `gain`
 
+*Default value: `1.0` (or `0` db in decibel mode)*
+
 Gain
 
 ### `pitch`
 
+*Default value: `1.0` (or `100%` in percentage mode)*
+
 Pitch
 
 ### `label`
+
+*Default value: `undefined`*
 
 Label
 
