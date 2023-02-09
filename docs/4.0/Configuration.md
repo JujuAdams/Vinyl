@@ -171,7 +171,9 @@ Each element in the child object specifies a child label. An asset assigned to a
 
 ## Assets
 
-Assets
+These are the basic sound organisation units in Vinyl (and, indeed, GameMaker). A Vinyl asset is the same as a GameMaker asset - a specific, finite audio clip. The names of assets as defined in Vinyl's configuration file must be **identical** to the names of assets in GameMaker's asset browser.
+
+Assets can have the following properties:
 
 ### `gain`
 
@@ -224,7 +226,9 @@ Copies the configuration for this asset to another asset, or to an array of asse
 
 ## Patterns
 
-Assets
+Patterns are a convenient way to execute common audio playback behaviours.
+
+Patterns can have the following properties:
 
 ### `gain`
 
@@ -245,6 +249,20 @@ A pitch value can be specified as either a number, or as a two-element array con
 *Default value: `null`*
 
 Which label this pattern is assigned to. If an array is specified, the pattern will be assigned to all labels. If no label is specified (the default, `null`) then the pattern will not be assigned to any label at all.
+
+&nbsp;
+
+Patterns **must** further have one of the following types. These determine the 
+
+### `basic`
+
+Plays the specified audio asset.
+
+&nbsp;
+
+### `shuffle`
+
+Plays a random audio asset from an array of audio assets.
 
 &nbsp;
 
