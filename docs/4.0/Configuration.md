@@ -184,6 +184,20 @@ copyTo
 
 ## Patterns
 
+Assets
+
+### `gain`
+
+Gain
+
+### `pitch`
+
+Pitch
+
+### `label`
+
+Label
+
 ```
 {
 	...
