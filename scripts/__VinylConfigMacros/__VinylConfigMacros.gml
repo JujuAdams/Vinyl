@@ -1,6 +1,6 @@
 //Maximum output gain for audio instances. Must be greater than or equal to zero
 //Choose lower values to get more resolution in perceived volume levels
-#macro VINYL_SYSTEM_MAX_GAIN  1
+#macro VINYL_MAX_GAIN  1
 
 //Default rate of gain adjument when approaching a gain target
 //Measured in units/second
