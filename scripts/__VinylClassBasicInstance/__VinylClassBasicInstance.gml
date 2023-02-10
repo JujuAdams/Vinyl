@@ -186,6 +186,27 @@ function __VinylClassBasicInstance() constructor
     
     
     
+    #region Loop
+    
+    static __LoopSet = function(_state)
+    {
+        audio_sound_loop(__instance, _state);
+        __loop = _state;
+    }
+    
+    static __LoopPointsSet = function()
+    {
+        if (is_array(__pattern.__loopPoints))
+        {
+            audio_sound_loop_start(__instance, __loopPoints[0]);
+            audio_sound_loop_end(  __instance, __loopPoints[1]);
+        }
+    }
+    
+    #endregion
+    
+    
+    
     #region Play
     
     static __PlaySetState = function(_sound, _loop, _gain, _pitch)
@@ -208,15 +229,6 @@ function __VinylClassBasicInstance() constructor
         __busEmitter = __VinylEffectBusGetEmitter(__busName);
     }
     
-    static __LoopPointsSet = function()
-    {
-        if (is_array(__pattern.__loopPoints))
-        {
-            audio_sound_loop_start(__instance, __loopPoints[0]);
-            audio_sound_loop_end(  __instance, __loopPoints[1]);
-        }
-    }
-       
     static __Play = function(_sound, _loop, _gain, _pitch)
     { 
         __PlaySetState(_sound, _loop, _gain, _pitch);
