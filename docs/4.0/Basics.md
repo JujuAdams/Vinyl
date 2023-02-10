@@ -12,13 +12,17 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 
 &nbsp;
 
-*Returns:*
+*Returns:* GameMaker [sound instance](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_play_sound.htm)
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
 |`sound`  |        |                                                  |
 |`[gain]` |        |                                                  |
 |`[pitch]`|        |                                                  |
+
+Plays an asset, taking advantage of Vinyl's live updating configuration (including labels). However, this function does **not** create a full fat [Vinyl instance](Terminology) and is, in effect, only a wrapper around GameMaker's native [`audio_play_sound()`](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_play_sound.htm) with the gain and pitch calculated through Vinyl.
+
+!> `VinylPlaySimple()` returns a GameMaker sound instance and **not** a Vinyl instance. As such, the sound instance is not compatible with other Vinyl functions and is provided for your convenience only.
 
 &nbsp;
 
@@ -28,7 +32,7 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 
 &nbsp;
 
-*Returns:*
+*Returns:* Vinyl instance
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
@@ -38,6 +42,8 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 |`[pitch]`|        |                                                  |
 |`[pan]`  |        |                                                  |
 
+Plays an asset or pattern with the desired settings and returns a [Vinyl instance](Terminology). This instance can then be used with many other Vinyl functions to manipulate and adjust the sound.
+
 &nbsp;
 
 ## `VinylPlayFadeIn`
@@ -46,7 +52,7 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 
 &nbsp;
 
-*Returns:*
+*Returns:* Vinyl instance
 
 |Name          |Datatype|Purpose                                           |
 |--------------|--------|--------------------------------------------------|
@@ -56,6 +62,14 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 |`[rate]`      |        |                                                  |
 |`[pitch]`     |        |                                                  |
 
+A convenience function that starts playing an asset or pattern at silence and then gradually increases its gain to reach the given target. This function is effectively the same as:
+
+```gml
+var instance = VinylPlay(sound, loop, 0, pitch);
+VinylGainTargetSet(instance, targetGain, rate);
+return instance;
+```
+
 &nbsp;
 
 ## `VinylFadeOut`
@@ -64,12 +78,14 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 
 &nbsp;
 
-*Returns:*
+*Returns:* N/A (`undefined`)
 
 |Name    |Datatype|Purpose                                           |
 |--------|--------|--------------------------------------------------|
 |`id`    |        |                                                  |
 |`[rate]`|        |                                                  |
+
+Begins a fade out for a Vinyl instance. The instance gain will decrease at the given rate (in normalised gain units per second) until the gain reaches zero, at which point the sound is stopped and the instance is marked as destroyed.
 
 &nbsp;
 
@@ -79,11 +95,13 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 
 &nbsp;
 
-*Returns:*
+*Returns:* N/A (`undefined`)
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
 |`id`     |        |                                                  |
+
+Immediately stops playback of a Vinyl instance and marks it as destroyed.
 
 &nbsp;
 
@@ -99,6 +117,8 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 |----|--------|-------|
 |None|        |       |
 
+Immediately stops playback of all currently Vinyl instance and marks them as destroyed.
+
 &nbsp;
 
 ## `VinylExists`
@@ -107,7 +127,7 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 
 &nbsp;
 
-*Returns:*
+*Returns:* Boolean, whether the given [Vinyl instance](Terminology) or [Vinyl label](Terminology) exists
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
@@ -121,11 +141,15 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 
 &nbsp;
 
-*Returns:*
+*Returns:* N/A (`undefined`)
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
 |`id`     |        |                                                  |
+
+Pauses playback of a [Vinyl instance](Terminology). Playback can be resumed using `VinylResume()` (see below).
+
+If a label is provided instead then all currently playing instances assigned to the label are paused individually. The label itself does not hold a "paused" state and any new audio played on that label will not start paused.
 
 &nbsp;
 
@@ -133,11 +157,15 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 
 `VinylPausedGet(id)`
 
-*Returns:*
+*Returns:* Boolean, whether the given [Vinyl instance](Terminology) is paused
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
 |`id`     |        |                                                  |
+
+Pauses playback of a [Vinyl instance](Terminology). Playback can be resumed using `VinylResume()` (see below).
+
+?> You cannot get a "paused" state from a label as they have none.
 
 &nbsp;
 
@@ -152,3 +180,5 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
 |`id`     |        |                                                  |
+
+Resumes playback of a [Vinyl instance](Terminology). If a label is provided instead then all currently playing instances assigned to the label are resumed.
