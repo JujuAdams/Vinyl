@@ -10,7 +10,7 @@
     {"name":"Semitones","order":6,"path":"folders/Vinyl/Semitones.yy",},
   ],
   "ResourceOrderSettings": [
-    {"name":"__VinylClassBus","order":4,"path":"scripts/__VinylClassBus/__VinylClassBus.yy",},
+    {"name":"__VinylClassEffectChain","order":4,"path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},
     {"name":"VinylSystemReadConfig","order":6,"path":"scripts/VinylSystemReadConfig/VinylSystemReadConfig.yy",},
     {"name":"VinylGainSet","order":1,"path":"scripts/VinylGainSet/VinylGainSet.yy",},
     {"name":"sndChickenNuggets","order":1,"path":"sounds/sndChickenNuggets/sndChickenNuggets.yy",},

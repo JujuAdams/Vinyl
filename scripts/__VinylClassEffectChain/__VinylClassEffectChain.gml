@@ -1,6 +1,6 @@
 /// @param name
 
-function __VinylClassBus(_name) constructor
+function __VinylClassEffectChain(_name) constructor
 {
     static __globalData = __VinylGlobalData();
     

@@ -9,7 +9,7 @@ function __VinylEffectChainEnsure(_name)
     var _effectChain = _effectChainDict[$ _name];
     if (!is_struct(_effectChain))
     {
-        _effectChain = new __VinylClassBus(_name);
+        _effectChain = new __VinylClassEffectChain(_name);
         _effectChainDict[$ _name] = _effectChain;
         array_push(_effectChainArray, _effectChain);
     }

@@ -31,7 +31,7 @@
     "IDEVersion": "2023.200.0.281",
   },
   "resources": [
-    {"id":{"name":"__VinylClassBus","path":"scripts/__VinylClassBus/__VinylClassBus.yy",},"order":4,},
+    {"id":{"name":"__VinylClassEffectChain","path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},"order":4,},
     {"id":{"name":"VinylSystemReadConfig","path":"scripts/VinylSystemReadConfig/VinylSystemReadConfig.yy",},"order":6,},
     {"id":{"name":"VinylGainSet","path":"scripts/VinylGainSet/VinylGainSet.yy",},"order":1,},
     {"id":{"name":"sndChickenNuggets","path":"sounds/sndChickenNuggets/sndChickenNuggets.yy",},"order":1,},
