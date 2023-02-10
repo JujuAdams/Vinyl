@@ -169,8 +169,6 @@ If a label is specified instead then all currently playing instances assigned to
 |---------|--------|--------------------------------------------------|
 |`id`     |        |                                                  |
 
-Pauses playback of a [Vinyl instance](Terminology). Playback can be resumed using `VinylResume()` (see below).
-
 ?> You cannot get a "paused" state from a label as they have none.
 
 &nbsp;
