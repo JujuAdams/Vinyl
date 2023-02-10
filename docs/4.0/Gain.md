@@ -6,6 +6,8 @@
 
 `VinylGainSet(id, gain)`
 
+&nbsp;
+
 *Returns:*
 
 |Name     |Datatype|Purpose                                           |
@@ -19,6 +21,8 @@
 
 `VinylGainGet(id)`
 
+&nbsp;
+
 *Returns:*
 
 |Name     |Datatype|Purpose                                           |
@@ -31,6 +35,8 @@
 ## `VinylGainTargetSet`
 
 `VinylGainTargetSet(id, gain, [rate=VINYL_DEFAULT_GAIN_RATE])`
+
+&nbsp;
 
 *Returns:*
 
@@ -46,6 +52,8 @@
 
 `VinylGainTargetGet(id)`
 
+&nbsp;
+
 *Returns:*
 
 |Name     |Datatype|Purpose                                           |
@@ -57,6 +65,8 @@
 ## `VinylOutputGainGet`
 
 `VinylOutputGainGet(id)`
+
+&nbsp;
 
 *Returns:*
 

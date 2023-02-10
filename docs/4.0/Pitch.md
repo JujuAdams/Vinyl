@@ -6,6 +6,8 @@
 
 `VinylPitchSet(id, pitch)`
 
+&nbsp;
+
 *Returns:*
 
 |Name     |Datatype|Purpose                                           |
@@ -19,6 +21,8 @@
 
 `VinylPitchGet(id)`
 
+&nbsp;
+
 *Returns:*
 
 |Name     |Datatype|Purpose                                           |
@@ -31,6 +35,8 @@
 ## `VinylPitchTargetSet`
 
 `VinylPitchTargetSet(id, pitch, [rate=VINYL_DEFAULT_PITCH_RATE])`
+
+&nbsp;
 
 *Returns:*
 
@@ -46,6 +52,8 @@
 
 `VinylPitchTargetGet(id)`
 
+&nbsp;
+
 *Returns:*
 
 |Name     |Datatype|Purpose                                           |
@@ -57,6 +65,8 @@
 ## `VinylOutputPitchGet`
 
 `VinylOutputPitchGet(id)`
+
+&nbsp;
 
 *Returns:*
 

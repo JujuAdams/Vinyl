@@ -10,6 +10,8 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 
 `VinylPlaySimple(sound, [gain=1], [pitch=1])`
 
+&nbsp;
+
 *Returns:*
 
 |Name     |Datatype|Purpose                                           |
@@ -23,6 +25,8 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 ## `VinylPlay`
 
 `VinylPlay(sound, [loop], [gain=1], [pitch=1], [pan])`
+
+&nbsp;
 
 *Returns:*
 
@@ -40,6 +44,8 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 
 `VinylPlayFadeIn(sound, [loop], [targetGain=1], [rate=VINYL_DEFAULT_GAIN_RATE], [pitch=1])`
 
+&nbsp;
+
 *Returns:*
 
 |Name          |Datatype|Purpose                                           |
@@ -56,6 +62,8 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 
 `VinylFadeOut(id, [rate=VINYL_DEFAULT_GAIN_RATE])`
 
+&nbsp;
+
 *Returns:*
 
 |Name    |Datatype|Purpose                                           |
@@ -69,6 +77,8 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 
 `VinylStop(id)`
 
+&nbsp;
+
 *Returns:*
 
 |Name     |Datatype|Purpose                                           |
@@ -80,6 +90,8 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 ## `VinylStopAll`
 
 `VinylStopAll()`
+
+&nbsp;
 
 *Returns:* N/A (`undefined`)
 
@@ -93,6 +105,8 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 
 `VinylExists(id)`
 
+&nbsp;
+
 *Returns:*
 
 |Name     |Datatype|Purpose                                           |
@@ -104,6 +118,8 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 ## `VinylPause`
 
 `VinylPause(id)`
+
+&nbsp;
 
 *Returns:*
 
@@ -128,6 +144,8 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 ## `VinylResume`
 
 `VinylResume(id)`
+
+&nbsp;
 
 *Returns:*
 
