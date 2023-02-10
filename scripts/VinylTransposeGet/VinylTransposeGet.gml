@@ -2,7 +2,7 @@
 /// 
 /// @param vinylID/labelName
 
-function VinylSemitoneGet(_id)
+function VinylTransposeGet(_id)
 {
     static _globalData       = __VinylGlobalData();
     static _idToInstanceDict = _globalData.__idToInstanceDict;
