@@ -10,7 +10,7 @@ outputGain = assetGain * (labelGain[0] * labelGain[1] * ...) * instanceGain * em
 heardGain = clamp(outputGain / VINYL_MAX_GAIN, 0, 1) * systemGain
 ```
 
-?> If you're a professional audio person used to working in decibels rather than normalised gain units then read `*` as `+`.
+?> If you're a professional audio person used to working in decibels rather than normalised gain units then read multiplication `*` as addition `+`.
 
 `outputGain` is the value returned by [`VinylOutputGainGet()`](Gain) whereas `heardGain` is the actual amplitude that is used to fill the audio buffer. Vinyl separates these two concepts so that the `outputGain` can be any value you like and is only constrained at the very last point in the signal chain.
 
