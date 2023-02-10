@@ -1,10 +1,19 @@
-- [Home](README)
-- [Terminology](Terminology)
-- [Configuration](Configuration)
-- [Config Macros](Config-Macros)
-- [Basics](Basics)
-- [Gain](Gain)
-- [Pitch](Pitch)
-- [Positional](Positional)
-- [Semitones](Semitones)
-- [Advanced](Advanced)
+-    [Home](README)
+
+---
+
+**Before You Begin**
+
+-    [Terminology](Terminology)
+-    [Gain Structure](Gain-Structre)
+
+---
+
+-    [Configuration](Configuration)
+-    [Config Macros](Config-Macros)
+-    [Basics](Basics)
+-    [Gain](Gain)
+-    [Pitch](Pitch)
+-    [Positional](Positional)
+-    [Semitones](Semitones)
+-    [Advanced](Advanced)
