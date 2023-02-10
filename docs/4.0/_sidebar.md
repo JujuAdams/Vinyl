@@ -5,7 +5,7 @@
 **Before You Begin**
 
 -    [Terminology](Terminology)
--    [Gain Structure](Gain-Structre)
+-    [Gain Structure](Gain-Structure)
 
 ---
 
