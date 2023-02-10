@@ -231,7 +231,7 @@ function VinylSystemReadConfig(_configData)
     
     
     //Set up effect buses
-    var _inputEffectBusesDict = _configData[$ "buses"] ?? _configData[$ "busses"];
+    var _inputEffectBusesDict = _configData[$ "effect buses"] ?? _configData[$ "effect busses"];
     var _effectBusNameArray = variable_struct_get_names(_inputEffectBusesDict);
     var _i = 0;
     repeat(array_length(_effectBusNameArray))
@@ -267,7 +267,7 @@ function VinylSystemReadConfig(_configData)
     {
         var _pattern = _newPatternOrder[_i];
         
-        //Try to figure out what bus to use
+        //Try to figure out what effect bus to use
         with(_pattern)
         {
             if (__busName == undefined)
@@ -283,7 +283,7 @@ function VinylSystemReadConfig(_configData)
                     }
                     else if (_labelStruct.__busName != __busName)
                     {
-                        __VinylTrace("Warning! Pattern \"", __name, "\" has conflicting buses (chosen = \"", __busName, "\", conflict = \"", _labelStruct.__busName, "\" from label \"", _labelStruct.__name, "\")");
+                        __VinylTrace("Warning! Pattern \"", __name, "\" has conflicting effect buses (chosen = \"", __busName, "\", conflict = \"", _labelStruct.__busName, "\" from label \"", _labelStruct.__name, "\")");
                     }
                     
                     ++_j;
@@ -326,6 +326,6 @@ function VinylSystemReadConfig(_configData)
     
     
     
-    //Workaround for problems setting effects on the main audio bus in 2023.1
+    //Workaround for problems setting effects on the main audio effect bus in 2023.1
     gc_collect();
 }

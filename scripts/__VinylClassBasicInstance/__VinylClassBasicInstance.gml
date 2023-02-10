@@ -209,7 +209,7 @@ function __VinylClassBasicInstance() constructor
     { 
         __PlaySetState(_sound, _loop, _gain, _pitch);
         
-        if (__busEmitter == undefined) //Playing on main bus, no emitter needed
+        if (__busEmitter == undefined) //Playing on main effect bus, no emitter needed
         {
             __instance = audio_play_sound(__sound, 1, __loop, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
         }

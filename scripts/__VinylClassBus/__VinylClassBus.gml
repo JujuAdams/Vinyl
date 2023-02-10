@@ -67,7 +67,7 @@ function __VinylClassBus(_name) constructor
             }
             else
             {
-                __VinylError("Effect type \"", _effectType, "\" not recognised (effect bus=\"", _effectBusName, "\", index=", _i, ")");
+                __VinylError("Effect type \"", _effectType, "\" not recognised (effect bus=\"", __name, "\", index=", _i, ")");
             }
             
             if (_effect != undefined)
