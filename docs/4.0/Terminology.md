@@ -12,7 +12,7 @@ Vinyl uses standard audio terminology where appropriate. On top of this, Vinyl h
 
 Some professional audio designers prefer to work with decibel gain values rather than normalised gain values. By setting [`VINYL_CONFIG_DECIBEL_GAIN`](Config-Macros) to `true`, [Vinyl's configuration file](Configuration) will now use decibel values. A value of `0` db is equivalent to a normalised value of `1`, and a decibel value of `-60` db is equivalent to a normalised gain of `0` (i.e. silence).
 
-Vinyl allows for sounds to exceed a normalised gain value of `1` if appropriately configured; by setting [`VINYL_MAX_GAIN`](Config-Macros) to a value greater than `1`, Vinyl will support gain values for individual sound instances up to that value. You can further amplify the volume of the entire system if necessary by calling [`VinylSystemGainSet()`](Advanced).
+?> The whys and wherefores of gain structure have their own page [here](Gain-Structure).
 
 &nbsp;
 
@@ -30,21 +30,23 @@ An asset is any [sound asset](https://manual.yoyogames.com/The_Asset_Editors/Sou
 
 &nbsp;
 
-## Sound Instance
+## Vinyl Instance
 
-When you play an audio asset using [one of Viny's functions](Basics), Vinyl will create a unique "sound instance" that holds information about that specific piece of audio being played.
+When you play an audio asset using [one of Viny's functions](Basics), Vinyl will create a unique instance that holds information about that specific piece of audio being played.
 
-Sound instances can have their gain and pitch altered on the fly, as well as their pan position. Sound instances can loop, and can be played at positions in a room using Vinyl's custom emitter system as well.
+Vinyl instances can have their gain and pitch altered on the fly, as well as their pan position. Vinyl instances can loop, and can be played at positions in a room using Vinyl's custom emitter system as well.
+
+?> Don't confuse Vinyl instances for GameMaker's [sound instances](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_play_sound.htm). They share some similarities but cannot be used interchangeably.
 
 &nbsp;
 
 ## Label
 
-Labels are how Vinyl handles groups of assets (and patterns) of similar types. An asset can be assigned to zero, one, or many labels. When properties on that label are adjusted - such as gain or pitch - those properties are applied to each asset, and further those properties are applied to each sound instance assigned to the label. This means that changing e.g. the gain value on a label called `ambience` to be lower will diminish the volume of all assets assigned to that label.
+Labels are how Vinyl handles groups of assets (and patterns) of similar types. An asset can be assigned to zero, one, or many labels. When properties on that label are adjusted - such as gain or pitch - those properties are applied to each asset, and further those properties are applied to each Vinyl instance assigned to the label. This means that changing e.g. the gain value on a label called `ambience` to be lower will diminish the volume of all assets assigned to that label.
 
-You can stop all audio that's assigned to a label by using [`VinylStop()`](Basics). You can also fade out labels, set gain and pitch targets for labels etc. Labels can be interacted with in much the same way as sound instances.
+You can stop all audio that's assigned to a label by using [`VinylStop()`](Basics). You can also fade out labels, set gain and pitch targets for labels etc. Labels can be interacted with in much the same way as Vinyl instances.
 
-Labels can have a limit set on the number of concurrent instances that can be played. If the limit is exceeded, old sound instances that are currently playing will be faded out. This is especially useful for handling swapping between background music tracks. You can change the parameters of label limits in Vinyl's [configuration file](Configuration).
+Labels can have a limit set on the number of concurrent instances that can be played. If the limit is exceeded, old Vinyl instances that are currently playing will be faded out. This is especially useful for handling swapping between background music tracks. You can change the parameters of label limits in Vinyl's [configuration file](Configuration).
 
 Vinyl allows you to assign assets within the configuration file, but Vinyl can also hook into GameMaker's native asset tagging system. Labels can be configured to be automatically assigned to any sound asset that has a specific tag.
 
@@ -54,7 +56,7 @@ When setting up complex audio systems it's often useful to use a hierarchy to sh
 
 ## Pattern
 
-There are certain common operation that crop up frequently when playing sound effects, and audio in general, in games. Vinyl patterns are a way to define behaviours that would otherwise be complex or time-consuming to construct. Vinyl patterns are played using [the standard playback functions](Basics) and return a sound instance like a standard sound asset. Patterns must be set up in the [configuration file](Configuration).
+There are certain common operation that crop up frequently when playing sound effects, and audio in general, in games. Vinyl patterns are a way to define behaviours that would otherwise be complex or time-consuming to construct. Vinyl patterns are played using [the standard playback functions](Basics) and return a Vinyl instance like a standard sound asset. Patterns must be set up in the [configuration file](Configuration).
 
 ### Basic
 
