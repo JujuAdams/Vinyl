@@ -10,9 +10,10 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
     __sound = _sound;
     __name  = audio_get_name(__sound);
     
-    var _gain    = _patternData[$ "gain" ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-    var _pitch   = _patternData[$ "pitch"] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
-    var _busName = _patternData[$ "effect bus"] ?? _patternData[$ "effect buss"];
+    var _gain       = _patternData[$ "gain" ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+    var _pitch      = _patternData[$ "pitch"] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+    var _busName    = _patternData[$ "effect bus"] ?? _patternData[$ "effect buss"];
+    var _loopPoints = _patternData[$ "loop points"];
     
     if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
     if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
@@ -52,6 +53,23 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
     else
     {
         __VinylError("Error in audio asset \"", __name, "\"\nBus must be a name (as a string)");
+    }
+    
+    if (is_array(_loopPoints))
+    {
+         if (array_length(_loopPoints) != 2) __VinylError("Error in audio asset \"", __name, "\"\nLoop point array must have exactly two elements (length=", array_length(_pitch), ")");
+         if (!is_numeric(_loopPoints[0])) __VinylError("Error in audio asset \"", __name, "\"\nLoop point array elements must be numbers (index 0 datatype=", typeof(_loopPoints[0]), ")");
+         if (!is_numeric(_loopPoints[1])) __VinylError("Error in audio asset \"", __name, "\"\nLoop point array elements must be numbers (index 1 datatype=", typeof(_loopPoints[1]), ")");
+         
+         __loopPoints = _loopPoints;
+    }
+    else if (is_undefined(_loopPoints))
+    {
+        __loopPoints = _loopPoints;
+    }
+    else
+    {
+        __VinylError("Error in audio asset \"", __name, "\"\nLoop points must be a two-element array");
     }
     
     __labelArray = [];
