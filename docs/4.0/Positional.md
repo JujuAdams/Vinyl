@@ -2,18 +2,24 @@
 
 &nbsp;
 
+Functions on this page relate to spatial positioning of audio, either through panning or Vinyl's custom emitters.
+
+&nbsp;
+
 ## `VinylListenerSet`
 
 `VinylListenerSet(x, y)`
 
 &nbsp;
 
-*Returns:*
+*Returns:* N/A (`undefined`)
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
 |`x`      |        |                                                  |
 |`y`      |        |                                                  |
+
+Sets the listener "head" for the player. This will typically be the centre of the view or the player character's position.
 
 &nbsp;
 
@@ -30,6 +36,10 @@
 |`id`     |        |                                                  |
 |`pan`    |        |                                                  |
 
+Sets the panning position of a Vinyl instance created by `VinylPlay()`. The panning position should be a value from `-1` to `+1`, with `-1` indicating hard left and `+1` indicating hard right.
+
+!> The target Vinyl instance must be created by the `VinylPlay()` function with a defined `pan` argument (even if that value is `0` for centred panned).
+
 &nbsp;
 
 ## `VinylPanGet`
@@ -38,11 +48,13 @@
 
 &nbsp;
 
-*Returns:*
+*Returns:* Number, the panning position for the Vinyl instance
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
 |`id`     |        |                                                  |
+
+This function will return a value from `-1` to `+1`, with `-1` indicating hard left and `+1` indicating hard right.
 
 &nbsp;
 
@@ -52,7 +64,7 @@
 
 &nbsp;
 
-*Returns:*
+*Returns:* Vinyl instance
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
@@ -62,6 +74,8 @@
 |`[gain]` |        |                                                  |
 |`[pitch]`|        |                                                  |
 
+Begins playback of a sound on a Vinyl emitter, as created by the functions below (`VinylEmitterPoint()` etc.). It is not possible to use this function to play sounds on a native GameMaker emitter.
+
 &nbsp;
 
 ## `VinylEmitterPoint`
@@ -70,12 +84,14 @@
 
 &nbsp;
 
-*Returns:*
+*Returns:* Vinyl emitter, point-type
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
 |`x`      |        |                                                  |
 |`y`      |        |                                                  |
+
+!> Vinyl will automatically clean up unneeded emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
 
 &nbsp;
 
@@ -85,13 +101,15 @@
 
 &nbsp;
 
-*Returns:*
+*Returns:* Vinyl emitter, circle-type
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
 |`x`      |        |                                                  |
 |`y`      |        |                                                  |
 |`radius` |        |                                                  |
+
+!> Vinyl will automatically clean up unneeded emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
 
 &nbsp;
 
@@ -101,7 +119,7 @@
 
 &nbsp;
 
-*Returns:*
+*Returns:* Vinyl emitter, rectangle-type
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
@@ -109,6 +127,8 @@
 |`top`    |        |                                                  |
 |`right`  |        |                                                  |
 |`bottom` |        |                                                  |
+
+!> Vinyl will automatically clean up unneeded emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
 
 &nbsp;
 
@@ -118,7 +138,7 @@
 
 &nbsp;
 
-*Returns:*
+*Returns:* N/A (`undefined`)
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
@@ -126,6 +146,8 @@
 |`min`    |        |                                                  |
 |`max`    |        |                                                  |
 |`factor` |        |                                                  |
+
+Sets the falloff parameters for the Vinyl emitter. For more information on falloff parameters, please see the [GameMaker documentation](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_falloff_set_model.htm) on the topic.
 
 &nbsp;
 
@@ -135,7 +157,7 @@
 
 &nbsp;
 
-*Returns:*
+*Returns:* Boolean, whether the emitter exists
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
@@ -149,11 +171,13 @@
 
 &nbsp;
 
-*Returns:*
+*Returns:* N/A (`undefined`)
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
 |`emitter`|        |                                                  |
+
+Destroys the target emitter immediately.
 
 &nbsp;
 
@@ -163,8 +187,10 @@
 
 &nbsp;
 
-*Returns:*
+*Returns:* N/A (`undefined`)
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
 |`emitter`|        |                                                  |
+
+Draws a debug representation of a Vinyl emitter to assist with visualising how emitters are positioned in your game world.
