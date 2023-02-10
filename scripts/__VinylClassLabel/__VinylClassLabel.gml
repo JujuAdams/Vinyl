@@ -14,13 +14,13 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     
     
     //Unpack the definition data
-    var _gain         = _labelData[$ "gain" ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-    var _pitch        = _labelData[$ "pitch"] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
-    var _loop         = _labelData[$ "loop" ] ?? undefined;
-    var _limit        = _labelData[$ "limit"] ?? 100;
-    var _limitFadeOut = _labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE;
-    var _tagArray     = _labelData[$ "tag"  ] ?? _labelData[$ "tags"];
-    var _busName      = _labelData[$ "effect chain"];
+    var _gain            = _labelData[$ "gain" ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+    var _pitch           = _labelData[$ "pitch"] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+    var _loop            = _labelData[$ "loop" ] ?? undefined;
+    var _limit           = _labelData[$ "limit"] ?? 100;
+    var _limitFadeOut    = _labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE;
+    var _tagArray        = _labelData[$ "tag"  ] ?? _labelData[$ "tags"];
+    var _effectChainName = _labelData[$ "effect chain"];
     
     if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
     if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
@@ -66,7 +66,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     if (is_string(_tagArray)) _tagArray = [_tagArray];
     __tagArray = _tagArray;
     
-    __busName = _busName ?? ((__parent == undefined)? "main" : __parent.__busName);
+    __effectChainName = _effectChainName ?? ((__parent == undefined)? "main" : __parent.__effectChainName);
     
     
     

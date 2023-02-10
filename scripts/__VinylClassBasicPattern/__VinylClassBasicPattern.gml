@@ -10,10 +10,10 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
     __sound = _sound;
     __name  = audio_get_name(__sound);
     
-    var _gain       = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-    var _pitch      = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
-    var _busName    = _patternData[$ "effect chain"];
-    var _loopPoints = _patternData[$ "loop points" ];
+    var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+    var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+    var _effectChainName = _patternData[$ "effect chain"];
+    var _loopPoints      = _patternData[$ "loop points" ];
     
     if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
     if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
@@ -46,9 +46,9 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
         __VinylError("Error in audio asset \"", __name, "\"\nPitch must be either a number greater than or equal to zero, or a two-element array");
     }
     
-    if (is_string(_busName) || is_undefined(_busName))
+    if (is_string(_effectChainName) || is_undefined(_effectChainName))
     {
-        __busName = _busName;
+        __effectChainName = _effectChainName;
     }
     else
     {
@@ -138,14 +138,14 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
             ++_i;
         }
         
-        var _busEmitter = __VinylEffectChainGetEmitter(__busName);
-        if (_busEmitter == undefined)
+        var _effectChainEmitter = __VinylEffectChainGetEmitter(__effectChainName);
+        if (_effectChainEmitter == undefined)
         {
             var _instance = audio_play_sound(_sound, 1, false, __VinylCurveAmplitude(_gain), 0, _pitch);
         }
         else
         {
-            var _instance = audio_play_sound_on(_busEmitter, _sound, false, 1, __VinylCurveAmplitude(_gain), 0, _pitch);
+            var _instance = audio_play_sound_on(_effectChainEmitter, _sound, false, 1, __VinylCurveAmplitude(_gain), 0, _pitch);
         }
         
         if (VINYL_DEBUG_LEVEL >= 1)

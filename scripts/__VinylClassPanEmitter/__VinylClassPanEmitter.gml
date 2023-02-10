@@ -24,7 +24,7 @@ function __VinylClassPanEmitter() constructor
         
         __pan = 0;
         
-        __busName = "main";
+        __effectChainName = "main";
         
         audio_emitter_bus(__emitter, audio_bus_main);
         
@@ -49,10 +49,10 @@ function __VinylClassPanEmitter() constructor
         }
     }
     
-    static __Bus = function(_busName)
+    static __Bus = function(_effectChainName)
     {
-        __busName = _busName;
-        audio_emitter_bus(__emitter, __VinylEffectChainGetBus(__busName));
+        __effectChainName = _effectChainName;
+        audio_emitter_bus(__emitter, __VinylEffectChainGetBus(__effectChainName));
     }
     
     static __Depool = function(_id)

@@ -230,7 +230,7 @@ function VinylSystemReadConfig(_configData)
     
     
     
-    //Set up effect buses
+    //Set up effect chains
     var _inputEffectChainDict = _configData[$ "effect chains"];
     var _effectChainNameArray = variable_struct_get_names(_inputEffectChainDict);
     var _i = 0;
@@ -241,7 +241,7 @@ function VinylSystemReadConfig(_configData)
         ++_i;
     }
     
-    //Clean up any unmentioned effect buses
+    //Clean up any unmentioned effect chains
     var _i = 0;
     repeat(array_length(_effectChainArray))
     {
@@ -270,31 +270,31 @@ function VinylSystemReadConfig(_configData)
         //Try to figure out what effect chain to use
         with(_pattern)
         {
-            if (__busName == undefined)
+            if (__effectChainName == undefined)
             {
                 var _j = 0;
                 repeat(array_length(__labelArray))
                 {
                     var _labelStruct = __labelArray[_i];
                     
-                    if (__busName == undefined)
+                    if (__effectChainName == undefined)
                     {
-                        __busName = _labelStruct.__busName;
+                        __effectChainName = _labelStruct.__effectChainName;
                     }
-                    else if (_labelStruct.__busName != __busName)
+                    else if (_labelStruct.__effectChainName != __effectChainName)
                     {
-                        __VinylTrace("Warning! Pattern \"", __name, "\" has conflicting effect buses (chosen = \"", __busName, "\", conflict = \"", _labelStruct.__busName, "\" from label \"", _labelStruct.__name, "\")");
+                        __VinylTrace("Warning! Pattern \"", __name, "\" has conflicting effect chains (chosen = \"", __effectChainName, "\", conflict = \"", _labelStruct.__effectChainName, "\" from label \"", _labelStruct.__name, "\")");
                     }
                     
                     ++_j;
                 }
                 
-                if (__busName == undefined) __busName = "main";
+                if (__effectChainName == undefined) __effectChainName = "main";
             }
             
-            if (!variable_struct_exists(_effectChainDict, __busName))
+            if (!variable_struct_exists(_effectChainDict, __effectChainName))
             {
-                __VinylError("Effect chain \"", __busName, "\" for pattern \"", __name, "\" doesn't exist");
+                __VinylError("Effect chain \"", __effectChainName, "\" for pattern \"", __name, "\" doesn't exist");
             }
         }
         

@@ -40,8 +40,7 @@ function __VinylClassBasicInstance() constructor
         __instance   = undefined;
         __panEmitter = undefined;
         
-        __busName    = "main";
-        __busEmitter = undefined;
+        __effectChainName = "main";
     }
     
     
@@ -227,22 +226,22 @@ function __VinylClassBasicInstance() constructor
         
         __ApplyLabel(true);
         
-        var _pattern = __VinylPatternGet(__sound);
-        __busName    = is_struct(_pattern)? _pattern.__busName : "main";
-        __busEmitter = __VinylEffectChainGetEmitter(__busName);
+        var _pattern      = __VinylPatternGet(__sound);
+        __effectChainName = is_struct(_pattern)? _pattern.__effectChainName : "main";
     }
     
     static __Play = function(_sound, _loop, _gain, _pitch)
     { 
         __PlaySetState(_sound, _loop, _gain, _pitch);
         
-        if (__busEmitter == undefined) //Playing on main effect bus, no emitter needed
+        var _effectChainEmitter = __VinylEffectChainGetEmitter(__effectChainName);
+        if (_effectChainEmitter == undefined) //Playing on main effect bus, no emitter needed
         {
             __instance = audio_play_sound(__sound, 1, __loop, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
         }
         else
         {
-            __instance = audio_play_sound_on(__busEmitter, __sound, __loop, 1, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
+            __instance = audio_play_sound_on(_effectChainEmitter, __sound, __loop, 1, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
         }
         
         __LoopPointsSet();
@@ -264,7 +263,7 @@ function __VinylClassBasicInstance() constructor
         
         __panEmitter = __VinylDepoolPanEmitter();
         __panEmitter.__Pan(_pan);
-        __panEmitter.__Bus(__busName);
+        __panEmitter.__Bus(__effectChainName);
         
         __instance = audio_play_sound_on(__panEmitter.__emitter, __sound, __loop, 1, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
         
