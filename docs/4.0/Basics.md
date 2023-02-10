@@ -85,7 +85,7 @@ return instance;
 |`id`    |        |                                                  |
 |`[rate]`|        |                                                  |
 
-Begins a fade out for a [Vinyl instance](Terminology) or [Vinyl label](Terminology).
+Begins a fade out for a [Vinyl instance](Terminology) or [Vinyl label](Terminology). This puts the instance into "shutdown mode" which can be detected later by [`VinylShutdownGet()`](Advanced).
 
 If an instance is specified, the instance's gain will decrease at the given rate (in normalised gain units per second) until the gain reaches zero, at which point the sound is stopped and the instance is marked as destroyed.
 
