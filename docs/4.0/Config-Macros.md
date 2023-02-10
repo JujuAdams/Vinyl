@@ -2,7 +2,7 @@
 
 &nbsp;
 
-In addition to Vinyl's [configuration file](Configuration), there are a number of macros that can be adjusted to customise Vinyl to your liking. You should adjust these macros as you see fit.
+In addition to Vinyl's [configuration file](Configuration), there are a number of macros that can be adjusted to customise Vinyl to your liking. You can find all these macros in the `__VinylConfigMacros` script. You should adjust these macros as you see fit.
 
 &nbsp;
 
