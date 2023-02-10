@@ -77,7 +77,42 @@ function __VinylClassEffectChain(_name) constructor
                 repeat(array_length(_effectDataNameArray))
                 {
                     var _effectDataField = _effectDataNameArray[_j];
-                    if (_effectDataField != "type") _effect[$ _effectDataField] = _effectData[$ _effectDataField];
+                    if (_effectDataField != "type")
+                    {
+                        if (_effectDataField == "shape")
+                        {
+                            var _shapeName = _effectData[$ _effectDataField];
+                            if (_shapeName == "sine")
+                            {
+                                _effect[$ _effectDataField] = AudioLFOType.Sine;
+                            }
+                            else if (_shapeName == "square")
+                            {
+                                _effect[$ _effectDataField] = AudioLFOType.Square;
+                            }
+                            else if (_shapeName == "triangle")
+                            {
+                                _effect[$ _effectDataField] = AudioLFOType.Triangle;
+                            }
+                            else if (_shapeName == "sawtooth")
+                            {
+                                _effect[$ _effectDataField] = AudioLFOType.Sawtooth;
+                            }
+                            else if (_shapeName == "inverse sawtooth")
+                            {
+                                _effect[$ _effectDataField] = AudioLFOType.InvSawtooth;
+                            }
+                            else
+                            {
+                                __VinylError("Tremolo effect shape type \"", _shapeName, "\" not recognised");
+                            }
+                        }
+                        else
+                        {
+                            _effect[$ _effectDataField] = _effectData[$ _effectDataField];
+                        }
+                    }
+                    
                     ++_j;
                 }
                 
