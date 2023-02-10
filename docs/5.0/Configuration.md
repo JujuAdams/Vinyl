@@ -203,6 +203,12 @@ A pitch value can be specified as either a number, or as a two-element array con
 
 Which label this asset is assigned to. If an array is specified, the asset will be assigned to all labels. If no label is specified (the default, `null`) then the asset will not be assigned to any label at all.
 
+### `loop point`
+
+*Default value: `undefined`*
+
+Defines the start and end loop points for the asset. These loop points should be declared as a two-element array containing two times, the first value being the start of the loop point and the second value being the end of the loop point. The times should be in seconds. For example, `loop point: [1.24, 10.8]` defines a loop between 1.24 seconds and 10.8 seconds for a sound asset.
+
 ### `copyTo`
 
 *Default value: `[]`*
