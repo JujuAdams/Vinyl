@@ -60,8 +60,6 @@ There are certain common operation that crop up frequently when playing sound ef
 
 Basic patterns are effectively a copy of asset definitions but with the option to change properties independently of the source asset. This is useful for repurposing a single sound asset for multiple purposes, such as a coin pick-up sound effect pitch shifted to different values depending on whether a low value or high value coin has been collected.
 
-&nbsp;
-
 ### Shuffle
 
 Plays a random sound asset from an array of sound assets. Shuffle patterns also try to ensure that the same sound is not played twice in a row (in fact, shuffle patterns try to space out sounds as much as possible).
