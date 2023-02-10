@@ -13,6 +13,12 @@ Everything! You might run into edge cases on platforms that I don't regularly te
 
 &nbsp;
 
+**What versions of GameMaker does Vinyl support?**
+
+Version 4 of Vinyl primarily supports GameMaker LTS 2022, and in theory supports every version of GameMaker later than that. Later versions of GameMaker may change functionality in a way that Vinyl is not forwards-compatible with, but Vinyl uses only native GameMaker audio functions so is in the best possible position for long-term compatibility.
+
+&nbsp;
+
 **How is Vinyl licensed? Can I use it for commercial projects?**
 
 [Vinyl is released under the MIT license](https://github.com/JujuAdams/Vinyl/blob/master/LICENSE). This means you can use it for whatever purpose you want, including commercial projects. It'd mean a lot to me if you'd drop my name in the credits (Juju Adams) and/or say thanks, but you're under no obligation to do so.
