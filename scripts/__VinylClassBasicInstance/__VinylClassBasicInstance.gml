@@ -40,6 +40,8 @@ function __VinylClassBasicInstance() constructor
         __instance   = undefined;
         __panEmitter = undefined;
         
+        __pattern = undefined;
+        
         __busName    = "main";
         __busEmitter = undefined;
     }
@@ -200,9 +202,19 @@ function __VinylClassBasicInstance() constructor
         
         __ApplyLabel(true);
         
-        var _pattern = __VinylPatternGet(__sound);
-        __busName    = is_struct(_pattern)? _pattern.__busName : "main";
+        __pattern = __VinylPatternGet(__sound);
+        
+        __busName    = is_struct(__pattern)? __pattern.__busName : "main";
         __busEmitter = __VinylEffectBusGetEmitter(__busName);
+    }
+    
+    static __LoopPointsSet = function()
+    {
+        if (is_array(__pattern.__loopPoints))
+        {
+            audio_sound_loop_start(__instance, __loopPoints[0]);
+            audio_sound_loop_end(  __instance, __loopPoints[1]);
+        }
     }
        
     static __Play = function(_sound, _loop, _gain, _pitch)
@@ -217,6 +229,8 @@ function __VinylClassBasicInstance() constructor
         {
             __instance = audio_play_sound_on(__busEmitter, __sound, __loop, 1, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
         }
+        
+        __LoopPointsSet();
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
@@ -239,6 +253,8 @@ function __VinylClassBasicInstance() constructor
         
         __instance = audio_play_sound_on(__panEmitter.__emitter, __sound, __loop, 1, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
         
+        __LoopPointsSet();
+        
         if (VINYL_DEBUG_LEVEL >= 1)
         {
             __VinylTrace(self, " playing ", audio_get_name(__sound), " on ", __panEmitter, ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_MAX_GAIN, ")");
@@ -256,6 +272,8 @@ function __VinylClassBasicInstance() constructor
         
         __instance = audio_play_sound_on(_emitter.__GetEmitter(), __sound, __loop, 1, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
         array_push(_emitter.__emitter.__instanceIDArray, __id);
+        
+        __LoopPointsSet();
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {

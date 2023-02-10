@@ -318,6 +318,7 @@ function VinylSystemReadConfig(_configData)
         with(_basicPoolPlaying[_i])
         {
             __ApplyLabel(true);
+            __LoopPointsSet();
             __outputChanged = true;
         }
         
