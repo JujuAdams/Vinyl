@@ -85,7 +85,11 @@ return instance;
 |`id`    |        |                                                  |
 |`[rate]`|        |                                                  |
 
-Begins a fade out for a Vinyl instance. The instance gain will decrease at the given rate (in normalised gain units per second) until the gain reaches zero, at which point the sound is stopped and the instance is marked as destroyed.
+Begins a fade out for a [Vinyl instance](Terminology) or [Vinyl label](Terminology).
+
+If an instance is specified, the instance's gain will decrease at the given rate (in normalised gain units per second) until the gain reaches zero, at which point the sound is stopped and the instance is marked as destroyed.
+
+If a label is specified, each currently playing instance assigned to that label will fade out. The label itself has no "fade out" state and any new instances will be played at their normal gain.
 
 &nbsp;
 
@@ -102,6 +106,8 @@ Begins a fade out for a Vinyl instance. The instance gain will decrease at the g
 |`id`     |        |                                                  |
 
 Immediately stops playback of a Vinyl instance and marks it as destroyed.
+
+If a label is specified, each currently playing instance assigned to that label will be immediately stopped. The label itself has no "stopped" state and any new instances will be played as normal.
 
 &nbsp;
 
@@ -149,7 +155,7 @@ Immediately stops playback of all currently Vinyl instance and marks them as des
 
 Pauses playback of a [Vinyl instance](Terminology). Playback can be resumed using `VinylResume()` (see below).
 
-If a label is provided instead then all currently playing instances assigned to the label are paused individually. The label itself does not hold a "paused" state and any new audio played on that label will not start paused.
+If a label is specified instead then all currently playing instances assigned to the label are paused individually. The label itself does not hold a "paused" state and any new audio played on that label will not start paused.
 
 &nbsp;
 
