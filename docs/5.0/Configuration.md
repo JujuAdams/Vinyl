@@ -125,6 +125,14 @@ This property controls how quickly audio fades out when the instance count limit
 
 If this property is set to `null` then the fade out speed defaults to `VINYL_DEFAULT_GAIN_RATE`.
 
+### `effect chain`
+
+*Default value: `null`*
+
+The effect chain to use for assets assigned to this label. This property can be overrided by the `effect chain` property on an asset (see below).
+
+!> A sound can only be played on one effect chain at a time. As a result, this label property can potentially conflict with effect chain definitions in other labels if an asset is assigned to multiple labels. This is not considered a critical error by Vinyl but can lead to unexpected behaviour.
+
 ### `tag`
 
 *Default value: `null`*
@@ -203,11 +211,17 @@ A pitch value can be specified as either a number, or as a two-element array con
 
 Which label this asset is assigned to. If an array is specified, the asset will be assigned to all labels. If no label is specified (the default, `null`) then the asset will not be assigned to any label at all.
 
-### `loop point`
+### `loop points`
 
 *Default value: `undefined`*
 
-Defines the start and end loop points for the asset. These loop points should be declared as a two-element array containing two times, the first value being the start of the loop point and the second value being the end of the loop point. The times should be in seconds. For example, `loop point: [1.24, 10.8]` defines a loop between 1.24 seconds and 10.8 seconds for a sound asset.
+Defines the start and end loop points for the asset. These loop points should be declared as a two-element array containing two times, the first value being the start of the loop point and the second value being the end of the loop point. The times should be in seconds. For example, `loop points: [1.24, 10.8]` defines a loop between 1.24 seconds and 10.8 seconds for a sound asset.
+
+### `effect chain`
+
+*Default value: `null`*
+
+The effect chain to use when playing this asset. This property overrides the `effect chain` property for any label this asset is assigned to.
 
 ### `copyTo`
 
@@ -301,90 +315,90 @@ Plays a random audio asset from an array of audio assets.
 
 &nbsp;
 
-## Effect Buses
+## Effect Chains
 
 Vinyl allows you to define effect chains from the configuration file. You can read more about the details of GameMaker's native effects system in [the GameMaker documentation](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/Audio_Effects/AudioEffect.htm).
 
-You should define an effect bus as an array of individual effects. An effect bus may have up to 8 effects i.e. the array for an effect bus should have no more than 8 elements. You can see an example of an effect bus definition at the end of this section.
+You should define an effect bus as an array of individual effects. An effect chain may have up to 8 effects i.e. the array for an effect bus should have no more than 8 elements. You can see an example of an effect bus definition at the end of this section.
 
-Effect buses can be called whatever you like. There is a special effect bus name - `main` - that refers to the main audio bus. Any audio that is played _without_ explicitly being played through a named effect bus will instead play on the `main` effect bus. Effectively the `main` bus is the "fallback" or "default" effect bus to use.
+Effect chains can be called whatever you like. There is a special effect chain name - `main` - that refers to the main audio bus. Any audio that is played _without_ explicitly being played through a named effect chain will instead play on the `main` effect chain. Effectively the `main` effect chain is the "fallback" or "default" effect chain to use.
 
-Effects can be one of the following types:
+Effects added to an effect chain can be one of the following types:
 
 ### `reverb` type
 
 Equivalent to `AudioEffectType.Reverb1`.
 
-|Property|Datatype|Description                     |
-|--------|--------|--------------------------------|
-|`bypass`|boolean |                                |
-|`size`  |number  |                                |
-|`damp`  |number  |                                |
-|`mix`   |number  |                                |
+|Property|Datatype|Description                                                        |
+|--------|--------|-------------------------------------------------------------------|
+|`bypass`|boolean |Whether the effect should be bypassed (ignored)                    |
+|`size`  |number  |From `0` to `1`. Larger values lead to a longer reverb             |
+|`damp`  |number  |From `0` to `1`. Larger values reduce high frequencies more        |
+|`mix`   |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)|
 
 ### `delay` type
 
 Equivalent to `AudioEffectType.Delay`.
 
-|Property  |Datatype|Description                     |
-|----------|--------|--------------------------------|
-|`bypass`  |boolean |                                |
-|`time`    |number  |                                |
-|`feedback`|number  |                                |
-|`mix`     |number  |                                |
+|Property  |Datatype|Description                                                           |
+|----------|--------|----------------------------------------------------------------------|
+|`bypass`  |boolean |Whether the effect should be bypassed (ignored)                       |
+|`time`    |number  |Length of the delay (in seconds)                                      |
+|`feedback`|number  |From `0` to `1`. Proportion of the signal to pass back into the effect|
+|`mix`     |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)   |
 
 ### `bitcrusher` type
 
 Equivalent to `AudioEffectType.Bitcrusher`.
 
-|Property    |Datatype|Description                     |
-|------------|--------|--------------------------------|
-|`bypass`    |boolean |                                |
-|`gain`      |number  |                                |
-|`factor`    |number  |                                |
-|`resolution`|number  |                                |
-|`mix`       |number  |                                |
+|Property    |Datatype|Description                                                        |
+|------------|--------|-------------------------------------------------------------------|
+|`bypass`    |boolean |Whether the effect should be bypassed (ignored)                    |
+|`gain`      |number  |Input gain going into the clipping stage                           |
+|`factor`    |number  |From `0` to `100`. Downsampling factor                             |
+|`resolution`|number  |From `1` to `16`. Bit depth                                        |
+|`mix`       |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)|
 
 ### `lpf` type
 
-Equivalent to `AudioEffectType.LPF2`.
+A low-pass filter that reduces high frequencies. Equivalent to `AudioEffectType.LPF2`.
 
-|Property|Datatype|Description                     |
-|--------|--------|--------------------------------|
-|`bypass`|boolean |                                |
-|`cutoff`|number  |                                |
-|`q`     |number  |                                |
+|Property|Datatype|Description                                    |
+|--------|--------|-----------------------------------------------|
+|`bypass`|boolean |Whether the effect should be bypassed (ignored)|
+|`cutoff`|number  |Cutoff frequency, in Hertz                     |
+|`q`     |number  |From `1` to `100`. How sharp the cutoff is     |
 
 ### `hpf` type
 
-Equivalent to `AudioEffectType.HPF2`.
+A high-pass filter that thins out sounds by reducing low frequencies. Equivalent to `AudioEffectType.HPF2`.
 
-|Property|Datatype|Description                     |
-|--------|--------|--------------------------------|
-|`bypass`|boolean |                                |
-|`cutoff`|number  |                                |
-|`q`     |number  |                                |
+|Property|Datatype|Description                                    |
+|--------|--------|-----------------------------------------------|
+|`bypass`|boolean |Whether the effect should be bypassed (ignored)|
+|`cutoff`|number  |Cutoff frequency, in Hertz                     |
+|`q`     |number  |From `1` to `100`. How sharp the cutoff is     |
 
 ### `gain` type
 
-Equivalent to `AudioEffectType.Gain`.
+Basic volume control. Equivalent to `AudioEffectType.Gain`.
 
-|Property|Datatype|Description                     |
-|--------|--------|--------------------------------|
-|`bypass`|boolean |                                |
-|`gain`  |number  |                                |
+|Property|Datatype|Description                                    |
+|--------|--------|-----------------------------------------------|
+|`bypass`|boolean |Whether the effect should be bypassed (ignored)|
+|`gain`  |number  |From `0` to `1`. Attenuates the signal         |
 
 ### `tremolo` type
 
 Equivalent to `AudioEffectType.Tremolo`.
 
-|Property    |Datatype|Description                     |
-|------------|--------|--------------------------------|
-|`bypass`    |boolean |                                |
-|`rate`      |number  |                                |
-|`intensity` |number  |                                |
-|`offset`    |number  |                                |
-|`shape`     |string  |                                |
+|Property    |Datatype|Description                                                     |
+|------------|--------|----------------------------------------------------------------|
+|`bypass`    |boolean |Whether the effect should be bypassed (ignored)                 |
+|`rate`      |number  |From `0` to `20` Hertz. Frequency of the LFO modulating the gain|
+|`intensity` |number  |From `0` to `1`. The depth of the effect. `1` is 100% affected  |
+|`offset`    |number  |From `0` to `1`. Left/right offset                              |
+|`shape`     |string  |See below                                                       |
 
 `shape` can be one of the following strings:
 - `sine`
@@ -399,7 +413,7 @@ Equivalent to `AudioEffectType.Tremolo`.
 {
 	...
 	
-    effect buses: {
+    effect chains: {
         main: [
             {
                 type: delay
