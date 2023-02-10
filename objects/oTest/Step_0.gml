@@ -1,7 +1,4 @@
-if (keyboard_check_pressed(ord("M")))
-{
-    music = VinylPlayFadeIn(sndChickenNuggets, true);
-}
+VinylListenerSet(mouse_x, mouse_y);
 
 if (keyboard_check_pressed(vk_up))
 {
@@ -13,36 +10,7 @@ if (keyboard_check_pressed(vk_down))
     VinylPitchTargetSet(music, VinylPitchTargetGet(music) - 1/9);
 }
 
-if (keyboard_check_pressed(ord("S")))
-{
-    if (keyboard_check(vk_control))
-    {
-        VinylStop("music");
-    }
-    else
-    {
-        VinylStop(music);
-    }
-}
-
 if (keyboard_check_pressed(ord("F")))
 {
     VinylFadeOut(music);
-}
-
-if (keyboard_check_pressed(vk_space)) VinylPlaySimple(sndTestTone);
-
-if (keyboard_check_pressed(ord("P")))
-{
-    VinylPause("music");
-}
-
-if (keyboard_check_pressed(ord("R")))
-{
-    VinylResume("music");
-}
-
-if (keyboard_check_pressed(ord("T")))
-{
-    VinylPlaySimple("shuffle test");
 }
