@@ -11,7 +11,7 @@
 
 Implementing audio in GameMaker - be it music, sound effects, ambience, or UI blips - is a time-consuming process. There's a lot of [boilerplate](https://en.wikipedia.org/wiki/Boilerplate_code) and setup code that's required to get sounds playing in a structured, controllable way. Even after your audio is playing in roughly the way you want, mixing the audio (i.e. adjusting volumes) takes ages because you often have to recompile the entire game to hear your changes. Vinyl solves this recompilation issue at the same time as simplifying many common audio implementation tasks.
 
-By changing a configuration file stored in the GameMaker IDE, you can adjust your audio whilst the game is playing.
+With Vinyl, you can change a configuration file stored in the GameMaker IDE and instantaneously hear the difference. **Vinyl lets you mix your audio whilst the game is playing.**
 
 The core of Vinyl is this [configuration file](Configuration) that contains a multitude of rules for how audio should be played in your game. You can read more about this file [here](Configuration). So long as you're playing your game on Windows, Mac, or Linxu and you're running the game from the IDE, any change made to the configuration file is immediately reflected in the audio playback in-game. This means that if you want that meaty shotgun blast to be even louder, you can change one value in the GameMaker IDE and hear the impact of your change instantly. No recompilation required.
 
