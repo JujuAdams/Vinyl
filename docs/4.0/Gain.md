@@ -2,6 +2,10 @@
 
 &nbsp;
 
+Functions on this page relate to setting and manipulating gain for [Vinyl instances](Terminology) and [Vinyl labels](Terminology).
+
+&nbsp;
+
 ## `VinylGainSet`
 
 `VinylGainSet(id, gain)`
