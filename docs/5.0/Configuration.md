@@ -379,15 +379,6 @@ A high-pass filter that thins out sounds by reducing low frequencies. Equivalent
 |`cutoff`|number  |Cutoff frequency, in Hertz                     |
 |`q`     |number  |From `1` to `100`. How sharp the cutoff is     |
 
-### `gain` type
-
-Basic volume control. Equivalent to `AudioEffectType.Gain`.
-
-|Property|Datatype|Description                                    |
-|--------|--------|-----------------------------------------------|
-|`bypass`|boolean |Whether the effect should be bypassed (ignored)|
-|`gain`  |number  |From `0` to `1`. Attenuates the signal         |
-
 ### `tremolo` type
 
 Equivalent to `AudioEffectType.Tremolo`.
@@ -406,6 +397,15 @@ Equivalent to `AudioEffectType.Tremolo`.
 - `triangle`
 - `sawtooth`
 - `inverse sawtooth`
+
+### `gain` type
+
+Basic volume control. Equivalent to `AudioEffectType.Gain`.
+
+|Property|Datatype|Description                                    |
+|--------|--------|-----------------------------------------------|
+|`bypass`|boolean |Whether the effect should be bypassed (ignored)|
+|`gain`  |number  |From `0` to `1`. Attenuates the signal         |
 
 &nbsp;
 
