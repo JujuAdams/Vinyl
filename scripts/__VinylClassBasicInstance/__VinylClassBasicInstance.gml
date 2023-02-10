@@ -40,8 +40,6 @@ function __VinylClassBasicInstance() constructor
         __instance   = undefined;
         __panEmitter = undefined;
         
-        __pattern = undefined;
-        
         __busName    = "main";
         __busEmitter = undefined;
     }
@@ -196,10 +194,16 @@ function __VinylClassBasicInstance() constructor
     
     static __LoopPointsSet = function()
     {
-        if (is_array(__pattern.__loopPoints))
+        var _loopPoints = __VinylPatternGet(__sound).__loopPoints;
+        if (is_array(_loopPoints))
         {
-            audio_sound_loop_start(__instance, __loopPoints[0]);
-            audio_sound_loop_end(  __instance, __loopPoints[1]);
+            audio_sound_loop_start(__instance, _loopPoints[0]);
+            audio_sound_loop_end(  __instance, _loopPoints[1]);
+        }
+        else
+        {
+            audio_sound_loop_start(__instance, 0);
+            audio_sound_loop_end(  __instance, audio_sound_length(__instance));
         }
     }
     
@@ -223,9 +227,8 @@ function __VinylClassBasicInstance() constructor
         
         __ApplyLabel(true);
         
-        __pattern = __VinylPatternGet(__sound);
-        
-        __busName    = is_struct(__pattern)? __pattern.__busName : "main";
+        var _pattern = __VinylPatternGet(__sound);
+        __busName    = is_struct(_pattern)? _pattern.__busName : "main";
         __busEmitter = __VinylEffectBusGetEmitter(__busName);
     }
     

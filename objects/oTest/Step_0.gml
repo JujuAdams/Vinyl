@@ -3,6 +3,11 @@ if (keyboard_check_pressed(ord("M")))
     music = VinylPlayFadeIn(sndChickenNuggets, true);
 }
 
+if (keyboard_check_pressed(ord("C")))
+{
+    VinylLoopSet(music, false);
+}
+
 if (keyboard_check_pressed(vk_up))
 {
     VinylPitchTargetSet(music, VinylPitchTargetGet(music) + 1/9);
