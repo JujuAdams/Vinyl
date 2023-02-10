@@ -15,6 +15,12 @@
 |`id`     |        |                                                  |
 |`pitch`  |        |                                                  |
 
+Sets the pitch of [Vinyl instance](Terminology) or [Vinyl label](Terminology).
+
+If an instance is specified, the instance pitch is set. This pitch is independent of, for example, label pitch and asset pitch.
+
+If a label is specified, the pitch for the label is set. This will immediately impact all current instances assigned to that label, and will impact future instances too.
+
 &nbsp;
 
 ## `VinylPitchGet`
@@ -23,7 +29,7 @@
 
 &nbsp;
 
-*Returns:*
+*Returns:* Number, the pitch for the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
@@ -45,6 +51,8 @@
 |`pitch`  |        |                                                  |
 |`[rate]` |        |                                                  |
 
+Sets the target pitch of [Vinyl instance](Terminology) or [Vinyl label](Terminology). The pitch for that instance or label will change over time at the given rate until reaching its target.
+
 &nbsp;
 
 ## `VinylPitchTargetGet`
@@ -53,7 +61,7 @@
 
 &nbsp;
 
-*Returns:*
+*Returns:* Number, the target pitch for the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
@@ -67,7 +75,7 @@
 
 &nbsp;
 
-*Returns:*
+*Returns:* Number, the final output pitch of the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
 
 |Name     |Datatype|Purpose                                           |
 |---------|--------|--------------------------------------------------|
