@@ -22,10 +22,10 @@ function __VinylCurveAmplitude(_value)
 {
     if (__VINYL_FORCE_EXPONENTIAL_CURVE)
     {
-        return (power(20, _value/VINYL_SYSTEM_MAX_GAIN)-1)/19;
+        return (power(20, _value/VINYL_MAX_GAIN)-1)/19;
     }
     else
     {
-        return _value/VINYL_SYSTEM_MAX_GAIN;
+        return _value/VINYL_MAX_GAIN;
     }
 }
