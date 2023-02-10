@@ -95,7 +95,7 @@ The [gain](Terminology) multiplication factor for all assets/patterns assigned t
 
 ### `pitch`
 
-*Default value: `1.0` (or `100%` in percentage mode)*
+*Default value: `1.0` (or `100` in percentage mode)*
 
 The [pitch](Terminology) multiplication factor for all assets/patterns assigned to this label. If multiple labels are specified for an asset/pattern then the pitch values for all labels are multiplied together. The pitch factor is further multiplied with other pitch multipliers, including asset/pattern pitch and [instance pitch](Basics).
 
@@ -187,7 +187,7 @@ The [gain](Terminology) multiplication factor for this asset. The gain factor is
 
 ### `pitch`
 
-*Default value: `1.0` (or `100%` in percentage mode)*
+*Default value: `1.0` (or `100` in percentage mode)*
 
 The [pitch](Terminology) multiplication factor for this assets. The pitch factor is further multiplied with other pitch multipliers, including label pitch and [instance pitch](Basics).
 
@@ -241,7 +241,7 @@ The [gain](Terminology) multiplication factor for all assets/patterns assigned t
 
 ### `pitch`
 
-*Default value: `1.0` (or `100%` in percentage mode)*
+*Default value: `1.0` (or `100` in percentage mode)*
 
 The [pitch](Terminology) multiplication factor for all assets/patterns assigned to this label. The pitch factor is further multiplied with other pitch multipliers, including label pitch, asset pitch and [instance pitch](Basics).
 
