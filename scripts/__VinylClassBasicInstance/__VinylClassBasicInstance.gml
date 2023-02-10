@@ -4,7 +4,7 @@ function __VinylClassBasicInstance() constructor
     static __basicPoolReturn  = __globalData.__basicPoolReturn;
     static __basicPoolPlaying = __globalData.__basicPoolPlaying;
     static __idToInstanceDict = __globalData.__idToInstanceDict;
-    static __effectBusDict    = __globalData.__effectBusDict;
+    static __effectChainDict  = __globalData.__effectChainDict;
     
     __id = undefined;
     __pooled = true;
@@ -229,7 +229,7 @@ function __VinylClassBasicInstance() constructor
         
         var _pattern = __VinylPatternGet(__sound);
         __busName    = is_struct(_pattern)? _pattern.__busName : "main";
-        __busEmitter = __VinylEffectBusGetEmitter(__busName);
+        __busEmitter = __VinylEffectChainGetEmitter(__busName);
     }
     
     static __Play = function(_sound, _loop, _gain, _pitch)

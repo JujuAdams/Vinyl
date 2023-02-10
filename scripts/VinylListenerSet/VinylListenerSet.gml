@@ -5,7 +5,7 @@ function VinylListenerSet(_x, _y)
 {
     static _globalData       = __VinylGlobalData();
     static _panEmitterActive = _globalData.__panEmitterActive;
-    static _effectBusArray   = _globalData.__effectBusArray;
+    static _effectChainArray = _globalData.__effectChainArray;
     
     if ((_x != _globalData.__listenerX) || (_y != _globalData.__listenerY))
     {
@@ -22,9 +22,9 @@ function VinylListenerSet(_x, _y)
         }
         
         var _i = 0;
-        repeat(array_length(_effectBusArray))
+        repeat(array_length(_effectChainArray))
         {
-            _effectBusArray[_i].__UpdatePosition();
+            _effectChainArray[_i].__UpdatePosition();
             ++_i;
         }
     }

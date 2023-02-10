@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylEffectBusGetEmitter",
+  "name": "__VinylEffectChainGetEmitter",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

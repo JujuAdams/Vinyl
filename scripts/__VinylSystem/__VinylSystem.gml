@@ -35,7 +35,7 @@ function __VinylInitialize()
     audio_listener_set_position(VINYL_LISTENER_INDEX,   0, 0, 0);
     
     VinylSystemGainSet(1);
-    __VinylEnsureEffectBus("main");
+    __VinylEffectChainEnsure("main");
     __VinylUpdateData();
     
     if (__VinylGetLiveUpdateEnabled())

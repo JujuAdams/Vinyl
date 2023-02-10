@@ -9,7 +9,7 @@ function __VinylTick()
     static _emitterPoolReturn    = _globalData.__emitterPoolReturn;
     static _panEmitterPool       = _globalData.__panEmitterPool;
     static _panEmitterPoolReturn = _globalData.__panEmitterPoolReturn;
-    static _effectBusArray       = _globalData.__effectBusArray;
+    static _effectChainArray     = _globalData.__effectChainArray;
     
     var _deltaTime = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
     

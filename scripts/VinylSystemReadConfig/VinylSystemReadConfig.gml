@@ -7,8 +7,8 @@ function VinylSystemReadConfig(_configData)
 {
     static _globalData       = __VinylGlobalData();
     static _basicPoolPlaying = _globalData.__basicPoolPlaying;
-    static _effectBusDict    = _globalData.__effectBusDict;
-    static _effectBusArray   = _globalData.__effectBusArray;
+    static _effectChainDict  = _globalData.__effectChainDict;
+    static _effectChainArray = _globalData.__effectChainArray;
     
     var _newPatternDict  = {};
     var _newPatternOrder = [];
@@ -231,28 +231,28 @@ function VinylSystemReadConfig(_configData)
     
     
     //Set up effect buses
-    var _inputEffectBusesDict = _configData[$ "effect chains"];
-    var _effectBusNameArray = variable_struct_get_names(_inputEffectBusesDict);
+    var _inputEffectChainDict = _configData[$ "effect chains"];
+    var _effectChainNameArray = variable_struct_get_names(_inputEffectChainDict);
     var _i = 0;
-    repeat(array_length(_effectBusNameArray))
+    repeat(array_length(_effectChainNameArray))
     {
-        var _effectBusName = _effectBusNameArray[_i];
-        __VinylEnsureEffectBus(_effectBusName).__Update(_inputEffectBusesDict[$ _effectBusName]);
+        var _effectChainName = _effectChainNameArray[_i];
+        __VinylEffectChainEnsure(_effectChainName).__Update(_inputEffectChainDict[$ _effectChainName]);
         ++_i;
     }
     
     //Clean up any unmentioned effect buses
     var _i = 0;
-    repeat(array_length(_effectBusArray))
+    repeat(array_length(_effectChainArray))
     {
-        var _effectBusStruct = _effectBusArray[_i];
-        var _effectBusName = _effectBusStruct.__name;
+        var _effectChain = _effectChainArray[_i];
+        var _effectChainName = _effectChain.__name;
         
-        if ((_effectBusName != "main") && !variable_struct_exists(_inputEffectBusesDict, _effectBusName))
+        if ((_effectChainName != "main") && !variable_struct_exists(_inputEffectChainDict, _effectChainName))
         {
-            _effectBusStruct.__Destroy();
-            variable_struct_remove(_effectBusDict, _effectBusName);
-            array_delete(_effectBusArray, _i, 1);
+            _effectChain.__Destroy();
+            variable_struct_remove(_effectChainDict, _effectChainName);
+            array_delete(_effectChainArray, _i, 1);
         }
         else
         {
@@ -292,7 +292,7 @@ function VinylSystemReadConfig(_configData)
                 if (__busName == undefined) __busName = "main";
             }
             
-            if (!variable_struct_exists(_effectBusDict, __busName))
+            if (!variable_struct_exists(_effectChainDict, __busName))
             {
                 __VinylError("Effect chain \"", __busName, "\" for pattern \"", __name, "\" doesn't exist");
             }

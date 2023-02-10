@@ -52,7 +52,7 @@ function __VinylClassPanEmitter() constructor
     static __Bus = function(_busName)
     {
         __busName = _busName;
-        audio_emitter_bus(__emitter, __VinylEffectBusGetBus(__busName));
+        audio_emitter_bus(__emitter, __VinylEffectChainGetBus(__busName));
     }
     
     static __Depool = function(_id)
