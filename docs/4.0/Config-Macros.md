@@ -102,7 +102,7 @@ How much debug spam to chuck at the debug log. This macro can have one of three 
 
 ## `VINYL_DEBUG_READ_CONFIG`
 
-*Default value: `0`*
+*Default value: `false`*
 
 Whether to output extra debug information when reading configuration data.
 
