@@ -275,7 +275,7 @@ function VinylSystemReadConfig(_configData)
                 var _j = 0;
                 repeat(array_length(__labelArray))
                 {
-                    var _labelStruct = __labelArray[_i];
+                    var _labelStruct = __labelArray[_j];
                     
                     if (__effectChainName == undefined)
                     {
