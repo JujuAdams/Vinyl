@@ -10,9 +10,9 @@ Vinyl uses standard audio terminology where appropriate. On top of this, Vinyl h
 
 "Gain" is, effectively, the "volume" of a sound. Where Vinyl requires a gain value to be supplied as a function argument, the gain value should from `0` to, typically, `1`.
 
-Some professional audio designers prefer to work with decibel gain values rather than normalised gain values. By setting `VINYL_CONFIG_DECIBEL_GAIN` to `true`, [Vinyl's configuration file](Configuration) will now use decibel values. A value of `0` db is equivalent to a normalised value of `1`, and a decibel value of `-60` db is equivalent to a normalised gain of `0` (i.e. silence).
+Some professional audio designers prefer to work with decibel gain values rather than normalised gain values. By setting [`VINYL_CONFIG_DECIBEL_GAIN`](Config-Macros) to `true`, [Vinyl's configuration file](Configuration) will now use decibel values. A value of `0` db is equivalent to a normalised value of `1`, and a decibel value of `-60` db is equivalent to a normalised gain of `0` (i.e. silence).
 
-Vinyl allows for sounds to exceed a normalised gain value of `1` if appropriately configured; by setting `VINYL_SYSTEM_MAX_GAIN` to a value greater than `1`, Vinyl will support gain values for individual sound instances up to that value. You can further amplify the volume of the entire system if necessary by calling [`VinylSystemGainSet()`](Advanced).
+Vinyl allows for sounds to exceed a normalised gain value of `1` if appropriately configured; by setting [`VINYL_MAX_GAIN`](Config-Macros) to a value greater than `1`, Vinyl will support gain values for individual sound instances up to that value. You can further amplify the volume of the entire system if necessary by calling [`VinylSystemGainSet()`](Advanced).
 
 &nbsp;
 
@@ -20,7 +20,7 @@ Vinyl allows for sounds to exceed a normalised gain value of `1` if appropriatel
 
 Pitch is a multiplier applied to the frequency of the sound. A higher value makes the sound higher pitched (squeakier) and shorter, whereas a lower value makes the sound deeper and longer. Where Vinyl requires a pitch value to be supplied as a function argument, expects normalised pitch values. A pitch value of `1` indicates no change to pitch, a value of `2` indicates a doubling in pitch, and so on.
 
-I've always found the use of normalised values for pitch confusing. By setting `VINYL_CONFIG_PERCENTAGE_PITCH` to `true`, [Vinyl's configuration file](Configuration) will now use percentage values for pitches (functions still use normalised values, however). A value of `100` is equivalent to a normalised value of `1`, and a value of `50` db is equivalent to a normalised gain of `0.5` (i.e. half the frequency).
+I've always found the use of normalised values for pitch confusing. By setting [`VINYL_CONFIG_PERCENTAGE_PITCH`](Config-Macros) to `true`, [Vinyl's configuration file](Configuration) will now use percentage values for pitches (functions still use normalised values, however). A value of `100` is equivalent to a normalised value of `1`, and a value of `50` db is equivalent to a normalised gain of `0.5` (i.e. half the frequency).
 
 &nbsp;
 
@@ -42,7 +42,7 @@ Sound instances can have their gain and pitch altered on the fly, as well as the
 
 Labels are how Vinyl handles groups of assets (and patterns) of similar types. An asset can be assigned to zero, one, or many labels. When properties on that label are adjusted - such as gain or pitch - those properties are applied to each asset, and further those properties are applied to each sound instance assigned to the label. This means that changing e.g. the gain value on a label called `ambience` to be lower will diminish the volume of all assets assigned to that label.
 
-You can stop all audio that's assigned to a label by using `VinylStop()`. You can also fade out labels, set gain and pitch targets etc. Labels can be interacted with in much the same way as sound instances.
+You can stop all audio that's assigned to a label by using [`VinylStop()`](Basics). You can also fade out labels, set gain and pitch targets for labels etc. Labels can be interacted with in much the same way as sound instances.
 
 Labels can have a limit set on the number of concurrent instances that can be played. If the limit is exceeded, old sound instances that are currently playing will be faded out. This is especially useful for handling swapping between background music tracks. You can change the parameters of label limits in Vinyl's [configuration file](Configuration).
 
