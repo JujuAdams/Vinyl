@@ -319,9 +319,9 @@ Plays a random audio asset from an array of audio assets.
 
 Vinyl allows you to define effect chains from the configuration file. You can read more about the details of GameMaker's native effects system in [the GameMaker documentation](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/Audio_Effects/AudioEffect.htm).
 
-You should define an effect bus as an array of individual effects. An effect chain may have up to 8 effects i.e. the array for an effect bus should have no more than 8 elements. You can see an example of an effect bus definition at the end of this section.
+?> The effect chain name `main` is a special case that refers to the main audio bus. Any audio that is played _without_ explicitly being played through a named effect chain will instead play on the `main` effect chain. Effectively the `main` effect chain is the "fallback" or "default" effect chain to use.
 
-Effect chains can be called whatever you like. There is a special effect chain name - `main` - that refers to the main audio bus. Any audio that is played _without_ explicitly being played through a named effect chain will instead play on the `main` effect chain. Effectively the `main` effect chain is the "fallback" or "default" effect chain to use.
+You should define an effect bus as an array of individual effects. An effect chain may have up to 8 effects i.e. the array for an effect bus should have no more than 8 elements. You can see an example of an effect bus definition at the end of this section.
 
 Effects added to an effect chain can be one of the following types:
 
