@@ -93,7 +93,7 @@ Begins playback of a sound on a Vinyl emitter, as created by the functions below
 
 Creates an emitter at a point in your game world. This is the same behaviour as GameMaker's [native emitters](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/Audio_Emitters/Audio_Emitters.htm).
 
-!> Vinyl will automatically clean up unneeded emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
+!> Vinyl will automatically clean up orphaned emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
 
 &nbsp;
 
@@ -113,7 +113,7 @@ Creates an emitter at a point in your game world. This is the same behaviour as 
 
 Creates an emitter that occupies a circular region in your game world. This means that the listener position can be anywhere in the circle to hear sound played on the emitter at full volume at centred in the stereo field, and panning and falloff only occurs when the listener is outside the circle.
 
-!> Vinyl will automatically clean up unneeded emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
+!> Vinyl will automatically clean up orphaned emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
 
 &nbsp;
 
@@ -134,7 +134,7 @@ Creates an emitter that occupies a circular region in your game world. This mean
 
 Creates an emitter that occupies a rectangular region in your game world. This means that the listener position can be anywhere in the rectangle to hear sound played on the emitter at full volume at centred in the stereo field, and panning and falloff only occurs when the listener is outside the rectangle.
 
-!> Vinyl will automatically clean up unneeded emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
+!> Vinyl will automatically clean up orphaned emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
 
 &nbsp;
 
