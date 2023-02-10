@@ -20,14 +20,14 @@ In brief:
 
 1. Valid standard JSON is also valid Loose JSON
 2. Loose JSON supports strings, numbers, boolean, and null as basic value types
-2. Loose JSON can express objects and arrays like normal JSON
-3. Loose JSON supports escaped characters, including [Unicode escapes](https://dencode.com/en/string/unicode-escape)
+3. Loose JSON can express objects and arrays like normal JSON
 4. You can use either commas or newlines to separate elements in an object or array
 5. Trailing commas are fine too
 6. Strings can be delimited with double quote marks `"` but don't have to be. If a string is _not_ delimited then any potential trailing or leading whitespace is automatically clipped off. If you'd like to use special symbols inside a string (e.g. `"` `:` `,` etc.), and you don't want to escape those characters, then you'll need to delimit strings with double quote marks
 7. The keywords `true` `false` `null` are translated to their GameMaker equivalents (`null` is GameMaker's `undefined`)
 8. If a value looks like a number then the Loose JSON parser will try to turn it into a number
-9. Keys must be strings, but can have spaces in them
+9. Loose JSON supports escaped characters, including [Unicode escapes](https://dencode.com/en/string/unicode-escape)
+10. Keys must be strings, but can have spaces in them
 
 Here's a standard JSON example:
 
