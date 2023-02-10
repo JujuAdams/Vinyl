@@ -73,3 +73,25 @@ Plays a random sound asset from an array of sound assets. Shuffle patterns also 
 ## Emitter
 
 Building sonically convincing environments involves a lot of detailed work, not least the considered use of panning and spatial positioning. Emitters are points or regions in space that can host Vinyl instances. As the player moves towards and away from each emitter, sounds played on that emitter pan and modulate their volume accordingly. GameMaker has its own [emitter system](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/Audio_Emitters/Audio_Emitters.htm) built around point emitters. Vinyl extends this basic featureset to allow for [region emitters](Positional) as well as simple [panned audio](Positional).
+
+&nbsp;
+
+## Effect Chain
+
+Vinyl offers a streamlined version of GameMaker's native ["effect bus" system](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/Audio_Effects/AudioEffect.htm) that automates much of the boilerplate code required to use dynamic audio effects, such as reverb or low-pass filters. Vinyl also allows you to live update effect parameters whilst the game is running, much like other properties in the [configuration file](Configuration).
+
+Vinyl supports the following effects:
+- Reverb (`AudioEffectType.Reverb1`)
+- Delay (`AudioEffectType.Delay`)
+- Bitcrusher (`AudioEffectType.Bitcrusher`)
+- Low-pass filter (`AudioEffectType.LPF2`)
+- High-pass filter (`AudioEffectType.HPF2`)
+- Tremolo (`AudioEffectType.Tremolo`)
+
+Assets can be set up to automatically play using effect chains in the [configuration file](Configuration).
+
+?> When playing an asset using `VinylPlayOnEmitter()`, the effect chain will be determined by the emitter rather than the asset or label(s). You can set the effect chain to use for an emitter with `VinylEmitterEffectChain()`.
+
+Labels can also be set up in the [configuration file](Configuration) such that any assigned assets will use a particular effect chain.
+
+!> A sound can only be played on one effect chain at a time. As a result, the label `effect chain` property can potentially conflict with effect chain definitions in other labels if an asset is assigned to multiple labels. This is not considered a critical error by Vinyl but can lead to unexpected behaviour.
