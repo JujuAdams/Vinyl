@@ -1,4 +1,4 @@
-<h1 align="center">Vinyl 4.0.11</h1>
+<h1 align="center">Vinyl 4.0.12</h1>
 
 <p align="center">Live updating audio system for GameMaker LTS 2022 by <b>@jujuadams</b></p>
 
