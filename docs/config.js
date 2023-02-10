@@ -21,9 +21,9 @@
 
 const config = {
 	name: 'Vinyl',
-	description: 'Modular audio system for GameMaker LTS 2022',
+	description: 'Modular audio system for GameMaker 2023.2',
 	latestVersion: '4.0',
-	otherVersions: [],
+	otherVersions: ['5.0'],
 	favicon: 'assets/favicon.ico',
 	themeColor: '#feab6d',
 };
