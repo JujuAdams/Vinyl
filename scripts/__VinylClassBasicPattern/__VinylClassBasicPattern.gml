@@ -10,10 +10,10 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
     __sound = _sound;
     __name  = audio_get_name(__sound);
     
-    var _gain       = _patternData[$ "gain" ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-    var _pitch      = _patternData[$ "pitch"] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
-    var _busName    = _patternData[$ "effect bus"] ?? _patternData[$ "effect buss"];
-    var _loopPoints = _patternData[$ "loop points"];
+    var _gain       = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+    var _pitch      = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+    var _busName    = _patternData[$ "effect chain"];
+    var _loopPoints = _patternData[$ "loop points" ];
     
     if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
     if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;

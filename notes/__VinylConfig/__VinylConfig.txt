@@ -36,7 +36,7 @@
             loop points: [1, 2]
         }
         sndTestTone: {
-            bus: test
+            effect chain: test
         }
     }
     
@@ -58,16 +58,14 @@
     
     
     
-    effect buses: {
-        main: [
+    effect chains: {
+        test: [
             {
-                bypass: true
                 type: delay
                 time: 0.25
                 mix: 0.4
             }
             {
-                bypass: true
                 type: reverb
                 size: 0.6
                 mix: 0.2

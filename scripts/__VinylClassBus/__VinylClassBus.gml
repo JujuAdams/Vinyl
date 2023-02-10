@@ -67,7 +67,7 @@ function __VinylClassBus(_name) constructor
             }
             else
             {
-                __VinylError("Effect type \"", _effectType, "\" not recognised (effect bus=\"", __name, "\", index=", _i, ")");
+                __VinylError("Effect type \"", _effectType, "\" not recognised (effect chain=\"", __name, "\", index=", _i, ")");
             }
             
             if (_effect != undefined)
@@ -82,17 +82,17 @@ function __VinylClassBus(_name) constructor
                 }
                 
                 __bus.effects[_i] = _effect;
-                if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Bus ", __bus, " effects[", _i, "] = ", json_stringify(_effect));
+                if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Effect bus ", __bus, " effects[", _i, "] = ", json_stringify(_effect));
             }
             
             ++_i;
         }
         
-        //Finish out the rest of the effect bus with <undefined>
+        //Finish out the rest of the effect chain with <undefined>
         repeat(8 - _i)
         {
             __bus.effects[_i] = undefined;
-            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Bus ", __bus, " effects[", _i, "] = undefined");
+            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Effect bus ", __bus, " effects[", _i, "] = undefined");
             
             ++_i;
         }

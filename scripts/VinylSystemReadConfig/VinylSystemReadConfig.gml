@@ -231,7 +231,7 @@ function VinylSystemReadConfig(_configData)
     
     
     //Set up effect buses
-    var _inputEffectBusesDict = _configData[$ "effect buses"] ?? _configData[$ "effect busses"];
+    var _inputEffectBusesDict = _configData[$ "effect chains"];
     var _effectBusNameArray = variable_struct_get_names(_inputEffectBusesDict);
     var _i = 0;
     repeat(array_length(_effectBusNameArray))
@@ -267,7 +267,7 @@ function VinylSystemReadConfig(_configData)
     {
         var _pattern = _newPatternOrder[_i];
         
-        //Try to figure out what effect bus to use
+        //Try to figure out what effect chain to use
         with(_pattern)
         {
             if (__busName == undefined)
@@ -294,7 +294,7 @@ function VinylSystemReadConfig(_configData)
             
             if (!variable_struct_exists(_effectBusDict, __busName))
             {
-                __VinylError("Bus \"", __busName, "\" for pattern \"", __name, "\" doesn't exist");
+                __VinylError("Effect chain \"", __busName, "\" for pattern \"", __name, "\" doesn't exist");
             }
         }
         
