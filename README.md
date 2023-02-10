@@ -1,4 +1,4 @@
-<h1 align="center">Vinyl 4.0.11</h1>
+<h1 align="center">Vinyl 4.0.12</h1>
 
 <p align="center">Modular audio system for GameMaker 2022 LTS by <b>@jujuadams</b></p>
 
