@@ -56,95 +56,118 @@ function VinylSystemReadConfig(_configData)
         }
     }
     
-    _loadLabelsFunc(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _configData.labels, undefined);
-    
-    //Copy state data from old labels to new labels
-    var _oldLabelDict = _globalData.__labelDict;
-    var _i = 0;
-    repeat(array_length(_newLabelOrder))
+    var _inputLabelDict = _configData[$ "labels"];
+    if (is_undefined(_inputLabelDict))
     {
-        var _newLabel = _newLabelOrder[_i];
-        var _oldLabel = _oldLabelDict[$ _newLabel.__name];
-        if (is_struct(_oldLabel)) _newLabel.__CopyOldState(_oldLabel);
-        ++_i;
+        __VinylTrace("Warning! \"labels\" data missing");
+    }
+    else if (!is_struct(_inputLabelDict))
+    {
+        __VinylError("\"labels\" data should be defined as an object (struct)");
+    }
+    else
+    {
+        _loadLabelsFunc(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _inputLabelDict, undefined);
+        
+        //Copy state data from old labels to new labels
+        var _oldLabelDict = _globalData.__labelDict;
+        var _i = 0;
+        repeat(array_length(_newLabelOrder))
+        {
+            var _newLabel = _newLabelOrder[_i];
+            var _oldLabel = _oldLabelDict[$ _newLabel.__name];
+            if (is_struct(_oldLabel)) _newLabel.__CopyOldState(_oldLabel);
+            ++_i;
+        }
     }
     
     
     
     //Instantiate assets
-    var _inputAssetDict = _configData.assets;
-    var _assetNameArray = variable_struct_get_names(_inputAssetDict);
-    var _i = 0;
-    repeat(array_length(_assetNameArray))
+    var _inputAssetDict = _configData[$ "assets"];
+    if (is_undefined(_inputAssetDict))
     {
-        var _assetName = _assetNameArray[_i];
+        __VinylTrace("Warning! \"assets\" data missing");
+    }
+    else if (!is_struct(_inputAssetDict))
+    {
+        __VinylError("\"assets\" data should be defined as an object (struct)");
+    }
+    else
+    {
+        var _assetNameArray = variable_struct_get_names(_inputAssetDict);
+        var _i = 0;
+        repeat(array_length(_assetNameArray))
+        {
+            var _assetName = _assetNameArray[_i];
         
-        var _assetIndex = asset_get_index(_assetName);
-        if ((_assetIndex < 0) && (_assetName != "fallback"))
-        {
-            __VinylTrace("Warning! Asset \"", _assetName, "\" doesn't exist");
-        }
-        else if ((asset_get_type(_assetName) != asset_sound) && (_assetName != "fallback"))
-        {
-            __VinylTrace("Warning! Asset \"", _assetName, "\" isn't a sound");
-        }
-        else
-        {
-            var _key = (_assetName == "fallback")? "fallback" : string(_assetIndex);
-            if (variable_struct_exists(_newPatternDict, _key))
+            var _assetIndex = asset_get_index(_assetName);
+            if ((_assetIndex < 0) && (_assetName != "fallback"))
             {
-                __VinylTrace("Warning! Asset \"", _key, "\" has already been defined");
+                __VinylTrace("Warning! Asset \"", _assetName, "\" doesn't exist");
+            }
+            else if ((asset_get_type(_assetName) != asset_sound) && (_assetName != "fallback"))
+            {
+                __VinylTrace("Warning! Asset \"", _assetName, "\" isn't a sound");
             }
             else
             {
-                //Pull out the asset data
-                var _assetData = _inputAssetDict[$ _assetName];
-                
-                //Make a new basic pattern for this asset
-                _newPatternDict[$ _key] = new __VinylClassBasicPattern(_assetIndex, _newPatternOrder, _newLabelDict, _assetData);
-                
-                //Apply this asset data to all of the named "copyTo" assets
-                var _copyToArray = _assetData[$ "copyTo"];
-                if (is_string(_copyToArray)) _copyToArray = [_copyToArray]; //Create an array out of a string if needed
-                
-                if (is_array(_copyToArray))
+                var _key = (_assetName == "fallback")? "fallback" : string(_assetIndex);
+                if (variable_struct_exists(_newPatternDict, _key))
                 {
-                    var _j = 0;
-                    repeat(array_length(_copyToArray))
+                    __VinylTrace("Warning! Asset \"", _key, "\" has already been defined");
+                }
+                else
+                {
+                    //Pull out the asset data
+                    var _assetData = _inputAssetDict[$ _assetName];
+                    
+                    //Make a new basic pattern for this asset
+                    _newPatternDict[$ _key] = new __VinylClassBasicPattern(_assetIndex, _newPatternOrder, _newLabelDict, _assetData);
+                    
+                    //Apply this asset data to all of the named "copyTo" assets
+                    var _copyToArray = _assetData[$ "copyTo"];
+                    if (is_string(_copyToArray)) _copyToArray = [_copyToArray]; //Create an array out of a string if needed
+                    
+                    if (is_array(_copyToArray))
                     {
-                        var _copyToName = _copyToArray[_j];
-                        var _copyToIndex = asset_get_index(_copyToName);
-                        var _copyToKey = string(_copyToIndex);
-                        
-                        if (_copyToName == "fallback")
+                        var _j = 0;
+                        repeat(array_length(_copyToArray))
                         {
-                            __VinylTrace("Warning! Cannot copy to fallback asset (parent asset=\"", _assetName, "\")");;
+                            var _copyToName = _copyToArray[_j];
+                            var _copyToIndex = asset_get_index(_copyToName);
+                            var _copyToKey = string(_copyToIndex);
+                            
+                            if (_copyToName == "fallback")
+                            {
+                                __VinylTrace("Warning! Cannot copy to fallback asset (parent asset=\"", _assetName, "\")");;
+                            }
+                            else if (_copyToIndex < 0)
+                            {
+                                __VinylTrace("Warning! copyTo asset \"", _copyToName, "\" doesn't exist (parent asset=\"", _assetName, "\")");
+                            }
+                            else if (asset_get_type(_copyToName) != asset_sound)
+                            {
+                                __VinylTrace("Warning! copyTo asset \"", _copyToName, "\" isn't a sound (parent asset=\"", _assetName, "\")");
+                            }
+                            else if (variable_struct_exists(_newPatternDict, _copyToKey))
+                            {
+                                __VinylTrace("Warning! copyTo asset \"", _copyToName, "\" has already been defined (parent asset=\"", _assetName, "\")");
+                            }
+                            else
+                            {
+                                //Make a basic pattern for this copyTo asset
+                                _newPatternDict[$ _copyToKey] = new __VinylClassBasicPattern(_copyToIndex, _newPatternOrder, _newLabelDict, _assetData);
+                            }
+                            
+                            ++_j;
                         }
-                        else if (_copyToIndex < 0)
-                        {
-                            __VinylTrace("Warning! copyTo asset \"", _copyToName, "\" doesn't exist (parent asset=\"", _assetName, "\")");
-                        }
-                        else if (asset_get_type(_copyToName) != asset_sound)
-                        {
-                            __VinylTrace("Warning! copyTo asset \"", _copyToName, "\" isn't a sound (parent asset=\"", _assetName, "\")");
-                        }
-                        else if (variable_struct_exists(_newPatternDict, _copyToKey))
-                        {
-                            __VinylTrace("Warning! copyTo asset \"", _copyToName, "\" has already been defined (parent asset=\"", _assetName, "\")");
-                        }
-                        else
-                        {
-                            //Make a basic pattern for this copyTo asset
-                            _newPatternDict[$ _copyToKey] = new __VinylClassBasicPattern(_copyToIndex, _newPatternOrder, _newLabelDict, _assetData);
-                        }
-                        
-                        ++_j;
                     }
                 }
             }
+            
+            ++_i;
         }
-        
-        ++_i;
     }
     
     //Ensure we have a fallback struct for audio assets
@@ -201,44 +224,66 @@ function VinylSystemReadConfig(_configData)
     
     
     //Instantiate patterns
-    var _inputPatternsDict = _configData.patterns;
-    var _patternNameArray = variable_struct_get_names(_inputPatternsDict);
-    var _i = 0;
-    repeat(array_length(_patternNameArray))
+    var _inputPatternsDict = _configData[$ "patterns"];
+    if (is_undefined(_inputAssetDict))
     {
-        var _patternName = _patternNameArray[_i];
-        
-        var _patternData = _inputPatternsDict[$ _patternName];
-        
-        if (variable_struct_exists(_patternData, "basic"))
+        __VinylTrace("Warning! \"patterns\" data missing");
+    }
+    else if (!is_struct(_inputAssetDict))
+    {
+        __VinylError("\"patterns\" data should be defined as an object (struct)");
+    }
+    else
+    {
+        var _patternNameArray = variable_struct_get_names(_inputPatternsDict);
+        var _i = 0;
+        repeat(array_length(_patternNameArray))
         {
-            var _newPattern = new __VinylClassBasicPattern(asset_get_index(_patternData.basic), _newPatternOrder, _newLabelDict, _patternData);
+            var _patternName = _patternNameArray[_i];
+            
+            var _patternData = _inputPatternsDict[$ _patternName];
+            
+            if (variable_struct_exists(_patternData, "basic"))
+            {
+                var _newPattern = new __VinylClassBasicPattern(asset_get_index(_patternData.basic), _newPatternOrder, _newLabelDict, _patternData);
+            }
+            else if (variable_struct_exists(_patternData, "shuffle"))
+            {
+                var _newPattern = new __VinylClassShufflePattern(_patternName, _newPatternOrder, _newLabelDict, _patternData);
+            }
+            else
+            {
+                __VinylError("Defintion for pattern \"", _patternName, "\" is invalid");
+            }
+            
+            _newPatternDict[$ _patternName] = _newPattern;
+            
+            ++_i;
         }
-        else if (variable_struct_exists(_patternData, "shuffle"))
-        {
-            var _newPattern = new __VinylClassShufflePattern(_patternName, _newPatternOrder, _newLabelDict, _patternData);
-        }
-        else
-        {
-            __VinylError("Defintion for pattern \"", _patternName, "\" is invalid");
-        }
-        
-        _newPatternDict[$ _patternName] = _newPattern;
-        
-        ++_i;
     }
     
     
     
     //Set up effect chains
     var _inputEffectChainDict = _configData[$ "effect chains"];
-    var _effectChainNameArray = variable_struct_get_names(_inputEffectChainDict);
-    var _i = 0;
-    repeat(array_length(_effectChainNameArray))
+    if (is_undefined(_inputAssetDict))
     {
-        var _effectChainName = _effectChainNameArray[_i];
-        __VinylEffectChainEnsure(_effectChainName).__Update(_inputEffectChainDict[$ _effectChainName]);
-        ++_i;
+        __VinylTrace("Warning! \"effect chains\" data missing");
+    }
+    else if (!is_struct(_inputAssetDict))
+    {
+        __VinylError("\"effect chains\" data should be defined as an object (struct)");
+    }
+    else
+    {
+        var _effectChainNameArray = variable_struct_get_names(_inputEffectChainDict);
+        var _i = 0;
+        repeat(array_length(_effectChainNameArray))
+        {
+            var _effectChainName = _effectChainNameArray[_i];
+            __VinylEffectChainEnsure(_effectChainName).__Update(_inputEffectChainDict[$ _effectChainName]);
+            ++_i;
+        }
     }
     
     //Clean up any unmentioned effect chains
