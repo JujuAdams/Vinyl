@@ -431,3 +431,44 @@ Basic volume control. Equivalent to `AudioEffectType.Gain`.
 	...
 }
 ```
+
+&nbsp;
+
+## Knobs
+
+Vinyl allows you to modify properties across assets, labels, patterns, and effect chains using "knobs". You can read more about knobs [here](Terminology).
+
+Knobs can be defined in two ways (see below for two examples). Either a knob can be an object with two properties (`default` and `range`), or a knob can be a number. If you set a knob to be a number then the range is presumed to be `0` to `1` and the the number specified is presumed to be the default output value for the knob.
+
+### `default`
+
+*Default value: N/A*
+
+The default output value from the knob. This will be clamped within the defined range (if not specified, the range is `0` to `1`).
+
+?> The `default` property must be defined.
+
+### `range`
+
+*Default value: `[0, 1]`*
+
+The range of output values that this knob will emit. An input value of `0` as set by [`VinylKnobSet()`](Knobs) will return the low end of the range, a value of `1` will return the high end of the range.
+
+&nbsp;
+
+```
+{
+	...
+	
+    assets: {
+        sizefulness: 0.3 //If we use a number then that's the default value, and the range is 0 -> 1
+
+        delayTime: {
+        	default: 0.4
+        	range: [0.3, 0.8]
+        }
+    }
+    
+	...
+}
+```
