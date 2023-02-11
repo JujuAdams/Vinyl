@@ -287,7 +287,15 @@ Plays the specified audio asset.
 
 ### `shuffle` behaviour
 
-Plays a random audio asset from an array of audio assets.
+Plays a random audio asset from an array.
+
+### `queue` behaviour
+
+Plays audio assets sequentially from an array.
+
+### `blend ` behaviour
+
+Plays audio assets simultaneously from an array.
 
 &nbsp;
 
