@@ -10,10 +10,46 @@ function VinylSystemReadConfig(_configData)
     static _effectChainDict  = _globalData.__effectChainDict;
     static _effectChainArray = _globalData.__effectChainArray;
     
+    var _oldKnobDict = _globalData.__knobDict;
+    
+    var _newKnobDict     = {};
+    var _newKnobArray    = [];
     var _newPatternDict  = {};
     var _newPatternOrder = [];
     var _newLabelDict    = {};
     var _newLabelOrder   = [];
+    
+    
+    
+    //Create new knobs and inherit values where possible
+    var _inputKnobDict = _configData[$ "knobs"];
+    if (is_undefined(_inputKnobDict))
+    {
+        __VinylTrace("Warning! \"knobs\" data missing");
+    }
+    else if (!is_struct(_inputKnobDict))
+    {
+        __VinylError("\"knobs\" data should be defined as an object (struct)");
+    }
+    else
+    {
+        var _knobNameArray = variable_struct_get_names(_inputKnobDict);
+        var _i = 0;
+        repeat(array_length(_knobNameArray))
+        {
+            var _knobName = _knobNameArray[_i];
+            
+            //Create a new knob
+            var _newKnob = new __VinylClassKnob(_knobName, _newKnobDict, _newKnobArray);
+            _newKnob.__Initialize(_inputKnobDict[$ _knobName]);
+            
+            //Copy the old value from the old knob if possible
+            var _oldKnob = _oldKnobDict[$ _knobName];
+            if (is_struct(_oldKnob)) _newKnob.__value = _oldKnob.__value;
+            
+            ++_i;
+        }
+    }
     
     
     
@@ -346,6 +382,16 @@ function VinylSystemReadConfig(_configData)
         //Clean up some unnecesasry memory
         variable_struct_remove(_pattern, "__labelDictTemp__");
         
+        ++_i;
+    }
+    
+    
+    
+    //Update all values from knobs
+    var _i = 0;
+    repeat(array_length(_newKnobArray))
+    {
+        _newKnobArray[_i].__Refresh();
         ++_i;
     }
     

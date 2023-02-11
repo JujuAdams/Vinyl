@@ -30,6 +30,9 @@ function __VinylGlobalData()
         __effectChainArray: [],
         
         __labelTrackingDict: {},
+        
+        __knobDict:  {},
+        __knobArray: [],
     };
     
     return _struct;
