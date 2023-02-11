@@ -54,7 +54,7 @@ function VinylSystemReadConfig(_configData)
     
     
     //Instantiate labels, creating a dictionary for lookup and an array that contains the order to update the labels to respect parenting
-    static _loadLabelsFunc = function(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _inputLabelDict, _parent)
+    static _loadLabelsFunc = function(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _newKnobDict, _inputLabelDict, _parent)
     {
         var _nameArray = variable_struct_get_names(_inputLabelDict);
         var _i = 0;
@@ -70,7 +70,7 @@ function VinylSystemReadConfig(_configData)
             }
             
             var _labelData = _inputLabelDict[$ _labelName];
-            var _label = new __VinylClassLabel(_labelName, _parent, false, _labelData);
+            var _label = new __VinylClassLabel(_labelName, _parent, false, _newKnobDict, _labelData);
             
             _newLabelDict[$ _labelName] = _label;
             array_push(_newLabelOrder, _label);
@@ -80,7 +80,7 @@ function VinylSystemReadConfig(_configData)
                 var _childrenDict = _labelData[$ "children"];
                 if (is_struct(_childrenDict))
                 {
-                    _loadLabelsFunc(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _childrenDict, _label);
+                    _loadLabelsFunc(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _newKnobDict, _childrenDict, _label);
                 }
                 else
                 {
@@ -103,7 +103,7 @@ function VinylSystemReadConfig(_configData)
     }
     else
     {
-        _loadLabelsFunc(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _inputLabelDict, undefined);
+        _loadLabelsFunc(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _newKnobDict, _inputLabelDict, undefined);
         
         //Copy state data from old labels to new labels
         var _oldLabelDict = _globalData.__labelDict;
@@ -399,6 +399,8 @@ function VinylSystemReadConfig(_configData)
     
     //Update our global label/pattern tracking
     _globalData.__patternDict = _newPatternDict;
+    _globalData.__knobDict    = _newKnobDict;
+    _globalData.__knobArray   = _newKnobArray;
     _globalData.__labelDict   = _newLabelDict;
     _globalData.__labelOrder  = _newLabelOrder;
     

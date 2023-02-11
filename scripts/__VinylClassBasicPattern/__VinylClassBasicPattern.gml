@@ -180,4 +180,9 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
         
         return _labelReadable;
     }
+    
+    static toString = function()
+    {
+        return "<basic " + __name + ">";
+    }
 }

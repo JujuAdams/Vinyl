@@ -5,10 +5,10 @@
     {"name":"Advanced","order":8,"path":"folders/Vinyl/Advanced.yy",},
     {"name":"Basics","order":2,"path":"folders/Vinyl/Basics.yy",},
     {"name":"Gain","order":3,"path":"folders/Vinyl/Gain.yy",},
+    {"name":"Knobs","order":6,"path":"folders/Vinyl/Knobs.yy",},
     {"name":"Pitch","order":4,"path":"folders/Vinyl/Pitch.yy",},
     {"name":"Positional","order":5,"path":"folders/Vinyl/Positional.yy",},
     {"name":"Semitones","order":7,"path":"folders/Vinyl/Semitones.yy",},
-    {"name":"Knobs","order":6,"path":"folders/Vinyl/Knobs.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"__VinylClassEffectChain","order":6,"path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},

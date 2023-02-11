@@ -3,10 +3,16 @@
 
 
 {
+    knobs: {
+        musicGain: 1
+    }
+    
     labels: {
         music: {
             loop: true
             limit: 1
+            gain: $musicGain
+            pitch: $musicGain
         }
         ambience: {
             loop: true

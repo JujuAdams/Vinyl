@@ -1,9 +1,10 @@
 /// @param name
 /// @param parent
 /// @param dynamic
+/// @param knobDict
 /// @param label
 
-function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructor
+function __VinylClassLabel(_name, _parent, _dynamic, _knobDict, _labelData = {}) constructor
 {
     static __idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
     
@@ -25,13 +26,61 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
     if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
     
-    if (!is_numeric(_gain)) __VinylError("Error in label \"", __name, "\"\nGain must be a number");
+    
+    
+    //Sort out the gain
+    __configGainKnob = false;
+    
+    if (is_string(_gain))
+    {
+        if (string_char_at(_gain, 1) == "$")
+        {
+            var _knobName = string_delete(_gain, 1, 1);
+            var _knob = _knobDict[$ _knobName];
+            if (!is_struct(_knob)) __VinylError("Error in label \"", __name, "\" for gain property\nKnob \"", _knobName, "\" doesn't exist");
+            
+            _knob.__TargetCreate(self, "gain");
+            _gain = _knob.__actualValue; //Set gain to the current value of the knob
+            
+            __configGainKnob = true;
+        }
+        else
+        {
+            __VinylError("Error in label \"", __name, "\"\nGain must be a number or a knob name");
+        }
+    }
+    else if (!is_numeric(_gain))
+    {
+        __VinylError("Error in label \"", __name, "\"\nGain must be a number or a knob name");
+    }
+    
     __configGain = _gain;
     
-    if (!is_bool(_loop) && !is_undefined(_loop)) __VinylError("Error in label \"", __name, "\"\nLoop behaviour must be a boolean (<true> or <false>)");
-    __configLoop = _loop;
     
-    if (is_numeric(_pitch) && (_pitch >= 0))
+    
+    //Sort out the pitch
+    __configPitchKnob = false;
+    
+    if (is_string(_pitch))
+    {
+        if (string_char_at(_pitch, 1) == "$")
+        {
+            var _knobName = string_delete(_pitch, 1, 1);
+            var _knob = _knobDict[$ _knobName];
+            if (!is_struct(_knob)) __VinylError("Error in label \"", __name, "\" for pitch property\nKnob \"", _knobName, "\" doesn't exist");
+            
+            _knob.__TargetCreate(self, "pitch");
+            __configPitchLo = _knob.__actualValue; //Set pitch to the current value of the knob
+            __configPitchHi = __configPitchLo;
+            
+            __configPitchKnob = true;
+        }
+        else
+        {
+            __VinylError("Error in label \"", __name, "\"\nPitch must be either a number greater than zero, a two-element array, or a knob name");
+        }
+    }
+    else if (is_numeric(_pitch) && (_pitch > 0))
     {
         __configPitchLo = _pitch;
         __configPitchHi = _pitch;
@@ -53,8 +102,16 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     }
     else
     {
-        __VinylError("Error in label \"", __name, "\"\nPitch must be either a number greater than or equal to zero, or a two-element array");
+        __VinylError("Error in label \"", __name, "\"\nPitch must be either a number greater than zero, a two-element array, or a knob name");
     }
+    
+    
+    
+    //Sort out the loop state
+    if (!is_bool(_loop) && !is_undefined(_loop)) __VinylError("Error in label \"", __name, "\"\nLoop behaviour must be a boolean (<true> or <false>)");
+    __configLoop = _loop;
+    
+    
     
     if (!is_numeric(_limit) || (_limit <= 0)) __VinylError("Error in label \"", __name, "\"\nInstance limit must be a number greater than zero");
     __limitMaxCount = _limit;
@@ -183,11 +240,17 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     
     #region Gain
     
-    static __InputGainSet = function(_gain)
+    static __InputGainSet = function(_gain, _force = false)
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
             __VinylTrace("Label \"", __name, "\" gain=", _gain);
+        }
+        
+        if (!_force && __configGainKnob)
+        {
+            __VinylTrace("Label \"", __name, "\" gain is attached to a knob, cannot change gain manually");
+            return;
         }
         
         __inputGain  = _gain;
@@ -198,7 +261,13 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Label \"", __name, "\" gain target=", _targetGain, ", rate=", _rate, "/s");
+            __VinylTrace("Warning! Label \"", __name, "\" gain target=", _targetGain, ", rate=", _rate, "/s");
+        }
+        
+        if (__configGainKnob)
+        {
+            __VinylTrace("Warning! Label \"", __name, "\" gain is attached to a knob, cannot set a target gain");
+            return;
         }
         
         __gainTarget = _targetGain;
@@ -223,11 +292,17 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
     
     #region Pitch
     
-    static __InputPitchSet = function(_pitch)
+    static __InputPitchSet = function(_pitch, _force = false)
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
             __VinylTrace("Label \"", __name, "\" pitch=", _pitch);
+        }
+        
+        if (!_force && __configPitchKnob)
+        {
+            __VinylTrace("Warning! Label \"", __name, "\" pitch is attached to a knob, cannot change pitch manually");
+            return;
         }
         
         __inputPitch  = _pitch;
@@ -239,6 +314,12 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
         if (VINYL_DEBUG_LEVEL >= 1)
         {
             __VinylTrace("Label \"", __name, "\" pitch target=", _targetPitch, ", rate=", _rate, "/s");
+        }
+        
+        if (__configPitchKnob)
+        {
+            __VinylTrace("Warning! Label \"", __name, "\" pitch is attached to a knob, cannot set a target pitch");
+            return;
         }
         
         __pitchTarget = _targetPitch;
@@ -295,5 +376,10 @@ function __VinylClassLabel(_name, _parent, _dynamic, _labelData = {}) constructo
                 }
             }
         }
+    }
+    
+    static toString = function()
+    {
+        return "<label " + __name + ">";
     }
 }

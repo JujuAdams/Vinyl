@@ -18,10 +18,10 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Advanced","folderPath":"folders/Vinyl/Advanced.yy","order":8,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Basics","folderPath":"folders/Vinyl/Basics.yy","order":2,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Gain","folderPath":"folders/Vinyl/Gain.yy","order":3,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Knobs","folderPath":"folders/Vinyl/Knobs.yy","order":6,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Pitch","folderPath":"folders/Vinyl/Pitch.yy","order":4,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Positional","folderPath":"folders/Vinyl/Positional.yy","order":5,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Semitones","folderPath":"folders/Vinyl/Semitones.yy","order":7,},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Knobs","folderPath":"folders/Vinyl/Knobs.yy","order":6,},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"vinyl.dat","CopyToMask":-1,"filePath":"datafiles",},

@@ -17,11 +17,18 @@ function __VinylClassKnob(_name, _knobDict, _knobArray) constructor
     
     
     
+    static __TargetCreate = function(_scope, _property)
+    {
+        array_push(__targetArray, new __VinylClassKnobTarget(_scope, _property));
+    }
+    
     static __Initialize = function(_knobData = 0)
     {
         var _default = _knobData;
         
-        __default = _default;
+        __default     = _default;
+        __setValue    = undefined;
+        __actualValue = __default;
     }
     
     static __Set = function(_newSetValue)
