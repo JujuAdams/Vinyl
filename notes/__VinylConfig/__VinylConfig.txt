@@ -40,7 +40,6 @@
             loop points: [1, 2]
         }
         sndTestTone: {
-            pitch: $testGain
             effect chain: test
         }
     }
@@ -72,7 +71,7 @@
             }
             {
                 type: reverb
-                size: 0.6
+                size: $testGain
                 mix: 0.2
             }
         ]

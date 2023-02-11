@@ -29,7 +29,7 @@ function __VinylClassEffectChain(_name) constructor
     
     
     
-    static __Update = function(_busEffectArray)
+    static __Update = function(_busEffectArray, _knobDict)
     {
         var _i = 0;
         repeat(array_length(_busEffectArray))
@@ -79,37 +79,55 @@ function __VinylClassEffectChain(_name) constructor
                     var _effectDataField = _effectDataNameArray[_j];
                     if (_effectDataField != "type")
                     {
+                        var _value = _effectData[$ _effectDataField];
+                        
                         if (_effectDataField == "shape")
                         {
-                            var _shapeName = _effectData[$ _effectDataField];
-                            if (_shapeName == "sine")
+                            if (_value == "sine")
                             {
                                 _effect[$ _effectDataField] = AudioLFOType.Sine;
                             }
-                            else if (_shapeName == "square")
+                            else if (_value == "square")
                             {
                                 _effect[$ _effectDataField] = AudioLFOType.Square;
                             }
-                            else if (_shapeName == "triangle")
+                            else if (_value == "triangle")
                             {
                                 _effect[$ _effectDataField] = AudioLFOType.Triangle;
                             }
-                            else if (_shapeName == "sawtooth")
+                            else if (_value == "sawtooth")
                             {
                                 _effect[$ _effectDataField] = AudioLFOType.Sawtooth;
                             }
-                            else if (_shapeName == "inverse sawtooth")
+                            else if (_value == "inverse sawtooth")
                             {
                                 _effect[$ _effectDataField] = AudioLFOType.InvSawtooth;
                             }
                             else
                             {
-                                __VinylError("Tremolo effect shape type \"", _shapeName, "\" not recognised");
+                                __VinylError("Tremolo effect shape type \"", _value, "\" not recognised");
                             }
                         }
                         else
                         {
-                            _effect[$ _effectDataField] = _effectData[$ _effectDataField];
+                            if (is_string(_value))
+                            {
+                                if (string_char_at(_value, 1) == "$")
+                                {
+                                    var _knobName = string_delete(_value, 1, 1);
+                                    var _knob = _knobDict[$ _knobName];
+                                    if (!is_struct(_knob)) __VinylError("Error in ", self, " for effect ", _i, "'s ", _effectDataField, " property\nKnob \"", _knobName, "\" doesn't exist");
+                                    
+                                    _knob.__TargetCreate(_effect, _effectDataField);
+                                    _value = _knob.__actualValue; //Set parameter to the current value of the knob
+                                }
+                                else
+                                {
+                                    __VinylError("Error in ", self, " for effect ", _i, "'s ", _effectDataField, " property\nEffect parameters must be a number or a knob name");
+                                }
+                            }
+                            
+                            _effect[$ _effectDataField] = _value;
                         }
                     }
                     
@@ -146,5 +164,10 @@ function __VinylClassEffectChain(_name) constructor
     {
         //Keep this emitter right underneath the listener
         if (__emitter != undefined) audio_emitter_position(__emitter, __globalData.__listenerX, __globalData.__listenerY, 0);
+    }
+    
+    static toString = function()
+    {
+        return "<effect chain " + string(__name) + ">";
     }
 }

@@ -31,5 +31,10 @@ function __VinylClassKnobTarget(_scope, _property) constructor
                 __scope.__pitchHi = _value;
             }
         }
+        else
+        {
+            //Fallback for generic structs
+            __scope[$ __property] = _value;
+        }
     }
 }

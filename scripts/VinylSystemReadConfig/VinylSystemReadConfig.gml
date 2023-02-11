@@ -317,7 +317,7 @@ function VinylSystemReadConfig(_configData)
         repeat(array_length(_effectChainNameArray))
         {
             var _effectChainName = _effectChainNameArray[_i];
-            __VinylEffectChainEnsure(_effectChainName).__Update(_inputEffectChainDict[$ _effectChainName]);
+            __VinylEffectChainEnsure(_effectChainName).__Update(_inputEffectChainDict[$ _effectChainName], _newKnobDict);
             ++_i;
         }
     }
