@@ -116,6 +116,6 @@ You can connect a knob to the gain or pitch of a label, asset, or pattern. Knobs
 
 Knobs take a normalised input value from `0` to `1` and then emit an output value in a certain range. Typically, this range is also `0` to `1` but this [can be customised per knob](Configuration). Knobs can be set as many properties as you want, but a property may only be hooked up to one knob at a time. A knob will only change the value of a property when the input value of the knob changes.
 
-Knobs further have a default value. This is the initial value for the knob. The default value is an **output** value rather than a normalised input value. This means the default value is limited within the range of output values from the knob.
+Knobs further have a default value. This is the initial output value for the knob. The default value is an **output** value rather than a normalised input value. This means the default value is limited within the knob's output range.
 
 You can get and set the input value for knobs using [`VinylKnobGet()` and `VinylKnobSet()`](Knobs). You can also check if a knob exists or reset a knob using other [knob functions](Knobs). Generally speaking, knob functions will not throw an exception if the knob they're targetting doesn't exist to reduce the likelihood of annoying crashes if you spell a knob name wrong.
