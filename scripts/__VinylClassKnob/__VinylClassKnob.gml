@@ -10,6 +10,8 @@ function __VinylClassKnob(_name, _knobDict, _knobArray) constructor
     __name = _name;
         
     __default     = 0;
+    __rangeLo     = 0;
+    __rangeHi     = 1;
     __setValue    = undefined;
     __actualValue = undefined;
     
@@ -17,23 +19,66 @@ function __VinylClassKnob(_name, _knobDict, _knobArray) constructor
     
     
     
+    static __Initialize = function(_knobData = 0)
+    {
+        if (is_numeric(_knobData))
+        {
+            __default = _knobData;
+            __rangeLo = 0;
+            __rangeHi = 1;
+        }
+        else if (is_struct(_knobData))
+        {
+            var _rangeArray = _knobData.range;
+            if (is_undefined(_rangeArray))
+            {
+                __rangeLo = 0;
+                __rangeHi = 1;
+            }
+            else if (is_array(_rangeArray))
+            {
+                 if (array_length(_rangeArray) != 2) __VinylError("Error in ", self, "\nRange array must have exactly two elements");
+                 if (!is_numeric(_rangeArray[0])) __VinylError("Error in ", self, "\nRange array elements must be numbers (index 0 datatype=", typeof(_rangeArray[0]), ")");
+                 if (!is_numeric(_rangeArray[1])) __VinylError("Error in ", self, "\nRange array elements must be numbers (index 1 datatype=", typeof(_rangeArray[1]), ")");
+                 
+                __rangeLo = _rangeArray[0];
+                __rangeHi = _rangeArray[1];
+            }
+            else
+            {
+                __VinylError("Error in ", self, "\"\n\"range\" property must be a two-element array");
+            }
+            
+            if (!variable_struct_exists(_knobData, "default")) __VinylError("Error in ", self, "\"\nKnob object must contain a \"default\" property");
+            __default = clamp(_knobData[$ "default"], __rangeLo, __rangeHi);
+        }
+        else
+        {
+            __VinylError("Error in ", self, "\"\nKnob must be a number or an object");
+        }
+        
+        __default = clamp(__default, __rangeLo, __rangeHi);
+        __setValue    = undefined;
+        __actualValue = __default;
+    }
+    
     static __TargetCreate = function(_scope, _property)
     {
         array_push(__targetArray, new __VinylClassKnobTarget(_scope, _property));
     }
     
-    static __Initialize = function(_knobData = 0)
-    {
-        var _default = _knobData;
-        
-        __default     = _default;
-        __setValue    = undefined;
-        __actualValue = __default;
-    }
-    
     static __Set = function(_newSetValue)
     {
-        var _newActualValue = _newSetValue ?? __default;
+        if (_newSetValue == undefined)
+        {
+            _newSetValue = (__default - __rangeLo) / (__rangeHi - __rangeLo);
+        }
+        else
+        {
+            _newSetValue = clamp(_newSetValue, 0, 1);
+        }
+        
+        var _newActualValue = lerp(__rangeLo, __rangeHi, _newSetValue);
         if (_newActualValue != __actualValue)
         {
             __setValue    = _newSetValue;
@@ -45,7 +90,7 @@ function __VinylClassKnob(_name, _knobDict, _knobArray) constructor
     
     static __Refresh = function()
     {
-        __actualValue = __setValue ?? __default;
+        __actualValue = clamp(__setValue ?? __default, __rangeLo, __rangeHi);
         __UpdateTargets();
     }
     

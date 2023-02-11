@@ -112,7 +112,7 @@ function __VinylClassEffectChain(_name) constructor
                         {
                             if (is_string(_value))
                             {
-                                if (string_char_at(_value, 1) == "$")
+                                if (string_char_at(_value, 1) == "@")
                                 {
                                     var _knobName = string_delete(_value, 1, 1);
                                     var _knob = _knobDict[$ _knobName];

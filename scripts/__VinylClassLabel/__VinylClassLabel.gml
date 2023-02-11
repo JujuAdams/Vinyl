@@ -33,7 +33,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _knobDict, _labelData = {})
     
     if (is_string(_gain))
     {
-        if (string_char_at(_gain, 1) == "$")
+        if (string_char_at(_gain, 1) == "@")
         {
             var _knobName = string_delete(_gain, 1, 1);
             var _knob = _knobDict[$ _knobName];
@@ -63,7 +63,7 @@ function __VinylClassLabel(_name, _parent, _dynamic, _knobDict, _labelData = {})
     
     if (is_string(_pitch))
     {
-        if (string_char_at(_pitch, 1) == "$")
+        if (string_char_at(_pitch, 1) == "@")
         {
             var _knobName = string_delete(_pitch, 1, 1);
             var _knob = _knobDict[$ _knobName];

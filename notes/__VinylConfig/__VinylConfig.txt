@@ -4,7 +4,11 @@
 
 {
     knobs: {
-        testGain: 1
+        sizefulness: 0.2 //If we use just a number then that's the default value (and the range is 0 -> 1)
+        delayTime: {
+            default: 0.3 //This value is clamped inside the range given
+            range: [0.3, 0.6]
+        }
     }
     
     labels: {
@@ -66,12 +70,12 @@
         test: [
             {
                 type: delay
-                time: 0.25
+                time: @delayTime
                 mix: 0.4
             }
             {
                 type: reverb
-                size: $testGain
+                size: @sizefulness
                 mix: 0.2
             }
         ]

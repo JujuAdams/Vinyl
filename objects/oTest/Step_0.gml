@@ -55,4 +55,4 @@ if (keyboard_check_pressed(ord("T")))
     VinylPlaySimple("shuffle test");
 }
 
-VinylKnobSet("testGain", mouse_x / room_width);
+VinylKnobSet("delayTime", mouse_x / room_width);
