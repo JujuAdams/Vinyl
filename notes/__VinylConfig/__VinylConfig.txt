@@ -4,15 +4,13 @@
 
 {
     knobs: {
-        musicGain: 1
+        testGain: 1
     }
     
     labels: {
         music: {
             loop: true
             limit: 1
-            gain: $musicGain
-            pitch: $musicGain
         }
         ambience: {
             loop: true
@@ -42,6 +40,7 @@
             loop points: [1, 2]
         }
         sndTestTone: {
+            pitch: $testGain
             effect chain: test
         }
     }

@@ -159,7 +159,7 @@ function VinylSystemReadConfig(_configData)
                     var _assetData = _inputAssetDict[$ _assetName];
                     
                     //Make a new basic pattern for this asset
-                    _newPatternDict[$ _key] = new __VinylClassBasicPattern(_assetIndex, _newPatternOrder, _newLabelDict, _assetData);
+                    _newPatternDict[$ _key] = new __VinylClassBasicPattern(_assetIndex, _newPatternOrder, _newLabelDict, _newKnobDict, _assetData);
                     
                     //Apply this asset data to all of the named "copyTo" assets
                     var _copyToArray = _assetData[$ "copyTo"];
@@ -193,7 +193,7 @@ function VinylSystemReadConfig(_configData)
                             else
                             {
                                 //Make a basic pattern for this copyTo asset
-                                _newPatternDict[$ _copyToKey] = new __VinylClassBasicPattern(_copyToIndex, _newPatternOrder, _newLabelDict, _assetData);
+                                _newPatternDict[$ _copyToKey] = new __VinylClassBasicPattern(_copyToIndex, _newPatternOrder, _newLabelDict, _newKnobDict, _assetData);
                             }
                             
                             ++_j;
@@ -210,7 +210,7 @@ function VinylSystemReadConfig(_configData)
     if (!variable_struct_exists(_newPatternDict, "fallback"))
     {
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Fallback asset case doesn't exist, creating one");
-        _newPatternDict.fallback = new __VinylClassBasicPattern(-1, _newPatternOrder, _newLabelDict);
+        _newPatternDict.fallback = new __VinylClassBasicPattern(-1, _newPatternOrder, _newLabelDict, _newKnobDict);
     }
     
     

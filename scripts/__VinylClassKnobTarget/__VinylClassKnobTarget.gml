@@ -19,5 +19,17 @@ function __VinylClassKnobTarget(_scope, _property) constructor
                 __scope.__InputPitchSet(_value, true);
             }
         }
+        else if (is_instanceof(__scope, __VinylClassBasicPattern))
+        {
+            if (__property == "gain")
+            {
+                __scope.__gain = _value;
+            }
+            else if (__property == "pitch")
+            {
+                __scope.__pitchLo = _value;
+                __scope.__pitchHi = _value;
+            }
+        }
     }
 }

@@ -1,9 +1,10 @@
 /// @param sound
 /// @param patternArray
 /// @param labelDict
+/// @param knobDict
 /// @param [patternData]
 
-function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternData = {}) constructor
+function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _knobDict, _patternData = {}) constructor
 {
     array_push(_patternArray, self);
     
@@ -18,10 +19,55 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
     if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
     if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
     
-    if (!is_numeric(_gain)) __VinylError("Error in audio asset \"", __name, "\"\nGain must be a number");
+    
+    
+    //Sort out the gain
+    if (is_string(_gain))
+    {
+        if (string_char_at(_gain, 1) == "$")
+        {
+            var _knobName = string_delete(_gain, 1, 1);
+            var _knob = _knobDict[$ _knobName];
+            if (!is_struct(_knob)) __VinylError("Error in audio asset \"", __name, "\" for gain property\nKnob \"", _knobName, "\" doesn't exist");
+            
+            _knob.__TargetCreate(self, "gain");
+            _gain = _knob.__actualValue; //Set gain to the current value of the knob
+        }
+        else
+        {
+            __VinylError("Error in audio asset \"", __name, "\"\nGain must be a number or a knob name");
+        }
+    }
+    else if (!is_numeric(_gain))
+    {
+        __VinylError("Error in audio asset \"", __name, "\"\nGain must be a number or a knob name");
+    }
+    
     __gain = _gain;
     
-    if (is_numeric(_pitch) && (_pitch >= 0))
+    
+    
+    //Sort out the pitch
+    if (is_string(_pitch))
+    {
+        if (string_char_at(_pitch, 1) == "$")
+        {
+            var _knobName = string_delete(_pitch, 1, 1);
+            var _knob = _knobDict[$ _knobName];
+            if (!is_struct(_knob)) __VinylError("Error in audio asset \"", __name, "\" for pitch property\nKnob \"", _knobName, "\" doesn't exist");
+            
+            _knob.__TargetCreate(self, "pitch");
+            __pitchLo = _knob.__actualValue; //Set pitch to the current value of the knob
+            __pitchHi = __pitchLo;
+            
+            __configPitchKnob = true;
+        }
+        else
+        {
+            __VinylError("Error in audio asset \"", __name, "\"\nPitch must be either a number greater than zero, a two-element array, or a knob name");
+        }
+    }
+    else if (is_numeric(_pitch) && (_pitch >= 0))
     {
         __pitchLo = _pitch;
         __pitchHi = _pitch;
@@ -43,9 +89,12 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
     }
     else
     {
-        __VinylError("Error in audio asset \"", __name, "\"\nPitch must be either a number greater than or equal to zero, or a two-element array");
+        __VinylError("Error in audio asset \"", __name, "\"\nPitch must be either a number greater than zero, a two-element array, or a knob name");
     }
     
+    
+    
+    //Sort out the effect chain
     if (is_string(_effectChainName) || is_undefined(_effectChainName))
     {
         __effectChainName = _effectChainName;
@@ -55,6 +104,9 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
         __VinylError("Error in audio asset \"", __name, "\"\nBus must be a name (as a string)");
     }
     
+    
+    
+    //Now loop points...
     if (is_array(_loopPoints))
     {
          if (array_length(_loopPoints) != 2) __VinylError("Error in audio asset \"", __name, "\"\nLoop point array must have exactly two elements (length=", array_length(_pitch), ")");
