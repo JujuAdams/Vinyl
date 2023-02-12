@@ -19,16 +19,16 @@ function VinylPlay(_sound, _loop = undefined, _gain = 1, _pitch = 1, _pan)
     static _poolBasic        = _globalData.__poolBasic;
     static _idToInstanceDict = _globalData.__idToInstanceDict;
     
-    var _id = _poolBasic.__Depool();
+    var _instance = _poolBasic.__Depool();
     
     if (_pan == undefined)
     {
-        _idToInstanceDict[? _id].__Play(_sound, _loop, _gain, _pitch);
+        _instance.__Play(_sound, _loop, _gain, _pitch);
     }
     else
     {
-        _idToInstanceDict[? _id].__PlayPan(_sound, _loop, _gain, _pitch, _pan ?? 0);
+        _instance.__PlayPan(_sound, _loop, _gain, _pitch, _pan ?? 0);
     }
     
-    return _id;
+    return _instance.__id;
 }

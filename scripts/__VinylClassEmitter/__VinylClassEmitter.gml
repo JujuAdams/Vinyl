@@ -1,9 +1,7 @@
 function __VinylClassEmitter() constructor
 {
-    static __globalData        = __VinylGlobalData();
-    static __pool              = __globalData.__poolEmitter;
-    static __emitterActive     = __globalData.__emitterActive;
-    static __emitterPoolReturn = __globalData.__emitterPoolReturn;
+    static __globalData = __VinylGlobalData();
+    static __pool       = __globalData.__poolEmitter;
     
     
     
@@ -174,25 +172,16 @@ function __VinylClassEmitter() constructor
         audio_emitter_position(__emitter, __actualX, __actualY, 0);
     }
     
-    static __Depool = function(_id)
+    static __Depool = function()
     {
-        if (!__pooled) return;
-        __pooled = false;
-        
-        __id = _id;
-        
-        array_push(__emitterActive, self);
-        
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling ", self);
     }
     
     static __Pool = function()
     {
-        if (__pooled) return;
-        __pooled = true;
-        
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pooling ", self);
         
+        //Stop all instances playing on this emitter
         var _i = 0;
         repeat(array_length(__instanceIDArray))
         {
@@ -202,12 +191,7 @@ function __VinylClassEmitter() constructor
         
         __ResetState();
         
-        //Move this instance to the "return" array
-        //This prevents an instance being pooled and depooled in the same step
-        //which would lead to problems with labels tracking what they're playing
-        array_push(__emitterPoolReturn, self);
-        
-        __id = undefined;
+        __pool.__Return(self);
     }
     
     static __Tick = function()

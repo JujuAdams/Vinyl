@@ -12,11 +12,9 @@ function VinylPlayFadeIn(_sound, _loop = undefined, _targetGain = 1, _rate = VIN
     static _poolBasic        = _globalData.__poolBasic;
     static _idToInstanceDict = _globalData.__idToInstanceDict;
     
-    var _id = _poolBasic.__Depool();
-    
-    var _instance = _idToInstanceDict[? _id];
+    var _instance = _poolBasic.__Depool();
     _instance.__Play(_sound, _loop, 0, _pitch);
     _instance.__InputGainTargetSet(_targetGain, _rate);
     
-    return _id;
+    return _instance.__id;
 }

@@ -58,7 +58,7 @@ function __VinylClassPool(_startingID, _constructor) constructor
         _member.__pooled = false;
         _member.__Depool();
         
-        return __id;
+        return _member;
     }
     
     static __Tick = function(_deltaTimeFactor)

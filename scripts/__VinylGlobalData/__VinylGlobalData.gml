@@ -16,10 +16,6 @@ function __VinylGlobalData()
         __poolEmitter:    new __VinylClassPool(93000000, __VinylClassEmitter),
         __poolPanEmitter: new __VinylClassPool(94000000, __VinylClassPanEmitter),
         
-        __emitterActive:     [],
-        __emitterPool:       [],
-        __emitterPoolReturn: [],
-        
         __panEmitterActive:     [],
         __panEmitterPool:       [],
         __panEmitterPoolReturn: [],
@@ -30,8 +26,6 @@ function __VinylGlobalData()
         
         __effectChainDict:  {},
         __effectChainArray: [],
-        
-        __labelTrackingDict: {},
         
         __knobDict:  {},
         __knobArray: [],

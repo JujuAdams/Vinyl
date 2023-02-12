@@ -22,9 +22,8 @@ function VinylPlayOnEmitter(_emitter, _sound, _loop = undefined, _gain = 1, _pit
     if (!is_struct(_emitter)) __VinylError("Emitter not valid");
     if (!is_struct(_emitter.__emitter)) __VinylError(_emitter, " has been destroyed");
     
-    var _id = _poolBasic.__Depool();
+    var _instance = _poolBasic.__Depool();
+    _instance.__PlayOnEmitter(_emitter, _sound, _loop, _gain, _pitch);
     
-    _idToInstanceDict[? _id].__PlayOnEmitter(_emitter, _sound, _loop, _gain, _pitch);
-    
-    return _id;
+    return _instance.__id;
 }
