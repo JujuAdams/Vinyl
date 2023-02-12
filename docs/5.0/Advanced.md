@@ -10,9 +10,9 @@
 
 *Returns:* Boolean, whether a [Vinyl instance](Terminology) is in "shutdown mode"
 
-|Name      |Datatype|Purpose                                           |
-|----------|--------|--------------------------------------------------|
-|`id`      |        |                                                  |
+|Name|Datatype      |Purpose           |
+|----|--------------|------------------|
+|`id`|Vinyl instance|Instance to target|
 
 An instance will be put into shutdown mode if [`VinylFadeOut()`](Basics) has been called for either the instance itself for one of the label it's assigned to.
 
@@ -20,15 +20,15 @@ An instance will be put into shutdown mode if [`VinylFadeOut()`](Basics) has bee
 
 ## `VinylLabelInstancesGet`
 
-`VinylLabelInstancesGet(id)`
+`VinylLabelInstancesGet(name)`
 
 &nbsp;
 
 *Returns:* Array of [Vinyl instances](Terminology)
 
-|Name      |Datatype|Purpose                                           |
-|----------|--------|--------------------------------------------------|
-|`id`      |        |                                                  |
+|Name  |Datatype|Purpose        |
+|------|--------|---------------|
+|`name`|string  |Label to target|
 
 Returns an array containing every Vinyl instance assigned to the label.
 
@@ -38,15 +38,15 @@ Returns an array containing every Vinyl instance assigned to the label.
 
 ## `VinylLabelInstanceCountGet`
 
-`VinylLabelInstanceCountGet(id)`
+`VinylLabelInstanceCountGet(name)`
 
 &nbsp;
 
 *Returns:* Number, the number of [Vinyl instances](Terminology) assigned to the label
 
-|Name      |Datatype|Purpose                                           |
-|----------|--------|--------------------------------------------------|
-|`id`      |        |                                                  |
+|Name  |Datatype|Purpose        |
+|------|--------|---------------|
+|`name`|string  |Label to target|
 
 &nbsp;
 
@@ -58,9 +58,9 @@ Returns an array containing every Vinyl instance assigned to the label.
 
 *Returns:* N/A (`undefined`)
 
-|Name      |Datatype|Purpose                                           |
-|----------|--------|--------------------------------------------------|
-|`gain`    |        |                                                  |
+|Name  |Datatype|Purpose                                                                                     |
+|------|--------|--------------------------------------------------------------------------------------------|
+|`gain`|number  |Gain to set. This value should be greater than `0` but **isn't** limited to a maximum of `1`|
 
 Sets the gain of the overall system. You may want to use this for controlling the master volume of all sounds, or to compensate for platform-specific audio requirements.
 
@@ -104,9 +104,9 @@ Updates Vinyl's internal configuration from a struct representation of the [conf
 
 *Returns:* N/A (`undefined`)
 
-|Name      |Datatype|Purpose                                           |
-|----------|--------|--------------------------------------------------|
-|`state`   |        |                                                  |
+|Name      |Datatype|Purpose                                   |
+|----------|--------|------------------------------------------|
+|`state`   |boolean |Whether to enable or disable live updating|
 
 Toggles live updating on and off. Live updating has a slight performance hit (moreso when storing your project on a "spinning disk" hard drive) so turning it off can be help for profiling and development in general.
 
