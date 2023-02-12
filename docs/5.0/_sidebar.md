@@ -16,6 +16,7 @@
 -    [Gain](Gain)
 -    [Pitch](Pitch)
 -    [Positional](Positional)
+-    [Patterns](Patterns)
 -    [Knobs](Knobs)
 -    [Semitones](Semitones)
 -    [Advanced](Advanced)
