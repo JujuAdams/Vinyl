@@ -21,7 +21,13 @@ function __VinylInitialize()
     __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
     
     __VinylValidateMacros();
-    __VinylGlobalData();
+    
+    var _globalData = __VinylGlobalData();
+    _globalData.__poolBasic.__Populate(VINYL_POOL_START_SIZE);
+    _globalData.__poolQueue.__Populate(VINYL_POOL_START_SIZE);
+    _globalData.__poolBlend.__Populate(VINYL_POOL_START_SIZE);
+    _globalData.__poolEmitter.__Populate(VINYL_POOL_START_SIZE);
+    _globalData.__poolPanEmitter.__Populate(VINYL_POOL_START_SIZE);
     
     if (!file_exists(__VINYL_DATA_BUNDLE_FILENAME))
     {
@@ -48,17 +54,6 @@ function __VinylInitialize()
     }
     
     time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylTick, [], -1));
-    
-    //Pre-populate the instance and emitter pools
-    repeat(VINYL_POOL_START_SIZE)
-    {
-        array_push(__VinylGlobalData().__basicPool, new __VinylClassInstanceBasic());
-    }
-    
-    repeat(VINYL_POOL_START_SIZE)
-    {
-        array_push(__VinylGlobalData().__emitterPool, new __VinylClassEmitter());
-    }
 }
 
 function __VinylUpdateData()

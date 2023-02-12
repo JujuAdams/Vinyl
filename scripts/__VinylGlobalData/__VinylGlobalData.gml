@@ -10,6 +10,12 @@ function __VinylGlobalData()
         
         __transposeSemitones: 0,
         
+        __poolBasic:      new __VinylClassPool(90000000, __VinylClassInstanceBasic),
+        __poolQueue:      new __VinylClassPool(91000000, __VinylClassInstanceBasic),
+        __poolBlend:      new __VinylClassPool(92000000, __VinylClassInstanceBasic),
+        __poolEmitter:    new __VinylClassPool(93000000, __VinylClassEmitter),
+        __poolPanEmitter: new __VinylClassPool(94000000, __VinylClassPanEmitter),
+        
         __basicPoolPlaying: [],
         __basicPool:        [],
         __basicPoolReturn:  [],
