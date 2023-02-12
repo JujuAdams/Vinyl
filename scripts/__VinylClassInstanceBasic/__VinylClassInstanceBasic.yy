@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylClassBasicPattern",
+  "name": "__VinylClassInstanceBasic",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

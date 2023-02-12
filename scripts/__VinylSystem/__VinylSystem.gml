@@ -52,7 +52,7 @@ function __VinylInitialize()
     //Pre-populate the instance and emitter pools
     repeat(VINYL_POOL_START_SIZE)
     {
-        array_push(__VinylGlobalData().__basicPool, new __VinylClassBasicInstance());
+        array_push(__VinylGlobalData().__basicPool, new __VinylClassInstanceBasic());
     }
     
     repeat(VINYL_POOL_START_SIZE)

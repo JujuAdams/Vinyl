@@ -4,7 +4,7 @@
 /// @param knobDict
 /// @param [patternData]
 
-function __VinylClassBasicPattern(_sound, _patternArray) constructor
+function __VinylClassPatternBasic(_sound, _patternArray) constructor
 {
     array_push(_patternArray, self);
     

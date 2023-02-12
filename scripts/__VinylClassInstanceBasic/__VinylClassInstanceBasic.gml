@@ -1,4 +1,4 @@
-function __VinylClassBasicInstance() constructor
+function __VinylClassInstanceBasic() constructor
 {
     static __globalData       = __VinylGlobalData();
     static __basicPoolReturn  = __globalData.__basicPoolReturn;

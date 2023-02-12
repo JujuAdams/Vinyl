@@ -9,7 +9,7 @@ function __VinylDepoolInstance()
     if (_instance == undefined)
     {
         __VinylTrace("No instances in pool, creating a new one");
-        _instance = new __VinylClassBasicInstance();
+        _instance = new __VinylClassInstanceBasic();
     }
     
     _instance.__Depool(_id);

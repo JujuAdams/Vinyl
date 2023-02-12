@@ -19,7 +19,7 @@ function __VinylClassKnobTarget(_scope, _property) constructor
                 __scope.__InputPitchSet(_value, true);
             }
         }
-        else if (is_instanceof(__scope, __VinylClassBasicPattern))
+        else if (is_instanceof(__scope, __VinylClassPatternBasic))
         {
             if (__property == "gain")
             {

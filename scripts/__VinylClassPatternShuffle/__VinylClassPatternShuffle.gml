@@ -3,7 +3,7 @@
 /// @param labelDict
 /// @param [patternData]
 
-function __VinylClassShufflePattern(_name, _patternArray, _labelDict) constructor
+function __VinylClassPatternShuffle(_name, _patternArray, _labelDict) constructor
 { 
     array_push(_patternArray, self);
     

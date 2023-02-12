@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylClassShufflePattern",
+  "name": "__VinylClassPatternShuffle",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
