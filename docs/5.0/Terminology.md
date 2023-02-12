@@ -76,7 +76,7 @@ Plays sound assets from an array one after another. If a sound asset is set to l
 
 Play sound assets from an array simultaneously. The blend parameter stored within the pattern can be set with [`VinylBlendSet()`](Patterns) and crossfades between assets.
 
-!> Individual assets within a blend pattern may fall out of sync. Do not rely on this pattern for audio synchronisation.
+!> Individual assets within a Blend pattern may fall out of sync. Do not rely on this pattern for audio synchronisation.
 
 &nbsp;
 
