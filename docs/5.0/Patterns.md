@@ -79,38 +79,6 @@ Causes a Queue instance to move to the next asset in the array.
 
 &nbsp;
 
-## `VinylQueueNext`
-
-`VinylQueueNext(id)`
-
-&nbsp;
-
-*Returns:* N/A (`undefined`)
-
-|Name|Datatype|Purpose                                           |
-|----|--------|--------------------------------------------------|
-|`id`|        |                                                  |
-
-Causes a Queue instance to move to the next asset in the array.
-
-&nbsp;
-
-## `VinylQueueNext`
-
-`VinylQueueNext(id)`
-
-&nbsp;
-
-*Returns:* N/A (`undefined`)
-
-|Name|Datatype|Purpose                                           |
-|----|--------|--------------------------------------------------|
-|`id`|        |                                                  |
-
-Causes a Queue instance to move to the next asset in the array.
-
-&nbsp;
-
 ## `VinylQueuePush`
 
 `VinylQueueNext(id, asset, [dontRepeatLast=false])`
