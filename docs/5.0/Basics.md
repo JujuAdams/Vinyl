@@ -17,7 +17,7 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 |Name     |Datatype        |Purpose                                                                                                                                                                           |
 |---------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |`sound`  |sound or pattern|The sound to play, either a GameMaker sound or a Vinyl pattern                                                                                                                    |
-|`[gain]` |number          |Instance gain, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no chaing in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
+|`[gain]` |number          |Instance gain, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
 |`[pitch]`|number          |Instance pitch, in normalised pitch units. Defaults to `1`, no pitch change                                                                                                       |
 
 Plays an asset, taking advantage of Vinyl's live updating configuration (including labels). However, this function does **not** create a full fat [Vinyl instance](Terminology) and is, in effect, only a wrapper around GameMaker's native [`audio_play_sound()`](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_play_sound.htm) with the gain and pitch calculated through Vinyl.
@@ -38,7 +38,7 @@ Plays an asset, taking advantage of Vinyl's live updating configuration (includi
 |---------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |`sound`  |sound or pattern|The sound to play, either a GameMaker sound or a Vinyl pattern                                                                                                                    |
 |`[loop]` |boolean         |Whether the sound should loop. Defaults to whatever has been set for the asset or pattern in question, and if none has been set, the sound will not loop                          |
-|`[gain]` |number          |Instance gain, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no chaing in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
+|`[gain]` |number          |Instance gain, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
 |`[pitch]`|number          |Instance pitch, in normalised pitch units. Defaults to `1`, no pitch change                                                                                                       |
 |`[pan]`  |number          |Panning value, from `-1` (left) to `0` (centre) to `+1` (right). Defaults to no panning                                                                                           |
 
