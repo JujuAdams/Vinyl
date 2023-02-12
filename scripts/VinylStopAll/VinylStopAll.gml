@@ -4,12 +4,12 @@
 
 function VinylStopAll()
 {
-    static _basicPoolPlaying = __VinylGlobalData().__basicPoolPlaying;
+    static _activeArray = __VinylGlobalData().__poolBasic.__activeArray;
     
     var _i = 0;
-    repeat(array_length(_basicPoolPlaying))
+    repeat(array_length(_activeArray))
     {
-        _basicPoolPlaying[_i].__Stop();
+        _activeArray[_i].__Stop();
         ++_i;
     }
 }

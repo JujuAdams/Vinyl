@@ -114,7 +114,6 @@
     {"id":{"name":"VinylGlobalTransposeSet","path":"scripts/VinylGlobalTransposeSet/VinylGlobalTransposeSet.yy",},"order":0,},
     {"id":{"name":"VinylEmitterDebugDraw","path":"scripts/VinylEmitterDebugDraw/VinylEmitterDebugDraw.yy",},"order":10,},
     {"id":{"name":"oTest","path":"objects/oTest/oTest.yy",},"order":4,},
-    {"id":{"name":"__VinylDepoolInstance","path":"scripts/__VinylDepoolInstance/__VinylDepoolInstance.yy",},"order":4,},
     {"id":{"name":"__VinylRandom","path":"scripts/__VinylRandom/__VinylRandom.yy",},"order":12,},
     {"id":{"name":"__VinylEffectChainEnsure","path":"scripts/__VinylEffectChainEnsure/__VinylEffectChainEnsure.yy",},"order":7,},
     {"id":{"name":"VinylPitchSet","path":"scripts/VinylPitchSet/VinylPitchSet.yy",},"order":0,},

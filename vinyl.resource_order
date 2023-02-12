@@ -82,7 +82,6 @@
     {"name":"VinylPausedGet","order":9,"path":"scripts/VinylPausedGet/VinylPausedGet.yy",},
     {"name":"VinylEmitterDebugDraw","order":10,"path":"scripts/VinylEmitterDebugDraw/VinylEmitterDebugDraw.yy",},
     {"name":"oTest","order":4,"path":"objects/oTest/oTest.yy",},
-    {"name":"__VinylDepoolInstance","order":4,"path":"scripts/__VinylDepoolInstance/__VinylDepoolInstance.yy",},
     {"name":"__VinylRandom","order":12,"path":"scripts/__VinylRandom/__VinylRandom.yy",},
     {"name":"__VinylEffectChainEnsure","order":7,"path":"scripts/__VinylEffectChainEnsure/__VinylEffectChainEnsure.yy",},
     {"name":"__VinylDepoolEmitter","order":5,"path":"scripts/__VinylDepoolEmitter/__VinylDepoolEmitter.yy",},

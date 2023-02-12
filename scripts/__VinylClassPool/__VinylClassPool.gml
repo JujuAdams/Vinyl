@@ -37,6 +37,7 @@ function __VinylClassPool(_startingID, _constructor)
             }
         }
         
+        _member.__id = undefined;
         _member.__pooled = true;
         array_push(__returnArray, _member);
     }
@@ -44,8 +45,6 @@ function __VinylClassPool(_startingID, _constructor)
     static __Depool = function()
     {
         ++__id;
-        
-        static _basicPool = __VinylGlobalData().__basicPool;
         
         var _member = array_pop(__poolArray);
         if (_member == undefined)
@@ -55,8 +54,9 @@ function __VinylClassPool(_startingID, _constructor)
         }
         
         array_push(__activeArray, _member);
+        _member.__id = __id;
         _member.__pooled = false;
-        _member.__Depool(__id);
+        _member.__Depool();
         
         return __id;
     }

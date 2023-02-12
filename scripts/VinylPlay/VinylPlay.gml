@@ -15,9 +15,11 @@
 
 function VinylPlay(_sound, _loop = undefined, _gain = 1, _pitch = 1, _pan)
 {
-    static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+    static _globalData       = __VinylGlobalData();
+    static _poolBasic        = _globalData.__poolBasic;
+    static _idToInstanceDict = _globalData.__idToInstanceDict;
     
-    var _id = __VinylDepoolInstance();
+    var _id = _poolBasic.__Depool();
     
     if (_pan == undefined)
     {

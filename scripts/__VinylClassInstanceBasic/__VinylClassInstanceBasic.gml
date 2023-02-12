@@ -1,10 +1,6 @@
 function __VinylClassInstanceBasic() constructor
 {
-    static __pool = __VinylGlobalData().__poolBasic;
-    
     static __globalData       = __VinylGlobalData();
-    static __basicPoolReturn  = __globalData.__basicPoolReturn;
-    static __basicPoolPlaying = __globalData.__basicPoolPlaying;
     static __idToInstanceDict = __globalData.__idToInstanceDict;
     static __effectChainDict  = __globalData.__effectChainDict;
     
@@ -377,17 +373,16 @@ function __VinylClassInstanceBasic() constructor
     static __Depool = function(_id)
     {
         if (!__pooled) return;
-        __pooled = false;
         
-        __id = _id;
         __idToInstanceDict[? _id] = self;
-        array_push(__basicPoolPlaying, self);
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling ", self);
     }
     
     static __Pool = function()
     {
+        static __pool = __VinylGlobalData().__poolBasic;
+        
         if (__pooled) return;
         __pooled = true;
         
@@ -425,11 +420,6 @@ function __VinylClassInstanceBasic() constructor
         
         ds_map_delete(__idToInstanceDict, __id);
         
-        //Move this instance to the "return" array
-        //This prevents an instance being pooled and depooled in the same step
-        //which would lead to problems with labels tracking what they're playing
-        array_push(__basicPoolReturn, self);
-        
         //If we're playing on a pan emitter, pool it
         if (__panEmitter != undefined)
         {
@@ -437,7 +427,7 @@ function __VinylClassInstanceBasic() constructor
             __panEmitter = undefined;
         }
         
-        __id = undefined;
+        __pool.__Return(self);
     }
     
     static __Tick = function(_deltaTimeFactor)
