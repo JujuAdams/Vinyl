@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Classes",
-    "path": "folders/Vinyl/(Internals)/VIPs only in the green room/Classes.yy",
+    "name": "Other",
+    "path": "folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Other.yy",
   },
 }
