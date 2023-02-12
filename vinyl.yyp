@@ -22,6 +22,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Pitch","folderPath":"folders/Vinyl/Pitch.yy","order":4,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Positional","folderPath":"folders/Vinyl/Positional.yy","order":5,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Semitones","folderPath":"folders/Vinyl/Semitones.yy","order":7,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Patterns","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Patterns.yy","order":10,},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"vinyl.dat","CopyToMask":-1,"filePath":"datafiles",},

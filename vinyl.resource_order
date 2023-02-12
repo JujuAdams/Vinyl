@@ -9,6 +9,7 @@
     {"name":"Pitch","order":4,"path":"folders/Vinyl/Pitch.yy",},
     {"name":"Positional","order":5,"path":"folders/Vinyl/Positional.yy",},
     {"name":"Semitones","order":7,"path":"folders/Vinyl/Semitones.yy",},
+    {"name":"Patterns","order":10,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Patterns.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"__VinylClassEffectChain","order":6,"path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},
