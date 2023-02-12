@@ -14,10 +14,10 @@ Functions on this page relate to [Vinyl knobs](Terminology), used to manipulate 
 
 *Returns:* N/A (`undefined`)
 
-|Name     |Datatype|Purpose                                           |
-|---------|--------|--------------------------------------------------|
-|`name`   |        |                                                  |
-|`value`  |        |                                                  |
+|Name   |Datatype|Purpose                                  |
+|-------|--------|-----------------------------------------|
+|`name` |number  |Knob to target                           |
+|`value`|number  |Input value for the knob, from `0` to `1`|
 
 Sets the normalised input value of a [Vinyl knob](Terminology). This is converted into an output value using the range of the knob if necessary.
 
@@ -31,9 +31,9 @@ Sets the normalised input value of a [Vinyl knob](Terminology). This is converte
 
 *Returns:* Number, the normalised input value of the knob
 
-|Name     |Datatype|Purpose                                           |
-|---------|--------|--------------------------------------------------|
-|`name`   |        |                                                  |
+|Name  |Datatype|Purpose       |
+|------|--------|--------------|
+|`name`|number  |Knob to target|
 
 If the knob has not had a value set, or the knob has been reset (see `VinylKnobReset()`), this function will return `undefined`.
 
@@ -47,24 +47,23 @@ If the knob has not had a value set, or the knob has been reset (see `VinylKnobR
 
 *Returns:* Number, the output value of the knob
 
-|Name     |Datatype|Purpose                                           |
-|---------|--------|--------------------------------------------------|
-|`name`   |        |                                                  |
+|Name  |Datatype|Purpose       |
+|------|--------|--------------|
+|`name`|number  |Knob to target|
 
 &nbsp;
 
 ## `VinylKnobReset`
 
-`VinylKnobSet(name)`
+`VinylKnobReset(name)`
 
 &nbsp;
 
 *Returns:* N/A (`undefined`)
 
-|Name     |Datatype|Purpose                                           |
-|---------|--------|--------------------------------------------------|
-|`name`   |        |                                                  |
-|`value`  |        |                                                  |
+|Name  |Datatype|Purpose       |
+|------|--------|--------------|
+|`name`|number  |Knob to target|
 
 Resets the output value of a [Vinyl knob](Terminology) to the default. This also "unsets" the normalised input value.
 
@@ -78,6 +77,6 @@ Resets the output value of a [Vinyl knob](Terminology) to the default. This also
 
 *Returns:* Boolean, if a [Vinyl knob](Terminology) with the given name exists
 
-|Name     |Datatype|Purpose                                           |
-|---------|--------|--------------------------------------------------|
-|`name`   |        |                                                  |
+|Name  |Datatype|Purpose       |
+|------|--------|--------------|
+|`name`|number  |Knob to target|
