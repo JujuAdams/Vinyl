@@ -97,13 +97,15 @@ Labels can have the following properties:
 
 The [gain](Terminology) multiplication factor for all assets/patterns assigned to this label. If multiple labels are specified for an asset/pattern then the gain values for all labels are multiplied together. The gain factor is further multiplied with other gains, including asset/pattern gain, [instance gain](Basics), and [system gain](Advanced).
 
+You may use a knob to control label gain e.g. `gain: @musicPresence` will set up the `musicPresence` knob to control the gain of a label.
+
 ### `pitch`
 
 *Default value: `1.0` (or `100` in percentage mode)*
 
 The [pitch](Terminology) multiplication factor for all assets/patterns assigned to this label. If multiple labels are specified for an asset/pattern then the pitch values for all labels are multiplied together. The pitch factor is further multiplied with other pitch multipliers, including asset/pattern pitch and [instance pitch](Basics).
 
-A pitch value can be specified as either a number, or as a two-element array containing two numbers. If a two-element array is provided then the pitch value is randomised between the two values.
+A pitch value can be specified as either a number, a two-element array containing two numbers, or a knob. If a two-element array is provided then the pitch value is randomised between the two values. Configuring a label to include the property definiton `pitch: @musicSpeed` will set up the `musicSpeed` knob to control the pitch of a label.
 
 ### `loop`
 
@@ -197,13 +199,15 @@ Assets can have the following properties:
 
 The [gain](Terminology) multiplication factor for this asset. The gain factor is further multiplied with other gains, including label gain, [instance gain](Basics), and [system gain](Advanced).
 
+You may use a knob to control asset gain e.g. `gain: @stingPresence` will set up the `stingPresence` knob to control the gain of an asset.
+
 ### `pitch`
 
 *Default value: `1.0` (or `100` in percentage mode)*
 
 The [pitch](Terminology) multiplication factor for this assets. The pitch factor is further multiplied with other pitch multipliers, including label pitch and [instance pitch](Basics).
 
-A pitch value can be specified as either a number, or as a two-element array containing two numbers. If a two-element array is provided then the pitch value is randomised between the two values.
+A pitch value can be specified as either a number, a two-element array containing two numbers, or a knob. If a two-element array is provided then the pitch value is randomised between the two values. Configuring an asset to include the property definiton `pitch: @voicePitch` will set up the `voicePitch` knob to control the pitch of an asset.
 
 ### `label`
 
@@ -330,6 +334,8 @@ Vinyl allows you to define effect chains from the configuration file. You can re
 ?> The effect chain name `main` is a special case that refers to the main audio bus. Any audio that is played _without_ explicitly being played through a named effect chain will instead play on the `main` effect chain. Effectively the `main` effect chain is the "fallback" or "default" effect chain to use.
 
 You should define an effect bus as an array of individual effects. An effect chain may have up to 8 effects i.e. the array for an effect bus should have no more than 8 elements. You can see an example of an effect bus definition at the end of this section.
+
+Any effect that has the "number" datatype can also be set to a knob. For example, the property definition `mix: @effectWetness` will set up the `effectWetness` knob to control the mix property of an effect.
 
 Effects added to an effect chain can be one of the following types:
 
