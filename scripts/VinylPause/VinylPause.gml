@@ -16,8 +16,6 @@ function VinylPause(_id)
     var _instance = _idToInstanceDict[? _id];
     if (is_struct(_instance)) _instance.__Pause();
     
-    if (_id == undefined) return;
-    
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__Pause();
 }

@@ -24,8 +24,6 @@ function VinylPanSet(_id, _pan)
         }
     }
     
-    if (_id == undefined) return;
-    
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) __VinylError("Cannot get or set panning for labels");
 }
