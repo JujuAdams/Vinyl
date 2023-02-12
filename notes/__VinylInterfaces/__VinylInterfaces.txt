@@ -1,0 +1,35 @@
+Pattern constructor(name, patternArray)
+
+.__Initialize(patternData = {}, knobDict, labelDict)
+.__Play(_loop, _gain, _pitch, _pan)
+.__PlaySimple(_gain, _pitch)
+.__PlayOnEmitter(_loop, _gain, _pitch, _emitter)
+
+
+
+Instance constructor(...)
+
+.__inputGain
+.__gainTarget
+.__outputGain
+.__inputPitch
+.__pitchTarget
+.__outputPitch
+
+.__InputGainSet(_gain)
+.__InputGainTargetSet(_gain)
+.__InputPitchSet(_pitch)
+.__InputPitchTargetSet(_pitch)
+.__TransposeSet(_semitones)
+.__TransposeReset()
+.__LoopSet(_state)
+.__LoopPointsSet() ???
+.__ApplyLabel()
+.__Pause()
+.__Resume()
+.__Stop()
+.__Pool()
+.__Depool()
+.__Tick()
+.__DebugLabelNames()
+.toString()
