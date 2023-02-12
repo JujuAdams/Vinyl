@@ -6,65 +6,6 @@ Functions on this page relate to specific behaviours for [Vinyl pattern](Termino
 
 &nbsp;
 
-## `VinylShuffle`
-
-`VinylShuffle(assetArray, [label])`
-
-&nbsp;
-
-*Returns:* A Vinyl pattern
-
-|Name        |Datatype       |Purpose                                           |
-|------------|---------------|--------------------------------------------------|
-|`assetArray`|               |                                                  |
-|`[label]`   |string or array|                                                  |
-
-Creates a new [Shuffle pattern](Terminology). This function creates an "anonymous" pattern and is one way of creating a Shuffle pattern - the other is to use Vinyl's [configuration file](Configuration).
-
-This function returns a Vinyl pattern which can then be used with the standard playback functions such as [`VinylPlay()`](Basics). The pattern itself plays no audio itself and only exists as a template for use with other functions.
-
-&nbsp;
-
-## `VinylQueue`
-
-`VinylQueue(assetArray, [label])`
-
-&nbsp;
-
-*Returns:* N/A (`undefined`)
-
-|Name        |Datatype       |Purpose                                           |
-|------------|---------------|--------------------------------------------------|
-|`assetArray`|               |                                                  |
-|`[label]`   |string or array|                                                  |
-
-Creates a new [Queue pattern](Terminology). This function creates an "anonymous" pattern and is one way of creating a Queue pattern - the other is to use Vinyl's [configuration file](Configuration).
-
-This function returns a Vinyl pattern which can then be used with the standard playback functions such as [`VinylPlay()`](Basics). The pattern itself plays no audio itself and only exists as a template for use with other functions.
-
-&nbsp;
-
-## `VinylBlend`
-
-`VinylBlend(assetArray, [label])`
-
-&nbsp;
-
-*Returns:* N/A (`undefined`)
-
-|Name        |Datatype       |Purpose                                           |
-|------------|---------------|--------------------------------------------------|
-|`assetArray`|               |                                                  |
-|`[label]`   |string or array|                                                  |
-
-Creates a new [Blend pattern](Terminology). This function creates an "anonymous" pattern and is one way of creating a Blend pattern - the other is to use Vinyl's [configuration file](Configuration).
-
-This function returns a Vinyl pattern which can then be used with the standard playback functions such as [`VinylPlay()`](Basics). The pattern itself plays no audio itself and only exists as a template for use with other functions.
-
-!> Individual assets within a Blend pattern may fall out of sync. Do not rely on this pattern for audio synchronisation.
-
-&nbsp;
-
 ## `VinylQueueNext`
 
 `VinylQueueNext(id)`
@@ -168,3 +109,62 @@ Sets the blending factor, mixing between different assets playing on a [Blend pa
 |Name|Datatype|Purpose                                           |
 |----|--------|--------------------------------------------------|
 |`id`|        |                                                  |
+
+&nbsp;
+
+## `VinylShuffle`
+
+`VinylShuffle(assetArray, [label])`
+
+&nbsp;
+
+*Returns:* A Vinyl pattern
+
+|Name        |Datatype       |Purpose                                           |
+|------------|---------------|--------------------------------------------------|
+|`assetArray`|               |                                                  |
+|`[label]`   |string or array|                                                  |
+
+Creates a new [Shuffle pattern](Terminology). This function creates an "anonymous" pattern and is one way of creating a Shuffle pattern - the other is to use Vinyl's [configuration file](Configuration).
+
+This function returns a Vinyl pattern which can then be used with the standard playback functions such as [`VinylPlay()`](Basics). The pattern itself plays no audio itself and only exists as a template for use with other functions.
+
+&nbsp;
+
+## `VinylQueue`
+
+`VinylQueue(assetArray, [label])`
+
+&nbsp;
+
+*Returns:* N/A (`undefined`)
+
+|Name        |Datatype       |Purpose                                           |
+|------------|---------------|--------------------------------------------------|
+|`assetArray`|               |                                                  |
+|`[label]`   |string or array|                                                  |
+
+Creates a new [Queue pattern](Terminology). This function creates an "anonymous" pattern and is one way of creating a Queue pattern - the other is to use Vinyl's [configuration file](Configuration).
+
+This function returns a Vinyl pattern which can then be used with the standard playback functions such as [`VinylPlay()`](Basics). The pattern itself plays no audio itself and only exists as a template for use with other functions.
+
+&nbsp;
+
+## `VinylBlend`
+
+`VinylBlend(assetArray, [label])`
+
+&nbsp;
+
+*Returns:* N/A (`undefined`)
+
+|Name        |Datatype       |Purpose                                           |
+|------------|---------------|--------------------------------------------------|
+|`assetArray`|               |                                                  |
+|`[label]`   |string or array|                                                  |
+
+Creates a new [Blend pattern](Terminology). This function creates an "anonymous" pattern and is one way of creating a Blend pattern - the other is to use Vinyl's [configuration file](Configuration).
+
+This function returns a Vinyl pattern which can then be used with the standard playback functions such as [`VinylPlay()`](Basics). The pattern itself plays no audio itself and only exists as a template for use with other functions.
+
+!> Individual assets within a Blend pattern may fall out of sync. Do not rely on this pattern for audio synchronisation.
