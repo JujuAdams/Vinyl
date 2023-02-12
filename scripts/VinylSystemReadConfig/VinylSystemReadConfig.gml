@@ -70,7 +70,8 @@ function VinylSystemReadConfig(_configData)
             }
             
             var _labelData = _inputLabelDict[$ _labelName];
-            var _label = new __VinylClassLabel(_labelName, _parent, false, _newKnobDict, _labelData);
+            var _label = new __VinylClassLabel(_labelName, _parent, false);
+            _label.__Initialize(_labelData, _newKnobDict);
             
             _newLabelDict[$ _labelName] = _label;
             array_push(_newLabelOrder, _label);
@@ -159,7 +160,9 @@ function VinylSystemReadConfig(_configData)
                     var _assetData = _inputAssetDict[$ _assetName];
                     
                     //Make a new basic pattern for this asset
-                    _newPatternDict[$ _key] = new __VinylClassBasicPattern(_assetIndex, _newPatternOrder, _newLabelDict, _newKnobDict, _assetData);
+                    var _pattern = new __VinylClassBasicPattern(_assetIndex, _newPatternOrder);
+                    _pattern.__Initialize(_assetData, _newKnobDict, _newLabelDict);
+                    _newPatternDict[$ _key] = _pattern;
                     
                     //Apply this asset data to all of the named "copyTo" assets
                     var _copyToArray = _assetData[$ "copyTo"];
@@ -193,7 +196,9 @@ function VinylSystemReadConfig(_configData)
                             else
                             {
                                 //Make a basic pattern for this copyTo asset
-                                _newPatternDict[$ _copyToKey] = new __VinylClassBasicPattern(_copyToIndex, _newPatternOrder, _newLabelDict, _newKnobDict, _assetData);
+                                var _pattern = new __VinylClassBasicPattern(_copyToIndex, _newPatternOrder);
+                                _pattern.__Initialize(_assetData, _newKnobDict, _newLabelDict);
+                                _newPatternDict[$ _copyToKey] = _pattern;
                             }
                             
                             ++_j;
@@ -210,7 +215,10 @@ function VinylSystemReadConfig(_configData)
     if (!variable_struct_exists(_newPatternDict, "fallback"))
     {
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Fallback asset case doesn't exist, creating one");
-        _newPatternDict.fallback = new __VinylClassBasicPattern(-1, _newPatternOrder, _newLabelDict, _newKnobDict);
+        
+        var _pattern = new __VinylClassBasicPattern(-1, _newPatternOrder);
+        _pattern.__Initialize(_assetData, _newKnobDict, _newLabelDict);
+        _newPatternDict.fallback = _pattern;
     }
     
     
@@ -237,14 +245,15 @@ function VinylSystemReadConfig(_configData)
                         var _assetIndex = _assetArray[_k];
                         var _key = string(_assetIndex);
                         
-                        var _assetData = _newPatternDict[$ _key];
+                        var _pattern = _newPatternDict[$ _key];
                         if (!is_struct(_assetData))
                         {
-                            _assetData = new __VinylClassBasicPattern(_assetIndex, _newPatternOrder, _newLabelDict, undefined);
-                            _newPatternDict[$ _key] = _assetData;
+                            _pattern = new __VinylClassBasicPattern(_assetIndex, _newPatternOrder);
+                            _pattern.__Initialize(undefined, _newKnobDict, _newLabelDict);
+                            _newPatternDict[$ _key] = _pattern;
                         }
                         
-                        _labelData.__BuildAssetLabelArray(_assetData.__labelArray, _assetData.__labelDictTemp__);
+                        _labelData.__BuildAssetLabelArray(_pattern.__labelArray, _pattern.__labelDictTemp__);
                         
                         ++_k;
                     }
@@ -281,17 +290,18 @@ function VinylSystemReadConfig(_configData)
             
             if (variable_struct_exists(_patternData, "basic"))
             {
-                var _newPattern = new __VinylClassBasicPattern(asset_get_index(_patternData.basic), _newPatternOrder, _newLabelDict, _patternData);
+                var _newPattern = new __VinylClassBasicPattern(asset_get_index(_patternData.basic), _newPatternOrder);
             }
             else if (variable_struct_exists(_patternData, "shuffle"))
             {
-                var _newPattern = new __VinylClassShufflePattern(_patternName, _newPatternOrder, _newLabelDict, _patternData);
+                var _newPattern = new __VinylClassShufflePattern(_patternName, _newPatternOrder);
             }
             else
             {
                 __VinylError("Defintion for pattern \"", _patternName, "\" is invalid");
             }
             
+            _newPattern.__Initialize(_patternData, _newLabelDict, _newKnobDict);
             _newPatternDict[$ _patternName] = _newPattern;
             
             ++_i;

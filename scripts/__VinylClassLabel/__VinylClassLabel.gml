@@ -1,10 +1,8 @@
 /// @param name
 /// @param parent
 /// @param dynamic
-/// @param knobDict
-/// @param label
 
-function __VinylClassLabel(_name, _parent, _dynamic, _knobDict, _labelData = {}) constructor
+function __VinylClassLabel(_name, _parent, _dynamic) constructor
 {
     static __idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
     
@@ -14,134 +12,137 @@ function __VinylClassLabel(_name, _parent, _dynamic, _knobDict, _labelData = {})
     
     
     
-    //Unpack the definition data
-    var _gain            = _labelData[$ "gain" ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-    var _pitch           = _labelData[$ "pitch"] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
-    var _loop            = _labelData[$ "loop" ] ?? undefined;
-    var _limit           = _labelData[$ "limit"] ?? 100;
-    var _limitFadeOut    = _labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE;
-    var _tagArray        = _labelData[$ "tag"  ] ?? _labelData[$ "tags"];
-    var _effectChainName = _labelData[$ "effect chain"];
-    
-    if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
-    if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
-    
-    
-    
-    //Sort out the gain
-    __configGainKnob = false;
-    
-    if (is_string(_gain))
+    static __Initialize = function(_labelData = {}, _knobDict)
     {
-        if (string_char_at(_gain, 1) == "@")
+        //Unpack the definition data
+        var _gain            = _labelData[$ "gain"               ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+        var _pitch           = _labelData[$ "pitch"              ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+        var _loop            = _labelData[$ "loop"               ] ?? undefined;
+        var _limit           = _labelData[$ "limit"              ] ?? 100;
+        var _limitFadeOut    = _labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE;
+        var _tagArray        = _labelData[$ "tag"                ] ?? _labelData[$ "tags"];
+        var _effectChainName = _labelData[$ "effect chain"       ];
+        
+        if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
+        if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
+        
+        
+        
+        //Sort out the gain
+        __configGainKnob = false;
+    
+        if (is_string(_gain))
         {
-            var _knobName = string_delete(_gain, 1, 1);
-            var _knob = _knobDict[$ _knobName];
-            if (!is_struct(_knob)) __VinylError("Error in label \"", __name, "\" for gain property\nKnob \"", _knobName, "\" doesn't exist");
+            if (string_char_at(_gain, 1) == "@")
+            {
+                var _knobName = string_delete(_gain, 1, 1);
+                var _knob = _knobDict[$ _knobName];
+                if (!is_struct(_knob)) __VinylError("Error in label \"", __name, "\" for gain property\nKnob \"", _knobName, "\" doesn't exist");
             
-            _knob.__TargetCreate(self, "gain");
-            _gain = _knob.__actualValue; //Set gain to the current value of the knob
+                _knob.__TargetCreate(self, "gain");
+                _gain = _knob.__actualValue; //Set gain to the current value of the knob
             
-            __configGainKnob = true;
+                __configGainKnob = true;
+            }
+            else
+            {
+                __VinylError("Error in label \"", __name, "\"\nGain must be a number or a knob name");
+            }
         }
-        else
+        else if (!is_numeric(_gain))
         {
             __VinylError("Error in label \"", __name, "\"\nGain must be a number or a knob name");
         }
-    }
-    else if (!is_numeric(_gain))
-    {
-        __VinylError("Error in label \"", __name, "\"\nGain must be a number or a knob name");
-    }
     
-    __configGain = _gain;
+        __configGain = _gain;
     
     
     
-    //Sort out the pitch
-    __configPitchKnob = false;
+        //Sort out the pitch
+        __configPitchKnob = false;
     
-    if (is_string(_pitch))
-    {
-        if (string_char_at(_pitch, 1) == "@")
+        if (is_string(_pitch))
         {
-            var _knobName = string_delete(_pitch, 1, 1);
-            var _knob = _knobDict[$ _knobName];
-            if (!is_struct(_knob)) __VinylError("Error in label \"", __name, "\" for pitch property\nKnob \"", _knobName, "\" doesn't exist");
+            if (string_char_at(_pitch, 1) == "@")
+            {
+                var _knobName = string_delete(_pitch, 1, 1);
+                var _knob = _knobDict[$ _knobName];
+                if (!is_struct(_knob)) __VinylError("Error in label \"", __name, "\" for pitch property\nKnob \"", _knobName, "\" doesn't exist");
             
-            _knob.__TargetCreate(self, "pitch");
-            __configPitchLo = _knob.__actualValue; //Set pitch to the current value of the knob
-            __configPitchHi = __configPitchLo;
+                _knob.__TargetCreate(self, "pitch");
+                __configPitchLo = _knob.__actualValue; //Set pitch to the current value of the knob
+                __configPitchHi = __configPitchLo;
             
-            __configPitchKnob = true;
+                __configPitchKnob = true;
+            }
+            else
+            {
+                __VinylError("Error in label \"", __name, "\"\nPitch must be either a number greater than zero, a two-element array, or a knob name");
+            }
+        }
+        else if (is_numeric(_pitch) && (_pitch > 0))
+        {
+            __configPitchLo = _pitch;
+            __configPitchHi = _pitch;
+        }
+        else if (is_array(_pitch))
+        {
+            if (array_length(_pitch) != 2) __VinylError("Error in label \"", __name, "\"\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
+        
+            __configPitchLo = _pitch[0];
+            __configPitchHi = _pitch[1];
+        
+            if (__configPitchLo > __configPitchHi)
+            {
+                __VinylTrace("Warning! Error in audio asset \"", audio_get_name(__sound), "\". Low pitch (", __configPitchLo, ") is greater than high pitch (", __configPitchHi, ")");
+                var _temp = __configPitchLo;
+                __configPitchLo = __configPitchHi;
+                __configPitchHi = _temp;
+            }
         }
         else
         {
             __VinylError("Error in label \"", __name, "\"\nPitch must be either a number greater than zero, a two-element array, or a knob name");
         }
+    
+    
+    
+        //Sort out the loop state
+        if (!is_bool(_loop) && !is_undefined(_loop)) __VinylError("Error in label \"", __name, "\"\nLoop behaviour must be a boolean (<true> or <false>)");
+        __configLoop = _loop;
+    
+    
+    
+        if (!is_numeric(_limit) || (_limit <= 0)) __VinylError("Error in label \"", __name, "\"\nInstance limit must be a number greater than zero");
+        __limitMaxCount = _limit;
+    
+        if (!is_numeric(_limitFadeOut) || (_limitFadeOut <= 0)) __VinylError("Error in label \"", __name, "\"\nLimit-related fade in rate must be a number greater than zero");
+        __limitFadeOutRate = _limitFadeOut;
+    
+        //Convert the tag array into an array if necessary
+        if (is_string(_tagArray)) _tagArray = [_tagArray];
+        __tagArray = _tagArray;
+    
+        __effectChainName = _effectChainName ?? ((__parent == undefined)? "main" : __parent.__effectChainName);
+    
+    
+    
+        //Set remainder of the state
+        __audioArray = [];
+    
+        __inputGain  = 1;
+        __inputPitch = 1;
+    
+        __gainTarget  = __inputGain;
+        __gainRate    = VINYL_DEFAULT_GAIN_RATE;
+        __pitchTarget = __inputPitch;
+        __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
+    
+        __outputGain  = __inputGain;
+        __outputPitch = __inputPitch;
+    
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __outputGain, ", pitch=", __outputPitch*__configPitchLo, " -> ", __outputPitch*__configPitchHi, ", max instances=", __limitMaxCount);
     }
-    else if (is_numeric(_pitch) && (_pitch > 0))
-    {
-        __configPitchLo = _pitch;
-        __configPitchHi = _pitch;
-    }
-    else if (is_array(_pitch))
-    {
-        if (array_length(_pitch) != 2) __VinylError("Error in label \"", __name, "\"\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
-        
-        __configPitchLo = _pitch[0];
-        __configPitchHi = _pitch[1];
-        
-        if (__configPitchLo > __configPitchHi)
-        {
-            __VinylTrace("Warning! Error in audio asset \"", audio_get_name(__sound), "\". Low pitch (", __configPitchLo, ") is greater than high pitch (", __configPitchHi, ")");
-            var _temp = __configPitchLo;
-            __configPitchLo = __configPitchHi;
-            __configPitchHi = _temp;
-        }
-    }
-    else
-    {
-        __VinylError("Error in label \"", __name, "\"\nPitch must be either a number greater than zero, a two-element array, or a knob name");
-    }
-    
-    
-    
-    //Sort out the loop state
-    if (!is_bool(_loop) && !is_undefined(_loop)) __VinylError("Error in label \"", __name, "\"\nLoop behaviour must be a boolean (<true> or <false>)");
-    __configLoop = _loop;
-    
-    
-    
-    if (!is_numeric(_limit) || (_limit <= 0)) __VinylError("Error in label \"", __name, "\"\nInstance limit must be a number greater than zero");
-    __limitMaxCount = _limit;
-    
-    if (!is_numeric(_limitFadeOut) || (_limitFadeOut <= 0)) __VinylError("Error in label \"", __name, "\"\nLimit-related fade in rate must be a number greater than zero");
-    __limitFadeOutRate = _limitFadeOut;
-    
-    //Convert the tag array into an array if necessary
-    if (is_string(_tagArray)) _tagArray = [_tagArray];
-    __tagArray = _tagArray;
-    
-    __effectChainName = _effectChainName ?? ((__parent == undefined)? "main" : __parent.__effectChainName);
-    
-    
-    
-    //Set remainder of the state
-    __audioArray = [];
-    
-    __inputGain  = 1;
-    __inputPitch = 1;
-    
-    __gainTarget  = __inputGain;
-    __gainRate    = VINYL_DEFAULT_GAIN_RATE;
-    __pitchTarget = __inputPitch;
-    __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
-    
-    __outputGain  = __inputGain;
-    __outputPitch = __inputPitch;
-    
-    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __outputGain, ", pitch=", __outputPitch*__configPitchLo, " -> ", __outputPitch*__configPitchHi, ", max instances=", __limitMaxCount);
     
     
     
