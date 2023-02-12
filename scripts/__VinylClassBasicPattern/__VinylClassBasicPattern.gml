@@ -13,6 +13,11 @@ function __VinylClassBasicPattern(_sound, _patternArray) constructor
     
     
     
+    static toString = function()
+    {
+        return "<basic " + __name + ">";
+    }
+    
     static __Initialize = function(_patternData = {}, _knobDict, _labelDict)
     {
         var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
@@ -32,19 +37,19 @@ function __VinylClassBasicPattern(_sound, _patternArray) constructor
             {
                 var _knobName = string_delete(_gain, 1, 1);
                 var _knob = _knobDict[$ _knobName];
-                if (!is_struct(_knob)) __VinylError("Error in audio asset \"", __name, "\" for gain property\nKnob \"", _knobName, "\" doesn't exist");
+                if (!is_struct(_knob)) __VinylError("Error in ", self, " for gain property\nKnob \"", _knobName, "\" doesn't exist");
             
                 _knob.__TargetCreate(self, "gain");
                 _gain = _knob.__actualValue; //Set gain to the current value of the knob
             }
             else
             {
-                __VinylError("Error in audio asset \"", __name, "\"\nGain must be a number or a knob name");
+                __VinylError("Error in ", self, "\nGain must be a number or a knob name");
             }
         }
         else if (!is_numeric(_gain))
         {
-            __VinylError("Error in audio asset \"", __name, "\"\nGain must be a number or a knob name");
+            __VinylError("Error in ", self, "\nGain must be a number or a knob name");
         }
         
         __gain = _gain;
@@ -58,7 +63,7 @@ function __VinylClassBasicPattern(_sound, _patternArray) constructor
             {
                 var _knobName = string_delete(_pitch, 1, 1);
                 var _knob = _knobDict[$ _knobName];
-                if (!is_struct(_knob)) __VinylError("Error in audio asset \"", __name, "\" for pitch property\nKnob \"", _knobName, "\" doesn't exist");
+                if (!is_struct(_knob)) __VinylError("Error in ", self, " for pitch property\nKnob \"", _knobName, "\" doesn't exist");
                 
                 _knob.__TargetCreate(self, "pitch");
                 __pitchLo = _knob.__actualValue; //Set pitch to the current value of the knob
@@ -68,7 +73,7 @@ function __VinylClassBasicPattern(_sound, _patternArray) constructor
             }
             else
             {
-                __VinylError("Error in audio asset \"", __name, "\"\nPitch must be either a number greater than zero, a two-element array, or a knob name");
+                __VinylError("Error in ", self, "\nPitch must be either a number greater than zero, a two-element array, or a knob name");
             }
         }
         else if (is_numeric(_pitch) && (_pitch >= 0))
@@ -78,14 +83,14 @@ function __VinylClassBasicPattern(_sound, _patternArray) constructor
         }
         else if (is_array(_pitch))
         {
-            if (array_length(_pitch) != 2) __VinylError("Error in audio asset \"", __name, "\"\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
+            if (array_length(_pitch) != 2) __VinylError("Error in ", self, "\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
             
             __pitchLo = _pitch[0];
             __pitchHi = _pitch[1];
             
             if (__pitchLo > __pitchHi)
             {
-                __VinylTrace("Warning! Error in audio asset \"", __name, "\". Low pitch (", __pitchLo, ") is greater than high pitch (", __pitchHi, ")");
+                __VinylTrace("Warning! Error in ", self, ". Low pitch (", __pitchLo, ") is greater than high pitch (", __pitchHi, ")");
                 var _temp = __pitchLo;
                 __pitchLo = __pitchHi;
                 __pitchHi = _temp;
@@ -93,7 +98,7 @@ function __VinylClassBasicPattern(_sound, _patternArray) constructor
         }
         else
         {
-            __VinylError("Error in audio asset \"", __name, "\"\nPitch must be either a number greater than zero, a two-element array, or a knob name");
+            __VinylError("Error in ", self, "\nPitch must be either a number greater than zero, a two-element array, or a knob name");
         }
         
         
@@ -105,7 +110,7 @@ function __VinylClassBasicPattern(_sound, _patternArray) constructor
         }
         else
         {
-            __VinylError("Error in audio asset \"", __name, "\"\nBus must be a name (as a string)");
+            __VinylError("Error in ", self, "\nBus must be a name (as a string)");
         }
         
         
@@ -113,9 +118,9 @@ function __VinylClassBasicPattern(_sound, _patternArray) constructor
         //Now loop points...
         if (is_array(_loopPoints))
         {
-             if (array_length(_loopPoints) != 2) __VinylError("Error in audio asset \"", __name, "\"\nLoop point array must have exactly two elements (length=", array_length(_pitch), ")");
-             if (!is_numeric(_loopPoints[0])) __VinylError("Error in audio asset \"", __name, "\"\nLoop point array elements must be numbers (index 0 datatype=", typeof(_loopPoints[0]), ")");
-             if (!is_numeric(_loopPoints[1])) __VinylError("Error in audio asset \"", __name, "\"\nLoop point array elements must be numbers (index 1 datatype=", typeof(_loopPoints[1]), ")");
+             if (array_length(_loopPoints) != 2) __VinylError("Error in audio asset ", self, "\nLoop point array must have exactly two elements (length=", array_length(_pitch), ")");
+             if (!is_numeric(_loopPoints[0])) __VinylError("Error in ", self, "\nLoop point array elements must be numbers (index 0 datatype=", typeof(_loopPoints[0]), ")");
+             if (!is_numeric(_loopPoints[1])) __VinylError("Error in ", self, "\nLoop point array elements must be numbers (index 1 datatype=", typeof(_loopPoints[1]), ")");
             
              __loopPoints = _loopPoints;
         }
@@ -125,7 +130,7 @@ function __VinylClassBasicPattern(_sound, _patternArray) constructor
         }
         else
         {
-            __VinylError("Error in audio asset \"", __name, "\"\nLoop points must be a two-element array");
+            __VinylError("Error in ", self, "\nLoop points must be a two-element array");
         }
         
         __labelArray = [];
@@ -147,7 +152,7 @@ function __VinylClassBasicPattern(_sound, _patternArray) constructor
                 var _labelData = _labelDict[$ _labelName];
                 if (_labelData == undefined)
                 {
-                    __VinylTrace("Warning! Label \"", _labelName, "\" could not be found (asset was \"", __name, "\")");
+                    __VinylTrace("Warning! Label \"", _labelName, "\" could not be found (", self, ")");
                 }
                 else
                 {
@@ -158,7 +163,7 @@ function __VinylClassBasicPattern(_sound, _patternArray) constructor
             }
         }
         
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for \"", __name, "\", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", label=", __DebugLabelNames());
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", label=", __DebugLabelNames());
     }
     
     
@@ -207,12 +212,12 @@ function __VinylClassBasicPattern(_sound, _patternArray) constructor
         
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Playing ", __name, ", gain=", _gain, ", pitch=", _pitch, ", label=", __DebugLabelNames(), " (GMinst=", _instance, ", amplitude=", _gain/VINYL_MAX_GAIN, ")");
+            __VinylTrace("Playing ", self, ", gain=", _gain, ", pitch=", _pitch, ", label=", __DebugLabelNames(), " (GMinst=", _instance, ", amplitude=", _gain/VINYL_MAX_GAIN, ")");
         }
         
         if (_gain > VINYL_MAX_GAIN)
         {
-            __VinylTrace("Warning! Gain value ", _gain, " exceeds VINYL_MAX_GAIN (", VINYL_MAX_GAIN, ")");
+            __VinylTrace("Warning! ", self, " gain value ", _gain, " exceeds VINYL_MAX_GAIN (", VINYL_MAX_GAIN, ")");
         }
         
         return _instance;
@@ -236,10 +241,5 @@ function __VinylClassBasicPattern(_sound, _patternArray) constructor
         if (_size > 1) _labelReadable += "]";
         
         return _labelReadable;
-    }
-    
-    static toString = function()
-    {
-        return "<basic " + __name + ">";
     }
 }

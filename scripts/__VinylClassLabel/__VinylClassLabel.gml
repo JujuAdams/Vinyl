@@ -12,6 +12,11 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
     
     
     
+    static toString = function()
+    {
+        return "<label " + __name + ">";
+    }
+    
     static __Initialize = function(_labelData = {}, _knobDict)
     {
         //Unpack the definition data
@@ -37,7 +42,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
             {
                 var _knobName = string_delete(_gain, 1, 1);
                 var _knob = _knobDict[$ _knobName];
-                if (!is_struct(_knob)) __VinylError("Error in label \"", __name, "\" for gain property\nKnob \"", _knobName, "\" doesn't exist");
+                if (!is_struct(_knob)) __VinylError("Error in ", self, " for gain property\nKnob \"", _knobName, "\" doesn't exist");
             
                 _knob.__TargetCreate(self, "gain");
                 _gain = _knob.__actualValue; //Set gain to the current value of the knob
@@ -46,12 +51,12 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
             }
             else
             {
-                __VinylError("Error in label \"", __name, "\"\nGain must be a number or a knob name");
+                __VinylError("Error in ", self, "\nGain must be a number or a knob name");
             }
         }
         else if (!is_numeric(_gain))
         {
-            __VinylError("Error in label \"", __name, "\"\nGain must be a number or a knob name");
+            __VinylError("Error in ", self, "\nGain must be a number or a knob name");
         }
     
         __configGain = _gain;
@@ -67,7 +72,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
             {
                 var _knobName = string_delete(_pitch, 1, 1);
                 var _knob = _knobDict[$ _knobName];
-                if (!is_struct(_knob)) __VinylError("Error in label \"", __name, "\" for pitch property\nKnob \"", _knobName, "\" doesn't exist");
+                if (!is_struct(_knob)) __VinylError("Error in ", self, " for pitch property\nKnob \"", _knobName, "\" doesn't exist");
             
                 _knob.__TargetCreate(self, "pitch");
                 __configPitchLo = _knob.__actualValue; //Set pitch to the current value of the knob
@@ -77,7 +82,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
             }
             else
             {
-                __VinylError("Error in label \"", __name, "\"\nPitch must be either a number greater than zero, a two-element array, or a knob name");
+                __VinylError("Error in label ", self, "\nPitch must be either a number greater than zero, a two-element array, or a knob name");
             }
         }
         else if (is_numeric(_pitch) && (_pitch > 0))
@@ -87,14 +92,14 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         }
         else if (is_array(_pitch))
         {
-            if (array_length(_pitch) != 2) __VinylError("Error in label \"", __name, "\"\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
+            if (array_length(_pitch) != 2) __VinylError("Error in ", self, "\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
         
             __configPitchLo = _pitch[0];
             __configPitchHi = _pitch[1];
         
             if (__configPitchLo > __configPitchHi)
             {
-                __VinylTrace("Warning! Error in audio asset \"", audio_get_name(__sound), "\". Low pitch (", __configPitchLo, ") is greater than high pitch (", __configPitchHi, ")");
+                __VinylTrace("Warning! Error in ", self, ". Low pitch (", __configPitchLo, ") is greater than high pitch (", __configPitchHi, ")");
                 var _temp = __configPitchLo;
                 __configPitchLo = __configPitchHi;
                 __configPitchHi = _temp;
@@ -102,21 +107,21 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         }
         else
         {
-            __VinylError("Error in label \"", __name, "\"\nPitch must be either a number greater than zero, a two-element array, or a knob name");
+            __VinylError("Error in ", self, "\nPitch must be either a number greater than zero, a two-element array, or a knob name");
         }
     
     
     
         //Sort out the loop state
-        if (!is_bool(_loop) && !is_undefined(_loop)) __VinylError("Error in label \"", __name, "\"\nLoop behaviour must be a boolean (<true> or <false>)");
+        if (!is_bool(_loop) && !is_undefined(_loop)) __VinylError("Error in ", self, "\nLoop behaviour must be a boolean (<true> or <false>)");
         __configLoop = _loop;
     
     
     
-        if (!is_numeric(_limit) || (_limit <= 0)) __VinylError("Error in label \"", __name, "\"\nInstance limit must be a number greater than zero");
+        if (!is_numeric(_limit) || (_limit <= 0)) __VinylError("Error in ", self, "\nInstance limit must be a number greater than zero");
         __limitMaxCount = _limit;
     
-        if (!is_numeric(_limitFadeOut) || (_limitFadeOut <= 0)) __VinylError("Error in label \"", __name, "\"\nLimit-related fade in rate must be a number greater than zero");
+        if (!is_numeric(_limitFadeOut) || (_limitFadeOut <= 0)) __VinylError("Error in ", self, "\nLimit-related fade in rate must be a number greater than zero");
         __limitFadeOutRate = _limitFadeOut;
     
         //Convert the tag array into an array if necessary
@@ -141,14 +146,14 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         __outputGain  = __inputGain;
         __outputPitch = __inputPitch;
     
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating label definition for \"",__name, "\", gain=", __outputGain, ", pitch=", __outputPitch*__configPitchLo, " -> ", __outputPitch*__configPitchHi, ", max instances=", __limitMaxCount);
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating definition for ", self, ", gain=", __outputGain, ", pitch=", __outputPitch*__configPitchLo, " -> ", __outputPitch*__configPitchHi, ", max instances=", __limitMaxCount);
     }
     
     
     
     static __Stop = function()
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Stopping ", array_length(__audioArray), " audio instances playing with label \"", __name, "\"");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Stopping ", array_length(__audioArray), " audio instances playing (", self, ")");
         
         var _i = 0;
         repeat(array_length(__audioArray))
@@ -162,7 +167,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
     
     static __Pause = function()
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pausing ", array_length(__audioArray), " audio instances playing with label \"", __name, "\"");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pausing ", array_length(__audioArray), " audio instances playing (", self, ")");
         
         var _i = 0;
         repeat(array_length(__audioArray))
@@ -174,7 +179,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
     
     static __Resume = function()
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming ", array_length(__audioArray), " audio instances playing with label \"", __name, "\"");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming ", array_length(__audioArray), " audio instances playing (", self, ")");
         
         var _i = 0;
         repeat(array_length(__audioArray))
@@ -196,7 +201,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         
         if (VINYL_DEBUG_READ_CONFIG)
         {
-            __VinylTrace("Copying state to label \"", __name, "\":");
+            __VinylTrace("Copying state to ", self, ":");
             __VinylTrace("    gain in=", __inputGain, "/out=", __outputGain, ", pitch in=", __inputPitch, "/out=", __outputPitch);
             __VinylTrace("    gain target=", __gainTarget, ", rate=", __gainRate, "/s");
             __VinylTrace("    pitch target=", __pitchTarget, ", rate=", __pitchRate, "/s");
@@ -214,7 +219,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
                 
                 if (is_struct(_oldestInstance))
                 {
-                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Label \"", __name, "\" will exceed ", __limitMaxCount, " playing instance(s), fading out oldest ", _oldestInstance, " playing ", audio_get_name(_oldestInstance.__sound));
+                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " will exceed ", __limitMaxCount, " playing instance(s), fading out oldest ", _oldestInstance, " playing ", audio_get_name(_oldestInstance.__sound));
                     _oldestInstance.__FadeOut(__limitFadeOutRate);
                 }
             }
@@ -245,12 +250,12 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Label \"", __name, "\" gain=", _gain);
+            __VinylTrace(self, " gain=", _gain);
         }
         
         if (!_force && __configGainKnob)
         {
-            __VinylTrace("Label \"", __name, "\" gain is attached to a knob, cannot change gain manually");
+            __VinylTrace(self, " gain is attached to a knob, cannot change gain manually");
             return;
         }
         
@@ -262,12 +267,12 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Warning! Label \"", __name, "\" gain target=", _targetGain, ", rate=", _rate, "/s");
+            __VinylTrace("Warning! ", self, " gain target=", _targetGain, ", rate=", _rate, "/s");
         }
         
         if (__configGainKnob)
         {
-            __VinylTrace("Warning! Label \"", __name, "\" gain is attached to a knob, cannot set a target gain");
+            __VinylTrace("Warning! ", self, " gain is attached to a knob, cannot set a target gain");
             return;
         }
         
@@ -277,7 +282,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
     
     static __FadeOut = function(_rate)
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Fading out ", array_length(__audioArray), " audio instances playing with label \"", __name, "\"");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Fading out ", array_length(__audioArray), " audio instances (", self, ")");
         
         var _i = 0;
         repeat(array_length(__audioArray))
@@ -297,12 +302,12 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Label \"", __name, "\" pitch=", _pitch);
+            __VinylTrace(self, " pitch=", _pitch);
         }
         
         if (!_force && __configPitchKnob)
         {
-            __VinylTrace("Warning! Label \"", __name, "\" pitch is attached to a knob, cannot change pitch manually");
+            __VinylTrace("Warning! ", self, " pitch is attached to a knob, cannot change pitch manually");
             return;
         }
         
@@ -314,12 +319,12 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
     {
         if (VINYL_DEBUG_LEVEL >= 1)
         {
-            __VinylTrace("Label \"", __name, "\" pitch target=", _targetPitch, ", rate=", _rate, "/s");
+            __VinylTrace(self, " pitch target=", _targetPitch, ", rate=", _rate, "/s");
         }
         
         if (__configPitchKnob)
         {
-            __VinylTrace("Warning! Label \"", __name, "\" pitch is attached to a knob, cannot set a target pitch");
+            __VinylTrace("Warning! ", self, " pitch is attached to a knob, cannot set a target pitch");
             return;
         }
         
@@ -377,10 +382,5 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
                 }
             }
         }
-    }
-    
-    static toString = function()
-    {
-        return "<label " + __name + ">";
     }
 }

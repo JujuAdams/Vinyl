@@ -29,6 +29,11 @@ function __VinylClassEffectChain(_name) constructor
     
     
     
+    static toString = function()
+    {
+        return "<effect chain " + string(__name) + ">";
+    }
+    
     static __Update = function(_busEffectArray, _knobDict)
     {
         var _i = 0;
@@ -67,7 +72,7 @@ function __VinylClassEffectChain(_name) constructor
             }
             else
             {
-                __VinylError("Effect type \"", _effectType, "\" not recognised (effect chain=\"", __name, "\", index=", _i, ")");
+                __VinylError("Effect type \"", _effectType, "\" not recognised (", self, " index=", _i, ")");
             }
             
             if (_effect != undefined)
@@ -164,10 +169,5 @@ function __VinylClassEffectChain(_name) constructor
     {
         //Keep this emitter right underneath the listener
         if (__emitter != undefined) audio_emitter_position(__emitter, __globalData.__listenerX, __globalData.__listenerY, 0);
-    }
-    
-    static toString = function()
-    {
-        return "<effect chain " + string(__name) + ">";
     }
 }

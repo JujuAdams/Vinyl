@@ -10,6 +10,12 @@ function __VinylClassShufflePattern(_name, _patternArray, _labelDict) constructo
     __name = _name;
     
     
+    
+    static toString = function()
+    {
+        return "<shuffle " + string(__name) + ">";
+    }
+    
     static __Initialize = function(_patternData = {}, _labelDict, _knobDict)
     {
         __patternArray = _patternData[$ "shuffle"] ?? [];
@@ -18,7 +24,7 @@ function __VinylClassShufflePattern(_name, _patternArray, _labelDict) constructo
         __currentSize  = ceil(array_length(__patternArray)/3);
         __currentArray = array_create(__currentSize);
         
-        if (__currentSize <= 0) __VinylError("Error in pattern \"", __name, "\"\nShuffle-type patterns must have at least one member");
+        if (__currentSize <= 0) __VinylError("Error in ", self, "\nShuffle-type patterns must have at least one member");
         
         //Convert any basic patterns into audio asset indexes
         var _i = 0;
@@ -44,7 +50,9 @@ function __VinylClassShufflePattern(_name, _patternArray, _labelDict) constructo
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
         
-        if (!is_numeric(_gain)) __VinylError("Error in pattern \"", __name, "\"\nGain must be a number");
+        
+        
+        if (!is_numeric(_gain)) __VinylError("Error in pattern ", self, "\nGain must be a number");
         __gain = _gain;
         
         if (is_numeric(_pitch) && (_pitch >= 0))
@@ -54,14 +62,14 @@ function __VinylClassShufflePattern(_name, _patternArray, _labelDict) constructo
         }
         else if (is_array(_pitch))
         {
-            if (array_length(_pitch) != 2) __VinylError("Error in pattern \"", __name, "\"\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
+            if (array_length(_pitch) != 2) __VinylError("Error in pattern ", self, "\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
             
             __pitchLo = _pitch[0];
             __pitchHi = _pitch[1];
             
             if (__pitchLo > __pitchHi)
             {
-                __VinylTrace("Warning! Error in pattern \"", __name, "\". Low pitch (", __pitchLo, ") is greater than high pitch (", __pitchHi, ")");
+                __VinylTrace("Warning! Error in pattern ", self, ". Low pitch (", __pitchLo, ") is greater than high pitch (", __pitchHi, ")");
                 var _temp = __pitchLo;
                 __pitchLo = __pitchHi;
                 __pitchHi = _temp;
@@ -69,7 +77,7 @@ function __VinylClassShufflePattern(_name, _patternArray, _labelDict) constructo
         }
         else
         {
-            __VinylError("Error in pattern \"", __name, "\"\nPitch must be either a number greater than or equal to zero, or a two-element array");
+            __VinylError("Error in pattern ", self, "\nPitch must be either a number greater than or equal to zero, or a two-element array");
         }
         
         __effectChainName = _effectChainName;
@@ -93,7 +101,7 @@ function __VinylClassShufflePattern(_name, _patternArray, _labelDict) constructo
                 var _labelData = _labelDict[$ _labelName];
                 if (_labelData == undefined)
                 {
-                    __VinylTrace("Warning! Label \"", _labelName, "\" could not be found (pattern was \"", __name, "\")");
+                    __VinylTrace("Warning! Label \"", _labelName, "\" could not be found (", self, ")");
                 }
                 else
                 {
@@ -104,7 +112,7 @@ function __VinylClassShufflePattern(_name, _patternArray, _labelDict) constructo
             }
         }
         
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for \"", __name, "\", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", label=", __DebugLabelNames());
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", label=", __DebugLabelNames());
     }
     
     

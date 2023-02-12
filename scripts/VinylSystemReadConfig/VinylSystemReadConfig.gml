@@ -374,7 +374,7 @@ function VinylSystemReadConfig(_configData)
                     }
                     else if (_labelStruct.__effectChainName != __effectChainName)
                     {
-                        __VinylTrace("Warning! Pattern \"", __name, "\" has conflicting effect chains (chosen = \"", __effectChainName, "\", conflict = \"", _labelStruct.__effectChainName, "\" from label \"", _labelStruct.__name, "\")");
+                        __VinylTrace("Warning! ", self, " has conflicting effect chains (chosen = \"", __effectChainName, "\", conflict = \"", _labelStruct.__effectChainName, "\" from ", _labelStruct, ")");
                     }
                     
                     ++_j;
@@ -385,7 +385,7 @@ function VinylSystemReadConfig(_configData)
             
             if (!variable_struct_exists(_effectChainDict, __effectChainName))
             {
-                __VinylError("Effect chain \"", __effectChainName, "\" for pattern \"", __name, "\" doesn't exist");
+                __VinylError("Effect chain \"", __effectChainName, "\" for ", self, " doesn't exist");
             }
         }
         
