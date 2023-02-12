@@ -1,6 +1,7 @@
 function __VinylClassEmitter() constructor
 {
     static __globalData        = __VinylGlobalData();
+    static __pool              = __globalData.__poolEmitter;
     static __emitterActive     = __globalData.__emitterActive;
     static __emitterPoolReturn = __globalData.__emitterPoolReturn;
     

@@ -61,7 +61,7 @@ function __VinylClassPool(_startingID, _constructor)
         return __id;
     }
     
-    static __Tick = function(_deltaTime)
+    static __Tick = function(_deltaTimeFactor)
     {
         var _returnSize = array_length(__returnArray);
         if (_returnSize > 0)
@@ -84,7 +84,7 @@ function __VinylClassPool(_startingID, _constructor)
             }
             else
             {
-                _instance.__Tick(_deltaTime);
+                _instance.__Tick(_deltaTimeFactor);
                 ++_i;
             }
         }

@@ -1,5 +1,7 @@
 function __VinylClassInstanceBasic() constructor
 {
+    static __pool = __VinylGlobalData().__poolBasic;
+    
     static __globalData       = __VinylGlobalData();
     static __basicPoolReturn  = __globalData.__basicPoolReturn;
     static __basicPoolPlaying = __globalData.__basicPoolPlaying;
@@ -438,7 +440,7 @@ function __VinylClassInstanceBasic() constructor
         __id = undefined;
     }
     
-    static __Tick = function(_deltaTime)
+    static __Tick = function(_deltaTimeFactor)
     {
         if (!audio_is_playing(__instance))
         {
@@ -447,7 +449,7 @@ function __VinylClassInstanceBasic() constructor
         }
         else
         {
-            var _delta = clamp(__gainTarget - __inputGain, -_deltaTime*__gainRate, _deltaTime*__gainRate);
+            var _delta = clamp(__gainTarget - __inputGain, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
             if (_delta != 0)
             {
                 __inputGain  += _delta;
@@ -461,7 +463,7 @@ function __VinylClassInstanceBasic() constructor
                 }
             }
             
-            var _delta = clamp(__pitchTarget - __inputPitch, -_deltaTime*__pitchRate, _deltaTime*__pitchRate);
+            var _delta = clamp(__pitchTarget - __inputPitch, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
             if (_delta != 0)
             {
                 __inputPitch  += _delta;

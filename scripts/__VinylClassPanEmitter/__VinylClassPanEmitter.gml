@@ -1,6 +1,7 @@
 function __VinylClassPanEmitter() constructor
 {
     static __globalData           = __VinylGlobalData();
+    static __pool                 = __globalData.__poolPanEmitter;
     static __panEmitterActive     = __globalData.__panEmitterActive;
     static __panEmitterPoolReturn = __globalData.__panEmitterPoolReturn;
     

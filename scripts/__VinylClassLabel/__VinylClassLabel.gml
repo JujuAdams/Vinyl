@@ -336,11 +336,11 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
     
     
     
-    static __Tick = function(_deltaTime)
+    static __Tick = function(_deltaTimeFactor)
     {
         //Update input values based on gain/pitch target
-        __inputGain  += clamp(__gainTarget  - __inputGain,  -_deltaTime*__gainRate,  _deltaTime*__gainRate );
-        __inputPitch += clamp(__pitchTarget - __inputPitch, -_deltaTime*__pitchRate, _deltaTime*__pitchRate);
+        __inputGain  += clamp(__gainTarget  - __inputGain,  -_deltaTimeFactor*__gainRate,  _deltaTimeFactor*__gainRate );
+        __inputPitch += clamp(__pitchTarget - __inputPitch, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
         
         //Update the output gain
         var _oldGain  = __outputGain;

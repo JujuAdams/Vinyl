@@ -2,8 +2,8 @@
 
 function VinylGlobalTransposeSet(_semitone)
 {
-    static _globalData       = __VinylGlobalData();
-    static _basicPoolPlaying = _globalData.__basicPoolPlaying;
+    static _globalData  = __VinylGlobalData();
+    static _activeArray = _globalData.__poolBasic.__activeArray;
     
     if (_semitone != _globalData.__transposeSemitones)
     {
@@ -11,14 +11,11 @@ function VinylGlobalTransposeSet(_semitone)
         _globalData.__transposeSemitones = _semitone;
         
         var _i = 0;
-        repeat(array_length(_basicPoolPlaying))
+        repeat(array_length(_activeArray))
         {
-            with(_basicPoolPlaying[_i])
+            with(_activeArray[_i])
             {
-                if (__transposeUsing)
-                {
-                    __outputChanged = true;
-                }
+                if (__transposeUsing) __outputChanged = true;
             }
             
             ++_i;
