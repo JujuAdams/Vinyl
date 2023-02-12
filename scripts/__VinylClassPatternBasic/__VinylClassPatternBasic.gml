@@ -1,8 +1,5 @@
 /// @param sound
 /// @param patternArray
-/// @param labelDict
-/// @param knobDict
-/// @param [patternData]
 
 function __VinylClassPatternBasic(_sound, _patternArray) constructor
 {
