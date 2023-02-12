@@ -1,7 +1,7 @@
 /// @param startingId
 /// @param constructor
 
-function __VinylClassPool(_startingID, _constructor)
+function __VinylClassPool(_startingID, _constructor) constructor
 {
     __constructor = _constructor;
     __id          = int64(_startingID);

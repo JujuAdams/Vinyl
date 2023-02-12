@@ -370,11 +370,9 @@ function __VinylClassInstanceBasic() constructor
         __Pool();
     }
     
-    static __Depool = function(_id)
+    static __Depool = function()
     {
-        if (!__pooled) return;
-        
-        __idToInstanceDict[? _id] = self;
+        __idToInstanceDict[? __id] = self;
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling ", self);
     }
@@ -382,9 +380,6 @@ function __VinylClassInstanceBasic() constructor
     static __Pool = function()
     {
         static __pool = __VinylGlobalData().__poolBasic;
-        
-        if (__pooled) return;
-        __pooled = true;
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pooling ", self);
         
