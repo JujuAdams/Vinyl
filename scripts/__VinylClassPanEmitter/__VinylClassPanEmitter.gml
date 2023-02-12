@@ -1,9 +1,7 @@
 function __VinylClassPanEmitter() constructor
 {
-    static __globalData           = __VinylGlobalData();
-    static __pool                 = __globalData.__poolPanEmitter;
-    static __panEmitterActive     = __globalData.__panEmitterActive;
-    static __panEmitterPoolReturn = __globalData.__panEmitterPoolReturn;
+    static __globalData = __VinylGlobalData();
+    static __pool       = __globalData.__poolPanEmitter;
     
     
     
@@ -19,6 +17,11 @@ function __VinylClassPanEmitter() constructor
     
     
     
+    static toString = function()
+    {
+        return "<pan emitter " + string(__id) + ">";
+    }
+    
     static __ResetState = function()
     {
         if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);
@@ -31,8 +34,6 @@ function __VinylClassPanEmitter() constructor
         
         __UpdatePosition();
     }
-    
-    
     
     static __UpdatePosition = function()
     {
@@ -58,47 +59,14 @@ function __VinylClassPanEmitter() constructor
     
     static __Depool = function(_id)
     {
-        if (!__pooled) return;
-        __pooled = false;
-        
-        __id = _id;
-        
-        array_push(__panEmitterActive, self);
-        
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling ", self);
     }
     
     static __Pool = function()
     {
-        if (__pooled) return;
-        __pooled = true;
-        
         __ResetState();
         
-        //Remove this pan emitter from the active array
-        var _i = 0;
-        repeat(array_length(__panEmitterActive))
-        {
-            if (__panEmitterActive[_i] == self)
-            {
-                array_delete(__panEmitterActive, _i, 1);
-            }
-            else
-            {
-                ++_i;
-            }
-        }
-        
-        //Move this instance to the "return" array
-        //This prevents an instance being pooled and depooled in the same step
-        //which would lead to problems with labels tracking what they're playing
-        array_push(__panEmitterPoolReturn, self);
-        
-        __id = undefined;
-    }
-    
-    static toString = function()
-    {
-        return "<pan emitter " + string(__id) + ">";
+        //Pan emitters aren't ticked every frame so make sure we clear up the active array
+        __pool.__Return(self, true);
     }
 }

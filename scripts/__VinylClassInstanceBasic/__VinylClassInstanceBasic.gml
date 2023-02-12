@@ -257,9 +257,11 @@ function __VinylClassInstanceBasic() constructor
     
     static __PlayPan = function(_sound, _loop, _gain, _pitch, _pan)
     {
+        static _poolPanEmitter = __VinylGlobalData().__poolPanEmitter;
+        
         __PlaySetState(_sound, _loop, _gain, _pitch);
         
-        __panEmitter = __VinylDepoolPanEmitter();
+        __panEmitter = _poolPanEmitter.__Depool();
         __panEmitter.__Pan(_pan);
         __panEmitter.__Bus(__effectChainName);
         
