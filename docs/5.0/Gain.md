@@ -49,11 +49,11 @@ If a label is specified, the gain for the label is set. This will immediately im
 
 *Returns:* N/A (`undefined`)
 
-|Name    |Datatype        |Purpose                                                                                                                                                 |
-|--------|----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-|`sound` |sound or pattern|The sound to play, either a GameMaker sound or a Vinyl pattern                                                                                          |
-|`[gain]`|number          |Target gain, in normalised gain units                                                                                                                   |
-|`[rate]`|number          |Speed to approach the target gain, in gain units per second. Defaults to `VINYL_DEFAULT_GAIN_RATE`                                                      |
+|Name    |Datatype        |Purpose                                                                                           |
+|--------|----------------|--------------------------------------------------------------------------------------------------|
+|`sound` |sound or pattern|The sound to play, either a GameMaker sound or a Vinyl pattern                                    |
+|`[gain]`|number          |Target gain, in normalised gain units                                                             |
+|`[rate]`|number          |Speed to approach the target gain, in gain units per second. Defaults to `VINYL_DEFAULT_GAIN_RATE`|
 
 Sets the target gain of [Vinyl instance](Terminology) or [Vinyl label](Terminology). The gain for that instance or label will change over time at the given rate until reaching its target.
 
