@@ -454,6 +454,8 @@ Vinyl allows you to modify properties across assets, labels, patterns, and effec
 
 Knobs can be defined in two ways (see below for two examples). Either a knob can be an object with two properties (`default` and `range`), or a knob can be a number. If you set a knob to be a number then the range is presumed to be `0` to `1` and the the number specified is presumed to be the default output value for the knob.
 
+Knobs can be attached to properties where indicated. A connection to a knob should be specified in the configuration file by using the `@` symbol followed by the name of the knob, for example `@spookiness` will create a refernce to the `spookiness` knob.
+
 ### `default`
 
 *Default value: N/A*
