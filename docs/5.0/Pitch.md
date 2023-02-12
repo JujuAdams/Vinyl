@@ -14,10 +14,10 @@ Functions on this page relate to setting and manipulating pitch for [Vinyl insta
 
 *Returns:*
 
-|Name     |Datatype|Purpose                                           |
-|---------|--------|--------------------------------------------------|
-|`id`     |        |                                                  |
-|`pitch`  |        |                                                  |
+|Name   |Datatype      |Purpose                                                                    |
+|-------|--------------|---------------------------------------------------------------------------|
+|`id`   |Vinyl instance|Instance to target                                                         |
+|`pitch`|number        |Instance pitch, in normalised pitch units. Defaults to `1`, no pitch change|
 
 Sets the pitch of [Vinyl instance](Terminology) or [Vinyl label](Terminology).
 
@@ -35,9 +35,9 @@ If a label is specified, the pitch for the label is set. This will immediately i
 
 *Returns:* Number, the pitch for the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
 
-|Name     |Datatype|Purpose                                           |
-|---------|--------|--------------------------------------------------|
-|`id`     |        |                                                  |
+|Name|Datatype      |Purpose           |
+|----|--------------|------------------|
+|`id`|Vinyl instance|Instance to target|
 
 &nbsp;
 
@@ -49,11 +49,11 @@ If a label is specified, the pitch for the label is set. This will immediately i
 
 *Returns:*
 
-|Name     |Datatype|Purpose                                           |
-|---------|--------|--------------------------------------------------|
-|`id`     |        |                                                  |
-|`pitch`  |        |                                                  |
-|`[rate]` |        |                                                  |
+|Name    |Datatype        |Purpose                                                                                              |
+|--------|----------------|-----------------------------------------------------------------------------------------------------|
+|`sound` |sound or pattern|The sound to play, either a GameMaker sound or a Vinyl pattern                                       |
+|`pitch` |number          |Target pitch, in normalised pitch units                                                              |
+|`[rate]`|number          |Speed to approach the target pitch, in pitch units per second. Defaults to `VINYL_DEFAULT_PITCH_RATE`|
 
 Sets the target pitch of [Vinyl instance](Terminology) or [Vinyl label](Terminology). The pitch for that instance or label will change over time at the given rate until reaching its target.
 
@@ -67,9 +67,9 @@ Sets the target pitch of [Vinyl instance](Terminology) or [Vinyl label](Terminol
 
 *Returns:* Number, the target pitch for the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
 
-|Name     |Datatype|Purpose                                           |
-|---------|--------|--------------------------------------------------|
-|`id`     |        |                                                  |
+|Name|Datatype      |Purpose           |
+|----|--------------|------------------|
+|`id`|Vinyl instance|Instance to target|
 
 &nbsp;
 
@@ -81,6 +81,6 @@ Sets the target pitch of [Vinyl instance](Terminology) or [Vinyl label](Terminol
 
 *Returns:* Number, the final output pitch of the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
 
-|Name     |Datatype|Purpose                                           |
-|---------|--------|--------------------------------------------------|
-|`id`     |        |                                                  |
+|Name|Datatype      |Purpose           |
+|----|--------------|------------------|
+|`id`|Vinyl instance|Instance to target|
