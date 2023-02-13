@@ -28,6 +28,8 @@ function __VinylClassInstanceBasic() constructor
     {
         if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);
         
+        __patternName = undefined;
+        
         __sound      = undefined;
         __loop       = undefined;
         __gainInput  = 1;
@@ -224,10 +226,11 @@ function __VinylClassInstanceBasic() constructor
     static __Play = function(_emitter, _sound, _loop, _gain, _pitch, _pan)
     {
         //Set the state
-        __sound      = _sound;
-        __loop       = _loop ?? __GetLoopFromLabel();
-        __gainInput  = _gain;
-        __pitchInput = _pitch;
+        __patternName = _sound;
+        __sound       = _sound;
+        __loop        = _loop ?? __GetLoopFromLabel();
+        __gainInput   = _gain;
+        __pitchInput  = _pitch;
         
         __gainTarget  = __gainInput;
         __pitchTarget = __pitchInput;
@@ -258,7 +261,7 @@ function __VinylClassInstanceBasic() constructor
                 
                 if (VINYL_DEBUG_LEVEL >= 1)
                 {
-                    __VinylTrace("Playing ", self, ", loop=", __loop? "true" : "false", ", gain in=", __gainInput, "/out=", __gainOutput, ", pitch=", __pitchOutput, ", label=", __VinylDebugLabelNames(__sound), " (GMinst=", __instance, ", amplitude=", __gainOutput/VINYL_MAX_GAIN, ")");
+                    __VinylTrace("Playing ", self, ", loop=", __loop? "true" : "false", ", gain in=", __gainInput, "/out=", __gainOutput, ", pitch=", __pitchOutput, ", label=", __VinylDebugLabelNames(__patternName), " (GMinst=", __instance, ", amplitude=", __gainOutput/VINYL_MAX_GAIN, ")");
                 }
             }
             else
@@ -272,7 +275,7 @@ function __VinylClassInstanceBasic() constructor
                 
                 if (VINYL_DEBUG_LEVEL >= 1)
                 {
-                    __VinylTrace("Playing ", self, " on pan emitter ", __panEmitter, ", loop=", __loop? "true" : "false", ", gain in=", __gainInput, "/out=", __gainOutput, ", pitch=", __pitchOutput, ", label=", __VinylDebugLabelNames(__sound), " (GMinst=", __instance, ", amplitude=", __gainOutput/VINYL_MAX_GAIN, ")");
+                    __VinylTrace("Playing ", self, " on pan emitter ", __panEmitter, ", loop=", __loop? "true" : "false", ", gain in=", __gainInput, "/out=", __gainOutput, ", pitch=", __pitchOutput, ", label=", __VinylDebugLabelNames(__patternName), " (GMinst=", __instance, ", amplitude=", __gainOutput/VINYL_MAX_GAIN, ")");
                 }
             }
         }
@@ -284,7 +287,7 @@ function __VinylClassInstanceBasic() constructor
             
             if (VINYL_DEBUG_LEVEL >= 1)
             {
-                __VinylTrace("Playing ", self, " on emitter ", _emitter, ", loop=", __loop? "true" : "false", ", gain in=", __gainInput, "/out=", __gainOutput, ", pitch=", __pitchOutput, ", label=", __VinylDebugLabelNames(__sound), " (GMinst=", __instance, ", amplitude=", __gainOutput/VINYL_MAX_GAIN, ")");
+                __VinylTrace("Playing ", self, " on emitter ", _emitter, ", loop=", __loop? "true" : "false", ", gain in=", __gainInput, "/out=", __gainOutput, ", pitch=", __pitchOutput, ", label=", __VinylDebugLabelNames(__patternName), " (GMinst=", __instance, ", amplitude=", __gainOutput/VINYL_MAX_GAIN, ")");
             }
         }
         
@@ -475,7 +478,7 @@ function __VinylClassInstanceBasic() constructor
                 
                 if (VINYL_DEBUG_LEVEL >= 2)
                 {
-                    __VinylTrace("Updated ", self, ", loop=", __loop? "true" : "false", ", gain in=", __gainInput, "/out=", __gainOutput, ", pitch=", __pitchOutput, ", label=", __VinylDebugLabelNames(__sound), " (GMinst=", __instance, ", amplitude=", __gainOutput/VINYL_MAX_GAIN, ")");
+                    __VinylTrace("Updated ", self, ", loop=", __loop? "true" : "false", ", gain in=", __gainInput, "/out=", __gainOutput, ", pitch=", __pitchOutput, ", label=", __VinylDebugLabelNames(__patternName), " (GMinst=", __instance, ", amplitude=", __gainOutput/VINYL_MAX_GAIN, ")");
                 }
                 
                 audio_sound_gain(__instance, __VinylCurveAmplitude(__gainOutput), VINYL_STEP_DURATION);
