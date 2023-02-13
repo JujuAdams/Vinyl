@@ -8,6 +8,8 @@
 
 #macro __VINYL_FALLOFF_MODEL  audio_falloff_exponent_distance_scaled
 
+#macro __VINYL_RETURN_SELF_TO_POOL       if (__pool != undefined) { __pool.__Return(self) }
+#macro __VINYL_RETURN_SELF_TO_POOL_SAFE  if (__pool != undefined) { __pool.__Return(self, true) }
 
 
 __VinylInitialize();

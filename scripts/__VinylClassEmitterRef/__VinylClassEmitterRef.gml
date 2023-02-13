@@ -3,6 +3,8 @@ function __VinylClassEmitterRef() constructor
     static __pool = __VinylGlobalData().__poolEmitter;
     
     __emitter = __pool.__Depool();
+    
+    //We check against this when ticking emitters to determine if an emitter reference has been lost
     __emitter.__reference = weak_ref_create(self);
     
     static __GetEmitter = function()
@@ -36,8 +38,17 @@ function __VinylClassEmitterRef() constructor
     
     static __Destroy = function()
     {
-        __emitter.__Pool();
-        __emitter = undefined;
+        //If we're being deliberately destroyed, return our emitter to the pool immediately
+        if (__emitter != undefined)
+        {
+            with(__emitter)
+            {
+                if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " destroyed");
+                __VINYL_RETURN_SELF_TO_POOL
+            }
+            
+            __emitter = undefined;
+        }
     }
     
     static __DebugDraw = function()

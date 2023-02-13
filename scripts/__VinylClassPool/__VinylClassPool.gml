@@ -22,6 +22,7 @@ function __VinylClassPool(_startingID, _constructor) constructor
     
     static __Return = function(_member, _safe = false)
     {
+        
         if (_safe)
         {
             var _i = 0;
@@ -37,9 +38,12 @@ function __VinylClassPool(_startingID, _constructor) constructor
             }
         }
         
-        _member.__id = undefined;
-        _member.__pooled = true;
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Returning ", _member, " to ", self);
+        _member.__id   = undefined;
+        _member.__pool = undefined;
         array_push(__returnArray, _member);
+        
+        _member.__PoolCallback();
     }
     
     static __Depool = function()
@@ -54,10 +58,11 @@ function __VinylClassPool(_startingID, _constructor) constructor
         }
         
         array_push(__activeArray, _member);
-        _member.__id = __id;
-        _member.__pooled = false;
-        _member.__Depool();
+        _member.__id   = __id;
+        _member.__pool = self;
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling ", _member, " from ", self);
         
+        _member.__DepoolCallback();
         return _member;
     }
     
@@ -78,7 +83,7 @@ function __VinylClassPool(_startingID, _constructor) constructor
         repeat(array_length(__activeArray))
         {
             var _instance = __activeArray[_i];
-            if (_instance.__pooled)
+            if (_instance.__pool == undefined)
             {
                 array_delete(__activeArray, _i, 1);
             }

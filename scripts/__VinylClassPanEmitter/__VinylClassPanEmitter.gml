@@ -1,12 +1,11 @@
 function __VinylClassPanEmitter() constructor
 {
     static __globalData = __VinylGlobalData();
-    static __pool       = __globalData.__poolPanEmitter;
     
     
     
-    __id = undefined;
-    __pooled = true;
+    __id   = undefined;
+    __pool = undefined;
     
     audio_falloff_set_model(audio_falloff_none);
     __emitter = audio_emitter_create();
@@ -57,16 +56,15 @@ function __VinylClassPanEmitter() constructor
         audio_emitter_bus(__emitter, __VinylEffectChainGetBus(__effectChainName));
     }
     
-    static __Depool = function(_id)
+    static __DepoolCallback = function()
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling ", self);
+        
     }
     
-    static __Pool = function()
+    static __PoolCallback = function()
     {
-        __ResetState();
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pooling ", self, " to ", __pool);
         
-        //Pan emitters aren't ticked every frame so make sure we clear up the active array
-        __pool.__Return(self, true);
+        __ResetState();
     }
 }

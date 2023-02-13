@@ -5,10 +5,24 @@ function __VinylClassInstanceBasic() constructor
     static __idToInstanceDict = __globalData.__idToInstanceDict;
     static __effectChainDict  = __globalData.__effectChainDict;
     
-    __id = undefined;
-    __pooled = true;
+    __id   = undefined;
+    __pool = undefined;
     
     __ResetState();
+    
+    
+    
+    static toString = function()
+    {
+        if (__sound == undefined)
+        {
+            return "<instance " + string(__id) + ">";
+        }
+        else
+        {
+            return "<instance " + string(__id) + " " + string(audio_get_name(__sound)) + ">";
+        }
+    }
     
     static __ResetState = function()
     {
@@ -248,7 +262,7 @@ function __VinylClassInstanceBasic() constructor
                 
                 if (VINYL_DEBUG_LEVEL >= 1)
                 {
-                    __VinylTrace("Playing ", self, ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_MAX_GAIN, ")");
+                    __VinylTrace("Playing ", self, ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __VinylDebugLabelNames(__sound), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_MAX_GAIN, ")");
                 }
             }
             else
@@ -262,7 +276,7 @@ function __VinylClassInstanceBasic() constructor
                 
                 if (VINYL_DEBUG_LEVEL >= 1)
                 {
-                    __VinylTrace("Playing ", self, " on pan emitter ", __panEmitter, ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_MAX_GAIN, ")");
+                    __VinylTrace("Playing ", self, " on pan emitter ", __panEmitter, ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __VinylDebugLabelNames(__sound), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_MAX_GAIN, ")");
                 }
             }
         }
@@ -274,7 +288,7 @@ function __VinylClassInstanceBasic() constructor
             
             if (VINYL_DEBUG_LEVEL >= 1)
             {
-                __VinylTrace("Playing ", self, " on emitter ", _emitter, ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_MAX_GAIN, ")");
+                __VinylTrace("Playing ", self, " on emitter ", _emitter, ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __VinylDebugLabelNames(__sound), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_MAX_GAIN, ")");
             }
         }
         
@@ -334,7 +348,7 @@ function __VinylClassInstanceBasic() constructor
         if (!is_numeric(__instance)) return;
         if (audio_is_paused(__instance)) return;
         
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pausing ", self, " playing ", audio_get_name(__sound), " (GMinst=", __instance, ")");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pausing ", self);
         
         audio_pause_sound(__instance);
     }
@@ -344,7 +358,7 @@ function __VinylClassInstanceBasic() constructor
         if (!is_numeric(__instance)) return;
         if (!audio_is_paused(__instance)) return;
         
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming ", self, " playing ", audio_get_name(__sound), " (GMinst=", __instance, ")");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming ", self);
         
         audio_resume_sound(__instance);
     }
@@ -353,26 +367,22 @@ function __VinylClassInstanceBasic() constructor
     {
         if (!is_numeric(__instance)) return;
         
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Forcing ", self, " to stop (GMinst=", __instance, ")");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Stopping ", self);
         
         audio_stop_sound(__instance);
         __instance = undefined;
         
-        __Pool();
+        __VINYL_RETURN_SELF_TO_POOL
     }
     
-    static __Depool = function()
+    static __DepoolCallback = function()
     {
         __idToInstanceDict[? __id] = self;
-        
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling ", self);
     }
     
-    static __Pool = function()
+    static __PoolCallback = function()
     {
-        static __pool = __VinylGlobalData().__poolBasic;
-        
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pooling ", self);
+        ds_map_delete(__idToInstanceDict, __id);
         
         __Stop();
         
@@ -404,16 +414,19 @@ function __VinylClassInstanceBasic() constructor
         
         __ResetState();
         
-        ds_map_delete(__idToInstanceDict, __id);
-        
         //If we're playing on a pan emitter, pool it
         if (__panEmitter != undefined)
         {
-            __panEmitter.__Pool();
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " using ", __panEmitter, ", pooling it");
+            
+            with(__panEmitter)
+            {
+                //Pan emitters aren't ticked every frame so make sure we clear up the active array
+                __VINYL_RETURN_SELF_TO_POOL_SAFE
+            }
+            
             __panEmitter = undefined;
         }
-        
-        __pool.__Return(self);
     }
     
     static __Tick = function(_deltaTimeFactor)
@@ -423,7 +436,7 @@ function __VinylClassInstanceBasic() constructor
         if (!audio_is_playing(__instance))
         {
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " has stopped played, returning to pool");
-            __Pool();
+            __VINYL_RETURN_SELF_TO_POOL
         }
         else
         {
@@ -455,23 +468,12 @@ function __VinylClassInstanceBasic() constructor
                 
                 if (VINYL_DEBUG_LEVEL >= 2)
                 {
-                    __VinylTrace("Updated ", self, " playing ", audio_get_name(__sound), ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __DebugLabelNames(), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_MAX_GAIN, ")");
+                    __VinylTrace("Updated ", self, ", loop=", __loop? "true" : "false", ", gain in=", __inputGain, "/out=", __outputGain, ", pitch=", __outputPitch, ", label=", __VinylDebugLabelNames(__sound), " (GMinst=", __instance, ", amplitude=", __outputGain/VINYL_MAX_GAIN, ")");
                 }
                 
                 audio_sound_gain(__instance, __VinylCurveAmplitude(__outputGain), VINYL_STEP_DURATION);
                 audio_sound_pitch(__instance, __outputPitch);
             }
         }
-    }
-    
-    static __DebugLabelNames = function()
-    {
-        var _asset = __VinylPatternGet(__sound);
-        return is_struct(_asset)? __VinylDebugLabelNames(_asset.__labelArray) : "";
-    }
-    
-    static toString = function()
-    {
-        return "<instance " + string(__id) + ">";
     }
 }

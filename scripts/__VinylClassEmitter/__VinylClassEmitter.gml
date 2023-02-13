@@ -1,18 +1,22 @@
 function __VinylClassEmitter() constructor
 {
     static __globalData = __VinylGlobalData();
-    static __pool       = __globalData.__poolEmitter;
     
     
     
-    __id = undefined;
-    __pooled = true;
+    __id   = undefined;
+    __pool = undefined;
     
     __emitter = audio_emitter_create();
     
     __ResetState();
     
     
+    
+    static toString = function()
+    {
+        return "<emitter " + string(__id) + ">";
+    }
     
     static __ResetState = function()
     {
@@ -138,8 +142,6 @@ function __VinylClassEmitter() constructor
     
     static __ManagePosition = function()
     {
-        static __globalData = __VinylGlobalData();
-        
         if (__mode == 0)
         {
             __actualX = __x;
@@ -172,15 +174,13 @@ function __VinylClassEmitter() constructor
         audio_emitter_position(__emitter, __actualX, __actualY, 0);
     }
     
-    static __Depool = function()
+    static __DepoolCallback = function()
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling ", self);
+        
     }
     
-    static __Pool = function()
+    static __PoolCallback = function()
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pooling ", self);
-        
         //Stop all instances playing on this emitter
         var _i = 0;
         repeat(array_length(__instanceIDArray))
@@ -190,30 +190,25 @@ function __VinylClassEmitter() constructor
         }
         
         __ResetState();
-        
-        __pool.__Return(self);
     }
     
     static __Tick = function()
     {
         if (__reference == undefined)
         {
-            __Pool();
+            //Somehow we've lost our reference, let's return to the pool
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Reference for ", self, " is <undefined>");
+            __VINYL_RETURN_SELF_TO_POOL
         }
         else if (!weak_ref_alive(__reference))
         {
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Lost reference for ", self);
-            __Pool();
+            __VINYL_RETURN_SELF_TO_POOL
         }
         else
         {
             __ManagePosition();
         }
-    }
-    
-    static toString = function()
-    {
-        return "<emitter " + string(__id) + ">";
     }
     
     #endregion

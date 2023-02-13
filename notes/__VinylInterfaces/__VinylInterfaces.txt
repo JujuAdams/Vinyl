@@ -1,35 +1,37 @@
 Pattern constructor(name, patternArray)
 
 .__Initialize(patternData = {}, knobDict, labelDict)
-.__Play(_sound, _loop, _gain, _pitch, _pan)              //Need a sound parameter to handle basic fallback pattern
-.__PlaySimple(_sound, _gain, _pitch)                     //Need a sound parameter to handle basic fallback pattern
-.__PlayOnEmitter(_emitter, _sound, _loop, _gain, _pitch) //Need a sound parameter to handle basic fallback pattern
+.__Play(_emitter, _sound, _loop, _gain, _pitch, _pan)  //Need a sound parameter to handle basic fallback pattern
+.__PlaySimple(_sound, _gain, _pitch)                   //Need a sound parameter to handle basic fallback pattern
 
 
 
 Instance constructor(...)
 
-.__inputGain
-.__gainTarget
-.__outputGain
-.__inputPitch
-.__pitchTarget
-.__outputPitch
-
 .__InputGainSet(_gain)
+.__InputGainGet()
 .__InputGainTargetSet(_gain)
+.__InputGainTargetGet()
+.__InputGainOutputGet()
+
 .__InputPitchSet(_pitch)
+.__InputPitchGet()
 .__InputPitchTargetSet(_pitch)
+.__InputPitchTargetGet()
+.__InputPitchOutputGet()
+
 .__TransposeSet(_semitones)
 .__TransposeReset()
+
 .__LoopSet(_state)
-.__LoopPointsSet() ???
-.__ApplyLabel()
+
 .__Pause()
 .__Resume()
 .__Stop()
+
 .__Pool()
 .__Depool()
+.__LoopPointsSet()
+.__ApplyLabel()
 .__Tick()
-.__DebugLabelNames()
 .toString()

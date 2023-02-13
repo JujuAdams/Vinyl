@@ -1,21 +1,25 @@
-/// @param labelArray
+/// @param patternName
 
-function __VinylDebugLabelNames(_labelArray)
+function __VinylDebugLabelNames(_patternName)
 {
-    var _labelReadable = "";
+    var _pattern = __VinylPatternGet(_patternName);
+    if (!is_struct(_pattern)) return "";
+    
+    var _labelArray = _pattern.__labelArray;
+    var _string = "";
     
     var _size = array_length(_labelArray);
-    if (_size > 1) _labelReadable += "[";
+    if (_size > 1) _string += "[";
     
     var _i = 0;
     repeat(_size)
     {
-        _labelReadable += _labelArray[_i].__name;
-        if (_i < _size-1) _labelReadable += ", ";
+        _string += _labelArray[_i].__name;
+        if (_i < _size-1) _string += ", ";
         ++_i;
     }
     
-    if (_size > 1) _labelReadable += "]";
+    if (_size > 1) _string += "]";
     
-    return _labelReadable;
+    return _string;
 }

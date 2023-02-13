@@ -3,8 +3,6 @@
 
 function __VinylClassPatternBasic(_sound, _patternArray) constructor
 {
-    static __pool = __VinylGlobalData().__poolBasic;
-    
     array_push(_patternArray, self);
     
     __sound = _sound;
@@ -173,8 +171,11 @@ function __VinylClassPatternBasic(_sound, _patternArray) constructor
     
     static __Play = function(_emitter, _sound, _loop, _gain, _pitch, _pan)
     {
+        static __pool = __VinylGlobalData().__poolBasic;
+        
         var _instance = __pool.__Depool();
         _instance.__Play(_emitter, _sound, _loop, _gain, _pitch, _pan);
+        
         return _instance;
     }
     
