@@ -15,20 +15,5 @@
 
 function VinylPlay(_sound, _loop = undefined, _gain = 1, _pitch = 1, _pan)
 {
-    static _globalData       = __VinylGlobalData();
-    static _poolBasic        = _globalData.__poolBasic;
-    static _idToInstanceDict = _globalData.__idToInstanceDict;
-    
-    var _instance = _poolBasic.__Depool();
-    
-    if (_pan == undefined)
-    {
-        _instance.__Play(_sound, _loop, _gain, _pitch);
-    }
-    else
-    {
-        _instance.__PlayPan(_sound, _loop, _gain, _pitch, _pan ?? 0);
-    }
-    
-    return _instance.__id;
+    return __VinylPatternGet(_sound).__Play(undefined, _sound, _loop, _gain, _pitch, _pan).__id;
 }

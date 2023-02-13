@@ -16,6 +16,8 @@ function __VinylClassPatternShuffle(_name, _patternArray, _labelDict) constructo
         return "<shuffle " + string(__name) + ">";
     }
     
+    #region Initialize
+    
     static __Initialize = function(_patternData = {}, _labelDict, _knobDict)
     {
         __patternArray = _patternData[$ "shuffle"] ?? [];
@@ -24,7 +26,7 @@ function __VinylClassPatternShuffle(_name, _patternArray, _labelDict) constructo
         __currentSize  = ceil(array_length(__patternArray)/3);
         __currentArray = array_create(__currentSize);
         
-        if (__currentSize <= 0) __VinylError("Error in ", self, "\nShuffle-type patterns must have at least one member");
+        if (__currentSize <= 0) __VinylError("Error in ", self, "\nShuffle patterns must have at least one member");
         
         //Convert any basic patterns into audio asset indexes
         var _i = 0;
@@ -112,22 +114,12 @@ function __VinylClassPatternShuffle(_name, _patternArray, _labelDict) constructo
             }
         }
         
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", label=", __DebugLabelNames());
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", label=", __VinylDebugLabelNames(_labelArray));
     }
     
+    #endregion
     
     
-    static __GetLoopFromLabel = function()
-    {
-        var _i = 0;
-        repeat(array_length(__labelArray))
-        {
-            if (__labelArray[_i].__configLoop == true) return true;
-            ++_i;
-        }
-        
-        return false;
-    }
     
     static __PopPattern = function()
     {
@@ -148,39 +140,18 @@ function __VinylClassPatternShuffle(_name, _patternArray, _labelDict) constructo
         
         var _pattern = __currentArray[__currentIndex];
         ++__currentIndex;
-        
         return _pattern;
     }
     
-    static __Play = function(_gain = 1, _pitch = 1, _pattern_UNUSED)
+    static __Play = function(_soundUnused, _loop = false, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _pattern = __PopPattern();
-        return __VinylPatternGet(_pattern).__Play(_gain, _pitch, _pattern);
+        return __VinylPatternGet(_pattern).__Play(_pattern, _loop, _gain, _pitch, _pan);
     }
     
-    static __PlaySimple = function(_gain = 1, _pitch = 1, _pattern_UNUSED)
+    static __PlaySimple = function(_soundUnused, _gain = 1, _pitch = 1)
     {
         var _pattern = __PopPattern();
-        return __VinylPatternGet(_pattern).__PlaySimple(_gain, _pitch, _pattern);
-    }
-    
-    static __DebugLabelNames = function()
-    {
-        var _labelReadable = "";
-        
-        var _size = array_length(__labelArray);
-        if (_size > 1) _labelReadable += "[";
-        
-        var _i = 0;
-        repeat(_size)
-        {
-            _labelReadable += __labelArray[_i].__name;
-            if (_i < _size-1) _labelReadable += ", ";
-            ++_i;
-        }
-        
-        if (_size > 1) _labelReadable += "]";
-        
-        return _labelReadable;
+        return __VinylPatternGet(_pattern).__PlaySimple(_pattern, _gain, _pitch);
     }
 }

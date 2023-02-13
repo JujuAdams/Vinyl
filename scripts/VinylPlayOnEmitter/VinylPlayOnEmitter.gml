@@ -15,15 +15,8 @@
 
 function VinylPlayOnEmitter(_emitter, _sound, _loop = undefined, _gain = 1, _pitch = 1)
 {
-    static _globalData       = __VinylGlobalData();
-    static _poolBasic        = _globalData.__poolBasic;
-    static _idToInstanceDict = _globalData.__idToInstanceDict;
-    
-    if (!is_struct(_emitter)) __VinylError("Emitter not valid");
+    if (!is_struct(_emitter) || !is_instanceof(_emitter, __VinylClassEmitterRef)) __VinylError("Emitter not valid");
     if (!is_struct(_emitter.__emitter)) __VinylError(_emitter, " has been destroyed");
     
-    var _instance = _poolBasic.__Depool();
-    _instance.__PlayOnEmitter(_emitter, _sound, _loop, _gain, _pitch);
-    
-    return _instance.__id;
+    return __VinylPatternGet(_sound).__Play(_emitter, _sound, _loop, _gain, _pitch, undefined).__id;
 }

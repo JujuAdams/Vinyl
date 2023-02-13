@@ -1,9 +1,9 @@
 Pattern constructor(name, patternArray)
 
 .__Initialize(patternData = {}, knobDict, labelDict)
-.__Play(_loop, _gain, _pitch, _pan)
-.__PlaySimple(_gain, _pitch)
-.__PlayOnEmitter(_loop, _gain, _pitch, _emitter)
+.__Play(_sound, _loop, _gain, _pitch, _pan)              //Need a sound parameter to handle basic fallback pattern
+.__PlaySimple(_sound, _gain, _pitch)                     //Need a sound parameter to handle basic fallback pattern
+.__PlayOnEmitter(_emitter, _sound, _loop, _gain, _pitch) //Need a sound parameter to handle basic fallback pattern
 
 
 

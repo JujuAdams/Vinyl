@@ -8,7 +8,7 @@ function __VinylClassPatternBasic(_sound, _patternArray) constructor
     array_push(_patternArray, self);
     
     __sound = _sound;
-    __name  = audio_get_name(__sound);
+    __name  = (__sound < 0)? "fallback" : audio_get_name(__sound);
     
     
     
@@ -16,6 +16,8 @@ function __VinylClassPatternBasic(_sound, _patternArray) constructor
     {
         return "<basic " + __name + ">";
     }
+    
+    #region Initialize
     
     static __Initialize = function(_patternData = {}, _knobDict, _labelDict)
     {
@@ -162,83 +164,22 @@ function __VinylClassPatternBasic(_sound, _patternArray) constructor
             }
         }
         
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", label=", __DebugLabelNames());
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating asset definition for ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", label=", __VinylDebugLabelNames(_labelArray));
     }
     
+    #endregion
     
     
-    static __GetLoopFromLabel = function()
+    
+    static __Play = function(_emitter, _sound, _loop, _gain, _pitch, _pan)
     {
-        var _i = 0;
-        repeat(array_length(__labelArray))
-        {
-            if (__labelArray[_i].__configLoop == true) return true;
-            ++_i;
-        }
-        
-        return false;
-    }
-    
-    static __PlaySimple = function(_gain = 1, _pitch = 1, _sound = __sound)
-    {
-        var _randomPitchParam = __VinylRandom(1);
-        
-        _gain *= __gain;
-        var _assetPitch = lerp(__pitchLo, __pitchHi, _randomPitchParam);
-        _pitch *= _assetPitch;
-        
-        var _i = 0;
-        repeat(array_length(__labelArray))
-        {
-            var _label = __labelArray[_i];
-            
-            _gain *= _label.__outputGain;
-            var _labelPitch = lerp(_label.__configPitchLo, _label.__configPitchHi, _randomPitchParam);
-            _pitch *= _labelPitch*_label.__outputPitch;
-            
-            ++_i;
-        }
-        
-        var _effectChainEmitter = __VinylEffectChainGetEmitter(__effectChainName);
-        if (_effectChainEmitter == undefined)
-        {
-            var _instance = audio_play_sound(_sound, 1, false, __VinylCurveAmplitude(_gain), 0, _pitch);
-        }
-        else
-        {
-            var _instance = audio_play_sound_on(_effectChainEmitter, _sound, false, 1, __VinylCurveAmplitude(_gain), 0, _pitch);
-        }
-        
-        if (VINYL_DEBUG_LEVEL >= 1)
-        {
-            __VinylTrace("Playing ", self, ", gain=", _gain, ", pitch=", _pitch, ", label=", __DebugLabelNames(), " (GMinst=", _instance, ", amplitude=", _gain/VINYL_MAX_GAIN, ")");
-        }
-        
-        if (_gain > VINYL_MAX_GAIN)
-        {
-            __VinylTrace("Warning! ", self, " gain value ", _gain, " exceeds VINYL_MAX_GAIN (", VINYL_MAX_GAIN, ")");
-        }
-        
+        var _instance = __pool.__Depool();
+        _instance.__Play(_emitter, _sound, _loop, _gain, _pitch, _pan);
         return _instance;
     }
     
-    static __DebugLabelNames = function()
+    static __PlaySimple = function(_sound = __sound, _gain = 1, _pitch = 1)
     {
-        var _labelReadable = "";
-        
-        var _size = array_length(__labelArray);
-        if (_size > 1) _labelReadable += "[";
-        
-        var _i = 0;
-        repeat(_size)
-        {
-            _labelReadable += __labelArray[_i].__name;
-            if (_i < _size-1) _labelReadable += ", ";
-            ++_i;
-        }
-        
-        if (_size > 1) _labelReadable += "]";
-        
-        return _labelReadable;
+        return __VinylPlaySimple(_sound, _gain*__gain, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, __effectChainName);
     }
 }
