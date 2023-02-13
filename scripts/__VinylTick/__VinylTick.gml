@@ -20,5 +20,5 @@ function __VinylTick()
     
     _poolBasic.__Tick(_deltaTimeFactor);
     _poolEmitter.__Tick(_deltaTimeFactor);
-    _poolPanEmitter.__Tick(_deltaTimeFactor);
+    //Don't tick the pan emitters - we only need to update those when the listener changes position
 }

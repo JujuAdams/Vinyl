@@ -55,7 +55,7 @@ function __VinylClassPanEmitter() constructor
     
     static __DepoolCallback = function()
     {
-        
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " hosting emitter ", __emitter);
     }
     
     static __PoolCallback = function()

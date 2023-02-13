@@ -52,7 +52,7 @@ if (keyboard_check_pressed(ord("R")))
 
 if (keyboard_check_pressed(ord("T")))
 {
-    VinylPlaySimple("shuffle test");
+    VinylPlay("shuffle test", undefined, undefined, undefined, -1);
 }
 
 VinylKnobSet("delayTime", mouse_x / room_width);
