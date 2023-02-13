@@ -77,6 +77,7 @@
     {"id":{"name":"__VinylEffectChainGetEmitter","path":"scripts/__VinylEffectChainGetEmitter/__VinylEffectChainGetEmitter.yy",},"order":7,},
     {"id":{"name":"__VinylArrayShuffle","path":"scripts/__VinylArrayShuffle/__VinylArrayShuffle.yy",},"order":13,},
     {"id":{"name":"__VinylTick","path":"scripts/__VinylTick/__VinylTick.yy",},"order":9,},
+    {"id":{"name":"__VinylClassInstanceGameMaker","path":"scripts/__VinylClassInstanceGameMaker/__VinylClassInstanceGameMaker.yy",},"order":4,},
     {"id":{"name":"VinylLoopGet","path":"scripts/VinylLoopGet/VinylLoopGet.yy",},"order":11,},
     {"id":{"name":"VinylPanGet","path":"scripts/VinylPanGet/VinylPanGet.yy",},"order":5,},
     {"id":{"name":"VinylKnobDefaultGet","path":"scripts/VinylKnobDefaultGet/VinylKnobDefaultGet.yy",},"order":6,},
