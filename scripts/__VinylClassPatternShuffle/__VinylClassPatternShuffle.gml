@@ -18,27 +18,27 @@ function __VinylClassPatternShuffle(_name, _patternArray) constructor
     
     static __Initialize = function(_patternData = {}, _labelDict, _knobDict)
     {
-        __patternArray = _patternData[$ "assets"] ?? (_patternData[$ "asset"] ?? []);
+        __assetArray = _patternData[$ "assets"] ?? (_patternData[$ "asset"] ?? []);
         
         __currentIndex = 0;
-        __currentSize  = ceil(array_length(__patternArray)/3);
+        __currentSize  = ceil(array_length(__assetArray)/3);
         __currentArray = array_create(__currentSize);
         
         if (__currentSize <= 0) __VinylError("Error in ", self, "\nShuffle patterns must have at least one member");
         
         //Convert any basic patterns into audio asset indexes
         var _i = 0;
-        repeat(array_length(__patternArray))
+        repeat(array_length(__assetArray))
         {
-            var _pattern = __patternArray[_i];
-            if (asset_get_type(_pattern) == asset_sound) __patternArray[@ _i] = asset_get_index(_pattern);
+            var _pattern = __assetArray[_i];
+            if (asset_get_type(_pattern) == asset_sound) __assetArray[@ _i] = asset_get_index(_pattern);
             ++_i;
         }
         
         //Initialize the currently-playing array with a random sample from the overall pattern array
-        __VinylArrayShuffle(__patternArray);
-        array_copy(__currentArray, 0, __patternArray, 0, __currentSize);
-        array_delete(__patternArray, 0, __currentSize);
+        __VinylArrayShuffle(__assetArray);
+        array_copy(__currentArray, 0, __assetArray, 0, __currentSize);
+        array_delete(__assetArray, 0, __currentSize);
         
         
         
@@ -124,14 +124,14 @@ function __VinylClassPatternShuffle(_name, _patternArray) constructor
         if (__currentIndex >= __currentSize)
         {
             //Copy the currently playing array back to the main pattern array
-            array_copy(__patternArray, array_length(__patternArray), __currentArray, 0, __currentSize);
+            array_copy(__assetArray, array_length(__assetArray), __currentArray, 0, __currentSize);
             
             //Copy the next set of random patterns over to the current array, then remove them from the pattern array
-            array_copy(__currentArray, 0, __patternArray, 0, __currentSize);
-            array_delete(__patternArray, 0, __currentSize);
+            array_copy(__currentArray, 0, __assetArray, 0, __currentSize);
+            array_delete(__assetArray, 0, __currentSize);
             
             //Reshuffle
-            __VinylArrayShuffle(__patternArray);
+            __VinylArrayShuffle(__assetArray);
             
             __currentIndex = 0;
         }
