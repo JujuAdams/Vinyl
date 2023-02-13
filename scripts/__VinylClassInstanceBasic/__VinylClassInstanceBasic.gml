@@ -190,7 +190,7 @@ function __VinylClassInstanceBasic() constructor
         __loop = _state;
     }
     
-    static __LoopPointsSet = function(_loopPoints)
+    static __LoopPointsSet = function()
     {
         var _loopPoints = __VinylPatternGet(__sound).__loopPoints;
         if (is_array(_loopPoints))
