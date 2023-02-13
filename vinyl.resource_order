@@ -2,15 +2,15 @@
   "FolderOrderSettings": [
     {"name":"(Internals)","order":10,"path":"folders/Vinyl/(Internals).yy",},
     {"name":"Classes","order":16,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes.yy",},
+    {"name":"Config Resources","order":1,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Config Resources.yy",},
     {"name":"Advanced","order":9,"path":"folders/Vinyl/Advanced.yy",},
     {"name":"Basics","order":2,"path":"folders/Vinyl/Basics.yy",},
     {"name":"Gain","order":4,"path":"folders/Vinyl/Gain.yy",},
     {"name":"Knobs","order":7,"path":"folders/Vinyl/Knobs.yy",},
+    {"name":"Patterns","order":3,"path":"folders/Vinyl/Patterns.yy",},
     {"name":"Pitch","order":5,"path":"folders/Vinyl/Pitch.yy",},
     {"name":"Positional","order":6,"path":"folders/Vinyl/Positional.yy",},
     {"name":"Semitones","order":8,"path":"folders/Vinyl/Semitones.yy",},
-    {"name":"Config Resources","order":1,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Config Resources.yy",},
-    {"name":"Patterns","order":3,"path":"folders/Vinyl/Patterns.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"__VinylClassEffectChain","order":2,"path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},
