@@ -8,30 +8,33 @@ Pattern constructor(name, patternArray)
 
 Instance constructor(...)
 
+.__Play(_emitter, _sound, _loop, _gain, _pitch, _pan)
+
 .__GainSet(_gain)
-.__InputGainGet()
+.__GainGet()
 .__GainTargetSet(_gain)
-.__InputGainTargetGet()
-.__InputGainOutputGet()
+.__GainTargetGet()
+.__GainOutputGet()
 
 .__PitchSet(_pitch)
-.__InputPitchGet()
+.__PitchGet()
 .__PitchTargetSet(_pitch)
-.__InputPitchTargetGet()
-.__InputPitchOutputGet()
+.__PitchTargetGet()
+.__PitchOutputGet()
 
 .__TransposeSet(_semitones)
 .__TransposeReset()
 
 .__LoopSet(_state)
+.__LoopPointsSet()
 
 .__Pause()
 .__Resume()
+.__FadeOut()
 .__Stop()
 
 .__Pool()
 .__Depool()
-.__LoopPointsSet()
 .__ApplyLabel()
 .__Tick()
 .toString()

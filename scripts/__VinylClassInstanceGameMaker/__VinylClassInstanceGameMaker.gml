@@ -77,6 +77,13 @@ function __VinylClassInstanceGameMaker() constructor
         }
     }
     
+    static __IsPlaying = function()
+    {
+        if (!is_numeric(__instance)) return false;
+        
+        return audio_is_playing(__instance);
+    }
+    
     static __Pause = function()
     {
         if (!is_numeric(__instance)) return;

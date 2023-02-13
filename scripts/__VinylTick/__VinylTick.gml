@@ -4,8 +4,6 @@ function __VinylTick()
     
     //Unpack pools
     static _poolBasic      = _globalData.__poolBasic;
-    static _poolQueue      = _globalData.__poolQueue;
-    static _poolBlend      = _globalData.__poolBlend;
     static _poolEmitter    = _globalData.__poolEmitter;
     static _poolPanEmitter = _globalData.__poolPanEmitter;
     
@@ -21,8 +19,6 @@ function __VinylTick()
     }
     
     _poolBasic.__Tick(_deltaTimeFactor);
-    _poolQueue.__Tick(_deltaTimeFactor);
-    _poolBlend.__Tick(_deltaTimeFactor);
     _poolEmitter.__Tick(_deltaTimeFactor);
     _poolPanEmitter.__Tick(_deltaTimeFactor);
 }
