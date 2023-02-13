@@ -55,8 +55,6 @@ function __VinylClassInstanceBasic() constructor
         
         __gmInstance = undefined;
         __panEmitter = undefined;
-        
-        __effectChainName = "main";
     }
     
     
@@ -222,14 +220,14 @@ function __VinylClassInstanceBasic() constructor
         __gainInput   = _gain;
         __pitchInput  = _pitch;
         
-        __effectChainName = __VinylPatternGetEffectChain(__sound);
-        
         __gainTarget  = __gainInput;
         __pitchTarget = __pitchInput;
         
         __randomPitchParam = __VinylRandom(1);
         
         __ApplyLabel(true);
+        
+        var _effectChainName = __VinylPatternGetEffectChain(__sound);
         
         var _usedEmitter = undefined;
         if (_emitter != undefined)
@@ -246,14 +244,14 @@ function __VinylClassInstanceBasic() constructor
             {
                 //Standard playback
                 //Only use an emitter if the effect chain demands it
-                var _usedEmitter = __VinylEffectChainGetEmitter(__effectChainName);
+                var _usedEmitter = __VinylEffectChainGetEmitter(_effectChainName);
             }
             else
             {
                 //Playback on a pan emitter
                 __panEmitter = __poolPanEmitter.__Depool();
                 __panEmitter.__Pan(_pan);
-                __panEmitter.__Bus(__effectChainName);
+                __panEmitter.__Bus(_effectChainName);
                 
                 _usedEmitter = __panEmitter.__emitter;
             }

@@ -1,12 +1,28 @@
-/// @param sound
+/// @param asset
+/// @param name
 /// @param patternArray
 
-function __VinylClassPatternBasic(_sound, _patternArray) constructor
+function __VinylClassPatternBasic(_asset, _name, _patternArray) constructor
 {
     array_push(_patternArray, self);
     
-    __sound = _sound;
-    __name  = (__sound < 0)? "fallback" : audio_get_name(__sound);
+    __asset = _asset;
+    
+    if (_name != undefined)
+    {
+        __name = _name;
+    }
+    else
+    {
+        if (__asset == undefined)
+        {
+            __name = "???";
+        }
+        else
+        {
+            __name = audio_get_name(__asset);
+        }
+    }
     
     
     
@@ -19,6 +35,7 @@ function __VinylClassPatternBasic(_sound, _patternArray) constructor
     
     static __Initialize = function(_patternData = {}, _knobDict, _labelDict)
     {
+        var _asset           = _patternData[$ "assets"      ] ?? _patternData[$ "asset"];
         var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
         var _effectChainName = _patternData[$ "effect chain"];
@@ -26,6 +43,31 @@ function __VinylClassPatternBasic(_sound, _patternArray) constructor
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
+        
+        
+        
+        //Sort out the asset array if one wasn't defined on creation
+        if (__asset == undefined)
+        {
+            if (is_array(_asset))
+            {
+                if (array_length(_asset) != 1)
+                {
+                    __VinylError("Error in ", self, " for \"asset\" property\nAsset should be specified as a name (datatype=", typeof(_asset), ")");
+                }
+                
+                _asset = _asset[0];
+            }
+            else if (!is_string(_asset))
+            {
+                __VinylError("Error in ", self, " for \"asset\" property\nAsset should be specified as a name (datatype=", typeof(_asset), ")");
+            }
+            
+            if (asset_get_index(_asset) < 0) __VinylError("Error in ", self, " for \"asset\" property\nAsset \"", _asset, "\" not found in the project");
+            if (asset_get_type(_asset) != asset_sound) __VinylError("Error in ", self, " for \"asset\" property\nAsset \"", _asset, "\" not a sound asset");
+            
+            __asset = asset_get_index(_asset);
+        }
         
         
         
@@ -179,8 +221,9 @@ function __VinylClassPatternBasic(_sound, _patternArray) constructor
         return _instance;
     }
     
-    static __PlaySimple = function(_sound = __sound, _gain = 1, _pitch = 1)
+    static __PlaySimple = function(_sound = __asset, _gain = 1, _pitch = 1)
     {
+        if (is_string(_sound)) _sound = __asset;
         return __VinylPlaySimple(_sound, _gain*__gain, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, __effectChainName);
     }
 }

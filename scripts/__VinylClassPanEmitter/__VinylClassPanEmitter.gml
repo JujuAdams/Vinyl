@@ -27,8 +27,6 @@ function __VinylClassPanEmitter() constructor
         
         __pan = 0;
         
-        __effectChainName = "main";
-        
         audio_emitter_bus(__emitter, audio_bus_main);
         
         __UpdatePosition();
@@ -52,8 +50,7 @@ function __VinylClassPanEmitter() constructor
     
     static __Bus = function(_effectChainName)
     {
-        __effectChainName = _effectChainName;
-        audio_emitter_bus(__emitter, __VinylEffectChainGetBus(__effectChainName));
+        audio_emitter_bus(__emitter, __VinylEffectChainGetBus(_effectChainName));
     }
     
     static __DepoolCallback = function()
@@ -63,8 +60,6 @@ function __VinylClassPanEmitter() constructor
     
     static __PoolCallback = function()
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pooling ", self, " to ", __pool);
-        
         __ResetState();
     }
 }

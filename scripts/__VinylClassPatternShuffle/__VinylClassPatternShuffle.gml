@@ -1,9 +1,7 @@
 /// @param name
 /// @param patternArray
-/// @param labelDict
-/// @param [patternData]
 
-function __VinylClassPatternShuffle(_name, _patternArray, _labelDict) constructor
+function __VinylClassPatternShuffle(_name, _patternArray) constructor
 { 
     array_push(_patternArray, self);
     
@@ -20,7 +18,7 @@ function __VinylClassPatternShuffle(_name, _patternArray, _labelDict) constructo
     
     static __Initialize = function(_patternData = {}, _labelDict, _knobDict)
     {
-        __patternArray = _patternData[$ "shuffle"] ?? [];
+        __patternArray = _patternData[$ "assets"] ?? (_patternData[$ "asset"] ?? []);
         
         __currentIndex = 0;
         __currentSize  = ceil(array_length(__patternArray)/3);

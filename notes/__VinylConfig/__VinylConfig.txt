@@ -52,14 +52,16 @@
     
     patterns: {
         random pitch test: {
-            basic: sndTestTone
+            type: basic
+            asset: sndTestTone
             pitch: [0.8, 1.2]
         }
         
         shuffle test: {
-            shuffle: [
+            type: shuffle
+            assets: [
                 sndTestTone
-                sndChickenNuggets
+                snd1KHz
             ]
         }
     }
