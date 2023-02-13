@@ -9,6 +9,7 @@ Pattern constructor(name, patternArray)
 Instance constructor(...)
 
 .__Play(_emitter, _sound, _loop, _gain, _pitch, _pan)
+.__PlaySimple(_sound, _gain, _pitch)
 
 .__GainSet(_gain)
 .__GainGet()
