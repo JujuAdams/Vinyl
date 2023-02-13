@@ -137,18 +137,18 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         //Set remainder of the state
         __audioArray = [];
     
-        __inputGain  = 1;
-        __inputPitch = 1;
+        __gainInput  = 1;
+        __pitchInput = 1;
     
-        __gainTarget  = __inputGain;
+        __gainTarget  = __gainInput;
         __gainRate    = VINYL_DEFAULT_GAIN_RATE;
-        __pitchTarget = __inputPitch;
+        __pitchTarget = __pitchInput;
         __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
     
-        __outputGain  = __inputGain;
-        __outputPitch = __inputPitch;
+        __gainOutput  = __gainInput;
+        __pitchOutput = __pitchInput;
     
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating definition for ", self, ", gain=", __outputGain, ", pitch=", __outputPitch*__configPitchLo, " -> ", __outputPitch*__configPitchHi, ", max instances=", __limitMaxCount);
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating definition for ", self, ", gain=", __gainOutput, ", pitch=", __pitchOutput*__configPitchLo, " -> ", __pitchOutput*__configPitchHi, ", max instances=", __limitMaxCount);
     }
     
     #endregion
@@ -170,7 +170,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
             return;
         }
         
-        __inputGain  = _gain;
+        __gainInput  = _gain;
         __gainTarget = _gain;
     }
     
@@ -210,7 +210,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
             return;
         }
         
-        __inputPitch  = _pitch;
+        __pitchInput  = _pitch;
         __pitchTarget = _pitch;
     }
     
@@ -293,8 +293,8 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
     
     static __CopyOldState = function(_oldLabel)
     {
-        __inputGain  = _oldLabel.__inputGain;
-        __inputPitch = _oldLabel.__inputPitch;
+        __gainInput  = _oldLabel.__gainInput;
+        __pitchInput = _oldLabel.__pitchInput;
         
         __gainTarget  = _oldLabel.__gainTarget;
         __gainRate    = _oldLabel.__gainRate;
@@ -304,7 +304,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         if (VINYL_DEBUG_READ_CONFIG)
         {
             __VinylTrace("Copying state to ", self, ":");
-            __VinylTrace("    gain in=", __inputGain, "/out=", __outputGain, ", pitch in=", __inputPitch, "/out=", __outputPitch);
+            __VinylTrace("    gain in=", __gainInput, "/out=", __gainOutput, ", pitch in=", __pitchInput, "/out=", __pitchOutput);
             __VinylTrace("    gain target=", __gainTarget, ", rate=", __gainRate, "/s");
             __VinylTrace("    pitch target=", __pitchTarget, ", rate=", __pitchRate, "/s");
         }
@@ -321,7 +321,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
                 
                 if (is_struct(_oldestInstance))
                 {
-                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " will exceed ", __limitMaxCount, " playing instance(s), fading out oldest ", _oldestInstance, " playing ", audio_get_name(_oldestInstance.__sound));
+                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " will exceed ", __limitMaxCount, " playing instance(s), fading out oldest ", _oldestInstance);
                     _oldestInstance.__FadeOut(__limitFadeOutRate);
                 }
             }
@@ -347,18 +347,18 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
     static __Tick = function(_deltaTimeFactor)
     {
         //Update input values based on gain/pitch target
-        __inputGain  += clamp(__gainTarget  - __inputGain,  -_deltaTimeFactor*__gainRate,  _deltaTimeFactor*__gainRate );
-        __inputPitch += clamp(__pitchTarget - __inputPitch, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
+        __gainInput  += clamp(__gainTarget  - __gainInput,  -_deltaTimeFactor*__gainRate,  _deltaTimeFactor*__gainRate );
+        __pitchInput += clamp(__pitchTarget - __pitchInput, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
         
         //Update the output gain
-        var _oldGain  = __outputGain;
-        var _oldPitch = __outputPitch;
+        var _oldGain  = __gainOutput;
+        var _oldPitch = __pitchOutput;
         
-        __outputGain  = __inputGain*__configGain;
-        __outputPitch = __inputPitch;
+        __gainOutput  = __gainInput*__configGain;
+        __pitchOutput = __pitchInput;
         
-        var _gainDelta  = __outputGain  / _oldGain;
-        var _pitchDelta = __outputPitch / _oldPitch;
+        var _gainDelta  = __gainOutput  / _oldGain;
+        var _pitchDelta = __pitchOutput / _oldPitch;
         
         //If our values have changed at all, iterate over instances that are labelled to use us
         if ((_gainDelta != 1) || (_pitchDelta != 1))
@@ -382,8 +382,8 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
                     }
                     else
                     {
-                        _instance.__outputGain  *= _gainDelta;
-                        _instance.__outputPitch *= _pitchDelta;
+                        _instance.__gainOutput  *= _gainDelta;
+                        _instance.__pitchOutput *= _pitchDelta;
                     }
                     
                     ++_i;

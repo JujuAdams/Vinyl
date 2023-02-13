@@ -13,7 +13,7 @@ function VinylOutputGainGet(_id)
     var _instance = _idToInstanceDict[? _id];
     if (is_struct(_instance))
     {
-        _outputGain = _instance.__outputGain;
+        _outputGain = _instance.__gainOutput;
     }
     else if (_id == undefined)
     {
@@ -22,7 +22,7 @@ function VinylOutputGainGet(_id)
     else
     {
         var _label = _globalData.__labelDict[$ _id];
-        if (is_struct(_label)) _outputGain = _label.__outputGain;
+        if (is_struct(_label)) _outputGain = _label.__gainOutput;
     }
     
     return _outputGain;

@@ -15,9 +15,9 @@ function __VinylPlaySimple(_sound, _gain, _pitchLo, _pitchHi, _labelArray, _effe
     {
         var _label = _labelArray[_i];
         
-        _gain *= _label.__outputGain;
+        _gain *= _label.__gainOutput;
         var _labelPitch = lerp(_label.__configPitchLo, _label.__configPitchHi, _randomPitchParam);
-        _pitch *= _labelPitch*_label.__outputPitch;
+        _pitch *= _labelPitch*_label.__pitchOutput;
         
         ++_i;
     }
