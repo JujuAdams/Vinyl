@@ -16,8 +16,8 @@ function VinylGainTargetSet(_id, _targetGain, _rate = VINYL_DEFAULT_GAIN_RATE)
     static _idToInstanceDict = _globalData.__idToInstanceDict;
     
     var _instance = _idToInstanceDict[? _id];
-    if (is_struct(_instance)) return _instance.__InputGainTargetSet(_targetGain, _rate);
+    if (is_struct(_instance)) return _instance.__GainTargetSet(_targetGain, _rate);
     
     var _label = _globalData.__labelDict[$ _id];
-    if (is_struct(_label)) return _label.__InputGainTargetSet(_targetGain, _rate);
+    if (is_struct(_label)) return _label.__GainTargetSet(_targetGain, _rate);
 }

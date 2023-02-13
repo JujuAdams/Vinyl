@@ -17,6 +17,8 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         return "<label " + __name + ">";
     }
     
+    #region Initialize
+    
     static __Initialize = function(_labelData = {}, _knobDict)
     {
         //Unpack the definition data
@@ -149,7 +151,91 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating definition for ", self, ", gain=", __outputGain, ", pitch=", __outputPitch*__configPitchLo, " -> ", __outputPitch*__configPitchHi, ", max instances=", __limitMaxCount);
     }
     
+    #endregion
     
+    
+    
+    #region Gain
+    
+    static __GainSet = function(_gain, _force = false)
+    {
+        if (VINYL_DEBUG_LEVEL >= 1)
+        {
+            __VinylTrace(self, " gain=", _gain);
+        }
+        
+        if (!_force && __configGainKnob)
+        {
+            __VinylTrace(self, " gain is attached to a knob, cannot change gain manually");
+            return;
+        }
+        
+        __inputGain  = _gain;
+        __gainTarget = _gain;
+    }
+    
+    static __GainTargetSet = function(_targetGain, _rate)
+    {
+        if (VINYL_DEBUG_LEVEL >= 1)
+        {
+            __VinylTrace("Warning! ", self, " gain target=", _targetGain, ", rate=", _rate, "/s");
+        }
+        
+        if (__configGainKnob)
+        {
+            __VinylTrace("Warning! ", self, " gain is attached to a knob, cannot set a target gain");
+            return;
+        }
+        
+        __gainTarget = _targetGain;
+        __gainRate   = _rate;
+    }
+    
+    #endregion
+    
+    
+    
+    #region Pitch
+    
+    static __PitchSet = function(_pitch, _force = false)
+    {
+        if (VINYL_DEBUG_LEVEL >= 1)
+        {
+            __VinylTrace(self, " pitch=", _pitch);
+        }
+        
+        if (!_force && __configPitchKnob)
+        {
+            __VinylTrace("Warning! ", self, " pitch is attached to a knob, cannot change pitch manually");
+            return;
+        }
+        
+        __inputPitch  = _pitch;
+        __pitchTarget = _pitch;
+    }
+    
+    static __PitchTargetSet = function(_targetPitch, _rate)
+    {
+        if (VINYL_DEBUG_LEVEL >= 1)
+        {
+            __VinylTrace(self, " pitch target=", _targetPitch, ", rate=", _rate, "/s");
+        }
+        
+        if (__configPitchKnob)
+        {
+            __VinylTrace("Warning! ", self, " pitch is attached to a knob, cannot set a target pitch");
+            return;
+        }
+        
+        __pitchTarget = _targetPitch;
+        __pitchRate   = _rate;
+    }
+    
+    #endregion
+    
+    
+    
+    #region Playback
     
     static __Stop = function()
     {
@@ -188,6 +274,22 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
             ++_i;
         }
     }
+    
+    static __FadeOut = function(_rate)
+    {
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Fading out ", array_length(__audioArray), " audio instances (", self, ")");
+        
+        var _i = 0;
+        repeat(array_length(__audioArray))
+        {
+            __audioArray[_i].__FadeOut(_rate);
+            ++_i;
+        }
+    }
+    
+    #endregion
+    
+    
     
     static __CopyOldState = function(_oldLabel)
     {
@@ -241,100 +343,6 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         
         if (is_struct(__parent)) __parent.__BuildAssetLabelArray(_labelArray, _labelDict);
     }
-    
-    
-    
-    #region Gain
-    
-    static __InputGainSet = function(_gain, _force = false)
-    {
-        if (VINYL_DEBUG_LEVEL >= 1)
-        {
-            __VinylTrace(self, " gain=", _gain);
-        }
-        
-        if (!_force && __configGainKnob)
-        {
-            __VinylTrace(self, " gain is attached to a knob, cannot change gain manually");
-            return;
-        }
-        
-        __inputGain  = _gain;
-        __gainTarget = _gain;
-    }
-    
-    static __InputGainTargetSet = function(_targetGain, _rate)
-    {
-        if (VINYL_DEBUG_LEVEL >= 1)
-        {
-            __VinylTrace("Warning! ", self, " gain target=", _targetGain, ", rate=", _rate, "/s");
-        }
-        
-        if (__configGainKnob)
-        {
-            __VinylTrace("Warning! ", self, " gain is attached to a knob, cannot set a target gain");
-            return;
-        }
-        
-        __gainTarget = _targetGain;
-        __gainRate   = _rate;
-    }
-    
-    static __FadeOut = function(_rate)
-    {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Fading out ", array_length(__audioArray), " audio instances (", self, ")");
-        
-        var _i = 0;
-        repeat(array_length(__audioArray))
-        {
-            __audioArray[_i].__FadeOut(_rate);
-            ++_i;
-        }
-    }
-    
-    #endregion
-    
-    
-    
-    #region Pitch
-    
-    static __InputPitchSet = function(_pitch, _force = false)
-    {
-        if (VINYL_DEBUG_LEVEL >= 1)
-        {
-            __VinylTrace(self, " pitch=", _pitch);
-        }
-        
-        if (!_force && __configPitchKnob)
-        {
-            __VinylTrace("Warning! ", self, " pitch is attached to a knob, cannot change pitch manually");
-            return;
-        }
-        
-        __inputPitch  = _pitch;
-        __pitchTarget = _pitch;
-    }
-    
-    static __InputPitchTargetSet = function(_targetPitch, _rate)
-    {
-        if (VINYL_DEBUG_LEVEL >= 1)
-        {
-            __VinylTrace(self, " pitch target=", _targetPitch, ", rate=", _rate, "/s");
-        }
-        
-        if (__configPitchKnob)
-        {
-            __VinylTrace("Warning! ", self, " pitch is attached to a knob, cannot set a target pitch");
-            return;
-        }
-        
-        __pitchTarget = _targetPitch;
-        __pitchRate   = _rate;
-    }
-    
-    #endregion
-    
-    
     
     static __Tick = function(_deltaTimeFactor)
     {

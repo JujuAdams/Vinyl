@@ -8,15 +8,15 @@ Pattern constructor(name, patternArray)
 
 Instance constructor(...)
 
-.__InputGainSet(_gain)
+.__GainSet(_gain)
 .__InputGainGet()
-.__InputGainTargetSet(_gain)
+.__GainTargetSet(_gain)
 .__InputGainTargetGet()
 .__InputGainOutputGet()
 
-.__InputPitchSet(_pitch)
+.__PitchSet(_pitch)
 .__InputPitchGet()
-.__InputPitchTargetSet(_pitch)
+.__PitchTargetSet(_pitch)
 .__InputPitchTargetGet()
 .__InputPitchOutputGet()
 

@@ -60,7 +60,7 @@ function __VinylClassInstanceBasic() constructor
     
     #region Gain
     
-    static __InputGainSet = function(_gain)
+    static __GainSet = function(_gain)
     {
         if (__shutdown)
         {
@@ -77,7 +77,7 @@ function __VinylClassInstanceBasic() constructor
         __gainTarget = _gain;
     }
     
-    static __InputGainTargetSet = function(_targetGain, _rate, _stopAtSilence = false)
+    static __GainTargetSet = function(_targetGain, _rate, _stopAtSilence = false)
     {
         if (__shutdown)
         {
@@ -95,18 +95,13 @@ function __VinylClassInstanceBasic() constructor
         __shutdown   = _stopAtSilence;
     }
     
-    static __FadeOut = function(_rate)
-    {
-        __InputGainTargetSet(0, _rate, true);
-    }
-    
     #endregion
     
     
     
     #region Pitch
     
-    static __InputPitchSet = function(_pitch)
+    static __PitchSet = function(_pitch)
     {
         if (__shutdown)
         {
@@ -123,7 +118,7 @@ function __VinylClassInstanceBasic() constructor
         __pitchTarget = _pitch;
     }
     
-    static __InputPitchTargetSet = function(_targetPitch, _rate)
+    static __PitchTargetSet = function(_targetPitch, _rate)
     {
         if (__shutdown)
         {
@@ -307,11 +302,48 @@ function __VinylClassInstanceBasic() constructor
     
     
     
-    static __GetLoopFromLabel = function()
+    #region Playback
+    
+    static __Pause = function()
     {
-        var _asset = __VinylPatternGet(__sound);
-        return is_struct(_asset)? _asset.__GetLoopFromLabel() : false;
+        if (!is_numeric(__instance)) return;
+        if (audio_is_paused(__instance)) return;
+        
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pausing ", self);
+        
+        audio_pause_sound(__instance);
     }
+    
+    static __Resume = function()
+    {
+        if (!is_numeric(__instance)) return;
+        if (!audio_is_paused(__instance)) return;
+        
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming ", self);
+        
+        audio_resume_sound(__instance);
+    }
+    
+    static __FadeOut = function(_rate)
+    {
+        __GainTargetSet(0, _rate, true);
+    }
+    
+    static __Stop = function()
+    {
+        if (!is_numeric(__instance)) return;
+        
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Stopping ", self);
+        
+        audio_stop_sound(__instance);
+        __instance = undefined;
+        
+        __VINYL_RETURN_SELF_TO_POOL
+    }
+    
+    #endregion
+    
+    
     
     static __ApplyLabel = function(_initialize)
     {
@@ -343,36 +375,10 @@ function __VinylClassInstanceBasic() constructor
         }
     }
     
-    static __Pause = function()
+    static __GetLoopFromLabel = function()
     {
-        if (!is_numeric(__instance)) return;
-        if (audio_is_paused(__instance)) return;
-        
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pausing ", self);
-        
-        audio_pause_sound(__instance);
-    }
-    
-    static __Resume = function()
-    {
-        if (!is_numeric(__instance)) return;
-        if (!audio_is_paused(__instance)) return;
-        
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming ", self);
-        
-        audio_resume_sound(__instance);
-    }
-    
-    static __Stop = function()
-    {
-        if (!is_numeric(__instance)) return;
-        
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Stopping ", self);
-        
-        audio_stop_sound(__instance);
-        __instance = undefined;
-        
-        __VINYL_RETURN_SELF_TO_POOL
+        var _asset = __VinylPatternGet(__sound);
+        return is_struct(_asset)? _asset.__GetLoopFromLabel() : false;
     }
     
     static __DepoolCallback = function()

@@ -15,8 +15,8 @@ function VinylGainSet(_id, _gain)
     static _idToInstanceDict = _globalData.__idToInstanceDict;
     
     var _instance = _idToInstanceDict[? _id];
-    if (is_struct(_instance)) return _instance.__InputGainSet(_gain);
+    if (is_struct(_instance)) return _instance.__GainSet(_gain);
     
     var _label = _globalData.__labelDict[$ _id];
-    if (is_struct(_label)) return _label.__InputGainSet(_gain);
+    if (is_struct(_label)) return _label.__GainSet(_gain);
 }
