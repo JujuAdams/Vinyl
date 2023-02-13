@@ -30,8 +30,8 @@ function __VinylClassInstanceBasic() constructor
         
         __sound      = undefined;
         __loop       = undefined;
-        __gainInput  = 0.0;
-        __pitchInput = 100;
+        __gainInput  = 1;
+        __pitchInput = 1;
         
         __transposeUsing     = false;
         __transposeSemitones = 0;
@@ -41,7 +41,7 @@ function __VinylClassInstanceBasic() constructor
         
         __gainTarget  = __gainInput;
         __gainRate    = VINYL_DEFAULT_GAIN_RATE;
-        __gainOutput  = 0.0;
+        __gainOutput  = 1;
         
         __pitchTarget = __pitchInput;
         __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
