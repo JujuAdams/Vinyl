@@ -11,7 +11,7 @@
 #macro VINYL_DEFAULT_PITCH_RATE  0.3
 
 //Falloff values to use for emitters when first created
-#macro VINYL_DEFAULT_FALLOFF_MIN      50
+#macro VINYL_DEFAULT_FALLOFF_MIN       0
 #macro VINYL_DEFAULT_FALLOFF_MAX     200
 #macro VINYL_DEFAULT_FALLOFF_FACTOR    1
 
