@@ -187,9 +187,9 @@ This function returns a Vinyl pattern which can then be used with the standard p
 
 &nbsp;
 
-## `VinylBlend`
+## `VinylMulti`
 
-`VinylBlend(assetArray, [label])`
+`VinylMulti(assetArray, [label])`
 
 &nbsp;
 
@@ -200,6 +200,6 @@ This function returns a Vinyl pattern which can then be used with the standard p
 |`assetArray`|array of assets|Array of assets to use to create the pattern|
 |`[label]`   |string or array|Label (or labels) to assign this pattern to |
 
-Creates a new [Blend pattern](Terminology). This function creates an "anonymous" pattern and is one way of creating a Blend pattern - the other is to use Vinyl's [configuration file](Configuration).
+Creates a new [Multi pattern](Terminology). This function creates an "anonymous" pattern and is one way of creating a Multi pattern - the other is to use Vinyl's [configuration file](Configuration).
 
 This function returns a Vinyl pattern which can then be used with the standard playback functions such as [`VinylPlay()`](Basics). The pattern itself plays no audio itself and only exists as a template for use with other functions.
