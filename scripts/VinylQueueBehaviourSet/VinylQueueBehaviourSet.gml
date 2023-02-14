@@ -1,7 +1,7 @@
 /// Behaviour value can be one of the following:
-///  0: Don't pop anything from the queue
-///  1: Pop every asset from the queue
-///  2: Pop every asset apart from the last asset
+///  0: Play the queue once. Assets will be removed from the queue once they finish playing
+///  1: Repeat the queue once it's finished. No assets are removed from the queue
+///  2: Repeat the last asset in the queue. Assets will be removed from the queue once they finish playing (apart from the last asset)
 /// 
 /// @param vinylID
 /// @param behaviour
