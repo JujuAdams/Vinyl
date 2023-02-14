@@ -310,13 +310,13 @@ Plays audio assets simultaneously from an array.
     patterns: {
         random pitch test: {
             type: basic
-	    asset: sndTestTone
+            asset: sndTestTone
             pitch: [0.8, 1.2]
         }
         
         shuffle test: {
             type: shuffle
-	    assets: [
+            assets: [
                 sndTestTone
                 sndChickenNuggets
             ]
