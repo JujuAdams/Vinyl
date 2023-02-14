@@ -81,9 +81,42 @@ See above for a description of potential values for Queue instance behaviours.
 
 &nbsp;
 
-## `VinylBlendSet`
+## `VinylMultiSyncSet`
 
-`VinylBlendSet(id, blendFactor)`
+`VinylMultiSyncSet(id, state)`
+
+&nbsp;
+
+*Returns:* N/A (`undefined`)
+
+|Name   |Datatype      |Purpose                        |
+|-------|--------------|-------------------------------|
+|`id`   |Vinyl instance|Multi instance to target       |
+|`state`|boolean       |Whether to synchronise playback|
+
+?> [Multi pattern](Terminology) synchronisation is not absolutely precise and may wander a little.
+
+!> Make sure that all sound assets played on a synchronised Multi pattern are the same length or you may encounter unexpected behaviour.
+
+&nbsp;
+
+## `VinylMultiSyncGet`
+
+`VinylMultiSyncSet(id, state)`
+
+&nbsp;
+
+*Returns:* Boolean, whether the [Multi pattern](Terminology) is set to synchronise playback
+
+|Name|Datatype      |Purpose                 |
+|----|--------------|------------------------|
+|`id`|Vinyl instance|Multi instance to target|
+
+&nbsp;
+
+## `VinylMultiBlendSet`
+
+`VinylMultiBlendSet(id, blendFactor)`
 
 &nbsp;
 
@@ -91,24 +124,28 @@ See above for a description of potential values for Queue instance behaviours.
 
 |Name         |Datatype      |Purpose                       |
 |-------------|--------------|------------------------------|
-|`id`         |Vinyl instance|Queue instance to target      |
+|`id`         |Vinyl instance|Multi instance to target      |
 |`blendFactor`|number        |Blend factor to set, see below|
 
-Sets the blending factor, mixing between different assets playing on a [Blend pattern](Terminology) instance. The blending factor is a normalised value between `0` and `1`.
+Sets the blending factor, mixing between different assets playing on a [Multi pattern](Terminology) instance. The blending factor is a normalised value between `0` and `1`.
 
 &nbsp;
 
-## `VinylBlendGet`
+## `VinylMultiBlendGet`
 
-`VinylBlendGet(id)`
+`VinylMultiBlendGet(id)`
 
 &nbsp;
 
-*Returns:* Number, the blend factor for the [Blend pattern](Terminology) instance
+*Returns:* Number, the blend factor for the [Multi pattern](Terminology) instance
 
 |Name|Datatype      |Purpose                 |
 |----|--------------|------------------------|
-|`id`|Vinyl instance|Queue instance to target|
+|`id`|Vinyl instance|Multi instance to target|
+
+&nbsp;
+
+# Creators
 
 &nbsp;
 
