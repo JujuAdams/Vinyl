@@ -70,13 +70,11 @@ Plays a random sound asset from an array. Shuffle patterns also try to ensure th
 
 ### Queue
 
-Plays sound assets from an array one after another. If a sound asset is set to loop then the queue will hold on that looping asset until instructed to advance by calling [`VinylCue()`](Patterns). The queue itself can be set to loop, restarting the entire sequence from the start once playback reaches the end of the queue.
+Plays sound assets from an array one after another. If a sound asset is set to loop then the queue will hold on that looping asset until instructed to advance by calling [`VinylQueueNext()`](Patterns). The queue itself can be set to loop, restarting the entire sequence from the start once playback reaches the end of the queue.
 
-### Blend
+### Multi
 
-Play sound assets from an array simultaneously. The blend parameter stored within the pattern can be set with [`VinylBlendSet()`](Patterns) and crossfades between assets.
-
-!> Individual assets within a Blend pattern may fall out of sync. Do not rely on this pattern for audio synchronisation.
+Play sound assets from an array simultaneously. The blend parameter stored within the pattern can be set with [`VinylMultiBlendSet()`](Patterns) and crossfades between assets.
 
 &nbsp;
 
