@@ -203,5 +203,3 @@ This function returns a Vinyl pattern which can then be used with the standard p
 Creates a new [Blend pattern](Terminology). This function creates an "anonymous" pattern and is one way of creating a Blend pattern - the other is to use Vinyl's [configuration file](Configuration).
 
 This function returns a Vinyl pattern which can then be used with the standard playback functions such as [`VinylPlay()`](Basics). The pattern itself plays no audio itself and only exists as a template for use with other functions.
-
-!> Individual assets within a Blend pattern may fall out of sync. Do not rely on this pattern for audio synchronisation.
