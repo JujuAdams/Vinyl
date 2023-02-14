@@ -81,6 +81,53 @@ See above for a description of potential values for Queue instance behaviours.
 
 &nbsp;
 
+## `VinylMultiChannelCountGet`
+
+`VinylMultiChannelCountGet(id)`
+
+&nbsp;
+
+*Returns:* Number, the number of channels for the [Multi instance](Terminology)
+
+|Name   |Datatype      |Purpose                 |
+|-------|--------------|------------------------|
+|`id`   |Vinyl instance|Multi instance to target|
+
+&nbsp;
+
+## `VinylMultiGainSet`
+
+`VinylMultiGainSet(id, index, gain)`
+
+&nbsp;
+
+*Returns:* N/A (`undefined`)
+
+|Name   |Datatype      |Purpose                       |
+|-------|--------------|------------------------------|
+|`id`   |Vinyl instance|Multi instance to target      |
+|`index`|number        |Channel to target             |
+|`gain` |number        |Instance gain to set, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
+
+Sets the gain of an individual channel of a [Multi instance](Terminology). Gain set by this function will be overwritten by `VinylMultiBlendSet()`.
+
+&nbsp;
+
+## `VinylMultiGainSet`
+
+`VinylMultiGainGet(id, index)`
+
+&nbsp;
+
+*Returns:* Number, the gain for the channel of a [Multi instance](Terminology)
+
+|Name   |Datatype      |Purpose                 |
+|-------|--------------|------------------------|
+|`id`   |Vinyl instance|Multi instance to target|
+|`index`|number        |Channel to target       |
+
+&nbsp;
+
 ## `VinylMultiSyncSet`
 
 `VinylMultiSyncSet(id, state)`
@@ -128,6 +175,8 @@ See above for a description of potential values for Queue instance behaviours.
 |`blendFactor`|number        |Blend factor to set, see below|
 
 Sets the blending factor, mixing between different assets playing on a [Multi pattern](Terminology) instance. The blending factor is a normalised value between `0` and `1`.
+
+Gain set by this function will be overwritten by `VinylMultiGainSet()`.
 
 &nbsp;
 
