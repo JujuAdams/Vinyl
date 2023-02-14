@@ -18,7 +18,7 @@ Functions on this page relate to specific behaviours for [Vinyl pattern](Termino
 |----|--------------|------------------------|
 |`id`|Vinyl instance|Queue instance to target|
 
-Causes a Queue instance to move to the next asset in the array.
+Causes a Queue instance to immediately move to the next asset in the array.
 
 &nbsp;
 
@@ -55,11 +55,11 @@ Pushes an asset onto a Queue instance for playback. If `dontRepeatLast` is set t
 
 The `behavior` argument can be set to one of the following values:
 
-|Value|Behaviour                                                                                                                                              |
-|-----|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-|`0`  |**Don't** remove assets from the queue's array after they've finished playing. This is helpful for queues that are set to loop                         |
-|`1`  |Remove assets from the queue's array after they've finished playing. This is useful for stacking up sound effects to be played sequentially            |
-|`2`  |Remove assets after they've finished playing, apart from the very last asset. This assists with queues that want to loop on the last asset in the queue|
+|Value|Behaviour                                                                                                                     |
+|-----|------------------------------------------------------------------------------------------------------------------------------|
+|`0`  |Play the queue once. Assets will be removed from the queue once they finish playing                                           |
+|`1`  |Repeat the queue once it's finished. No assets are removed from the queue                                                     |
+|`2`  |Repeat the last asset in the queue. Assets will be removed from the queue once they finish playing (apart from the last asset)|
 
 ?> The default value for Queue instance behaviour is `1` - to remove all assets from the queue after they've finished playing.
 
