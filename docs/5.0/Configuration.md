@@ -297,7 +297,7 @@ Plays a random audio asset from an array.
 
 Plays audio assets sequentially from an array.
 
-### `blend ` behaviour
+### `multi ` behaviour
 
 Plays audio assets simultaneously from an array.
 
@@ -309,12 +309,14 @@ Plays audio assets simultaneously from an array.
 	
     patterns: {
         random pitch test: {
-            basic: sndTestTone
+            type: basic
+            asset: sndTestTone
             pitch: [0.8, 1.2]
         }
         
         shuffle test: {
-            shuffle: [
+            type: shuffle
+            assets: [
                 sndTestTone
                 sndChickenNuggets
             ]
