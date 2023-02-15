@@ -24,7 +24,7 @@ Causes a Queue instance to immediately move to the next asset in the array.
 
 ## `VinylQueuePush`
 
-`VinylQueueNext(id, asset, [dontRepeatLast=false])`
+`VinylQueuePush(id, asset, [dontRepeatLast=false])`
 
 &nbsp;
 
@@ -149,7 +149,7 @@ Sets the gain of an individual channel of a [Multi instance](Terminology). Gain 
 
 ## `VinylMultiSyncGet`
 
-`VinylMultiSyncSet(id, state)`
+`VinylMultiSyncSet(id)`
 
 &nbsp;
 
