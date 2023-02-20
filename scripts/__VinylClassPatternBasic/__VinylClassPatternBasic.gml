@@ -1,12 +1,9 @@
 /// @param asset
 /// @param name
-/// @param patternArray
 
-function __VinylClassPatternBasic(_asset, _name, _patternArray) constructor
+function __VinylClassPatternBasic(_asset, _name) constructor
 {
     static __patternType = "basic";
-    
-    array_push(_patternArray, self);
     
     __asset = _asset;
     

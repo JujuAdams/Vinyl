@@ -1,11 +1,8 @@
 /// @param name
-/// @param patternArray
 
-function __VinylClassPatternShuffle(_name, _patternArray) constructor
+function __VinylClassPatternShuffle(_name) constructor
 {
     static __patternType = "shuffle";
-    
-    array_push(_patternArray, self);
     
     __name = _name;
     

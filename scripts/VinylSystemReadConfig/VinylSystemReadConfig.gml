@@ -15,7 +15,7 @@ function VinylSystemReadConfig(_configData)
     var _newKnobDict     = {};
     var _newKnobArray    = [];
     var _newPatternDict  = {};
-    var _newPatternOrder = [];
+    var _newPatternArray = [];
     var _newLabelDict    = {};
     var _newLabelOrder   = [];
     
@@ -160,8 +160,10 @@ function VinylSystemReadConfig(_configData)
                     var _assetData = _inputAssetDict[$ _assetName];
                     
                     //Make a new basic pattern for this asset
-                    var _pattern = new __VinylClassPatternBasic(_assetIndex, undefined, _newPatternOrder);
+                    var _pattern = new __VinylClassPatternBasic(_assetIndex, undefined);
                     _pattern.__Initialize(_assetData, _newKnobDict, _newLabelDict);
+                    
+                    array_push(_newPatternArray, _pattern);
                     _newPatternDict[$ _key] = _pattern;
                     
                     //Apply this asset data to all of the named "copyTo" assets
@@ -196,8 +198,10 @@ function VinylSystemReadConfig(_configData)
                             else
                             {
                                 //Make a basic pattern for this copyTo asset
-                                var _pattern = new __VinylClassPatternBasic(_copyToIndex, undefined, _newPatternOrder);
+                                var _pattern = new __VinylClassPatternBasic(_copyToIndex, undefined);
                                 _pattern.__Initialize(_assetData, _newKnobDict, _newLabelDict);
+                                
+                                array_push(_newPatternArray, _pattern);
                                 _newPatternDict[$ _copyToKey] = _pattern;
                             }
                             
@@ -216,8 +220,10 @@ function VinylSystemReadConfig(_configData)
     {
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Fallback asset case doesn't exist, creating one");
         
-        var _pattern = new __VinylClassPatternBasic(-1, "fallback", _newPatternOrder);
+        var _pattern = new __VinylClassPatternBasic(-1, "fallback");
         _pattern.__Initialize(_assetData, _newKnobDict, _newLabelDict);
+        
+        array_push(_newPatternArray, _pattern);
         _newPatternDict.fallback = _pattern;
     }
     
@@ -248,8 +254,10 @@ function VinylSystemReadConfig(_configData)
                         var _pattern = _newPatternDict[$ _key];
                         if (!is_struct(_assetData))
                         {
-                            _pattern = new __VinylClassPatternBasic(_assetIndex, undefined, _newPatternOrder);
+                            _pattern = new __VinylClassPatternBasic(_assetIndex, undefined);
                             _pattern.__Initialize(undefined, _newKnobDict, _newLabelDict);
+                            
+                            array_push(_newPatternArray, _pattern);
                             _newPatternDict[$ _key] = _pattern;
                         }
                         
@@ -296,11 +304,11 @@ function VinylSystemReadConfig(_configData)
                 var _type = _patternData.type;
                 if (_type == "basic")
                 {
-                    var _newPattern = new __VinylClassPatternBasic(undefined, _patternName, _newPatternOrder);
+                    var _newPattern = new __VinylClassPatternBasic(undefined, _patternName);
                 }
                 else if (_type == "shuffle")
                 {
-                    var _newPattern = new __VinylClassPatternShuffle(_patternName, _newPatternOrder);
+                    var _newPattern = new __VinylClassPatternShuffle(_patternName);
                 }
                 else
                 {
@@ -309,6 +317,8 @@ function VinylSystemReadConfig(_configData)
             }
             
             _newPattern.__Initialize(_patternData, _newLabelDict, _newKnobDict);
+            
+            array_push(_newPatternArray, _newPattern);
             _newPatternDict[$ _patternName] = _newPattern;
             
             ++_i;
@@ -361,9 +371,9 @@ function VinylSystemReadConfig(_configData)
     
     
     var _i = 0;
-    repeat(array_length(_newPatternOrder))
+    repeat(array_length(_newPatternArray))
     {
-        var _pattern = _newPatternOrder[_i];
+        var _pattern = _newPatternArray[_i];
         
         //Try to figure out what effect chain to use
         with(_pattern)
