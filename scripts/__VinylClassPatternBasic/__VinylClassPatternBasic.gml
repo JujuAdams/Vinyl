@@ -4,6 +4,8 @@
 
 function __VinylClassPatternBasic(_asset, _name, _patternArray) constructor
 {
+    static __patternType = "basic";
+    
     array_push(_patternArray, self);
     
     __asset = _asset;

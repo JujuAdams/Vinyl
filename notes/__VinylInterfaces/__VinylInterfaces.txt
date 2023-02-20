@@ -34,6 +34,18 @@ Instance constructor(...)
 .__FadeOut()
 .__Stop()
 
+.__QueuePush(asset)
+.__QueueBehaviorSet(behavior)
+.__QueueBehaviorGet()
+
+.__MultiChannelCountGet()
+.__MultiGainSet(index, gain)
+.__MultiGainGet(index)
+.__MultiBlendSet(blendFactor)
+.__MultiBlendGet()
+.__MultiSyncSet(state)
+.__MultiSyncGet()
+
 .__Pool()
 .__Depool()
 .__ApplyLabel()

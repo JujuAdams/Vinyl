@@ -1,5 +1,7 @@
 function __VinylClassInstanceBasic() constructor
 {
+    static __patternType = "basic";
+    
     static __globalData       = __VinylGlobalData();
     static __poolPanEmitter   = __globalData.__poolPanEmitter;
     static __idToInstanceDict = __globalData.__idToInstanceDict;
@@ -294,6 +296,68 @@ function __VinylClassInstanceBasic() constructor
         __gmInstance = undefined;
         
         __VINYL_RETURN_SELF_TO_POOL
+    }
+    
+    #endregion
+    
+    
+    
+    #region Queue
+    
+    static __QueuePush = function(_asset)
+    {
+        __VinylError("Cannot use VinylQueuePush() on an instance of a ", __patternType, " pattern");
+    }
+    
+    static __QueueBehaviorSet = function(_behavior)
+    {
+        __VinylError("Cannot use VinylQueueBehaviorSet() on an instance of a ", __patternType, " pattern");
+    }
+    
+    static __QueueBehaviorGet = function()
+    {
+        __VinylError("Cannot use VinylQueueBehaviorGet() on an instance of a ", __patternType, " pattern");
+    }
+    
+    #endregion
+    
+    
+    
+    #region Multi
+    
+    static __MultiChannelCountGet = function(_asset)
+    {
+        __VinylError("Cannot use VinylMultiChannelCountGet() on an instance of a ", __patternType, " pattern");
+    }
+    
+    static __MultiGainSet = function(_index, _gain)
+    {
+        __VinylError("Cannot use VinylMultiGainSet() on an instance of a ", __patternType, " pattern");
+    }
+    
+    static __MultiGainGet = function(_index)
+    {
+        __VinylError("Cannot use VinylMultiGainGet() on an instance of a ", __patternType, " pattern");
+    }
+    
+    static __MultiBlendSet = function(_blendFactor)
+    {
+        __VinylError("Cannot use VinylMultiBlendSet() on an instance of a ", __patternType, " pattern");
+    }
+    
+    static __MultiBlendGet = function()
+    {
+        __VinylError("Cannot use VinylMultiBlendGet() on an instance of a ", __patternType, " pattern");
+    }
+    
+    static __MultiSyncSet = function(_state)
+    {
+        __VinylError("Cannot use VinylMultiSyncSet() on an instance of a ", __patternType, " pattern");
+    }
+    
+    static __MultiSyncGet = function()
+    {
+        __VinylError("Cannot use VinylMultiSyncGet() on an instance of a ", __patternType, " pattern");
     }
     
     #endregion
