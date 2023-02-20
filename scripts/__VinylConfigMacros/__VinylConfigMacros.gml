@@ -51,7 +51,7 @@
 #macro VINYL_DEBUG_READ_CONFIG  false
 
 //Number of audio instances / emitters pre-created in the pool
-#macro VINYL_POOL_START_SIZE  30
+#macro VINYL_POOL_START_SIZE  20
 
 //Listener index to use for Vinyl functions
 #macro VINYL_LISTENER_INDEX  0
