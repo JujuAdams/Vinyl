@@ -8,6 +8,10 @@ Pattern constructor(name)
 
 Instance constructor(...)
 
+.toString()
+.__ResetState()
+.__Tick()
+
 .__GainSet(_gain)
 .__GainGet()
 .__GainTargetSet(_gain)
@@ -47,9 +51,6 @@ Instance constructor(...)
 
 .__Pool()
 .__Depool()
-.__ApplyLabel()
-.__Tick()
-.toString()
 
 
 
