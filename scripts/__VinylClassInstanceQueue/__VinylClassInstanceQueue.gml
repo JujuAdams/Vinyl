@@ -81,7 +81,7 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
     
     static __Tick = function(_deltaTimeFactor)
     {
-        if ((__instance == undefined) || !__instance.__IsPlaying())
+        if (!__instance.__IsPlaying())
         {
             if (__behavior == 0) //Play the queue in its entirety once, popping assets off the queue as they finish
             {
@@ -128,7 +128,7 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
                 __gainOutput += _delta;
                 __outputChanged = true;
                 
-                if (__shutdown && (_delta < 0) && ((__gainInput <= 0) || (__gainOutput <= 0)))
+                if (__shutdown && (_delta <= 0) && ((__gainInput <= 0) || (__gainOutput <= 0)))
                 {
                     __Stop();
                     return;

@@ -82,7 +82,7 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
     
     static __Tick = function(_deltaTimeFactor)
     {
-        if ((__instance == undefined) || !__instance.__IsPlaying())
+        if (!__instance.__IsPlaying())
         {
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " has stopped played, returning to pool");
             __VINYL_RETURN_SELF_TO_POOL
