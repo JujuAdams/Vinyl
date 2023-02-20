@@ -6,22 +6,6 @@ Functions on this page relate to specific behaviours for [Queue pattern](Termino
 
 &nbsp;
 
-## `VinylQueueNext`
-
-`VinylQueueNext(id)`
-
-&nbsp;
-
-*Returns:* N/A (`undefined`)
-
-|Name|Datatype      |Purpose                 |
-|----|--------------|------------------------|
-|`id`|Vinyl instance|Queue instance to target|
-
-Causes a Queue instance to immediately move to the next asset in the array.
-
-&nbsp;
-
 ## `VinylQueuePush`
 
 `VinylQueuePush(id, asset, [dontRepeatLast=false])`
