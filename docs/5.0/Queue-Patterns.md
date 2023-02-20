@@ -42,7 +42,7 @@ The `behavior` argument can be set to one of the following values:
 |Value|Behaviour                                                                                                                     |
 |-----|------------------------------------------------------------------------------------------------------------------------------|
 |`0`  |Play the queue once. Assets will be removed from the queue once they finish playing                                           |
-|`1`  |Repeat the queue once it's finished. No assets are removed from the queue                                                     |
+|`1`  |Repeat the queue once it's finished. No assets are removed from the queue, and the queue will replay from the start           |
 |`2`  |Repeat the last asset in the queue. Assets will be removed from the queue once they finish playing (apart from the last asset)|
 
 ?> The default value for Queue instance behaviour is `1` - to remove all assets from the queue after they've finished playing.
