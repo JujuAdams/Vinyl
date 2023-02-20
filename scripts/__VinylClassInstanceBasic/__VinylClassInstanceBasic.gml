@@ -75,38 +75,8 @@ function __VinylClassInstanceBasic() constructor
         
         __ApplyLabel(true);
         
-        var _effectChainName = __VinylPatternGetEffectChain(__sound);
-        
-        var _usedEmitter = undefined;
-        if (_emitter != undefined)
-        {
-            //Playback on a normal emitter
-            _usedEmitter = _emitter.__GetEmitter();
-            
-            //Add this instance to the emitter's array
-            array_push(_emitter.__emitter.__instanceIDArray, __id);
-        }
-        else
-        {
-            if (_pan == undefined)
-            {
-                //Standard playback
-                //Only use an emitter if the effect chain demands it
-                var _usedEmitter = __VinylEffectChainGetEmitter(_effectChainName);
-            }
-            else
-            {
-                //Playback on a pan emitter
-                __panEmitter = __poolPanEmitter.__Depool();
-                __panEmitter.__Pan(_pan);
-                __panEmitter.__Bus(_effectChainName);
-                
-                _usedEmitter = __panEmitter.__emitter;
-            }
-        }
-        
         __gmInstance = new __VinylClassInstanceGameMaker(); //TODO - Pool GameMaker instance wrappers
-        __gmInstance.__Play(_usedEmitter, __sound, __loop, __gainOutput, __pitchOutput);
+        __gmInstance.__Play(__VinylInstanceCommonDetermineEmitter(_emitter), __sound, __loop, __gainOutput, __pitchOutput);
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " hosting ", __gmInstance);
     }

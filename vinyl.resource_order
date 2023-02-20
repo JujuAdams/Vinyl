@@ -1,7 +1,7 @@
 {
   "FolderOrderSettings": [
     {"name":"(Internals)","order":12,"path":"folders/Vinyl/(Internals).yy",},
-    {"name":"Classes","order":16,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes.yy",},
+    {"name":"Classes","order":17,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes.yy",},
     {"name":"Config Resources","order":1,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Config Resources.yy",},
     {"name":"Advanced","order":11,"path":"folders/Vinyl/Advanced.yy",},
     {"name":"Basics","order":2,"path":"folders/Vinyl/Basics.yy",},
@@ -95,6 +95,7 @@
     {"name":"VinylMultiGainSet","order":1,"path":"scripts/VinylMultiGainSet/VinylMultiGainSet.yy",},
     {"name":"VinylOutputPitchGet","order":4,"path":"scripts/VinylOutputPitchGet/VinylOutputPitchGet.yy",},
     {"name":"__VinylClassKnobTarget","order":2,"path":"scripts/__VinylClassKnobTarget/__VinylClassKnobTarget.yy",},
+    {"name":"__VinylInstanceCommonDetermineEmitter","order":16,"path":"scripts/__VinylInstanceCommonDetermineEmitter/__VinylInstanceCommonDetermineEmitter.yy",},
     {"name":"VinylQueueBehaviorGet","order":2,"path":"scripts/VinylQueueBehaviorGet/VinylQueueBehaviorGet.yy",},
     {"name":"__VinylEffectChainGetBus","order":8,"path":"scripts/__VinylEffectChainGetBus/__VinylEffectChainGetBus.yy",},
     {"name":"VinylPlaySimple","order":1,"path":"scripts/VinylPlaySimple/VinylPlaySimple.yy",},
