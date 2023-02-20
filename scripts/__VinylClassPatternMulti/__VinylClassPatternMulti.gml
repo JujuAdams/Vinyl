@@ -112,7 +112,7 @@ function __VinylClassPatternMulti(_name) constructor
         static __pool = __VinylGlobalData().__poolMulti;
         
         var _instance = __pool.__Depool();
-        _instance.__Play(_emitter, _sound, _loop, _gain, _pitch, _pan);
+        _instance.__Play(_emitter, __assetArray, _loop, _gain, _pitch, _pan);
         
         return _instance;
     }

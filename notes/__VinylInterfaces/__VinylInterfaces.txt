@@ -8,8 +8,6 @@ Pattern constructor(name)
 
 Instance constructor(...)
 
-.__Play(_emitter, _sound, _loop, _gain, _pitch, _pan)
-
 .__GainSet(_gain)
 .__GainGet()
 .__GainTargetSet(_gain)
@@ -29,6 +27,7 @@ Instance constructor(...)
 .__LoopSet(_state)
 .__LoopPointsSet()
 
+.__IsPlaying()
 .__Pause()
 .__Resume()
 .__FadeOut()

@@ -270,6 +270,11 @@ function __VinylClassInstanceBasic() constructor
     
     #region Playback
     
+    static __IsPlaying = function()
+    {
+        return (__gmInstance != undefined);
+    }
+    
     static __Pause = function()
     {
         if (__gmInstance == undefined) return;

@@ -107,12 +107,12 @@ function __VinylClassPatternQueue(_name) constructor
     
     
     
-    static __Play = function(_emitter, _sound, _loop = false, _gain = 1, _pitch = 1, _pan = undefined)
+    static __Play = function(_emitter, _sound_UNUSED, _loop = false, _gain = 1, _pitch = 1, _pan = undefined)
     {
         static __pool = __VinylGlobalData().__poolQueue;
         
         var _instance = __pool.__Depool();
-        _instance.__Play(_emitter, _sound, _loop, _gain, _pitch, _pan);
+        _instance.__Play(_emitter, __assetArray, _loop, _gain, _pitch, _pan);
         
         return _instance;
     }
