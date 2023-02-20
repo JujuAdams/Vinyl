@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylQueueNext",
+  "name": "VinylMultiChannelCountGet",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Patterns",
-    "path": "folders/Vinyl/Patterns.yy",
+    "name": "Multi Patterns",
+    "path": "folders/Vinyl/Multi Patterns.yy",
   },
 }
