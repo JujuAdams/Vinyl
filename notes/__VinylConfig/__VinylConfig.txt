@@ -64,6 +64,16 @@
                 snd1KHz
             ]
         }
+        
+        queue test: {
+            type: queue
+            assets: [
+                snd1KHz
+                sndTestTone
+                snd1KHz
+                sndTestTone
+            ]
+        }
     }
     
     

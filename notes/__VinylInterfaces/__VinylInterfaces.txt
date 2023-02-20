@@ -10,6 +10,8 @@ Instance constructor(...)
 
 .toString()
 .__ResetState()
+.__Play()
+.__Stop()
 .__Tick()
 
 .__GainSet(_gain)

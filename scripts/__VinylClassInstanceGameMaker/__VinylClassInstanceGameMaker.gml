@@ -18,11 +18,11 @@ function __VinylClassInstanceGameMaker() constructor
     
     
     
-    static __Play = function(_emitter, _sound, _loop, _gain, _pitch)
+    static __Play = function(_gmEmitter, _sound, _loop, _gain, _pitch)
     {
         __sound = _sound;
         
-        if (_emitter == undefined)
+        if (_gmEmitter == undefined)
         {
             __instance = audio_play_sound(_sound, 1, _loop, __VinylCurveAmplitude(_gain), 0, _gain);
             
@@ -33,11 +33,11 @@ function __VinylClassInstanceGameMaker() constructor
         }
         else
         {
-            __instance = audio_play_sound_on(_emitter, _sound, _loop, 1, __VinylCurveAmplitude(_gain), 0, _gain);
+            __instance = audio_play_sound_on(_gmEmitter, _sound, _loop, 1, __VinylCurveAmplitude(_gain), 0, _gain);
             
             if (VINYL_DEBUG_LEVEL >= 1)
             {
-                __VinylTrace("Playing ", self, " on emitter ", _emitter, ", loop=", _loop? "true" : "false", ", gain=", _gain, ", pitch=", _gain, " (amplitude=", _gain/VINYL_MAX_GAIN, ")");
+                __VinylTrace("Playing ", self, " on emitter ", _gmEmitter, ", loop=", _loop? "true" : "false", ", gain=", _gain, ", pitch=", _gain, " (amplitude=", _gain/VINYL_MAX_GAIN, ")");
             }
         }
         
@@ -220,7 +220,7 @@ function __VinylClassInstanceGameMaker() constructor
     
     #region Queue
     
-    static __QueuePush = function(_asset)
+    static __QueuePush = function(_asset, _dontRepeatLast)
     {
         __VinylError("Cannot use VinylQueuePush() on a native GameMaker instance");
     }

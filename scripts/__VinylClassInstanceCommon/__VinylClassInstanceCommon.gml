@@ -19,8 +19,8 @@ function __VinylClassInstanceCommon() constructor
     {
         __patternName = undefined;
         
-        __sound      = undefined;
         __loop       = undefined;
+        __pan        = undefined;
         __gainInput  = 1;
         __pitchInput = 1;
         
@@ -220,12 +220,12 @@ function __VinylClassInstanceCommon() constructor
     static __LoopSet = function(_state)
     {
         __loop = _state;
-        __gmInstance.__LoopSet(_state);
+        __instance.__LoopSet(_state);
     }
     
     static __LoopPointsSet = function()
     {
-        __gmInstance.__LoopPointsSet();
+        __instance.__LoopPointsSet();
     }
     
     #endregion
@@ -236,19 +236,19 @@ function __VinylClassInstanceCommon() constructor
     
     static __IsPlaying = function()
     {
-        return (__gmInstance != undefined);
+        return (__instance != undefined);
     }
     
     static __Pause = function()
     {
-        if (__gmInstance == undefined) return;
-        __gmInstance.__Pause();
+        if (__instance == undefined) return;
+        __instance.__Pause();
     }
     
     static __Resume = function()
     {
-        if (__gmInstance == undefined) return;
-        __gmInstance.__Resume();
+        if (__instance == undefined) return;
+        __instance.__Resume();
     }
     
     static __FadeOut = function(_rate)
@@ -258,10 +258,10 @@ function __VinylClassInstanceCommon() constructor
     
     static __Stop = function()
     {
-        if (__gmInstance == undefined) return;
+        if (__instance == undefined) return;
         
-        __gmInstance.__Stop();
-        __gmInstance = undefined;
+        __instance.__Stop();
+        __instance = undefined;
         
         __VINYL_RETURN_SELF_TO_POOL
     }
@@ -272,7 +272,7 @@ function __VinylClassInstanceCommon() constructor
     
     #region Queue
     
-    static __QueuePush = function(_asset)
+    static __QueuePush = function(_asset, _dontRepeatLast)
     {
         __VinylError("Cannot use VinylQueuePush() on an instance of a ", __patternType, " pattern");
     }
@@ -338,7 +338,7 @@ function __VinylClassInstanceCommon() constructor
         __gainOutput  = __gainInput;
         __pitchOutput = __pitchInput;
         
-        var _asset = __VinylPatternGet(__sound);
+        var _asset = __VinylPatternGet(__patternName);
         if (is_struct(_asset))
         {
             __gainOutput *= _asset.__gain;
@@ -364,7 +364,7 @@ function __VinylClassInstanceCommon() constructor
     
     static __GetLoopFromLabel = function()
     {
-        var _asset = __VinylPatternGet(__sound);
+        var _asset = __VinylPatternGet(__patternName);
         return is_struct(_asset)? _asset.__GetLoopFromLabel() : false;
     }
     
@@ -380,7 +380,7 @@ function __VinylClassInstanceCommon() constructor
         __Stop();
         
         //Remove this instance from all labels that we're attached to
-        var _asset = __VinylPatternGet(__sound);
+        var _asset = __VinylPatternGet(__patternName);
         if (is_struct(_asset))
         {
             var _id = __id;

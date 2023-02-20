@@ -310,9 +310,17 @@ function VinylSystemReadConfig(_configData)
                 {
                     var _newPattern = new __VinylClassPatternShuffle(_patternName);
                 }
+                else if (_type == "queue")
+                {
+                    var _newPattern = new __VinylClassPatternQueue(_patternName);
+                }
+                else if (_type == "multi")
+                {
+                    var _newPattern = new __VinylClassPatternMulti(_patternName);
+                }
                 else
                 {
-                    __VinylError("Defintion for pattern \"", _patternName, "\" is invalid");
+                    __VinylError("Pattern type \"", _type, "\" for pattern \"", _patternName, "\" not recognised");
                 }
             }
             

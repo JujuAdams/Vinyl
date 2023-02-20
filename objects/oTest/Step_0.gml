@@ -8,6 +8,12 @@ if (keyboard_check_pressed(ord("C")))
     VinylLoopSet(music, false);
 }
 
+if (keyboard_check_pressed(ord("Q")))
+{
+    var _queue = VinylPlay("queue test");
+    VinylQueueBehaviorSet(_queue, 2);
+}
+
 if (keyboard_check_pressed(vk_up))
 {
     VinylPitchTargetSet(music, VinylPitchTargetGet(music) + 1/9);
