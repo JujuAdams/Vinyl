@@ -1,4 +1,4 @@
-# Patterns
+# Queue Patterns
 
 &nbsp;
 
