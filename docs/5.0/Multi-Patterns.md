@@ -53,39 +53,6 @@ Sets the gain of an individual channel of a [Multi instance](Terminology). Gain 
 
 &nbsp;
 
-## `VinylMultiSyncSet`
-
-`VinylMultiSyncSet(id, state)`
-
-&nbsp;
-
-*Returns:* N/A (`undefined`)
-
-|Name   |Datatype      |Purpose                        |
-|-------|--------------|-------------------------------|
-|`id`   |Vinyl instance|Multi instance to target       |
-|`state`|boolean       |Whether to synchronise playback|
-
-?> [Multi pattern](Terminology) synchronisation is not absolutely precise and may wander a little.
-
-!> Make sure that all sound assets played on a synchronised Multi pattern are the same length or you may encounter unexpected behaviour.
-
-&nbsp;
-
-## `VinylMultiSyncGet`
-
-`VinylMultiSyncSet(id)`
-
-&nbsp;
-
-*Returns:* Boolean, whether the [Multi pattern](Terminology) is set to synchronise playback
-
-|Name|Datatype      |Purpose                 |
-|----|--------------|------------------------|
-|`id`|Vinyl instance|Multi instance to target|
-
-&nbsp;
-
 ## `VinylMultiBlendSet`
 
 `VinylMultiBlendSet(id, blendFactor)`
@@ -112,6 +79,39 @@ Gain set by this function will be overwritten by `VinylMultiGainSet()`.
 &nbsp;
 
 *Returns:* Number, the blend factor for the [Multi pattern](Terminology) instance
+
+|Name|Datatype      |Purpose                 |
+|----|--------------|------------------------|
+|`id`|Vinyl instance|Multi instance to target|
+
+&nbsp;
+
+## `VinylMultiSyncSet`
+
+`VinylMultiSyncSet(id, state)`
+
+&nbsp;
+
+*Returns:* N/A (`undefined`)
+
+|Name   |Datatype      |Purpose                        |
+|-------|--------------|-------------------------------|
+|`id`   |Vinyl instance|Multi instance to target       |
+|`state`|boolean       |Whether to synchronise playback|
+
+?> [Multi pattern](Terminology) synchronisation is not absolutely precise and may wander a little.
+
+!> Make sure that all sound assets played on a synchronised Multi pattern are the same length or you may encounter unexpected behaviour.
+
+&nbsp;
+
+## `VinylMultiSyncGet`
+
+`VinylMultiSyncSet(id)`
+
+&nbsp;
+
+*Returns:* Boolean, whether the [Multi pattern](Terminology) is set to synchronise playback
 
 |Name|Datatype      |Purpose                 |
 |----|--------------|------------------------|
