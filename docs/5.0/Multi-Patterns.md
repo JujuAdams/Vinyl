@@ -38,7 +38,7 @@ Sets the gain of an individual channel of a [Multi instance](Terminology). Gain 
 
 &nbsp;
 
-## `VinylMultiGainSet`
+## `VinylMultiGainGet`
 
 `VinylMultiGainGet(id, index)`
 
