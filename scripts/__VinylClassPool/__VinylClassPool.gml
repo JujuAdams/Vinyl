@@ -39,11 +39,10 @@ function __VinylClassPool(_startingID, _constructor) constructor
         }
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Returning ", _member, " to ", self);
+        _member.__PoolCallback();
         _member.__id   = undefined;
         _member.__pool = undefined;
         array_push(__returnArray, _member);
-        
-        _member.__PoolCallback();
     }
     
     static __Depool = function()
