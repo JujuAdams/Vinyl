@@ -132,6 +132,11 @@ function __VinylClassInstanceBasic() constructor
         __gainTarget = _gain;
     }
     
+    static __GainGet = function()
+    {
+        return __gainInput;
+    }
+    
     static __GainTargetSet = function(_targetGain, _rate, _stopAtSilence = false)
     {
         if (__shutdown)
@@ -148,6 +153,16 @@ function __VinylClassInstanceBasic() constructor
         __gainTarget = _targetGain;
         __gainRate   = _rate;
         __shutdown   = _stopAtSilence;
+    }
+    
+    static __GainTargetGet = function()
+    {
+        return __gainTarget;
+    }
+    
+    static __GainOutputGet = function()
+    {
+        return __gainOutput;
     }
     
     #endregion
@@ -173,6 +188,11 @@ function __VinylClassInstanceBasic() constructor
         __pitchTarget = _pitch;
     }
     
+    static __PitchGet = function()
+    {
+        return __pitchInput;
+    }
+    
     static __PitchTargetSet = function(_targetPitch, _rate)
     {
         if (__shutdown)
@@ -188,6 +208,16 @@ function __VinylClassInstanceBasic() constructor
         
         __pitchTarget = _targetPitch;
         __pitchRate   = _rate;
+    }
+    
+    static __PitchTargetGet = function()
+    {
+        return __pitchTarget;
+    }
+    
+    static __PitchOutputGet = function()
+    {
+        return __pitchOutput;
     }
     
     #endregion
@@ -240,6 +270,11 @@ function __VinylClassInstanceBasic() constructor
             
             __outputChanged = true;
         }
+    }
+    
+    static __TransposeGet = function()
+    {
+        return __transposeSemitones;
     }
     
     #endregion

@@ -1,4 +1,4 @@
-Pattern constructor(name, patternArray)
+Pattern constructor(name)
 
 .__Initialize(patternData = {}, knobDict, labelDict)
 .__Play(_emitter, _sound, _loop, _gain, _pitch, _pan)  //Need a sound parameter to handle basic fallback pattern
@@ -22,6 +22,7 @@ Instance constructor(...)
 
 .__TransposeSet(_semitones)
 .__TransposeReset()
+.__TransposeGet()
 
 .__LoopSet(_state)
 .__LoopPointsSet()
@@ -48,3 +49,19 @@ Instance constructor(...)
 .__ApplyLabel()
 .__Tick()
 .toString()
+
+
+
+Label constructor()
+
+.__GainSet(_gain)
+.__GainGet()
+.__GainTargetSet(_gain)
+.__GainTargetGet()
+.__GainOutputGet()
+
+.__PitchSet(_pitch)
+.__PitchGet()
+.__PitchTargetSet(_pitch)
+.__PitchTargetGet()
+.__PitchOutputGet()
