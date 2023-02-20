@@ -442,12 +442,12 @@ function __VinylClassInstanceCommon() constructor
                 __gainInput  += _delta;
                 __gainOutput += _delta;
                 __outputChanged = true;
-                
-                if (__shutdown && (_delta < 0) && ((__gainInput <= 0) || (__gainOutput <= 0)))
-                {
-                    __Stop();
-                    return;
-                }
+            }
+            
+            if (__shutdown && (_delta <= 0) && ((__gainInput <= 0) || (__gainOutput <= 0)))
+            {
+                __Stop();
+                return;
             }
             
             var _delta = clamp(__pitchTarget - __pitchInput, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
