@@ -8,6 +8,8 @@ Pattern constructor(name)
 
 Instance constructor(...)
 
+.__Play(_emitter, _sound, _loop, _gain, _pitch, _pan)
+
 .__GainSet(_gain)
 .__GainGet()
 .__GainTargetSet(_gain)
@@ -37,11 +39,11 @@ Instance constructor(...)
 .__QueueBehaviorGet()
 
 .__MultiChannelCountGet()
-.__MultiGainSet(index, gain)
-.__MultiGainGet(index)
-.__MultiBlendSet(blendFactor)
+.__MultiGainSet(_index, _gain)
+.__MultiGainGet(_index)
+.__MultiBlendSet(_blendFactor)
 .__MultiBlendGet()
-.__MultiSyncSet(state)
+.__MultiSyncSet(_state)
 .__MultiSyncGet()
 
 .__Pool()

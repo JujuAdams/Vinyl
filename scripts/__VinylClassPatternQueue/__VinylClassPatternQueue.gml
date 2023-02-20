@@ -1,8 +1,8 @@
 /// @param name
 
-function __VinylClassPatternShuffle(_name) constructor
+function __VinylClassPatternQueue(_name) constructor
 {
-    static __patternType = "shuffle";
+    static __patternType = "queue";
     
     __name = _name;
     
@@ -10,7 +10,7 @@ function __VinylClassPatternShuffle(_name) constructor
     
     static toString = function()
     {
-        return "<shuffle " + string(__name) + ">";
+        return "<queue " + string(__name) + ">";
     }
     
     #region Initialize
@@ -18,12 +18,6 @@ function __VinylClassPatternShuffle(_name) constructor
     static __Initialize = function(_patternData = {}, _labelDict, _knobDict)
     {
         __assetArray = _patternData[$ "assets"] ?? (_patternData[$ "asset"] ?? []);
-        
-        __currentIndex = 0;
-        __currentSize  = ceil(array_length(__assetArray)/3);
-        __currentArray = array_create(__currentSize);
-        
-        if (__currentSize <= 0) __VinylError("Error in ", self, "\nShuffle patterns must have at least one member");
         
         //Convert any basic patterns into audio asset indexes
         var _i = 0;
@@ -33,11 +27,6 @@ function __VinylClassPatternShuffle(_name) constructor
             if (asset_get_type(_pattern) == asset_sound) __assetArray[@ _i] = asset_get_index(_pattern);
             ++_i;
         }
-        
-        //Initialize the currently-playing array with a random sample from the overall pattern array
-        __VinylArrayShuffle(__assetArray);
-        array_copy(__currentArray, 0, __assetArray, 0, __currentSize);
-        array_delete(__assetArray, 0, __currentSize);
         
         
         
@@ -118,39 +107,18 @@ function __VinylClassPatternShuffle(_name) constructor
     
     
     
-    static __PopPattern = function()
+    static __Play = function(_emitter, _sound, _loop = false, _gain = 1, _pitch = 1, _pan = undefined)
     {
-        if (__currentIndex >= __currentSize)
-        {
-            //Copy the currently playing array back to the main pattern array
-            array_copy(__assetArray, array_length(__assetArray), __currentArray, 0, __currentSize);
-            
-            //Copy the next set of random patterns over to the current array, then remove them from the pattern array
-            array_copy(__currentArray, 0, __assetArray, 0, __currentSize);
-            array_delete(__assetArray, 0, __currentSize);
-            
-            //Reshuffle
-            __VinylArrayShuffle(__assetArray);
-            
-            __currentIndex = 0;
-        }
+        static __pool = __VinylGlobalData().__poolQueue;
         
-        var _pattern = __currentArray[__currentIndex];
-        ++__currentIndex;
-        return _pattern;
+        var _instance = __pool.__Depool();
+        _instance.__Play(_emitter, _sound, _loop, _gain, _pitch, _pan);
+        
+        return _instance;
     }
     
-    
-    
-    static __Play = function(_emitter, _sound_UNUSED, _loop = false, _gain = 1, _pitch = 1, _pan = undefined)
+    static __PlaySimple = function(_sound, _gain = 1, _pitch = 1)
     {
-        var _pattern = __PopPattern();
-        return __VinylPatternGet(_pattern).__Play(_emitter, _pattern, _loop, _gain, _pitch, _pan);
-    }
-    
-    static __PlaySimple = function(_sound_UNUSED, _gain = 1, _pitch = 1)
-    {
-        var _pattern = __PopPattern();
-        return __VinylPatternGet(_pattern).__PlaySimple(_pattern, _gain, _pitch);
+        __VinylError("Cannot use VinylPlaySimple() with a queue pattern");
     }
 }
