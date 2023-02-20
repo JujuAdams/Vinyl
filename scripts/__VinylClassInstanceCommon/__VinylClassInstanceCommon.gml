@@ -8,8 +8,6 @@ function __VinylClassInstanceCommon() constructor
     __id   = undefined;
     __pool = undefined;
     
-    __ResetState();
-    
     
     
     static toString = function()
@@ -17,10 +15,8 @@ function __VinylClassInstanceCommon() constructor
         return "<inst " + string(__id) + ">";
     }
     
-    static __ResetState = function()
+    static __ResetStateCommon = function()
     {
-        if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);
-        
         __patternName = undefined;
         
         __sound      = undefined;
@@ -46,7 +42,6 @@ function __VinylClassInstanceCommon() constructor
         
         __outputChanged = false;
         
-        __gmInstance = undefined;
         __panEmitter = undefined;
     }
     
@@ -424,46 +419,6 @@ function __VinylClassInstanceCommon() constructor
             }
             
             __panEmitter = undefined;
-        }
-    }
-    
-    static __Tick = function(_deltaTimeFactor)
-    {
-        if ((__gmInstance == undefined) || !__gmInstance.__IsPlaying())
-        {
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " has stopped played, returning to pool");
-            __VINYL_RETURN_SELF_TO_POOL
-        }
-        else
-        {
-            var _delta = clamp(__gainTarget - __gainInput, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
-            if (_delta != 0)
-            {
-                __gainInput  += _delta;
-                __gainOutput += _delta;
-                __outputChanged = true;
-            }
-            
-            if (__shutdown && (_delta <= 0) && ((__gainInput <= 0) || (__gainOutput <= 0)))
-            {
-                __Stop();
-                return;
-            }
-            
-            var _delta = clamp(__pitchTarget - __pitchInput, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
-            if (_delta != 0)
-            {
-                __pitchInput  += _delta;
-                __pitchOutput += _delta;
-                __outputChanged = true;
-            }
-            
-            if (__outputChanged)
-            {
-                __outputChanged = false;
-                __gmInstance.__GainSet(__gainOutput);
-                __gmInstance.__PitchSet(__pitchOutput);
-            }
         }
     }
 }

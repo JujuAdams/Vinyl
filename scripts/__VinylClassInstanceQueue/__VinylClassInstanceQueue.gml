@@ -1,5 +1,7 @@
 function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
 {
+    __ResetState();
+    
     static __patternType = "queue";
     
     static toString = function()
@@ -7,31 +9,19 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
         return "<queue inst " + string(__id) + ">";
     }
     
-    
+    static __ResetState = function()
+    {
+        if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);
+        
+        __ResetStateCommon();
+        
+        __gmInstance = undefined;
+    }
     
     static __Play = function(_emitter, _assetArray, _loop, _gain, _pitch, _pan)
     {
         //TODO
     }
-    
-    
-    
-    static __QueuePush = function(_asset)
-    {
-        //TODO
-    }
-    
-    static __QueueBehaviorSet = function(_behavior)
-    {
-        //TODO
-    }
-    
-    static __QueueBehaviorGet = function()
-    {
-        //TODO
-    }
-    
-    
     
     static __Tick = function(_deltaTimeFactor)
     {
@@ -71,5 +61,20 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
                 __gmInstance.__PitchSet(__pitchOutput);
             }
         }
+    }
+    
+    static __QueuePush = function(_asset)
+    {
+        //TODO
+    }
+    
+    static __QueueBehaviorSet = function(_behavior)
+    {
+        //TODO
+    }
+    
+    static __QueueBehaviorGet = function()
+    {
+        //TODO
     }
 }
