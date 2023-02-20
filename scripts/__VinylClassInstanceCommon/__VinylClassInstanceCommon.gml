@@ -266,6 +266,24 @@ function __VinylClassInstanceCommon() constructor
         __VINYL_RETURN_SELF_TO_POOL
     }
     
+    static __LengthGet = function()
+    {
+        if (__instance == undefined) return 0;
+        return __instance.__LengthGet();
+    }
+    
+    static __PositionSet = function(_position)
+    {
+        if (__instance == undefined) return;
+        return __instance.__PositionSet(_position);
+    }
+    
+    static __PositionGet = function()
+    {
+        if (__instance == undefined) return 0;
+        return __instance.__PositionGet();
+    }
+    
     #endregion
     
     

@@ -39,6 +39,10 @@ Instance constructor(...)
 .__FadeOut()
 .__Stop()
 
+.__LengthGet()
+.__PositionSet()
+.__PositionGet()
+
 .__QueuePush(asset)
 .__QueueBehaviorSet(behavior)
 .__QueueBehaviorGet()

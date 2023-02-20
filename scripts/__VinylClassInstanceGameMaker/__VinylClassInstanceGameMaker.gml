@@ -214,6 +214,48 @@ function __VinylClassInstanceGameMaker() constructor
         __instance = undefined;
     }
     
+    static __LengthGet = function()
+    {
+        if (!is_numeric(__instance)) return;
+        
+        if (audio_sound_get_loop(__instance))
+        {
+            return audio_sound_get_loop_end(__instance) - audio_sound_get_loop_start(__instance);
+        }
+        else
+        {
+            return audio_sound_length(__instance);
+        }
+    }
+    
+    static __PositionSet = function(_position)
+    {
+        if (!is_numeric(__instance)) return;
+        
+        if (audio_sound_get_loop(__instance))
+        {
+            audio_sound_set_track_position(__instance, _position + audio_sound_get_loop_start(__instance));
+        }
+        else
+        {
+            audio_sound_set_track_position(__instance, _position);
+        }
+    }
+    
+    static __PositionGet = function()
+    {
+        if (!is_numeric(__instance)) return;
+        
+        if (audio_sound_get_loop(__instance))
+        {
+            return audio_sound_get_track_position(__instance) - audio_sound_get_loop_start(__instance);
+        }
+        else
+        {
+            return audio_sound_get_track_position(__instance);
+        }
+    }
+    
     #endregion
     
     

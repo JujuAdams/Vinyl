@@ -74,6 +74,16 @@
                 sndTestTone
             ]
         }
+        
+        multi test: {
+            type: multi
+            assets: [
+                sndSync0
+                sndSync1
+                sndSync2
+                sndSync3
+            ]
+        }
     }
     
     
