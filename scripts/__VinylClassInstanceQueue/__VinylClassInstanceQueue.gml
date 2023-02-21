@@ -22,6 +22,119 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
         __emitter    = undefined;
     }
     
+    
+    
+    #region Gain
+    
+    static __GainSet = function(_gain)
+    {
+        if (__shutdown)
+        {
+            __VinylTrace("Cannot set gain for ", self, ", it is set to shut down");
+            return;
+        }
+        
+        if (VINYL_DEBUG_LEVEL >= 1)
+        {
+            __VinylTrace(self, " gain=", _gain);
+        }
+        
+        __gainTarget = _gain;
+        __gainRate   = infinity;
+        
+        //Don't propagate gain immediately
+    }
+    
+    static __GainTargetSet = function(_targetGain, _rate, _stopAtSilence = false)
+    {
+        if (__shutdown)
+        {
+            __VinylTrace("Cannot set gain target for ", self, ", it is set to shut down");
+            return;
+        }
+        
+        if (VINYL_DEBUG_LEVEL >= 1)
+        {
+            __VinylTrace(self, " gain target=", _targetGain, ", rate=", _rate, "/s, stop at silence=", _stopAtSilence? "true" : "false");
+        }
+        
+        __gainTarget = _targetGain;
+        __gainRate   = _rate;
+        __shutdown   = _stopAtSilence;
+        
+        //Don't propagate gain immediately
+    }
+    
+    #endregion
+    
+    
+    
+    #region Pitch
+    
+    static __PitchSet = function(_pitch)
+    {
+        if (__shutdown)
+        {
+            __VinylTrace("Cannot set pitch for ", self, ", it is set to shut down");
+            return;
+        }
+        
+        if (VINYL_DEBUG_LEVEL >= 1)
+        {
+            __VinylTrace(self, " pitch=", _pitch);
+        }
+        
+        __pitchTarget = _pitch;
+        __pitchRate   = infinity;
+        
+        //Don't propagate pitch immediately
+    }
+    
+    static __PitchTargetSet = function(_targetPitch, _rate)
+    {
+        if (__shutdown)
+        {
+            __VinylTrace("Cannot set pitch target for ", self, ", it is set to shut down");
+            return;
+        }
+        
+        if (VINYL_DEBUG_LEVEL >= 1)
+        {
+            __VinylTrace(self, " pitch target=", _targetPitch, ", rate=", _rate, "/s");
+        }
+        
+        __pitchTarget = _targetPitch;
+        __pitchRate   = _rate;
+        
+        //Don't propagate pitch immediately
+    }
+    
+    #endregion
+    
+    
+    
+    #region Queue
+    
+    static __QueuePush = function(_asset, _dontRepeatLast)
+    {
+        if (_dontRepeatLast && (array_length(__assetArray) > 0) && (__assetArray[array_length(__assetArray)-1] == _asset)) return;
+        array_push(__assetArray, _asset);
+    }
+    
+    static __QueueBehaviorSet = function(_behavior)
+    {
+        __behavior = _behavior;
+    }
+    
+    static __QueueBehaviorGet = function()
+    {
+        return __behavior;
+    }
+    
+    #endregion
+    
+    
+    
     static __Play = function(_emitter, _assetArray, _loop, _gain, _pitch, _pan)
     {
         __index = 0;
@@ -152,21 +265,5 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
             
             __instance.__Tick(_deltaTimeFactor);
         }
-    }
-    
-    static __QueuePush = function(_asset, _dontRepeatLast)
-    {
-        if (_dontRepeatLast && (array_length(__assetArray) > 0) && (__assetArray[array_length(__assetArray)-1] == _asset)) return;
-        array_push(__assetArray, _asset);
-    }
-    
-    static __QueueBehaviorSet = function(_behavior)
-    {
-        __behavior = _behavior;
-    }
-    
-    static __QueueBehaviorGet = function()
-    {
-        return __behavior;
     }
 }
