@@ -1,3 +1,5 @@
+/// Returns the number of channels being played on a Vinyl Multi instance
+/// 
 /// @param vinylID
 
 function VinylMultiChannelCountGet(_id)

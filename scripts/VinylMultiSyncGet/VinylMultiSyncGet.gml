@@ -1,3 +1,5 @@
+/// Returns whether a Vinyl Multi instance is set to synchronise channel playback
+/// 
 /// @param vinylID
 
 function VinylMultiSyncGet(_id)

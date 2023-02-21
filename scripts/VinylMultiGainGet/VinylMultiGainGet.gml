@@ -1,3 +1,5 @@
+/// Returns the gain for a specific channel for a Multi instance
+/// 
 /// @param vinylID
 /// @param index
 
