@@ -2,6 +2,22 @@
 
 &nbsp;
 
+## `VinylTypeGet`
+
+`VinylTypeGet(id)`
+
+&nbsp;
+
+*Returns:* String, the type of a [Vinyl instance](Terminology)
+
+|Name|Datatype      |Purpose           |
+|----|--------------|------------------|
+|`id`|Vinyl instance|Instance to target|
+
+This function can return one of the following values as strings: `"basic"` `"queue"` `"multi"`
+
+&nbsp;
+
 ## `VinylShutdownGet`
 
 `VinylShutdownGet(id)`
