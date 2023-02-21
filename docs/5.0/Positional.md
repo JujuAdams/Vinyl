@@ -139,9 +139,25 @@ Creates an emitter that occupies a rectangular region in your game world. This m
 
 &nbsp;
 
-## `VinylEmitterFalloff`
+## `VinylEmitterPositionSet`
 
-`VinylEmitterFalloff(emitter, min, max, factor)`
+`VinylEmitterPositionSet(emitter, x, y)`
+
+&nbsp;
+
+*Returns:* N/A (`undefined`)
+
+|Name     |Datatype     |Purpose                                                                               |
+|---------|-------------|--------------------------------------------------------------------------------------|
+|`emitter`|Vinyl emitter|Emitter to target. This must be a Vinyl emitter and **not** a native GameMaker emitter|
+|`x`      |number       |New x-position of the centre of the emitter                                           |
+|`y`      |number       |New y-position of the centre of the emitter                                           |
+
+&nbsp;
+
+## `VinylEmitterFalloffSet`
+
+`VinylEmitterFalloffSet(emitter, min, max, factor)`
 
 &nbsp;
 
