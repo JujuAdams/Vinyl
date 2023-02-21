@@ -298,7 +298,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         var _i = 0;
         repeat(array_length(__audioArray))
         {
-            VinylQueuePush(__audioArray[_i], _asset, _dontRepeatLast);
+            if (VinylTypeGet(__audioArray[_i]) == "queue") VinylQueuePush(__audioArray[_i], _asset, _dontRepeatLast);
             ++_i;
         }
     }
@@ -308,7 +308,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         var _i = 0;
         repeat(array_length(__audioArray))
         {
-            VinylQueueBehaviorSet(__audioArray[_i], _behavior);
+            if (VinylTypeGet(__audioArray[_i]) == "queue") VinylQueueBehaviorSet(__audioArray[_i], _behavior);
             ++_i;
         }
     }
@@ -324,7 +324,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         var _i = 0;
         repeat(array_length(__audioArray))
         {
-            VinylMultiGainSet(__audioArray[_i], _index, _gain);
+            if (VinylTypeGet(__audioArray[_i]) == "multi") VinylMultiGainSet(__audioArray[_i], _index, _gain);
             ++_i;
         }
     }
@@ -334,7 +334,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         var _i = 0;
         repeat(array_length(__audioArray))
         {
-            VinylMultiBlendSet(__audioArray[_i], _blendFactor);
+            if (VinylTypeGet(__audioArray[_i]) == "multi") VinylMultiBlendSet(__audioArray[_i], _blendFactor);
             ++_i;
         }
     }
@@ -344,7 +344,7 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         var _i = 0;
         repeat(array_length(__audioArray))
         {
-            VinylMultiSyncSet(__audioArray[_i], _state);
+            if (VinylTypeGet(__audioArray[_i]) == "multi") VinylMultiSyncSet(__audioArray[_i], _state);
             ++_i;
         }
     }
