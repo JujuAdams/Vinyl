@@ -6,8 +6,8 @@
 /// @param max
 /// @param factor
 
-function VinylEmitterFalloff(_emitter, _min, _max, _factor)
+function VinylEmitterFalloffSet(_emitter, _min, _max, _factor)
 {
     if (_emitter == undefined) return;
-    _emitter.__Falloff(_min, _max, _factor);
+    _emitter.__FalloffSet(_min, _max, _factor);
 }

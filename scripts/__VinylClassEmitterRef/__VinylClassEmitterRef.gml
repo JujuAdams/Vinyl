@@ -12,9 +12,9 @@ function __VinylClassEmitterRef() constructor
         return (__emitter == undefined)? undefined : __emitter.__emitter;
     }
     
-    static __Falloff = function(_min, _max, _factor = 1)
+    static __FalloffSet = function(_min, _max, _factor = 1)
     {
-        if (__emitter != undefined) __emitter.__Falloff(_min, _max, _factor);
+        if (__emitter != undefined) __emitter.__FalloffSet(_min, _max, _factor);
         return self;
     }
     

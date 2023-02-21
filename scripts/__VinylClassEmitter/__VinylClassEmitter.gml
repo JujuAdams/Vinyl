@@ -55,7 +55,7 @@ function __VinylClassEmitter() constructor
     
     #region Public
     
-    static __Falloff = function(_min, _max, _factor = 1)
+    static __FalloffSet = function(_min, _max, _factor = 1)
     {
         _min = max(0, _min);
         _max = max(_min + math_get_epsilon(), _max);
@@ -65,6 +65,19 @@ function __VinylClassEmitter() constructor
         __falloffFactor = _factor;
         
         audio_emitter_falloff(__emitter, __falloffMin, __falloffMax, __falloffFactor);
+    }
+    
+    static __PositionSet = function(_x, _y)
+    {
+        var _dx = _x - __x;
+        var _dy = _y - __y;
+        
+        __x      += _dx;
+        __y      += _dy;
+        __left   += _dx;
+        __top    += _dy;
+        __right  += _dx;
+        __bottom += _dy;
     }
     
     static __Point = function(_x, _y)

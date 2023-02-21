@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylEmitterFalloff",
+  "name": "VinylEmitterPositionSet",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
