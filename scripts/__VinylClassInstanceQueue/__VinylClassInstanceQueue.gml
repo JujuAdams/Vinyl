@@ -149,6 +149,8 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
                 __instance.__GainSet(__gainOutput);
                 __instance.__PitchSet(__pitchOutput);
             }
+            
+            __instance.__Tick(_deltaTimeFactor);
         }
     }
     
