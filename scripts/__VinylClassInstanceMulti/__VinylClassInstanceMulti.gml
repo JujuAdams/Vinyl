@@ -140,6 +140,8 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static __MultiGainSet = function(_index, _gain)
     {
+        __blendFactor = undefined;
+        
         if (_gain != __gainArray[_index])
         {
             __gainArray[@ _index] = _gain;
