@@ -18,6 +18,7 @@ function __VinylClassInstanceCommon() constructor
     static __ResetStateCommon = function()
     {
         __patternName = undefined;
+        __instance    = undefined;
         
         __loop       = undefined;
         __pan        = undefined;
@@ -65,8 +66,11 @@ function __VinylClassInstanceCommon() constructor
         __gainTarget = _gain;
         __gainRate   = infinity;
         
-        //We're setting the gain instantly so propagate the new gain value
-        __instance.__GainTargetSet(_gain, infinity, __shutdown);
+        if (__instance != undefined)
+        {
+            //We're setting the gain instantly so propagate the new gain value
+            __instance.__GainTargetSet(_gain, infinity, __shutdown);
+        }
     }
     
     static __GainGet = function()
@@ -91,8 +95,11 @@ function __VinylClassInstanceCommon() constructor
         __gainRate   = _rate;
         __shutdown   = _stopAtSilence;
         
-        //If we're setting the gain instantly then propagate the new gain value
-        if (is_infinity(_rate)) __instance.__GainTargetSet(_targetGain, _rate, _stopAtSilence);
+        if (__instance != undefined)
+        {
+            //If we're setting the gain instantly then propagate the new gain value
+            if (is_infinity(_rate)) __instance.__GainTargetSet(_targetGain, _rate, _stopAtSilence);
+        }
     }
     
     static __GainTargetGet = function()
@@ -127,8 +134,11 @@ function __VinylClassInstanceCommon() constructor
         __pitchTarget = _pitch;
         __pitchRate   = infinity;
         
-        //We're setting the pitch instantly so propagate the new pitch value
-        __instance.__PitchTargetSet(_pitch, infinity);
+        if (__instance != undefined)
+        {
+            //We're setting the pitch instantly so propagate the new pitch value
+            __instance.__PitchTargetSet(_pitch, infinity);
+        }
     }
     
     static __PitchGet = function()
@@ -152,8 +162,11 @@ function __VinylClassInstanceCommon() constructor
         __pitchTarget = _targetPitch;
         __pitchRate   = _rate;
         
-        //If we're setting the pitch instantly then propagate the new pitch value
-        if (is_infinity(_rate)) __instance.__PitchTargetSet(_targetPitch, _rate);
+        if (__instance != undefined)
+        {
+            //If we're setting the pitch instantly then propagate the new pitch value
+            if (is_infinity(_rate)) __instance.__PitchTargetSet(_targetPitch, _rate);
+        }
     }
     
     static __PitchTargetGet = function()
@@ -232,12 +245,12 @@ function __VinylClassInstanceCommon() constructor
     static __LoopSet = function(_state)
     {
         __loop = _state;
-        __instance.__LoopSet(_state);
+        if (__instance != undefined) __instance.__LoopSet(_state);
     }
     
     static __LoopPointsSet = function()
     {
-        __instance.__LoopPointsSet();
+        if (__instance != undefined) __instance.__LoopPointsSet();
     }
     
     #endregion
