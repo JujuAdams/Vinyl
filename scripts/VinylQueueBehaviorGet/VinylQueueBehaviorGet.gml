@@ -1,3 +1,13 @@
+/// Returns the current behaviour for a Vinyl queue instance
+/// 
+/// The value returned can be one of the following:
+/// 
+///   0 = Play the queue once. Assets will be removed from the queue once they finish playing
+///   1 = Repeat the queue once it’s finished. No assets are removed from the queue, and the queue
+///       will replay from the start
+///   2 = Repeat the last asset in the queue. Assets will be removed from the queue once they
+///       finish playing (apart from the last asset)
+/// 
 /// @param vinylID
 /// @param behavior
 

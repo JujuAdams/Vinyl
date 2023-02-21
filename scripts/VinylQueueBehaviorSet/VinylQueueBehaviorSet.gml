@@ -1,3 +1,16 @@
+/// Sets behaviour for a Vinyl queue instance, or instances assigned to a Vinyl label
+/// 
+/// If this function is given a label name then all currently playing queue instances assigned
+/// with that label will have their behaviour set
+/// 
+/// The behaviour value must be one of the following:
+/// 
+///   0 = Play the queue once. Assets will be removed from the queue once they finish playing
+///   1 = Repeat the queue once it’s finished. No assets are removed from the queue, and the queue
+///       will replay from the start
+///   2 = Repeat the last asset in the queue. Assets will be removed from the queue once they
+///       finish playing (apart from the last asset)
+/// 
 /// @param vinylID
 /// @param behavior
 

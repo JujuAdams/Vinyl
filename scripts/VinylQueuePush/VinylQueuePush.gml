@@ -1,3 +1,11 @@
+/// Pushes an asset onto a Vinyl queue instance, or instances assigned to a Vinyl label
+/// 
+/// If this function is given a label name then all currently playing queue instances assigned
+/// with that label will have that asset pushed
+/// 
+/// If the dontRepeatLast argument is set to <true> then a duplicate asset cannot be pushed
+/// to the end of a queue
+///
 /// @param vinylID
 /// @param asset
 /// @param [dontRepeatLast=false]
