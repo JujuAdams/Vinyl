@@ -24,6 +24,176 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         __shortestPrevPosition = 0;
     }
     
+    
+    
+    #region Loop
+    
+    static __LoopSet = function(_state)
+    {
+        if (__loop != _state)
+        {
+            __loop = _state;
+            
+            var _i = 0;
+            repeat(array_length(__instanceArray))
+            {
+                __instanceArray[_i].__LoopSet(_state);
+                ++_i;
+            }
+        }
+    }
+    
+    static __LoopPointsSet = function()
+    {
+        var _i = 0;
+        repeat(array_length(__instanceArray))
+        {
+            __instanceArray[_i].__LoopPointsSet();
+            ++_i;
+        }
+    }
+    
+    #endregion
+    
+    
+    
+    #region Playback
+    
+    static __IsPlaying = function()
+    {
+        if (array_length(__instanceArray) <= 0) return false;
+        return __instanceArray[__shortestIndex].__IsPlaying();
+    }
+    
+    static __Pause = function()
+    {
+        var _i = 0;
+        repeat(array_length(__instanceArray))
+        {
+            __instanceArray[_i].__Pause();
+            ++_i;
+        }
+    }
+    
+    static __Resume = function()
+    {
+        var _i = 0;
+        repeat(array_length(__instanceArray))
+        {
+            __instanceArray[_i].__Resume();
+            ++_i;
+        }
+    }
+    
+    static __Stop = function()
+    {
+        if (array_length(__instanceArray) <= 0) return;
+        
+        var _i = 0;
+        repeat(array_length(__instanceArray))
+        {
+            __instanceArray[_i].__Stop();
+            ++_i;
+        }
+        
+        array_resize(__instanceArray, 0);
+        
+        __VINYL_RETURN_SELF_TO_POOL
+    }
+    
+    static __LengthGet = function()
+    {
+        if (array_length(__instanceArray) <= 0) return 0;
+        return __instanceArray[__shortestIndex].__LengthGet();
+    }
+    
+    static __PositionSet = function(_position)
+    {
+        var _i = 0;
+        repeat(array_length(__instanceArray))
+        {
+            __instanceArray[_i].__PositionSet(_position);
+            ++_i;
+        }
+    }
+    
+    static __PositionGet = function()
+    {
+        var _i = 0;
+        repeat(array_length(__instanceArray))
+        {
+            __instanceArray[_i].__PositionGet();
+            ++_i;
+        }
+    }
+    
+    #endregion
+    
+    
+    
+    #region Multi
+    
+    static __MultiChannelCountGet = function(_asset)
+    {
+        return array_length(__instanceArray);
+    }
+    
+    static __MultiGainSet = function(_index, _gain)
+    {
+        if (_gain != __gainArray[_index])
+        {
+            __gainArray[@ _index] = _gain;
+            __outputChanged = true;
+        }
+    }
+    
+    static __MultiGainGet = function(_index)
+    {
+        return __gainArray[_index];
+    }
+    
+    static __MultiBlendSet = function(_blendFactor)
+    {
+        if (_blendFactor != __blendFactor)
+        {
+            __blendFactor = _blendFactor
+            __outputChanged = true;
+            
+            _blendFactor *= array_length(__gainArray) - 1;
+            
+            var _i = 0;
+            repeat(array_length(__gainArray))
+            {
+                var _gain = max(0, 1 - abs(_i - _blendFactor));
+                __gainArray[@ _i] = _gain;
+                
+                //Immediately update the gain too
+                __instanceArray[_i].__GainSet(__gainOutput*_gain);
+                
+                ++_i;
+            }
+        }
+    }
+    
+    static __MultiBlendGet = function()
+    {
+        return __blendFactor;
+    }
+    
+    static __MultiSyncSet = function(_state)
+    {
+        __sync = _state;
+    }
+    
+    static __MultiSyncGet = function()
+    {
+        return __sync;
+    }
+    
+    #endregion
+    
+    
+    
     static __Play = function(_emitter, _assetArray, _loop, _gain, _pitch, _pan)
     {
         //Set the state
@@ -170,73 +340,6 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
                     ++_i;
                 }
             }
-        }
-    }
-    
-    static __MultiChannelCountGet = function(_asset)
-    {
-        return array_length(__instanceArray);
-    }
-    
-    static __MultiGainSet = function(_index, _gain)
-    {
-        if (_gain != __gainArray[_index])
-        {
-            __gainArray[@ _index] = _gain;
-            __outputChanged = true;
-        }
-    }
-    
-    static __MultiGainGet = function(_index)
-    {
-        return __gainArray[_index];
-    }
-    
-    static __MultiBlendSet = function(_blendFactor)
-    {
-        if (_blendFactor != __blendFactor)
-        {
-            __blendFactor = _blendFactor
-            __outputChanged = true;
-            
-            _blendFactor *= array_length(__gainArray) - 1;
-            
-            var _i = 0;
-            repeat(array_length(__gainArray))
-            {
-                var _gain = max(0, 1 - abs(_i - _blendFactor));
-                __gainArray[@ _i] = _gain;
-                
-                //Immediately update the gain too
-                __instanceArray[_i].__GainSet(__gainOutput*_gain);
-                
-                ++_i;
-            }
-        }
-    }
-    
-    static __MultiBlendGet = function()
-    {
-        return __blendFactor;
-    }
-    
-    static __MultiSyncSet = function(_state)
-    {
-        __sync = _state;
-    }
-    
-    static __MultiSyncGet = function()
-    {
-        return __sync;
-    }
-    
-    static __LoopSet = function(_state)
-    {
-        var _i = 0;
-        repeat(array_length(__instanceArray))
-        {
-            __instanceArray[_i].__LoopSet(_state);
-            ++_i;
         }
     }
 }
