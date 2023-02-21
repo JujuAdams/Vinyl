@@ -1,3 +1,10 @@
+/// Returns the type for a Vinyl instance
+/// 
+/// The value returned can be one of the following:
+///   "basic"
+///   "queue"
+///   "multi"
+/// 
 /// @param vinylID
 
 function VinylTypeGet(_id)

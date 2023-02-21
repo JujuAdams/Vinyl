@@ -1,3 +1,5 @@
+/// Resets the *output* value of a knob to the default defined in the config file
+/// 
 /// @param name
 
 function VinylKnobReset(_name)

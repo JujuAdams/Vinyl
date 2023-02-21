@@ -1,3 +1,5 @@
+/// Returns the current *input* value for a knob
+/// 
 /// @param name
 
 function VinylKnobGet(_name)

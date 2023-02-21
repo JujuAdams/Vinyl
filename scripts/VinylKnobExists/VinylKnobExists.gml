@@ -1,3 +1,5 @@
+/// Returns if a knob with the given name exists
+/// 
 /// @param name
 
 function VinylKnobExists(_name)

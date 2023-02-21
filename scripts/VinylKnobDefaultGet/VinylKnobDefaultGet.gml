@@ -1,3 +1,5 @@
+/// Returns the default *output* value for a knob
+/// 
 /// @param name
 
 function VinylKnobDefaultGet(_name)
