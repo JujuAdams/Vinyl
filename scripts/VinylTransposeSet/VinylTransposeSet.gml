@@ -19,4 +19,6 @@ function VinylTransposeSet(_id, _semitone)
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__TransposeSet(_semitone);
+    
+    __VinylTrace("Warning! Failed to execute VinylTransposeSet() for ", _id);
 }
