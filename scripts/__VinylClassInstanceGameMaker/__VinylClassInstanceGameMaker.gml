@@ -65,9 +65,16 @@ function __VinylClassInstanceGameMaker() constructor
         return audio_sound_get_gain(__instance);
     }
     
-    static __GainTargetSet = function()
+    static __GainTargetSet = function(_targetGain, _rate, _stopAtSilence_UNUSED)
     {
-        //Do nothing
+        if (is_infinity(_rate))
+        {
+            audio_sound_gain(__instance, __VinylCurveAmplitude(_targetGain), 0);
+        }
+        else
+        {
+            audio_sound_gain(__instance, __VinylCurveAmplitude(_targetGain), VINYL_STEP_DURATION);
+        }
     }
     
     static __GainTargetGet = function()
@@ -98,9 +105,9 @@ function __VinylClassInstanceGameMaker() constructor
         return audio_sound_get_pitch(__instance);
     }
     
-    static __PitchTargetSet = function()
+    static __PitchTargetSet = function(_targetPitch, _rate_UNUSED, _stopAtSilence_UNUSED)
     {
-        //Do nothing
+        audio_sound_pitch(__instance, _targetPitch);
     }
     
     static __PitchTargetGet = function()

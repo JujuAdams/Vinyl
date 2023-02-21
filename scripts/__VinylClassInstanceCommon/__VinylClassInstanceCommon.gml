@@ -62,8 +62,11 @@ function __VinylClassInstanceCommon() constructor
             __VinylTrace(self, " gain=", _gain);
         }
         
-        __gainInput  = _gain;
         __gainTarget = _gain;
+        __gainRate   = infinity;
+        
+        //We're setting the gain instantly so propagate the new gain value
+        __instance.__GainTargetSet(_gain, infinity, __shutdown);
     }
     
     static __GainGet = function()
@@ -87,6 +90,9 @@ function __VinylClassInstanceCommon() constructor
         __gainTarget = _targetGain;
         __gainRate   = _rate;
         __shutdown   = _stopAtSilence;
+        
+        //If we're setting the gain instantly then propagate the new gain value
+        if (is_infinity(_rate)) __instance.__GainTargetSet(_targetGain, _rate, _stopAtSilence);
     }
     
     static __GainTargetGet = function()
@@ -118,8 +124,11 @@ function __VinylClassInstanceCommon() constructor
             __VinylTrace(self, " pitch=", _pitch);
         }
         
-        __pitchInput  = _pitch;
         __pitchTarget = _pitch;
+        __pitchRate   = infinity;
+        
+        //We're setting the pitch instantly so propagate the new pitch value
+        __instance.__PitchTargetSet(_pitch, infinity);
     }
     
     static __PitchGet = function()
@@ -142,6 +151,9 @@ function __VinylClassInstanceCommon() constructor
         
         __pitchTarget = _targetPitch;
         __pitchRate   = _rate;
+        
+        //If we're setting the pitch instantly then propagate the new pitch value
+        if (is_infinity(_rate)) __instance.__PitchTargetSet(_targetPitch, _rate);
     }
     
     static __PitchTargetGet = function()
