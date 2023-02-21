@@ -9,6 +9,7 @@ function __VinylTick()
     static _poolEmitter = _globalData.__poolEmitter;
     //Don't tick the pan emitters - we only need to update those when the listener changes position
     
+    ++_globalData.__frame;
     var _deltaTimeFactor = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
     
     //Update labels first

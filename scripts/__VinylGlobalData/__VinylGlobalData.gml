@@ -1,6 +1,8 @@
 function __VinylGlobalData()
 {
     static _struct = {
+        __frame: 0,
+        
         __liveUpdate: (VINYL_LIVE_UPDATE_PERIOD > 0),
         
         __listenerX: 0,

@@ -149,7 +149,16 @@ function __VinylUpdateData()
 
 function __VinylTrace()
 {
-    var _string = "Vinyl: ";
+    static _globalData = __VinylGlobalData();
+    
+    if (VINYL_DEBUG_SHOW_FRAMES)
+    {
+        var _string = "Vinyl fr." + string(_globalData.__frame) + ": ";
+    }
+    else
+    {
+        var _string = "Vinyl: ";
+    }
     
     var _i = 0
     repeat(argument_count)
