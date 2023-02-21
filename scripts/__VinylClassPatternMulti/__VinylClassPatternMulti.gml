@@ -34,6 +34,8 @@ function __VinylClassPatternMulti(_name) constructor
         var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
         var _effectChainName = _patternData[$ "effect chain"];
+        var _blend           = _patternData[$ "blend"       ] ?? undefined;
+        var _sync            = _patternData[$ "sync"        ] ?? false;
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
@@ -69,6 +71,21 @@ function __VinylClassPatternMulti(_name) constructor
         }
         
         __effectChainName = _effectChainName;
+        
+        if ((!is_undefined(_blend) && !is_numeric(_blend))
+        ||  (is_numeric(_blend) && ((_blend < 0) || (_blend > 1))))
+        {
+            __VinylError("Error in pattern ", self, "\nBlend must be a number between 0 and 1 (inclusive)");
+        }
+        
+        __blend = _blend;
+        
+        if (!is_bool(_sync))
+        {
+            __VinylError("Error in pattern ", self, "\nSync must be a boolean (<true> or <false>)");
+        }
+        
+        __sync = _sync;
         
         __labelArray = [];
         __labelDictTemp__ = {}; //Removed at the end of VinylSystemReadConfig()
@@ -112,7 +129,7 @@ function __VinylClassPatternMulti(_name) constructor
         static __pool = __VinylGlobalData().__poolMulti;
         
         var _instance = __pool.__Depool();
-        _instance.__Play(_emitter, __assetArray, _loop, _gain, _pitch, _pan);
+        _instance.__Play(_emitter, __assetArray, _loop, _gain, _pitch, _pan, __blend,  __sync);
         
         return _instance;
     }

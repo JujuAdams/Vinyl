@@ -34,6 +34,7 @@ function __VinylClassPatternQueue(_name) constructor
         var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
         var _effectChainName = _patternData[$ "effect chain"];
+        var _behavior        = _patternData[$ "behavior"    ] ?? (_patternData[$ "behaviour"] ?? 0);
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
@@ -69,6 +70,13 @@ function __VinylClassPatternQueue(_name) constructor
         }
         
         __effectChainName = _effectChainName;
+        
+        if (!is_numeric(_behavior) || ((_behavior != 0) && (_behavior != 1) && (_behavior != 2)))
+        {
+            __VinylError("Error in pattern ", self, "\nBehavior must be a number equal to 0, 1, or 2\nSee VinylQueueBehaviorSet() for more information");
+        }
+        
+        __behavior = _behavior;
         
         __labelArray = [];
         __labelDictTemp__ = {}; //Removed at the end of VinylSystemReadConfig()
@@ -112,7 +120,7 @@ function __VinylClassPatternQueue(_name) constructor
         static __pool = __VinylGlobalData().__poolQueue;
         
         var _instance = __pool.__Depool();
-        _instance.__Play(_emitter, __assetArray, _loop, _gain, _pitch, _pan);
+        _instance.__Play(_emitter, __assetArray, _loop, _gain, _pitch, _pan, __behavior);
         
         return _instance;
     }

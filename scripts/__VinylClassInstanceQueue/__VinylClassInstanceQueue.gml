@@ -135,7 +135,7 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
     
     
     
-    static __Play = function(_emitter, _assetArray, _loop, _gain, _pitch, _pan)
+    static __Play = function(_emitter, _assetArray, _loop, _gain, _pitch, _pan, _behavior)
     {
         __index = 0;
         
@@ -144,6 +144,7 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
         __pan         = _pan;
         __gainInput   = _gain;
         __pitchInput  = _pitch;
+        __behavior    = _behavior;
         
         __gainTarget  = __gainInput;
         __pitchTarget = __pitchInput;

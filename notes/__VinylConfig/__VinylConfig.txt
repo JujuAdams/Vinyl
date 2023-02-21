@@ -67,6 +67,7 @@
         
         queue test: {
             type: queue
+            behavior: 0
             assets: [
                 snd1KHz
                 sndTestTone

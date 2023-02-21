@@ -161,17 +161,13 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
             __blendFactor = _blendFactor
             __outputChanged = true;
             
-            _blendFactor *= array_length(__gainArray) - 1;
+            __ApplyBlendFactor();
             
+            //Immediately update the gain too
             var _i = 0;
             repeat(array_length(__gainArray))
             {
-                var _gain = max(0, 1 - abs(_i - _blendFactor));
-                __gainArray[@ _i] = _gain;
-                
-                //Immediately update the gain too
-                __instanceArray[_i].__GainSet(__gainOutput*_gain);
-                
+                __instanceArray[_i].__GainSet(__gainOutput*__gainArray[_i]);
                 ++_i;
             }
         }
@@ -192,17 +188,44 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         return __sync;
     }
     
+    static __ApplyBlendFactor = function()
+    {
+        if (__blendFactor == undefined)
+        {
+            var _i = 0;
+            repeat(array_length(__gainArray))
+            {
+                __gainArray[@ _i] = 1;
+                ++_i;
+            }
+        }
+        else
+        {
+            var _blendFactor = __blendFactor*(array_length(__gainArray) - 1);
+            
+            var _i = 0;
+            repeat(array_length(__gainArray))
+            {
+                var _gain = max(0, 1 - abs(_i - _blendFactor));
+                __gainArray[@ _i] = _gain;
+                ++_i;
+            }
+        }
+    }
+    
     #endregion
     
     
     
-    static __Play = function(_emitter, _assetArray, _loop, _gain, _pitch, _pan)
+    static __Play = function(_emitter, _assetArray, _loop, _gain, _pitch, _pan, _blendFactor, _sync)
     {
         //Set the state
         __loop        = _loop ?? __GetLoopFromLabel();
         __pan         = _pan;
         __gainInput   = _gain;
         __pitchInput  = _pitch;
+        __blendFactor = _blendFactor;
+        __sync        = _sync;
         
         __gainTarget  = __gainInput;
         __pitchTarget = __pitchInput;
@@ -210,6 +233,7 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         __randomPitchParam = __VinylRandom(1);
         
         __ApplyLabel(true);
+        __ApplyBlendFactor();
         
         //Determine which emitter to use given the input arguments
         var _effectChainName = undefined; //TODO
@@ -248,9 +272,6 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
             var _asset = _assetArray[_i];
             var _instance = __VinylPatternGet(_asset).__Play(__emitter, _asset, __loop, __gainOutput, __pitchOutput, __pan);
             __instanceArray[@ _i] = _instance;
-            
-            //Set the gain too
-            __gainArray[@ _i] = 1;
             
             //And then find the shortest instance and use that for syncing purposes
             var _length = _instance.__LengthGet();
