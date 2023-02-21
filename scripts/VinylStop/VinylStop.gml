@@ -14,4 +14,6 @@ function VinylStop(_id)
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__Stop();
+    
+    __VinylTrace("Warning! Failed to execute VinylStop() for ", _id);
 }

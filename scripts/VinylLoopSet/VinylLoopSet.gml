@@ -13,4 +13,6 @@ function VinylLoopSet(_id, _state)
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__LoopSet(_state);
+    
+    __VinylTrace("Warning! Failed to execute VinylLoopSet() for ", _id);
 }

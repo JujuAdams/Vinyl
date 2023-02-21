@@ -20,4 +20,6 @@ function VinylGainTargetSet(_id, _targetGain, _rate = VINYL_DEFAULT_GAIN_RATE)
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__GainTargetSet(_targetGain, _rate);
+    
+    __VinylTrace("Warning! Failed to execute VinylGainTargetSet() for ", _id);
 }

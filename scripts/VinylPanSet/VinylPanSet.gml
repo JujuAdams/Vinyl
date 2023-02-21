@@ -26,4 +26,6 @@ function VinylPanSet(_id, _pan)
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) __VinylError("Cannot get or set panning for labels");
+    
+    __VinylTrace("Warning! Failed to execute VinylPanSet() for ", _id);
 }

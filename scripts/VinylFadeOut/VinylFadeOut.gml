@@ -20,4 +20,6 @@ function VinylFadeOut(_id, _rate = VINYL_DEFAULT_GAIN_RATE)
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__FadeOut(_rate);
+    
+    __VinylTrace("Warning! Failed to execute VinylFadeOut() for ", _id);
 }

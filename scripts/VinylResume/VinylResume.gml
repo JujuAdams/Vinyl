@@ -18,4 +18,6 @@ function VinylResume(_id)
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__Resume();
+    
+    __VinylTrace("Warning! Failed to execute VinylResume() for ", _id);
 }

@@ -20,4 +20,6 @@ function VinylPitchTargetSet(_id, _targetPitch, _rate = VINYL_DEFAULT_PITCH_RATE
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__PitchTargetSet(_targetPitch, _rate);
+    
+    __VinylTrace("Warning! Failed to execute VinylPitchTargetSet() for ", _id);
 }
