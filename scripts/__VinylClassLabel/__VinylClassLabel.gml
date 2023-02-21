@@ -282,7 +282,69 @@ function __VinylClassLabel(_name, _parent, _dynamic) constructor
         var _i = 0;
         repeat(array_length(__audioArray))
         {
-            __audioArray[_i].__FadeOut(_rate);
+            VinylFadeOut(__audioArray[_i], _rate);
+            ++_i;
+        }
+    }
+    
+    #endregion
+    
+    
+    
+    #region Queue
+    
+    static __QueuePush = function(_asset, _dontRepeatLast)
+    {
+        var _i = 0;
+        repeat(array_length(__audioArray))
+        {
+            VinylQueuePush(__audioArray[_i], _asset, _dontRepeatLast);
+            ++_i;
+        }
+    }
+    
+    static __QueueBehaviorSet = function(_behavior)
+    {
+        var _i = 0;
+        repeat(array_length(__audioArray))
+        {
+            VinylQueueBehaviorSet(__audioArray[_i], _behavior);
+            ++_i;
+        }
+    }
+    
+    #endregion
+    
+    
+    
+    #region Multi
+    
+    static __MultiGainSet = function(_index, _gain)
+    {
+        var _i = 0;
+        repeat(array_length(__audioArray))
+        {
+            VinylMultiGainSet(__audioArray[_i], _index, _gain);
+            ++_i;
+        }
+    }
+    
+    static __MultiBlendSet = function(_blendFactor)
+    {
+        var _i = 0;
+        repeat(array_length(__audioArray))
+        {
+            VinylMultiBlendSet(__audioArray[_i], _blendFactor);
+            ++_i;
+        }
+    }
+    
+    static __MultiSyncSet = function(_state)
+    {
+        var _i = 0;
+        repeat(array_length(__audioArray))
+        {
+            VinylMultiSyncSet(__audioArray[_i], _state);
             ++_i;
         }
     }
