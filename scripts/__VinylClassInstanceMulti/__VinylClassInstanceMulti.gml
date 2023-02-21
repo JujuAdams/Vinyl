@@ -18,6 +18,7 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         __blendFactor   = undefined;
         __sync          = false;
         __instanceArray = [];
+        __gainArray     = [];
         
         __shortestIndex        = 0;
         __shortestPrevPosition = 0;
@@ -71,9 +72,15 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         var _i = 0;
         repeat(array_length(_assetArray))
         {
+            //Start an instance for this track
             var _asset = _assetArray[_i];
             var _instance = __VinylPatternGet(_asset).__Play(__emitter, _asset, __loop, __gainOutput, __pitchOutput, __pan);
+            __instanceArray[@ _i] = _instance;
             
+            //Set the gain too
+            __gainArray[@ _i] = 1;
+            
+            //And then find the shortest instance and use that for syncing purposes
             var _length = _instance.__LengthGet();
             if (_length < _shortestLength)
             {
@@ -82,8 +89,6 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
                 __shortestIndex        = _i;
                 __shortestPrevPosition = _instance.__PositionGet();
             }
-            
-            __instanceArray[_i] = _instance;
             
             ++_i;
         }
@@ -150,8 +155,18 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
                 repeat(array_length(__instanceArray))
                 {
                     var _instance = __instanceArray[_i];
-                    _instance.__GainSet(__gainOutput);
+                    _instance.__GainSet(__gainOutput*__gainArray[_i]);
                     _instance.__PitchSet(__pitchOutput);
+                    _instance.__Tick(_deltaTimeFactor);
+                    ++_i;
+                }
+            }
+            else
+            {
+                var _i = 0;
+                repeat(array_length(__instanceArray))
+                {
+                    __instanceArray[_i].__Tick(_deltaTimeFactor);
                     ++_i;
                 }
             }
@@ -165,20 +180,38 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static __MultiGainSet = function(_index, _gain)
     {
-        //TODO
+        if (_gain != __gainArray[_index])
+        {
+            __gainArray[@ _index] = _gain;
+            __outputChanged = true;
+        }
     }
     
     static __MultiGainGet = function(_index)
     {
-        //TODO
-        return 1;
+        return __gainArray[_index];
     }
     
     static __MultiBlendSet = function(_blendFactor)
     {
         if (_blendFactor != __blendFactor)
         {
-            //TODO
+            __blendFactor = _blendFactor
+            __outputChanged = true;
+            
+            _blendFactor *= array_length(__gainArray) - 1;
+            
+            var _i = 0;
+            repeat(array_length(__gainArray))
+            {
+                var _gain = max(0, 1 - abs(_i - _blendFactor));
+                __gainArray[@ _i] = _gain;
+                
+                //Immediately update the gain too
+                __instanceArray[_i].__GainSet(__gainOutput*_gain);
+                
+                ++_i;
+            }
         }
     }
     
