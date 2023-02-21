@@ -1,3 +1,5 @@
+/// Creates a Vinyl rectangle emitter and returns a reference to it
+/// 
 /// @param left
 /// @param top
 /// @param right

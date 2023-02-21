@@ -1,3 +1,5 @@
+/// Returns if the Vinyl emitter exists
+/// 
 /// @param emitter
 
 function VinylEmitterExists(_emitter)

@@ -1,3 +1,5 @@
+/// Sets the listener position for Vinyl's emitters
+/// 
 /// @param x
 /// @param y
 

@@ -1,3 +1,6 @@
+/// Sets the falloff properties for the given Vinyl emitter
+/// This function will not work with native GameMaker emitters
+/// 
 /// @param emitter
 /// @param min
 /// @param max
