@@ -72,8 +72,8 @@ function __VinylClassEmitter() constructor
         var _dx = _x - __x;
         var _dy = _y - __y;
         
-        __x      += _dx;
-        __y      += _dy;
+        __x       =  _x;
+        __y       =  _y;
         __left   += _dx;
         __top    += _dy;
         __right  += _dx;
