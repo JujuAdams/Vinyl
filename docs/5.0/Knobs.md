@@ -25,7 +25,7 @@ Sets the normalised input value of a [Vinyl knob](Terminology). This is converte
 
 ## `VinylKnobGet`
 
-`VinylKnobSet(name)`
+`VinylKnobGet(name)`
 
 &nbsp;
 
