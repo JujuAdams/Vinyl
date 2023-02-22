@@ -1,3 +1,5 @@
+&nbsp;
+
 <img src="https://raw.githubusercontent.com/JujuAdams/Vinyl/master/LOGO.png" width="50%" style="display: block; margin: auto;" />
 <h1 align="center">Vinyl 5.0</h1>
 <p align="center">Live updating audio system for GameMaker 2023.2 by <a href="https://www.jujuadams.com/" target="_blank">Juju Adams</a></p>
