@@ -94,16 +94,19 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
     
     static __LoopPointsSet = function()
     {
-        var _loopPoints = __VinylPatternGet(__sound).__loopPoints;
-        if (is_array(_loopPoints))
+        if (__pattern != undefined)
         {
-            audio_sound_loop_start(__gmInstance, _loopPoints[0]);
-            audio_sound_loop_end(  __gmInstance, _loopPoints[1]);
-        }
-        else
-        {
-            audio_sound_loop_start(__gmInstance, 0);
-            audio_sound_loop_end(  __gmInstance, audio_sound_length(__gmInstance));
+            var _loopPoints = __pattern.__loopPoints;
+            if (is_array(_loopPoints))
+            {
+                audio_sound_loop_start(__gmInstance, _loopPoints[0]);
+                audio_sound_loop_end(  __gmInstance, _loopPoints[1]);
+            }
+            else
+            {
+                audio_sound_loop_start(__gmInstance, 0);
+                audio_sound_loop_end(  __gmInstance, audio_sound_length(__gmInstance));
+            }
         }
     }
     

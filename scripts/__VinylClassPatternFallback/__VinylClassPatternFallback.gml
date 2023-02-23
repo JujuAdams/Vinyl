@@ -24,6 +24,7 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         __InitializePitch(_pitch, _knobDict);
         __InitializeEffectChain(_effectChainName);
         __InitializeLabelArray(_labelNameArray, _labelDict);
+        __InitializeLoopPoints(undefined);
         
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(_labelArray));
     }

@@ -531,10 +531,6 @@ function __VinylClassInstanceCommon() constructor
     {
         ds_map_delete(__idToInstanceDict, __id);
         
-        __LabelRemove();
-        __Stop();
-        __StateReset();
-        
         //If we're playing on a pan emitter, pool it
         if (__panEmitter != undefined)
         {
@@ -547,6 +543,10 @@ function __VinylClassInstanceCommon() constructor
             
             __panEmitter = undefined;
         }
+        
+        __LabelRemove();
+        __Stop();
+        __StateReset();
     }
     
     static __CalculateGainPitch = function(_deltaTimeFactor)

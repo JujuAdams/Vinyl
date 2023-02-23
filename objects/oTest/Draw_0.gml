@@ -68,3 +68,21 @@ UIButtonInline("Fade out \"music\" label", function()
 
 UINewline();
 UINewline();
+
+UIButtonInline("Play left pan", function()
+{
+    music = VinylPlay(snd1KHz, false, 1, 1, -1);
+});
+
+UIButtonInline("Play centre pan", function()
+{
+    music = VinylPlay(snd1KHz, false, 1, 1, 0);
+});
+
+UIButtonInline("Play right pan", function()
+{
+    music = VinylPlay(snd1KHz, false, 1, 1, 1);
+});
+
+UINewline();
+UINewline();

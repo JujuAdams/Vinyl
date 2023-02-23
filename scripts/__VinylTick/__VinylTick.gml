@@ -20,7 +20,7 @@ function __VinylTick()
     repeat(array_length(_topLevelArray))
     {
         var _instance = _topLevelArray[_i];
-        if (_instance.__IsPlaying())
+        if (_instance.__pool != undefined)
         {
             _instance.__Tick(_deltaTimeFactor);
             ++_i;
