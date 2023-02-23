@@ -8,14 +8,10 @@ function __VinylClassPatternShuffle(_name, _adHoc) : __VinylClassPatternCommon()
     __name  = _name;
     __adHoc = _adHoc;
     
-    
-    
     static toString = function()
     {
         return "<shuffle " + string(__name) + ">";
     }
-    
-    #region Initialize
     
     static __Initialize = function(_patternData = {}, _labelDict, _knobDict)
     {
@@ -50,10 +46,6 @@ function __VinylClassPatternShuffle(_name, _adHoc) : __VinylClassPatternCommon()
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(_labelArray));
     }
     
-    #endregion
-    
-    
-    
     static __PopPattern = function()
     {
         if (__currentIndex >= __currentSize)
@@ -76,12 +68,10 @@ function __VinylClassPatternShuffle(_name, _adHoc) : __VinylClassPatternCommon()
         return _pattern;
     }
     
-    
-    
-    static __Play = function(_emitter, _sound_UNUSED, _loop = false, _gain = 1, _pitch = 1, _pan = undefined)
+    static __Play = function(_parentInstance, _emitter, _sound_UNUSED, _loop = false, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _pattern = __PopPattern();
-        return __VinylPatternGet(_pattern).__Play(_pattern, _emitter, _pattern, _loop, _gain, _pitch, _pan);
+        return __VinylPatternGet(_pattern).__Play(_pattern, _parentInstance, _emitter, _pattern, _loop, _gain, _pitch, _pan);
     }
     
     static __PlaySimple = function(_sound_UNUSED, _gain = 1, _pitch = 1)

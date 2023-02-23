@@ -15,10 +15,10 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         
         __StateResetCommon();
         
-        __blendFactor   = undefined;
-        __sync          = false;
-        __instanceArray = [];
-        __gainArray     = [];
+        __blendFactor = undefined;
+        __sync        = false;
+        __childArray  = [];
+        __gainArray   = [];
         
         __shortestIndex        = 0;
         __shortestPrevPosition = 0;
@@ -35,9 +35,9 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
             __loop = _state;
             
             var _i = 0;
-            repeat(array_length(__instanceArray))
+            repeat(array_length(__childArray))
             {
-                __instanceArray[_i].__LoopSet(_state);
+                __childArray[_i].__LoopSet(_state);
                 ++_i;
             }
         }
@@ -46,9 +46,9 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     static __LoopPointsSet = function()
     {
         var _i = 0;
-        repeat(array_length(__instanceArray))
+        repeat(array_length(__childArray))
         {
-            __instanceArray[_i].__LoopPointsSet();
+            __childArray[_i].__LoopPointsSet();
             ++_i;
         }
     }
@@ -61,58 +61,64 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static __IsPlaying = function()
     {
-        if (array_length(__instanceArray) <= 0) return false;
-        return __instanceArray[__shortestIndex].__IsPlaying();
+        if (array_length(__childArray) <= 0) return false;
+        return __childArray[__shortestIndex].__IsPlaying();
     }
     
     static __Pause = function()
     {
         var _i = 0;
-        repeat(array_length(__instanceArray))
+        repeat(array_length(__childArray))
         {
-            __instanceArray[_i].__Pause();
+            __childArray[_i].__Pause();
             ++_i;
         }
+    }
+    
+    static __PauseGet = function()
+    {
+        if (array_length(__childArray) <= 0) return false;
+        return __childArray[__shortestIndex].__PauseGet();
     }
     
     static __Resume = function()
     {
         var _i = 0;
-        repeat(array_length(__instanceArray))
+        repeat(array_length(__childArray))
         {
-            __instanceArray[_i].__Resume();
+            __childArray[_i].__Resume();
             ++_i;
         }
     }
     
     static __Stop = function()
     {
-        if (array_length(__instanceArray) <= 0) return;
+        if (array_length(__childArray) <= 0) return;
         
         var _i = 0;
-        repeat(array_length(__instanceArray))
+        repeat(array_length(__childArray))
         {
-            __instanceArray[_i].__Stop();
+            __childArray[_i].__Stop();
             ++_i;
         }
         
-        array_resize(__instanceArray, 0);
+        array_resize(__childArray, 0);
         
         __VINYL_RETURN_SELF_TO_POOL
     }
     
     static __LengthGet = function()
     {
-        if (array_length(__instanceArray) <= 0) return 0;
-        return __instanceArray[__shortestIndex].__LengthGet();
+        if (array_length(__childArray) <= 0) return 0;
+        return __childArray[__shortestIndex].__LengthGet();
     }
     
     static __PositionSet = function(_position)
     {
         var _i = 0;
-        repeat(array_length(__instanceArray))
+        repeat(array_length(__childArray))
         {
-            __instanceArray[_i].__PositionSet(_position);
+            __childArray[_i].__PositionSet(_position);
             ++_i;
         }
     }
@@ -120,9 +126,9 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     static __PositionGet = function()
     {
         var _i = 0;
-        repeat(array_length(__instanceArray))
+        repeat(array_length(__childArray))
         {
-            __instanceArray[_i].__PositionGet();
+            __childArray[_i].__PositionGet();
             ++_i;
         }
     }
@@ -135,18 +141,13 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static __MultiChannelCountGet = function(_asset)
     {
-        return array_length(__instanceArray);
+        return array_length(__childArray);
     }
     
     static __MultiGainSet = function(_index, _gain)
     {
         __blendFactor = undefined;
-        
-        if (_gain != __gainArray[_index])
-        {
-            __gainArray[@ _index] = _gain;
-            __outputChanged = true;
-        }
+        if (_gain != __gainArray[_index]) __gainArray[@ _index] = _gain;
     }
     
     static __MultiGainGet = function(_index)
@@ -159,15 +160,13 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         if (_blendFactor != __blendFactor)
         {
             __blendFactor = _blendFactor
-            __outputChanged = true;
-            
             __ApplyBlendFactor();
             
             //Immediately update the gain too
             var _i = 0;
             repeat(array_length(__gainArray))
             {
-                __instanceArray[_i].__GainSet(__gainOutput*__gainArray[_i]);
+                __childArray[_i].__GainSet(__gainArray[_i]);
                 ++_i;
             }
         }
@@ -217,11 +216,13 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     
     
-    static __Play = function(_pattern, _emitter, _assetArray, _loop, _gain, _pitch, _pan, _blendFactor, _sync)
+    static __Instantiate = function(_pattern, _parentInstance, _emitter, _assetArray, _loop, _gain, _pitch, _pan, _blendFactor, _sync)
     {
-        __StateSetCommon(_pattern, _emitter, _loop, _gain, _pitch, _pan);
+        __StateSetCommon(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan);
+        
         __blendFactor = _blendFactor;
         __sync        = _sync;
+        
         __ApplyBlendFactor();
         
         var _shortestLength = infinity;
@@ -230,8 +231,8 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         {
             //Start an instance for this track
             var _asset = _assetArray[_i];
-            var _instance = __VinylPatternGet(_asset).__Play(__gmEmitter, _asset, __loop, __gainOutput, __pitchOutput, __pan);
-            __instanceArray[@ _i] = _instance;
+            var _instance = __VinylPatternGet(_asset).__Play(self, __gmEmitter, _asset, __loop, __gainArray[_i], 1, __pan);
+            __childArray[@ _i] = _instance;
             
             //And then find the shortest instance and use that for syncing purposes
             var _length = _instance.__LengthGet();
@@ -249,7 +250,7 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static __Tick = function(_deltaTimeFactor)
     {
-        if (!__instanceArray[__shortestIndex].__IsPlaying())
+        if (!__childArray[__shortestIndex].__IsPlaying())
         {
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Shortest instance for ", self, " is no longer playing, returning to pool");
             __VINYL_RETURN_SELF_TO_POOL
@@ -258,17 +259,17 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         {
             if (__sync)
             {
-                var _shortestPosition = __instanceArray[__shortestIndex].__PositionGet();
+                var _shortestPosition = __childArray[__shortestIndex].__PositionGet();
                 if (_shortestPosition != __shortestPrevPosition)
                 {
                     if (_shortestPosition < __shortestPrevPosition)
                     {
                         //We've looped!
-                        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace(self, " shortest instance ", __instanceArray[__shortestIndex], " has looped, setting position for all other instances");
+                        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace(self, " shortest instance ", __childArray[__shortestIndex], " has looped, setting position for all other instances");
                         var _i = 0;
-                        repeat(array_length(__instanceArray))
+                        repeat(array_length(__childArray))
                         {
-                            var _instance = __instanceArray[_i];
+                            var _instance = __childArray[_i];
                             _instance.__PositionSet(_shortestPosition);
                             ++_i;
                         }
@@ -278,50 +279,18 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
                 }
             }
             
-            var _delta = clamp(__gainTarget - __gainInput, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
-            if (_delta != 0)
-            {
-                __gainInput  += _delta;
-                __gainOutput += _delta;
-                __outputChanged = true;
-                
-                if (__shutdown && (_delta <= 0) && ((__gainInput <= 0) || (__gainOutput <= 0)))
-                {
-                    __Stop();
-                    return;
-                }
-            }
+            __TickCommon(_deltaTimeFactor);
             
-            var _delta = clamp(__pitchTarget - __pitchInput, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
-            if (_delta != 0)
+            var _i = 0;
+            repeat(array_length(__childArray))
             {
-                __pitchInput  += _delta;
-                __pitchOutput += _delta;
-                __outputChanged = true;
-            }
-            
-            if (__outputChanged)
-            {
-                __outputChanged = false;
+                with(__childArray[_i])
+                {
+                    __GainSet(other.__gainArray[_i]);
+                    __Tick(_deltaTimeFactor);
+                }
                 
-                var _i = 0;
-                repeat(array_length(__instanceArray))
-                {
-                    var _instance = __instanceArray[_i];
-                    _instance.__GainSet(__gainOutput*__gainArray[_i]);
-                    _instance.__PitchSet(__pitchOutput);
-                    _instance.__Tick(_deltaTimeFactor);
-                    ++_i;
-                }
-            }
-            else
-            {
-                var _i = 0;
-                repeat(array_length(__instanceArray))
-                {
-                    __instanceArray[_i].__Tick(_deltaTimeFactor);
-                    ++_i;
-                }
+                ++_i;
             }
         }
     }

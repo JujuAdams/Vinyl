@@ -18,5 +18,6 @@ function VinylPlayOnEmitter(_emitter, _sound, _loop = undefined, _gain = 1, _pit
     if (!is_struct(_emitter) || !is_instanceof(_emitter, __VinylClassEmitterRef)) __VinylError("Emitter not valid");
     if (!is_struct(_emitter.__emitter)) __VinylError(_emitter, " has been destroyed");
     
-    return __VinylPatternGet(_sound).__Play(_emitter, _sound, _loop, _gain, _pitch, undefined).__id;
+    var _instance = __VinylPatternGet(_sound).__Play(undefined, _emitter, _sound, _loop, _gain, _pitch, undefined);
+    return _instance.__id;
 }

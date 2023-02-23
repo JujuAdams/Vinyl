@@ -1,7 +1,7 @@
 Pattern constructor(name)
 
 .__Initialize(patternData = {}, knobDict, labelDict)
-.__Play(_emitter, _sound, _loop, _gain, _pitch, _pan)  //Need a sound parameter to handle basic fallback pattern
+.__Play(_parent, _emitter, _sound, _loop, _gain, _pitch, _pan)  //Need a sound parameter to handle basic fallback pattern
 .__PlaySimple(_sound, _gain, _pitch)                   //Need a sound parameter to handle basic fallback pattern
 
 
@@ -10,7 +10,7 @@ Instance constructor(...)
 
 .toString()
 .__StateReset()
-.__Play()
+.__Instantiate()
 .__Stop()
 .__Tick()
 

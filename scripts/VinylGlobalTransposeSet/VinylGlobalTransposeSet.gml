@@ -9,16 +9,5 @@ function VinylGlobalTransposeSet(_semitone)
     {
         __VinylTrace("Setting transpose to ", _semitone, " semitones");
         _globalData.__transposeSemitones = _semitone;
-        
-        var _i = 0;
-        repeat(array_length(_activeArray))
-        {
-            with(_activeArray[_i])
-            {
-                if (__transposeUsing) __outputChanged = true;
-            }
-            
-            ++_i;
-        }
     }
 }

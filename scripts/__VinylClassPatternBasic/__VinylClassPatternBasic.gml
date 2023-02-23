@@ -9,16 +9,10 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
     __name  = _name;
     __adHoc = _adHoc;
     
-    
-    
     static toString = function()
     {
         return "<basic " + __name + ">";
     }
-    
-    
-    
-    #region Initialize
     
     static __Initialize = function(_patternData = {}, _knobDict, _labelDict)
     {
@@ -60,20 +54,15 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(_labelArray));
     }
     
-    #endregion
-    
-    
-    
-    static __Play = function(_emitter, _sound, _loop = false, _gain = 1, _pitch = 1, _pan = undefined)
+    static __Play = function(_parentInstance, _emitter, _sound_UNUSED, _loop = false, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _instance = __pool.__Depool();
-        _instance.__Play(_pattern, _emitter, _sound, _loop, _gain, _pitch, _pan);
+        _instance.__Instantiate(self, _parentInstance, _emitter, __asset, _loop, _gain, _pitch, _pan);
         return _instance;
     }
     
-    static __PlaySimple = function(_sound = __asset, _gain = 1, _pitch = 1)
+    static __PlaySimple = function(_sound_UNUSED, _gain = 1, _pitch = 1)
     {
-        if (is_string(_sound)) _sound = __asset;
-        return __VinylPlaySimple(_sound, _gain*__gain, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, __effectChainName);
+        return __VinylPlaySimple(__asset, _gain*__gain, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, __effectChainName);
     }
 }

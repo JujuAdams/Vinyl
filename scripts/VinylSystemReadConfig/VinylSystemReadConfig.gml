@@ -451,13 +451,7 @@ function VinylSystemReadConfig(_configData)
     var _i = 0;
     repeat(array_length(_basicActiveArray))
     {
-        with(_basicActiveArray[_i])
-        {
-            __ApplyLabel(true);
-            __LoopPointsSet();
-            __outputChanged = true;
-        }
-        
+        with(_basicActiveArray[_i]) __LoopPointsSet();
         ++_i;
     }
     

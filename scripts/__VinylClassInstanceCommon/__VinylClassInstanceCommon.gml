@@ -17,52 +17,55 @@ function __VinylClassInstanceCommon() constructor
     
     static __StateResetCommon = function()
     {
-        __patternName = undefined;
-        __instance    = undefined;
+        __patternName    = undefined;
+        __parentInstance = undefined;
+        __child          = undefined;
         
         __loop = undefined;
         __pan  = undefined;
         
         __shutdown = false;
         
-        __gainInput  = 1;
-        __gainTarget = __gainInput;
-        __gainRate   = VINYL_DEFAULT_GAIN_RATE;
-        __gainOutput = 1;
+        __gainLocal   = 1;
+        __gainTarget  = 1;
+        __gainRate    = VINYL_DEFAULT_GAIN_RATE;
+        __gainPattern = 1;
+        __gainParent  = 1;
+        __gainLabels  = 1;
+        __gainOutput  = 1;
         
-        __pitchInput  = 1;
-        __pitchTarget = __pitchInput;
-        __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
-        __pitchOutput = 1;
-        
-        __randomPitchParam = 0.5;
+        __pitchLocal       = 1;
+        __pitchTarget      = 1;
+        __pitchRate        = VINYL_DEFAULT_PITCH_RATE;
+        __pitchRandomParam = 0.5;
+        __pitchPattern     = 1;
+        __pitchParent      = 1;
+        __pitchLabels      = 1;
+        __pitchOutput      = 1;
         
         __transposeUsing     = false;
         __transposeSemitones = 0;
-        __transposePitch     = 1; //Internal value, stored as normalized percentage
-        
-        __outputChanged = false;
         
         __gmEmitter  = undefined;
         __panEmitter = undefined;
     }
     
-    static __StateSetCommon = function(_pattern, _emitter, _loop, _gain, _pitch, _pan)
+    static __StateSetCommon = function(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan)
     {
         static _poolPanEmitter = __globalData.__poolPanEmitter;
         
-        __patternName = _pattern.__name;
-        __loop        = _loop ?? __GetLoopFromLabel();
-        __pan         = _pan;
-        __gainInput   = _gain;
-        __pitchInput  = _pitch;
+        __patternName    = _pattern.__name;
+        __parentInstance = _parentInstance;
+        __loop           = _loop ?? __GetLoopFromLabel();
+        __gainLocal      = _gain;
+        __pitchLocal     = _pitch;
+        __pan            = _pan;
         
-        __gainTarget  = __gainInput;
-        __pitchTarget = __pitchInput;
+        __gainTarget  = __gainLocal;
+        __pitchTarget = __pitchLocal;
         
-        __randomPitchParam = __VinylRandom(1);
-        
-        __ApplyLabel(true);
+        __pitchRandomParam = __VinylRandom(1);
+        __CalculateGainPitch();
         
         //Determine which emitter to use given the input arguments
         var _effectChainName = __VinylPatternGetEffectChain(__patternName);
@@ -92,6 +95,19 @@ function __VinylClassInstanceCommon() constructor
                 __gmEmitter = __panEmitter.__emitter;
             }
         }
+        
+        //Use the top-level parent for label contribution
+        var _pattern = __VinylPatternGet(__ParentTopLevelGet().__patternName);
+        if (_pattern != undefined)
+        {
+            var _labelArray = _pattern.__labelArray;
+            var _i = 0;
+            repeat(array_length(_labelArray))
+            {
+                _labelArray[_i].__AddInstance(__id);
+                ++_i;
+            }
+        }
     }
     
     
@@ -114,16 +130,16 @@ function __VinylClassInstanceCommon() constructor
         __gainTarget = _gain;
         __gainRate   = infinity;
         
-        if (__instance != undefined)
+        if (__child != undefined)
         {
             //We're setting the gain instantly so propagate the new gain value
-            __instance.__GainTargetSet(_gain, infinity, __shutdown);
+            __child.__GainTargetSet(_gain, infinity, __shutdown);
         }
     }
     
     static __GainGet = function()
     {
-        return __gainInput;
+        return __gainLocal;
     }
     
     static __GainTargetSet = function(_targetGain, _rate, _stopAtSilence = false)
@@ -143,10 +159,10 @@ function __VinylClassInstanceCommon() constructor
         __gainRate   = _rate;
         __shutdown   = _stopAtSilence;
         
-        if (__instance != undefined)
+        if (__child != undefined)
         {
             //If we're setting the gain instantly then propagate the new gain value
-            if (is_infinity(_rate)) __instance.__GainTargetSet(_targetGain, _rate, _stopAtSilence);
+            if (is_infinity(_rate)) __child.__GainTargetSet(_targetGain, _rate, _stopAtSilence);
         }
     }
     
@@ -182,16 +198,16 @@ function __VinylClassInstanceCommon() constructor
         __pitchTarget = _pitch;
         __pitchRate   = infinity;
         
-        if (__instance != undefined)
+        if (__child != undefined)
         {
             //We're setting the pitch instantly so propagate the new pitch value
-            __instance.__PitchTargetSet(_pitch, infinity);
+            __child.__PitchTargetSet(_pitch, infinity);
         }
     }
     
     static __PitchGet = function()
     {
-        return __pitchInput;
+        return __pitchLocal;
     }
     
     static __PitchTargetSet = function(_targetPitch, _rate)
@@ -210,10 +226,10 @@ function __VinylClassInstanceCommon() constructor
         __pitchTarget = _targetPitch;
         __pitchRate   = _rate;
         
-        if (__instance != undefined)
+        if (__child != undefined)
         {
             //If we're setting the pitch instantly then propagate the new pitch value
-            if (is_infinity(_rate)) __instance.__PitchTargetSet(_targetPitch, _rate);
+            if (is_infinity(_rate)) __child.__PitchTargetSet(_targetPitch, _rate);
         }
     }
     
@@ -250,7 +266,6 @@ function __VinylClassInstanceCommon() constructor
             
             __transposeUsing     = true;
             __transposeSemitones = _semitones;
-            __transposePitch     = __VinylSemitoneToPitch(_semitones + __globalData.__transposeSemitones);
         }
     }
     
@@ -269,13 +284,8 @@ function __VinylClassInstanceCommon() constructor
                 __VinylTrace(self, " transposition reset");
             }
             
-            __pitchOutput /= __transposePitch;
-            
             __transposeUsing     = false;
             __transposeSemitones = 0;
-            __transposePitch     = 1;
-            
-            __outputChanged = true;
         }
     }
     
@@ -293,12 +303,12 @@ function __VinylClassInstanceCommon() constructor
     static __LoopSet = function(_state)
     {
         __loop = _state;
-        if (__instance != undefined) __instance.__LoopSet(_state);
+        if (__child != undefined) __child.__LoopSet(_state);
     }
     
     static __LoopPointsSet = function()
     {
-        if (__instance != undefined) __instance.__LoopPointsSet();
+        if (__child != undefined) __child.__LoopPointsSet();
     }
     
     #endregion
@@ -309,19 +319,25 @@ function __VinylClassInstanceCommon() constructor
     
     static __IsPlaying = function()
     {
-        return (__instance != undefined);
+        return (__child != undefined);
     }
     
     static __Pause = function()
     {
-        if (__instance == undefined) return;
-        __instance.__Pause();
+        if (__child == undefined) return;
+        __child.__Pause();
+    }
+    
+    static __PauseGet = function()
+    {
+        if (__child == undefined) return;
+        return __child.__PauseGet();
     }
     
     static __Resume = function()
     {
-        if (__instance == undefined) return;
-        __instance.__Resume();
+        if (__child == undefined) return;
+        __child.__Resume();
     }
     
     static __FadeOut = function(_rate)
@@ -331,30 +347,30 @@ function __VinylClassInstanceCommon() constructor
     
     static __Stop = function()
     {
-        if (__instance == undefined) return;
+        if (__child == undefined) return;
         
-        __instance.__Stop();
-        __instance = undefined;
+        __child.__Stop();
+        __child = undefined;
         
         __VINYL_RETURN_SELF_TO_POOL
     }
     
     static __LengthGet = function()
     {
-        if (__instance == undefined) return 0;
-        return __instance.__LengthGet();
+        if (__child == undefined) return 0;
+        return __child.__LengthGet();
     }
     
     static __PositionSet = function(_position)
     {
-        if (__instance == undefined) return;
-        return __instance.__PositionSet(_position);
+        if (__child == undefined) return;
+        return __child.__PositionSet(_position);
     }
     
     static __PositionGet = function()
     {
-        if (__instance == undefined) return 0;
-        return __instance.__PositionGet();
+        if (__child == undefined) return 0;
+        return __child.__PositionGet();
     }
     
     #endregion
@@ -423,34 +439,31 @@ function __VinylClassInstanceCommon() constructor
     
     
     
-    static __ApplyLabel = function(_initialize)
+    static __LabelGainPitchGet = function()
     {
         //Update the output values based on the asset and labels
-        __gainOutput  = __gainInput;
-        __pitchOutput = __pitchInput;
+        __gainLabels  = 1;
+        __pitchLabels = 1;
         
-        var _asset = __VinylPatternGet(__patternName);
-        if (is_struct(_asset))
+        //Use the top-level parent for label contribution
+        var _pattern = __VinylPatternGet(__ParentTopLevelGet().__patternName);
+        if (_pattern != undefined)
         {
-            __gainOutput *= _asset.__gain;
-            var _assetPitch = lerp(_asset.__pitchLo, _asset.__pitchHi, __randomPitchParam);
-            __pitchOutput *= _assetPitch;
-            
-            var _labelArray = _asset.__labelArray;
+            var _labelArray = _pattern.__labelArray;
             var _i = 0;
             repeat(array_length(_labelArray))
             {
                 var _label = _labelArray[_i];
-                
-                __gainOutput *= _label.__gainOutput;
-                var _labelPitch = lerp(_label.__configPitchLo, _label.__configPitchHi, __randomPitchParam);
-                __pitchOutput *= _labelPitch*_label.__pitchOutput;
-                
-                if (_initialize) _label.__AddInstance(__id);
-                
+                __gainLabels  *= _label.__gainOutput;
+                __pitchLabels *= _label.__pitchOutput*lerp(_label.__configPitchLo, _label.__configPitchHi, __pitchRandomParam);
                 ++_i;
             }
         }
+    }
+    
+    static __ParentTopLevelGet = function()
+    {
+        return (__parentInstance == undefined)? self : __parentInstance.__ParentTopLevelGet();
     }
     
     static __GetLoopFromLabel = function()
@@ -511,5 +524,39 @@ function __VinylClassInstanceCommon() constructor
             
             __panEmitter = undefined;
         }
+    }
+    
+    static __CalculateGainPitch = function()
+    {
+        var _pattern = __VinylPatternGet(__patternName);
+        var _gainDelta = clamp(__gainTarget - __gainLocal, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
+        
+        __LabelGainPitchGet();
+        
+        __gainLocal += _gainDelta;
+        __gainPattern = (_pattern == undefined)? 1 : _pattern.__gain;
+        __gainParent = (__parentInstance == undefined)? 1 :__parentInstance.__gainOutput;
+        __gainOutput = __gainLocal*__gainPattern*__gainParent*__gainLabels;
+        
+        __pitchLocal += clamp(__pitchTarget - __pitchLocal, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
+        __pitchPattern = (_pattern == undefined)? 1 : lerp(_pattern.__pitchLo, _pattern.__pitchHi, __pitchRandomParam);
+        __pitchParent = (__parentInstance == undefined)? 1 : __parentInstance.__pitchOutput;
+        __pitchOutput = __pitchLocal*__pitchPattern*__pitchParent*__pitchLabels;
+        if (__transposeUsing) __pitchOutput *= __VinylSemitoneToPitch(__globalData.__transposeSemitones + __transposeSemitones);
+    }
+    
+    static __TickCommon = function(_deltaTimeFactor)
+    {
+        var _canShutdown = (__gainTarget <= __gainLocal);
+        
+        __CalculateGainPitch();
+        
+        if (_canShutdown && __shutdown && ((__gainLocal <= 0) || (__gainOutput <= 0)))
+        {
+            __Stop();
+            return false;
+        }
+        
+        return true;
     }
 }

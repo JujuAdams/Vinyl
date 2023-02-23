@@ -190,6 +190,14 @@ function __VinylClassInstanceGameMaker() constructor
         audio_pause_sound(__instance);
     }
     
+    static __PauseGet = function()
+    {
+        if (!is_numeric(__instance)) return;
+        if (audio_is_paused(__instance)) return;
+        
+        return audio_is_paused(__instance);
+    }
+    
     static __Resume = function()
     {
         if (!is_numeric(__instance)) return;

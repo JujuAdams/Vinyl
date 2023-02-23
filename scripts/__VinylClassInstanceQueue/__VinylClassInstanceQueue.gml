@@ -16,10 +16,8 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
         __StateResetCommon();
         
         __index      = 0;
-        __instance   = undefined;
         __assetArray = [];
         __behavior   = 0;
-        __emitter    = undefined;
     }
     
     
@@ -135,11 +133,11 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
     
     
     
-    static __Play = function(_pattern, _emitter, _assetArray, _loop, _gain, _pitch, _pan, _behavior)
+    static __Instantiate = function(_pattern, _parentInstance, _emitter, _assetArray, _loop, _gain, _pitch, _pan, _behavior)
     {
         __index = 0;
         
-        __StateSetCommon(_pattern, _emitter, _loop, _gain, _pitch, _pan);
+        __StateSetCommon(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan);
         __behavior = _behavior;
         
         //Make a local copy of the input asset array
@@ -149,13 +147,13 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
         if (array_length(__assetArray) > 0)
         {
             var _asset = __assetArray[__index];
-            __instance = __VinylPatternGet(_asset).__Play(__gmEmitter, _asset, __loop, __gainOutput, __pitchOutput, __pan);
+            __child = __VinylPatternGet(_asset).__Play(self, __gmEmitter, _asset, __loop, __gainOutput, __pitchOutput, __pan);
         }
     }
     
     static __Tick = function(_deltaTimeFactor)
     {
-        if (!__instance.__IsPlaying())
+        if (!__child.__IsPlaying())
         {
             if (__behavior == 0) //Play the queue in its entirety once, popping assets off the queue as they finish
             {
@@ -191,40 +189,12 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
             }
             
             var _asset = __assetArray[__index];
-            __instance = __VinylPatternGet(_asset).__Play(__gmEmitter, _asset, __loop, __gainOutput, __pitchOutput, __pan);
+            __child = __VinylPatternGet(_asset).__Play(self, __gmEmitter, _asset, __loop, __gainOutput, __pitchOutput, __pan);
         }
         else
         {
-            var _delta = clamp(__gainTarget - __gainInput, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
-            if (_delta != 0)
-            {
-                __gainInput  += _delta;
-                __gainOutput += _delta;
-                __outputChanged = true;
-                
-                if (__shutdown && (_delta <= 0) && ((__gainInput <= 0) || (__gainOutput <= 0)))
-                {
-                    __Stop();
-                    return;
-                }
-            }
-            
-            var _delta = clamp(__pitchTarget - __pitchInput, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
-            if (_delta != 0)
-            {
-                __pitchInput  += _delta;
-                __pitchOutput += _delta;
-                __outputChanged = true;
-            }
-            
-            if (__outputChanged)
-            {
-                __outputChanged = false;
-                __instance.__GainSet(__gainOutput);
-                __instance.__PitchSet(__pitchOutput);
-            }
-            
-            __instance.__Tick(_deltaTimeFactor);
+            __TickCommon(_deltaTimeFactor);
+            if (__child != undefined) __child.__Tick(_deltaTimeFactor);
         }
     }
 }

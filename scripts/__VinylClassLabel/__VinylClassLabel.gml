@@ -37,7 +37,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         
         //Sort out the gain
         __configGainKnob = false;
-    
+        
         if (is_string(_gain))
         {
             if (string_char_at(_gain, 1) == "@")
@@ -45,10 +45,10 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
                 var _knobName = string_delete(_gain, 1, 1);
                 var _knob = _knobDict[$ _knobName];
                 if (!is_struct(_knob)) __VinylError("Error in ", self, " for gain property\nKnob \"", _knobName, "\" doesn't exist");
-            
+                
                 _knob.__TargetCreate(self, "gain");
                 _gain = _knob.__actualValue; //Set gain to the current value of the knob
-            
+                
                 __configGainKnob = true;
             }
             else
@@ -60,14 +60,14 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         {
             __VinylError("Error in ", self, "\nGain must be a number or a knob name");
         }
-    
+        
         __configGain = _gain;
-    
-    
-    
+        
+        
+        
         //Sort out the pitch
         __configPitchKnob = false;
-    
+        
         if (is_string(_pitch))
         {
             if (string_char_at(_pitch, 1) == "@")
@@ -75,11 +75,11 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
                 var _knobName = string_delete(_pitch, 1, 1);
                 var _knob = _knobDict[$ _knobName];
                 if (!is_struct(_knob)) __VinylError("Error in ", self, " for pitch property\nKnob \"", _knobName, "\" doesn't exist");
-            
+                
                 _knob.__TargetCreate(self, "pitch");
                 __configPitchLo = _knob.__actualValue; //Set pitch to the current value of the knob
                 __configPitchHi = __configPitchLo;
-            
+                
                 __configPitchKnob = true;
             }
             else
@@ -95,10 +95,10 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         else if (is_array(_pitch))
         {
             if (array_length(_pitch) != 2) __VinylError("Error in ", self, "\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
-        
+            
             __configPitchLo = _pitch[0];
             __configPitchHi = _pitch[1];
-        
+            
             if (__configPitchLo > __configPitchHi)
             {
                 __VinylTrace("Warning! Error in ", self, ". Low pitch (", __configPitchLo, ") is greater than high pitch (", __configPitchHi, ")");
@@ -111,43 +111,43 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         {
             __VinylError("Error in ", self, "\nPitch must be either a number greater than zero, a two-element array, or a knob name");
         }
-    
-    
-    
+        
+        
+        
         //Sort out the loop state
         if (!is_bool(_loop) && !is_undefined(_loop)) __VinylError("Error in ", self, "\nLoop behaviour must be a boolean (<true> or <false>)");
         __configLoop = _loop;
-    
-    
-    
+        
+        
+        
         if (!is_numeric(_limit) || (_limit <= 0)) __VinylError("Error in ", self, "\nInstance limit must be a number greater than zero");
         __limitMaxCount = _limit;
-    
+        
         if (!is_numeric(_limitFadeOut) || (_limitFadeOut <= 0)) __VinylError("Error in ", self, "\nLimit-related fade in rate must be a number greater than zero");
         __limitFadeOutRate = _limitFadeOut;
-    
+        
         //Convert the tag array into an array if necessary
         if (is_string(_tagArray)) _tagArray = [_tagArray];
         __tagArray = _tagArray;
-    
+        
         __effectChainName = _effectChainName ?? ((__parent == undefined)? "main" : __parent.__effectChainName);
-    
-    
-    
+        
+        
+        
         //Set remainder of the state
         __audioArray = [];
-    
-        __gainInput  = 1;
-        __pitchInput = 1;
-    
-        __gainTarget  = __gainInput;
+        
+        __gainLocal  = 1;
+        __pitchLocal = 1;
+        
+        __gainTarget  = __gainLocal;
         __gainRate    = VINYL_DEFAULT_GAIN_RATE;
-        __pitchTarget = __pitchInput;
+        __pitchTarget = __pitchLocal;
         __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
-    
-        __gainOutput  = __gainInput;
-        __pitchOutput = __pitchInput;
-    
+        
+        __gainOutput  = __gainLocal;
+        __pitchOutput = __pitchLocal;
+        
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating definition for ", self, ", gain=", __gainOutput, ", pitch=", __pitchOutput*__configPitchLo, " -> ", __pitchOutput*__configPitchHi, ", max instances=", __limitMaxCount);
     }
     
@@ -170,7 +170,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
             return;
         }
         
-        __gainInput  = _gain;
+        __gainLocal  = _gain;
         __gainTarget = _gain;
     }
     
@@ -210,7 +210,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
             return;
         }
         
-        __pitchInput  = _pitch;
+        __pitchLocal  = _pitch;
         __pitchTarget = _pitch;
     }
     
@@ -355,8 +355,8 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __CopyOldState = function(_oldLabel)
     {
-        __gainInput  = _oldLabel.__gainInput;
-        __pitchInput = _oldLabel.__pitchInput;
+        __gainLocal  = _oldLabel.__gainLocal;
+        __pitchLocal = _oldLabel.__pitchLocal;
         
         __gainTarget  = _oldLabel.__gainTarget;
         __gainRate    = _oldLabel.__gainRate;
@@ -366,7 +366,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         if (VINYL_DEBUG_READ_CONFIG)
         {
             __VinylTrace("Copying state to ", self, ":");
-            __VinylTrace("    gain in=", __gainInput, "/out=", __gainOutput, ", pitch in=", __pitchInput, "/out=", __pitchOutput);
+            __VinylTrace("    gain in=", __gainLocal, "/out=", __gainOutput, ", pitch in=", __pitchLocal, "/out=", __pitchOutput);
             __VinylTrace("    gain target=", __gainTarget, ", rate=", __gainRate, "/s");
             __VinylTrace("    pitch target=", __pitchTarget, ", rate=", __pitchRate, "/s");
         }
@@ -409,48 +409,10 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     static __Tick = function(_deltaTimeFactor)
     {
         //Update input values based on gain/pitch target
-        __gainInput  += clamp(__gainTarget  - __gainInput,  -_deltaTimeFactor*__gainRate,  _deltaTimeFactor*__gainRate );
-        __pitchInput += clamp(__pitchTarget - __pitchInput, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
+        __gainLocal  += clamp(__gainTarget  - __gainLocal,  -_deltaTimeFactor*__gainRate,  _deltaTimeFactor*__gainRate );
+        __pitchLocal += clamp(__pitchTarget - __pitchLocal, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
         
-        //Update the output gain
-        var _oldGain  = __gainOutput;
-        var _oldPitch = __pitchOutput;
-        
-        __gainOutput  = __gainInput*__configGain;
-        __pitchOutput = __pitchInput;
-        
-        var _gainDelta  = __gainOutput  / _oldGain;
-        var _pitchDelta = __pitchOutput / _oldPitch;
-        
-        //If our values have changed at all, iterate over instances that are labelled to use us
-        if ((_gainDelta != 1) || (_pitchDelta != 1))
-        {
-            var _i = 0;
-            repeat(array_length(__audioArray))
-            {
-                var _instance = __idToInstanceDict[? __audioArray[_i]];
-                if (!is_struct(_instance))
-                {
-                    array_delete(__audioArray, _i, 1);
-                }
-                else
-                {
-                    _instance.__outputChanged = true;
-                    
-                    if ((_oldGain == 0) || (_oldPitch == 0))
-                    {
-                        _instance.__ApplyLabel(false);
-                        _instance.__outputChanged = true;
-                    }
-                    else
-                    {
-                        _instance.__gainOutput  *= _gainDelta;
-                        _instance.__pitchOutput *= _pitchDelta;
-                    }
-                    
-                    ++_i;
-                }
-            }
-        }
+        __gainOutput  = __gainLocal*__configGain;
+        __pitchOutput = __pitchLocal;
     }
 }
