@@ -309,6 +309,11 @@ function __VinylClassInstanceCommon() constructor
         if (__child != undefined) __child.__LoopSet(_state);
     }
     
+    static __LoopGet = function()
+    {
+        return __loop;
+    }
+    
     static __LoopPointsSet = function()
     {
         if (__child != undefined) __child.__LoopPointsSet();
