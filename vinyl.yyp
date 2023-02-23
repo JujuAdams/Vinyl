@@ -141,7 +141,6 @@
     {"id":{"name":"VinylPitchSet","path":"scripts/VinylPitchSet/VinylPitchSet.yy",},"order":0,},
     {"id":{"name":"VinylLiveUpdateSet","path":"scripts/VinylLiveUpdateSet/VinylLiveUpdateSet.yy",},"order":7,},
     {"id":{"name":"VinylQueuePush","path":"scripts/VinylQueuePush/VinylQueuePush.yy",},"order":0,},
-    {"id":{"name":"VinylSystemPlayCountGet","path":"scripts/VinylSystemPlayCountGet/VinylSystemPlayCountGet.yy",},"order":5,},
     {"id":{"name":"__VinylBufferReadLooseJSON","path":"scripts/__VinylBufferReadLooseJSON/__VinylBufferReadLooseJSON.yy",},"order":6,},
     {"id":{"name":"VinylMultiGainSet","path":"scripts/VinylMultiGainSet/VinylMultiGainSet.yy",},"order":1,},
     {"id":{"name":"VinylOutputPitchGet","path":"scripts/VinylOutputPitchGet/VinylOutputPitchGet.yy",},"order":4,},

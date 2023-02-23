@@ -1,6 +1,7 @@
 function __VinylTick()
 {
     static _globalData = __VinylGlobalData();
+    static _topLevelArray = _globalData.__topLevelArray;
     
     //Unpack pools
     static _poolBasic   = _globalData.__poolBasic;
@@ -26,4 +27,19 @@ function __VinylTick()
     _poolQueue.__Tick(_deltaTimeFactor);
     _poolMulti.__Tick(_deltaTimeFactor);
     _poolEmitter.__Tick(_deltaTimeFactor);
+    
+    var _i = 0;
+    repeat(array_length(_topLevelArray))
+    {
+        var _instance = _topLevelArray[_i];
+        if (_instance.__IsPlaying())
+        {
+            _instance.__Tick(_deltaTimeFactor);
+            ++_i;
+        }
+        else
+        {
+            array_delete(_topLevelArray, _i, 1);
+        }
+    }
 }

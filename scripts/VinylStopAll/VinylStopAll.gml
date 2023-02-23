@@ -4,28 +4,12 @@
 
 function VinylStopAll()
 {
-    static _basicArray = __VinylGlobalData().__poolBasic.__activeArray;
-    static _queueArray = __VinylGlobalData().__poolBasic.__activeArray;
-    static _multiArray = __VinylGlobalData().__poolBasic.__activeArray;
+    static _topLevelArray = __VinylGlobalData().__topLevelArray;
     
     var _i = 0;
-    repeat(array_length(_basicArray))
+    repeat(array_length(_topLevelArray))
     {
-        _basicArray[_i].__Stop();
-        ++_i;
-    }
-    
-    var _i = 0;
-    repeat(array_length(_queueArray))
-    {
-        _queueArray[_i].__Stop();
-        ++_i;
-    }
-    
-    var _i = 0;
-    repeat(array_length(_multiArray))
-    {
-        _multiArray[_i].__Stop();
+        _topLevelArray[_i].__Stop();
         ++_i;
     }
 }

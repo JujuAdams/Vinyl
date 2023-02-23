@@ -12,7 +12,7 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
         }
         else
         {
-            return "<basic inst " + string(__id) + " " + string(audio_get_name(__patternName)) + ">";
+            return "<basic inst " + string(__id) + " " + __patternName + ">";
         }
     }
     

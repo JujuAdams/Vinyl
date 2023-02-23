@@ -6,7 +6,6 @@ function __VinylClassPool(_startingID, _constructor) constructor
     __constructor = _constructor;
     __id          = int64(_startingID);
     __poolArray   = [];
-    __activeArray = [];
     __returnArray = [];
     
     static toString = function()
@@ -20,24 +19,8 @@ function __VinylClassPool(_startingID, _constructor) constructor
         repeat(_count) array_push(__poolArray, new __constructor());
     }
     
-    static __Return = function(_member, _safe = false)
+    static __Return = function(_member)
     {
-        
-        if (_safe)
-        {
-            var _i = 0;
-            repeat(array_length(__activeArray))
-            {
-                if (__activeArray[_i] == _member)
-                {
-                    array_delete(__activeArray, _i, 1);
-                    break;
-                }
-                
-                ++_i;
-            }
-        }
-        
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Returning ", _member, " to ", self);
         _member.__pool = undefined;
         _member.__PoolCallback();
@@ -52,11 +35,10 @@ function __VinylClassPool(_startingID, _constructor) constructor
         var _member = array_pop(__poolArray);
         if (_member == undefined)
         {
-            __VinylTrace(self, " empty, creating new member (currently active=", array_length(__activeArray), ", returning=", array_length(__returnArray), ")");
+            __VinylTrace(self, " empty, creating new member (returning=", array_length(__returnArray), ")");
             _member = new __constructor();
         }
         
-        array_push(__activeArray, _member);
         _member.__id   = __id;
         _member.__pool = self;
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling ", _member, " from ", self);
@@ -76,21 +58,6 @@ function __VinylClassPool(_startingID, _constructor) constructor
             array_resize(__returnArray, 0);
             
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Returned ", _returnSize, " member(s) to ", self, ", ", _poolSize + _returnSize, " members now in pool");
-        }
-        
-        var _i = 0;
-        repeat(array_length(__activeArray))
-        {
-            var _instance = __activeArray[_i];
-            if (_instance.__pool == undefined)
-            {
-                array_delete(__activeArray, _i, 1);
-            }
-            else
-            {
-                _instance.__Tick(_deltaTimeFactor);
-                ++_i;
-            }
         }
     }
 }

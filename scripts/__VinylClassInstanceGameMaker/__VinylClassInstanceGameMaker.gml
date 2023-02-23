@@ -45,7 +45,7 @@ function __VinylClassInstanceGameMaker() constructor
         
         if (_gain > VINYL_MAX_GAIN)
         {
-            __VinylTrace("Warning! Gain value ", _gain, " exceeds VINYL_MAX_GAIN (", VINYL_MAX_GAIN, ")");
+            __VinylTrace("Warning! Gain value for ", self, " (", _gain, ") exceeds VINYL_MAX_GAIN (", VINYL_MAX_GAIN, ")");
         }
     }
     

@@ -105,7 +105,6 @@
     {"name":"__VinylClassInstanceQueue","order":3,"path":"scripts/__VinylClassInstanceQueue/__VinylClassInstanceQueue.yy",},
     {"name":"__VinylEffectChainEnsure","order":7,"path":"scripts/__VinylEffectChainEnsure/__VinylEffectChainEnsure.yy",},
     {"name":"VinylLiveUpdateSet","order":7,"path":"scripts/VinylLiveUpdateSet/VinylLiveUpdateSet.yy",},
-    {"name":"VinylSystemPlayCountGet","order":5,"path":"scripts/VinylSystemPlayCountGet/VinylSystemPlayCountGet.yy",},
     {"name":"__VinylBufferReadLooseJSON","order":6,"path":"scripts/__VinylBufferReadLooseJSON/__VinylBufferReadLooseJSON.yy",},
     {"name":"VinylMultiGainSet","order":1,"path":"scripts/VinylMultiGainSet/VinylMultiGainSet.yy",},
     {"name":"VinylOutputPitchGet","order":4,"path":"scripts/VinylOutputPitchGet/VinylOutputPitchGet.yy",},

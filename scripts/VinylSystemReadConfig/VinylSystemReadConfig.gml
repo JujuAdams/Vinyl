@@ -6,7 +6,7 @@
 function VinylSystemReadConfig(_configData)
 {
     static _globalData       = __VinylGlobalData();
-    static _basicActiveArray = _globalData.__poolBasic.__activeArray;
+    static _topLevelArray    = _globalData.__topLevelArray;
     static _effectChainDict  = _globalData.__effectChainDict;
     static _effectChainArray = _globalData.__effectChainArray;
     
@@ -449,9 +449,9 @@ function VinylSystemReadConfig(_configData)
     
     //Force an update for all playing instances
     var _i = 0;
-    repeat(array_length(_basicActiveArray))
+    repeat(array_length(_topLevelArray))
     {
-        with(_basicActiveArray[_i]) __LoopPointsSet();
+        _topLevelArray[_i].__LoopPointsSet();
         ++_i;
     }
     

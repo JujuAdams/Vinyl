@@ -32,11 +32,6 @@ function __VinylClassPanEmitter() constructor
         __UpdatePosition();
     }
     
-    static __UpdatePosition = function()
-    {
-        audio_emitter_position(__emitter, __globalData.__listenerX + __pan, __globalData.__listenerY, 0);
-    }
-    
     static __Pan = function(_pan)
     {
         _pan = clamp(_pan, -1, 1);
@@ -61,5 +56,10 @@ function __VinylClassPanEmitter() constructor
     static __PoolCallback = function()
     {
         __StateReset();
+    }
+    
+    static __UpdatePosition = function()
+    {
+        audio_emitter_position(__emitter, __globalData.__listenerX + __pan, __globalData.__listenerY, 0);
     }
 }

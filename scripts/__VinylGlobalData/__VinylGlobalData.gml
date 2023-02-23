@@ -18,6 +18,8 @@ function __VinylGlobalData()
         __poolEmitter:    new __VinylClassPool(94000000, __VinylClassEmitter),
         __poolPanEmitter: new __VinylClassPool(95000000, __VinylClassPanEmitter),
         
+        __topLevelArray: [],
+        
         __patternDict: {},
         __labelDict:   {},
         __labelOrder:  [],

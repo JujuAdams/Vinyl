@@ -52,6 +52,7 @@ function __VinylClassInstanceCommon() constructor
     
     static __StateSetCommon = function(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan)
     {
+        static _globalTopLevelArray = __globalData.__topLevelArray;
         static _poolPanEmitter = __globalData.__poolPanEmitter;
         
         __patternName    = _pattern.__name;
@@ -108,6 +109,8 @@ function __VinylClassInstanceCommon() constructor
                 ++_i;
             }
         }
+        
+        if (__parentInstance == undefined) array_push(_globalTopLevelArray, self);
     }
     
     
@@ -518,8 +521,7 @@ function __VinylClassInstanceCommon() constructor
             
             with(__panEmitter)
             {
-                //Pan emitters aren't ticked every frame so make sure we clear up the active array
-                __VINYL_RETURN_SELF_TO_POOL_SAFE
+                __VINYL_RETURN_SELF_TO_POOL
             }
             
             __panEmitter = undefined;
@@ -543,6 +545,8 @@ function __VinylClassInstanceCommon() constructor
         __pitchParent = (__parentInstance == undefined)? 1 : __parentInstance.__pitchOutput;
         __pitchOutput = __pitchLocal*__pitchPattern*__pitchParent*__pitchLabels;
         if (__transposeUsing) __pitchOutput *= __VinylSemitoneToPitch(__globalData.__transposeSemitones + __transposeSemitones);
+        
+        if (__panEmitter != undefined) __panEmitter.__UpdatePosition();
     }
     
     static __TickCommon = function(_deltaTimeFactor)
