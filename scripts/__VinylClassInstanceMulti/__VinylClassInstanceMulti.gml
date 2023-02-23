@@ -6,7 +6,7 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static toString = function()
     {
-        return "<multi inst " + string(__id) + ">";
+        return "<multi " + string(__id) + " " + string(__patternName) + ">";
     }
     
     static __StateReset = function()

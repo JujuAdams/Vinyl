@@ -11,7 +11,7 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
     
     static toString = function()
     {
-        return "<basic " + __name + ">";
+        return (_asset == undefined)? "<basic ???>" : "<basic " + audio_get_name(_asset) + ">";
     }
     
     static __Initialize = function(_patternData = {}, _knobDict, _labelDict)

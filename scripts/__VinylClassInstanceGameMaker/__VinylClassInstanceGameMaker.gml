@@ -16,7 +16,7 @@ function __VinylClassInstanceGameMaker() constructor
         }
         else
         {
-            return "<gm " + string(__instance) + " " + string(audio_get_name(__sound)) + ">";
+            return "<gm " + string(__instance) + " " + audio_get_name(__sound) + ">";
         }
     }
     

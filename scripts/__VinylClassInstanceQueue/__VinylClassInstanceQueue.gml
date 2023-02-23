@@ -6,7 +6,7 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
     
     static toString = function()
     {
-        return "<queue inst " + string(__id) + ">";
+        return "<queue " + string(__id) + " " + string(__patternName) + ">";
     }
     
     static __StateReset = function()

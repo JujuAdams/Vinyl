@@ -8,11 +8,15 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
     {
         if (__patternName == undefined)
         {
-            return "<basic inst " + string(__id) + ">";
+            return "<basic " + string(__id) + ">";
+        }
+        else if (is_string(__sound))
+        {
+            return "<basic " + string(__id) + " " + __patternName + ">";
         }
         else
         {
-            return "<basic inst " + string(__id) + " " + __patternName + ">";
+            return "<basic " + string(__id) + " " + audio_get_name(__sound) + ">";
         }
     }
     
@@ -21,6 +25,8 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
         if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);
         
         __StateResetCommon();
+        
+        __sound = undefined;
     }
     
     static __Instantiate = function(_pattern, _parentInstance, _emitter, _sound, _loop, _gain, _pitch, _pan)
@@ -28,6 +34,7 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
         static __poolGameMaker = __VinylGlobalData().__poolGameMaker;
         
         __StateSetCommon(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan);
+        __sound = _sound;
         
         __child = __poolGameMaker.__Depool();
         __child.__Play(__gmEmitter, _sound, __loop, __gainOutput, __pitchOutput);
