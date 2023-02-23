@@ -19,6 +19,8 @@
 
 #region Advanced
 
+#macro VINYL_VALIDATE_CONFIG  true
+
 //Controls how the config file (__VinylConfig) is read regarding gain values
 //Setting this macro to <true> will cause Vinyl to treat gain values as decibels (dbFS)
 //A decibel value of 0 will be translated to an unchanged gain i.e. a GM amplitude value of 1

@@ -1,14 +1,14 @@
 /// @param name
 /// @param parent
-/// @param dynamic
+/// @param adHoc
 
-function __VinylClassLabel(_name, _parent, _dynamic) constructor
+function __VinylClassLabel(_name, _parent, _adHoc) constructor
 {
     static __idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
     
-    __name    = _name;
-    __parent  = _parent;
-    __dynamic = _dynamic;
+    __name   = _name;
+    __parent = _parent;
+    __adHoc  = _adHoc;
     
     
     

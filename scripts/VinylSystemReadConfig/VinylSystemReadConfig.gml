@@ -136,9 +136,9 @@ function VinylSystemReadConfig(_configData)
         var _i = 0;
         repeat(array_length(_assetNameArray))
         {
-            var _assetName = _assetNameArray[_i];
-        
+            var _assetName  = _assetNameArray[_i];
             var _assetIndex = asset_get_index(_assetName);
+            
             if ((_assetIndex < 0) && (_assetName != "fallback"))
             {
                 __VinylTrace("Warning! Asset \"", _assetName, "\" doesn't exist");
@@ -159,10 +159,18 @@ function VinylSystemReadConfig(_configData)
                     //Pull out the asset data
                     var _assetData = _inputAssetDict[$ _assetName];
                     
-                    //Make a new basic pattern for this asset
-                    var _pattern = new __VinylClassPatternBasic(_assetIndex, undefined);
-                    _pattern.__Initialize(_assetData, _newKnobDict, _newLabelDict);
+                    //Make a new pattern for this asset
+                    if (_assetName == "fallback")
+                    {
+                        var _pattern = new __VinylClassPatternFallback();
+                    }
+                    else
+                    {
+                        var _pattern = new __VinylClassPatternBasic(_assetName, false);
+                        _assetData.asset = _assetIndex; //Spoof a proper Basic pattern data struct
+                    }
                     
+                    _pattern.__Initialize(_assetData, _newKnobDict, _newLabelDict);
                     array_push(_newPatternArray, _pattern);
                     _newPatternDict[$ _key] = _pattern;
                     
@@ -198,9 +206,9 @@ function VinylSystemReadConfig(_configData)
                             else
                             {
                                 //Make a basic pattern for this copyTo asset
-                                var _pattern = new __VinylClassPatternBasic(_copyToIndex, undefined);
-                                _pattern.__Initialize(_assetData, _newKnobDict, _newLabelDict);
+                                var _pattern = new __VinylClassPatternBasic(audio_get_name(_copyToIndex), false);
                                 
+                                _pattern.__Initialize(_assetData, _newKnobDict, _newLabelDict);
                                 array_push(_newPatternArray, _pattern);
                                 _newPatternDict[$ _copyToKey] = _pattern;
                             }
@@ -220,8 +228,8 @@ function VinylSystemReadConfig(_configData)
     {
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Fallback asset case doesn't exist, creating one");
         
-        var _pattern = new __VinylClassPatternBasic(-1, "fallback");
-        _pattern.__Initialize(_assetData, _newKnobDict, _newLabelDict);
+        var _pattern = new __VinylClassPatternFallback();
+        _pattern.__Initialize(undefined, _newKnobDict, _newLabelDict);
         
         array_push(_newPatternArray, _pattern);
         _newPatternDict.fallback = _pattern;
@@ -254,7 +262,7 @@ function VinylSystemReadConfig(_configData)
                         var _pattern = _newPatternDict[$ _key];
                         if (!is_struct(_assetData))
                         {
-                            _pattern = new __VinylClassPatternBasic(_assetIndex, undefined);
+                            _pattern = new __VinylClassPatternBasic(audio_get_name(_assetIndex), false);
                             _pattern.__Initialize(undefined, _newKnobDict, _newLabelDict);
                             
                             array_push(_newPatternArray, _pattern);
@@ -304,19 +312,19 @@ function VinylSystemReadConfig(_configData)
                 var _type = _patternData.type;
                 if (_type == "basic")
                 {
-                    var _newPattern = new __VinylClassPatternBasic(undefined, _patternName);
+                    var _newPattern = new __VinylClassPatternBasic(_patternName, false);
                 }
                 else if (_type == "shuffle")
                 {
-                    var _newPattern = new __VinylClassPatternShuffle(_patternName);
+                    var _newPattern = new __VinylClassPatternShuffle(_patternName, false);
                 }
                 else if (_type == "queue")
                 {
-                    var _newPattern = new __VinylClassPatternQueue(_patternName);
+                    var _newPattern = new __VinylClassPatternQueue(_patternName, false);
                 }
                 else if (_type == "multi")
                 {
-                    var _newPattern = new __VinylClassPatternMulti(_patternName);
+                    var _newPattern = new __VinylClassPatternMulti(_patternName, false);
                 }
                 else
                 {
