@@ -526,7 +526,7 @@ function __VinylClassInstanceCommon() constructor
         }
     }
     
-    static __CalculateGainPitch = function()
+    static __CalculateGainPitch = function(_deltaTimeFactor)
     {
         var _pattern = __VinylPatternGet(__patternName);
         var _gainDelta = clamp(__gainTarget - __gainLocal, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
@@ -549,7 +549,7 @@ function __VinylClassInstanceCommon() constructor
     {
         var _canShutdown = (__gainTarget <= __gainLocal);
         
-        __CalculateGainPitch();
+        __CalculateGainPitch(_deltaTimeFactor);
         
         if (_canShutdown && __shutdown && ((__gainLocal <= 0) || (__gainOutput <= 0)))
         {
