@@ -4,13 +4,13 @@ function __VinylClassPatternCommon()
     {
         if (!VINYL_VALIDATE_CONFIG) return;
         
-        //Set up a predict function
+        //Set up a pseudo-closure
         //This shit is stupid. I hate that GameMaker forces this kludge on us
-        static __predicate = {
+        static __closure = {
             __name: undefined,
         };
         
-        __predicate.__function = method(__predicate, function(_value)
+        __closure.__function = method(__closure, function(_value)
         {
             return (_value == __name);
         });
@@ -20,10 +20,10 @@ function __VinylClassPatternCommon()
         var _i = 0;
         repeat(array_length(_namesArray))
         {
-            __predicate.__name = _namesArray[_i];
-            if (array_find_index(_expectedVariableArray, __predicate.__function) < 0)
+            __closure.__name = _namesArray[_i];
+            if (array_find_index(_expectedVariableArray, __closure.__function) < 0)
             {
-                __VinylError("Property \"", __predicate.__name, "\" cannot be used with ", __patternType, "-type patterns");
+                __VinylError("Property \"", __closure.__name, "\" cannot be used with ", __patternType, "-type patterns");
             }
             
             ++_i;

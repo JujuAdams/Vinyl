@@ -1,6 +1,6 @@
 function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
 {
-    __ResetState();
+    __StateReset();
     
     static __patternType = "multi";
     
@@ -9,11 +9,11 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         return "<multi inst " + string(__id) + ">";
     }
     
-    static __ResetState = function()
+    static __StateReset = function()
     {
         if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);
         
-        __ResetStateCommon();
+        __StateResetCommon();
         
         __blendFactor   = undefined;
         __sync          = false;
@@ -217,52 +217,12 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     
     
-    static __Play = function(_emitter, _assetArray, _loop, _gain, _pitch, _pan, _blendFactor, _sync)
+    static __Play = function(_pattern, _emitter, _assetArray, _loop, _gain, _pitch, _pan, _blendFactor, _sync)
     {
-        //Set the state
-        __loop        = _loop ?? __GetLoopFromLabel();
-        __pan         = _pan;
-        __gainInput   = _gain;
-        __pitchInput  = _pitch;
+        __StateSetCommon(_pattern, _emitter, _loop, _gain, _pitch, _pan);
         __blendFactor = _blendFactor;
         __sync        = _sync;
-        
-        __gainTarget  = __gainInput;
-        __pitchTarget = __pitchInput;
-        
-        __randomPitchParam = __VinylRandom(1);
-        
-        __ApplyLabel(true);
         __ApplyBlendFactor();
-        
-        //Determine which emitter to use given the input arguments
-        var _effectChainName = undefined; //TODO
-        if (_emitter != undefined)
-        {
-            //Playback on a normal emitter
-            __emitter = _emitter;
-        
-            //Add this instance to the emitter's array
-            array_push(__emitter.__emitter.__instanceIDArray, __id);
-        }
-        else
-        {
-            if (__pan == undefined)
-            {
-                //Standard playback
-                //Only use an emitter if the effect chain demands it
-                __emitter = __VinylEffectChainGetEmitter(_effectChainName);
-            }
-            else
-            {
-                //Playback on a pan emitter
-                __panEmitter = _poolPanEmitter.__Depool();
-                __panEmitter.__Pan(__pan);
-                __panEmitter.__Bus(_effectChainName);
-                
-                __emitter = __panEmitter.__emitter;
-            }
-        }
         
         var _shortestLength = infinity;
         var _i = 0;
@@ -270,7 +230,7 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         {
             //Start an instance for this track
             var _asset = _assetArray[_i];
-            var _instance = __VinylPatternGet(_asset).__Play(__emitter, _asset, __loop, __gainOutput, __pitchOutput, __pan);
+            var _instance = __VinylPatternGet(_asset).__Play(__gmEmitter, _asset, __loop, __gainOutput, __pitchOutput, __pan);
             __instanceArray[@ _i] = _instance;
             
             //And then find the shortest instance and use that for syncing purposes

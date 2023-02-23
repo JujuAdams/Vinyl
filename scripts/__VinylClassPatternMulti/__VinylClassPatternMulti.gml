@@ -67,7 +67,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
     static __Play = function(_emitter, _sound, _loop = false, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _instance = __pool.__Depool();
-        _instance.__Play(_emitter, __assetArray, _loop, _gain, _pitch, _pan, __blend,  __sync);
+        _instance.__Play(_pattern, _emitter, __assetArray, _loop, _gain, _pitch, _pan, __blend,  __sync);
         return _instance;
     }
     

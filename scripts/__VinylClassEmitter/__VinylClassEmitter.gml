@@ -9,7 +9,7 @@ function __VinylClassEmitter() constructor
     
     __emitter = audio_emitter_create();
     
-    __ResetState();
+    __StateReset();
     
     
     
@@ -18,7 +18,7 @@ function __VinylClassEmitter() constructor
         return "<emitter " + string(__id) + ">";
     }
     
-    static __ResetState = function()
+    static __StateReset = function()
     {
         if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);
         
@@ -202,7 +202,7 @@ function __VinylClassEmitter() constructor
             ++_i;
         }
         
-        __ResetState();
+        __StateReset();
     }
     
     static __Tick = function()

@@ -15,35 +15,83 @@ function __VinylClassInstanceCommon() constructor
         return "<inst " + string(__id) + ">";
     }
     
-    static __ResetStateCommon = function()
+    static __StateResetCommon = function()
     {
         __patternName = undefined;
         __instance    = undefined;
         
-        __loop       = undefined;
-        __pan        = undefined;
-        __gainInput  = 1;
-        __pitchInput = 1;
-        
-        __transposeUsing     = false;
-        __transposeSemitones = 0;
-        __transposePitch     = 1; //Internal value, stored as normalized percentage
+        __loop = undefined;
+        __pan  = undefined;
         
         __shutdown = false;
         
-        __gainTarget  = __gainInput;
-        __gainRate    = VINYL_DEFAULT_GAIN_RATE;
-        __gainOutput  = 1;
+        __gainInput  = 1;
+        __gainTarget = __gainInput;
+        __gainRate   = VINYL_DEFAULT_GAIN_RATE;
+        __gainOutput = 1;
         
+        __pitchInput  = 1;
         __pitchTarget = __pitchInput;
         __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
         __pitchOutput = 1;
         
         __randomPitchParam = 0.5;
         
+        __transposeUsing     = false;
+        __transposeSemitones = 0;
+        __transposePitch     = 1; //Internal value, stored as normalized percentage
+        
         __outputChanged = false;
         
+        __gmEmitter  = undefined;
         __panEmitter = undefined;
+    }
+    
+    static __StateSetCommon = function(_pattern, _emitter, _loop, _gain, _pitch, _pan)
+    {
+        static _poolPanEmitter = __globalData.__poolPanEmitter;
+        
+        __patternName = _pattern.__name;
+        __loop        = _loop ?? __GetLoopFromLabel();
+        __pan         = _pan;
+        __gainInput   = _gain;
+        __pitchInput  = _pitch;
+        
+        __gainTarget  = __gainInput;
+        __pitchTarget = __pitchInput;
+        
+        __randomPitchParam = __VinylRandom(1);
+        
+        __ApplyLabel(true);
+        
+        //Determine which emitter to use given the input arguments
+        var _effectChainName = __VinylPatternGetEffectChain(__patternName);
+        if (_emitter != undefined)
+        {
+            //Playback on a normal emitter
+            __gmEmitter = _emitter.__GetEmitter();
+            
+            //Add this instance to the emitter's array
+            array_push(_emitter.__emitter.__instanceIDArray, __id);
+        }
+        else
+        {
+            if (__pan == undefined)
+            {
+                //Standard playback
+                //Only use an emitter if the effect chain demands it
+                __gmEmitter = __VinylEffectChainGetEmitter(_effectChainName);
+            }
+            else
+            {
+                //Playback on a pan emitter
+                __panEmitter = _poolPanEmitter.__Depool();
+                __panEmitter.__Pan(__pan);
+                __panEmitter.__Bus(_effectChainName);
+                
+                __gmEmitter = __panEmitter.__emitter;
+            }
+        }
     }
     
     
@@ -407,8 +455,8 @@ function __VinylClassInstanceCommon() constructor
     
     static __GetLoopFromLabel = function()
     {
-        var _asset = __VinylPatternGet(__patternName);
-        return is_struct(_asset)? _asset.__GetLoopFromLabel() : false;
+        var _pattern = __VinylPatternGet(__patternName);
+        return is_struct(_pattern)? _pattern.__GetLoopFromLabel() : false;
     }
     
     static __DepoolCallback = function()
@@ -448,7 +496,7 @@ function __VinylClassInstanceCommon() constructor
             }
         }
         
-        __ResetState();
+        __StateReset();
         
         //If we're playing on a pan emitter, pool it
         if (__panEmitter != undefined)

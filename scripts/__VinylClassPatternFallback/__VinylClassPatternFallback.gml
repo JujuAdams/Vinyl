@@ -31,7 +31,7 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     static __Play = function(_emitter, _sound, _loop = false, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _instance = __pool.__Depool();
-        _instance.__Play(_emitter, _sound, _loop, _gain, _pitch, _pan);
+        _instance.__Play(_pattern, _emitter, _sound, _loop, _gain, _pitch, _pan);
         return _instance;
     }
     

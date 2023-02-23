@@ -12,7 +12,7 @@ function __VinylClassPanEmitter() constructor
     audio_emitter_falloff(__emitter, 1, 1, 1);
     audio_falloff_set_model(__VINYL_FALLOFF_MODEL);
     
-    __ResetState();
+    __StateReset();
     
     
     
@@ -21,7 +21,7 @@ function __VinylClassPanEmitter() constructor
         return "<pan emitter " + string(__id) + ">";
     }
     
-    static __ResetState = function()
+    static __StateReset = function()
     {
         if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);
         
@@ -60,6 +60,6 @@ function __VinylClassPanEmitter() constructor
     
     static __PoolCallback = function()
     {
-        __ResetState();
+        __StateReset();
     }
 }

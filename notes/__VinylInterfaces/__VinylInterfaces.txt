@@ -9,7 +9,7 @@ Pattern constructor(name)
 Instance constructor(...)
 
 .toString()
-.__ResetState()
+.__StateReset()
 .__Play()
 .__Stop()
 .__Tick()
