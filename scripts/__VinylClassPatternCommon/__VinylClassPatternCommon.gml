@@ -1,8 +1,40 @@
 function __VinylClassPatternCommon()
 {
+    static __Migrate = function()
+    {
+        static _effectChainDict = __VinylGlobalData().__effectChainDict;
+        
+        if (__effectChainName == undefined)
+        {
+            var _j = 0;
+            repeat(array_length(__labelArray))
+            {
+                var _labelStruct = __labelArray[_j];
+                
+                if (__effectChainName == undefined)
+                {
+                    __effectChainName = _labelStruct.__effectChainName;
+                }
+                else if (_labelStruct.__effectChainName != __effectChainName)
+                {
+                    __VinylTrace("Warning! ", self, " has conflicting effect chains (chosen = \"", __effectChainName, "\", conflict = \"", _labelStruct.__effectChainName, "\" from ", _labelStruct, ")");
+                }
+                
+                ++_j;
+            }
+            
+            if (__effectChainName == undefined) __effectChainName = "main";
+        }
+        
+        if (!variable_struct_exists(_effectChainDict, __effectChainName))
+        {
+            __VinylError("Effect chain \"", __effectChainName, "\" for ", self, " doesn't exist");
+        }
+    }
+    
     static __ValidateStruct = function(_dataStruct, _expectedVariableArray)
     {
-        if (!VINYL_VALIDATE_CONFIG) return;
+        if (!VINYL_CONFIG_VALIDATE_PATTERNS) return;
         
         //Set up a pseudo-closure
         //This shit is stupid. I hate that GameMaker forces this kludge on us

@@ -1,12 +1,7 @@
 /// @param name
-/// @param knobDict
-/// @param knobArray
 
-function __VinylClassKnob(_name, _knobDict, _knobArray) constructor
+function __VinylClassKnob(_name) constructor
 {
-    _knobDict[$ _name] = self;
-    array_push(_knobArray, self);
-    
     __name = _name;
         
     __default     = 0;

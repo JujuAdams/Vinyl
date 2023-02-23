@@ -5,8 +5,10 @@
 
 function VinylSystemReadConfig(_configData)
 {
-    static _globalData       = __VinylGlobalData();
-    static _topLevelArray    = _globalData.__topLevelArray;
+    static _globalData = __VinylGlobalData();
+    
+    //Effect chain data structures are a bit special because they're never regenerated
+    //We keep the old effect chains around so that we can dynamically update effects
     static _effectChainDict  = _globalData.__effectChainDict;
     static _effectChainArray = _globalData.__effectChainArray;
     
@@ -40,8 +42,11 @@ function VinylSystemReadConfig(_configData)
             var _knobName = _knobNameArray[_i];
             
             //Create a new knob
-            var _newKnob = new __VinylClassKnob(_knobName, _newKnobDict, _newKnobArray);
+            var _newKnob = new __VinylClassKnob(_knobName);
             _newKnob.__Initialize(_inputKnobDict[$ _knobName]);
+            
+            _newKnobDict[$ _knobName] = self;
+            array_push(_newKnobArray, self);
             
             //Copy the old value from the old knob if possible
             var _oldKnob = _oldKnobDict[$ _knobName];
@@ -120,7 +125,7 @@ function VinylSystemReadConfig(_configData)
     
     
     
-    //Instantiate assets
+    //Instantiate basic patterns for each asset in the config data
     var _inputAssetDict = _configData[$ "assets"];
     if (is_undefined(_inputAssetDict))
     {
@@ -157,7 +162,7 @@ function VinylSystemReadConfig(_configData)
                 else
                 {
                     //Pull out the asset data
-                    var _assetData = _inputAssetDict[$ _assetName];
+                    var _patternData = _inputAssetDict[$ _assetName];
                     
                     //Make a new pattern for this asset
                     if (_assetName == "fallback")
@@ -167,55 +172,15 @@ function VinylSystemReadConfig(_configData)
                     else
                     {
                         var _pattern = new __VinylClassPatternBasic(_key, false);
-                        _assetData.asset = _assetIndex; //Spoof a proper Basic pattern data struct
+                        _patternData.asset = _assetIndex; //Spoof a proper Basic pattern data struct
                     }
                     
-                    _pattern.__Initialize(_assetData, _newKnobDict, _newLabelDict);
+                    _pattern.__Initialize(_patternData, _newKnobDict, _newLabelDict);
+                    
                     array_push(_newPatternArray, _pattern);
                     _newPatternDict[$ _key] = _pattern;
                     
-                    //Apply this asset data to all of the named "copyTo" assets
-                    var _copyToArray = _assetData[$ "copyTo"];
-                    if (is_string(_copyToArray)) _copyToArray = [_copyToArray]; //Create an array out of a string if needed
-                    
-                    if (is_array(_copyToArray))
-                    {
-                        var _j = 0;
-                        repeat(array_length(_copyToArray))
-                        {
-                            var _copyToName = _copyToArray[_j];
-                            var _copyToIndex = asset_get_index(_copyToName);
-                            var _copyToKey = string(_copyToIndex);
-                            
-                            if (_copyToName == "fallback")
-                            {
-                                __VinylTrace("Warning! Cannot copy to fallback asset (parent asset=\"", _assetName, "\")");;
-                            }
-                            else if (_copyToIndex < 0)
-                            {
-                                __VinylTrace("Warning! copyTo asset \"", _copyToName, "\" doesn't exist (parent asset=\"", _assetName, "\")");
-                            }
-                            else if (asset_get_type(_copyToName) != asset_sound)
-                            {
-                                __VinylTrace("Warning! copyTo asset \"", _copyToName, "\" isn't a sound (parent asset=\"", _assetName, "\")");
-                            }
-                            else if (variable_struct_exists(_newPatternDict, _copyToKey))
-                            {
-                                __VinylTrace("Warning! copyTo asset \"", _copyToName, "\" has already been defined (parent asset=\"", _assetName, "\")");
-                            }
-                            else
-                            {
-                                //Make a basic pattern for this copyTo asset
-                                var _pattern = new __VinylClassPatternBasic(audio_get_name(_copyToIndex), false);
-                                
-                                _pattern.__Initialize(_assetData, _newKnobDict, _newLabelDict);
-                                array_push(_newPatternArray, _pattern);
-                                _newPatternDict[$ _copyToKey] = _pattern;
-                            }
-                            
-                            ++_j;
-                        }
-                    }
+                    _pattern.__CopyTo(_patternData, _newPatternDict, _newPatternArray, _newKnobDict, _newLabelDict);
                 }
             }
             
@@ -223,7 +188,9 @@ function VinylSystemReadConfig(_configData)
         }
     }
     
-    //Ensure we have a fallback struct for audio assets
+    
+    
+    //Ensure we always have a fallback pattern
     if (!variable_struct_exists(_newPatternDict, "fallback"))
     {
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Fallback asset case doesn't exist, creating one");
@@ -260,9 +227,9 @@ function VinylSystemReadConfig(_configData)
                         var _key = string(_assetIndex);
                         
                         var _pattern = _newPatternDict[$ _key];
-                        if (!is_struct(_assetData))
+                        if (_pattern == undefined)
                         {
-                            _pattern = new __VinylClassPatternBasic(audio_get_name(_assetIndex), false);
+                            _pattern = new __VinylClassPatternBasic(_key, false);
                             _pattern.__Initialize(undefined, _newKnobDict, _newLabelDict);
                             
                             array_push(_newPatternArray, _pattern);
@@ -284,7 +251,7 @@ function VinylSystemReadConfig(_configData)
     
     
     
-    //Instantiate patterns
+    //Iterate over every pattern in our input data and create a new pattern struct for each one
     var _inputPatternsDict = _configData[$ "patterns"];
     if (is_undefined(_inputAssetDict))
     {
@@ -303,35 +270,9 @@ function VinylSystemReadConfig(_configData)
             var _patternName = _patternNameArray[_i];
             var _patternData = _inputPatternsDict[$ _patternName];
             
-            if (!variable_struct_exists(_patternData, "type"))
-            {
-                __VinylError("Pattern \"", _patternName, "\" doesn't have a \"type\" property");
-            }
-            else
-            {
-                var _type = _patternData.type;
-                if (_type == "basic")
-                {
-                    var _newPattern = new __VinylClassPatternBasic(_patternName, false);
-                }
-                else if (_type == "shuffle")
-                {
-                    var _newPattern = new __VinylClassPatternShuffle(_patternName, false);
-                }
-                else if (_type == "queue")
-                {
-                    var _newPattern = new __VinylClassPatternQueue(_patternName, false);
-                }
-                else if (_type == "multi")
-                {
-                    var _newPattern = new __VinylClassPatternMulti(_patternName, false);
-                }
-                else
-                {
-                    __VinylError("Pattern type \"", _type, "\" for pattern \"", _patternName, "\" not recognised");
-                }
-            }
+            if (!variable_struct_exists(_patternData, "type")) __VinylError("Pattern \"", _patternName, "\" doesn't have a \"type\" property");
             
+            var _newPattern = (__VinylConvertPatternNameToConstructor(_patternName, _patternData.type))(_patternName, false);
             _newPattern.__Initialize(_patternData, _newLabelDict, _newKnobDict);
             
             array_push(_newPatternArray, _newPattern);
@@ -343,7 +284,7 @@ function VinylSystemReadConfig(_configData)
     
     
     
-    //Set up effect chains
+    //Set up effect chains that we find in the incoming data
     var _inputEffectChainDict = _configData[$ "effect chains"];
     if (is_undefined(_inputAssetDict))
     {
@@ -365,7 +306,7 @@ function VinylSystemReadConfig(_configData)
         }
     }
     
-    //Clean up any unmentioned effect chains
+    //Clean up any effect chains that exist in the old data but weren't in the incoming new data
     var _i = 0;
     repeat(array_length(_effectChainArray))
     {
@@ -375,6 +316,7 @@ function VinylSystemReadConfig(_configData)
         if ((_effectChainName != "main") && !variable_struct_exists(_inputEffectChainDict, _effectChainName))
         {
             _effectChain.__Destroy();
+            
             variable_struct_remove(_effectChainDict, _effectChainName);
             array_delete(_effectChainArray, _i, 1);
         }
@@ -386,49 +328,37 @@ function VinylSystemReadConfig(_configData)
     
     
     
+    //Update our global data structures
+    _globalData.__patternDict = _newPatternDict;
+    _globalData.__knobDict    = _newKnobDict;
+    _globalData.__knobArray   = _newKnobArray;
+    _globalData.__labelDict   = _newLabelDict;
+    _globalData.__labelOrder  = _newLabelOrder;
+    
+    //Migrate all of our patterns to the new dataset
     var _i = 0;
     repeat(array_length(_newPatternArray))
     {
-        var _pattern = _newPatternArray[_i];
-        
-        //Try to figure out what effect chain to use
-        with(_pattern)
-        {
-            if (__effectChainName == undefined)
-            {
-                var _j = 0;
-                repeat(array_length(__labelArray))
-                {
-                    var _labelStruct = __labelArray[_j];
-                    
-                    if (__effectChainName == undefined)
-                    {
-                        __effectChainName = _labelStruct.__effectChainName;
-                    }
-                    else if (_labelStruct.__effectChainName != __effectChainName)
-                    {
-                        __VinylTrace("Warning! ", self, " has conflicting effect chains (chosen = \"", __effectChainName, "\", conflict = \"", _labelStruct.__effectChainName, "\" from ", _labelStruct, ")");
-                    }
-                    
-                    ++_j;
-                }
-                
-                if (__effectChainName == undefined) __effectChainName = "main";
-            }
-            
-            if (!variable_struct_exists(_effectChainDict, __effectChainName))
-            {
-                __VinylError("Effect chain \"", __effectChainName, "\" for ", self, " doesn't exist");
-            }
-        }
-        
-        //Clean up some unnecesasry memory
-        variable_struct_remove(_pattern, "__labelDictTemp__");
-        
+        _newPatternArray[_i].__Migrate();
         ++_i;
     }
     
+    //Clean up dictionaries, used to prevent duplicate labels in patterns, that we left behind
+    var _i = 0;
+    repeat(array_length(_newPatternArray))
+    {
+        variable_struct_remove(_newPatternArray[_i], "__labelDictTemp__");
+        ++_i;
+    }
     
+    //Migrate all of our top-level instances to the new config data
+    var _topLevelArray = _globalData.__topLevelArray;
+    var _i = 0;
+    repeat(array_length(_topLevelArray))
+    {
+        _topLevelArray[_i].__Migrate();
+        ++_i;
+    }
     
     //Update all values from knobs
     var _i = 0;
@@ -437,25 +367,6 @@ function VinylSystemReadConfig(_configData)
         _newKnobArray[_i].__Refresh();
         ++_i;
     }
-    
-    
-    
-    //Update our global label/pattern tracking
-    _globalData.__patternDict = _newPatternDict;
-    _globalData.__knobDict    = _newKnobDict;
-    _globalData.__knobArray   = _newKnobArray;
-    _globalData.__labelDict   = _newLabelDict;
-    _globalData.__labelOrder  = _newLabelOrder;
-    
-    //Force an update for all playing instances
-    var _i = 0;
-    repeat(array_length(_topLevelArray))
-    {
-        _topLevelArray[_i].__LoopPointsSet();
-        ++_i;
-    }
-    
-    
     
     //Workaround for problems setting effects on the main audio effect bus in 2023.1
     gc_collect();

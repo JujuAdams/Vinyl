@@ -1,7 +1,7 @@
 {
   "FolderOrderSettings": [
     {"name":"(Internals)","order":12,"path":"folders/Vinyl/(Internals).yy",},
-    {"name":"Classes","order":17,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes.yy",},
+    {"name":"Classes","order":16,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes.yy",},
     {"name":"Config Resources","order":3,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Config Resources.yy",},
     {"name":"Instances","order":2,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Instances.yy",},
     {"name":"Patterns","order":1,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Patterns.yy",},
@@ -53,6 +53,7 @@
     {"name":"__VinylValidateMacros","order":3,"path":"scripts/__VinylValidateMacros/__VinylValidateMacros.yy",},
     {"name":"VinylKnobReset","order":2,"path":"scripts/VinylKnobReset/VinylKnobReset.yy",},
     {"name":"VinylOutputGainGet","order":5,"path":"scripts/VinylOutputGainGet/VinylOutputGainGet.yy",},
+    {"name":"__VinylConvertPatternNameToConstructor","order":10,"path":"scripts/__VinylConvertPatternNameToConstructor/__VinylConvertPatternNameToConstructor.yy",},
     {"name":"VinylEmitterExists","order":10,"path":"scripts/VinylEmitterExists/VinylEmitterExists.yy",},
     {"name":"VinylPause","order":7,"path":"scripts/VinylPause/VinylPause.yy",},
     {"name":"VinylStop","order":4,"path":"scripts/VinylStop/VinylStop.yy",},
@@ -65,7 +66,7 @@
     {"name":"UINewline","order":6,"path":"scripts/UINewline/UINewline.yy",},
     {"name":"VinylLabelInstancesGet","order":2,"path":"scripts/VinylLabelInstancesGet/VinylLabelInstancesGet.yy",},
     {"name":"__VinylClassPatternQueue","order":4,"path":"scripts/__VinylClassPatternQueue/__VinylClassPatternQueue.yy",},
-    {"name":"__VinylPatternGet","order":10,"path":"scripts/__VinylPatternGet/__VinylPatternGet.yy",},
+    {"name":"__VinylPatternGet","order":11,"path":"scripts/__VinylPatternGet/__VinylPatternGet.yy",},
     {"name":"VinylResume","order":8,"path":"scripts/VinylResume/VinylResume.yy",},
     {"name":"VinylEmitterPositionSet","order":9,"path":"scripts/VinylEmitterPositionSet/VinylEmitterPositionSet.yy",},
     {"name":"__VinylEffectChainGetEmitter","order":9,"path":"scripts/__VinylEffectChainGetEmitter/__VinylEffectChainGetEmitter.yy",},

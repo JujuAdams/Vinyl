@@ -19,7 +19,7 @@
 
 #region Advanced
 
-#macro VINYL_VALIDATE_CONFIG  true
+#macro VINYL_CONFIG_VALIDATE_PATTERNS  true
 
 //Controls how the config file (__VinylConfig) is read regarding gain values
 //Setting this macro to <true> will cause Vinyl to treat gain values as decibels (dbFS)
