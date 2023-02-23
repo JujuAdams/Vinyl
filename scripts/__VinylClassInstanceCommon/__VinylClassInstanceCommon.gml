@@ -65,7 +65,7 @@ function __VinylClassInstanceCommon() constructor
         __pitchTarget = __pitchLocal;
         
         __pitchRandomParam = __VinylRandom(1);
-        __CalculateGainPitch();
+        __CalculateGainPitch(0);
         
         //Determine which emitter to use given the input arguments
         var _effectChainName = __VinylPatternGetEffectChain(__patternName);
@@ -97,10 +97,10 @@ function __VinylClassInstanceCommon() constructor
         }
         
         //Use the top-level parent for label contribution
-        var _pattern = __VinylPatternGet(__ParentTopLevelGet().__patternName);
-        if (_pattern != undefined)
+        var _topPattern = __VinylPatternGet(__ParentTopLevelGet().__patternName);
+        if (_topPattern != undefined)
         {
-            var _labelArray = _pattern.__labelArray;
+            var _labelArray = _topPattern.__labelArray;
             var _i = 0;
             repeat(array_length(_labelArray))
             {
