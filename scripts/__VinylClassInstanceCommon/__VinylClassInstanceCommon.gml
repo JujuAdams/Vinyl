@@ -442,6 +442,7 @@ function __VinylClassInstanceCommon() constructor
         __pattern = __VinylPatternGet(__pattern.__name);
         __LabelAdd();
         __CalculateGainPitch(0);
+        __LoopPointsSet();
     }
     
     static __LabelAdd = function()
