@@ -6,13 +6,13 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
     
     static toString = function()
     {
-        if (__patternName == undefined)
+        if (__pattern == undefined)
         {
             return "<basic " + string(__id) + ">";
         }
         else if (is_string(__sound))
         {
-            return "<basic " + string(__id) + " " + __patternName + ">";
+            return "<basic " + string(__id) + " " + __pattern.__name + ">";
         }
         else
         {
@@ -30,9 +30,9 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
         __gmInstance = undefined;
     }
     
-    static __Instantiate = function(_pattern, _parentInstance, _emitter, _sound, _loop, _gain, _pitch, _pan)
+    static __Instantiate = function(_pattern, _parentInstance, _vinylEmitter, _sound, _loop, _gain, _pitch, _pan)
     {
-        __StateSetCommon(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan);
+        __StateSetCommon(_pattern, _parentInstance, _vinylEmitter, _loop, _gain, _pitch, _pan);
         
         __sound = _sound;
         
@@ -53,7 +53,11 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
         {
             __VinylTrace("Warning! Gain value for ", self, " (", __gainOutput, ") exceeds VINYL_MAX_GAIN (", VINYL_MAX_GAIN, ")");
         }
-        
+    }
+    
+    static __Migrate = function()
+    {
+        __MigrateCommon();
     }
     
     static __Tick = function(_deltaTimeFactor)

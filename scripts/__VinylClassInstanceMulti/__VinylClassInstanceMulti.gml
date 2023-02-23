@@ -6,7 +6,14 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static toString = function()
     {
-        return "<multi " + string(__id) + " " + string(__patternName) + ">";
+        if (__pattern == undefined)
+        {
+            return "<multi " + string(__id) + ">";
+        }
+        else
+        {
+            return "<multi " + string(__id) + " " + string(__pattern.__name) + ">";
+        }
     }
     
     static __StateReset = function()
@@ -216,9 +223,9 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     
     
-    static __Instantiate = function(_pattern, _parentInstance, _emitter, _assetArray, _loop, _gain, _pitch, _pan, _blendFactor, _sync)
+    static __Instantiate = function(_pattern, _parentInstance, _vinylEmitter, _assetArray, _loop, _gain, _pitch, _pan, _blendFactor, _sync)
     {
-        __StateSetCommon(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan);
+        __StateSetCommon(_pattern, _parentInstance, _vinylEmitter, _loop, _gain, _pitch, _pan);
         
         __blendFactor = _blendFactor;
         __sync        = _sync;
@@ -248,6 +255,18 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         }
     }
     
+    static __Migrate = function()
+    {
+        __MigrateCommon();
+        
+        var _i = 0;
+        repeat(array_length(__childArray))
+        {
+            __childArray[_i].__Migrate();
+            ++_i;
+        }
+    }
+    
     static __Tick = function(_deltaTimeFactor)
     {
         if (!__childArray[__shortestIndex].__IsPlaying())
@@ -266,6 +285,7 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
                     {
                         //We've looped!
                         if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace(self, " shortest instance ", __childArray[__shortestIndex], " has looped, setting position for all other instances");
+                        
                         var _i = 0;
                         repeat(array_length(__childArray))
                         {

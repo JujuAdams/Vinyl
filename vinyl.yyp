@@ -99,7 +99,6 @@
     {"id":{"name":"__VinylTick","path":"scripts/__VinylTick/__VinylTick.yy",},"order":5,},
     {"id":{"name":"VinylLoopGet","path":"scripts/VinylLoopGet/VinylLoopGet.yy",},"order":11,},
     {"id":{"name":"VinylPanGet","path":"scripts/VinylPanGet/VinylPanGet.yy",},"order":1,},
-    {"id":{"name":"__VinylPatternGetEffectChain","path":"scripts/__VinylPatternGetEffectChain/__VinylPatternGetEffectChain.yy",},"order":11,},
     {"id":{"name":"VinylKnobDefaultGet","path":"scripts/VinylKnobDefaultGet/VinylKnobDefaultGet.yy",},"order":6,},
     {"id":{"name":"__VinylClassPatternShuffle","path":"scripts/__VinylClassPatternShuffle/__VinylClassPatternShuffle.yy",},"order":3,},
     {"id":{"name":"VinylPanSet","path":"scripts/VinylPanSet/VinylPanSet.yy",},"order":0,},

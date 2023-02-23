@@ -17,7 +17,7 @@ function __VinylClassInstanceCommon() constructor
     
     static __StateResetCommon = function()
     {
-        __patternName    = undefined;
+        __pattern        = undefined;
         __parentInstance = undefined;
         __child          = undefined;
         
@@ -55,7 +55,7 @@ function __VinylClassInstanceCommon() constructor
         static _globalTopLevelArray = __globalData.__topLevelArray;
         static _poolPanEmitter = __globalData.__poolPanEmitter;
         
-        __patternName    = _pattern.__name;
+        __pattern        = _pattern;
         __parentInstance = _parentInstance;
         __loop           = _loop ?? __GetLoopFromLabel();
         __gainLocal      = _gain;
@@ -66,10 +66,12 @@ function __VinylClassInstanceCommon() constructor
         __pitchTarget = __pitchLocal;
         
         __pitchRandomParam = __VinylRandom(1);
+        
+        __LabelAdd();
         __CalculateGainPitch(0);
         
         //Determine which emitter to use given the input arguments
-        var _effectChainName = __VinylPatternGetEffectChain(__patternName);
+        var _effectChainName = (__pattern == undefined)? "main" : _pattern.__effectChainName;
         if (_emitter != undefined)
         {
             //Playback on a normal emitter
@@ -94,19 +96,6 @@ function __VinylClassInstanceCommon() constructor
                 __panEmitter.__Bus(_effectChainName);
                 
                 __gmEmitter = __panEmitter.__emitter;
-            }
-        }
-        
-        //Use the top-level parent for label contribution
-        var _topPattern = __VinylPatternGet(__ParentTopLevelGet().__patternName);
-        if (_topPattern != undefined)
-        {
-            var _labelArray = _topPattern.__labelArray;
-            var _i = 0;
-            repeat(array_length(_labelArray))
-            {
-                _labelArray[_i].__AddInstance(__id);
-                ++_i;
             }
         }
         
@@ -447,6 +436,59 @@ function __VinylClassInstanceCommon() constructor
     
     
     
+    static __MigrateCommon = function()
+    {
+        __LabelRemove();
+        __pattern = __VinylPatternGet(__pattern.__name);
+        __LabelAdd();
+        __CalculateGainPitch(0);
+    }
+    
+    static __LabelAdd = function()
+    {
+        //Use the top-level parent for label contribution
+        var _topPattern = __ParentTopLevelGet().__pattern;
+        if (_topPattern != undefined)
+        {
+            var _labelArray = _topPattern.__labelArray;
+            var _i = 0;
+            repeat(array_length(_labelArray))
+            {
+                _labelArray[_i].__AddInstance(__id);
+                ++_i;
+            }
+        }
+    }
+    
+    static __LabelRemove = function()
+    {
+        //Use the top-level parent for label contribution
+        var _topPattern = __ParentTopLevelGet().__pattern;
+        if (_topPattern != undefined)
+        {
+            var _id = __id;
+            var _labelArray = _topPattern.__labelArray;
+            var _i = 0;
+            repeat(array_length(_labelArray))
+            {
+                var _audioArray = _labelArray[_i].__audioArray;
+                var _j = 0;
+                repeat(array_length(_audioArray))
+                {
+                    if (_audioArray[_j] == _id)
+                    {
+                        array_delete(_audioArray, _j, 1);
+                        break;
+                    }
+                    
+                    ++_j;
+                }
+                
+                ++_i;
+            }
+        }
+    }
+    
     static __LabelGainPitchGet = function()
     {
         //Update the output values based on the asset and labels
@@ -454,7 +496,7 @@ function __VinylClassInstanceCommon() constructor
         __pitchLabels = 1;
         
         //Use the top-level parent for label contribution
-        var _pattern = __VinylPatternGet(__ParentTopLevelGet().__patternName);
+        var _pattern = __ParentTopLevelGet().__pattern;
         if (_pattern != undefined)
         {
             var _labelArray = _pattern.__labelArray;
@@ -476,8 +518,7 @@ function __VinylClassInstanceCommon() constructor
     
     static __GetLoopFromLabel = function()
     {
-        var _pattern = __VinylPatternGet(__patternName);
-        return is_struct(_pattern)? _pattern.__GetLoopFromLabel() : false;
+        return (__pattern == undefined)? false : __pattern.__GetLoopFromLabel();
     }
     
     static __DepoolCallback = function()
@@ -489,34 +530,8 @@ function __VinylClassInstanceCommon() constructor
     {
         ds_map_delete(__idToInstanceDict, __id);
         
+        __LabelRemove();
         __Stop();
-        
-        //Remove this instance from all labels that we're attached to
-        var _asset = __VinylPatternGet(__patternName);
-        if (is_struct(_asset))
-        {
-            var _id = __id;
-            var _labelArray = _asset.__labelArray;
-            var _i = 0;
-            repeat(array_length(_labelArray))
-            {
-                var _audioArray = _labelArray[_i].__audioArray;
-                var _j = 0;
-                repeat(array_length(_audioArray))
-                {
-                    if (_audioArray[_j] == _id)
-                    {
-                        array_delete(_audioArray, _j, 1);
-                        break;
-                    }
-                    
-                    ++_j;
-                }
-                
-                ++_i;
-            }
-        }
-        
         __StateReset();
         
         //If we're playing on a pan emitter, pool it
@@ -535,18 +550,17 @@ function __VinylClassInstanceCommon() constructor
     
     static __CalculateGainPitch = function(_deltaTimeFactor)
     {
-        var _pattern = __VinylPatternGet(__patternName);
         var _gainDelta = clamp(__gainTarget - __gainLocal, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
         
         __LabelGainPitchGet();
         
         __gainLocal += _gainDelta;
-        __gainPattern = (_pattern == undefined)? 1 : _pattern.__gain;
+        __gainPattern = (__pattern == undefined)? 1 : __pattern.__gain;
         __gainParent = (__parentInstance == undefined)? 1 :__parentInstance.__gainOutput;
         __gainOutput = __gainLocal*__gainPattern*__gainParent*__gainLabels;
         
         __pitchLocal += clamp(__pitchTarget - __pitchLocal, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
-        __pitchPattern = (_pattern == undefined)? 1 : lerp(_pattern.__pitchLo, _pattern.__pitchHi, __pitchRandomParam);
+        __pitchPattern = (__pattern == undefined)? 1 : lerp(__pattern.__pitchLo, __pattern.__pitchHi, __pitchRandomParam);
         __pitchParent = (__parentInstance == undefined)? 1 : __parentInstance.__pitchOutput;
         __pitchOutput = __pitchLocal*__pitchPattern*__pitchParent*__pitchLabels;
         if (__transposeUsing) __pitchOutput *= __VinylSemitoneToPitch(__globalData.__transposeSemitones + __transposeSemitones);

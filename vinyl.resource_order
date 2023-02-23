@@ -73,7 +73,6 @@
     {"name":"__VinylTick","order":5,"path":"scripts/__VinylTick/__VinylTick.yy",},
     {"name":"VinylLoopGet","order":11,"path":"scripts/VinylLoopGet/VinylLoopGet.yy",},
     {"name":"VinylPanGet","order":1,"path":"scripts/VinylPanGet/VinylPanGet.yy",},
-    {"name":"__VinylPatternGetEffectChain","order":11,"path":"scripts/__VinylPatternGetEffectChain/__VinylPatternGetEffectChain.yy",},
     {"name":"VinylKnobDefaultGet","order":6,"path":"scripts/VinylKnobDefaultGet/VinylKnobDefaultGet.yy",},
     {"name":"__VinylClassPatternShuffle","order":3,"path":"scripts/__VinylClassPatternShuffle/__VinylClassPatternShuffle.yy",},
     {"name":"__VinylClassEmitterRef","order":6,"path":"scripts/__VinylClassEmitterRef/__VinylClassEmitterRef.yy",},

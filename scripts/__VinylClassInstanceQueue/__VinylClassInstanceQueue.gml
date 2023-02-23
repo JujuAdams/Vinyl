@@ -6,7 +6,14 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
     
     static toString = function()
     {
-        return "<queue " + string(__id) + " " + string(__patternName) + ">";
+        if (__pattern == undefined)
+        {
+            return "<queue " + string(__id) + ">";
+        }
+        else
+        {
+            return "<queue " + string(__id) + " " + string(__pattern.__name) + ">";
+        }
     }
     
     static __StateReset = function()
@@ -44,11 +51,11 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
     
     
     
-    static __Instantiate = function(_pattern, _parentInstance, _emitter, _assetArray, _loop, _gain, _pitch, _pan, _behavior)
+    static __Instantiate = function(_pattern, _parentInstance, _vinylEmitter, _assetArray, _loop, _gain, _pitch, _pan, _behavior)
     {
         __index = 0;
         
-        __StateSetCommon(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan);
+        __StateSetCommon(_pattern, _parentInstance, _vinylEmitter, _loop, _gain, _pitch, _pan);
         __behavior = _behavior;
         
         //Make a local copy of the input asset array
@@ -60,6 +67,13 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
             var _asset = __assetArray[__index];
             __child = __VinylPatternGet(_asset).__Play(self, __gmEmitter, _asset, __loop, __gainOutput, __pitchOutput, __pan);
         }
+    }
+    
+    static __Migrate = function()
+    {
+        __MigrateCommon();
+        
+        if (__child != undefined) __child.__Migrate();
     }
     
     static __Tick = function(_deltaTimeFactor)
