@@ -1,15 +1,6 @@
 function __VinylTick()
 {
     static _globalData = __VinylGlobalData();
-    static _topLevelArray = _globalData.__topLevelArray;
-    
-    //Unpack pools
-    static _poolGameMaker = _globalData.__poolGameMaker;
-    static _poolBasic     = _globalData.__poolBasic;
-    static _poolQueue     = _globalData.__poolQueue;
-    static _poolMulti     = _globalData.__poolMulti;
-    static _poolEmitter   = _globalData.__poolEmitter;
-    //Don't tick the pan emitters - we only need to update those when the listener changes position
     
     ++_globalData.__frame;
     var _deltaTimeFactor = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
@@ -23,13 +14,8 @@ function __VinylTick()
         ++_i;
     }
     
-    //Tick everything active in our pools
-    _poolGameMaker.__Tick(_deltaTimeFactor);
-    _poolBasic.__Tick(_deltaTimeFactor);
-    _poolQueue.__Tick(_deltaTimeFactor);
-    _poolMulti.__Tick(_deltaTimeFactor);
-    _poolEmitter.__Tick(_deltaTimeFactor);
-    
+    //Update top-level instances. Each top-level instance then updates its children
+    static _topLevelArray = _globalData.__topLevelArray;
     var _i = 0;
     repeat(array_length(_topLevelArray))
     {
@@ -44,4 +30,19 @@ function __VinylTick()
             array_delete(_topLevelArray, _i, 1);
         }
     }
+    
+    //Update our pools. This ensures structs in the return array get shifted over into the active array
+    static _poolGameMaker  = _globalData.__poolGameMaker;
+    static _poolBasic      = _globalData.__poolBasic;
+    static _poolQueue      = _globalData.__poolQueue;
+    static _poolMulti      = _globalData.__poolMulti;
+    static _poolEmitter    = _globalData.__poolEmitter;
+    static _poolPanEmitter = _globalData.__poolPanEmitter;
+    
+    _poolGameMaker.__Tick();
+    _poolBasic.__Tick();
+    _poolQueue.__Tick();
+    _poolMulti.__Tick();
+    _poolEmitter.__Tick();
+    _poolPanEmitter.__Tick();
 }

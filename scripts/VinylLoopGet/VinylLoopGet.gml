@@ -6,6 +6,4 @@ function VinylLoopGet(_id)
     
     var _instance = _idToInstanceDict[? _id];
     if (is_struct(_instance)) return _instance.__loop;
-    
-    return false;
 }

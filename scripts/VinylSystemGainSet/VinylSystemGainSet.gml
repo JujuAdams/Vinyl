@@ -5,6 +5,8 @@
 
 function VinylSystemGainSet(_gain)
 {
+    _gain = max(0, _gain);
+    
     static _oldGain = undefined;
     if (_gain != _oldGain)
     {
