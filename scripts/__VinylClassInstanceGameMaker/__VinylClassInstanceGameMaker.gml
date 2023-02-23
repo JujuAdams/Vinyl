@@ -1,6 +1,10 @@
 function __VinylClassInstanceGameMaker() constructor
 {
+    static __pool = __VinylGlobalData().__poolGameMaker;
     static __patternType = "gm";
+    
+    __sound    = undefined;
+    __instance = undefined;
     
     
     
@@ -48,6 +52,21 @@ function __VinylClassInstanceGameMaker() constructor
             __VinylTrace("Warning! Gain value for ", self, " (", _gain, ") exceeds VINYL_MAX_GAIN (", VINYL_MAX_GAIN, ")");
         }
     }
+    
+    
+    
+    static __DepoolCallback = function()
+    {
+        //Do nothing
+    }
+    
+    static __PoolCallback = function()
+    {
+        audio_stop_sound(__instance);
+        __sound    = undefined;
+        __instance = undefined;
+    }
+    
     
     
     
@@ -223,10 +242,7 @@ function __VinylClassInstanceGameMaker() constructor
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Stopping ", self);
         
-        audio_stop_sound(__instance);
-        
-        __sound    = undefined;
-        __instance = undefined;
+        __pool.__Return(self);
     }
     
     static __LengthGet = function()

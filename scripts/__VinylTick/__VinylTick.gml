@@ -4,10 +4,11 @@ function __VinylTick()
     static _topLevelArray = _globalData.__topLevelArray;
     
     //Unpack pools
-    static _poolBasic   = _globalData.__poolBasic;
-    static _poolQueue   = _globalData.__poolQueue;
-    static _poolMulti   = _globalData.__poolMulti;
-    static _poolEmitter = _globalData.__poolEmitter;
+    static _poolGameMaker = _globalData.__poolGameMaker;
+    static _poolBasic     = _globalData.__poolBasic;
+    static _poolQueue     = _globalData.__poolQueue;
+    static _poolMulti     = _globalData.__poolMulti;
+    static _poolEmitter   = _globalData.__poolEmitter;
     //Don't tick the pan emitters - we only need to update those when the listener changes position
     
     ++_globalData.__frame;
@@ -23,6 +24,7 @@ function __VinylTick()
     }
     
     //Tick everything active in our pools
+    _poolGameMaker.__Tick(_deltaTimeFactor);
     _poolBasic.__Tick(_deltaTimeFactor);
     _poolQueue.__Tick(_deltaTimeFactor);
     _poolMulti.__Tick(_deltaTimeFactor);

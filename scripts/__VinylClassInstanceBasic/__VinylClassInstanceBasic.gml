@@ -25,9 +25,11 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
     
     static __Instantiate = function(_pattern, _parentInstance, _emitter, _sound, _loop, _gain, _pitch, _pan)
     {
+        static __poolGameMaker = __VinylGlobalData().__poolGameMaker;
+        
         __StateSetCommon(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan);
         
-        __child = new __VinylClassInstanceGameMaker(); //TODO - Pool GameMaker instance wrappers
+        __child = __poolGameMaker.__Depool();
         __child.__Play(__gmEmitter, _sound, __loop, __gainOutput, __pitchOutput);
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " has child instance ", __child);
