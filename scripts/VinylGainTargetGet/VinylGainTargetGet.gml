@@ -12,7 +12,7 @@ function VinylGainTargetGet(_id)
     var _instance = _idToInstanceDict[? _id];
     if (is_struct(_instance))
     {
-        _gainTarget = _instance.__gainTarget;
+        _gainTarget = _instance.__GainTargetGet();
     }
     else if (_id == undefined)
     {
@@ -21,7 +21,7 @@ function VinylGainTargetGet(_id)
     else
     {
         var _label = _globalData.__labelDict[$ _id];
-        if (is_struct(_label)) _gainTarget = _label.__gainTarget;
+        if (is_struct(_label)) _gainTarget = _label.__GainTargetGet();
     }
     
     return _gainTarget;

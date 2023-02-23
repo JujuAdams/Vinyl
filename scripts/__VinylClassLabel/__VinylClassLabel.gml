@@ -174,6 +174,11 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         __gainTarget = _gain;
     }
     
+    static __GainGet = function()
+    {
+        return __gainLocal;
+    }
+    
     static __GainTargetSet = function(_targetGain, _rate)
     {
         if (VINYL_DEBUG_LEVEL >= 1)
@@ -189,6 +194,16 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         
         __gainTarget = _targetGain;
         __gainRate   = _rate;
+    }
+    
+    static __GainTargetGet = function()
+    {
+        return __gainTarget;
+    }
+    
+    static __GainOutputGet = function()
+    {
+        return __gainOutput;
     }
     
     #endregion
@@ -214,6 +229,11 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         __pitchTarget = _pitch;
     }
     
+    static __PitchGet = function()
+    {
+        return __pitchLocal;
+    }
+    
     static __PitchTargetSet = function(_targetPitch, _rate)
     {
         if (VINYL_DEBUG_LEVEL >= 1)
@@ -229,6 +249,16 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         
         __pitchTarget = _targetPitch;
         __pitchRate   = _rate;
+    }
+    
+    static __PitchTargetGet = function()
+    {
+        return __pitchTarget;
+    }
+    
+    static __PitchOutputGet = function()
+    {
+        return __pitchOutput;
     }
     
     #endregion

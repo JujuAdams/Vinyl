@@ -13,7 +13,7 @@ function VinylPitchTargetGet(_id)
     var _instance = _idToInstanceDict[? _id];
     if (is_struct(_instance))
     {
-        _pitchTarget = _instance.__pitchTarget;
+        _pitchTarget = _instance.__PitchTargetGet();
     }
     else if (_id == undefined)
     {
@@ -22,7 +22,7 @@ function VinylPitchTargetGet(_id)
     else
     {
         var _label = _globalData.__labelDict[$ _id];
-        if (is_struct(_label)) _pitchTarget = _label.__pitchTarget;
+        if (is_struct(_label)) _pitchTarget = _label.__PitchTargetGet();
     }
     
     return _pitchTarget;
