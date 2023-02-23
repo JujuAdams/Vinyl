@@ -26,32 +26,49 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
         
         __StateResetCommon();
         
-        __sound = undefined;
+        __sound      = undefined;
+        __gmInstance = undefined;
     }
     
     static __Instantiate = function(_pattern, _parentInstance, _emitter, _sound, _loop, _gain, _pitch, _pan)
     {
-        static __poolGameMaker = __VinylGlobalData().__poolGameMaker;
-        
         __StateSetCommon(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan);
+        
         __sound = _sound;
         
-        __child = __poolGameMaker.__Depool();
-        __child.__Play(__gmEmitter, _sound, __loop, __gainOutput, __pitchOutput);
+        if (__gmEmitter == undefined)
+        {
+            __gmInstance = audio_play_sound(__sound, 1, __loop, __VinylCurveAmplitude(__gainOutput), 0, __pitchOutput);
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, ", loop=", __loop? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput);
+        }
+        else
+        {
+            __gmInstance = audio_play_sound_on(__gmEmitter, __sound, __loop, 1, __VinylCurveAmplitude(__gainOutput), 0, __pitchOutput);
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, " on GM emitter ", __gmEmitter, ", loop=", __loop? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput);
+        }
         
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " has child instance ", __child);
+        __LoopPointsSet();
+        
+        if (__gainOutput > VINYL_MAX_GAIN)
+        {
+            __VinylTrace("Warning! Gain value for ", self, " (", __gainOutput, ") exceeds VINYL_MAX_GAIN (", VINYL_MAX_GAIN, ")");
+        }
+        
     }
     
     static __Tick = function(_deltaTimeFactor)
     {
-        if (__child.__IsPlaying())
+        if (__IsPlaying())
         {
             __TickCommon(_deltaTimeFactor);
             
-            if (__child != undefined)
+            if (__gmInstance != undefined)
             {
-                __child.__GainSet(__gainOutput);
-                __child.__PitchSet(__pitchOutput);
+                if ((VINYL_DEBUG_LEVEL >= 2) && (audio_sound_get_gain(__gmInstance) != __gainOutput)) __VinylTrace(self, " gain=", audio_sound_get_gain(__gmInstance), " -> ", __gainOutput);
+                audio_sound_gain(__gmInstance, __VinylCurveAmplitude(__gainOutput), VINYL_STEP_DURATION);
+                
+                if ((VINYL_DEBUG_LEVEL >= 2) && (audio_sound_get_pitch(__gmInstance) != __pitchOutput)) __VinylTrace(self, " pitch=", audio_sound_get_pitch(__gmInstance), " -> ", __pitchOutput);
+                audio_sound_pitch(__gmInstance, __pitchOutput);
             }
         }
         else
@@ -60,4 +77,126 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
             __VINYL_RETURN_SELF_TO_POOL
         }
     }
+    
+    
+    
+    #region Loop
+    
+    static __LoopSet = function(_state)
+    {
+        __loop = _state;
+        audio_sound_loop(__gmInstance, _state);
+    }
+    
+    static __LoopPointsSet = function()
+    {
+        var _loopPoints = __VinylPatternGet(__sound).__loopPoints;
+        if (is_array(_loopPoints))
+        {
+            audio_sound_loop_start(__gmInstance, _loopPoints[0]);
+            audio_sound_loop_end(  __gmInstance, _loopPoints[1]);
+        }
+        else
+        {
+            audio_sound_loop_start(__gmInstance, 0);
+            audio_sound_loop_end(  __gmInstance, audio_sound_length(__gmInstance));
+        }
+    }
+    
+    #endregion
+    
+    
+    
+    #region Playback
+    
+    static __IsPlaying = function()
+    {
+        if (!is_numeric(__gmInstance)) return false;
+        
+        return audio_is_playing(__gmInstance);
+    }
+    
+    static __Pause = function()
+    {
+        if (!is_numeric(__gmInstance)) return;
+        if (audio_is_paused(__gmInstance)) return;
+        
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pausing ", self);
+        
+        audio_pause_sound(__gmInstance);
+    }
+    
+    static __PauseGet = function()
+    {
+        if (!is_numeric(__gmInstance)) return;
+        if (audio_is_paused(__gmInstance)) return;
+        
+        return audio_is_paused(__gmInstance);
+    }
+    
+    static __Resume = function()
+    {
+        if (!is_numeric(__gmInstance)) return;
+        if (!audio_is_paused(__gmInstance)) return;
+        
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming ", self);
+        
+        audio_resume_sound(__gmInstance);
+    }
+    
+    static __Stop = function()
+    {
+        if (__gmInstance == undefined) return;
+        
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Stopping ", self);
+        
+        audio_stop_sound(__gmInstance);
+        __gmInstance = undefined;
+        
+        __VINYL_RETURN_SELF_TO_POOL
+    }
+    
+    static __LengthGet = function()
+    {
+        if (!is_numeric(__gmInstance)) return;
+        
+        if (audio_sound_get_loop(__gmInstance))
+        {
+            return audio_sound_get_loop_end(__gmInstance) - audio_sound_get_loop_start(__gmInstance);
+        }
+        else
+        {
+            return audio_sound_length(__gmInstance);
+        }
+    }
+    
+    static __PositionSet = function(_position)
+    {
+        if (!is_numeric(__gmInstance)) return;
+        
+        if (audio_sound_get_loop(__gmInstance))
+        {
+            audio_sound_set_track_position(__gmInstance, _position + audio_sound_get_loop_start(__gmInstance));
+        }
+        else
+        {
+            audio_sound_set_track_position(__gmInstance, _position);
+        }
+    }
+    
+    static __PositionGet = function()
+    {
+        if (!is_numeric(__gmInstance)) return;
+        
+        if (audio_sound_get_loop(__gmInstance))
+        {
+            return audio_sound_get_track_position(__gmInstance) - audio_sound_get_loop_start(__gmInstance);
+        }
+        else
+        {
+            return audio_sound_get_track_position(__gmInstance);
+        }
+    }
+    
+    #endregion
 }

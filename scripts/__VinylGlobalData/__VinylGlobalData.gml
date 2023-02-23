@@ -12,7 +12,6 @@ function __VinylGlobalData()
         
         __transposeSemitones: 0,
         
-        __poolGameMaker:  new __VinylClassPool(90000000, __VinylClassInstanceGameMaker),
         __poolBasic:      new __VinylClassPool(91000000, __VinylClassInstanceBasic),
         __poolQueue:      new __VinylClassPool(92000000, __VinylClassInstanceQueue),
         __poolMulti:      new __VinylClassPool(93000000, __VinylClassInstanceMulti),

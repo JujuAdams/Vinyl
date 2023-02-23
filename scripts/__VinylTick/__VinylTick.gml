@@ -32,14 +32,12 @@ function __VinylTick()
     }
     
     //Update our pools. This ensures structs in the return array get shifted over into the active array
-    static _poolGameMaker  = _globalData.__poolGameMaker;
     static _poolBasic      = _globalData.__poolBasic;
     static _poolQueue      = _globalData.__poolQueue;
     static _poolMulti      = _globalData.__poolMulti;
     static _poolEmitter    = _globalData.__poolEmitter;
     static _poolPanEmitter = _globalData.__poolPanEmitter;
     
-    _poolGameMaker.__Tick();
     _poolBasic.__Tick();
     _poolQueue.__Tick();
     _poolMulti.__Tick();
