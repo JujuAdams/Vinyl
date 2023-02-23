@@ -56,9 +56,14 @@ UINewline();
 
 UIText("\"music\" label count = " + string(VinylLabelInstanceCountGet("music")));
 
-UIButtonInline("Fade out music", function()
+UIButtonInline("Stop \"music\" label", function()
 {
-     VinylLabelInstanceCountGet("music");
+     VinylStop("music");
+});
+
+UIButtonInline("Fade out \"music\" label", function()
+{
+     VinylFadeOut("music");
 });
 
 UINewline();
