@@ -17,7 +17,7 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
     
     static __Initialize = function(_patternData = {}, _knobDict, _labelDict)
     {
-        if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "effect chain", "label", "labels", "loop point", "loop points", __adHoc? "copyTo" : ""]);
+        if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "effect chain", "label", "labels", "loop point", "loop points", "copyTo"]);
         
         var _asset           = _patternData[$ "asset"       ] ?? _patternData[$ "assets"];
         var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
@@ -87,6 +87,9 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
                 }
                 else
                 {
+                    //Spoof a proper Basic pattern data struct
+                    _patternData.asset = _copyToIndex;
+                    
                     var _pattern = new __VinylClassPatternBasic(_copyToKey, false);
                     _pattern.__Initialize(_patternData, _newKnobDict, _newLabelDict);
                     
