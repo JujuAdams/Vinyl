@@ -50,7 +50,7 @@
 #macro VINYL_DEBUG_LEVEL  0
 
 //Whether to show the frame number in debug messages
-#macro VINYL_DEBUG_SHOW_FRAMES  false
+#macro VINYL_DEBUG_SHOW_FRAMES  true
 
 //Whether to output extra debug information when reading configuration data
 #macro VINYL_DEBUG_READ_CONFIG  false
