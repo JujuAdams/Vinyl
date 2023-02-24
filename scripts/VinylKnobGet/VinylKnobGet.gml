@@ -16,5 +16,5 @@ function VinylKnobGet(_name)
         return undefined;
     }
     
-    return _knob.__value;
+    return _knob.__Get();
 }

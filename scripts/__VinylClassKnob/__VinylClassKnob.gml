@@ -83,6 +83,11 @@ function __VinylClassKnob(_name) constructor
         }
     }
     
+    static __Get = function()
+    {
+        return __setValue;
+    }
+    
     static __Refresh = function()
     {
         __actualValue = clamp(__setValue ?? __default, __rangeLo, __rangeHi);

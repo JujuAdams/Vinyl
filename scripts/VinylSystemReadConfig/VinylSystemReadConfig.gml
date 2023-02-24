@@ -50,7 +50,7 @@ function VinylSystemReadConfig(_configData)
             
             //Copy the old value from the old knob if possible
             var _oldKnob = _oldKnobDict[$ _knobName];
-            if (is_struct(_oldKnob)) _newKnob.__value = _oldKnob.__value;
+            if (is_struct(_oldKnob)) _newKnob.__Set(_oldKnob.__Get());
             
             ++_i;
         }
