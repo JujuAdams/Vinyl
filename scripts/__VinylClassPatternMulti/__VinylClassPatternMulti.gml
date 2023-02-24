@@ -37,10 +37,25 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         __InitializeLabelArray(_labelNameArray, _labelDict);
         
         //Set the blend state
-        if ((!is_undefined(_blend) && !is_numeric(_blend))
-        ||  (is_numeric(_blend) && ((_blend < 0) || (_blend > 1))))
+        if (is_string(_blend))
         {
-            __VinylError("Error in pattern ", self, "\nBlend must be a number between 0 and 1 (inclusive)");
+            if (string_char_at(_blend, 1) == "@")
+            {
+                var _knobName = string_delete(_blend, 1, 1);
+                var _knob = _knobDict[$ _knobName];
+                if (!is_struct(_knob)) __VinylError("Error in ", self, " for blend property\nKnob \"", _knobName, "\" doesn't exist");
+            
+                _knob.__TargetCreate(self, "blend");
+                _blend = _knob.__actualValue; //Set blend to the current value of the knob
+            }
+            else
+            {
+                __VinylError("Error in ", self, "\nBlend must be a number, a knob name, or undefined");
+            }
+        }
+        else if (!is_numeric(_gain) && !is_undefined(_gain))
+        {
+            __VinylError("Error in ", self, "\nBlend must be a number, a knob name, or undefined");
         }
         
         __blend = _blend;
