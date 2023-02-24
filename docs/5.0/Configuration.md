@@ -301,7 +301,7 @@ Queue patterns can additionally have the `behavior` property which determines th
 
 ?> Setting the behavior for an instance of a Queue pattern will override the behavior set on the pattern. This means any change to a pattern's `behavior` property by live updating will be ignored if `VinylQueueBehaviorSet()` has ever been called for an instance.
 
-### `multi ` type
+### `multi` type
 
 Plays audio assets simultaneously from an array.
 
