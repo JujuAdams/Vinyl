@@ -62,9 +62,15 @@
         
         bleep shuffle: {
             type: shuffle
-            asset: [sndBleep0, sndBleep1,   sndBleep2,  sndBleep3,
-                    sndBleep4, sndBleep5,   sndBleep6,  sndBleep7,
-                    sndBleep8, sndBleep9,  sndBleep10, sndBleep11]
+            assets: [sndBleep0, sndBleep1,   sndBleep2,  sndBleep3,
+                     sndBleep4, sndBleep5,   sndBleep6,  sndBleep7,
+                     sndBleep8, sndBleep9,  sndBleep10, sndBleep11]
+        }
+        
+        queue test: {
+            type: queue
+            pitch: [0.9, 1.1]
+            assets: [sndPop, sndPop, sndPop, sndPop, sndPop]
         }
         
         music sync test: {

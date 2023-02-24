@@ -117,5 +117,10 @@ UIButtonInline("Music sync test", function()
     music = VinylPlay("music sync test");
 });
 
+UIButtonInline("Queue test", function()
+{
+    VinylPlay("queue test");
+});
+
 UINewline();
 UINewline();
