@@ -33,13 +33,13 @@ Here's a standard JSON example:
 
 ```
 {
-	"menu": {
-		"id": 4578,
-		"value": "File",
-		"popup": {
-			"menuitem": ["New", "Open", "Close"]
-		}
-	}
+    "menu": {
+        "id": 4578,
+        "value": "File",
+        "popup": {
+            "menuitem": ["New", "Open", "Close"]
+        }
+    }
 }
 ```
 
@@ -47,13 +47,13 @@ And here's an equivalent Loose JSON example:
 
 ```
 {
-	menu: {
-		id: 4578,
-		value: File
-		popup: {
-			menuitem: [New, Open, Close]
-		}
-	}
+    menu: {
+        id: 4578,
+        value: File
+        popup: {
+            menuitem: [New, Open, Close]
+        }
+    }
 }
 ```
 
@@ -78,7 +78,7 @@ Vinyl expects - and requires - that the top-level object contains three child ob
     }
 
     effect buses: {
-    	...
+        ...
     }
 }
 ```
@@ -151,35 +151,35 @@ Each element in the child object specifies a child label. An asset assigned to a
 
 ```
 {
-	...
+    ...
     
-	labels: {
-	    music: {
-	        loop: true
-	        limit: 1
-	    }
-	    ambience: {
-	        loop: true
-	        limit: 1
-	    }
-	    menu: {}
-	    gameplay: {}
-	    sfx: {
-	        children: {
-	            speech: {
-	                pitch: [0.9, 1.1]
-	            }
-	            footsteps: {
-	                pitch: [0.8, 1.2]
-	            }
-	            ui: {
-	            	gain: 0.8
-	            }
-	        }
-	    }
-	}
+    labels: {
+        music: {
+            loop: true
+            limit: 1
+        }
+        ambience: {
+            loop: true
+            limit: 1
+        }
+        menu: {}
+        gameplay: {}
+        sfx: {
+            children: {
+                speech: {
+                    pitch: [0.9, 1.1]
+                }
+                footsteps: {
+                    pitch: [0.8, 1.2]
+                }
+                ui: {
+                    gain: 0.8
+                }
+            }
+        }
+    }
     
-	...
+    ...
 }
 ```
 
@@ -239,8 +239,8 @@ Copies the configuration for this asset to another asset, or to an array of asse
 
 ```
 {
-	...
-	
+    ...
+    
     assets: {
         fallback: {}
         sndChickenNuggets: {
@@ -249,7 +249,7 @@ Copies the configuration for this asset to another asset, or to an array of asse
         }
     }
     
-	...
+    ...
 }
 ```
 
@@ -285,28 +285,36 @@ Which label this pattern is assigned to. If an array is specified, the pattern w
 
 Patterns **must** further have one of the following types. These determine the behaviour of the pattern when played.
 
-### `basic` behaviour
+### `basic` type
 
 Plays the specified audio asset.
 
-### `shuffle` behaviour
+### `shuffle` type
 
 Plays a random audio asset from an array.
 
-### `queue` behaviour
+### `queue` type
 
 Plays audio assets sequentially from an array.
 
-### `multi ` behaviour
+Queue patterns can additionally have the `behavior` property which determines the default behavior when playing the pattern. This is the same values as set by [`VinylQueueBehaviorSet()`](https://www.jujuadams.com/Vinyl/#/5.0/Queue-Patterns). The behaviour property defaults to `0` which plays the queue once (and assets will be removed from the queue once they finish playing).
+
+?> Setting the behavior for an instance of a Queue pattern will override the behavior set on the pattern. This means any change to a pattern's `behavior` property by live updating will be ignored if `VinylQueueBehaviorSet()` has ever been called for an instance.
+
+### `multi ` type
 
 Plays audio assets simultaneously from an array.
+
+Queue patterns may further have the `blend` and `sync` properties. These are the same values as set by [`VinylMultiBlendSet()` or `VinylMultiSyncSet()`](https://www.jujuadams.com/Vinyl/#/5.0/Queue-Patterns). You can control the blend value of a Multi pattern using a knob (but not the sync state). The blend factor defaults to `undefined` (no blending, all tracks are played at a gain of `1`), and the sync state defaults to `false` (no synchronisation).
+
+?> Setting the blend factor or sync state for an instance of a Multi pattern will override the values set on the pattern. This means any change to a pattern's `blend` or `sync` property by live updating (or using a knob() will be ignored if `VinylMultiBlendSet()` or `VinylMultiSyncSet()` have ever been called for an instance.
 
 &nbsp;
 
 ```
 {
-	...
-	
+    ...
+    
     patterns: {
         random pitch test: {
             type: basic
@@ -323,7 +331,7 @@ Plays audio assets simultaneously from an array.
         }
     }
 
-	...
+    ...
 }
 ```
 
@@ -427,8 +435,8 @@ Basic volume control. Equivalent to `AudioEffectType.Gain`.
 
 ```
 {
-	...
-	
+    ...
+    
     effect chains: {
         main: [
             {
@@ -444,7 +452,7 @@ Basic volume control. Equivalent to `AudioEffectType.Gain`.
         ]
     }
 
-	...
+    ...
 }
 ```
 
@@ -476,17 +484,17 @@ The range of output values that this knob will emit. An input value of `0` as se
 
 ```
 {
-	...
-	
+    ...
+    
     assets: {
         sizefulness: 0.3 //If we use a number then that's the default value, and the range is 0 -> 1
 
         delayTime: {
-        	default: 0.4
-        	range: [0.3, 0.8]
+            default: 0.4
+            range: [0.3, 0.8]
         }
     }
     
-	...
+    ...
 }
 ```
