@@ -12,8 +12,8 @@
   "conversionMode": 0,
   "duration": 5.0,
   "parent": {
-    "name": "vinyl",
-    "path": "vinyl.yyp",
+    "name": "Sounds",
+    "path": "folders/Sounds.yy",
   },
   "preload": false,
   "sampleRate": 44100,
