@@ -69,19 +69,52 @@ UIButtonInline("Fade out \"music\" label", function()
 UINewline();
 UINewline();
 
-UIButtonInline("Play left pan", function()
+UIButtonInline("Bonk left", function()
 {
-    VinylPlay(snd1KHz, false, 1, 1, -1);
+    VinylPlay(sndBonk, false, 1, 1, -1);
 });
 
-UIButtonInline("Play centre pan", function()
+UIButtonInline("Bonk centre", function()
 {
-    VinylPlay(snd1KHz, false, 1, 1, 0);
+    VinylPlay(sndBonk, false, 1, 1, 0);
 });
 
-UIButtonInline("Play right pan", function()
+UIButtonInline("Bonk right", function()
 {
-    VinylPlay(snd1KHz, false, 1, 1, 1);
+    VinylPlay(sndBonk, false, 1, 1, 1);
+});
+
+UIButtonInline("Ow!", function()
+{
+    VinylPlay(sndOw);
+});
+
+UIButtonInline("Ow! but simple", function()
+{
+    VinylPlaySimple(sndOw);
+});
+
+UIButtonInline("Normal cat", function()
+{
+    VinylPlay(sndCat);
+});
+
+UIButtonInline("Space cat", function()
+{
+    VinylPlay("space cat", false, 1, 1, random_range(-1, 1));
+});
+
+UIButtonInline("Bleep shuffle", function()
+{
+    VinylPlaySimple("bleep shuffle");
+});
+
+UINewline();
+UINewline();
+
+UIButtonInline("Music sync test", function()
+{
+    music = VinylPlay("music sync test");
 });
 
 UINewline();
