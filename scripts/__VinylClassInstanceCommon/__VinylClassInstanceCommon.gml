@@ -4,6 +4,7 @@ function __VinylClassInstanceCommon() constructor
     
     static __globalData       = __VinylGlobalData();
     static __idToInstanceDict = __globalData.__idToInstanceDict;
+    static __effectChainDict  = __globalData.__effectChainDict;
     
     __id   = undefined;
     __pool = undefined;
@@ -46,8 +47,8 @@ function __VinylClassInstanceCommon() constructor
         __transposeUsing     = false;
         __transposeSemitones = 0;
         
-        __gmEmitter  = undefined;
-        __panEmitter = undefined;
+        __vinylEmitter = undefined;
+        __panEmitter   = undefined;
     }
     
     static __StateSetCommon = function(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan)
@@ -76,19 +77,15 @@ function __VinylClassInstanceCommon() constructor
         var _effectChainName = (__pattern == undefined)? "main" : _pattern.__effectChainName;
         if (_emitter != undefined)
         {
-            //Playback on a normal emitter
-            __gmEmitter = _emitter.__GetEmitter();
-            
-            //Add this instance to the emitter's array
-            array_push(_emitter.__emitter.__instanceIDArray, __id);
+            __vinylEmitter = _emitter;
+            __vinylEmitter.__InstanceAdd(__id);
         }
         else
         {
             if (__pan == undefined)
             {
-                //Standard playback
                 //Only use an emitter if the effect chain demands it
-                __gmEmitter = __VinylEffectChainGetEmitter(_effectChainName);
+                __vinylEmitter = __effectChainDict[$ _effectChainName];
             }
             else
             {
@@ -97,7 +94,7 @@ function __VinylClassInstanceCommon() constructor
                 __panEmitter.__Pan(__pan);
                 __panEmitter.__Bus(_effectChainName);
                 
-                __gmEmitter = __panEmitter.__emitter;
+                __vinylEmitter = __panEmitter;
             }
         }
         

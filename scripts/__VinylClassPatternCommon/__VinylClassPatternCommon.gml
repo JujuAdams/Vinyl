@@ -1,9 +1,9 @@
 function __VinylClassPatternCommon()
 {
+    static __effectChainDict = __VinylGlobalData().__effectChainDict;
+    
     static __Migrate = function()
     {
-        static _effectChainDict = __VinylGlobalData().__effectChainDict;
-        
         if (__effectChainName == undefined)
         {
             var _j = 0;
@@ -26,7 +26,7 @@ function __VinylClassPatternCommon()
             if (__effectChainName == undefined) __effectChainName = "main";
         }
         
-        if (!variable_struct_exists(_effectChainDict, __effectChainName))
+        if (!variable_struct_exists(__effectChainDict, __effectChainName))
         {
             __VinylError("Effect chain \"", __effectChainName, "\" for ", self, " doesn't exist");
         }

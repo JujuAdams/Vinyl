@@ -34,6 +34,16 @@ function __VinylClassEffectChain(_name) constructor
         return "<effect chain " + string(__name) + ">";
     }
     
+    static __GetEmitter = function()
+    {
+        return __emitter;
+    }
+    
+    static __InstanceAdd = function()
+    {
+        //Do nothing
+    }
+    
     static __Update = function(_busEffectArray, _knobDict)
     {
         var _i = 0;

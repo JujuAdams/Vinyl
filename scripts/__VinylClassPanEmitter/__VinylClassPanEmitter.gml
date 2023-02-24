@@ -32,6 +32,11 @@ function __VinylClassPanEmitter() constructor
         __UpdatePosition();
     }
     
+    static __GetEmitter = function()
+    {
+        return __emitter;
+    }
+    
     static __Pan = function(_pan)
     {
         _pan = clamp(_pan, -1, 1);

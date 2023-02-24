@@ -7,6 +7,12 @@ function __VinylClassEmitterRef() constructor
     //We check against this when ticking emitters to determine if an emitter reference has been lost
     __emitter.__reference = weak_ref_create(self);
     
+    static __InstanceAdd = function(_id)
+    {
+        if (__emitter != undefined) __emitter.__InstanceAdd(_id);
+        return self;
+    }
+    
     static __GetEmitter = function()
     {
         return (__emitter == undefined)? undefined : __emitter.__emitter;

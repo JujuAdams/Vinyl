@@ -153,6 +153,11 @@ function __VinylClassEmitter() constructor
     
     #region Private
     
+    static __InstanceAdd = function(_id)
+    {
+        array_push(__instanceIDArray, __id);
+    }
+    
     static __ManagePosition = function()
     {
         if (__mode == 0)
