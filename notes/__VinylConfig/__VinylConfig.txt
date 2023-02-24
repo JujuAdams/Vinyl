@@ -4,33 +4,24 @@
 
 {
     knobs: {
-        sizefulness: 0.2 //If we use just a number then that's the default value (and the range is 0 -> 1)
         delayTime: {
-            default: 0.3 //This value is clamped inside the range given
             range: [0.3, 0.6]
+            default: 0.3 //This value is clamped inside the range
         }
+        reverbSize: 0.2 //If we use just a number then that's the default value and the range is 0 -> 1
     }
     
     labels: {
         music: {
+            gain: 0.7
             loop: true
             limit: 1
         }
-        ambience: {
-            loop: true
-            limit: 1
-        }
-        menu: {}
-        gameplay: {}
         sfx: {
             children: {
                 speech: {
                     pitch: [0.9, 1.1]
                 }
-                footsteps: {
-                    pitch: [0.8, 1.2]
-                }
-                ui: {}
             }
         }
     }
@@ -38,46 +29,47 @@
     
     
     assets: {
-        fallback: {}
         sndChickenNuggets: {
             label: music
-            loop points: [1, 2]
+            loop point: [0.3, 2.8]
         }
-        sndTestTone: {
-            effect chain: test
+        
+        sndOw: {
+            label: speech
+        }
+        
+        sndCat: {
+            label: sfx
+        }
+        
+        sndBleep0: {
+            label: sfx
+            gain: 0.6
+            copyTo: [sndBleep1,  sndBleep2,  sndBleep3,  sndBleep4,
+                     sndBleep5,  sndBleep6,  sndBleep7,  sndBleep8,
+                     sndBleep9, sndBleep10, sndBleep11]
         }
     }
     
     
     
     patterns: {
-        random pitch test: {
+        space cat: {
             type: basic
-            asset: sndTestTone
-            pitch: [0.8, 1.2]
+            asset: sndCat
+            effect chain: echo
         }
         
-        shuffle test: {
+        bleep shuffle: {
             type: shuffle
-            assets: [
-                sndTestTone
-                snd1KHz
-            ]
+            asset: [sndBleep0, sndBleep1,   sndBleep2,  sndBleep3,
+                    sndBleep4, sndBleep5,   sndBleep6,  sndBleep7,
+                    sndBleep8, sndBleep9,  sndBleep10, sndBleep11]
         }
         
-        queue test: {
-            type: queue
-            behavior: 0
-            assets: [
-                snd1KHz
-                sndTestTone
-                snd1KHz
-                sndTestTone
-            ]
-        }
-        
-        multi test: {
+        music sync test: {
             type: multi
+            label: music
             assets: [
                 sndSync0
                 sndSync1
@@ -90,7 +82,7 @@
     
     
     effect chains: {
-        test: [
+        echo: [
             {
                 type: delay
                 time: @delayTime
@@ -98,7 +90,7 @@
             }
             {
                 type: reverb
-                size: @sizefulness
+                size: @reverbSize
                 mix: 0.2
             }
         ]
