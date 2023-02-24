@@ -68,10 +68,7 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
             
             if (__gmInstance != undefined)
             {
-                if ((VINYL_DEBUG_LEVEL >= 2) && (audio_sound_get_gain(__gmInstance) != __gainOutput)) __VinylTrace(self, " gain=", audio_sound_get_gain(__gmInstance), " -> ", __gainOutput);
                 audio_sound_gain(__gmInstance, __VinylCurveAmplitude(__gainOutput), VINYL_STEP_DURATION);
-                
-                if ((VINYL_DEBUG_LEVEL >= 2) && (audio_sound_get_pitch(__gmInstance) != __pitchOutput)) __VinylTrace(self, " pitch=", audio_sound_get_pitch(__gmInstance), " -> ", __pitchOutput);
                 audio_sound_pitch(__gmInstance, __pitchOutput);
             }
         }
