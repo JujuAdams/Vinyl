@@ -12,7 +12,7 @@ Vinyl uses standard audio terminology where appropriate. On top of this, Vinyl h
 
 Some professional audio designers prefer to work with decibel gain values rather than normalised gain values. By setting [`VINYL_CONFIG_DECIBEL_GAIN`](Config-Macros) to `true`, [Vinyl's configuration file](Configuration) will now use decibel values. A value of `0` db is equivalent to a normalised value of `1`, and a decibel value of `-60` db is equivalent to a normalised gain of `0` (i.e. silence).
 
-?> The whys and wherefores of gain structure have their own page [here](Gain-Structure).
+?> The whys and wherefores of gain structure has its own page [here](Gain-Structure).
 
 &nbsp;
 
