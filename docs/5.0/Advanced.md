@@ -82,6 +82,20 @@ Sets the gain of the overall system. You may want to use this for controlling th
 
 &nbsp;
 
+## `VinylSystemGainGet`
+
+`VinylSystemGainGet()`
+
+&nbsp;
+
+*Returns:* Number, the gain value for the entire system
+
+|Name|Datatype|Purpose|
+|----|--------|-------|
+|None|        |       |
+
+&nbsp;
+
 ## `VinylSystemPlayCountGet`
 
 `VinylSystemPlayCountGet()`
