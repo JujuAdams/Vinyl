@@ -10,10 +10,11 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     
     static __Initialize = function(_patternData = {}, _knobDict, _labelDict)
     {
-        if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["gain", "pitch", "effect chain", "label", "labels"]);
+        if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["gain", "pitch", "loop", "effect chain", "label", "labels"]);
         
         var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+        var _loop            = _patternData[$ "loop"        ];
         var _effectChainName = _patternData[$ "effect chain"];
         var _labelNameArray  = _patternData[$ "label"       ] ?? _patternData[$ "labels"];
         
@@ -22,6 +23,7 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         
         __InitializeGain(_gain, _knobDict);
         __InitializePitch(_pitch, _knobDict);
+        __InitializeLoop(_loop);
         __InitializeEffectChain(_effectChainName);
         __InitializeLabelArray(_labelNameArray, _labelDict);
         __InitializeLoopPoints(undefined);
@@ -34,7 +36,7 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         //Do nothing
     }
     
-    static __Play = function(_parentInstance, _emitter, _sound, _loop = false, _gain = 1, _pitch = 1, _pan = undefined)
+    static __Play = function(_parentInstance, _emitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _instance = __pool.__Depool();
         _instance.__Instantiate(self, _parentInstance, _emitter, _sound, _loop, _gain, _pitch, _pan);

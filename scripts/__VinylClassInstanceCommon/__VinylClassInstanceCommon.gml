@@ -57,10 +57,12 @@ function __VinylClassInstanceCommon() constructor
         
         __pattern        = _pattern;
         __parentInstance = _parentInstance;
-        __loop           = _loop ?? __GetLoopFromLabel();
         __gainLocal      = _gain;
         __pitchLocal     = _pitch;
         __pan            = _pan;
+        
+        var _topLevelPattern = __ParentTopLevelGet().__pattern;
+        __loop = _loop ?? ((_topLevelPattern == undefined)? false : _topLevelPattern.__LoopGet());
         
         __gainTarget  = __gainLocal;
         __pitchTarget = __pitchLocal;
@@ -114,7 +116,7 @@ function __VinylClassInstanceCommon() constructor
             return;
         }
         
-        if (VINYL_DEBUG_LEVEL >= 1)
+        if ((__gainLocal != _gain) && (VINYL_DEBUG_LEVEL >= 1))
         {
             __VinylTrace(self, " gain=", _gain);
         }
@@ -182,7 +184,7 @@ function __VinylClassInstanceCommon() constructor
             return;
         }
         
-        if (VINYL_DEBUG_LEVEL >= 1)
+        if ((__pitchLocal != _pitch) && (VINYL_DEBUG_LEVEL >= 1))
         {
             __VinylTrace(self, " pitch=", _pitch);
         }
@@ -447,11 +449,9 @@ function __VinylClassInstanceCommon() constructor
     
     static __LabelAdd = function()
     {
-        //Use the top-level parent for label contribution
-        var _topPattern = __ParentTopLevelGet().__pattern;
-        if (_topPattern != undefined)
+        if (__pattern != undefined)
         {
-            var _labelArray = _topPattern.__labelArray;
+            var _labelArray = __pattern.__labelArray;
             var _i = 0;
             repeat(array_length(_labelArray))
             {
@@ -515,11 +515,6 @@ function __VinylClassInstanceCommon() constructor
     static __ParentTopLevelGet = function()
     {
         return (__parentInstance == undefined)? self : __parentInstance.__ParentTopLevelGet();
-    }
-    
-    static __GetLoopFromLabel = function()
-    {
-        return (__pattern == undefined)? false : __pattern.__GetLoopFromLabel();
     }
     
     static __DepoolCallback = function()

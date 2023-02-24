@@ -230,6 +230,11 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         __blendFactor = _blendFactor;
         __sync        = _sync;
         
+        //Make a local copy of the input asset array
+        __assetArray = array_create(array_length(_assetArray), undefined);
+        array_copy(__assetArray, 0, _assetArray, 0, array_length(_assetArray));
+        __gainArray = array_create(array_length(_assetArray), 1);
+        
         __ApplyBlendFactor();
         
         var _shortestLength = infinity;

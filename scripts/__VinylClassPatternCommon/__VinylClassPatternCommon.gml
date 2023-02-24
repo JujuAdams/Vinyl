@@ -32,6 +32,24 @@ function __VinylClassPatternCommon()
         }
     }
     
+    static __LoopGet = function()
+    {
+        if (__loop == undefined)
+        {
+            var _i = 0;
+            repeat(array_length(__labelArray))
+            {
+                var _labelStruct = __labelArray[_i];
+                if (_labelStruct.__configLoop == true) return true;
+                ++_i;
+            }
+            
+            return false;
+        }
+        
+        return __loop;
+    }
+    
     static __ValidateStruct = function(_dataStruct, _expectedVariableArray)
     {
         if (!VINYL_CONFIG_VALIDATE_PATTERNS) return;
@@ -162,16 +180,27 @@ function __VinylClassPatternCommon()
         }
     }
     
+    static __InitializeLoop = function(_loop)
+    {
+        if (is_bool(_loop) || is_undefined(_loop))
+        {
+            __loop = _loop;
+        }
+        else
+        {
+            __VinylError("Error in ", self, "\nLoop must be either <true> or <false>");
+        }
+    }
+    
     static __InitializeEffectChain = function(_effectChainName)
     {
-        //Sort out the effect chain
         if (is_string(_effectChainName) || is_undefined(_effectChainName))
         {
             __effectChainName = _effectChainName;
         }
         else
         {
-            __VinylError("Error in ", self, "\nBus must be a name (as a string)");
+            __VinylError("Error in ", self, "\nEffect chain must be a name (as a string)");
         }
     }
     

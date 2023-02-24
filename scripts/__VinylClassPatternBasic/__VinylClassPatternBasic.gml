@@ -17,11 +17,12 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
     
     static __Initialize = function(_patternData = {}, _knobDict, _labelDict)
     {
-        if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "effect chain", "label", "labels", "loop point", "loop points", "copyTo"]);
+        if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "loop", "effect chain", "label", "labels", "loop point", "loop points", "copyTo"]);
         
         var _asset           = _patternData[$ "asset"       ] ?? _patternData[$ "assets"];
         var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+        var _loop            = _patternData[$ "loop"        ];
         var _effectChainName = _patternData[$ "effect chain"];
         var _loopPoints      = _patternData[$ "loop points" ] ?? _patternData[$ "loop point"];
         var _labelNameArray  = _patternData[$ "label"       ] ?? _patternData[$ "labels"];
@@ -48,6 +49,7 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
         
         __InitializeGain(_gain, _knobDict);
         __InitializePitch(_pitch, _knobDict);
+        __InitializeLoop(_loop);
         __InitializeEffectChain(_effectChainName);
         __InitializeLoopPoints(_loopPoints);
         __InitializeLabelArray(_labelNameArray, _labelDict);
@@ -102,7 +104,7 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
         }
     }
     
-    static __Play = function(_parentInstance, _emitter, _sound_UNUSED, _loop = false, _gain = 1, _pitch = 1, _pan = undefined)
+    static __Play = function(_parentInstance, _emitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _instance = __pool.__Depool();
         _instance.__Instantiate(self, _parentInstance, _emitter, __asset, _loop, _gain, _pitch, _pan);

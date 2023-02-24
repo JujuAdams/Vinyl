@@ -15,12 +15,13 @@ function __VinylClassPatternShuffle(_name, _adHoc) : __VinylClassPatternCommon()
     
     static __Initialize = function(_patternData = {}, _labelDict, _knobDict)
     {
-        if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "effect chain", "label", "labels"]);
+        if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "loop", "effect chain", "label", "labels"]);
         
         //Set the gain/pitch state from the provided struct
         var _assetArray      = _patternData[$ "assets"      ] ?? (_patternData[$ "asset"] ?? []);
         var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+        var _loop            = _patternData[$ "loop"        ];
         var _effectChainName = _patternData[$ "effect chain"];
         var _labelNameArray  = _patternData[$ "label"       ] ?? _patternData[$ "labels"];
         
@@ -30,6 +31,7 @@ function __VinylClassPatternShuffle(_name, _adHoc) : __VinylClassPatternCommon()
         __InitializeAssetArray(_assetArray);
         __InitializeGain(_gain, _knobDict);
         __InitializePitch(_pitch, _knobDict);
+        __InitializeLoop(_loop);
         __InitializeEffectChain(_effectChainName);
         __InitializeLabelArray(_labelNameArray, _labelDict);
         
@@ -68,7 +70,7 @@ function __VinylClassPatternShuffle(_name, _adHoc) : __VinylClassPatternCommon()
         return _pattern;
     }
     
-    static __Play = function(_parentInstance, _emitter, _sound_UNUSED, _loop = false, _gain = 1, _pitch = 1, _pan = undefined)
+    static __Play = function(_parentInstance, _emitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _pattern = __PopPattern();
         return __VinylPatternGet(_pattern).__Play(_pattern, _parentInstance, _emitter, _pattern, _loop, _gain, _pitch, _pan);
