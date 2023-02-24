@@ -34,12 +34,12 @@ function __VinylPlaySimple(_sound, _gain, _pitchLo, _pitchHi, _labelArray, _effe
     
     if (VINYL_DEBUG_LEVEL >= 1)
     {
-        __VinylTrace("Playing ", self, ", gain=", _gain, ", pitch=", _pitch, ", label=", __VinylDebugLabelNames(_labelArray), " (GMinst=", _instance, ", amplitude=", _gain/VINYL_MAX_GAIN, ")");
+        __VinylTrace("Playing ", audio_get_name(_sound), ", gain=", _gain, ", pitch=", _pitch, ", effect chain=", _effectChainName, ", label=", __VinylDebugLabelNames(_labelArray), " (GMinst=", _instance, ")");
     }
     
     if (_gain > VINYL_MAX_GAIN)
     {
-        __VinylTrace("Warning! ", self, " gain value ", _gain, " exceeds VINYL_MAX_GAIN (", VINYL_MAX_GAIN, ")");
+        __VinylTrace("Warning! ", audio_get_name(_sound), " gain value ", _gain, " exceeds VINYL_MAX_GAIN (", VINYL_MAX_GAIN, ")");
     }
     
     return _instance;
