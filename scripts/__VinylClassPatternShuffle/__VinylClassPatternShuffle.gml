@@ -70,10 +70,10 @@ function __VinylClassPatternShuffle(_name, _adHoc) : __VinylClassPatternCommon()
         return _pattern;
     }
     
-    static __Play = function(_parentInstance, _emitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
+    static __Play = function(_parentInstance, _vinylEmitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _pattern = __PopPattern();
-        return __VinylPatternGet(_pattern).__Play(_pattern, _parentInstance, _emitter, _pattern, _loop, _gain, _pitch, _pan);
+        return __VinylPatternGet(_pattern).__Play(_pattern, _parentInstance, _vinylEmitter, _pattern, _loop, _gain, _pitch, _pan);
     }
     
     static __PlaySimple = function(_sound_UNUSED, _gain = 1, _pitch = 1)

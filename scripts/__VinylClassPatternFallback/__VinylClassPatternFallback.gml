@@ -38,10 +38,10 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         //Do nothing
     }
     
-    static __Play = function(_parentInstance, _emitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
+    static __Play = function(_parentInstance, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _instance = __pool.__Depool();
-        _instance.__Instantiate(self, _parentInstance, _emitter, _sound, _loop, _gain, _pitch, _pan);
+        _instance.__Instantiate(self, _parentInstance, _vinylEmitter, _sound, _loop, _gain, _pitch, _pan);
         return _instance;
     }
     
