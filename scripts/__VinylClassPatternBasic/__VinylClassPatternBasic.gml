@@ -8,10 +8,11 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
     
     __name  = _name;
     __adHoc = _adHoc;
+    __asset = undefined;
     
     static toString = function()
     {
-        return (_asset == undefined)? "<basic ???>" : "<basic " + audio_get_name(_asset) + ">";
+        return (__asset == undefined)? "<basic ???>" : "<basic " + audio_get_name(__asset) + ">";
     }
     
     static __Initialize = function(_patternData = {}, _knobDict, _labelDict)
