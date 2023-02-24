@@ -486,7 +486,7 @@ The range of output values that this knob will emit. An input value of `0` as se
 {
     ...
     
-    assets: {
+    knobs: {
         sizefulness: 0.3 //If we use a number then that's the default value, and the range is 0 -> 1
 
         delayTime: {
