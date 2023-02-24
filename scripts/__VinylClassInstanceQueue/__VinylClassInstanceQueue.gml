@@ -80,6 +80,9 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
     {
         if (!__child.__IsPlaying())
         {
+            //Ensure that the child has depooled
+            __child.__Tick(0);
+            
             if (__behavior == 0) //Play the queue in its entirety once, popping assets off the queue as they finish
             {
                 array_delete(__assetArray, __index, 1);
