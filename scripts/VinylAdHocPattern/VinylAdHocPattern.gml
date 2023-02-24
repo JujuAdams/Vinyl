@@ -7,8 +7,9 @@ function VinylAdHocPattern(_name, _dataStruct)
     
     if (!variable_struct_exists(_dataStruct, "type")) __VinylError("Data struct doesn't have a \"type\" property");
     
-    var _struct = (__VinylConvertPatternNameToConstructor(_name, _dataStruct[$ "type"]))(_name, true);
-    _struct.__Initialize(_dataStruct, undefined, _globalData.__labelDict);
+    var _constructor = __VinylConvertPatternNameToConstructor(_name, _dataStruct[$ "type"]);
+    var _newPattern = new _constructor(_name, true);
+    _newPattern.__Initialize(_dataStruct, undefined, _globalData.__labelDict);
     
-    return _struct;
+    return _newPattern;
 }

@@ -45,8 +45,8 @@ function VinylSystemReadConfig(_configData)
             var _newKnob = new __VinylClassKnob(_knobName);
             _newKnob.__Initialize(_inputKnobDict[$ _knobName]);
             
-            _newKnobDict[$ _knobName] = self;
-            array_push(_newKnobArray, self);
+            _newKnobDict[$ _knobName] = _newKnob;
+            array_push(_newKnobArray, _newKnob);
             
             //Copy the old value from the old knob if possible
             var _oldKnob = _oldKnobDict[$ _knobName];
@@ -272,7 +272,8 @@ function VinylSystemReadConfig(_configData)
             
             if (!variable_struct_exists(_patternData, "type")) __VinylError("Pattern \"", _patternName, "\" doesn't have a \"type\" property");
             
-            var _newPattern = (__VinylConvertPatternNameToConstructor(_patternName, _patternData.type))(_patternName, false);
+            var _constructor = __VinylConvertPatternNameToConstructor(_patternName, _patternData.type);
+            var _newPattern = new _constructor(_patternName, false);
             _newPattern.__Initialize(_patternData, _newLabelDict, _newKnobDict);
             
             array_push(_newPatternArray, _newPattern);
