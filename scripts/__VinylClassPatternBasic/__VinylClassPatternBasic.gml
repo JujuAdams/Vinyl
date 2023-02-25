@@ -15,7 +15,7 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
         return (__asset == undefined)? "<basic ???>" : "<basic " + audio_get_name(__asset) + ">";
     }
     
-    static __Initialize = function(_patternData = {}, _knobDict, _labelDict)
+    static __Initialize = function(_patternData = {})
     {
         if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "loop", "effect chain", "label", "labels", "loop point", "loop points", "copyTo"]);
         
@@ -47,18 +47,20 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
         
         
         
-        __InitializeGain(_gain, _knobDict);
-        __InitializePitch(_pitch, _knobDict);
+        __InitializeGain(_gain);
+        __InitializePitch(_pitch);
         __InitializeLoop(_loop);
         __InitializeEffectChain(_effectChainName);
         __InitializeLoopPoints(_loopPoints);
-        __InitializeLabelArray(_labelNameArray, _labelDict);
+        __InitializeLabelArray(_labelNameArray);
         
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray));
     }
     
-    static __CopyTo = function(_patternData, _newPatternDict, _newPatternArray, _newKnobDict, _newLabelDict)
+    static __CopyTo = function(_patternData)
     {   
+        var _patternDict = __VinylGlobalData().__patternDict;
+        
         var _copyToArray = _patternData[$ "copyTo"];
         if (is_string(_copyToArray)) _copyToArray = [_copyToArray]; //Create an array out of a string if needed
         
@@ -83,7 +85,7 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
                 {
                     __VinylTrace("Warning! copyTo asset \"", _copyToName, "\" isn't a sound (parent asset=\"", __name, "\")");
                 }
-                else if (variable_struct_exists(_newPatternDict, _copyToKey))
+                else if (variable_struct_exists(_patternDict, _copyToKey))
                 {
                     __VinylTrace("Warning! copyTo asset \"", _copyToName, "\" has already been defined (parent asset=\"", __name, "\")");
                 }
@@ -93,10 +95,8 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
                     _patternData.asset = _copyToIndex;
                     
                     var _pattern = new __VinylClassPatternBasic(_copyToKey, false);
-                    _pattern.__Initialize(_patternData, _newKnobDict, _newLabelDict);
-                    
-                    array_push(_newPatternArray, _pattern);
-                    _newPatternDict[$ _copyToKey] = _pattern;
+                    _pattern.__Initialize(_patternData);
+                    _pattern.__Store();
                 }
                 
                 ++_j;

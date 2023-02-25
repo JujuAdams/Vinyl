@@ -44,8 +44,10 @@ function __VinylClassEffectChain(_name) constructor
         //Do nothing
     }
     
-    static __Update = function(_busEffectArray, _knobDict)
+    static __Update = function(_busEffectArray)
     {
+        var _knobDict = __VinylGlobalData().__knobDict;
+        
         var _i = 0;
         repeat(array_length(_busEffectArray))
         {

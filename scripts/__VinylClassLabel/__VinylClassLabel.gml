@@ -19,8 +19,10 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     #region Initialize
     
-    static __Initialize = function(_labelData = {}, _knobDict)
+    static __Initialize = function(_labelData = {})
     {
+        var _knobDict = __VinylGlobalData().__knobDict;
+        
         //Unpack the definition data
         var _gain            = _labelData[$ "gain"               ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _labelData[$ "pitch"              ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
@@ -149,6 +151,15 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         __pitchOutput = __pitchLocal;
         
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating definition for ", self, ", gain=", __gainOutput, ", pitch=", __pitchOutput*__configPitchLo, " -> ", __pitchOutput*__configPitchHi, ", max instances=", __limitMaxCount);
+    }
+    
+    static __Store = function()
+    {
+        var _labelDict  = __VinylGlobalData().__labelDict;
+        var _labelArray = __VinylGlobalData().__labelOrder;
+        
+        _labelDict[$ __name] = self;
+        array_push(_labelArray, self);
     }
     
     #endregion

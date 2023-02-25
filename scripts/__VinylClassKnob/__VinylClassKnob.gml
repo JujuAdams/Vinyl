@@ -57,6 +57,21 @@ function __VinylClassKnob(_name) constructor
         __actualValue = __default;
     }
     
+    static __Store = function()
+    {
+        var _knobDict  = __VinylGlobalData().__knobDict;
+        var _knobArray = __VinylGlobalData().__knobArray;
+        
+        _knobDict[$ __name] = self;
+        array_push(_knobArray, self);
+    }
+    
+    static __RestoreOldValue = function(_oldKnobDict)
+    {
+        var _oldKnob = _oldKnobDict[$ __name];
+        if (_oldKnob != undefined) __Set(_oldKnob.__Get());
+    }
+    
     static __TargetCreate = function(_scope, _property)
     {
         array_push(__targetArray, new __VinylClassKnobTarget(_scope, _property));

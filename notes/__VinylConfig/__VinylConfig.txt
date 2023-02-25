@@ -106,7 +106,7 @@
             {
                 type: reverb
                 size: @reverbSize
-                mix: 0.2
+                mix: 0.3
             }
             {
                 type: gain

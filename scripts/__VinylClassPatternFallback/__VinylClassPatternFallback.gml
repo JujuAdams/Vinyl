@@ -10,7 +10,7 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         return "<fallback>";
     }
     
-    static __Initialize = function(_patternData = {}, _knobDict, _labelDict)
+    static __Initialize = function(_patternData = {})
     {
         if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["gain", "pitch", "loop", "effect chain", "label", "labels"]);
         
@@ -23,11 +23,11 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
         
-        __InitializeGain(_gain, _knobDict);
-        __InitializePitch(_pitch, _knobDict);
+        __InitializeGain(_gain);
+        __InitializePitch(_pitch);
         __InitializeLoop(_loop);
         __InitializeEffectChain(_effectChainName);
-        __InitializeLabelArray(_labelNameArray, _labelDict);
+        __InitializeLabelArray(_labelNameArray);
         __InitializeLoopPoints(undefined);
         
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray));

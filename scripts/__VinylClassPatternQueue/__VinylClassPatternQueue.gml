@@ -14,7 +14,7 @@ function __VinylClassPatternQueue(_name, _adHoc) : __VinylClassPatternCommon() c
         return "<queue " + string(__name) + ">";
     }
     
-    static __Initialize = function(_patternData = {}, _labelDict, _knobDict)
+    static __Initialize = function(_patternData = {})
     {
         if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "loop", "effect chain", "label", "labels", "behavior", "behaviour"]);
         
@@ -31,11 +31,11 @@ function __VinylClassPatternQueue(_name, _adHoc) : __VinylClassPatternCommon() c
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
         
         __InitializeAssetArray(_assetArray);
-        __InitializeGain(_gain, _knobDict);
-        __InitializePitch(_pitch, _knobDict);
+        __InitializeGain(_gain);
+        __InitializePitch(_pitch);
         __InitializeLoop(_loop);
         __InitializeEffectChain(_effectChainName);
-        __InitializeLabelArray(_labelNameArray, _labelDict);
+        __InitializeLabelArray(_labelNameArray);
         
         //Set the pattern's behavior
         if (!is_numeric(_behavior) || ((_behavior != 0) && (_behavior != 1) && (_behavior != 2)))

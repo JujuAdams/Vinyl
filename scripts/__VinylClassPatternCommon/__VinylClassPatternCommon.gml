@@ -2,6 +2,15 @@ function __VinylClassPatternCommon()
 {
     static __effectChainDict = __VinylGlobalData().__effectChainDict;
     
+    static __Store = function()
+    {
+        var _patternDict  = __VinylGlobalData().__patternDict;
+        var _patternArray = __VinylGlobalData().__patternArray;
+        
+        _patternDict[$ __name] = self;
+        array_push(_patternArray, self);
+    }
+    
     static __Migrate = function()
     {
         if (__effectChainName == undefined)
@@ -97,8 +106,10 @@ function __VinylClassPatternCommon()
         }
     }
     
-    static __InitializeGain = function(_gain, _knobDict)
+    static __InitializeGain = function(_gain)
     {
+        var _knobDict = __VinylGlobalData().__knobDict;
+        
         if (is_string(_gain))
         {
             if (string_char_at(_gain, 1) == "@")
@@ -123,8 +134,10 @@ function __VinylClassPatternCommon()
         __gain = _gain;
     }
     
-    static __InitializePitch = function(_pitch, _knobDict)
+    static __InitializePitch = function(_pitch)
     {
+        var _knobDict = __VinylGlobalData().__knobDict;
+        
         if (is_string(_pitch))
         {
             if (string_char_at(_pitch, 1) == "@")
@@ -214,8 +227,10 @@ function __VinylClassPatternCommon()
         }
     }
     
-    static __InitializeLabelArray = function(_labelNameArray, _labelDict)
+    static __InitializeLabelArray = function(_labelNameArray)
     {
+        var _labelDict = __VinylGlobalData().__labelDict;
+        
         __labelArray = [];
         
         //Process label string to extract each label name

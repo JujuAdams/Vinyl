@@ -14,8 +14,10 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         return "<multi " + string(__name) + ">";
     }
     
-    static __Initialize = function(_patternData = {}, _knobDict, _labelDict)
+    static __Initialize = function(_patternData = {})
     {
+        var _knobDict = __VinylGlobalData().__knobDict;
+        
         if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "loop", "effect chain", "label", "labels", "blend", "sync"]);
         
         //Set the gain/pitch state from the provided struct
@@ -32,11 +34,11 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
         
         __InitializeAssetArray(_assetArray);
-        __InitializeGain(_gain, _knobDict);
-        __InitializePitch(_pitch, _knobDict);
+        __InitializeGain(_gain);
+        __InitializePitch(_pitch);
         __InitializeLoop(_loop);
         __InitializeEffectChain(_effectChainName);
-        __InitializeLabelArray(_labelNameArray, _labelDict);
+        __InitializeLabelArray(_labelNameArray);
         
         //Set the blend state
         if (is_string(_blend))

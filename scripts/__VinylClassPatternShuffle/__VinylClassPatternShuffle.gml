@@ -13,7 +13,7 @@ function __VinylClassPatternShuffle(_name, _adHoc) : __VinylClassPatternCommon()
         return "<shuffle " + string(__name) + ">";
     }
     
-    static __Initialize = function(_patternData = {}, _labelDict, _knobDict)
+    static __Initialize = function(_patternData = {})
     {
         if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "loop", "effect chain", "label", "labels"]);
         
@@ -29,11 +29,11 @@ function __VinylClassPatternShuffle(_name, _adHoc) : __VinylClassPatternCommon()
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
         
         __InitializeAssetArray(_assetArray);
-        __InitializeGain(_gain, _knobDict);
-        __InitializePitch(_pitch, _knobDict);
+        __InitializeGain(_gain);
+        __InitializePitch(_pitch);
         __InitializeLoop(_loop);
         __InitializeEffectChain(_effectChainName);
-        __InitializeLabelArray(_labelNameArray, _labelDict);
+        __InitializeLabelArray(_labelNameArray);
         
         //Set up tracking for shuffle pattern
         __currentIndex = 0;

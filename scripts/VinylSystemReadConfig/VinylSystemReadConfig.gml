@@ -15,12 +15,17 @@ function VinylSystemReadConfig(_configData)
     var _oldKnobDict  = _globalData.__knobDict;
     var _oldLabelDict = _globalData.__labelDict;
     
-    var _newKnobDict     = {};
-    var _newKnobArray    = [];
-    var _newPatternDict  = {};
-    var _newPatternArray = [];
-    var _newLabelDict    = {};
-    var _newLabelOrder   = [];
+    //Update our global data structures
+    _globalData.__patternDict  = {};
+    _globalData.__patternArray = [];
+    _globalData.__knobDict     = {};
+    _globalData.__knobArray    = [];
+    _globalData.__labelDict    = {};
+    _globalData.__labelOrder   = [];
+    
+    //Cache some values for a lil speed up
+    var _newPatternDict = _globalData.__patternDict;
+    var _newLabelOrder  = _globalData.__labelOrder;
     
     
     
@@ -45,13 +50,8 @@ function VinylSystemReadConfig(_configData)
             //Create a new knob
             var _newKnob = new __VinylClassKnob(_knobName);
             _newKnob.__Initialize(_inputKnobDict[$ _knobName]);
-            
-            _newKnobDict[$ _knobName] = _newKnob;
-            array_push(_newKnobArray, _newKnob);
-            
-            //Copy the old value from the old knob if possible
-            var _oldKnob = _oldKnobDict[$ _knobName];
-            if (is_struct(_oldKnob)) _newKnob.__Set(_oldKnob.__Get());
+            _newKnob.__Store();
+            _newKnob.__RestoreOldValue(_oldKnobDict);
             
             ++_i;
         }
@@ -60,7 +60,7 @@ function VinylSystemReadConfig(_configData)
     
     
     //Instantiate labels, creating a dictionary for lookup and an array that contains the order to update the labels to respect parenting
-    static _loadLabelsFunc = function(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _newKnobDict, _inputLabelDict, _parent)
+    static _loadLabelsFunc = function(_loadLabelsFunc, _inputLabelDict, _parent)
     {
         var _nameArray = variable_struct_get_names(_inputLabelDict);
         var _i = 0;
@@ -77,17 +77,15 @@ function VinylSystemReadConfig(_configData)
             
             var _labelData = _inputLabelDict[$ _labelName];
             var _label = new __VinylClassLabel(_labelName, _parent, false);
-            _label.__Initialize(_labelData, _newKnobDict);
-            
-            _newLabelDict[$ _labelName] = _label;
-            array_push(_newLabelOrder, _label);
+            _label.__Initialize(_labelData);
+            _label.__Store();
             
             if (is_struct(_labelData) && variable_struct_exists(_labelData, "children"))
             {
                 var _childrenDict = _labelData[$ "children"];
                 if (is_struct(_childrenDict))
                 {
-                    _loadLabelsFunc(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _newKnobDict, _childrenDict, _label);
+                    _loadLabelsFunc(_loadLabelsFunc, _childrenDict, _label);
                 }
                 else
                 {
@@ -110,7 +108,7 @@ function VinylSystemReadConfig(_configData)
     }
     else
     {
-        _loadLabelsFunc(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _newKnobDict, _inputLabelDict, undefined);
+        _loadLabelsFunc(_loadLabelsFunc, _inputLabelDict, undefined);
         
         //Copy state data from old labels to new labels
         var _i = 0;
@@ -175,12 +173,9 @@ function VinylSystemReadConfig(_configData)
                         _patternData.asset = _assetIndex; //Spoof a proper Basic pattern data struct
                     }
                     
-                    _pattern.__Initialize(_patternData, _newKnobDict, _newLabelDict);
-                    
-                    array_push(_newPatternArray, _pattern);
-                    _newPatternDict[$ _key] = _pattern;
-                    
-                    _pattern.__CopyTo(_patternData, _newPatternDict, _newPatternArray, _newKnobDict, _newLabelDict);
+                    _pattern.__Initialize(_patternData);
+                    _pattern.__Store();
+                    _pattern.__CopyTo(_patternData);
                 }
             }
             
@@ -196,10 +191,8 @@ function VinylSystemReadConfig(_configData)
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Fallback asset case doesn't exist, creating one");
         
         var _pattern = new __VinylClassPatternFallback();
-        _pattern.__Initialize(undefined, _newKnobDict, _newLabelDict);
-        
-        array_push(_newPatternArray, _pattern);
-        _newPatternDict.fallback = _pattern;
+        _pattern.__Initialize(undefined);
+        _pattern.__Store();
     }
     
     
@@ -230,10 +223,8 @@ function VinylSystemReadConfig(_configData)
                         if (_pattern == undefined)
                         {
                             _pattern = new __VinylClassPatternBasic(_key, false);
-                            _pattern.__Initialize(undefined, _newKnobDict, _newLabelDict);
-                            
-                            array_push(_newPatternArray, _pattern);
-                            _newPatternDict[$ _key] = _pattern;
+                            _pattern.__Initialize(undefined);
+                            _pattern.__Store();
                         }
                         
                         _labelData.__LabelArrayAppend(_pattern.__labelArray);
@@ -274,10 +265,8 @@ function VinylSystemReadConfig(_configData)
             
             var _constructor = __VinylConvertPatternNameToConstructor(_patternName, _patternData.type);
             var _newPattern = new _constructor(_patternName, false);
-            _newPattern.__Initialize(_patternData, _newKnobDict, _newLabelDict);
-            
-            array_push(_newPatternArray, _newPattern);
-            _newPatternDict[$ _patternName] = _newPattern;
+            _newPattern.__Initialize(_patternData);
+            _newPattern.__Store();
             
             ++_i;
         }
@@ -302,7 +291,7 @@ function VinylSystemReadConfig(_configData)
         repeat(array_length(_effectChainNameArray))
         {
             var _effectChainName = _effectChainNameArray[_i];
-            __VinylEffectChainEnsure(_effectChainName).__Update(_inputEffectChainDict[$ _effectChainName], _newKnobDict);
+            __VinylEffectChainEnsure(_effectChainName).__Update(_inputEffectChainDict[$ _effectChainName]);
             ++_i;
         }
     }
@@ -329,18 +318,12 @@ function VinylSystemReadConfig(_configData)
     
     
     
-    //Update our global data structures
-    _globalData.__patternDict = _newPatternDict;
-    _globalData.__knobDict    = _newKnobDict;
-    _globalData.__knobArray   = _newKnobArray;
-    _globalData.__labelDict   = _newLabelDict;
-    _globalData.__labelOrder  = _newLabelOrder;
-    
     //Migrate all of our patterns to the new dataset
+    var _array = _globalData.__patternArray;
     var _i = 0;
-    repeat(array_length(_newPatternArray))
+    repeat(array_length(_array))
     {
-        _newPatternArray[_i].__Migrate();
+        _array[_i].__Migrate();
         ++_i;
     }
     
@@ -354,10 +337,11 @@ function VinylSystemReadConfig(_configData)
     }
     
     //Update all values from knobs
+    var _array = _globalData.__knobArray;
     var _i = 0;
-    repeat(array_length(_newKnobArray))
+    repeat(array_length(_array))
     {
-        _newKnobArray[_i].__Refresh();
+        _array[_i].__Refresh();
         ++_i;
     }
     

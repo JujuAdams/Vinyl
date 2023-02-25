@@ -20,9 +20,11 @@ function __VinylGlobalData()
         
         __topLevelArray: [],
         
-        __patternDict: {},
-        __labelDict:   {},
-        __labelOrder:  [],
+        __patternDict:  {},
+        __patternArray: [],
+        
+        __labelDict:  {},
+        __labelOrder: [],
         
         __effectChainDict:  {},
         __effectChainArray: [],
