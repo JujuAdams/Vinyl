@@ -448,7 +448,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         });
         
         _closure.__value = _id;
-        array_filter_ext(__audioArray, _function);
+        array_resize(__audioArray, array_filter_ext(__audioArray, _function));
     }
     
     static __BuildAssetLabelArray = function(_labelArray, _labelDict)
