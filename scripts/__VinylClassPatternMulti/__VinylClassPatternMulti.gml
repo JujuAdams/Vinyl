@@ -14,7 +14,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         return "<multi " + string(__name) + ">";
     }
     
-    static __Initialize = function(_patternData = {}, _labelDict, _knobDict)
+    static __Initialize = function(_patternData = {}, _knobDict, _labelDict)
     {
         if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "loop", "effect chain", "label", "labels", "blend", "sync"]);
         
