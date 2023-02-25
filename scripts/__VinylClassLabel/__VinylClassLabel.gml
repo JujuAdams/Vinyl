@@ -442,7 +442,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __LabelArrayAppend = function(_labelArray)
     {
-        if (!array_concat(_labelArray, self)) array_push(_labelArray, self);
+        if (!array_contains(_labelArray, self)) array_push(_labelArray, self);
         if (__parent != undefined) __parent.__LabelArrayAppend(_labelArray);
     }
     

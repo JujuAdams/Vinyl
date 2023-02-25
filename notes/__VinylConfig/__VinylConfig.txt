@@ -21,9 +21,10 @@
             limit: 1
         }
         sfx: {
+            pitch: 1.1
             children: {
                 speech: {
-                    pitch: [0.5, 2]
+                    pitch: [0.75, 1.25]
                 }
                 echo: {
                     effect chain: echo
@@ -41,7 +42,7 @@
         }
         
         sndOw: {
-            label: speech
+            label: [sfx, speech]
         }
         
         sndCat: {
