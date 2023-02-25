@@ -1,7 +1,7 @@
 /// @param patternName
-/// @param string
+/// @param [string=basic]
 
-function __VinylConvertPatternNameToConstructor(_patternName, _string)
+function __VinylConvertPatternNameToConstructor(_patternName, _string = "basic")
 {
     if (_string == "basic")
     {

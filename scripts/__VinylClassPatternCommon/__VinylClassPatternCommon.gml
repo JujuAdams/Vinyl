@@ -104,6 +104,7 @@ function __VinylClassPatternCommon()
             
             if (is_struct(_asset))
             {
+                //Generate an anonymous pattern
                 var _patternName = __name + " > " + string(_i);
                 __VInylPatternCreate(_patternName, _asset, false);
                 _assetArray[@ _i] = _patternName;
