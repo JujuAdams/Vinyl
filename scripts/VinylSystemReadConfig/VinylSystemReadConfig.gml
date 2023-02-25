@@ -274,7 +274,7 @@ function VinylSystemReadConfig(_configData)
             
             var _constructor = __VinylConvertPatternNameToConstructor(_patternName, _patternData.type);
             var _newPattern = new _constructor(_patternName, false);
-            _newPattern.__Initialize(_patternData, _newLabelDict, _newKnobDict);
+            _newPattern.__Initialize(_patternData, _newKnobDict, _newLabelDict);
             
             array_push(_newPatternArray, _newPattern);
             _newPatternDict[$ _patternName] = _newPattern;
