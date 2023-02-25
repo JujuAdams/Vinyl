@@ -135,8 +135,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         
         
         //Set remainder of the state
-        __audioArray = [];
-        __topLevelCount = 0;
+        __topLevelArray = [];
         
         __gainLocal  = 1;
         __pitchLocal = 1;
@@ -270,50 +269,50 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __Stop = function()
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Stopping ", array_length(__audioArray), " audio instances playing (", self, ")");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Stopping ", array_length(__topLevelArray), " audio instances playing (", self, ")");
         
         var _i = 0;
-        repeat(array_length(__audioArray))
+        repeat(array_length(__topLevelArray))
         {
-            VinylStop(__audioArray[_i]);
+            VinylStop(__topLevelArray[_i]);
             ++_i;
         }
         
-        array_resize(__audioArray, 0);
+        array_resize(__topLevelArray, 0);
     }
     
     static __Pause = function()
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pausing ", array_length(__audioArray), " audio instances playing (", self, ")");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pausing ", array_length(__topLevelArray), " audio instances playing (", self, ")");
         
         var _i = 0;
-        repeat(array_length(__audioArray))
+        repeat(array_length(__topLevelArray))
         {
-            VinylPause(__audioArray[_i]);
+            VinylPause(__topLevelArray[_i]);
             ++_i;
         }
     }
     
     static __Resume = function()
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming ", array_length(__audioArray), " audio instances playing (", self, ")");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming ", array_length(__topLevelArray), " audio instances playing (", self, ")");
         
         var _i = 0;
-        repeat(array_length(__audioArray))
+        repeat(array_length(__topLevelArray))
         {
-            VinylResume(__audioArray[_i]);
+            VinylResume(__topLevelArray[_i]);
             ++_i;
         }
     }
     
     static __FadeOut = function(_rate)
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Fading out ", array_length(__audioArray), " audio instances (", self, ")");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Fading out ", array_length(__topLevelArray), " audio instances (", self, ")");
         
         var _i = 0;
-        repeat(array_length(__audioArray))
+        repeat(array_length(__topLevelArray))
         {
-            VinylFadeOut(__audioArray[_i], _rate);
+            VinylFadeOut(__topLevelArray[_i], _rate);
             ++_i;
         }
     }
@@ -327,9 +326,9 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     static __QueuePush = function(_asset, _dontRepeatLast)
     {
         var _i = 0;
-        repeat(array_length(__audioArray))
+        repeat(array_length(__topLevelArray))
         {
-            if (VinylTypeGet(__audioArray[_i]) == "queue") VinylQueuePush(__audioArray[_i], _asset, _dontRepeatLast);
+            if (VinylTypeGet(__topLevelArray[_i]) == "queue") VinylQueuePush(__topLevelArray[_i], _asset, _dontRepeatLast);
             ++_i;
         }
     }
@@ -337,9 +336,9 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     static __QueueBehaviorSet = function(_behavior)
     {
         var _i = 0;
-        repeat(array_length(__audioArray))
+        repeat(array_length(__topLevelArray))
         {
-            if (VinylTypeGet(__audioArray[_i]) == "queue") VinylQueueBehaviorSet(__audioArray[_i], _behavior);
+            if (VinylTypeGet(__topLevelArray[_i]) == "queue") VinylQueueBehaviorSet(__topLevelArray[_i], _behavior);
             ++_i;
         }
     }
@@ -353,9 +352,9 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     static __MultiGainSet = function(_index, _gain)
     {
         var _i = 0;
-        repeat(array_length(__audioArray))
+        repeat(array_length(__topLevelArray))
         {
-            if (VinylTypeGet(__audioArray[_i]) == "multi") VinylMultiGainSet(__audioArray[_i], _index, _gain);
+            if (VinylTypeGet(__topLevelArray[_i]) == "multi") VinylMultiGainSet(__topLevelArray[_i], _index, _gain);
             ++_i;
         }
     }
@@ -363,9 +362,9 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     static __MultiBlendSet = function(_blendFactor)
     {
         var _i = 0;
-        repeat(array_length(__audioArray))
+        repeat(array_length(__topLevelArray))
         {
-            if (VinylTypeGet(__audioArray[_i]) == "multi") VinylMultiBlendSet(__audioArray[_i], _blendFactor);
+            if (VinylTypeGet(__topLevelArray[_i]) == "multi") VinylMultiBlendSet(__topLevelArray[_i], _blendFactor);
             ++_i;
         }
     }
@@ -373,9 +372,9 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     static __MultiSyncSet = function(_state)
     {
         var _i = 0;
-        repeat(array_length(__audioArray))
+        repeat(array_length(__topLevelArray))
         {
-            if (VinylTypeGet(__audioArray[_i]) == "multi") VinylMultiSyncSet(__audioArray[_i], _state);
+            if (VinylTypeGet(__topLevelArray[_i]) == "multi") VinylMultiSyncSet(__topLevelArray[_i], _state);
             ++_i;
         }
     }
@@ -407,10 +406,10 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     {
         if ((__limitMaxCount != undefined) && (__limitMaxCount >= 0))
         {
-            while(array_length(__audioArray) >= __limitMaxCount)
+            while(array_length(__topLevelArray) >= __limitMaxCount)
             {
-                var _oldestInstance = __idToInstanceDict[? __audioArray[0]];
-                array_delete(__audioArray, 0, 1);
+                var _oldestInstance = __idToInstanceDict[? __topLevelArray[0]];
+                array_delete(__topLevelArray, 0, 1);
                 
                 if (_oldestInstance != undefined)
                 {
@@ -423,7 +422,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         //Add this instance to each label's playing array
         //Playing instances are removed from labels inside the label's __Tick() method
         //  N.B. This has no protection for duplicate entries!
-        array_push(__audioArray, _id);
+        array_push(__topLevelArray, _id);
     }
               
     static __InstanceRemove = function(_id)
@@ -438,7 +437,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         });
         
         _closure.__value = _id;
-        array_resize(__audioArray, array_filter_ext(__audioArray, _function));
+        array_resize(__topLevelArray, array_filter_ext(__topLevelArray, _function));
     }
     
     static __BuildAssetLabelArray = function(_labelArray, _labelDict)

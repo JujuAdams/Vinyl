@@ -10,5 +10,5 @@ function VinylLabelInstancesGet(_id)
     if (_id == undefined) return [];
     
     var _label = _globalData.__labelDict[$ _id];
-    return is_struct(_label)? _label.__audioArray : [];
+    return is_struct(_label)? _label.__topLevelArray : [];
 }
