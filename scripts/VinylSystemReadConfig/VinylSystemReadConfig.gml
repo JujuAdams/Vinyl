@@ -259,14 +259,9 @@ function VinylSystemReadConfig(_configData)
         repeat(array_length(_patternNameArray))
         {
             var _patternName = _patternNameArray[_i];
-            var _patternData = _inputPatternsDict[$ _patternName];
+            if (string_pos(">", _patternName)) __VinylError("Pattern names cannot contain the \">\" character (name=", _patternName, ")");
             
-            if (!variable_struct_exists(_patternData, "type")) __VinylError("Pattern \"", _patternName, "\" doesn't have a \"type\" property");
-            
-            var _constructor = __VinylConvertPatternNameToConstructor(_patternName, _patternData.type);
-            var _newPattern = new _constructor(_patternName, false);
-            _newPattern.__Initialize(_patternData);
-            _newPattern.__Store();
+            __VInylPatternCreate(_patternName, _inputPatternsDict[$ _patternName], false);
             
             ++_i;
         }

@@ -102,17 +102,27 @@ function __VinylClassPatternCommon()
         {
             var _asset = __assetArray[_i];
             
-            if (is_string(_asset))
+            if (is_struct(_asset))
             {
-                if (asset_get_index(_asset) < 0) __VinylError("Error in ", self, " for \"assets\" property\nAsset \"", _asset, "\" not found in the project");
-                if (asset_get_type(_asset) != asset_sound) __VinylError("Error in ", self, " for \"assets\" property\nAsset \"", _asset, "\" not a sound asset");
-                _asset = asset_get_index(_asset);
+                var _patternName = __name + " > " + string(_i);
+                __VInylPatternCreate(_patternName, _asset, false);
+                _assetArray[@ _i] = _patternName;
+            }
+            else
+            {
+                if (is_string(_asset))
+                {
+                    if (asset_get_index(_asset) < 0) __VinylError("Error in ", self, " for \"assets\" property\nAsset \"", _asset, "\" not found in the project");
+                    if (asset_get_type(_asset) != asset_sound) __VinylError("Error in ", self, " for \"assets\" property\nAsset \"", _asset, "\" not a sound asset");
+                    _asset = asset_get_index(_asset);
+                }
+                
+                if (!is_numeric(_asset)) __VinylError("Error in ", self, " for \"assets\" property\nAssets should be specified as an audio asset index or audio asset name (datatype=", typeof(_asset), ")");
+                if (!audio_exists(_asset)) __VinylError("Error in ", self, " for \"assets\" property\nAudio asset with index ", _asset, " not found");
+                
+                __assetArray[@ _i] = _asset;
             }
             
-            if (!is_numeric(_asset)) __VinylError("Error in ", self, " for \"assets\" property\nAssets should be specified as an audio asset index or audio asset name (datatype=", typeof(_asset), ")");
-            if (!audio_exists(_asset)) __VinylError("Error in ", self, " for \"assets\" property\nAudio asset with index ", _asset, " not found");
-        
-            __assetArray[@ _i] = _asset;
             ++_i;
         }
     }

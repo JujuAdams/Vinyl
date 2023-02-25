@@ -78,7 +78,25 @@
         
         queue test: {
             type: queue
-            assets: [sndPop, sndPop, sndPop, sndPop, sndPop]
+            //assets: [sndPop, sndPop, sndPop, sndPop, sndPop]
+            assets: [
+                sndPop
+                {
+                    type: basic
+                    pitch: 1.1
+                    asset: sndPop
+                }
+                {
+                    type: basic
+                    pitch: 1.2
+                    asset: sndPop
+                }
+                {
+                    type: basic
+                    pitch: 1.3
+                    asset: sndPop
+                }
+            ]
         }
         
         music sync test: {
