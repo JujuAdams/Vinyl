@@ -25,7 +25,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         var _gain            = _labelData[$ "gain"               ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _labelData[$ "pitch"              ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
         var _loop            = _labelData[$ "loop"               ] ?? undefined;
-        var _limit           = _labelData[$ "limit"              ] ?? 100;
+        var _limit           = _labelData[$ "limit"              ];
         var _limitFadeOut    = _labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE;
         var _tagArray        = _labelData[$ "tag"                ] ?? _labelData[$ "tags"];
         var _effectChainName = _labelData[$ "effect chain"       ];
@@ -120,7 +120,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         
         
         
-        if (!is_numeric(_limit) || (_limit <= 0)) __VinylError("Error in ", self, "\nInstance limit must be a number greater than zero");
+        if (!is_undefined(_limit) && (!is_numeric(_limit) || (_limit <= 0))) __VinylError("Error in ", self, "\nInstance limit must be a number greater than zero");
         __limitMaxCount = _limit;
         
         if (!is_numeric(_limitFadeOut) || (_limitFadeOut <= 0)) __VinylError("Error in ", self, "\nLimit-related fade in rate must be a number greater than zero");
@@ -405,7 +405,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __InstanceAdd = function(_id)
     {
-        if (__limitMaxCount >= 0)
+        if ((__limitMaxCount != undefined) && (__limitMaxCount >= 0))
         {
             var _topLevelCount = 0;
             
