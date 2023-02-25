@@ -11,13 +11,16 @@ function __VinylClassPatternCommon()
             {
                 var _labelStruct = __labelArray[_j];
                 
-                if (__effectChainName == undefined)
+                if (_labelStruct.__effectChainName != undefined)
                 {
-                    __effectChainName = _labelStruct.__effectChainName;
-                }
-                else if (_labelStruct.__effectChainName != __effectChainName)
-                {
-                    __VinylTrace("Warning! ", self, " has conflicting effect chains (chosen = \"", __effectChainName, "\", conflict = \"", _labelStruct.__effectChainName, "\" from ", _labelStruct, ")");
+                    if (__effectChainName == undefined)
+                    {
+                        __effectChainName = _labelStruct.__effectChainName;
+                    }
+                    else if (_labelStruct.__effectChainName != __effectChainName)
+                    {
+                        __VinylTrace("Warning! ", self, " has conflicting effect chains (chosen = \"", __effectChainName, "\", conflict = \"", _labelStruct.__effectChainName, "\" from ", _labelStruct, ")");
+                    }
                 }
                 
                 ++_j;
