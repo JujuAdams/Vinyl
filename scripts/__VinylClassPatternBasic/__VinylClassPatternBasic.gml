@@ -54,7 +54,7 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
         __InitializeLoopPoints(_loopPoints);
         __InitializeLabelArray(_labelNameArray, _labelDict);
         
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(_labelArray));
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray));
     }
     
     static __CopyTo = function(_patternData, _newPatternDict, _newPatternArray, _newKnobDict, _newLabelDict)

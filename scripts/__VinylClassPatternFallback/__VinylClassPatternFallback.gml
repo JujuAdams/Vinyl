@@ -30,7 +30,7 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         __InitializeLabelArray(_labelNameArray, _labelDict);
         __InitializeLoopPoints(undefined);
         
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(_labelArray));
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray));
     }
     
     static __CopyTo = function()
