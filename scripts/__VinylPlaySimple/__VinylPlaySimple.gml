@@ -7,6 +7,8 @@
 
 function __VinylPlaySimple(_sound, _gain, _pitchLo, _pitchHi, _labelArray, _effectChainName)
 {
+    static _effectChainDict = __VinylGlobalData().__effectChainDict;
+    
     var _randomPitchParam = __VinylRandom(1);
     var _pitch = lerp(_pitchLo, _pitchHi, _randomPitchParam);
     
@@ -22,7 +24,10 @@ function __VinylPlaySimple(_sound, _gain, _pitchLo, _pitchHi, _labelArray, _effe
         ++_i;
     }
     
-    var _effectChainEmitter = __VinylEffectChainGetEmitter(_effectChainName);
+    //Determine the emitter we should play this sound on
+    var _effectChainStruct = _effectChainDict[$ _name];
+    var _effectChainEmitter = (_effectChainStruct == undefined)? undefined : _effectChainStruct.__emitter;
+    
     if (_effectChainEmitter == undefined)
     {
         var _instance = audio_play_sound(_sound, 1, false, __VinylCurveAmplitude(_gain), 0, _pitch);

@@ -1,6 +1,7 @@
 function __VinylClassPanEmitter() constructor
 {
     static __globalData = __VinylGlobalData();
+    static __effectChainDict = __globalData.__effectChainDict;
     
     
     
@@ -50,7 +51,8 @@ function __VinylClassPanEmitter() constructor
     
     static __Bus = function(_effectChainName)
     {
-        audio_emitter_bus(__emitter, __VinylEffectChainGetBus(_effectChainName));
+        var _effectChainStruct = __effectChainDict[$ _effectChainName];
+        audio_emitter_bus(__emitter, (_effectChainStruct == undefined)? audio_bus_main : _effectChainStruct.__bus);
     }
     
     static __DepoolCallback = function()
