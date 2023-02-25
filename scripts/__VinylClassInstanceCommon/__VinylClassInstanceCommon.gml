@@ -74,7 +74,6 @@ function __VinylClassInstanceCommon() constructor
         __CalculateGainPitch(0);
         
         //Determine which emitter to use given the input arguments
-        var _effectChainName = (__pattern == undefined)? "main" : _pattern.__effectChainName;
         if (_emitter != undefined)
         {
             __vinylEmitter = _emitter;
@@ -82,6 +81,7 @@ function __VinylClassInstanceCommon() constructor
         }
         else
         {
+            var _effectChainName = __EffectChainResolve();
             if (__pan == undefined)
             {
                 //Only use an emitter if the effect chain demands it
@@ -512,6 +512,19 @@ function __VinylClassInstanceCommon() constructor
     static __ParentTopLevelGet = function()
     {
         return (__parentInstance == undefined)? self : __parentInstance.__ParentTopLevelGet();
+    }
+    
+    static __EffectChainResolve = function()
+    {
+        //Search up the tree until we hit a parent with a defined effect chain
+        if (__parentInstance != undefined)
+        {
+            var _parentEffectChain = __parentInstance.__EffectChainResolve();
+            if (_parentEffectChain != undefined) return _parentEffectChain;
+        }
+        
+        //If none could be found, return our own
+        return __pattern.__effectChainName;
     }
     
     static __DepoolCallback = function()
