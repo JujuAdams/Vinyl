@@ -80,7 +80,7 @@
         
         music sync test: {
             type: multi
-            label: music
+            label: [music, echo]
             assets: [
                 sndSync0
                 sndSync1
@@ -103,6 +103,10 @@
                 type: reverb
                 size: @reverbSize
                 mix: 0.2
+            }
+            {
+                type: gain
+                gain: 2
             }
         ]
     }

@@ -56,7 +56,6 @@ function __VinylClassInstanceCommon() constructor
     static __StateSetCommon = function(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan)
     {
         static _globalTopLevelArray = __globalData.__topLevelArray;
-        static _poolPanEmitter      = __globalData.__poolPanEmitter;
         
         __pattern        = _pattern;
         __parentInstance = _parentInstance;
@@ -464,6 +463,8 @@ function __VinylClassInstanceCommon() constructor
     
     static __EmitterResolve = function()
     {
+        static _poolPanEmitter = __globalData.__poolPanEmitter;
+        
         //Determine which emitter to use given the input arguments
         if (__initialEmitter != undefined)
         {
