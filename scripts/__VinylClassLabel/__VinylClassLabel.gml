@@ -136,6 +136,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         
         //Set remainder of the state
         __audioArray = [];
+        __topLevelCount = 0;
         
         __gainLocal  = 1;
         __pitchLocal = 1;
@@ -402,20 +403,30 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         }
     }
     
-    static __AddInstance = function(_id)
+    static __InstanceAdd = function(_id)
     {
         if (__limitMaxCount >= 0)
         {
-            while (array_length(__audioArray) >= __limitMaxCount)
+            var _topLevelCount = 0;
+            
+            //Iterate backwards
+            var _i = array_length(__audioArray)-1;
+            repeat(array_length(__audioArray))
             {
-                var _oldestInstance = __idToInstanceDict[? __audioArray[0]];
-                array_delete(__audioArray, 0, 1);
-                
-                if (is_struct(_oldestInstance))
+                var _instance = __idToInstanceDict[? __audioArray[_i]];
+                if (_instance.__parentInstance == undefined)
                 {
-                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " will exceed ", __limitMaxCount, " playing instance(s), fading out oldest ", _oldestInstance);
-                    _oldestInstance.__FadeOut(__limitFadeOutRate);
+                    ++_topLevelCount;
+                    if (_topLevelCount > __limitMaxCount)
+                    {
+                        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " will exceed ", __limitMaxCount, " playing instance(s), fading out oldest ", _instance);
+                        
+                        array_delete(__audioArray, _i, 1);
+                        _instance.__FadeOut(__limitFadeOutRate);
+                    }
                 }
+                
+                --_i;
             }
         }
         
@@ -423,6 +434,21 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         //Playing instances are removed from labels inside the label's __Tick() method
         //  N.B. This has no protection for duplicate entries!
         array_push(__audioArray, _id);
+    }
+              
+    static __InstanceRemove = function(_id)
+    {
+        static _closure = {
+            __value: undefined,
+        };
+        
+        static _function = method(_closure, function(_value)
+        {
+            return (__value != _value);
+        });
+        
+        _closure.__value = _id;
+        array_filter_ext(__audioArray, _function);
     }
     
     static __BuildAssetLabelArray = function(_labelArray, _labelDict)

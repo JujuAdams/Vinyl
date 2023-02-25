@@ -54,7 +54,7 @@ function __VinylClassInstanceCommon() constructor
     static __StateSetCommon = function(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan)
     {
         static _globalTopLevelArray = __globalData.__topLevelArray;
-        static _poolPanEmitter = __globalData.__poolPanEmitter;
+        static _poolPanEmitter      = __globalData.__poolPanEmitter;
         
         __pattern        = _pattern;
         __parentInstance = _parentInstance;
@@ -62,8 +62,8 @@ function __VinylClassInstanceCommon() constructor
         __pitchLocal     = _pitch;
         __pan            = _pan;
         
-        var _topLevelPattern = __ParentTopLevelGet().__pattern;
-        __loop = _loop ?? ((_topLevelPattern == undefined)? false : _topLevelPattern.__LoopGet());
+        __loop       = __LoopResolve(_loop);
+        __labelArray = __LabelArrayResolve();
         
         __gainTarget  = __gainLocal;
         __pitchTarget = __pitchLocal;
@@ -437,81 +437,29 @@ function __VinylClassInstanceCommon() constructor
     
     static __MigrateCommon = function()
     {
-        __LabelRemove();
         __pattern = __VinylPatternGet(__pattern.__name);
+        __labelArray = __LabelArrayResolve();
         __LabelAdd();
         __CalculateGainPitch(0);
         __LoopPointsSet();
     }
     
-    static __LabelAdd = function()
+    static __LoopResolve = function(_loop)
     {
-        if (__pattern != undefined)
-        {
-            var _labelArray = __pattern.__labelArray;
-            var _i = 0;
-            repeat(array_length(_labelArray))
-            {
-                _labelArray[_i].__AddInstance(__id);
-                ++_i;
-            }
-        }
+        var _topLevelPattern = __ParentTopLevelGet().__pattern;
+        return _loop ?? _topLevelPattern.__LoopGet();
     }
     
-    static __LabelRemove = function()
+    static __LabelArrayResolve = function()
     {
-        //Use the top-level parent for label contribution
-        var _topPattern = __ParentTopLevelGet().__pattern;
-        if (_topPattern != undefined)
+        if (__parentInstance == undefined)
         {
-            var _id = __id;
-            var _labelArray = _topPattern.__labelArray;
-            var _i = 0;
-            repeat(array_length(_labelArray))
-            {
-                var _audioArray = _labelArray[_i].__audioArray;
-                var _j = 0;
-                repeat(array_length(_audioArray))
-                {
-                    if (_audioArray[_j] == _id)
-                    {
-                        array_delete(_audioArray, _j, 1);
-                        break;
-                    }
-                    
-                    ++_j;
-                }
-                
-                ++_i;
-            }
+            return __pattern.__labelArray;
         }
-    }
-    
-    static __LabelGainPitchGet = function()
-    {
-        //Update the output values based on the asset and labels
-        __gainLabels  = 1;
-        __pitchLabels = 1;
-        
-        //Use the top-level parent for label contribution
-        var _pattern = __ParentTopLevelGet().__pattern;
-        if (_pattern != undefined)
+        else
         {
-            var _labelArray = _pattern.__labelArray;
-            var _i = 0;
-            repeat(array_length(_labelArray))
-            {
-                var _label = _labelArray[_i];
-                __gainLabels  *= _label.__gainOutput;
-                __pitchLabels *= _label.__pitchOutput*lerp(_label.__configPitchLo, _label.__configPitchHi, __pitchRandomParam);
-                ++_i;
-            }
+            return array_union(__parentInstance.__labelArray, __pattern.__labelArray);
         }
-    }
-    
-    static __ParentTopLevelGet = function()
-    {
-        return (__parentInstance == undefined)? self : __parentInstance.__ParentTopLevelGet();
     }
     
     static __EffectChainResolve = function()
@@ -525,6 +473,47 @@ function __VinylClassInstanceCommon() constructor
         
         //If none could be found, return our own
         return __pattern.__effectChainName;
+    }
+    
+    static __LabelAdd = function()
+    {
+        var _i = 0;
+        repeat(array_length(__labelArray))
+        {
+            __labelArray[_i].__InstanceAdd(__id);
+            ++_i;
+        }
+    }
+    
+    static __LabelRemove = function()
+    {
+        var _i = 0;
+        repeat(array_length(__labelArray))
+        {
+            __labelArray[_i].__InstanceRemove(__id);
+            ++_i;
+        }
+    }
+    
+    static __LabelGainPitchGet = function()
+    {
+        //Update the output values based on the asset and labels
+        __gainLabels  = 1;
+        __pitchLabels = 1;
+        
+        var _i = 0;
+        repeat(array_length(__labelArray))
+        {
+            var _label = __labelArray[_i];
+            __gainLabels  *= _label.__gainOutput;
+            __pitchLabels *= _label.__pitchOutput*lerp(_label.__configPitchLo, _label.__configPitchHi, __pitchRandomParam);
+            ++_i;
+        }
+    }
+    
+    static __ParentTopLevelGet = function()
+    {
+        return (__parentInstance == undefined)? self : __parentInstance.__ParentTopLevelGet();
     }
     
     static __DepoolCallback = function()
