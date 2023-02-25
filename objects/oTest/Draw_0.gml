@@ -37,7 +37,6 @@ UIButtonInline("Stop music", function()
 
 UIButtonInline("Fade in music", function()
 {
-    VinylStop(music);
     music = VinylPlayFadeIn(sndChickenNuggets);
 });
 
