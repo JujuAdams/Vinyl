@@ -63,6 +63,8 @@
         space cat: {
             type: basic
             asset: sndCat
+            gain: 0.2
+            pitch: 0.5
             effect chain: echo
         }
         
@@ -81,6 +83,7 @@
         music sync test: {
             type: multi
             label: [music, echo]
+            pitch: 0.9
             assets: [
                 sndSync0
                 sndSync1
