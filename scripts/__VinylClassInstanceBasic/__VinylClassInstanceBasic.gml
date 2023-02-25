@@ -40,7 +40,7 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
     
     static __Play = function()
     {
-        var _gmEmitter = __vinylEmitter.__GetEmitter();
+        var _gmEmitter = (__vinylEmitter == undefined)? undefined : __vinylEmitter.__GetEmitter();
         if (_gmEmitter == undefined)
         {
             __gmInstance = audio_play_sound(__sound, 1, __loop, __VinylCurveAmplitude(__gainOutput), 0, __pitchOutput);

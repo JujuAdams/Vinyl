@@ -130,7 +130,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         if (is_string(_tagArray)) _tagArray = [_tagArray];
         __tagArray = _tagArray;
         
-        __effectChainName = _effectChainName ?? ((__parent == undefined)? "main" : __parent.__effectChainName);
+        __effectChainName = _effectChainName ?? ((__parent != undefined)? __parent.__effectChainName : undefined);
         
         
         

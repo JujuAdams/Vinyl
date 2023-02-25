@@ -22,13 +22,11 @@ function __VinylClassPatternCommon()
                 
                 ++_j;
             }
-            
-            if (__effectChainName == undefined) __effectChainName = "main";
-        }
         
-        if (!variable_struct_exists(__effectChainDict, __effectChainName))
-        {
-            __VinylError("Effect chain \"", __effectChainName, "\" for ", self, " doesn't exist");
+            if ((__effectChainName != undefined) && !variable_struct_exists(__effectChainDict, __effectChainName))
+            {
+                __VinylError("Effect chain \"", __effectChainName, "\" for ", self, " doesn't exist");
+            }
         }
     }
     
