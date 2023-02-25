@@ -27,22 +27,24 @@ function __VinylClassInstanceCommon() constructor
         
         __shutdown = false;
         
-        __gainLocal   = 1;
-        __gainTarget  = 1;
-        __gainRate    = VINYL_DEFAULT_GAIN_RATE;
-        __gainPattern = 1;
-        __gainParent  = 1;
-        __gainLabels  = 1;
-        __gainOutput  = 1;
+        __gainLocal          = 1;
+        __gainTarget         = 1;
+        __gainRate           = VINYL_DEFAULT_GAIN_RATE;
+        __gainPattern        = 1;
+        __gainParent         = 1;
+        __gainLabels         = 1;
+        __gainOutputNoLabels = 1;
+        __gainOutput         = 1;
         
-        __pitchLocal       = 1;
-        __pitchTarget      = 1;
-        __pitchRate        = VINYL_DEFAULT_PITCH_RATE;
-        __pitchRandomParam = 0.5;
-        __pitchPattern     = 1;
-        __pitchParent      = 1;
-        __pitchLabels      = 1;
-        __pitchOutput      = 1;
+        __pitchLocal          = 1;
+        __pitchTarget         = 1;
+        __pitchRate           = VINYL_DEFAULT_PITCH_RATE;
+        __pitchRandomParam    = 0.5;
+        __pitchPattern        = 1;
+        __pitchParent         = 1;
+        __pitchLabels         = 1;
+        __pitchOutputNoLabels = 1;
+        __pitchOutput         = 1;
         
         __transposeUsing     = false;
         __transposeSemitones = 0;
@@ -571,14 +573,16 @@ function __VinylClassInstanceCommon() constructor
         
         __gainLocal += _gainDelta;
         __gainPattern = __pattern.__gain;
-        __gainParent = (__parentInstance == undefined)? 1 :__parentInstance.__gainOutput;
-        __gainOutput = __gainLocal*__gainPattern*__gainParent*__gainLabels;
+        __gainParent = (__parentInstance == undefined)? 1 : __parentInstance.__gainOutputNoLabels;
+        __gainOutputNoLabels = __gainLocal*__gainPattern*__gainParent;
+        __gainOutput = __gainOutputNoLabels*__gainLabels;
         
         __pitchLocal += clamp(__pitchTarget - __pitchLocal, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
         __pitchPattern = lerp(__pattern.__pitchLo, __pattern.__pitchHi, __pitchRandomParam);
-        __pitchParent = (__parentInstance == undefined)? 1 : __parentInstance.__pitchOutput;
-        __pitchOutput = __pitchLocal*__pitchPattern*__pitchParent*__pitchLabels;
+        __pitchParent = (__parentInstance == undefined)? 1 : __parentInstance.__pitchOutputNoLabels;
+        __pitchOutputNoLabels = __pitchLocal*__pitchPattern*__pitchParent;
         if (__transposeUsing) __pitchOutput *= __VinylSemitoneToPitch(__globalData.__transposeSemitones + __transposeSemitones);
+        __pitchOutput = __pitchOutputNoLabels*__pitchLabels;
         
         if (__panEmitter != undefined) __panEmitter.__UpdatePosition();
     }
