@@ -1,5 +1,6 @@
 {
   "FolderOrderSettings": [
+    {"name":"Sounds","order":1,"path":"folders/Sounds.yy",},
     {"name":"UI","order":25,"path":"folders/UI.yy",},
     {"name":"(Internals)","order":12,"path":"folders/Vinyl/(Internals).yy",},
     {"name":"Classes","order":16,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes.yy",},
@@ -16,7 +17,6 @@
     {"name":"Positional","order":5,"path":"folders/Vinyl/Positional.yy",},
     {"name":"Queue Patterns","order":6,"path":"folders/Vinyl/Queue Patterns.yy",},
     {"name":"Semitones","order":9,"path":"folders/Vinyl/Semitones.yy",},
-    {"name":"Sounds","order":1,"path":"folders/Sounds.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"__VinylClassEffectChain","order":2,"path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},

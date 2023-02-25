@@ -11,6 +11,7 @@
   },
   "defaultScriptType": 1,
   "Folders": [
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sounds","folderPath":"folders/Sounds.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"UI","folderPath":"folders/UI.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Vinyl","folderPath":"folders/Vinyl.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"(Internals)","folderPath":"folders/Vinyl/(Internals).yy",},
@@ -29,7 +30,6 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Positional","folderPath":"folders/Vinyl/Positional.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Queue Patterns","folderPath":"folders/Vinyl/Queue Patterns.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Semitones","folderPath":"folders/Vinyl/Semitones.yy",},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sounds","folderPath":"folders/Sounds.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"vinyl.dat","CopyToMask":-1,"filePath":"datafiles",},
