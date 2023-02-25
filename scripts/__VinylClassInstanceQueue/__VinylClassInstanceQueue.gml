@@ -65,7 +65,7 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
         if (array_length(__assetArray) > 0)
         {
             var _asset = __assetArray[__index];
-            __child = __VinylPatternGet(_asset).__Play(self, __vinylEmitter, _asset, __loop, __gainOutput, __pitchOutput, __pan);
+            __child = __VinylPatternGet(_asset).__Play(self, __initialEmitter, _asset, __initialLoop, __gainOutput, __pitchOutput, __pan);
         }
     }
     
@@ -117,7 +117,7 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
             }
             
             var _asset = __assetArray[__index];
-            __child = __VinylPatternGet(_asset).__Play(self, __vinylEmitter, _asset, __loop, __gainOutput, __pitchOutput, __pan);
+            __child = __VinylPatternGet(_asset).__Play(self, __initialEmitter, _asset, __initialLoop, __gainOutput, __pitchOutput, __pan);
         }
         else
         {

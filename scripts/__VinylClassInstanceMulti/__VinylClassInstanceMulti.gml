@@ -243,7 +243,7 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         {
             //Start an instance for this track
             var _asset = _assetArray[_i];
-            var _instance = __VinylPatternGet(_asset).__Play(self, __vinylEmitter, _asset, __loop, __gainArray[_i], 1, __pan);
+            var _instance = __VinylPatternGet(_asset).__Play(self, __initialEmitter, _asset, __initialLoop, __gainArray[_i], 1, __pan);
             __childArray[@ _i] = _instance;
             
             //And then find the shortest instance and use that for syncing purposes

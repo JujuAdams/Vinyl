@@ -33,9 +33,13 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
     static __Instantiate = function(_pattern, _parentInstance, _vinylEmitter, _sound, _loop, _gain, _pitch, _pan)
     {
         __StateSetCommon(_pattern, _parentInstance, _vinylEmitter, _loop, _gain, _pitch, _pan);
-        
         __sound = _sound;
+        __Play();
         
+    }
+    
+    static __Play = function()
+    {
         var _gmEmitter = __vinylEmitter.__GetEmitter();
         if (_gmEmitter == undefined)
         {
@@ -58,7 +62,17 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
     
     static __Migrate = function()
     {
+        var _oldEmitter = __vinylEmitter;
+        
         __MigrateCommon();
+        
+        if (_oldEmitter != __vinylEmitter)
+        {
+            var _position = audio_sound_get_track_position(__gmInstance);
+            audio_stop_sound(__gmInstance);
+            __Play();
+            audio_sound_set_track_position(__gmInstance, _position);
+        }
     }
     
     static __Tick = function(_deltaTimeFactor)

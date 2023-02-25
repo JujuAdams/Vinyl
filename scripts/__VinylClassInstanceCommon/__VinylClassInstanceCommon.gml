@@ -58,12 +58,16 @@ function __VinylClassInstanceCommon() constructor
         
         __pattern        = _pattern;
         __parentInstance = _parentInstance;
+        __initialEmitter = _emitter;
+        __initialLoop    = _loop;
         __gainLocal      = _gain;
         __pitchLocal     = _pitch;
         __pan            = _pan;
         
-        __loop       = __LoopResolve(_loop);
-        __labelArray = __LabelArrayResolve();
+        __LoopResolve();
+        __LabelArrayResolve();
+        __EffectChainResolve();
+        __EmitterResolve();
         
         __gainTarget  = __gainLocal;
         __pitchTarget = __pitchLocal;
@@ -72,31 +76,6 @@ function __VinylClassInstanceCommon() constructor
         
         __LabelAdd();
         __CalculateGainPitch(0);
-        
-        //Determine which emitter to use given the input arguments
-        if (_emitter != undefined)
-        {
-            __vinylEmitter = _emitter;
-            __vinylEmitter.__InstanceAdd(__id);
-        }
-        else
-        {
-            var _effectChainName = __EffectChainResolve();
-            if (__pan == undefined)
-            {
-                //Only use an emitter if the effect chain demands it
-                __vinylEmitter = __effectChainDict[$ _effectChainName];
-            }
-            else
-            {
-                //Playback on a pan emitter
-                __panEmitter = _poolPanEmitter.__Depool();
-                __panEmitter.__Pan(__pan);
-                __panEmitter.__Bus(_effectChainName);
-                
-                __vinylEmitter = __panEmitter;
-            }
-        }
         
         if (__parentInstance == undefined) array_push(_globalTopLevelArray, self);
     }
@@ -437,8 +416,15 @@ function __VinylClassInstanceCommon() constructor
     
     static __MigrateCommon = function()
     {
+        __LabelRemove();
+        
         __pattern = __VinylPatternGet(__pattern.__name);
-        __labelArray = __LabelArrayResolve();
+        
+        __LoopResolve();
+        __LabelArrayResolve();
+        __EffectChainResolve();
+        __EmitterResolve();
+        
         __LabelAdd();
         __CalculateGainPitch(0);
         __LoopPointsSet();
@@ -446,19 +432,18 @@ function __VinylClassInstanceCommon() constructor
     
     static __LoopResolve = function(_loop)
     {
-        var _topLevelPattern = __ParentTopLevelGet().__pattern;
-        return _loop ?? _topLevelPattern.__LoopGet();
+        __loop = __initialLoop ?? __ParentTopLevelGet().__pattern.__LoopGet();
     }
     
     static __LabelArrayResolve = function()
     {
         if (__parentInstance == undefined)
         {
-            return __pattern.__labelArray;
+            __labelArray = __pattern.__labelArray;
         }
         else
         {
-            return array_union(__parentInstance.__labelArray, __pattern.__labelArray);
+            __labelArray = array_union(__parentInstance.__labelArray, __pattern.__labelArray);
         }
     }
     
@@ -467,12 +452,42 @@ function __VinylClassInstanceCommon() constructor
         //Search up the tree until we hit a parent with a defined effect chain
         if (__parentInstance != undefined)
         {
-            var _parentEffectChain = __parentInstance.__EffectChainResolve();
-            if (_parentEffectChain != undefined) return _parentEffectChain;
+            if (__parentInstance.__effectChainName != undefined)
+            {
+                __effectChainName = __parentInstance.__effectChainName;
+                return;
+            }
         }
         
         //If none could be found, return our own
-        return __pattern.__effectChainName;
+        __effectChainName = __pattern.__effectChainName;
+    }
+    
+    static __EmitterResolve = function()
+    {
+        //Determine which emitter to use given the input arguments
+        if (__initialEmitter != undefined)
+        {
+            __vinylEmitter = __initialEmitter;
+            __vinylEmitter.__InstanceAdd(__id);
+        }
+        else
+        {
+            if (__pan == undefined)
+            {
+                //Only use an emitter if the effect chain demands it
+                __vinylEmitter = __effectChainDict[$ __effectChainName];
+            }
+            else
+            {
+                //Playback on a pan emitter
+                __panEmitter = _poolPanEmitter.__Depool();
+                __panEmitter.__Pan(__pan);
+                __panEmitter.__Bus(__effectChainName);
+                
+                __vinylEmitter = __panEmitter;
+            }
+        }
     }
     
     static __LabelAdd = function()
