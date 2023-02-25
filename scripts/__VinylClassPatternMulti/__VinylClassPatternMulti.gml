@@ -25,8 +25,8 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         var _loop            = _patternData[$ "loop"        ];
         var _effectChainName = _patternData[$ "effect chain"];
         var _labelNameArray  = _patternData[$ "label"       ] ?? _patternData[$ "labels"];
-        var _blend           = _patternData[$ "blend"       ] ?? undefined;
-        var _sync            = _patternData[$ "sync"        ] ?? false;
+        var _blend           = _patternData[$ "blend"       ] ?? VINYL_DEFAULT_MULTI_BLEND;
+        var _sync            = _patternData[$ "sync"        ] ?? VINYL_DEFAULT_MULTI_SYNC;
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;

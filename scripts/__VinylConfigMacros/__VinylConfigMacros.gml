@@ -15,6 +15,9 @@
 #macro VINYL_DEFAULT_FALLOFF_MAX     200
 #macro VINYL_DEFAULT_FALLOFF_FACTOR    1
 
+#macro VINYL_DEFAULT_QUEUE_BEHAVIOR  0
+#macro VINYL_DEFAULT_MULTI_BLEND     undefined
+#macro VINYL_DEFAULT_MULTI_SYNC      false
 
 
 #region Advanced
