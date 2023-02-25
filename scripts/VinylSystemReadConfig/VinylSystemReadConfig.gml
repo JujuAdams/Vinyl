@@ -12,7 +12,8 @@ function VinylSystemReadConfig(_configData)
     static _effectChainDict  = _globalData.__effectChainDict;
     static _effectChainArray = _globalData.__effectChainArray;
     
-    var _oldKnobDict = _globalData.__knobDict;
+    var _oldKnobDict  = _globalData.__knobDict;
+    var _oldLabelDict = _globalData.__labelDict;
     
     var _newKnobDict     = {};
     var _newKnobArray    = [];
@@ -112,7 +113,6 @@ function VinylSystemReadConfig(_configData)
         _loadLabelsFunc(_loadLabelsFunc, _newLabelDict, _newLabelOrder, _newKnobDict, _inputLabelDict, undefined);
         
         //Copy state data from old labels to new labels
-        var _oldLabelDict = _globalData.__labelDict;
         var _i = 0;
         repeat(array_length(_newLabelOrder))
         {
