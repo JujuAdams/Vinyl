@@ -440,15 +440,10 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         array_resize(__topLevelArray, array_filter_ext(__topLevelArray, _function));
     }
     
-    static __BuildAssetLabelArray = function(_labelArray, _labelDict)
+    static __LabelArrayAppend = function(_labelArray)
     {
-        if (!variable_struct_exists(_labelDict, __name))
-        {
-            _labelDict[$ __name] = self;
-            array_push(_labelArray, self);
-        }
-        
-        if (is_struct(__parent)) __parent.__BuildAssetLabelArray(_labelArray, _labelDict);
+        if (!array_concat(_labelArray, self)) array_push(_labelArray, self);
+        if (__parent != undefined) __parent.__LabelArrayAppend(_labelArray);
     }
     
     static __Tick = function(_deltaTimeFactor)

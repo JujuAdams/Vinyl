@@ -236,7 +236,7 @@ function VinylSystemReadConfig(_configData)
                             _newPatternDict[$ _key] = _pattern;
                         }
                         
-                        _labelData.__BuildAssetLabelArray(_pattern.__labelArray, _pattern.__labelDictTemp__);
+                        _labelData.__LabelArrayAppend(_pattern.__labelArray);
                         
                         ++_k;
                     }
@@ -341,14 +341,6 @@ function VinylSystemReadConfig(_configData)
     repeat(array_length(_newPatternArray))
     {
         _newPatternArray[_i].__Migrate();
-        ++_i;
-    }
-    
-    //Clean up dictionaries, used to prevent duplicate labels in patterns, that we left behind
-    var _i = 0;
-    repeat(array_length(_newPatternArray))
-    {
-        variable_struct_remove(_newPatternArray[_i], "__labelDictTemp__");
         ++_i;
     }
     

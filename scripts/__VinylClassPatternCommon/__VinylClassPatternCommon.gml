@@ -217,7 +217,6 @@ function __VinylClassPatternCommon()
     static __InitializeLabelArray = function(_labelNameArray, _labelDict)
     {
         __labelArray = [];
-        __labelDictTemp__ = {}; //Removed at the end of VinylSystemReadConfig()
         
         //Process label string to extract each label name
         if (is_string(_labelNameArray)) _labelNameArray = [_labelNameArray];
@@ -236,7 +235,7 @@ function __VinylClassPatternCommon()
                 }
                 else
                 {
-                    _labelData.__BuildAssetLabelArray(__labelArray, __labelDictTemp__);
+                    _labelData.__LabelArrayAppend(__labelArray);
                 }
                 
                 ++_i;
