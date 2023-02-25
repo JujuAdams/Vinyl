@@ -477,21 +477,29 @@ function __VinylClassInstanceCommon() constructor
     
     static __LabelAdd = function()
     {
-        var _i = 0;
-        repeat(array_length(__labelArray))
+        //Only add top-level instances to labels
+        if (__parentInstance == undefined)
         {
-            __labelArray[_i].__InstanceAdd(__id);
-            ++_i;
+            var _i = 0;
+            repeat(array_length(__labelArray))
+            {
+                __labelArray[_i].__InstanceAdd(__id);
+                ++_i;
+            }
         }
     }
     
     static __LabelRemove = function()
     {
-        var _i = 0;
-        repeat(array_length(__labelArray))
+        //Only top-level instances can be assigned to labels
+        if (__parentInstance == undefined)
         {
-            __labelArray[_i].__InstanceRemove(__id);
-            ++_i;
+            var _i = 0;
+            repeat(array_length(__labelArray))
+            {
+                __labelArray[_i].__InstanceRemove(__id);
+                ++_i;
+            }
         }
     }
     

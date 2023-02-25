@@ -407,26 +407,16 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     {
         if ((__limitMaxCount != undefined) && (__limitMaxCount >= 0))
         {
-            var _topLevelCount = 0;
-            
-            //Iterate backwards
-            var _i = array_length(__audioArray)-1;
-            repeat(array_length(__audioArray))
+            while(array_length(__audioArray) >= __limitMaxCount)
             {
-                var _instance = __idToInstanceDict[? __audioArray[_i]];
-                if (_instance.__parentInstance == undefined)
-                {
-                    ++_topLevelCount;
-                    if (_topLevelCount > __limitMaxCount)
-                    {
-                        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " will exceed ", __limitMaxCount, " playing instance(s), fading out oldest ", _instance);
-                        
-                        array_delete(__audioArray, _i, 1);
-                        _instance.__FadeOut(__limitFadeOutRate);
-                    }
-                }
+                var _oldestInstance = __idToInstanceDict[? __audioArray[0]];
+                array_delete(__audioArray, 0, 1);
                 
-                --_i;
+                if (_oldestInstance != undefined)
+                {
+                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " will exceed ", __limitMaxCount, " playing instance(s), fading out oldest ", _oldestInstance);
+                    _oldestInstance.__FadeOut(__limitFadeOutRate);
+                }
             }
         }
         
