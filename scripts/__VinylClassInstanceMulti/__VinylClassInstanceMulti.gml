@@ -262,6 +262,7 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static __Migrate = function()
     {
+        __pattern = __VinylPatternGet(__pattern.__name);
         __MigrateCommon();
         
         var _i = 0;

@@ -417,9 +417,6 @@ function __VinylClassInstanceCommon() constructor
     static __MigrateCommon = function()
     {
         __LabelRemove();
-        
-        __pattern = __VinylPatternGet(__pattern.__name);
-        
         __LoopResolve();
         __LabelArrayResolve();
         __EffectChainResolve();
@@ -573,12 +570,12 @@ function __VinylClassInstanceCommon() constructor
         __LabelGainPitchGet();
         
         __gainLocal += _gainDelta;
-        __gainPattern = (__pattern == undefined)? 1 : __pattern.__gain;
+        __gainPattern = __pattern.__gain;
         __gainParent = (__parentInstance == undefined)? 1 :__parentInstance.__gainOutput;
         __gainOutput = __gainLocal*__gainPattern*__gainParent*__gainLabels;
         
         __pitchLocal += clamp(__pitchTarget - __pitchLocal, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
-        __pitchPattern = (__pattern == undefined)? 1 : lerp(__pattern.__pitchLo, __pattern.__pitchHi, __pitchRandomParam);
+        __pitchPattern = lerp(__pattern.__pitchLo, __pattern.__pitchHi, __pitchRandomParam);
         __pitchParent = (__parentInstance == undefined)? 1 : __parentInstance.__pitchOutput;
         __pitchOutput = __pitchLocal*__pitchPattern*__pitchParent*__pitchLabels;
         if (__transposeUsing) __pitchOutput *= __VinylSemitoneToPitch(__globalData.__transposeSemitones + __transposeSemitones);

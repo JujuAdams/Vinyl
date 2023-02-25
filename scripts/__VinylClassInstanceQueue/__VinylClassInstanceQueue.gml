@@ -71,6 +71,7 @@ function __VinylClassInstanceQueue() : __VinylClassInstanceCommon() constructor
     
     static __Migrate = function()
     {
+        __pattern = __VinylPatternGet(__pattern.__name);
         __MigrateCommon();
         
         if (__child != undefined) __child.__Migrate();

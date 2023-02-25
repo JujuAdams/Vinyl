@@ -64,6 +64,7 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
     {
         var _oldEmitter = __vinylEmitter;
         
+        __pattern = __VinylPatternGet((__pattern.__name == "fallback")? __sound : __pattern.__name);
         __MigrateCommon();
         
         if (_oldEmitter != __vinylEmitter)
@@ -81,7 +82,7 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
         {
             __TickCommon(_deltaTimeFactor);
             
-            if (__gmInstance != undefined)
+            if (__gmInstance != undefined) //Instance can be destroyed in __TickCommon()
             {
                 audio_sound_gain(__gmInstance, __VinylCurveAmplitude(__gainOutput), VINYL_STEP_DURATION);
                 audio_sound_pitch(__gmInstance, __pitchOutput);
