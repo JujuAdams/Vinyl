@@ -64,8 +64,8 @@
         space cat: {
             type: basic
             asset: sndCat
-            gain: 0.2
-            pitch: 0.5
+            gain: 0.3
+            pitch: 0.75
             effect chain: echo
         }
         
@@ -78,7 +78,6 @@
         
         queue test: {
             type: queue
-            //assets: [sndPop, sndPop, sndPop, sndPop, sndPop]
             assets: [
                 sndPop
                 { asset: sndPop, pitch: 1.1 }
