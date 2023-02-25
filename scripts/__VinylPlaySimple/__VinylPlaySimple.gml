@@ -25,7 +25,7 @@ function __VinylPlaySimple(_sound, _gain, _pitchLo, _pitchHi, _labelArray, _effe
     }
     
     //Determine the emitter we should play this sound on
-    var _effectChainStruct = _effectChainDict[$ _name];
+    var _effectChainStruct = _effectChainDict[$ _effectChainName];
     var _effectChainEmitter = (_effectChainStruct == undefined)? undefined : _effectChainStruct.__emitter;
     
     if (_effectChainEmitter == undefined)
