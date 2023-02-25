@@ -62,7 +62,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
             __VinylError("Error in ", self, "\nBlend must be a number, a knob name, or undefined");
         }
         
-        __blend = _blend;
+        __blendFactorLocal = _blend;
         
         //Set the sync state
         if (!is_bool(_sync))
@@ -75,10 +75,15 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray));
     }
     
+    static __MultiBlendSet = function(_blend)
+    {
+        __blendFactorLocal = _blend;
+    }
+    
     static __Play = function(_parentInstance, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _instance = __pool.__Depool();
-        _instance.__Instantiate(self, _parentInstance, _vinylEmitter, __assetArray, _loop, _gain, _pitch, _pan, __blend,  __sync);
+        _instance.__Instantiate(self, _parentInstance, _vinylEmitter, __assetArray, _loop, _gain, _pitch, _pan, __sync);
         return _instance;
     }
     

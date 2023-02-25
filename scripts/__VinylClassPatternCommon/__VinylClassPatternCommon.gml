@@ -42,6 +42,17 @@ function __VinylClassPatternCommon()
         }
     }
     
+    static __GainSet = function(_gain)
+    {
+        __gain = _gain;
+    }
+    
+    static __PitchSet = function(_pitch)
+    {
+        __pitchLo = _pitch;
+        __pitchHi = _pitch;
+    }
+    
     static __LoopGet = function()
     {
         if (__loop == undefined)

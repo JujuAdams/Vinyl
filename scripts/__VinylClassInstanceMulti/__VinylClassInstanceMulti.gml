@@ -22,7 +22,9 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         
         __StateResetCommon();
         
-        __blendFactor = undefined;
+        __blendFactorLocal  = undefined;
+        __blendFactorOutput = undefined;
+        
         __sync        = false;
         __childArray  = [];
         __gainArray   = [];
@@ -153,7 +155,7 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static __MultiGainSet = function(_index, _gain)
     {
-        __blendFactor = undefined;
+        __blendFactorLocal = undefined;
         if (_gain != __gainArray[_index]) __gainArray[@ _index] = _gain;
     }
     
@@ -164,12 +166,13 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static __MultiBlendSet = function(_blendFactor)
     {
-        if (_blendFactor != __blendFactor)
+        if (_blendFactor != __blendFactorLocal)
         {
-            __blendFactor = _blendFactor
+            __blendFactorLocal = _blendFactor;
+            
             __ApplyBlendFactor();
             
-            //Immediately update the gain too
+            //Immediately update the gain too in case the blend was immediately after creation
             var _i = 0;
             repeat(array_length(__gainArray))
             {
@@ -181,7 +184,7 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static __MultiBlendGet = function()
     {
-        return __blendFactor;
+        return __blendFactorOutput;
     }
     
     static __MultiSyncSet = function(_state)
@@ -196,25 +199,30 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static __ApplyBlendFactor = function()
     {
-        if (__blendFactor == undefined)
+        var _newBlend = __blendFactorLocal ?? __pattern.__blendFactorLocal;
+        if (_newBlend != __blendFactorOutput)
         {
-            var _i = 0;
-            repeat(array_length(__gainArray))
-            {
-                __gainArray[@ _i] = 1;
-                ++_i;
-            }
-        }
-        else
-        {
-            var _blendFactor = __blendFactor*(array_length(__gainArray) - 1);
+            __blendFactorOutput = _newBlend;
             
-            var _i = 0;
-            repeat(array_length(__gainArray))
+            if (__blendFactorOutput == undefined)
             {
-                var _gain = max(0, 1 - abs(_i - _blendFactor));
-                __gainArray[@ _i] = _gain;
-                ++_i;
+                var _i = 0;
+                repeat(array_length(__gainArray))
+                {
+                    __gainArray[@ _i] = 1;
+                    ++_i;
+                }
+            }
+            else
+            {
+                var _scaled = __blendFactorOutput*(array_length(__gainArray) - 1);
+                var _i = 0;
+                repeat(array_length(__gainArray))
+                {
+                    var _gain = max(0, 1 - abs(_i - _scaled));
+                    __gainArray[@ _i] = _gain;
+                    ++_i;
+                }
             }
         }
     }
@@ -223,12 +231,13 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     
     
-    static __Instantiate = function(_pattern, _parentInstance, _vinylEmitter, _assetArray, _loop, _gain, _pitch, _pan, _blendFactor, _sync)
+    static __Instantiate = function(_pattern, _parentInstance, _vinylEmitter, _assetArray, _loop, _gain, _pitch, _pan, _sync)
     {
         __StateSetCommon(_pattern, _parentInstance, _vinylEmitter, _loop, _gain, _pitch, _pan);
         
-        __blendFactor = _blendFactor;
-        __sync        = _sync;
+        __blendFactorLocal  = undefined;
+        __blendFactorOutput = undefined;
+        __sync              = _sync;
         
         //Make a local copy of the input asset array
         __assetArray = array_create(array_length(_assetArray), undefined);
@@ -306,6 +315,7 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
             }
             
             __TickCommon(_deltaTimeFactor);
+            __ApplyBlendFactor();
             
             var _i = 0;
             repeat(array_length(__childArray))
