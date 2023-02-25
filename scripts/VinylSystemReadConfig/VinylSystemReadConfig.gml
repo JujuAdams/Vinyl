@@ -316,34 +316,23 @@ function VinylSystemReadConfig(_configData)
         }
     }
     
-    
-    
     //Migrate all of our patterns to the new dataset
-    var _array = _globalData.__patternArray;
-    var _i = 0;
-    repeat(array_length(_array))
+    array_foreach(_globalData.__patternArray, function(_pattern)
     {
-        _array[_i].__Migrate();
-        ++_i;
-    }
+        _pattern.__Migrate();
+    });
     
     //Migrate all of our top-level instances to the new config data
-    var _topLevelArray = _globalData.__topLevelArray;
-    var _i = 0;
-    repeat(array_length(_topLevelArray))
+    array_foreach(_globalData.__topLevelArray, function(_instance)
     {
-        _topLevelArray[_i].__Migrate();
-        ++_i;
-    }
+        _instance.__Migrate();
+    });
     
     //Update all values from knobs
-    var _array = _globalData.__knobArray;
-    var _i = 0;
-    repeat(array_length(_array))
+    array_foreach(_globalData.__knobArray, function(_knob)
     {
-        _array[_i].__Refresh();
-        ++_i;
-    }
+        _knob.__Refresh();
+    });
     
     //Workaround for problems setting effects on the main audio effect bus in 2023.1
     gc_collect();
