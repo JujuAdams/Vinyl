@@ -25,6 +25,9 @@
                 speech: {
                     pitch: [0.9, 1.1]
                 }
+                echo: {
+                    effect chain: echo
+                }
             }
         }
     }
@@ -47,14 +50,10 @@
         
         sndBleep0: {
             label: sfx
-            gain: 0.6
+            gain: 0.5
             copyTo: [sndBleep1,  sndBleep2,  sndBleep3,  sndBleep4,
                      sndBleep5,  sndBleep6,  sndBleep7,  sndBleep8,
                      sndBleep9, sndBleep10, sndBleep11]
-        }
-        
-        sndPop: {
-            pitch: 2
         }
     }
     
@@ -76,7 +75,6 @@
         
         queue test: {
             type: queue
-            pitch: [0.9, 1.1]
             assets: [sndPop, sndPop, sndPop, sndPop, sndPop]
         }
         
