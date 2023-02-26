@@ -57,24 +57,6 @@ If a label is specified, each currently playing instance assigned to that label 
 
 &nbsp;
 
-## `VinylTransposeReset`
-
-`VinylTransposeReset(id)`
-
-&nbsp;
-
-*Returns:* N/A (`undefined`)
-
-|Name|Datatype      |Purpose           |
-|----|--------------|------------------|
-|`id`|Vinyl instance|Instance to target|
-
-Disables transposition for a [Vinyl instance](Terminology) or [Vinyl label](Terminology).
-
-If a label is specified, each currently playing instance assigned to that label will have its transposition state reset.
-
-&nbsp;
-
 ## `VinylTransposeGet`
 
 `VinylGlobalTransposeGet(id)`

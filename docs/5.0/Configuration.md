@@ -111,6 +111,16 @@ The [pitch](Terminology) multiplication factor for all assets/patterns assigned 
 
 A pitch value can be specified as either a number, a two-element array containing two numbers, or a knob. If a two-element array is provided then the pitch value is randomised between the two values. Configuring a label to include the property definiton `pitch: @musicSpeed` will set up the `musicSpeed` knob to control the pitch of a label.
 
+### `transpose`
+
+*Default value: `null`*
+
+[Transposing](Terminology) audio can give an extra musical flair to your sound design. The transposition value is measured in semitones of the standard Western diatonic scale, and no affordance is made for key (major/minor) otherwise. Any transposition value set on labels is further modified by transposition values on assets, patterns, or instances themselves.
+
+The transposition value must be as a number, or a knob. Configuring a label to include the property definiton `transpose: @semitones` will set up the `semitones` knob to control the transposition of a label.
+
+?> Transposition is also affected by the [global transposition value](Semitones).
+
 ### `limit`
 
 *Default value: `infinity`*
@@ -213,6 +223,16 @@ The [pitch](Terminology) multiplication factor for this assets. The pitch factor
 
 A pitch value can be specified as either a number, a two-element array containing two numbers, or a knob. If a two-element array is provided then the pitch value is randomised between the two values. Configuring an asset to include the property definiton `pitch: @voicePitch` will set up the `voicePitch` knob to control the pitch of an asset.
 
+### `transpose`
+
+*Default value: `null`*
+
+[Transposing](Terminology) audio can give an extra musical flair to your sound design. The transposition value is measured in semitones of the standard Western diatonic scale, and no affordance is made for key (major/minor) otherwise. Any transposition value set on assets is further modified by transposition values on labels, patterns, or instances themselves.
+
+The transposition value must be as a number, or a knob. Configuring a label to include the property definiton `transpose: @semitones` will set up the `semitones` knob to control the transposition of an asset.
+
+?> Transposition is also affected by the [global transposition value](Semitones).
+
 ### `label`
 
 *Default value: `null`*
@@ -276,6 +296,16 @@ The [gain](Terminology) multiplication factor for all assets/patterns assigned t
 The [pitch](Terminology) multiplication factor for all assets/patterns assigned to this label. The pitch factor is further multiplied with other pitch multipliers, including label pitch, asset pitch and [instance pitch](Basics).
 
 A pitch value can be specified as either a number, or as a two-element array containing two numbers. If a two-element array is provided then the pitch value is randomised between the two values.
+
+### `transpose`
+
+*Default value: `null`*
+
+[Transposing](Terminology) audio can give an extra musical flair to your sound design. The transposition value is measured in semitones of the standard Western diatonic scale, and no affordance is made for key (major/minor) otherwise. Any transposition value set on assets is further modified by transposition values on labels, assets, or instances themselves.
+
+The transposition value must be as a number, or a knob. Configuring a label to include the property definiton `transpose: @semitones` will set up the `semitones` knob to control the transposition of a pattern.
+
+?> Transposition is also affected by the [global transposition value](Semitones).
 
 ### `label`
 
