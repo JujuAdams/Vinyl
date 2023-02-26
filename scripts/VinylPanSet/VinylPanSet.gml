@@ -1,5 +1,8 @@
 /// Sets the panning for a Vinyl playback instance
 /// 
+/// Panning can only be adjusted for Vinyl instances that were played with a panning value
+/// initially, even if that panning value is 0 (centred)
+/// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
 /// @param vinylID

@@ -1,8 +1,7 @@
-/// Sets the pitch of a Vinyl playback instance, or Vinyl label
-/// Setting pitch with this function immediately resets the pitch target (as set by VinylPitchTargetSet())
+/// Resets the transposition of a Vinyl playback instance, or Vinyl label
 /// 
-/// If this function is given a label name then all currently playing audio assigned with that label will
-/// be immediately affected by the change in the label's pitch state
+/// If this function is given a label name then all currently playing audio assigned with that
+/// label will be immediately affected by the change in transposition
 ///
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 

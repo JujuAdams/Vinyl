@@ -1,5 +1,7 @@
-/// Reads in a data struct, seting asset and label definitions as required
+/// Reads in a data struct, setting asset/label/pattern/effect chain/knob definitions as required
 /// This is useful for e.g. writing your own live mixing system
+/// 
+///   N.B. Loading a data struct will wipe any existing config data
 /// 
 /// @param configData
 

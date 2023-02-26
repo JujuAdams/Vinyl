@@ -1,5 +1,6 @@
 /// Returns the current input pitch target for a Vinyl playback instance, or a Vinyl label
-/// This function CANNOT be used with audio played using VinylPlaySimple()
+/// 
+/// This function will not affect currently playing audio played using VinylPlaySimple()
 /// 
 /// @param vinylID/labelName
 

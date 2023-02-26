@@ -6,6 +6,8 @@
 ///   "queue"
 ///   "multi"
 /// 
+/// This function CANNOT be used with audio played using VinylPlaySimple()
+/// 
 /// @param vinylID
 
 function VinylTypeGet(_id)

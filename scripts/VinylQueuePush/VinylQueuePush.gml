@@ -1,4 +1,4 @@
-/// Pushes an asset onto a Vinyl queue instance, or instances assigned to a Vinyl label
+/// Pushes an asset onto a Vinyl queue instance, or queue instances assigned to a Vinyl label
 /// 
 /// If this function is given a label name then all currently playing queue instances assigned
 /// with that label will have that asset pushed

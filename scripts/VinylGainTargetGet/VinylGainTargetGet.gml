@@ -1,5 +1,7 @@
 /// Returns the current input gain target for a Vinyl playback instance, or a Vinyl label
 /// 
+/// This function CANNOT be used with audio played using VinylPlaySimple()
+/// 
 /// @param vinylID/labelName
 
 function VinylGainTargetGet(_id)

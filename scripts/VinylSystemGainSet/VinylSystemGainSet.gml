@@ -1,4 +1,5 @@
 /// Sets the system-wide gain for Vinyl
+/// 
 /// This number is NOT constrained by the VINYL_MAX_GAIN value
 /// 
 /// @param gain

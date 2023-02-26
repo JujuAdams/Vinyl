@@ -1,4 +1,6 @@
-/// Returns the current output pitch for a Vinyl playback instance, or a Vinyl label
+/// Returns the current transposition for a Vinyl playback instance, or a Vinyl label
+/// 
+/// This function does NOT take into account global transposition
 /// 
 /// @param vinylID/labelName
 

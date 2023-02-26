@@ -1,11 +1,10 @@
-/// Starts playing a sound and returns a Vinyl ID to identify the playback instance
-/// 
-/// Vinyl IDs are separate from GameMaker's native audio instances IDs and the two sets of
-/// IDs cannot be used interchangeably
+/// Starts playing a sound on a Vinyl emitter and returns a Vinyl ID to identify the instance
 /// 
 /// There is a perfomance overhead when creating and maintaining Vinyl audio instances. In
 /// resource-constrained situations, you may want to consider using VinylPlaySimple() for some
-/// of your audio
+/// of your audio (although audio played in such a way cannot be played on an emitter)
+/// 
+/// This function CANNOT be used with native GameMaker emitters
 /// 
 /// @param emitter
 /// @param sound

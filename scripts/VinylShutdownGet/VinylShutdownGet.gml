@@ -4,6 +4,8 @@
 /// This function cannot be used to target Vinyl labels as shutdown state is set
 /// per instance
 /// 
+/// This function CANNOT be used with audio played using VinylPlaySimple()
+/// 
 /// @param vinylID
 
 function VinylShutdownGet(_id)

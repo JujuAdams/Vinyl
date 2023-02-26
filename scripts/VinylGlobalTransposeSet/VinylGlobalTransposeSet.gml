@@ -1,3 +1,8 @@
+/// Sets the global transposition state
+/// 
+/// Global transposition only affect Vinyl instances that have had their local transposition
+/// state set by VinylTransposition(), even if that value is 0
+/// 
 /// @param semitones
 
 function VinylGlobalTransposeSet(_semitone)

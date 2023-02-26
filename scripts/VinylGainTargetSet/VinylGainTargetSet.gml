@@ -4,7 +4,7 @@
 /// If this function is given a label name then all currently playing audio assigned with that label will
 /// be affected by the change in the label's gain state
 /// 
-/// This function CANNOT be used with audio played using VinylPlaySimple()
+/// This function will not affect currently playing audio played using VinylPlaySimple()
 /// 
 /// @param vinylID/labelName
 /// @param targetGain

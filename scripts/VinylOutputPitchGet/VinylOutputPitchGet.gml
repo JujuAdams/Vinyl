@@ -1,5 +1,9 @@
 /// Returns the current output pitch for a Vinyl playback instance, or a Vinyl label
 /// 
+/// The value returned takes into account transposition, both local and global
+/// 
+/// This function CANNOT be used with audio played using VinylPlaySimple()
+/// 
 /// @param vinylID/labelName
 
 function VinylOutputPitchGet(_id)
