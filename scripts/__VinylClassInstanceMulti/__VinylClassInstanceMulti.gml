@@ -284,7 +284,7 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static __Tick = function(_deltaTimeFactor)
     {
-        if (!__childArray[__shortestIndex].__IsPlaying())
+        if ((__shortestIndex <= array_length(__childArray)) || !__childArray[__shortestIndex].__IsPlaying())
         {
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Shortest instance for ", self, " is no longer playing, returning to pool");
             __VINYL_RETURN_SELF_TO_POOL
@@ -315,18 +315,22 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
             }
             
             __TickCommon(_deltaTimeFactor);
-            __ApplyBlendFactor();
             
-            var _i = 0;
-            repeat(array_length(__childArray))
+            if (__IsPlaying())
             {
-                with(__childArray[_i])
-                {
-                    __GainSet(other.__gainArray[_i]);
-                    __Tick(_deltaTimeFactor);
-                }
+                __ApplyBlendFactor();
                 
-                ++_i;
+                var _i = 0;
+                repeat(array_length(__childArray))
+                {
+                    with(__childArray[_i])
+                    {
+                        __GainSet(other.__gainArray[_i]);
+                        __Tick(_deltaTimeFactor);
+                    }
+                    
+                    ++_i;
+                }
             }
         }
     }
