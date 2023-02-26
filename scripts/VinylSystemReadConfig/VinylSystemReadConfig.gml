@@ -175,7 +175,6 @@ function VinylSystemReadConfig(_configData)
                     
                     _pattern.__Initialize(_patternData);
                     _pattern.__Store();
-                    _pattern.__CopyTo(_patternData);
                 }
             }
             
