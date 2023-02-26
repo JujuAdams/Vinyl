@@ -10,7 +10,7 @@ function __VinylGlobalData()
         
         __idToInstanceDict: ds_map_create(),
         
-        __transposeSemitones: 0,
+        __transpose: 0,
         
         __poolAsset:      new __VinylClassPool(91000000, __VinylClassInstanceAsset),
         __poolBasic:      new __VinylClassPool(92000000, __VinylClassInstanceBasic),

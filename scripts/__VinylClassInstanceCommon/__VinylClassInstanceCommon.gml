@@ -36,6 +36,12 @@ function __VinylClassInstanceCommon() constructor
         __gainOutputNoLabels = 1;
         __gainOutput         = 1;
         
+        __transposeLocal          = undefined;
+        __transposePattern        = undefined;
+        __transposeParent         = undefined;
+        __transposeLabels         = undefined;
+        __transposeOutputNoLabels = undefined;
+        
         __pitchLocal          = 1;
         __pitchTarget         = 1;
         __pitchRate           = VINYL_DEFAULT_PITCH_RATE;
@@ -45,9 +51,6 @@ function __VinylClassInstanceCommon() constructor
         __pitchLabels         = 1;
         __pitchOutputNoLabels = 1;
         __pitchOutput         = 1;
-        
-        __transposeUsing     = false;
-        __transposeSemitones = 0;
         
         __vinylEmitter    = undefined;
         __usingPanEmitter = false;
@@ -76,7 +79,7 @@ function __VinylClassInstanceCommon() constructor
         __pitchRandomParam = __VinylRandom(1);
         
         __LabelAdd();
-        __CalculateGainPitch(0);
+        __CalculateGainPitchTranspose(0);
         
         if (__parentInstance == undefined) array_push(_globalTopLevelArray, self);
     }
@@ -224,45 +227,20 @@ function __VinylClassInstanceCommon() constructor
     {
         if (__shutdown)
         {
-            __VinylTrace("Cannot set transposition for ", self, ", it is set to shut down");
+            __VinylTrace("Cannot set transpose for ", self, ", it is set to shut down");
             return;
         }
         
-        if (__transposeSemitones != _semitones)
+        if (__transposeLocal != _semitones)
         {
-            if (VINYL_DEBUG_LEVEL >= 1)
-            {
-                __VinylTrace(self, " transposition=", _semitones);
-            }
-            
-            __transposeUsing     = true;
-            __transposeSemitones = _semitones;
-        }
-    }
-    
-    static __TransposeReset = function()
-    {
-        if (__shutdown)
-        {
-            __VinylTrace("Cannot reset transposition for ", self, ", it is set to shut down");
-            return;
-        }
-        
-        if (__transposeUsing)
-        {
-            if (VINYL_DEBUG_LEVEL >= 1)
-            {
-                __VinylTrace(self, " transposition reset");
-            }
-            
-            __transposeUsing     = false;
-            __transposeSemitones = 0;
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " transpose=", _semitones);
+            __transposeLocal = _semitones;
         }
     }
     
     static __TransposeGet = function()
     {
-        return __transposeSemitones;
+        return __transposeLocal;
     }
     
     #endregion
@@ -424,7 +402,7 @@ function __VinylClassInstanceCommon() constructor
         __EmitterResolve();
         
         __LabelAdd();
-        __CalculateGainPitch(0);
+        __CalculateGainPitchTranspose(0);
         __LoopPointsSet();
     }
     
@@ -553,11 +531,12 @@ function __VinylClassInstanceCommon() constructor
         }
     }
     
-    static __LabelGainPitchGet = function()
+    static __LabelGainPitchTransposeGet = function()
     {
         //Update the output values based on the asset and labels
-        __gainLabels  = 1;
-        __pitchLabels = 1;
+        __gainLabels      = 1;
+        __pitchLabels     = 1;
+        __transposeLabels = undefined;
         
         var _i = 0;
         repeat(array_length(__labelArray))
@@ -565,6 +544,9 @@ function __VinylClassInstanceCommon() constructor
             var _label = __labelArray[_i];
             __gainLabels  *= _label.__gainOutput;
             __pitchLabels *= _label.__pitchOutput*lerp(_label.__configPitchLo, _label.__configPitchHi, __pitchRandomParam);
+            
+            if (_label.__configTranspose != undefined) __transposeLabels = (__transposeLabels ?? 0) + _label.__configTranspose;
+            
             ++_i;
         }
     }
@@ -589,11 +571,11 @@ function __VinylClassInstanceCommon() constructor
         __StateReset();
     }
     
-    static __CalculateGainPitch = function(_deltaTimeFactor)
+    static __CalculateGainPitchTranspose = function(_deltaTimeFactor)
     {
         var _gainDelta = clamp(__gainTarget - __gainLocal, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
         
-        __LabelGainPitchGet();
+        __LabelGainPitchTransposeGet();
         
         __gainLocal += _gainDelta;
         __gainPattern = __pattern.__gain;
@@ -605,8 +587,24 @@ function __VinylClassInstanceCommon() constructor
         __pitchPattern = lerp(__pattern.__pitchLo, __pattern.__pitchHi, __pitchRandomParam);
         __pitchParent = (__parentInstance == undefined)? 1 : __parentInstance.__pitchOutputNoLabels;
         __pitchOutputNoLabels = __pitchLocal*__pitchPattern*__pitchParent;
-        if (__transposeUsing) __pitchOutput *= __VinylSemitoneToPitch(__globalData.__transposeSemitones + __transposeSemitones);
         __pitchOutput = __pitchOutputNoLabels*__pitchLabels;
+        
+        __transposePattern = __pattern.__transpose;
+        __transposeParent = (__parentInstance == undefined)? undefined : __parentInstance.__transposeOutputNoLabels;
+        
+        if ((__transposeLocal != undefined) || (__transposePattern != undefined) || (__transposeParent != undefined))
+        {
+            __transposeOutputNoLabels = (__transposeLocal ?? 0) + (__transposePattern ?? 0) + (__transposeParent ?? 0);
+        }
+        else
+        {
+            __transposeOutputNoLabels = undefined;
+        }
+        
+        if ((__transposeOutputNoLabels != undefined) || (__transposeLabels != undefined))
+        {
+            __pitchOutput *= __VinylSemitoneToPitch(__transposeOutputNoLabels + (__transposeLabels ?? 0) + __globalData.__transpose);
+        }
         
         if (__usingPanEmitter && (__vinylEmitter != undefined)) __vinylEmitter.__UpdatePosition();
     }
@@ -615,7 +613,7 @@ function __VinylClassInstanceCommon() constructor
     {
         var _canShutdown = (__gainTarget <= __gainLocal);
         
-        __CalculateGainPitch(_deltaTimeFactor);
+        __CalculateGainPitchTranspose(_deltaTimeFactor);
         
         if (_canShutdown && __shutdown && ((__gainLocal <= 0) || (__gainOutput <= 0)))
         {

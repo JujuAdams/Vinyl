@@ -138,7 +138,6 @@
     {"id":{"name":"VinylKnobSet","path":"scripts/VinylKnobSet/VinylKnobSet.yy",},},
     {"id":{"name":"sndOw","path":"sounds/sndOw/sndOw.yy",},},
     {"id":{"name":"sndBleep10","path":"sounds/sndBleep10/sndBleep10.yy",},},
-    {"id":{"name":"VinylTransposeReset","path":"scripts/VinylTransposeReset/VinylTransposeReset.yy",},},
     {"id":{"name":"UISpace","path":"scripts/UISpace/UISpace.yy",},},
     {"id":{"name":"sndSync3","path":"sounds/sndSync3/sndSync3.yy",},},
     {"id":{"name":"sndBleep0","path":"sounds/sndBleep0/sndBleep0.yy",},},

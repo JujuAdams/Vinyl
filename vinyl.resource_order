@@ -106,7 +106,6 @@
     {"name":"VinylEmitterCircle","order":6,"path":"scripts/VinylEmitterCircle/VinylEmitterCircle.yy",},
     {"name":"sndOw","order":1,"path":"sounds/sndOw/sndOw.yy",},
     {"name":"sndBleep10","order":20,"path":"sounds/sndBleep10/sndBleep10.yy",},
-    {"name":"VinylTransposeReset","order":3,"path":"scripts/VinylTransposeReset/VinylTransposeReset.yy",},
     {"name":"UISpace","order":7,"path":"scripts/UISpace/UISpace.yy",},
     {"name":"sndSync3","order":9,"path":"sounds/sndSync3/sndSync3.yy",},
     {"name":"sndBleep0","order":10,"path":"sounds/sndBleep0/sndBleep0.yy",},
