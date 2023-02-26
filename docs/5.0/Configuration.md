@@ -77,7 +77,11 @@ Vinyl expects - and requires - that the top-level object contains three child ob
         ...
     }
 
-    effect buses: {
+    effect chains: {
+        ...
+    }
+
+    knobs: {
         ...
     }
 }
@@ -107,12 +111,6 @@ The [pitch](Terminology) multiplication factor for all assets/patterns assigned 
 
 A pitch value can be specified as either a number, a two-element array containing two numbers, or a knob. If a two-element array is provided then the pitch value is randomised between the two values. Configuring a label to include the property definiton `pitch: @musicSpeed` will set up the `musicSpeed` knob to control the pitch of a label.
 
-### `loop`
-
-*Default value: `false`*
-
-Whether to loop assets (but not patterns) assigned to this label, by default. You can override this looping behaviour by setting the `loop` argument when [playing audio](Basic).
-
 ### `limit`
 
 *Default value: `infinity`*
@@ -126,6 +124,12 @@ The total number of instances (assigned to this label) that can simultaneously p
 This property controls how quickly audio fades out when the instance count limit is exceeded. This value is measured in units/second: a value of `0.4` means that an instance with a starting gain of `0.8` will take 2 seconds to fully fade out.
 
 If this property is set to `null` then the fade out speed defaults to `VINYL_DEFAULT_GAIN_RATE`.
+
+### `loop`
+
+*Default value: `false`*
+
+Whether to loop assets (but not patterns) assigned to this label, by default. You can override this looping behaviour by setting the `loop` argument when [playing audio](Basic).
 
 ### `effect chain`
 
@@ -215,6 +219,12 @@ A pitch value can be specified as either a number, a two-element array containin
 
 Which label this asset is assigned to. If an array is specified, the asset will be assigned to all labels. If no label is specified (the default, `null`) then the asset will not be assigned to any label at all.
 
+### `loop`
+
+*Default value: `false`*
+
+Whether to loop assets (but not patterns) assigned to this label, by default. You can override this looping behaviour by setting the `loop` argument when [playing audio](Basic).
+
 ### `loop points`
 
 *Default value: `undefined`*
@@ -226,14 +236,6 @@ Defines the start and end loop points for the asset. These loop points should be
 *Default value: `null`*
 
 The effect chain to use when playing this asset. This property overrides the `effect chain` property for any label this asset is assigned to.
-
-### `copyTo`
-
-*Default value: `[]`*
-
-Copies the configuration for this asset to another asset, or to an array of assets. This is useful to share basic configuration across multiple assets without requiring a whole label for it.
-
-!> Trying to copy configuration to an asset that has already got configuration data will lead to unexpected behaviour.
 
 &nbsp;
 
@@ -287,15 +289,15 @@ Patterns **must** further have one of the following types. These determine the b
 
 ### `basic` type
 
-Plays the specified audio asset.
+Plays the specified audio asset in the `asset` property.
 
 ### `shuffle` type
 
-Plays a random audio asset from an array.
+Plays a random audio asset from an array in the `assets` property.
 
 ### `queue` type
 
-Plays audio assets sequentially from an array.
+Plays audio assets sequentially from an array in the `assets` property.
 
 Queue patterns can additionally have the `behavior` property which determines the default behavior when playing the pattern. This is the same values as set by [`VinylQueueBehaviorSet()`](https://www.jujuadams.com/Vinyl/#/5.0/Queue-Patterns). The behaviour property defaults to `0` which plays the queue once (and assets will be removed from the queue once they finish playing).
 
@@ -303,7 +305,7 @@ Queue patterns can additionally have the `behavior` property which determines th
 
 ### `multi` type
 
-Plays audio assets simultaneously from an array.
+Plays audio assets simultaneously from an array in the `assets` property.
 
 Queue patterns may further have the `blend` and `sync` properties. These are the same values as set by [`VinylMultiBlendSet()` or `VinylMultiSyncSet()`](https://www.jujuadams.com/Vinyl/#/5.0/Queue-Patterns). You can control the blend value of a Multi pattern using a knob (but not the sync state). The blend factor defaults to `undefined` (no blending, all tracks are played at a gain of `1`), and the sync state defaults to `false` (no synchronisation).
 
