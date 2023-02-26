@@ -19,6 +19,7 @@
             gain: 0.7
             loop: true
             limit: 1
+            transpose: 0
         }
         sfx: {
             children: {

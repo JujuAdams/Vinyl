@@ -603,7 +603,7 @@ function __VinylClassInstanceCommon() constructor
         
         if ((__transposeOutputNoLabels != undefined) || (__transposeLabels != undefined))
         {
-            __pitchOutput *= __VinylSemitoneToPitch(__transposeOutputNoLabels + (__transposeLabels ?? 0) + __globalData.__transpose);
+            __pitchOutput *= __VinylSemitoneToPitch((__transposeOutputNoLabels ?? 0) + (__transposeLabels ?? 0) + __globalData.__transpose);
         }
         
         if (__usingPanEmitter && (__vinylEmitter != undefined)) __vinylEmitter.__UpdatePosition();
