@@ -78,9 +78,11 @@ Values to set for queue patterns when the `sync` property is unset. See [`VinylM
 
 &nbsp;
 
+&nbsp;
+
 # Advanced
 
-The following config macros relate to more technical and less generally applicable behaviours within Vinyl.
+The following config macros relate to more technical, less generally applicable, behaviours within Vinyl.
 
 &nbsp;
 
@@ -135,6 +137,14 @@ How much debug spam to chuck at the debug log. This macro can have one of three 
 |`0`  |Minimum, warnings only                                            |
 |`1`  |Some, messages created when interacting with most API functions   |
 |`2`  |Obnoxious amounts, updates for virtually every internal operation|
+
+&nbsp;
+
+## `VINYL_DEBUG_SHOW_FRAMES`
+
+*Default value: `false`*
+
+Whether to show the frame number in debug messages.
 
 &nbsp;
 
