@@ -24,6 +24,16 @@ I've always found the use of normalised values for pitch confusing. By setting [
 
 &nbsp;
 
+## Transposition
+
+Tuning sound effects to harmonise nicely with background music is a technique that designers regularly employ to tie a game's audio together. Vinyl allows for audio to track changes in pitch per label, asset, pattern, and instance. The entire system can also have a transposition applied to it - though the global transposition state only applies to sounds that are already being transposed (even if the local resultant transposition value is `0`).
+
+To this end, transposition can be enabled in multiple ways. A Vinyl instance will inherit transposition value additively from any labels for the instance, from assets and patterns, and the per-instance transposition value can be set by calling [`VinylTransposeSet()`](Semitones).
+
+Generally speaking, you'll want to set your system-wide transposition based on the background music you're playing. Any instance that has inherited a non-`undefined` transposition (even if it's `0`) will then track along with the global transposition state, hopefully tracking along with the tonality of your background music.
+
+&nbsp;
+
 ## Asset
 
 An asset is any [sound asset](https://manual.yoyogames.com/The_Asset_Editors/Sounds.htm) added to the GameMaker IDE. You should aim to further define properties for these assets to [Vinyl's internal configuration file](Configuration) in order to take advantage of Vinyl's features. Vinyl allows you to control the gain and pitch for assets, as well as assigning assets to labels for bulk control.
