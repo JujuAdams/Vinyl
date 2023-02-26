@@ -329,7 +329,7 @@ Plays a random audio asset from an array in the `assets` property.
 
 Plays audio assets sequentially from an array in the `assets` property.
 
-Queue patterns can additionally have the `behavior` property which determines the default behavior when playing the pattern. This is the same values as set by [`VinylQueueBehaviorSet()`](https://www.jujuadams.com/Vinyl/#/5.0/Queue-Patterns). The behaviour property defaults to `0` which plays the queue once (and assets will be removed from the queue once they finish playing).
+Queue patterns can additionally have the `behavior` property which determines the default behavior when playing the pattern. This is the same values as set by [`VinylQueueBehaviorSet()`](Queue-Patterns). The behaviour property defaults to `0` which plays the queue once (and assets will be removed from the queue once they finish playing).
 
 ?> Setting the behavior for an instance of a Queue pattern will override the behavior set on the pattern. This means any change to a pattern's `behavior` property by live updating will be ignored if `VinylQueueBehaviorSet()` has ever been called for an instance.
 
@@ -337,9 +337,11 @@ Queue patterns can additionally have the `behavior` property which determines th
 
 Plays audio assets simultaneously from an array in the `assets` property.
 
-Queue patterns may further have the `blend` and `sync` properties. These are the same values as set by [`VinylMultiBlendSet()` or `VinylMultiSyncSet()`](https://www.jujuadams.com/Vinyl/#/5.0/Queue-Patterns). You can control the blend value of a Multi pattern using a knob (but not the sync state). The blend factor defaults to `undefined` (no blending, all tracks are played at a gain of `1`), and the sync state defaults to `false` (no synchronisation).
+Multi patterns may further have the `blend` and `sync` properties. These are the same values as set by [`VinylMultiBlendSet()` or `VinylMultiSyncSet()`](Multi-Patterns). You can control the blend value of a Multi pattern using a knob (but not the sync state). The blend factor defaults to `undefined` (no blending, all tracks are played at a gain of `1`), and the sync state defaults to `false` (no synchronisation).
 
-?> Setting the blend factor or sync state for an instance of a Multi pattern will override the values set on the pattern. This means any change to a pattern's `blend` or `sync` property by live updating (or using a knob() will be ignored if `VinylMultiBlendSet()` or `VinylMultiSyncSet()` have ever been called for an instance.
+?> Setting the blend factor or sync state for an instance of a Multi pattern will override the values set on the pattern. This means any change to a pattern's `blend` or `sync` property by live updating (or using a knob will be ignored if `VinylMultiBlendSet()` or `VinylMultiSyncSet()` have ever been called for an instance.
+
+Out of the box and without other alteration, the `blend` property (and `VinylMultiBlendSet()`) expects non-normalized values. This means that for a Multi pattern with 3 children, the `blend` property can range from `0` (100% gain for the child with index 0) to `2` (100% fain for the child with index 2). If you set the `blend normalize` property to `true` then a Multi pattern with instead use a normalized value for both `blend` and `VinylMultiBlendSet()` for the pattern in question, ranging from `0` to `1`. You can also change [`VINYL_DEFAULT_MULTI_BLEND_NORMALIZE`](Config-Macros) to change the default behaviour when `blend normalize` is not set.
 
 &nbsp;
 
