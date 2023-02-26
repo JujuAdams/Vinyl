@@ -115,7 +115,7 @@ A pitch value can be specified as either a number, a two-element array containin
 
 *Default value: `null`*
 
-[Transposing](Terminology) audio can give an extra musical flair to your sound design. The transposition value is measured in semitones of the standard Western diatonic scale, and no affordance is made for key (major/minor) otherwise. Any transposition value set on labels is further modified by transposition values on assets, patterns, or instances themselves.
+[Transposing](Terminology) audio can give an extra musical flair to your sound design. The transposition value is measured in semitones of the standard Western diatonic scale. Any transposition value set on labels is further modified by transposition values on assets, patterns, or instances themselves.
 
 The transposition value must be as a number, or a knob. Configuring a label to include the property definiton `transpose: @semitones` will set up the `semitones` knob to control the transposition of a label.
 
@@ -227,7 +227,7 @@ A pitch value can be specified as either a number, a two-element array containin
 
 *Default value: `null`*
 
-[Transposing](Terminology) audio can give an extra musical flair to your sound design. The transposition value is measured in semitones of the standard Western diatonic scale, and no affordance is made for key (major/minor) otherwise. Any transposition value set on assets is further modified by transposition values on labels, patterns, or instances themselves.
+[Transposing](Terminology) audio can give an extra musical flair to your sound design. The transposition value is measured in semitones of the standard Western diatonic scale. Any transposition value set on assets is further modified by transposition values on labels, patterns, or instances themselves.
 
 The transposition value must be as a number, or a knob. Configuring a label to include the property definiton `transpose: @semitones` will set up the `semitones` knob to control the transposition of an asset.
 
@@ -301,7 +301,7 @@ A pitch value can be specified as either a number, or as a two-element array con
 
 *Default value: `null`*
 
-[Transposing](Terminology) audio can give an extra musical flair to your sound design. The transposition value is measured in semitones of the standard Western diatonic scale, and no affordance is made for key (major/minor) otherwise. Any transposition value set on assets is further modified by transposition values on labels, assets, or instances themselves.
+[Transposing](Terminology) audio can give an extra musical flair to your sound design. The transposition value is measured in semitones of the standard Western diatonic scale. Any transposition value set on assets is further modified by transposition values on labels, assets, or instances themselves.
 
 The transposition value must be as a number, or a knob. Configuring a label to include the property definiton `transpose: @semitones` will set up the `semitones` knob to control the transposition of a pattern.
 
