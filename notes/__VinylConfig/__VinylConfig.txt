@@ -21,7 +21,6 @@
             limit: 1
         }
         sfx: {
-            pitch: 1.1
             children: {
                 speech: {
                     pitch: [0.75, 1.25]
@@ -38,7 +37,7 @@
     assets: {
         sndChickenNuggets: {
             label: music
-            loop point: [0.3, 2.8]
+            loop point: [0.33, 2.81]
         }
         
         sndOw: {

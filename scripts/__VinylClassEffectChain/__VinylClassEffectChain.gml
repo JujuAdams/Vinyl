@@ -54,106 +54,117 @@ function __VinylClassEffectChain(_name) constructor
             var _effectData = _busEffectArray[_i];
             var _effectType = string_lower(_effectData.type);
             
+            var _effect = __bus.effects[_i];
+            var _gmType = undefined;
+            
+            //Determine which effect to use
             if (_effectType == "bitcrusher")
             {
-                var _effect = audio_effect_create(AudioEffectType.Bitcrusher);
+                _gmType = AudioEffectType.Bitcrusher;
             }
             else if (_effectType == "delay")
             {
-                var _effect = audio_effect_create(AudioEffectType.Delay);
+                _gmType = AudioEffectType.Delay;
             }
             else if (_effectType == "gain")
             {
-                var _effect = audio_effect_create(AudioEffectType.Gain);
+                _gmType = AudioEffectType.Gain;
             }
             else if ((_effectType == "hpf") || (_effectType == "hpf2"))
             {
-                var _effect = audio_effect_create(AudioEffectType.HPF2);
+                _gmType = AudioEffectType.HPF2;
             }
             else if ((_effectType == "lpf") || (_effectType == "lpf2"))
             {
-                var _effect = audio_effect_create(AudioEffectType.LPF2);
+                _gmType = AudioEffectType.LPF2;
             }
             else if ((_effectType == "reverb") || (_effectType == "reverb1"))
             {
-                var _effect = audio_effect_create(AudioEffectType.Reverb1);
+                _gmType = AudioEffectType.Reverb1;
             }
             else if (_effectType == "tremolo")
             {
-                var _effect = audio_effect_create(AudioEffectType.Tremolo);
+                _gmType = AudioEffectType.Tremolo;
             }
             else
             {
                 __VinylError("Effect type \"", _effectType, "\" not recognised (", self, " index=", _i, ")");
             }
             
-            if (_effect != undefined)
+            //If the old effect is of a different type, make a new one
+            if ((_effect == undefined) || (_effect.type != _gmType))
             {
-                var _effectDataNameArray = variable_struct_get_names(_effectData);
-                var _j = 0;
-                repeat(array_length(_effectDataNameArray))
+                _effect = audio_effect_create(_gmType);
+                __bus.effects[_i] = _effect;
+            }
+            
+            //Set values for the effect
+            var _effectDataNameArray = variable_struct_get_names(_effectData);
+            var _j = 0;
+            repeat(array_length(_effectDataNameArray))
+            {
+                var _effectDataField = _effectDataNameArray[_j];
+                if (_effectDataField != "type")
                 {
-                    var _effectDataField = _effectDataNameArray[_j];
-                    if (_effectDataField != "type")
+                    var _value = _effectData[$ _effectDataField];
+                    
+                    //Special case for tremolo shape
+                    if (_effectDataField == "shape")
                     {
-                        var _value = _effectData[$ _effectDataField];
-                        
-                        if (_effectDataField == "shape")
+                        if (_value == "sine")
                         {
-                            if (_value == "sine")
-                            {
-                                _effect[$ _effectDataField] = AudioLFOType.Sine;
-                            }
-                            else if (_value == "square")
-                            {
-                                _effect[$ _effectDataField] = AudioLFOType.Square;
-                            }
-                            else if (_value == "triangle")
-                            {
-                                _effect[$ _effectDataField] = AudioLFOType.Triangle;
-                            }
-                            else if (_value == "sawtooth")
-                            {
-                                _effect[$ _effectDataField] = AudioLFOType.Sawtooth;
-                            }
-                            else if (_value == "inverse sawtooth")
-                            {
-                                _effect[$ _effectDataField] = AudioLFOType.InvSawtooth;
-                            }
-                            else
-                            {
-                                __VinylError("Tremolo effect shape type \"", _value, "\" not recognised");
-                            }
+                            _effect[$ _effectDataField] = AudioLFOType.Sine;
+                        }
+                        else if (_value == "square")
+                        {
+                            _effect[$ _effectDataField] = AudioLFOType.Square;
+                        }
+                        else if (_value == "triangle")
+                        {
+                            _effect[$ _effectDataField] = AudioLFOType.Triangle;
+                        }
+                        else if (_value == "sawtooth")
+                        {
+                            _effect[$ _effectDataField] = AudioLFOType.Sawtooth;
+                        }
+                        else if (_value == "inverse sawtooth")
+                        {
+                            _effect[$ _effectDataField] = AudioLFOType.InvSawtooth;
                         }
                         else
                         {
-                            if (is_string(_value))
-                            {
-                                if (string_char_at(_value, 1) == "@")
-                                {
-                                    var _knobName = string_delete(_value, 1, 1);
-                                    var _knob = _knobDict[$ _knobName];
-                                    if (!is_struct(_knob)) __VinylError("Error in ", self, " for effect ", _i, "'s ", _effectDataField, " property\nKnob \"", _knobName, "\" doesn't exist");
-                                    
-                                    _knob.__TargetCreate(_effect, _effectDataField);
-                                    _value = _knob.__actualValue; //Set parameter to the current value of the knob
-                                }
-                                else
-                                {
-                                    __VinylError("Error in ", self, " for effect ", _i, "'s ", _effectDataField, " property\nEffect parameters must be a number or a knob name");
-                                }
-                            }
-                            
-                            _effect[$ _effectDataField] = _value;
+                            __VinylError("Tremolo effect shape type \"", _value, "\" not recognised");
                         }
                     }
-                    
-                    ++_j;
+                    else
+                    {
+                        //Handle knobs
+                        if (is_string(_value))
+                        {
+                            if (string_char_at(_value, 1) == "@")
+                            {
+                                var _knobName = string_delete(_value, 1, 1);
+                                var _knob = _knobDict[$ _knobName];
+                                if (!is_struct(_knob)) __VinylError("Error in ", self, " for effect ", _i, "'s ", _effectDataField, " property\nKnob \"", _knobName, "\" doesn't exist");
+                                
+                                _knob.__TargetCreate(_effect, _effectDataField);
+                                _value = _knob.__actualValue; //Set parameter to the current value of the knob
+                            }
+                            else
+                            {
+                                __VinylError("Error in ", self, " for effect ", _i, "'s ", _effectDataField, " property\nEffect parameters must be a number or a knob name");
+                            }
+                        }
+                        
+                        //Set the actual value, finally
+                        _effect[$ _effectDataField] = _value;
+                    }
                 }
                 
-                __bus.effects[_i] = _effect;
-                if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Effect bus ", __bus, " effects[", _i, "] = ", json_stringify(_effect));
+                ++_j;
             }
+            
+            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Effect chain ", self, " effects[", _i, "] = ", json_stringify(_effect));
             
             ++_i;
         }
@@ -162,7 +173,7 @@ function __VinylClassEffectChain(_name) constructor
         repeat(8 - _i)
         {
             __bus.effects[_i] = undefined;
-            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Effect bus ", __bus, " effects[", _i, "] = undefined");
+            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Effect chain ", self, " effects[", _i, "] = undefined");
             
             ++_i;
         }

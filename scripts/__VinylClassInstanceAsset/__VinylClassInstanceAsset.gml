@@ -69,6 +69,8 @@ function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
         
         if (_oldEmitter != __vinylEmitter)
         {
+            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Emitter changed, replaying ", self);
+            
             var _position = audio_sound_get_track_position(__gmInstance);
             audio_stop_sound(__gmInstance);
             __Play();
