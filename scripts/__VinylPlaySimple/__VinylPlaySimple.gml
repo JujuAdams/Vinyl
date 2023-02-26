@@ -42,10 +42,5 @@ function __VinylPlaySimple(_sound, _gain, _pitchLo, _pitchHi, _labelArray, _effe
         __VinylTrace("Playing ", audio_get_name(_sound), ", gain=", _gain, ", pitch=", _pitch, ", effect chain=", _effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), " (GMinst=", _instance, ")");
     }
     
-    if (_gain > VINYL_MAX_GAIN)
-    {
-        __VinylTrace("Warning! ", audio_get_name(_sound), " gain value ", _gain, " exceeds VINYL_MAX_GAIN (", VINYL_MAX_GAIN, ")");
-    }
-    
     return _instance;
 }

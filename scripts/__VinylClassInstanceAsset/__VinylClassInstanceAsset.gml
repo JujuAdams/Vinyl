@@ -53,11 +53,6 @@ function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
         }
         
         __LoopPointsSet();
-        
-        if (__gainOutput > VINYL_MAX_GAIN)
-        {
-            __VinylTrace("Warning! Gain value for ", self, " (", __gainOutput, ") exceeds VINYL_MAX_GAIN (", VINYL_MAX_GAIN, ")");
-        }
     }
     
     static __Migrate = function()
