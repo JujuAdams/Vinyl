@@ -58,7 +58,7 @@ Default falloff factor for Vinyl's custom emitters.
 
 *Default value: `0`*
 
-Values to set for queue patterns when the `behavior` property is unset. See [`VinylQueueBehaviorSet()`](Queue-Patterns) for more information.
+Value to set for queue patterns when the `behavior` property is unset. See [`VinylQueueBehaviorSet()`](Queue-Patterns) for more information.
 
 &nbsp;
 
@@ -66,7 +66,15 @@ Values to set for queue patterns when the `behavior` property is unset. See [`Vi
 
 *Default value: `undefined`*
 
-Values to set for queue patterns when the `blend` property is unset. See [`VinylMultiBlendSet()`](MUlti-Patterns) for more information.
+Value to set for queue patterns when the `blend` property is unset. See [`VinylMultiBlendSet()`](Multi-Patterns) for more information.
+
+&nbsp;
+
+## `VINYL_DEFAULT_MULTI_BLEND_NORMALIZE`
+
+*Default value: `false`*
+
+Value to set for queue patterns when the `blend normalize` property is unset. See the [config file documentation](Configuration) for more information.
 
 &nbsp;
 
@@ -74,7 +82,7 @@ Values to set for queue patterns when the `blend` property is unset. See [`Vinyl
 
 *Default value: `false`*
 
-Values to set for queue patterns when the `sync` property is unset. See [`VinylMultiSyncSet()`](MUlti-Patterns) for more information.
+Value to set for queue patterns when the `sync` property is unset. See [`VinylMultiSyncSet()`](Multi-Patterns) for more information.
 
 &nbsp;
 
