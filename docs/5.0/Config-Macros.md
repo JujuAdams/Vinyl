@@ -54,6 +54,44 @@ Default falloff factor for Vinyl's custom emitters.
 
 &nbsp;
 
+## `VINYL_DEFAULT_QUEUE_BEHAVIOR`
+
+*Default value: `0`*
+
+Values to set for queue patterns when the `behavior` property is unset. See [`VinylQueueBehaviorSet()`](Queue-Patterns) for more information.
+
+&nbsp;
+
+## `VINYL_DEFAULT_MULTI_BLEND`
+
+*Default value: `undefined`*
+
+Values to set for queue patterns when the `blend` property is unset. See [`VinylMultiBlendSet()`](MUlti-Patterns) for more information.
+
+&nbsp;
+
+## `VINYL_DEFAULT_MULTI_SYNC`
+
+*Default value: `false`*
+
+Values to set for queue patterns when the `sync` property is unset. See [`VinylMultiSyncSet()`](MUlti-Patterns) for more information.
+
+&nbsp;
+
+# Advanced
+
+The following config macros relate to more technical and less generally applicable behaviours within Vinyl.
+
+&nbsp;
+
+## `VINYL_CONFIG_VALIDATE_PATTERNS`
+
+*Default value: `true`*
+
+Whether to strictly filter config file properties to detect any incorrect or invalid names. This carries a performance penalty when loading.
+
+&nbsp;
+
 ## `VINYL_CONFIG_DECIBEL_GAIN`
 
 *Default value: `false`*
@@ -110,7 +148,7 @@ Whether to output extra debug information when reading configuration data.
 
 ## `VINYL_POOL_START_SIZE`
 
-*Default value: `30`*
+*Default value: `20`*
 
 Number of audio instances and emitters pre-created in the pool.
 
