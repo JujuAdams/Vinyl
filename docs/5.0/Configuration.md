@@ -492,9 +492,9 @@ Basic volume control. Equivalent to `AudioEffectType.Gain`.
 
 ## Knobs
 
-Vinyl allows you to modify properties across assets, labels, patterns, and effect chains using "knobs". You can read more about knobs [here](Terminology).
+Vinyl allows you to modify properties across labels, assets, patterns, and effect chains using "knobs". You can read more about knobs [here](Terminology).
 
-Knobs can be defined in two ways (see below for two examples). Either a knob can be an object with two properties (`default` and `range`), or a knob can be a number. If you set a knob to be a number then the range is presumed to be `0` to `1` and the the number specified is presumed to be the default output value for the knob.
+Knobs can be defined in two ways (see below for two examples). Either a knob can be an object with three properties (`default`, `input range`, `output range`), or a knob can be a number. If you set a knob to be a number then the number specified is presumed to be the default output value for the knob, and the knob will have no limit on the input or output range (the value set for the knob will be passed through to the output).
 
 Knobs can be attached to properties where indicated. A connection to a knob should be specified in the configuration file by using the `@` symbol followed by the name of the knob, for example `@spookiness` will create a refernce to the `spookiness` knob.
 
@@ -502,15 +502,23 @@ Knobs can be attached to properties where indicated. A connection to a knob shou
 
 *Default value: N/A*
 
-The default output value from the knob. This will be clamped within the defined range (if not specified, the range is `0` to `1`).
+The default output value from the knob. This will be clamped within the defined output range (which, if not specified, is `0` to `1`).
 
 ?> The `default` property must be defined.
 
-### `range`
+### `input range`
 
 *Default value: `[0, 1]`*
 
-The range of output values that this knob will emit. An input value of `0` as set by [`VinylKnobSet()`](Knobs) will return the low end of the range, a value of `1` will return the high end of the range.
+The range of input values that this knob will accept. The input value is remapped onto the output range before setting values for labels, assets, and patterns.
+
+&nbsp;
+
+### `output range`
+
+*Default value: `[0, 1]`*
+
+The range of output values that this knob will emit.
 
 &nbsp;
 
@@ -523,7 +531,7 @@ The range of output values that this knob will emit. An input value of `0` as se
 
         delayTime: {
             default: 0.4
-            range: [0.3, 0.8]
+            output range: [0.3, 0.8]
         }
     }
     

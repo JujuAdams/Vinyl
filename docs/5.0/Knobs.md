@@ -41,7 +41,7 @@ If the knob has not had a value set, or the knob has been reset (see `VinylKnobR
 
 ## `VinylKnobOutputGet`
 
-`VinylKnobSet(name)`
+`VinylKnobOutputGet(name)`
 
 &nbsp;
 
