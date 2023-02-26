@@ -27,7 +27,7 @@
 
 //Whether to strictly filter config file properties to detect any incorrect or invalid names. This
 //carries a performance penalty when loading.
-#macro VINYL_CONFIG_VALIDATE_PATTERNS  true
+#macro VINYL_CONFIG_VALIDATE_PROPERTIES  true
 
 //Controls how the config file (__VinylConfig) is read regarding gain values
 //Setting this macro to <true> will cause Vinyl to treat gain values as decibels (dbFS)

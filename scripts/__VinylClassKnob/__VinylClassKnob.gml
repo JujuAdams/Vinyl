@@ -16,7 +16,7 @@ function __VinylClassKnob(_name) constructor
     
     static __Initialize = function(_knobData = 0)
     {
-        if (VINYL_CONFIG_VALIDATE_PATTERNS && is_struct(_knobData)) __VinylValidateStruct(_knobData, ["default", "range"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES && is_struct(_knobData)) __VinylValidateStruct(_knobData, ["default", "range"]);
         
         if (is_numeric(_knobData))
         {
