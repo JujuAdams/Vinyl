@@ -86,7 +86,7 @@ The following config macros relate to more technical, less generally applicable,
 
 &nbsp;
 
-## `VINYL_CONFIG_VALIDATE_PATTERNS`
+## `VINYL_CONFIG_VALIDATE_PROPERTIES`
 
 *Default value: `true`*
 
