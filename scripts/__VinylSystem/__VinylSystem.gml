@@ -1,4 +1,4 @@
-#macro __VINYL_VERSION  "5.0.11"
+#macro __VINYL_VERSION  "5.0.12"
 #macro __VINYL_DATE     "2023-02-26"
 
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.dat"
