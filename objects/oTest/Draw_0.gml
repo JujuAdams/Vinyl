@@ -20,6 +20,11 @@ UIButtonInline("Stop all", function()
     VinylStopAll();
 });
 
+UIButtonInline("Test tone", function()
+{
+    music = VinylPlay(snd1KHz, true);
+});
+
 UINewline();
 UINewline();
 
