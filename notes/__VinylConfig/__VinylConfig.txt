@@ -48,12 +48,10 @@
             label: sfx
         }
         
-        sndBleep0: {
+        [sndBleep0, sndBleep1,  sndBleep2,  sndBleep3,
+         sndBleep4, sndBleep5,  sndBleep6,  sndBleep7,
+         sndBleep8, sndBleep9, sndBleep10, sndBleep11]: {
             label: sfx
-            gain: 0.5
-            copyTo: [sndBleep1,  sndBleep2,  sndBleep3,  sndBleep4,
-                     sndBleep5,  sndBleep6,  sndBleep7,  sndBleep8,
-                     sndBleep9, sndBleep10, sndBleep11]
         }
     }
     
