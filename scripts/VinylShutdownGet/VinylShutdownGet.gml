@@ -1,5 +1,8 @@
 /// Returns whether the a Vinyl playback instance is fading out (in "shutdown" mode)
-/// This function cannot be used to target Vinyl labels
+/// Shutdown mode is started by calling VinylFadeOut()
+/// 
+/// This function cannot be used to target Vinyl labels as shutdown state is set
+/// per instance
 /// 
 /// @param vinylID
 
