@@ -215,7 +215,15 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
             }
             else
             {
-                var _scaled = __blendFactorOutput*(array_length(__gainArray) - 1);
+                if (__pattern.__blendNormalize)
+                {
+                    var _scaled = clamp(__blendFactorOutput, 0, 1)*(array_length(__gainArray) - 1);
+                }
+                else
+                {
+                    var _scaled = clamp(__blendFactorOutput, 0, array_length(__gainArray) - 1);
+                }
+                
                 var _i = 0;
                 repeat(array_length(__gainArray))
                 {

@@ -18,18 +18,19 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
     {
         var _knobDict = __VinylGlobalData().__knobDict;
         
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "effect chain", "label", "labels", "blend", "sync"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "effect chain", "label", "labels", "blend", "blend normalize", "blend normalise", "sync"]);
         
         //Set the gain/pitch state from the provided struct
-        var _assetArray      = _patternData[$ "assets"      ] ?? (_patternData[$ "asset"] ?? []);
-        var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-        var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
-        var _transpose       = _patternData[$ "transpose"   ];
-        var _loop            = _patternData[$ "loop"        ];
-        var _effectChainName = _patternData[$ "effect chain"] ?? _patternData[$ "effect"];
-        var _labelNameArray  = _patternData[$ "label"       ] ?? _patternData[$ "labels"];
-        var _blend           = _patternData[$ "blend"       ] ?? VINYL_DEFAULT_MULTI_BLEND;
-        var _sync            = _patternData[$ "sync"        ] ?? VINYL_DEFAULT_MULTI_SYNC;
+        var _assetArray      = _patternData[$ "assets"         ] ?? (_patternData[$ "asset"] ?? []);
+        var _gain            = _patternData[$ "gain"           ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+        var _pitch           = _patternData[$ "pitch"          ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+        var _transpose       = _patternData[$ "transpose"      ];
+        var _loop            = _patternData[$ "loop"           ];
+        var _effectChainName = _patternData[$ "effect chain"   ] ?? _patternData[$ "effect"];
+        var _labelNameArray  = _patternData[$ "label"          ] ?? _patternData[$ "labels"];
+        var _blend           = _patternData[$ "blend"          ] ?? VINYL_DEFAULT_MULTI_BLEND;
+        var _blendNormalize  = _patternData[$ "blend normalize"] ?? (_patternData[$ "blend normalise"] ?? VINYL_DEFAULT_MULTI_BLEND_NORMALIZE);
+        var _sync            = _patternData[$ "sync"           ] ?? VINYL_DEFAULT_MULTI_SYNC;
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
@@ -56,20 +57,28 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
             }
             else
             {
-                __VinylError("Error in ", self, "\nBlend must be a number, a knob name, or undefined");
+                __VinylError("Error in ", self, "\n\"blend\" must be a number, a knob name, or undefined");
             }
         }
         else if (!is_numeric(_gain) && !is_undefined(_gain))
         {
-            __VinylError("Error in ", self, "\nBlend must be a number, a knob name, or undefined");
+            __VinylError("Error in ", self, "\n\"blend\" must be a number, a knob name, or undefined");
         }
         
         __blendFactorLocal = _blend;
         
+        //Set the normalization state
+        if (!is_bool(_blendNormalize))
+        {
+            __VinylError("Error in pattern ", self, "\n\"blend normalize\" must be a boolean (<true> or <false>)");
+        }
+        
+        __blendNormalize = _blendNormalize;
+        
         //Set the sync state
         if (!is_bool(_sync))
         {
-            __VinylError("Error in pattern ", self, "\nSync must be a boolean (<true> or <false>)");
+            __VinylError("Error in pattern ", self, "\n\"sync\" must be a boolean (<true> or <false>)");
         }
         
         __sync = _sync;
