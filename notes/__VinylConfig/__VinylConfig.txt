@@ -76,10 +76,13 @@
         queue test: {
             type: queue
             assets: [
-                sndPop
+                { asset: sndPop, transpose:  0 }
                 { asset: sndPop, transpose:  4 }
                 { asset: sndPop, transpose:  7 }
                 { asset: sndPop, transpose: 12 }
+                { asset: sndPop, transpose:  7 }
+                { asset: sndPop, transpose:  4 }
+                { asset: sndPop, transpose:  0 }
             ]
         }
         

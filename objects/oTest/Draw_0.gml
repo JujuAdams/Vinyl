@@ -25,6 +25,18 @@ UIButtonInline("Test tone", function()
     music = VinylPlay(snd1KHz, true);
 });
 
+UITextInline("Global transpose = " + string(VinylGlobalTransposeGet()));
+
+UIButtonInline("Tranpose up", function()
+{
+    VinylGlobalTransposeSet(VinylGlobalTransposeGet() + 1);
+});
+
+UIButtonInline("Tranpose down", function()
+{
+    VinylGlobalTransposeSet(VinylGlobalTransposeGet() -1);
+});
+
 UINewline();
 UINewline();
 
