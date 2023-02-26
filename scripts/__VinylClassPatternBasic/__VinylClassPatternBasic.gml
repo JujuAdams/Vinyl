@@ -66,6 +66,6 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
     
     static __PlaySimple = function(_sound_UNUSED, _gain = 1, _pitch = 1)
     {
-        return __VinylPlaySimple(__asset, _gain*__gain, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, __effectChainName);
+        return __VinylPatternGet(__asset).__PlaySimple(__asset, _gain*__gain, _pitch*mean(__pitchLo, __pitchHi)); //TODO - Inherit properly
     }
 }

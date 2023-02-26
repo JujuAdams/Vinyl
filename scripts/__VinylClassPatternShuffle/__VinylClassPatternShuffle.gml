@@ -79,6 +79,6 @@ function __VinylClassPatternShuffle(_name, _adHoc) : __VinylClassPatternCommon()
     static __PlaySimple = function(_sound_UNUSED, _gain = 1, _pitch = 1)
     {
         var _pattern = __PopPattern();
-        return __VinylPatternGet(_pattern).__PlaySimple(_pattern, _gain, _pitch);
+        return __VinylPatternGet(_pattern).__PlaySimple(_pattern, _gain, _pitch); //TODO - Inherit properly
     }
 }

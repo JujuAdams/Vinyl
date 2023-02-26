@@ -3,6 +3,8 @@
 /// You cannot use Vinyl functions to later control/manipulate audio playback when using this function
 /// This function should only be used for short sound effects such as collecting coins
 /// 
+/// VinylPlaySimple() cannot be used to play Queue or Multi patterns
+/// 
 /// @param sound
 /// @param [gain=1]
 /// @param [pitch=1]
