@@ -13,6 +13,12 @@ function __VinylClassEmitterRef() constructor
         return self;
     }
     
+    static __InstanceRemove = function(_id)
+    {
+        if (__emitter != undefined) __emitter.__InstanceRemove(_id);
+        return self;
+    }
+    
     static __GetEmitter = function()
     {
         return (__emitter == undefined)? undefined : __emitter.__emitter;

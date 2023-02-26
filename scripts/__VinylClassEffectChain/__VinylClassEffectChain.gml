@@ -39,7 +39,12 @@ function __VinylClassEffectChain(_name) constructor
         return __emitter;
     }
     
-    static __InstanceAdd = function()
+    static __InstanceAdd = function(_id)
+    {
+        //Do nothing
+    }
+    
+    static __InstanceRemove = function(_id)
     {
         //Do nothing
     }

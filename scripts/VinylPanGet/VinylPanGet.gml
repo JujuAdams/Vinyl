@@ -13,8 +13,8 @@ function VinylPanGet(_id)
     var _instance = _idToInstanceDict[? _id];
     if (is_struct(_instance))
     {
-        var _panEmitter = _instance.__panEmitter;
-        if (is_struct(_panEmitter)) _pan = _panEmitter.__pan;
+        if (!_instance.__usingPanEmitter || (_instance.__vinylEmitter == undefined)) return undefined;
+        _pan = _instance.__vinylEmitter.__pan;
     }
     else if (_id == undefined)
     {

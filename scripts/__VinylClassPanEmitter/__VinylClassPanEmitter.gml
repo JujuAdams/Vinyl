@@ -55,6 +55,16 @@ function __VinylClassPanEmitter() constructor
         audio_emitter_bus(__emitter, (_effectChainStruct == undefined)? audio_bus_main : _effectChainStruct.__bus);
     }
     
+    static __InstanceAdd = function(_id)
+    {
+        //Do nothing!
+    }
+    
+    static __InstanceRemove = function(_id)
+    {
+        //Do nothing!
+    }
+    
     static __DepoolCallback = function()
     {
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " hosting emitter ", __emitter);

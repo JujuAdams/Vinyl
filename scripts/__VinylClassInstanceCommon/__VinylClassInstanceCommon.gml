@@ -49,8 +49,8 @@ function __VinylClassInstanceCommon() constructor
         __transposeUsing     = false;
         __transposeSemitones = 0;
         
-        __vinylEmitter = undefined;
-        __panEmitter   = undefined;
+        __vinylEmitter    = undefined;
+        __usingPanEmitter = false;
     }
     
     static __StateSetCommon = function(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan)
@@ -468,25 +468,60 @@ function __VinylClassInstanceCommon() constructor
         //Determine which emitter to use given the input arguments
         if (__initialEmitter != undefined)
         {
-            __vinylEmitter = __initialEmitter;
-            __vinylEmitter.__InstanceAdd(__id);
+            if (__vinylEmitter != __initialEmitter)
+            {
+                __EmitterRemove();
+                __vinylEmitter = __initialEmitter;
+                __vinylEmitter.__InstanceAdd(__id);
+            }
         }
         else
         {
-            if (__pan == undefined)
+            if (__pan != undefined)
             {
-                //Only use an emitter if the effect chain demands it
-                __vinylEmitter = __effectChainDict[$ __effectChainName];
+                //We're not already using a pan emitter, we need to use a new one
+                if (!__usingPanEmitter)
+                {
+                    __EmitterRemove();
+                    __vinylEmitter = _poolPanEmitter.__Depool();
+                    __usingPanEmitter = true;
+                }
+                
+                //Update the pan emitter
+                __vinylEmitter.__Pan(__pan);
+                __vinylEmitter.__Bus(__effectChainName);
             }
             else
             {
-                //Playback on a pan emitter
-                __panEmitter = _poolPanEmitter.__Depool();
-                __panEmitter.__Pan(__pan);
-                __panEmitter.__Bus(__effectChainName);
-                
-                __vinylEmitter = __panEmitter;
+                //Only use an emitter if the effect chain demands it
+                var _newVinylEmitter = __effectChainDict[$ __effectChainName];
+                if (_newVinylEmitter != __vinylEmitter)
+                {
+                    __EmitterRemove();
+                    __vinylEmitter = _newVinylEmitter;
+                }
             }
+        }
+    }
+    
+    static __EmitterRemove = function()
+    {
+        if (__vinylEmitter != undefined)
+        {
+            if (__usingPanEmitter)
+            {
+                with(__vinylEmitter)
+                {
+                    __VINYL_RETURN_SELF_TO_POOL
+                }
+            }
+            else
+            {
+                __vinylEmitter.__InstanceRemove(__id);
+            }
+            
+            __vinylEmitter    = undefined;
+            __usingPanEmitter = false;
         }
     }
     
@@ -548,19 +583,7 @@ function __VinylClassInstanceCommon() constructor
     {
         ds_map_delete(__idToInstanceDict, __id);
         
-        //If we're playing on a pan emitter, pool it
-        if (__panEmitter != undefined)
-        {
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " was using ", __panEmitter, ", pooling it");
-            
-            with(__panEmitter)
-            {
-                __VINYL_RETURN_SELF_TO_POOL
-            }
-            
-            __panEmitter = undefined;
-        }
-        
+        __EmitterRemove();
         __LabelRemove();
         __Stop();
         __StateReset();
@@ -585,7 +608,7 @@ function __VinylClassInstanceCommon() constructor
         if (__transposeUsing) __pitchOutput *= __VinylSemitoneToPitch(__globalData.__transposeSemitones + __transposeSemitones);
         __pitchOutput = __pitchOutputNoLabels*__pitchLabels;
         
-        if (__panEmitter != undefined) __panEmitter.__UpdatePosition();
+        if (__usingPanEmitter && (__vinylEmitter != undefined)) __vinylEmitter.__UpdatePosition();
     }
     
     static __TickCommon = function(_deltaTimeFactor)

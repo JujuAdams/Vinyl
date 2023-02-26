@@ -158,6 +158,21 @@ function __VinylClassEmitter() constructor
         array_push(__instanceIDArray, __id);
     }
     
+    static __InstanceRemove = function(_id)
+    {
+        static _closure = {
+            __value: undefined,
+        };
+        
+        static _function = method(_closure, function(_value)
+        {
+            return (__value != _value);
+        });
+        
+        _closure.__value = _id;
+        array_resize(__instanceIDArray, array_filter_ext(__instanceIDArray, _function));
+    }
+    
     static __ManagePosition = function()
     {
         if (__mode == 0)
