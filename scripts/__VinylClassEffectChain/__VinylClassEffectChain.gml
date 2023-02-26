@@ -169,7 +169,7 @@ function __VinylClassEffectChain(_name) constructor
                 ++_j;
             }
             
-            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Effect chain ", self, " effects[", _i, "] = ", json_stringify(_effect));
+            if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Effect chain ", self, " effects[", _i, "] = ", json_stringify(_effect));
             
             ++_i;
         }
@@ -178,7 +178,7 @@ function __VinylClassEffectChain(_name) constructor
         repeat(8 - _i)
         {
             __bus.effects[_i] = undefined;
-            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Effect chain ", self, " effects[", _i, "] = undefined");
+            if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Effect chain ", self, " effects[", _i, "] = undefined");
             
             ++_i;
         }
