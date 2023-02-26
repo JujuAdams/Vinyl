@@ -12,7 +12,7 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     
     static __Initialize = function(_patternData = {})
     {
-        if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["gain", "pitch", "transpose", "loop", "effect chain", "label", "labels"]);
+        if (VINYL_CONFIG_VALIDATE_PATTERNS) __VinylValidateStruct(_patternData, ["gain", "pitch", "transpose", "loop", "effect chain", "label", "labels"]);
         
         var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);

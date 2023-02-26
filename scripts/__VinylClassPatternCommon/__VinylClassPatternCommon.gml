@@ -71,25 +71,6 @@ function __VinylClassPatternCommon()
         return __loop;
     }
     
-    static __ValidateStruct = function(_dataStruct, _expectedVariableArray)
-    {
-        if (!VINYL_CONFIG_VALIDATE_PATTERNS) return;
-        
-        //Iterate over every member variable and check to see if it's present in our list of permitted variable names
-        var _namesArray = variable_struct_get_names(_dataStruct);
-        var _i = 0;
-        repeat(array_length(_namesArray))
-        {
-            var _name = _namesArray[_i];
-            if (!array_contains(_expectedVariableArray, _name))
-            {
-                __VinylError("Property \"", _name, "\" cannot be used with ", __patternType, "-type patterns");
-            }
-            
-            ++_i;
-        }
-    }
-    
     static __InitializeAssetArray = function(_assetArray)
     {
         if (array_length(_assetArray) <= 0) __VinylError("Error in ", self, "\n", __patternType, "-type patterns must have at least one asset");

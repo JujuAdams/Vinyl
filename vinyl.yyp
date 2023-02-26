@@ -160,6 +160,7 @@
     {"id":{"name":"VinylLiveUpdateSet","path":"scripts/VinylLiveUpdateSet/VinylLiveUpdateSet.yy",},},
     {"id":{"name":"VinylQueuePush","path":"scripts/VinylQueuePush/VinylQueuePush.yy",},},
     {"id":{"name":"sndCat","path":"sounds/sndCat/sndCat.yy",},},
+    {"id":{"name":"__VinylValidateStruct","path":"scripts/__VinylValidateStruct/__VinylValidateStruct.yy",},},
     {"id":{"name":"__VinylBufferReadLooseJSON","path":"scripts/__VinylBufferReadLooseJSON/__VinylBufferReadLooseJSON.yy",},},
     {"id":{"name":"__VinylClassInstanceAsset","path":"scripts/__VinylClassInstanceAsset/__VinylClassInstanceAsset.yy",},},
     {"id":{"name":"sndBleep9","path":"sounds/sndBleep9/sndBleep9.yy",},},

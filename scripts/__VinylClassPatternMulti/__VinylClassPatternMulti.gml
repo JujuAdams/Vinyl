@@ -18,7 +18,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
     {
         var _knobDict = __VinylGlobalData().__knobDict;
         
-        if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "effect chain", "label", "labels", "blend", "sync"]);
+        if (VINYL_CONFIG_VALIDATE_PATTERNS) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "effect chain", "label", "labels", "blend", "sync"]);
         
         //Set the gain/pitch state from the provided struct
         var _assetArray      = _patternData[$ "assets"      ] ?? (_patternData[$ "asset"] ?? []);
