@@ -3,7 +3,11 @@
 
 function __VinylConvertPatternNameToConstructor(_patternName, _string = "basic")
 {
-    if (_string == "basic")
+    if (_string == "asset")
+    {
+        return __VinylClassPatternAsset;
+    }
+    else if (_string == "basic")
     {
         return __VinylClassPatternBasic;
     }

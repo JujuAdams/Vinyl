@@ -1,6 +1,7 @@
 /// Returns the type for a Vinyl instance
 /// 
 /// The value returned can be one of the following:
+///   "asset"
 ///   "basic"
 ///   "queue"
 ///   "multi"

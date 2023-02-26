@@ -8,6 +8,7 @@ function __VinylClassKnobTarget(_scope, _property) constructor
     
     if (is_instanceof(__scope, __VinylClassLabel)
     ||  is_instanceof(__scope, __VinylClassPatternFallback)
+    ||  is_instanceof(__scope, __VinylClassPatternAsset)
     ||  is_instanceof(__scope, __VinylClassPatternBasic)
     ||  is_instanceof(__scope, __VinylClassPatternShuffle)
     ||  is_instanceof(__scope, __VinylClassPatternQueue)

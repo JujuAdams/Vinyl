@@ -24,6 +24,7 @@ function __VinylInitialize()
     __VinylValidateMacros();
     
     var _globalData = __VinylGlobalData();
+    _globalData.__poolAsset.__Populate(VINYL_POOL_START_SIZE);
     _globalData.__poolBasic.__Populate(VINYL_POOL_START_SIZE);
     _globalData.__poolQueue.__Populate(VINYL_POOL_START_SIZE);
     _globalData.__poolMulti.__Populate(VINYL_POOL_START_SIZE);
