@@ -284,7 +284,7 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static __Tick = function(_deltaTimeFactor)
     {
-        if ((__shortestIndex <= array_length(__childArray)) || !__childArray[__shortestIndex].__IsPlaying())
+        if ((__shortestIndex >= array_length(__childArray)) || !__childArray[__shortestIndex].__IsPlaying())
         {
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Shortest instance for ", self, " is no longer playing, returning to pool");
             __VINYL_RETURN_SELF_TO_POOL
