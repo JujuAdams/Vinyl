@@ -15,6 +15,9 @@
 #macro VINYL_DEFAULT_FALLOFF_MAX     200
 #macro VINYL_DEFAULT_FALLOFF_FACTOR    1
 
+//Default values to set for queue and multi patterns when the <behavior>, <blend>, and <sync>
+//properties are unsert. See VinylQueueBehaviorSet(), VinylMultiBlendSet(), and VinylMultiSyncSet()
+//for more information
 #macro VINYL_DEFAULT_QUEUE_BEHAVIOR  0
 #macro VINYL_DEFAULT_MULTI_BLEND     undefined
 #macro VINYL_DEFAULT_MULTI_SYNC      false
@@ -22,6 +25,8 @@
 
 #region Advanced
 
+//Whether to strictly filter config file properties to detect any incorrect or invalid names. This
+//carries a performance penalty when loading.
 #macro VINYL_CONFIG_VALIDATE_PATTERNS  true
 
 //Controls how the config file (__VinylConfig) is read regarding gain values
@@ -50,10 +55,10 @@
 //  0 = minimum, warnings only
 //  1 = some, messages created when interacting with most API functions
 //  2 = obnoxious amounts, updates for virtually every internal operation
-#macro VINYL_DEBUG_LEVEL  2
+#macro VINYL_DEBUG_LEVEL  0
 
 //Whether to show the frame number in debug messages
-#macro VINYL_DEBUG_SHOW_FRAMES  true
+#macro VINYL_DEBUG_SHOW_FRAMES  false
 
 //Whether to output extra debug information when reading configuration data
 #macro VINYL_DEBUG_READ_CONFIG  false
