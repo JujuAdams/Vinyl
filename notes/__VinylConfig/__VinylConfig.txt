@@ -77,9 +77,9 @@
             type: queue
             assets: [
                 sndPop
-                { asset: sndPop, pitch: 1.1 }
-                { asset: sndPop, pitch: 1.2 }
-                { asset: sndPop, pitch: 1.3 }
+                { asset: sndPop, transpose:  4 }
+                { asset: sndPop, transpose:  7 }
+                { asset: sndPop, transpose: 12 }
             ]
         }
         

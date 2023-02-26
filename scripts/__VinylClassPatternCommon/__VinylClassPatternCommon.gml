@@ -205,6 +205,34 @@ function __VinylClassPatternCommon()
         }
     }
     
+    static __InitializeTranspose = function(_transpose)
+    {
+        var _knobDict = __VinylGlobalData().__knobDict;
+        
+        if (is_string(_transpose))
+        {
+            if (string_char_at(_transpose, 1) == "@")
+            {
+                var _knobName = string_delete(_transpose, 1, 1);
+                var _knob = _knobDict[$ _knobName];
+                if (!is_struct(_knob)) __VinylError("Error in ", self, " for transpose property\nKnob \"", _knobName, "\" doesn't exist");
+            
+                _knob.__TargetCreate(self, "transpose");
+                _transpose = _knob.__actualValue; //Set transpose to the current value of the knob
+            }
+            else
+            {
+                __VinylError("Error in ", self, "\nTranspose must be a number or a knob name");
+            }
+        }
+        else if (!is_numeric(_transpose) && !is_undefined(_transpose))
+        {
+            __VinylError("Error in ", self, "\nTranspose must be a number or a knob name");
+        }
+        
+        __transpose = _transpose;
+    }
+    
     static __InitializeLoop = function(_loop)
     {
         if (is_bool(_loop) || is_undefined(_loop))

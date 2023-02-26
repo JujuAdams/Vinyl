@@ -16,12 +16,13 @@ function __VinylClassPatternQueue(_name, _adHoc) : __VinylClassPatternCommon() c
     
     static __Initialize = function(_patternData = {})
     {
-        if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "loop", "effect chain", "label", "labels", "behavior", "behaviour"]);
+        if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "effect chain", "label", "labels", "behavior", "behaviour"]);
         
         //Set the gain/pitch state from the provided struct
         var _assetArray      = _patternData[$ "assets"      ] ?? (_patternData[$ "asset"] ?? []);
         var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+        var _transpose       = _patternData[$ "transpose"   ];
         var _loop            = _patternData[$ "loop"        ];
         var _effectChainName = _patternData[$ "effect chain"] ?? _patternData[$ "effect"];
         var _labelNameArray  = _patternData[$ "label"       ] ?? _patternData[$ "labels"];
@@ -33,6 +34,7 @@ function __VinylClassPatternQueue(_name, _adHoc) : __VinylClassPatternCommon() c
         __InitializeAssetArray(_assetArray);
         __InitializeGain(_gain);
         __InitializePitch(_pitch);
+        __InitializeTranspose(_transpose);
         __InitializeLoop(_loop);
         __InitializeEffectChain(_effectChainName);
         __InitializeLabelArray(_labelNameArray);

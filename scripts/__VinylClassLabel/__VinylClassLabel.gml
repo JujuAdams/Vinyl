@@ -26,6 +26,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         //Unpack the definition data
         var _gain            = _labelData[$ "gain"               ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _labelData[$ "pitch"              ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+        var _transpose       = _labelData[$ "transpose"          ];
         var _loop            = _labelData[$ "loop"               ] ?? undefined;
         var _limit           = _labelData[$ "limit"              ];
         var _limitFadeOut    = _labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE;
@@ -112,6 +113,38 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         else
         {
             __VinylError("Error in ", self, "\nPitch must be either a number greater than zero, a two-element array, or a knob name");
+        }
+        
+        
+        
+        //Sort out the pitch
+        __configTransposeKnob = false;
+        
+        if (is_string(_transpose))
+        {
+            if (string_char_at(_transpose, 1) == "@")
+            {
+                var _knobName = string_delete(_transpose, 1, 1);
+                var _knob = _knobDict[$ _knobName];
+                if (!is_struct(_knob)) __VinylError("Error in ", self, " for transpose property\nKnob \"", _knobName, "\" doesn't exist");
+            
+                _knob.__TargetCreate(self, "transpose");
+                __configTranspose = _knob.__actualValue; //Set transpose to the current value of the knob
+                
+                __configTransposeKnob = true;
+            }
+            else
+            {
+                __VinylError("Error in ", self, "\nTranspose must be a number or a knob name");
+            }
+        }
+        else if (is_numeric(_transpose) || is_undefined(_transpose))
+        {
+            __configTranspose = _transpose;
+        }
+        else
+        {
+            __VinylError("Error in ", self, "\nTranspose must be a number or a knob name");
         }
         
         

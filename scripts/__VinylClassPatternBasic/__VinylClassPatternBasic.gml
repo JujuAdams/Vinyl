@@ -17,11 +17,12 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
     
     static __Initialize = function(_patternData = {})
     {
-        if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "loop", "effect chain", "label", "labels", "loop point", "loop points"]);
+        if (VINYL_CONFIG_VALIDATE_PATTERNS) __ValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "effect chain", "label", "labels", "loop point", "loop points"]);
         
         var _asset           = _patternData[$ "asset"       ] ?? _patternData[$ "assets"];
         var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+        var _transpose       = _patternData[$ "transpose"   ];
         var _loop            = _patternData[$ "loop"        ];
         var _effectChainName = _patternData[$ "effect chain"] ?? _patternData[$ "effect"];
         var _loopPoints      = _patternData[$ "loop points" ] ?? _patternData[$ "loop point"];
@@ -49,6 +50,7 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
         
         __InitializeGain(_gain);
         __InitializePitch(_pitch);
+        __InitializeTranspose(_transpose);
         __InitializeLoop(_loop);
         __InitializeEffectChain(_effectChainName);
         __InitializeLoopPoints(_loopPoints);
