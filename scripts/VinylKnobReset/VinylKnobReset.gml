@@ -1,4 +1,4 @@
-/// Resets the *output* value of a knob to the default defined in the config file
+/// Resets a knob to the default defined in the config file
 /// 
 /// @param name
 
@@ -13,5 +13,5 @@ function VinylKnobReset(_name)
         return;
     }
     
-    return _knob.__Set(undefined);
+    return _knob.__Reset();
 }

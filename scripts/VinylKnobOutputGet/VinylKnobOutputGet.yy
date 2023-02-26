@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylKnobDefaultGet",
+  "name": "VinylKnobOutputGet",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

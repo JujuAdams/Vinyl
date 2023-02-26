@@ -1,8 +1,5 @@
 /// Returns the current *input* value for a knob
 /// 
-/// If the knob has not had a value set, or the knob has been reset by VinylKnobReset(), this
-/// function will return <undefined>
-/// 
 /// @param name
 
 function VinylKnobGet(_name)
@@ -16,5 +13,5 @@ function VinylKnobGet(_name)
         return undefined;
     }
     
-    return _knob.__Get();
+    return _knob.__InputGet();
 }

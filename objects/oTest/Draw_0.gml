@@ -25,6 +25,9 @@ UIButtonInline("Test tone", function()
     music = VinylPlay(snd1KHz, true);
 });
 
+UINewline();
+UINewline();
+
 UITextInline("Global transpose = " + string(VinylGlobalTransposeGet()));
 
 UIButtonInline("Tranpose up", function()
@@ -35,6 +38,18 @@ UIButtonInline("Tranpose up", function()
 UIButtonInline("Tranpose down", function()
 {
     VinylGlobalTransposeSet(VinylGlobalTransposeGet() -1);
+});
+
+UITextInline("@delay time = " + string_format(VinylKnobGet("delay time"), 2, 2) + " -> " + string_format(VinylKnobOutputGet("delay time"), 2, 2));
+
+UIButtonInline("Delay up", function()
+{
+    VinylKnobSet("delay time", VinylKnobGet("delay time") + 0.1);
+});
+
+UIButtonInline("Delay down", function()
+{
+    VinylKnobSet("delay time", VinylKnobGet("delay time") - 0.1);
 });
 
 UINewline();

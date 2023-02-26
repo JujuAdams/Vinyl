@@ -153,7 +153,7 @@ function __VinylClassEffectChain(_name) constructor
                                 if (!is_struct(_knob)) __VinylError("Error in ", self, " for effect ", _i, "'s ", _effectDataField, " property\nKnob \"", _knobName, "\" doesn't exist");
                                 
                                 _knob.__TargetCreate(_effect, _effectDataField);
-                                _value = _knob.__actualValue; //Set parameter to the current value of the knob
+                                _value = _knob.__OutputGet(); //Set parameter to the current value of the knob
                             }
                             else
                             {

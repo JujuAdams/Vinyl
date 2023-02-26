@@ -1,8 +1,8 @@
-/// Returns the default *output* value for a knob
+/// Returns the current *output* value for a knob
 /// 
 /// @param name
 
-function VinylKnobDefaultGet(_name)
+function VinylKnobOutputGet(_name)
 {
     static _globalData = __VinylGlobalData();
     
@@ -13,5 +13,5 @@ function VinylKnobDefaultGet(_name)
         return undefined;
     }
     
-    return _knob.__default;
+    return _knob.__OutputGet();
 }

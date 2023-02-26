@@ -52,7 +52,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
                 if (!is_struct(_knob)) __VinylError("Error in ", self, " for blend property\nKnob \"", _knobName, "\" doesn't exist");
             
                 _knob.__TargetCreate(self, "blend");
-                _blend = _knob.__actualValue; //Set blend to the current value of the knob
+                _blend = _knob.__OutputGet(); //Set blend to the current value of the knob
             }
             else
             {

@@ -1,5 +1,4 @@
 /// Sets the *input* value of the named knob
-/// The input value should be from 0 to 1 (inclusive)
 /// 
 /// @param name
 /// @param value

@@ -122,7 +122,7 @@ function __VinylClassPatternCommon()
                 if (!is_struct(_knob)) __VinylError("Error in ", self, " for gain property\nKnob \"", _knobName, "\" doesn't exist");
             
                 _knob.__TargetCreate(self, "gain");
-                _gain = _knob.__actualValue; //Set gain to the current value of the knob
+                _gain = _knob.__OutputGet(); //Set gain to the current value of the knob
             }
             else
             {
@@ -150,7 +150,7 @@ function __VinylClassPatternCommon()
                 if (!is_struct(_knob)) __VinylError("Error in ", self, " for pitch property\nKnob \"", _knobName, "\" doesn't exist");
                 
                 _knob.__TargetCreate(self, "pitch");
-                __pitchLo = _knob.__actualValue; //Set pitch to the current value of the knob
+                __pitchLo = _knob.__OutputGet(); //Set pitch to the current value of the knob
                 __pitchHi = __pitchLo;
                 
                 __configPitchKnob = true;
@@ -199,7 +199,7 @@ function __VinylClassPatternCommon()
                 if (!is_struct(_knob)) __VinylError("Error in ", self, " for transpose property\nKnob \"", _knobName, "\" doesn't exist");
             
                 _knob.__TargetCreate(self, "transpose");
-                _transpose = _knob.__actualValue; //Set transpose to the current value of the knob
+                _transpose = _knob.__OutputGet(); //Set transpose to the current value of the knob
             }
             else
             {
