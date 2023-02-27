@@ -17,7 +17,7 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
     
     static __Initialize = function(_patternData = {})
     {
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "effect chain", "label", "labels", "loop point", "loop points"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "effect chain", "stack", "stack priority", "persistent", "label", "labels", "loop point", "loop points"]);
         
         var _asset           = _patternData[$ "asset"       ] ?? _patternData[$ "assets"];
         var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);

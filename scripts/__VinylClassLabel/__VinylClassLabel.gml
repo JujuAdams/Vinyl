@@ -21,7 +21,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __Initialize = function(_labelData = {})
     {
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_labelData, ["gain", "pitch", "transpose", "loop", "tag", "effect chain", "children"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_labelData, ["gain", "pitch", "transpose", "loop", "tag", "effect chain", "stack", "stack priority", "children"]);
         
         var _knobDict = __VinylGlobalData().__knobDict;
         

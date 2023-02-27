@@ -16,7 +16,7 @@ function __VinylClassPatternQueue(_name, _adHoc) : __VinylClassPatternCommon() c
     
     static __Initialize = function(_patternData = {})
     {
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "effect chain", "label", "labels", "behavior", "behaviour"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "effect chain", "stack", "stack priority", "persistent", "label", "labels", "behavior", "behaviour"]);
         
         //Set the gain/pitch state from the provided struct
         var _assetArray      = _patternData[$ "assets"      ] ?? (_patternData[$ "asset"] ?? []);
