@@ -23,6 +23,15 @@ function __VinylTick()
         ++_i;
     }
     
+    //Update stacks
+    var _stackArray = _globalData.__stackArray; //Don't use a static here because this struct can be recreated
+    var _i = 0;
+    repeat(array_length(_stackArray))
+    {
+        _stackArray[_i].__Tick();
+        ++_i;
+    }
+    
     //Update top-level instances. Each top-level instance then updates its children
     static _topLevelArray = _globalData.__topLevelArray;
     var _i = 0;

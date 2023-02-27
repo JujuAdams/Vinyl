@@ -32,6 +32,9 @@ function __VinylGlobalData()
         
         __knobDict:  {},
         __knobArray: [],
+        
+        __stackDict:  {},
+        __stackArray: [],
     };
     
     return _struct;

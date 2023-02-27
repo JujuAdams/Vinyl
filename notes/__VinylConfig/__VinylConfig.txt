@@ -3,6 +3,12 @@
 
 
 {
+    stacks: {
+        music: {
+            
+        }
+    }
+    
     knobs: {
         delay time: {
             output range: [0.3, 0.6]
