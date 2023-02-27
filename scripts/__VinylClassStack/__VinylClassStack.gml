@@ -114,6 +114,7 @@ function __VinylClassStack(_name) constructor
     {
         var _refresh = false;
         
+        //Remove any stopped instances
         var _i = 0;
         repeat(array_length(__instanceArray))
         {
