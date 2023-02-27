@@ -21,20 +21,18 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __Initialize = function(_labelData = {})
     {
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_labelData, ["gain", "pitch", "transpose", "loop", "limit", "limit fade out rate", "tag", "effect chain", "children"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_labelData, ["gain", "pitch", "transpose", "loop", "tag", "effect chain", "children"]);
         
         var _knobDict = __VinylGlobalData().__knobDict;
         
         //Unpack the definition data
-        var _gain            = _labelData[$ "gain"               ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-        var _pitch           = _labelData[$ "pitch"              ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
-        var _transpose       = _labelData[$ "transpose"          ];
-        var _loop            = _labelData[$ "loop"               ] ?? undefined;
-        var _persistent      = _labelData[$ "persistent"         ];
-        var _limit           = _labelData[$ "limit"              ];
-        var _limitFadeOut    = _labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE;
-        var _tagArray        = _labelData[$ "tag"                ] ?? _labelData[$ "tags"];
-        var _effectChainName = _labelData[$ "effect chain"       ];
+        var _gain            = _labelData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+        var _pitch           = _labelData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+        var _transpose       = _labelData[$ "transpose"   ];
+        var _loop            = _labelData[$ "loop"        ] ?? undefined;
+        var _persistent      = _labelData[$ "persistent"  ];
+        var _tagArray        = _labelData[$ "tag"         ] ?? _labelData[$ "tags"];
+        var _effectChainName = _labelData[$ "effect chain"];
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
@@ -156,24 +154,15 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         if (!is_bool(_loop) && !is_undefined(_loop)) __VinylError("Error in ", self, "\n\"loop\" property must be a boolean (<true> or <false>)");
         __configLoop = _loop;
         
-        
-        
         //Sort out the persistent state
         if (!is_bool(_persistent) && !is_undefined(_persistent)) __VinylError("Error in ", self, "\n\"persistent\" property must be a boolean (<true> or <false>)");
         __configPersistent = _loop;
-        
-        
-        
-        if (!is_undefined(_limit) && (!is_numeric(_limit) || (_limit <= 0))) __VinylError("Error in ", self, "\nInstance limit must be a number greater than zero");
-        __limitMaxCount = _limit;
-        
-        if (!is_numeric(_limitFadeOut) || (_limitFadeOut <= 0)) __VinylError("Error in ", self, "\nLimit-related fade in rate must be a number greater than zero");
-        __limitFadeOutRate = _limitFadeOut;
         
         //Convert the tag array into an array if necessary
         if (is_string(_tagArray)) _tagArray = [_tagArray];
         __tagArray = _tagArray;
         
+        //Sort out the effect chain name
         __effectChainName = _effectChainName ?? ((__parent != undefined)? __parent.__effectChainName : undefined);
         
         
@@ -192,7 +181,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         __gainOutput  = __gainLocal;
         __pitchOutput = __pitchLocal;
         
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating definition for ", self, ", gain=", __gainOutput, ", pitch=", __pitchOutput*__configPitchLo, " -> ", __pitchOutput*__configPitchHi, ", max instances=", __limitMaxCount);
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating definition for ", self, ", gain=", __gainOutput, ", pitch=", __pitchOutput*__configPitchLo, " -> ", __pitchOutput*__configPitchHi);
     }
     
     static __Store = function()
@@ -457,21 +446,6 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __InstanceAdd = function(_id)
     {
-        if ((__limitMaxCount != undefined) && (__limitMaxCount >= 0))
-        {
-            while(array_length(__topLevelArray) >= __limitMaxCount)
-            {
-                var _oldestInstance = __idToInstanceDict[? __topLevelArray[0]];
-                array_delete(__topLevelArray, 0, 1);
-                
-                if (_oldestInstance != undefined)
-                {
-                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " will exceed ", __limitMaxCount, " playing instance(s), fading out oldest ", _oldestInstance);
-                    _oldestInstance.__FadeOut(__limitFadeOutRate);
-                }
-            }
-        }
-        
         //Add this instance to each label's playing array
         //Playing instances are removed from labels inside the label's __Tick() method
         //  N.B. This has no protection for duplicate entries!
