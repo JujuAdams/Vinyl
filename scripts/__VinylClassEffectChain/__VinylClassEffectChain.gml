@@ -66,30 +66,37 @@ function __VinylClassEffectChain(_name) constructor
             if (_effectType == "bitcrusher")
             {
                 _gmType = AudioEffectType.Bitcrusher;
+                if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "gain", "factor", "resolution", "mix"]);
             }
             else if (_effectType == "delay")
             {
                 _gmType = AudioEffectType.Delay;
+                if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "time", "feedback", "mix"]);
             }
             else if (_effectType == "gain")
             {
                 _gmType = AudioEffectType.Gain;
+                if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "gain"]);
             }
             else if ((_effectType == "hpf") || (_effectType == "hpf2"))
             {
                 _gmType = AudioEffectType.HPF2;
+                if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "cutoff", "q"]);
             }
             else if ((_effectType == "lpf") || (_effectType == "lpf2"))
             {
                 _gmType = AudioEffectType.LPF2;
+                if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "cutoff", "q"]);
             }
             else if ((_effectType == "reverb") || (_effectType == "reverb1"))
             {
                 _gmType = AudioEffectType.Reverb1;
+                if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "size", "damp", "mix"]);
             }
             else if (_effectType == "tremolo")
             {
                 _gmType = AudioEffectType.Tremolo;
+                if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "rate", "intensity", "offset", "shape"]);
             }
             else
             {
