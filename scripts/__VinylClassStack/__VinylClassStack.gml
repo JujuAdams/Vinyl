@@ -8,6 +8,10 @@ function __VinylClassStack(_name) constructor
     
     __name = _name;
     
+    __duckedGain  = 0;
+    __duckRate    = VINYL_DEFAULT_DUCK_GAIN_RATE;
+    __duckPause   = true;
+    
     __maxPriority   = -infinity;
     __instanceArray = [];
     __priorityArray = [];
@@ -19,19 +23,58 @@ function __VinylClassStack(_name) constructor
         return "<stack " + string(__name) + ">";
     }
     
+    static __Update = function(_stackData)
+    {
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_stackData, ["ducked gain", "rate", "pause"]);
+        
+        __duckedGain = _stackData[$ "ducked gain"] ?? 0;
+        __duckRate   = _stackData[$ "rate"       ] ?? VINYL_DEFAULT_DUCK_GAIN_RATE;
+        __duckPause  = _stackData[$ "pause"      ] ?? true;
+        
+        if (!is_numeric(__duckedGain) || (__duckedGain < 0) || (__duckedGain > 1))
+        {
+            __VinylError("Error in ", self, "\n\"ducked gain\" must be a number between 0 and 1 (inclusive)");
+        }
+        
+        if (!is_numeric(__duckRate) || (__duckRate <= 0))
+        {
+            __VinylError("Error in ", self, "\n\"rate\" must be a number greater than 0");
+        }
+        
+        if (!is_bool(__duckPause))
+        {
+            __VinylError("Error in ", self, "\n\"pause\" must be either <true> or <false>");
+        }
+        
+        if (__duckPause && (__duckedGain > 0))
+        {
+            __VinylError("Error in ", self, "\n\"pause\" cannot be <true> is \"ducked gain\" is greater than 0");
+        }
+    }
+    
+    static __Destroy = function()
+    {
+        var _i = 0;
+        repeat(array_length(__instanceArray))
+        {
+            __instanceArray[_i].__GainDuckSet(1, __duckRate);
+            ++_i;
+        }
+    }
+    
     static __MaxPriorityGet = function()
     {
         return __maxPriority;
     }
     
-    static __Push = function(_priority, _id)
+    static __Push = function(_priority, _instance, _onInstantiate)
     {
         if (_priority < __maxPriority)
         {
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pushing ", __VinylInstanceGet(_id), " to stack \"", __name, "\" with lower priorty (", _priority, ") versus max (", __maxPriority, ")");
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pushing ", _instance, " to stack \"", __name, "\" with lower priorty (", _priority, ") versus max (", __maxPriority, ")");
             
             //We should duck down straight away since we're at a lower priority
-            VinylGainSet(_id, 0); //TODO - Replace with a specific stack gain value or pause
+            _instance.__GainDuckSet(__duckedGain, _onInstantiate? infinity : __duckRate, __duckPause, false);
             
             //Try to find an existing instance to replace
             var _i = 0;
@@ -39,29 +82,26 @@ function __VinylClassStack(_name) constructor
             {
                 if (__priorityArray[_i] == _priority)
                 {
-                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__VinylInstanceGet(__instanceArray[_i]), " on stack \"", __name, "\" shares priorty ", _priority, ", replacing it");
+                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__instanceArray[_i], " on stack \"", __name, "\" shares priorty ", _priority, ", replacing it");
                     
-                    //We found an existing instance with the same priority - stop the existing instance and replace with ourselves
-                    VinylStop(__instanceArray[_i]);
-                    __instanceArray[@ _i] = _id;
-                    
-                    //TOGO - Trigger pause (if necessary)
-                    
+                    //We found an existing instance with the same priority - fade out the existing instance and replace with ourselves
+                    __instanceArray[_i].__GainDuckSet(0, __duckRate, __duckPause, false);
+                    __instanceArray[@ _i] = _instance;
                     return;
                 }
                 
                 ++_i;
             }
             
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Adding ", __VinylInstanceGet(_id), " to stack \"", __name, "\"");
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Adding ", _instance, " to stack \"", __name, "\"");
             
             //If no instance exists to replace, add the incoming instance
-            array_push(__instanceArray, _id);
+            array_push(__instanceArray, _instance);
             array_push(__priorityArray, _priority);
         }
         else //priority >= maxPriority
         {
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pushing ", __VinylInstanceGet(_id), " to stack \"", __name, "\" with sufficient priorty (", _priority, ") versus max (", __maxPriority, ")");
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pushing ", _instance, " to stack \"", __name, "\" with sufficient priorty (", _priority, ") versus max (", __maxPriority, ")");
             
             __maxPriority = _priority;
             
@@ -71,31 +111,28 @@ function __VinylClassStack(_name) constructor
                 var _existingPriority = __priorityArray[_i];
                 if (_existingPriority < _priority)
                 {
-                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__VinylInstanceGet(__instanceArray[_i]), " on stack \"", __name, "\" has lesser priorty (", _existingPriority, ") than incoming (", _priority, ")");
+                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__instanceArray[_i], " on stack \"", __name, "\" has lesser priorty (", _existingPriority, ") than incoming (", _priority, ")");
                     
                     //We found an existing instance with a lower priority - duck the existing instance
-                    VinylGainSet(__instanceArray[_i], 0); //TODO - Replace with a specific stack gain value or pause
+                    __instanceArray[_i].__GainDuckSet(__duckedGain, __duckRate, __duckPause, false);
                 }
                 else if (_existingPriority == _priority)
                 {
-                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__VinylInstanceGet(__instanceArray[_i]), " on stack \"", __name, "\" shares priorty ", _priority, ", replacing it");
+                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__instanceArray[_i], " on stack \"", __name, "\" shares priorty ", _priority, ", replacing it");
                     
                     //We found an existing instance with the same priority - fade out the existing instance and replace with ourselves
-                    VinylStop(__instanceArray[_i]); //TODO - Replace with fade out
-                    __instanceArray[@ _i] = _id;
-                    
-                    //TOGO - Trigger fade in (if necessary)
-                    
+                    __instanceArray[_i].__GainDuckSet(0, __duckRate, false, true);
+                    __instanceArray[@ _i] = _instance;
                     return;
                 }
                 
                 ++_i;
             }
             
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Adding ", __VinylInstanceGet(_id), " to stack \"", __name, "\"");
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Adding ", _instance, " to stack \"", __name, "\"");
             
             //If no instance exists to replace, add the incoming instance
-            array_push(__instanceArray, _id);
+            array_push(__instanceArray, _instance);
             array_push(__priorityArray, _priority);
         }
     }
@@ -112,16 +149,17 @@ function __VinylClassStack(_name) constructor
     
     static __Tick = function()
     {
+        static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+        
         var _refresh = false;
         
         //Remove any stopped instances
         var _i = 0;
         repeat(array_length(__instanceArray))
         {
-            if (!VinylExists(__instanceArray[_i]))
+            if (!__instanceArray[_i].__IsPlaying())
             {
                 if (__priorityArray[_i] >= __maxPriority) _refresh = true;
-                
                 array_delete(__instanceArray, _i, 1);
                 array_delete(__priorityArray, _i, 1);
             }
@@ -150,21 +188,12 @@ function __VinylClassStack(_name) constructor
                 ++_i;
             }
             
-            //Activate whatever instance we 
+            //Activate whatever instance is now the highest priority
             if (_maxInstance != undefined)
             {
-                VinylGainSet(_maxInstance, 1); //TODO - Replace with a specific stack gain value or pause
+                _maxInstance.__Resume();
+                _maxInstance.__GainDuckSet(1, __duckRate, false, false);
             }
         }
-    }
-    
-    static __Update = function()
-    {
-        //TODO
-    }
-    
-    static __Destroy = function()
-    {
-        //TODO
     }
 }

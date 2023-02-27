@@ -4,9 +4,7 @@
 
 {
     stacks: {
-        music: {
-            
-        }
+        music: {} //An empty struct here is fine, it'll just use the default values
     }
     
     knobs: {

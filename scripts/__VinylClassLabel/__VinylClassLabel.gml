@@ -156,13 +156,13 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         //Sort out the stack
         if (is_undefined(_stack))
         {
-            __stack = _stack;
+            __stackName = _stack;
         }
         else if (is_string(_stack))
         {
             if (variable_struct_exists(_stackDict, _stack))
             {
-                __stack = _stack;
+                __stackName = _stack;
             }
             else
             {

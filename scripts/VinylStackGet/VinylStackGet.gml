@@ -3,9 +3,9 @@
 
 function VinylStackGet(_name, _priority)
 {
-    static _globalData = __VinylGlobalData();
+    static __stackDict = __VinylGlobalData().__stackDict;
     
-    var _stack = _globalData.__stackDict[$ _name];
+    var _stack = __stackDict[$ _name];
     if (!is_struct(_stack))
     {
         __VinylTrace("Warning! Stack \"", _name, "\" not recognised");

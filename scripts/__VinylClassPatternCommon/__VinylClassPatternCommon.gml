@@ -244,13 +244,13 @@ function __VinylClassPatternCommon()
         
         if (is_undefined(_stack))
         {
-            __stack = _stack;
+            __stackName = _stack;
         }
         else if (is_string(_stack))
         {
             if (variable_struct_exists(_stackDict, _stack))
             {
-                __stack = _stack;
+                __stackName = _stack;
             }
             else
             {

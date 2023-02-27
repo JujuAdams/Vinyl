@@ -10,6 +10,10 @@
 //Measured in units/second
 #macro VINYL_DEFAULT_PITCH_RATE  0.3
 
+//Default rate of gain adjument when a stack ducks a Vinyl instance
+//Measured in units/second
+#macro VINYL_DEFAULT_DUCK_GAIN_RATE  1
+
 //Default rate of knob adjument when approaching a knob target
 //Measured in units/second
 #macro VINYL_DEFAULT_KNOB_RATE  0.3

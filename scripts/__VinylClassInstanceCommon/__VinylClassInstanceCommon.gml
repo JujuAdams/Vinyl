@@ -39,6 +39,12 @@ function __VinylClassInstanceCommon() constructor
         __gainOutputNoLabels = 1;
         __gainOutput         = 1;
         
+        __gainDuck       = 1;
+        __gainDuckTarget = 1;
+        __gainDuckRate   = VINYL_DEFAULT_DUCK_GAIN_RATE;
+        __duckPause      = true;
+        __duckStop       = false;
+        
         __transposeLocal          = undefined;
         __transposePattern        = undefined;
         __transposeParent         = undefined;
@@ -153,6 +159,14 @@ function __VinylClassInstanceCommon() constructor
     static __GainOutputGet = function()
     {
         return __gainOutput;
+    }
+    
+    static __GainDuckSet = function(_targetGain, _rate, _pauseOnDuck, _stopOnDuck)
+    {
+        __gainDuckTarget = _targetGain;
+        __gainDuckRate   = _rate;
+        __duckPause    = _pauseOnDuck;
+        __duckStop     = _stopOnDuck;
     }
     
     #endregion
@@ -584,10 +598,12 @@ function __VinylClassInstanceCommon() constructor
     
     static __StackPush = function()
     {
+        static __stackDict = __VinylGlobalData().__stackDict;
+        
         //Only top-level instances can be pushed to a stack
         if (__parentInstance == undefined)
         {
-            var _stack         = __pattern.__stack;
+            var _stackName     = __pattern.__stackName;
             var _stackPriority = __pattern.__stackPriority;
             
             //If we still don't know if we're persistent or not, check the labels
@@ -595,16 +611,27 @@ function __VinylClassInstanceCommon() constructor
             repeat(array_length(__labelArray))
             {
                 var _label              = __labelArray[_i];
-                var _labelStack         = _label.__stack;
+                var _labelStackName     = _label.__stackName;
                 var _labelStackPriority = _label.__stackPriority;
                 
-                if (_stack == undefined) _stack = _labelStack;
+                if (_stackName == undefined) _stackName = _labelStackName;
                 _stackPriority = max(_labelStackPriority, _stackPriority);
                 
                 ++_i;
             }
             
-            if (_stack != undefined) VinylStackPush(_stack, _stackPriority, __id);
+            if (_stackName != undefined)
+            {
+                var _stack = __stackDict[$ _stackName];
+                if (_stack != undefined)
+                {
+                    _stack.__Push(_stackPriority, self, true);
+                }
+                else
+                {
+                    __VinylError(self, " stack \"", _stackName, "\" doesn't exist");
+                }
+            }
         }
     }
     
@@ -650,24 +677,23 @@ function __VinylClassInstanceCommon() constructor
     
     static __CalculateGainPitchTranspose = function(_deltaTimeFactor)
     {
-        var _gainDelta = clamp(__gainTarget - __gainLocal, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
-        
         __LabelGainPitchTransposeGet();
         
-        __gainLocal += _gainDelta;
-        __gainPattern = __pattern.__gain;
-        __gainParent = (__parentInstance == undefined)? 1 : __parentInstance.__gainOutputNoLabels;
-        __gainOutputNoLabels = __gainLocal*__gainPattern*__gainParent;
-        __gainOutput = __gainOutputNoLabels*__gainLabels;
+        __gainLocal          += clamp(__gainTarget - __gainLocal, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
+        __gainPattern         = __pattern.__gain;
+        __gainParent          = (__parentInstance == undefined)? 1 : __parentInstance.__gainOutputNoLabels;
+        __gainDuck           += clamp(__gainDuckTarget - __gainDuck, -_deltaTimeFactor*__gainDuckRate, _deltaTimeFactor*__gainDuckRate);
+        __gainOutputNoLabels  = __gainLocal*__gainPattern*__gainParent*__gainDuck;
+        __gainOutput          = __gainOutputNoLabels*__gainLabels;
         
-        __pitchLocal += clamp(__pitchTarget - __pitchLocal, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
-        __pitchPattern = lerp(__pattern.__pitchLo, __pattern.__pitchHi, __pitchRandomParam);
-        __pitchParent = (__parentInstance == undefined)? 1 : __parentInstance.__pitchOutputNoLabels;
-        __pitchOutputNoLabels = __pitchLocal*__pitchPattern*__pitchParent;
-        __pitchOutput = __pitchOutputNoLabels*__pitchLabels;
+        __pitchLocal          += clamp(__pitchTarget - __pitchLocal, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
+        __pitchPattern         = lerp(__pattern.__pitchLo, __pattern.__pitchHi, __pitchRandomParam);
+        __pitchParent          = (__parentInstance == undefined)? 1 : __parentInstance.__pitchOutputNoLabels;
+        __pitchOutputNoLabels  = __pitchLocal*__pitchPattern*__pitchParent;
+        __pitchOutput          = __pitchOutputNoLabels*__pitchLabels;
         
         __transposePattern = __pattern.__transpose;
-        __transposeParent = (__parentInstance == undefined)? undefined : __parentInstance.__transposeOutputNoLabels;
+        __transposeParent  = (__parentInstance == undefined)? undefined : __parentInstance.__transposeOutputNoLabels;
         
         if ((__transposeLocal != undefined) || (__transposePattern != undefined) || (__transposeParent != undefined))
         {
@@ -688,9 +714,23 @@ function __VinylClassInstanceCommon() constructor
     
     static __TickCommon = function(_deltaTimeFactor)
     {
-        var _canShutdown = (__gainTarget <= __gainLocal);
+        var _canFinishDuck = (__gainDuck != __gainDuckTarget);
+        var _canShutdown   = (__gainTarget <= __gainLocal);
         
         __CalculateGainPitchTranspose(_deltaTimeFactor);
+        
+        if (_canFinishDuck && (__gainDuck == __gainDuckTarget))
+        {
+            if (__duckStop)
+            {
+                __Stop();
+                return false;
+            }
+            else if (__duckPause)
+            {
+                __Pause();
+            }
+        }
         
         if (_canShutdown && __shutdown && ((__gainLocal <= 0) || (__gainOutput <= 0)))
         {

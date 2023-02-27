@@ -2,16 +2,21 @@
 /// @param priority
 /// @param vinylID
 
-function VinylStackPush(_name, _priority, _instance)
+function VinylStackPush(_name, _priority, _id)
 {
-    static _globalData = __VinylGlobalData();
+    static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+    static _stackDict        = __VinylGlobalData().__stackDict;
     
-    var _stack = _globalData.__stackDict[$ _name];
-    if (!is_struct(_stack))
+    var _instance = _idToInstanceDict[? _id];
+    if (is_struct(_instance))
     {
-        __VinylTrace("Warning! Stack \"", _name, "\" not recognised");
-        return;
+        var _stack = _stackDict[$ _name];
+        if (!is_struct(_stack))
+        {
+            __VinylTrace("Warning! Stack \"", _name, "\" not recognised");
+            return;
+        }
+        
+        return _stack.__Push(_priority, _instance, false);
     }
-    
-    return _stack.__Push(_priority, _instance);
 }
