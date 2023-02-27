@@ -77,6 +77,7 @@
     {"id":{"name":"__VinylClassPatternFallback","path":"scripts/__VinylClassPatternFallback/__VinylClassPatternFallback.yy",},},
     {"id":{"name":"VinylPlay","path":"scripts/VinylPlay/VinylPlay.yy",},},
     {"id":{"name":"sndBleep4","path":"sounds/sndBleep4/sndBleep4.yy",},},
+    {"id":{"name":"VinylKnobResetAll","path":"scripts/VinylKnobResetAll/VinylKnobResetAll.yy",},},
     {"id":{"name":"sndBleep8","path":"sounds/sndBleep8/sndBleep8.yy",},},
     {"id":{"name":"__VinylSystem","path":"scripts/__VinylSystem/__VinylSystem.yy",},},
     {"id":{"name":"__VinylClassInstanceCommon","path":"scripts/__VinylClassInstanceCommon/__VinylClassInstanceCommon.yy",},},
