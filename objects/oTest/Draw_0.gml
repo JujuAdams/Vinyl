@@ -1,9 +1,6 @@
 UIStart(10, 10, 8);
 
-UIText("Vinyl " + __VINYL_VERSION + ", " + __VINYL_DATE);
-UIText("Library by @jujuadams, music \"Chicken Nuggets\" by @WangleLine");
-
-UINewline();
+UIText("Vinyl " + __VINYL_VERSION + ", " + __VINYL_DATE + "\nLibrary by @jujuadams, music \"Chicken Nuggets\" by @WangleLine");
 
 UITextInline("System gain = " + string_format(VinylSystemGainGet(), 0, 1));
 
@@ -46,6 +43,7 @@ UIButtonInline("Tranpose down", function()
     VinylGlobalTransposeSet(VinylGlobalTransposeGet() -1);
 });
 
+UISpace(30);
 UITextInline("@delay time = " + string_format(VinylKnobGet("delay time"), 2, 2) + " -> " + string_format(VinylKnobOutputGet("delay time"), 2, 2));
 
 UIButtonInline("Delay up", function()
@@ -56,6 +54,16 @@ UIButtonInline("Delay up", function()
 UIButtonInline("Delay down", function()
 {
     VinylKnobSet("delay time", VinylKnobGet("delay time") - 0.1);
+});
+
+UIButtonInline("Delay target 0", function()
+{
+    VinylKnobTargetSet("delay time", 0);
+});
+
+UIButtonInline("Delay target 1", function()
+{
+    VinylKnobTargetSet("delay time", 1);
 });
 
 UINewline();

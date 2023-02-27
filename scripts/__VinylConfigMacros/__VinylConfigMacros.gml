@@ -10,6 +10,10 @@
 //Measured in units/second
 #macro VINYL_DEFAULT_PITCH_RATE  0.3
 
+//Default rate of knob adjument when approaching a knob target
+//Measured in units/second
+#macro VINYL_DEFAULT_KNOB_RATE  0.3
+
 //Falloff values to use for emitters when first created
 #macro VINYL_DEFAULT_FALLOFF_MIN       0
 #macro VINYL_DEFAULT_FALLOFF_MAX     200

@@ -91,7 +91,7 @@ function __VinylClassKnob(_name) constructor
         __rangeFree = (!_rangeInputSet && !_rangeOutputSet);
         if (!__rangeFree) __valueDefault = clamp(__valueDefault, __rangeOutputLo, __rangeOutputHi);
         
-        __Refresh();
+        __OutputRefresh();
     }
     
     static __Store = function()
@@ -117,8 +117,25 @@ function __VinylClassKnob(_name) constructor
     static __Set = function(_value)
     {
         __valueReset = false;
-        __valueInput = _value;
-        __Refresh();
+        
+        __valueInput  = _value;
+        __valueTarget = _value;
+        __valueRate   = infinity;
+        
+        __OutputRefresh();
+    }
+    
+    static __TargetValueSet = function(_targetValue, _rate)
+    {
+        __valueReset = false;
+        
+        __valueTarget = _targetValue;
+        __valueRate   = _rate;
+    }
+    
+    static __TargetValueGet = function()
+    {
+        return __valueTarget;
     }
     
     static __InputGet = function()
@@ -134,10 +151,10 @@ function __VinylClassKnob(_name) constructor
     static __Reset = function()
     {
         __valueReset = true;
-        __Refresh();
+        __OutputRefresh();
     }
     
-    static __Refresh = function()
+    static __OutputRefresh = function()
     {
         var _oldOutput = __valueOutput;
         
@@ -146,7 +163,9 @@ function __VinylClassKnob(_name) constructor
             __valueOutput = __valueDefault;
             
             //Remap default value to input
-            __valueInput = __rangeFree? __valueOutput : lerp(__rangeInputLo, __rangeInputHi, (__valueOutput - __rangeOutputLo) / (__rangeOutputHi - __rangeOutputLo));
+            __valueInput  = __rangeFree? __valueOutput : lerp(__rangeInputLo, __rangeInputHi, (__valueOutput - __rangeOutputLo) / (__rangeOutputHi - __rangeOutputLo));
+            __valueTarget = __valueInput;
+            __valueRate   = infinity;
         }
         else
         {
@@ -172,6 +191,18 @@ function __VinylClassKnob(_name) constructor
             var _target = __targetArray[_i];
             _target.__Update(__valueOutput);
             ++_i;
+        }
+    }
+    
+    static __Tick = function(_deltaTimeFactor)
+    {
+        if (!__valueReset)
+        {
+            if (__valueInput != __valueTarget)
+            {
+                __valueInput += clamp(__valueTarget - __valueInput, -_deltaTimeFactor*__valueRate, _deltaTimeFactor*__valueRate);
+                __OutputRefresh();
+            }
         }
     }
 }

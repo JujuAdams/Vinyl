@@ -327,7 +327,7 @@ function VinylSystemReadConfig(_configData)
     //Update all values from knobs
     array_foreach(_globalData.__knobArray, function(_knob)
     {
-        _knob.__Refresh();
+        _knob.__OutputRefresh();
     });
     
     //Workaround for problems setting effects on the main audio effect bus in 2023.1

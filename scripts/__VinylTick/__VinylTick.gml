@@ -5,7 +5,16 @@ function __VinylTick()
     ++_globalData.__frame;
     var _deltaTimeFactor = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
     
-    //Update labels first
+    //Update knobs
+    var _knobArray = _globalData.__knobArray; //Don't use a static here because this struct can be recreated
+    var _i = 0;
+    repeat(array_length(_knobArray))
+    {
+        _knobArray[_i].__Tick(_deltaTimeFactor);
+        ++_i;
+    }
+    
+    //Update labels
     var _labelOrder = _globalData.__labelOrder; //Don't use a static here because this struct can be recreated
     var _i = 0;
     repeat(array_length(_labelOrder))
