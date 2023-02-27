@@ -9,7 +9,7 @@ function __VinylStackEnsure(_name)
     var _stack = _stackDict[$ _name];
     if (!is_struct(_stack))
     {
-        _stack = new __VinylClassEffectChain(_name);
+        _stack = new __VinylClassStack(_name);
         _stackDict[$ _name] = _stack;
         array_push(_stackArray, _stack);
     }

@@ -24,7 +24,7 @@ function __VinylTick()
     }
     
     //Update stacks
-    var _stackArray = _globalData.__stackArray; //Don't use a static here because this struct can be recreated
+    static _stackArray = _globalData.__stackArray;
     var _i = 0;
     repeat(array_length(_stackArray))
     {

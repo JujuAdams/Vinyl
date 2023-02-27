@@ -9,10 +9,12 @@ function VinylSystemReadConfig(_configData)
 {
     static _globalData = __VinylGlobalData();
     
-    //Effect chain data structures are a bit special because they're never regenerated
+    //Effect chain and stack data structures are a bit special because they're never regenerated
     //We keep the old effect chains around so that we can dynamically update effects
     static _effectChainDict  = _globalData.__effectChainDict;
     static _effectChainArray = _globalData.__effectChainArray;
+    static _stackDict        = _globalData.__stackDict;
+    static _stackArray       = _globalData.__stackArray;
     
     var _oldKnobDict  = _globalData.__knobDict;
     var _oldLabelDict = _globalData.__labelDict;
@@ -272,11 +274,11 @@ function VinylSystemReadConfig(_configData)
     
     //Set up effect chains that we find in the incoming data
     var _inputEffectChainDict = _configData[$ "effect chains"];
-    if (is_undefined(_inputAssetDict))
+    if (is_undefined(_inputEffectChainDict))
     {
         __VinylTrace("Warning! \"effect chains\" data missing");
     }
-    else if (!is_struct(_inputAssetDict))
+    else if (!is_struct(_inputEffectChainDict))
     {
         __VinylError("\"effect chains\" data should be defined as an object (struct)");
     }
@@ -311,6 +313,52 @@ function VinylSystemReadConfig(_configData)
             ++_i;
         }
     }
+    
+    
+    
+    //Set up stacks that we find in the incoming data
+    var _inputStackDict = _configData[$ "stacks"];
+    if (is_undefined(_inputStackDict))
+    {
+        __VinylTrace("Warning! \"stacks\" data missing");
+    }
+    else if (!is_struct(_inputStackDict))
+    {
+        __VinylError("\"stacks\" data should be defined as an object (struct)");
+    }
+    else
+    {
+        var _stackNameArray = variable_struct_get_names(_inputStackDict);
+        var _i = 0;
+        repeat(array_length(_stackNameArray))
+        {
+            var _stackName = _stackNameArray[_i];
+            __VinylStackEnsure(_stackName).__Update(_inputStackDict[$ _stackName]);
+            ++_i;
+        }
+    }
+    
+    //Clean up any stacks that exist in the old data but weren't in the incoming new data
+    var _i = 0;
+    repeat(array_length(_stackArray))
+    {
+        var _stack = _stackArray[_i];
+        var _stackName = _stack.__name;
+        
+        if (!variable_struct_exists(_inputStackDict, _stackName))
+        {
+            _stack.__Destroy();
+            
+            variable_struct_remove(_stackDict, _stackName);
+            array_delete(_stackArray, _i, 1);
+        }
+        else
+        {
+            ++_i;
+        }
+    }
+    
+    
     
     //Migrate all of our patterns to the new dataset
     array_foreach(_globalData.__patternArray, function(_pattern)

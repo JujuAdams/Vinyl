@@ -28,6 +28,8 @@ function __VinylClassStack(_name) constructor
     {
         if (_priority < __maxPriority)
         {
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pushing ", __VinylInstanceGet(_id), " to stack \"", __name, "\" with lower priorty (", _priority, ") versus max (", __maxPriority, ")");
+            
             //We should duck down straight away since we're at a lower priority
             VinylGainSet(_id, 0); //TODO - Replace with a specific stack gain value or pause
             
@@ -37,8 +39,10 @@ function __VinylClassStack(_name) constructor
             {
                 if (__priorityArray[_i] == _priority)
                 {
+                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__VinylInstanceGet(__instanceArray[_i]), " on stack \"", __name, "\" shares priorty ", _priority, ", replacing it");
+                    
                     //We found an existing instance with the same priority - stop the existing instance and replace with ourselves
-                    VinylStop(_id);
+                    VinylStop(__instanceArray[_i]);
                     __instanceArray[@ _i] = _id;
                     
                     //TOGO - Trigger pause (if necessary)
@@ -49,12 +53,16 @@ function __VinylClassStack(_name) constructor
                 ++_i;
             }
             
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Adding ", __VinylInstanceGet(_id), " to stack \"", __name, "\"");
+            
             //If no instance exists to replace, add the incoming instance
             array_push(__instanceArray, _id);
             array_push(__priorityArray, _priority);
         }
         else //priority >= maxPriority
         {
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pushing ", __VinylInstanceGet(_id), " to stack \"", __name, "\" with sufficient priorty (", _priority, ") versus max (", __maxPriority, ")");
+            
             __maxPriority = _priority;
             
             var _i = 0;
@@ -63,13 +71,17 @@ function __VinylClassStack(_name) constructor
                 var _existingPriority = __priorityArray[_i];
                 if (_existingPriority < _priority)
                 {
+                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__VinylInstanceGet(__instanceArray[_i]), " on stack \"", __name, "\" has lesser priorty (", _existingPriority, ") than incoming (", _priority, ")");
+                    
                     //We found an existing instance with a lower priority - duck the existing instance
                     VinylGainSet(__instanceArray[_i], 0); //TODO - Replace with a specific stack gain value or pause
                 }
                 else if (_existingPriority == _priority)
                 {
+                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__VinylInstanceGet(__instanceArray[_i]), " on stack \"", __name, "\" shares priorty ", _priority, ", replacing it");
+                    
                     //We found an existing instance with the same priority - fade out the existing instance and replace with ourselves
-                    VinylStop(_id); //TODO - Replace with fade out
+                    VinylStop(__instanceArray[_i]); //TODO - Replace with fade out
                     __instanceArray[@ _i] = _id;
                     
                     //TOGO - Trigger fade in (if necessary)
@@ -79,6 +91,8 @@ function __VinylClassStack(_name) constructor
                 
                 ++_i;
             }
+            
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Adding ", __VinylInstanceGet(_id), " to stack \"", __name, "\"");
             
             //If no instance exists to replace, add the incoming instance
             array_push(__instanceArray, _id);
@@ -141,5 +155,15 @@ function __VinylClassStack(_name) constructor
                 VinylGainSet(_maxInstance, 1); //TODO - Replace with a specific stack gain value or pause
             }
         }
+    }
+    
+    static __Update = function()
+    {
+        //TODO
+    }
+    
+    static __Destroy = function()
+    {
+        //TODO
     }
 }
