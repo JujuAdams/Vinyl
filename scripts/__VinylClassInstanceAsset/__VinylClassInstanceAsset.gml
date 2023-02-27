@@ -44,12 +44,12 @@ function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
         if (_gmEmitter == undefined)
         {
             __gmInstance = audio_play_sound(__sound, 1, __loop, __VinylCurveAmplitude(__gainOutput), 0, __pitchOutput);
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, ", loop=", __loop? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput);
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, ", loop=", __loop? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput, ", persistent=", __persistent);
         }
         else
         {
             __gmInstance = audio_play_sound_on(_gmEmitter, __sound, __loop, 1, __VinylCurveAmplitude(__gainOutput), 0, __pitchOutput);
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, " on GM emitter ", _gmEmitter, ", loop=", __loop? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput);
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, " on GM emitter ", _gmEmitter, ", loop=", __loop? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput, ", persistent=", __persistent);
         }
         
         __LoopPointsSet();

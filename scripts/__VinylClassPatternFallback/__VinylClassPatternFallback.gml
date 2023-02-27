@@ -12,12 +12,13 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     
     static __Initialize = function(_patternData = {})
     {
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["gain", "pitch", "transpose", "loop", "effect chain", "label", "labels"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["gain", "pitch", "transpose", "loop", "persistent", "effect chain", "label", "labels"]);
         
         var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
         var _transpose       = _patternData[$ "transpose"   ];
         var _loop            = _patternData[$ "loop"        ];
+        var _persistent      = _patternData[$ "persistent"  ];
         var _effectChainName = _patternData[$ "effect chain"] ?? _patternData[$ "effect"];
         var _labelNameArray  = _patternData[$ "label"       ] ?? _patternData[$ "labels"];
         
@@ -28,11 +29,12 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         __InitializePitch(_pitch);
         __InitializeTranspose(_transpose);
         __InitializeLoop(_loop);
+        __InitializePersistent(_persistent);
         __InitializeEffectChain(_effectChainName);
         __InitializeLabelArray(_labelNameArray);
         __InitializeLoopPoints(undefined);
         
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray));
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
     }
     
     static __Play = function(_parentInstance, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)

@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylStopAll",
+  "name": "__VinylConfigDebug",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Stopping Audio",
-    "path": "folders/Vinyl/Stopping Audio.yy",
+    "name": "Vinyl",
+    "path": "folders/Vinyl.yy",
   },
 }

@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Advanced",
-    "path": "folders/Vinyl/Advanced.yy",
+    "name": "Stopping Audio",
+    "path": "folders/Vinyl/Stopping Audio.yy",
   },
 }

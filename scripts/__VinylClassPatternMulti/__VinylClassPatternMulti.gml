@@ -18,7 +18,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
     {
         var _knobDict = __VinylGlobalData().__knobDict;
         
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "effect chain", "label", "labels", "blend", "blend normalize", "blend normalise", "sync"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "persistent", "effect chain", "label", "labels", "blend", "blend normalize", "blend normalise", "sync"]);
         
         //Set the gain/pitch state from the provided struct
         var _assetArray      = _patternData[$ "assets"         ] ?? (_patternData[$ "asset"] ?? []);
@@ -26,6 +26,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         var _pitch           = _patternData[$ "pitch"          ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
         var _transpose       = _patternData[$ "transpose"      ];
         var _loop            = _patternData[$ "loop"           ];
+        var _persistent      = _patternData[$ "persistent"  ];
         var _effectChainName = _patternData[$ "effect chain"   ] ?? _patternData[$ "effect"];
         var _labelNameArray  = _patternData[$ "label"          ] ?? _patternData[$ "labels"];
         var _blend           = _patternData[$ "blend"          ] ?? VINYL_DEFAULT_MULTI_BLEND;
@@ -40,6 +41,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         __InitializePitch(_pitch);
         __InitializeTranspose(_transpose);
         __InitializeLoop(_loop);
+        __InitializePersistent(_persistent);
         __InitializeEffectChain(_effectChainName);
         __InitializeLabelArray(_labelNameArray);
         
@@ -83,7 +85,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         
         __sync = _sync;
         
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray));
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
     }
     
     static __MultiBlendSet = function(_blend)

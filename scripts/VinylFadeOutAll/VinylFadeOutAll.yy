@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylStopAll",
+  "name": "VinylFadeOutAll",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

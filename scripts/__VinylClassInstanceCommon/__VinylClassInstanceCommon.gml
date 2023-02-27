@@ -22,10 +22,13 @@ function __VinylClassInstanceCommon() constructor
         __parentInstance = undefined;
         __child          = undefined;
         
+        __labelArray = [];
+        
         __loop = undefined;
         __pan  = undefined;
         
-        __shutdown = false;
+        __persistent = false;
+        __shutdown   = false;
         
         __gainLocal          = 1;
         __gainTarget         = 1;
@@ -68,6 +71,10 @@ function __VinylClassInstanceCommon() constructor
         __pitchLocal     = _pitch;
         __pan            = _pan;
         
+        __LabelAdd();
+        __CalculateGainPitchTranspose(0);
+        
+        __PersistenceResolve();
         __LoopResolve();
         __LabelArrayResolve();
         __EffectChainResolve();
@@ -77,9 +84,6 @@ function __VinylClassInstanceCommon() constructor
         __pitchTarget = __pitchLocal;
         
         __pitchRandomParam = __VinylRandom(1);
-        
-        __LabelAdd();
-        __CalculateGainPitchTranspose(0);
         
         if (__parentInstance == undefined) array_push(_globalTopLevelArray, self);
     }
@@ -269,6 +273,25 @@ function __VinylClassInstanceCommon() constructor
     
     
     
+    #region Persistence
+    
+    static __PersistentSet = function(_state)
+    {
+        __persistent = _state;
+        
+        //If the state is <undefined> then re-evaluate the inherited persistence of the instance
+        if (_state == undefined) __PersistenceResolve();
+    }
+    
+    static __PersistentGet = function()
+    {
+        return __persistent ?? false;
+    }
+    
+    #endregion
+    
+    
+    
     #region Playback
     
     static __IsPlaying = function()
@@ -396,14 +419,39 @@ function __VinylClassInstanceCommon() constructor
     static __MigrateCommon = function()
     {
         __LabelRemove();
+        __LabelAdd();
+        __CalculateGainPitchTranspose(0);
+        
+        __PersistenceResolve();
         __LoopResolve();
         __LabelArrayResolve();
         __EffectChainResolve();
         __EmitterResolve();
         
-        __LabelAdd();
-        __CalculateGainPitchTranspose(0);
         __LoopPointsSet();
+    }
+    
+    static __PersistenceResolve = function()
+    {
+        //Inherit the top level pattern's persistence first
+        __persistent = __ParentTopLevelGet().__pattern.__persistent;
+        
+        if (__persistent == undefined)
+        {
+            //If we still don't know if we're persistent or not, check the labels
+            var _i = 0;
+            repeat(array_length(__labelArray))
+            {
+                var _persistent = __labelArray[_i].__configPersistent;
+                if (_persistent != undefined)
+                {
+                    __persistent = _persistent;
+                    break;
+                }
+                
+                ++_i;
+            }
+        }
     }
     
     static __LoopResolve = function(_loop)

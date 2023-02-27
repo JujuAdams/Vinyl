@@ -1,4 +1,5 @@
 /// Fades out a Vinyl playback instance, stopping it once it reaches silence
+/// 
 /// Once a playback instance is fading out, the process cannot be halted or paused
 /// This is called "shutdown" mode, and you can detect if a Vinyl instance is fading
 /// out by calling VinylShutdownGet()

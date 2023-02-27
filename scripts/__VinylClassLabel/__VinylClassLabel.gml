@@ -30,6 +30,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         var _pitch           = _labelData[$ "pitch"              ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
         var _transpose       = _labelData[$ "transpose"          ];
         var _loop            = _labelData[$ "loop"               ] ?? undefined;
+        var _persistent      = _labelData[$ "persistent"         ];
         var _limit           = _labelData[$ "limit"              ];
         var _limitFadeOut    = _labelData[$ "limit fade out rate"] ?? VINYL_DEFAULT_GAIN_RATE;
         var _tagArray        = _labelData[$ "tag"                ] ?? _labelData[$ "tags"];
@@ -152,8 +153,14 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         
         
         //Sort out the loop state
-        if (!is_bool(_loop) && !is_undefined(_loop)) __VinylError("Error in ", self, "\nLoop behaviour must be a boolean (<true> or <false>)");
+        if (!is_bool(_loop) && !is_undefined(_loop)) __VinylError("Error in ", self, "\n\"loop\" property must be a boolean (<true> or <false>)");
         __configLoop = _loop;
+        
+        
+        
+        //Sort out the persistent state
+        if (!is_bool(_persistent) && !is_undefined(_persistent)) __VinylError("Error in ", self, "\n\"persistent\" property must be a boolean (<true> or <false>)");
+        __configPersistent = _loop;
         
         
         

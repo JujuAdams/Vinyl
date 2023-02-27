@@ -226,6 +226,18 @@ function __VinylClassPatternCommon()
         }
     }
     
+    static __InitializePersistent = function(_persistent)
+    {
+        if (is_bool(_persistent) || is_undefined(_persistent))
+        {
+            __persistent = _persistent;
+        }
+        else
+        {
+            __VinylError("Error in ", self, "\n\"persistent\" property must be either <true> or <false>");
+        }
+    }
+    
     static __InitializeEffectChain = function(_effectChainName)
     {
         if (is_string(_effectChainName) || is_undefined(_effectChainName))
@@ -234,7 +246,7 @@ function __VinylClassPatternCommon()
         }
         else
         {
-            __VinylError("Error in ", self, "\nEffect chain must be a name (as a string)");
+            __VinylError("Error in ", self, "\n\"effect chain\" property must be a name (as a string)");
         }
     }
     

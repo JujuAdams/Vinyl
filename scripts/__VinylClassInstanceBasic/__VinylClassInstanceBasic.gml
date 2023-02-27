@@ -52,10 +52,6 @@ function __VinylClassInstanceBasic() : __VinylClassInstanceCommon() constructor
             {
                 __child.__Tick(_deltaTimeFactor);
             }
-            else
-            {
-                show_debug_message("!");
-            }
         }
     }
 }

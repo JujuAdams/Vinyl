@@ -1,6 +1,8 @@
 UIStart(10, 10, 8);
+
 UIText("Vinyl " + __VINYL_VERSION + ", " + __VINYL_DATE);
 UIText("Library by @jujuadams, music \"Chicken Nuggets\" by @WangleLine");
+
 UINewline();
 
 UITextInline("System gain = " + string_format(VinylSystemGainGet(), 0, 1));
@@ -20,12 +22,16 @@ UIButtonInline("Stop all", function()
     VinylStopAll();
 });
 
+UIButtonInline("Stop all non-persistent", function()
+{
+    VinylStopAllNonPersistent();
+});
+
 UIButtonInline("Test tone", function()
 {
     music = VinylPlay(snd1KHz, true);
 });
 
-UINewline();
 UINewline();
 
 UITextInline("Global transpose = " + string(VinylGlobalTransposeGet()));
@@ -53,9 +59,11 @@ UIButtonInline("Delay down", function()
 });
 
 UINewline();
-UINewline();
 
-UIText("music: VinylExists() = " + string(VinylExists(music)) + ", VinylShutdownGet() = " + string(VinylShutdownGet(music)) + ", VinylLoopGet() = " + string(VinylLoopGet(music)));
+UIText("music: VinylExists() = " + string(VinylExists(music))
+     + ", VinylShutdownGet() = " + string(VinylShutdownGet(music))
+     + ", VinylLoopGet() = " + string(VinylLoopGet(music))
+     + ", VinylPersistentGet() = " + string(VinylPersistentGet(music)));
 
 UIButtonInline("Play music", function()
 {
@@ -82,10 +90,14 @@ UIButtonInline("Loop toggle", function()
      VinylLoopSet(music, !VinylLoopGet(music));
 });
 
-UINewline();
+UIButtonInline("Persistent toggle", function()
+{
+     VinylPersistentSet(music, !VinylPersistentGet(music));
+});
+
 UINewline();
 
-UIText("\"music\" label count = " + string(VinylLabelInstanceCountGet("music")));
+UITextInline("\"music\" label count = " + string(VinylLabelInstanceCountGet("music")));
 
 UIButtonInline("Stop \"music\" label", function()
 {
@@ -97,7 +109,6 @@ UIButtonInline("Fade out \"music\" label", function()
      VinylFadeOut("music");
 });
 
-UINewline();
 UINewline();
 
 UIButtonInline("Bonk left", function()
@@ -141,7 +152,6 @@ UIButtonInline("Bleep shuffle", function()
 });
 
 UINewline();
-UINewline();
 
 UIButtonInline("Music sync test", function()
 {
@@ -153,5 +163,4 @@ UIButtonInline("Queue test", function()
     VinylPlay("queue test");
 });
 
-UINewline();
 UINewline();

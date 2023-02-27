@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Basics",
-    "path": "folders/Vinyl/Basics.yy",
+    "name": "Stopping Audio",
+    "path": "folders/Vinyl/Stopping Audio.yy",
   },
 }
