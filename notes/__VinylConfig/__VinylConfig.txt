@@ -25,6 +25,7 @@
         music: {
             gain: 0.7
             loop: true
+            stack: music
             transpose: 0
         }
         sfx: {
@@ -97,6 +98,7 @@
             type: multi
             label: [music, echo]
             pitch: 0.9
+            stack priority: 1
             assets: [
                 sndSync0
                 sndSync1

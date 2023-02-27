@@ -14,13 +14,15 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     {
         if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["gain", "pitch", "transpose", "loop", "persistent", "effect chain", "stack", "stack priority", "label", "labels"]);
         
-        var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-        var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
-        var _transpose       = _patternData[$ "transpose"   ];
-        var _loop            = _patternData[$ "loop"        ];
-        var _persistent      = _patternData[$ "persistent"  ];
-        var _effectChainName = _patternData[$ "effect chain"] ?? _patternData[$ "effect"];
-        var _labelNameArray  = _patternData[$ "label"       ] ?? _patternData[$ "labels"];
+        var _gain            = _patternData[$ "gain"          ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+        var _pitch           = _patternData[$ "pitch"         ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+        var _transpose       = _patternData[$ "transpose"     ];
+        var _loop            = _patternData[$ "loop"          ];
+        var _persistent      = _patternData[$ "persistent"    ];
+        var _stack           = _patternData[$ "stack"         ];
+        var _stackPriority   = _patternData[$ "stack priority"] ?? 0;
+        var _effectChainName = _patternData[$ "effect chain"  ] ?? _patternData[$ "effect"];
+        var _labelNameArray  = _patternData[$ "label"         ] ?? _patternData[$ "labels"];
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
@@ -30,6 +32,7 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         __InitializeTranspose(_transpose);
         __InitializeLoop(_loop);
         __InitializePersistent(_persistent);
+        __InitializeStack(_stack, _stackPriority);
         __InitializeEffectChain(_effectChainName);
         __InitializeLabelArray(_labelNameArray);
         __InitializeLoopPoints(undefined);

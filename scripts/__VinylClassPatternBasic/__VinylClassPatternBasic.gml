@@ -19,15 +19,17 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
     {
         if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "effect chain", "stack", "stack priority", "persistent", "label", "labels", "loop point", "loop points"]);
         
-        var _asset           = _patternData[$ "asset"       ] ?? _patternData[$ "assets"];
-        var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-        var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
-        var _transpose       = _patternData[$ "transpose"   ];
-        var _loop            = _patternData[$ "loop"        ];
-        var _persistent      = _patternData[$ "persistent"  ];
-        var _effectChainName = _patternData[$ "effect chain"] ?? _patternData[$ "effect"];
-        var _loopPoints      = _patternData[$ "loop points" ] ?? _patternData[$ "loop point"];
-        var _labelNameArray  = _patternData[$ "label"       ] ?? _patternData[$ "labels"];
+        var _asset           = _patternData[$ "asset"         ] ?? _patternData[$ "assets"];
+        var _gain            = _patternData[$ "gain"          ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+        var _pitch           = _patternData[$ "pitch"         ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+        var _transpose       = _patternData[$ "transpose"     ];
+        var _loop            = _patternData[$ "loop"          ];
+        var _persistent      = _patternData[$ "persistent"    ];
+        var _stack           = _patternData[$ "stack"         ];
+        var _stackPriority   = _patternData[$ "stack priority"] ?? 0;
+        var _effectChainName = _patternData[$ "effect chain"  ] ?? _patternData[$ "effect"];
+        var _loopPoints      = _patternData[$ "loop points"   ] ?? _patternData[$ "loop point"];
+        var _labelNameArray  = _patternData[$ "label"         ] ?? _patternData[$ "labels"];
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
@@ -54,6 +56,7 @@ function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() c
         __InitializeTranspose(_transpose);
         __InitializeLoop(_loop);
         __InitializePersistent(_persistent);
+        __InitializeStack(_stack, _stackPriority);
         __InitializeEffectChain(_effectChainName);
         __InitializeLoopPoints(_loopPoints);
         __InitializeLabelArray(_labelNameArray);

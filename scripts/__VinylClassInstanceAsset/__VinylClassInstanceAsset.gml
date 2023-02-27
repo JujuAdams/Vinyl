@@ -32,8 +32,8 @@ function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
     
     static __Instantiate = function(_pattern, _parentInstance, _vinylEmitter, _sound, _loop, _gain, _pitch, _pan)
     {
-        __StateSetCommon(_pattern, _parentInstance, _vinylEmitter, _loop, _gain, _pitch, _pan);
         __sound = _sound;
+        __StateSetCommon(_pattern, _parentInstance, _vinylEmitter, _loop, _gain, _pitch, _pan);
         __Play();
         
     }

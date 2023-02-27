@@ -23,16 +23,19 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     {
         if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_labelData, ["gain", "pitch", "transpose", "loop", "tag", "effect chain", "stack", "stack priority", "children"]);
         
-        var _knobDict = __VinylGlobalData().__knobDict;
+        static _stackDict = __VinylGlobalData().__stackDict;
+        var    _knobDict  = __VinylGlobalData().__knobDict;
         
         //Unpack the definition data
-        var _gain            = _labelData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-        var _pitch           = _labelData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
-        var _transpose       = _labelData[$ "transpose"   ];
-        var _loop            = _labelData[$ "loop"        ] ?? undefined;
-        var _persistent      = _labelData[$ "persistent"  ];
-        var _tagArray        = _labelData[$ "tag"         ] ?? _labelData[$ "tags"];
-        var _effectChainName = _labelData[$ "effect chain"];
+        var _gain            = _labelData[$ "gain"          ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+        var _pitch           = _labelData[$ "pitch"         ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+        var _transpose       = _labelData[$ "transpose"     ];
+        var _loop            = _labelData[$ "loop"          ] ?? undefined;
+        var _persistent      = _labelData[$ "persistent"    ];
+        var _stack           = _labelData[$ "stack"         ];
+        var _stackPriority   = _labelData[$ "stack priority"] ?? 0;
+        var _tagArray        = _labelData[$ "tag"           ] ?? _labelData[$ "tags"];
+        var _effectChainName = _labelData[$ "effect chain"  ];
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
@@ -118,7 +121,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         
         
         
-        //Sort out the pitch
+        //Sort out the transposition
         __configTransposeKnob = false;
         
         if (is_string(_transpose))
@@ -146,6 +149,38 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         else
         {
             __VinylError("Error in ", self, "\nTranspose must be a number or a knob name");
+        }
+        
+        
+        
+        //Sort out the stack
+        if (is_undefined(_stack))
+        {
+            __stack = _stack;
+        }
+        else if (is_string(_stack))
+        {
+            if (variable_struct_exists(_stackDict, _stack))
+            {
+                __stack = _stack;
+            }
+            else
+            {
+                __VinylError("Error in ", self, "\nStack \"", _stack, "\" not found in config file");
+            }
+        }
+        else
+        {
+            __VinylError("Error in ", self, "\n\"stack\" property must be a string");
+        }
+        
+        if (is_numeric(_stackPriority))
+        {
+            __stackPriority = _stackPriority;
+        }
+        else
+        {
+            __VinylError("Error in ", self, "\n\"stack priority\" property must be a number");
         }
         
         

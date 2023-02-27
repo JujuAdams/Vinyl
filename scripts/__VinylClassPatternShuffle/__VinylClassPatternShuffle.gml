@@ -18,14 +18,16 @@ function __VinylClassPatternShuffle(_name, _adHoc) : __VinylClassPatternCommon()
         if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "stack", "stack priority", "persistent", "effect chain", "label", "labels"]);
         
         //Set the gain/pitch state from the provided struct
-        var _assetArray      = _patternData[$ "assets"      ] ?? (_patternData[$ "asset"] ?? []);
-        var _gain            = _patternData[$ "gain"        ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-        var _pitch           = _patternData[$ "pitch"       ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
-        var _transpose       = _patternData[$ "transpose"   ];
-        var _loop            = _patternData[$ "loop"        ];
-        var _persistent      = _patternData[$ "persistent"  ];
-        var _effectChainName = _patternData[$ "effect chain"] ?? _patternData[$ "effect"];
-        var _labelNameArray  = _patternData[$ "label"       ] ?? _patternData[$ "labels"];
+        var _assetArray      = _patternData[$ "assets"        ] ?? (_patternData[$ "asset"] ?? []);
+        var _gain            = _patternData[$ "gain"          ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+        var _pitch           = _patternData[$ "pitch"         ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+        var _transpose       = _patternData[$ "transpose"     ];
+        var _loop            = _patternData[$ "loop"          ];
+        var _persistent      = _patternData[$ "persistent"    ];
+        var _stack           = _patternData[$ "stack"         ];
+        var _stackPriority   = _patternData[$ "stack priority"] ?? 0;
+        var _effectChainName = _patternData[$ "effect chain"  ] ?? _patternData[$ "effect"];
+        var _labelNameArray  = _patternData[$ "label"         ] ?? _patternData[$ "labels"];
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
@@ -36,6 +38,7 @@ function __VinylClassPatternShuffle(_name, _adHoc) : __VinylClassPatternCommon()
         __InitializeTranspose(_transpose);
         __InitializeLoop(_loop);
         __InitializePersistent(_persistent);
+        __InitializeStack(_stack, _stackPriority);
         __InitializeEffectChain(_effectChainName);
         __InitializeLabelArray(_labelNameArray);
         

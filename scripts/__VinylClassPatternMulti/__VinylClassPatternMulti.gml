@@ -27,6 +27,8 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         var _transpose       = _patternData[$ "transpose"      ];
         var _loop            = _patternData[$ "loop"           ];
         var _persistent      = _patternData[$ "persistent"     ];
+        var _stack           = _patternData[$ "stack"          ];
+        var _stackPriority   = _patternData[$ "stack priority" ] ?? 0;
         var _effectChainName = _patternData[$ "effect chain"   ] ?? _patternData[$ "effect"];
         var _labelNameArray  = _patternData[$ "label"          ] ?? _patternData[$ "labels"];
         var _blend           = _patternData[$ "blend"          ] ?? VINYL_DEFAULT_MULTI_BLEND;
@@ -42,6 +44,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         __InitializeTranspose(_transpose);
         __InitializeLoop(_loop);
         __InitializePersistent(_persistent);
+        __InitializeStack(_stack, _stackPriority);
         __InitializeEffectChain(_effectChainName);
         __InitializeLabelArray(_labelNameArray);
         

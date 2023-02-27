@@ -71,12 +71,13 @@ function __VinylClassInstanceCommon() constructor
         __pitchLocal     = _pitch;
         __pan            = _pan;
         
+        __LabelArrayResolve();
         __LabelAdd();
+        __StackPush();
         __CalculateGainPitchTranspose(0);
         
         __PersistenceResolve();
         __LoopResolve();
-        __LabelArrayResolve();
         __EffectChainResolve();
         __EmitterResolve();
         
@@ -419,12 +420,14 @@ function __VinylClassInstanceCommon() constructor
     static __MigrateCommon = function()
     {
         __LabelRemove();
+        
+        __LabelArrayResolve();
         __LabelAdd();
+        __StackPush();
         __CalculateGainPitchTranspose(0);
         
         __PersistenceResolve();
         __LoopResolve();
-        __LabelArrayResolve();
         __EffectChainResolve();
         __EmitterResolve();
         
@@ -576,6 +579,32 @@ function __VinylClassInstanceCommon() constructor
                 __labelArray[_i].__InstanceRemove(__id);
                 ++_i;
             }
+        }
+    }
+    
+    static __StackPush = function()
+    {
+        //Only top-level instances can be pushed to a stack
+        if (__parentInstance == undefined)
+        {
+            var _stack         = __pattern.__stack;
+            var _stackPriority = __pattern.__stackPriority;
+            
+            //If we still don't know if we're persistent or not, check the labels
+            var _i = 0;
+            repeat(array_length(__labelArray))
+            {
+                var _label              = __labelArray[_i];
+                var _labelStack         = _label.__stack;
+                var _labelStackPriority = _label.__stackPriority;
+                
+                if (_stack == undefined) _stack = _labelStack;
+                _stackPriority = max(_labelStackPriority, _stackPriority);
+                
+                ++_i;
+            }
+            
+            if (_stack != undefined) VinylStackPush(_stack, _stackPriority, __id);
         }
     }
     

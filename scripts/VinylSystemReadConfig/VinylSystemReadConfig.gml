@@ -63,6 +63,50 @@ function VinylSystemReadConfig(_configData)
     
     
     
+    //Set up stacks that we find in the incoming data
+    var _inputStackDict = _configData[$ "stacks"];
+    if (is_undefined(_inputStackDict))
+    {
+        __VinylTrace("Warning! \"stacks\" data missing");
+    }
+    else if (!is_struct(_inputStackDict))
+    {
+        __VinylError("\"stacks\" data should be defined as an object (struct)");
+    }
+    else
+    {
+        var _stackNameArray = variable_struct_get_names(_inputStackDict);
+        var _i = 0;
+        repeat(array_length(_stackNameArray))
+        {
+            var _stackName = _stackNameArray[_i];
+            __VinylStackEnsure(_stackName).__Update(_inputStackDict[$ _stackName]);
+            ++_i;
+        }
+    }
+    
+    //Clean up any stacks that exist in the old data but weren't in the incoming new data
+    var _i = 0;
+    repeat(array_length(_stackArray))
+    {
+        var _stack = _stackArray[_i];
+        var _stackName = _stack.__name;
+        
+        if (!variable_struct_exists(_inputStackDict, _stackName))
+        {
+            _stack.__Destroy();
+            
+            variable_struct_remove(_stackDict, _stackName);
+            array_delete(_stackArray, _i, 1);
+        }
+        else
+        {
+            ++_i;
+        }
+    }
+    
+    
+    
     //Instantiate labels, creating a dictionary for lookup and an array that contains the order to update the labels to respect parenting
     static _loadLabelsFunc = function(_loadLabelsFunc, _inputLabelDict, _parent)
     {
@@ -307,50 +351,6 @@ function VinylSystemReadConfig(_configData)
             
             variable_struct_remove(_effectChainDict, _effectChainName);
             array_delete(_effectChainArray, _i, 1);
-        }
-        else
-        {
-            ++_i;
-        }
-    }
-    
-    
-    
-    //Set up stacks that we find in the incoming data
-    var _inputStackDict = _configData[$ "stacks"];
-    if (is_undefined(_inputStackDict))
-    {
-        __VinylTrace("Warning! \"stacks\" data missing");
-    }
-    else if (!is_struct(_inputStackDict))
-    {
-        __VinylError("\"stacks\" data should be defined as an object (struct)");
-    }
-    else
-    {
-        var _stackNameArray = variable_struct_get_names(_inputStackDict);
-        var _i = 0;
-        repeat(array_length(_stackNameArray))
-        {
-            var _stackName = _stackNameArray[_i];
-            __VinylStackEnsure(_stackName).__Update(_inputStackDict[$ _stackName]);
-            ++_i;
-        }
-    }
-    
-    //Clean up any stacks that exist in the old data but weren't in the incoming new data
-    var _i = 0;
-    repeat(array_length(_stackArray))
-    {
-        var _stack = _stackArray[_i];
-        var _stackName = _stack.__name;
-        
-        if (!variable_struct_exists(_inputStackDict, _stackName))
-        {
-            _stack.__Destroy();
-            
-            variable_struct_remove(_stackDict, _stackName);
-            array_delete(_stackArray, _i, 1);
         }
         else
         {

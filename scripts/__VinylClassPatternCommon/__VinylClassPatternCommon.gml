@@ -238,6 +238,40 @@ function __VinylClassPatternCommon()
         }
     }
     
+    static __InitializeStack = function(_stack, _stackPriority)
+    {
+        static _stackDict = __VinylGlobalData().__stackDict;
+        
+        if (is_undefined(_stack))
+        {
+            __stack = _stack;
+        }
+        else if (is_string(_stack))
+        {
+            if (variable_struct_exists(_stackDict, _stack))
+            {
+                __stack = _stack;
+            }
+            else
+            {
+                __VinylError("Error in ", self, "\nStack \"", _stack, "\" not found in config file");
+            }
+        }
+        else
+        {
+            __VinylError("Error in ", self, "\n\"stack\" property must be a string");
+        }
+        
+        if (is_numeric(_stackPriority))
+        {
+            __stackPriority = _stackPriority;
+        }
+        else
+        {
+            __VinylError("Error in ", self, "\n\"stack priority\" property must be a number");
+        }
+    }
+    
     static __InitializeEffectChain = function(_effectChainName)
     {
         if (is_string(_effectChainName) || is_undefined(_effectChainName))
