@@ -38,14 +38,15 @@ function __VinylTick()
     repeat(array_length(_topLevelArray))
     {
         var _instance = _topLevelArray[_i];
-        if (_instance.__pool != undefined)
+        if (_instance.__pool == undefined)
         {
-            _instance.__Tick(_deltaTimeFactor);
-            ++_i;
+            //If this instance has been pooled then we don't need to update it any more
+            array_delete(_topLevelArray, _i, 1);
         }
         else
         {
-            array_delete(_topLevelArray, _i, 1);
+            _instance.__Tick(_deltaTimeFactor);
+            ++_i;
         }
     }
     
