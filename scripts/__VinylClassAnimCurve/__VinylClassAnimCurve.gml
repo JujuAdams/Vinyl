@@ -27,12 +27,12 @@ function __VinylClassAnimCurve(_animCurveName) constructor
     
     static __Reload = function()
     {
-        if (!__VinylGetLiveUpdateEnabled()) return;
+        if (!__VinylGetLiveUpdateEnabled()) return false;
         
         var _filename = filename_dir(GM_project_filename) + "\\animcurves\\" + __animCurveName + "\\" + __animCurveName + ".yy";
         
         var _newHash = md5_file(_filename);
-        if (_newHash == __hash) return;
+        if (_newHash == __hash) return false;
         __hash = _newHash;
         
         var _buffer = buffer_load(_filename);
@@ -102,5 +102,7 @@ function __VinylClassAnimCurve(_animCurveName) constructor
         __newCurve.channels = _newChannels;
         
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Reloaded ", self, " from ", _filename);
+        
+        return true;
     }
 }

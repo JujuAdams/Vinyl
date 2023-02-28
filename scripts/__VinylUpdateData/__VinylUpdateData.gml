@@ -1,13 +1,16 @@
 function __VinylUpdateData()
 {
-    static _globalData = __VinylGlobalData();
-    
-    static _fileHash       = undefined;
+    static _globalData     = __VinylGlobalData();
+    static _topLevelArray  = _globalData.__topLevelArray;
+    static _animCurveArray = _globalData.__animCurveArray;
+    static _configFileHash = undefined;
     static _animCurveIndex = 0;
-    var _firstUpdate = (_fileHash == undefined);
+    
+    var _firstUpdate = (_configFileHash == undefined);
+    var _reloadConfig = false;
     
     //Always allow data to be updated once on boot
-    if (!_globalData.__liveUpdate && (_fileHash != undefined)) return;
+    if (!_globalData.__liveUpdate && (_configFileHash != undefined)) return;
     
     var _filename = __VinylGetDatafilePath();
     
@@ -20,16 +23,43 @@ function __VinylUpdateData()
         }
         
         var _foundHash = md5_file(_filename);
-        if (_foundHash == _fileHash) return false;
-        _fileHash = _foundHash;
+        if (_foundHash != _configFileHash) _reloadConfig = true;
+        _configFileHash = _foundHash;
     }
     else
     {
         //Only load once in non-live update mode
-        if (_fileHash != undefined) return false;
+        if (_configFileHash != undefined) return false;
         
         var _filename = __VINYL_DATA_BUNDLE_FILENAME;
         var _foundHash = "loaded";
+        
+        _reloadConfig = true;
+    }
+    
+    //If we have animation curves then spin around the array checking for changes
+    var _reloadCurves = false;
+    var _i = 0;
+    repeat(array_length(_animCurveArray))
+    {
+        if (_animCurveArray[_i].__Reload()) _reloadCurves = true;
+        ++_i;
+    }
+    
+    if (!_reloadConfig)
+    {
+        //We don't need to reload the main config file but we do need to update Multi pattern blend weights
+        if (_reloadCurves)
+        {
+            var _i = 0;
+            repeat(array_length(_topLevelArray))
+            {
+                _topLevelArray[_i].__ApplyBlendFactorRecursive();
+                ++_i;
+            }
+        }
+        
+        return false;
     }
     
     var _success = undefined;

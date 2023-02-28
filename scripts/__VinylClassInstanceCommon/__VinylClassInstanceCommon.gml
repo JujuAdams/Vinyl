@@ -474,6 +474,12 @@ function __VinylClassInstanceCommon() constructor
         __VinylError("Cannot use VinylMultiSyncGet() on an instance of a ", __patternType, " pattern");
     }
     
+    static __ApplyBlendFactorRecursive = function()
+    {
+        if (__child == undefined) return;
+        __child.__ApplyBlendFactorRecursive();
+    }
+    
     #endregion
     
     

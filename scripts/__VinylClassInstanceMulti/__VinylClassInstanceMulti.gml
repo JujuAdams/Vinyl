@@ -219,10 +219,20 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         return __sync;
     }
     
+    static __ApplyBlendFactorRecursive = function()
+    {
+        __ApplyBlendFactor(true);
+        
+        var _i = 0;
+        repeat(array_length(__gainArray))
+        {
+            __childArray[_i].__ApplyBlendFactorRecursive();
+            ++_i;
+        }
+    }
+    
     static __ApplyBlendFactor = function(_force = false)
     {
-        static _animCurveDict = __globalData.__animCurveDict;
-        
         var _newBlend = __blendFactorLocal ?? __pattern.__blendFactorLocal;
         if ((_newBlend != __blendFactorOutput) || _force)
         {
