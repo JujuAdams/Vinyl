@@ -202,7 +202,7 @@ Equivalent to `AudioEffectType.Reverb1`.
 |Property|Datatype|Description                                                        |
 |--------|--------|-------------------------------------------------------------------|
 |`type`  |string  |**Must be `reverb`**                                               |
-|`bypass`|boolean |                                                                   |
+|`bypass`|boolean |Whether the effect should be bypassed (ignored)                    |
 |`size`  |number  |From `0` to `1`. Larger values lead to a longer reverb             |
 |`damp`  |number  |From `0` to `1`. Larger values reduce high frequencies more        |
 |`mix`   |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)|
@@ -258,21 +258,14 @@ A high-pass filter that thins out sounds by reducing low frequencies. Equivalent
 
 Equivalent to `AudioEffectType.Tremolo`.
 
-|Name        |Datatype|Description                                                     |
-|------------|--------|----------------------------------------------------------------|
-|`type`      |string  |**Must be `tremolo`**                                           |
-|`bypass`    |boolean |Whether the effect should be bypassed (ignored)                 |
-|`rate`      |number  |From `0` to `20` Hertz. Frequency of the LFO modulating the gain|
-|`intensity` |number  |From `0` to `1`. The depth of the effect. `1` is 100% affected  |
-|`offset`    |number  |From `0` to `1`. Left/right offset                              |
-|`shape`     |string  |See below                                                       |
-
-`shape` can be one of the following strings:
-- `sine`
-- `square`
-- `triangle`
-- `sawtooth`
-- `inverse sawtooth`
+|Name        |Datatype|Description                                                                           |
+|------------|--------|--------------------------------------------------------------------------------------|
+|`type`      |string  |**Must be `tremolo`**                                                                 |
+|`bypass`    |boolean |Whether the effect should be bypassed (ignored)                                       |
+|`rate`      |number  |From `0` to `20` Hertz. Frequency of the LFO modulating the gain                      |
+|`intensity` |number  |From `0` to `1`. The depth of the effect. `1` is 100% affected                        |
+|`offset`    |number  |From `0` to `1`. Left/right offset                                                    |
+|`shape`     |string  |Mudt be one of the following: `sine` `square` `triangle` `sawtooth` `inverse sawtooth`|
 
 ### `gain` type
 
