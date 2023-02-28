@@ -106,6 +106,7 @@
             blend curve: acTest
             blend: 0
             pitch: 0.9
+            sync: true
             assets: [
                 sndSync0
                 sndSync1
