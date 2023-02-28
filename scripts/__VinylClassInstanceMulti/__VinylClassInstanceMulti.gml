@@ -219,10 +219,12 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         return __sync;
     }
     
-    static __ApplyBlendFactor = function()
+    static __ApplyBlendFactor = function(_force = false)
     {
+        static _animCurveDict = __globalData.__animCurveDict;
+        
         var _newBlend = __blendFactorLocal ?? __pattern.__blendFactorLocal;
-        if (_newBlend != __blendFactorOutput)
+        if ((_newBlend != __blendFactorOutput) || _force)
         {
             __blendFactorOutput = _newBlend;
             
@@ -253,13 +255,14 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
                 }
                 else
                 {
+                    var _gmCurve = __blendCurve.__Get();
                     var _factor = clamp(__blendFactorOutput, 0, 1);
                     
                     //Set channels from the animation curve
                     var _i = 0;
-                    repeat(min(array_length(animcurve_get(__blendCurve).channels), array_length(__gainArray)))
+                    repeat(min(__blendCurve.__ChannelCountGet(), array_length(__gainArray)))
                     {
-                        __gainArray[@ _i] = max(0, animcurve_channel_evaluate(animcurve_get_channel(__blendCurve, _i), _factor));
+                        __gainArray[@ _i] = max(0, animcurve_channel_evaluate(animcurve_get_channel(_gmCurve, _i), _factor));
                         ++_i;
                     }
                     
@@ -321,6 +324,9 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     {
         __pattern = __VinylPatternGet(__pattern.__name);
         __MigrateCommon();
+        
+        //Force an update of the blend weights
+        __ApplyBlendFactor(true);
         
         var _i = 0;
         repeat(array_length(__childArray))

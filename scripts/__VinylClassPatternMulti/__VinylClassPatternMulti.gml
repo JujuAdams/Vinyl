@@ -3,8 +3,9 @@
 
 function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() constructor
 {
-    static __patternType = "multi";
-    static __pool = __VinylGlobalData().__poolMulti;
+    static __patternType   = "multi";
+    static __pool          = __VinylGlobalData().__poolMulti;
+    static __animCurveDict = __VinylGlobalData().__animCurveDict;
     
     __name  = _name;
     __adHoc = _adHoc;
@@ -31,7 +32,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         var _effectChainName = _patternData[$ "effect chain"   ] ?? _patternData[$ "effect"];
         var _labelNameArray  = _patternData[$ "label"          ] ?? _patternData[$ "labels"];
         var _blend           = _patternData[$ "blend"          ] ?? VINYL_DEFAULT_MULTI_BLEND;
-        var _blendCurve      = _patternData[$ "blend curve"    ];
+        var _blendCurveName  = _patternData[$ "blend curve"    ];
         var _sync            = _patternData[$ "sync"           ] ?? VINYL_DEFAULT_MULTI_SYNC;
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
@@ -49,19 +50,18 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         
         //Find a blend curve to track
         __blendCurve = undefined;
-        if (is_string(_blendCurve))
+        if (is_string(_blendCurveName))
         {
-            var _animCurve = asset_get_index(_blendCurve);
-            if ((_animCurve >= 0) && (asset_get_type(_blendCurve) == asset_animationcurve))
+            if ((asset_get_index(_blendCurveName) >= 0) && (asset_get_type(_blendCurveName) == asset_animationcurve))
             {
-                __blendCurve = _animCurve;
+                __blendCurve = __VinylAnimCurveEnsure(_blendCurveName);
             }
             else
             {
-                __VinylError("Error in ", self, "\n\Animation curve \"", _blendCurve, "\" not recognised");
+                __VinylError("Error in ", self, "\n\Animation curve \"", _blendCurveName, "\" not recognised");
             }
         }
-        else if (_blendCurve != undefined)
+        else if (_blendCurveName != undefined)
         {
             __VinylError("Error in ", self, "\n\"blend curve\" property must be the name of an animation curve as a string");
         }

@@ -15,6 +15,7 @@ function VinylSystemReadConfig(_configData)
     static _effectChainArray = _globalData.__effectChainArray;
     static _stackDict        = _globalData.__stackDict;
     static _stackArray       = _globalData.__stackArray;
+    static _animCurveArray   = _globalData.__animCurveArray;
     
     var _oldKnobDict  = _globalData.__knobDict;
     var _oldLabelDict = _globalData.__labelDict;
@@ -354,6 +355,20 @@ function VinylSystemReadConfig(_configData)
         }
         else
         {
+            ++_i;
+        }
+    }
+    
+    
+    
+    //Reload any animation curves that we're using
+    //We don't want to reload animation curves if we're running outside of the IDE
+    if (__VinylGetLiveUpdateEnabled())
+    {
+        var _i = 0;
+        repeat(array_length(_animCurveArray))
+        {
+            _animCurveArray[_i].__Reload();
             ++_i;
         }
     }

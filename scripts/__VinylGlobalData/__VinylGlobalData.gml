@@ -35,6 +35,9 @@ function __VinylGlobalData()
         
         __stackDict:  {},
         __stackArray: [],
+        
+        __animCurveDict: {},
+        __animCurveArray: [],
     };
     
     return _struct;
