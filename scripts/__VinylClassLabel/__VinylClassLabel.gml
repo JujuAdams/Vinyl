@@ -21,6 +21,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __Initialize = function(_labelData = {})
     {
+        if (!is_struct(_labelData)) __VinylError("Error in ", self, "\nLabel data must be a struct");
         if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_labelData, ["gain", "pitch", "transpose", "loop", "tag", "effect chain", "stack", "stack priority", "children"]);
         
         static _stackDict = __VinylGlobalData().__stackDict;

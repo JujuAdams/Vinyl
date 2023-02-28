@@ -27,6 +27,7 @@ function __VinylClassKnob(_name) constructor
     
     static __Initialize = function(_knobData = {})
     {
+        if (!is_struct(_knobData)) __VinylError("Error in ", self, "\nKnob data must be a struct");
         if (VINYL_CONFIG_VALIDATE_PROPERTIES && is_struct(_knobData)) __VinylValidateStruct(_knobData, ["default", "input range", "output range"]);
         
         var _rangeInputSet  = false;

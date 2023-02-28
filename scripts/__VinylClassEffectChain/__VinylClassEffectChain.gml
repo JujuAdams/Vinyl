@@ -57,6 +57,8 @@ function __VinylClassEffectChain(_name) constructor
         repeat(array_length(_busEffectArray))
         {
             var _effectData = _busEffectArray[_i];
+            if (!is_struct(_effectData)) __VinylError("Error in ", self, " effect index ", _i, "\nEffect data must be a struct");
+            
             var _effectType = string_lower(_effectData.type);
             
             var _effect = __bus.effects[_i];
@@ -151,7 +153,9 @@ function __VinylClassEffectChain(_name) constructor
                     else
                     {
                         var _knobValue = __VinylParseKnob(_value, _effectDataField, false, _effect);
-                        _effect[$ _effectDataField] = _knobValue ?? _value;
+                        _value = _knobValue ?? _value;
+                        if (!is_numeric(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a number");
+                        _effect[$ _effectDataField] = _value;
                     }
                 }
                 

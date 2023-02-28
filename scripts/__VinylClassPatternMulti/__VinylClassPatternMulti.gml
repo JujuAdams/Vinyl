@@ -16,8 +16,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
     
     static __Initialize = function(_patternData = {})
     {
-        var _knobDict = __VinylGlobalData().__knobDict;
-        
+        if (!is_struct(_patternData)) __VinylError("Error in ", self, "\nPattern data must be a struct");
         if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "stack", "stack priority", "persistent", "effect chain", "label", "labels", "blend", "blend normalize", "blend normalise", "sync"]);
         
         //Set the gain/pitch state from the provided struct
