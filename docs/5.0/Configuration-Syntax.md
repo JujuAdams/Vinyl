@@ -166,12 +166,12 @@ You can read more about patterns [here](Terminology).
 
 The following properties are only relevant for particular pattern types:
 
-|Name         |Datatype|Default                                        |Notes                                                              |
-|-------------|--------|-----------------------------------------------|-------------------------------------------------------------------|
-|`behavior`   |number  |[`VINYL_DEFAULT_QUEUE_BEHAVIOR`](Config-Macros)|**Queue patterns only.** Must be one of the following: `0` `1` `2` |
-|`sync`       |boolean |[`VINYL_DEFAULT_MULTI_SYNC`](Config-Macros)    |**Multi patterns only**                                            |
-|`blend`      |number  |[`VINYL_DEFAULT_MULTI_BLEND`](Config-Macros)   |**Multi patterns only**                                            |
-|`blend curve`|string  |`undefined`                                    |**Multi patterns only.** If not defined, linear crossfades are used|
+|Name         |Datatype|Default                                        |Notes                                                                          |
+|-------------|--------|-----------------------------------------------|-------------------------------------------------------------------------------|
+|`behavior`   |number  |[`VINYL_DEFAULT_QUEUE_BEHAVIOR`](Config-Macros)|**Queue patterns only.** Must be one of the following: `0` `1` `2`             |
+|`sync`       |boolean |[`VINYL_DEFAULT_MULTI_SYNC`](Config-Macros)    |**Multi patterns only**                                                        |
+|`blend`      |number  |[`VINYL_DEFAULT_MULTI_BLEND`](Config-Macros)   |**Multi patterns only.** This is a normalised value from `0` to `1` (inclusive)|
+|`blend curve`|string  |`undefined`                                    |**Multi patterns only.** If not defined, linear crossfades are used            |
 
 ?> Animation curves used for Multi patterns are live updated by Vinyl and can be adjusted at runtime.
 
