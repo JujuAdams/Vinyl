@@ -31,6 +31,10 @@
 #macro VINYL_DEFAULT_MULTI_BLEND_NORMALIZE  false
 #macro VINYL_DEFAULT_MULTI_SYNC             false
 
+//Default beats-per-minute to use for assets
+#macro VINYL_DEFAULT_BPM  120
+
+
 
 #region Advanced
 

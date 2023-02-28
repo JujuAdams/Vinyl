@@ -13,11 +13,12 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     static __Initialize = function(_patternData = {})
     {
         if (!is_struct(_patternData)) __VinylError("Error in ", self, "\nPattern data must be a struct");
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["gain", "pitch", "transpose", "loop", "persistent", "effect chain", "stack", "stack priority", "label", "labels"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["gain", "pitch", "transpose", "bpm", "loop", "persistent", "effect chain", "stack", "stack priority", "label", "labels"]);
         
         var _gain            = _patternData[$ "gain"          ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"         ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
         var _transpose       = _patternData[$ "transpose"     ];
+        var _bpm             = _patternData[$ "bpm"           ] ?? VINYL_DEFAULT_BPM;
         var _loop            = _patternData[$ "loop"          ];
         var _persistent      = _patternData[$ "persistent"    ];
         var _stack           = _patternData[$ "stack"         ];
@@ -27,6 +28,10 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
+        
+        //Sort out the BPM
+        if (!is_numeric(_bpm) || (_bpm <= 0)) __VinylError("Error in ", self, "\n\"bpm\" property should be a number greater than 0 (datatype=", typeof(_bpm), ")");
+        __bpm = _bpm;
         
         __InitializeGain(_gain);
         __InitializePitch(_pitch);

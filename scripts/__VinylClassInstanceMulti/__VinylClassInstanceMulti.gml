@@ -35,6 +35,18 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     
     
+    #region BPM
+    
+    static __BPMGet = function()
+    {
+        if (array_length(__childArray) <= 0) return false;
+        return __childArray[__shortestIndex].__BPMGet();
+    }
+    
+    #endregion
+    
+    
+    
     #region Loop
     
     static __LoopSet = function(_state)

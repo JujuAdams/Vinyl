@@ -10,7 +10,7 @@ function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
         {
             return "<asset " + string(__id) + ">";
         }
-        else if (is_string(__sound))
+        else if (is_string(__sound) || is_undefined(__sound))
         {
             return "<asset " + string(__id) + " " + __pattern.__name + ">";
         }
@@ -28,12 +28,18 @@ function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
         
         __sound      = undefined;
         __gmInstance = undefined;
+        __bpm        = VINYL_DEFAULT_BPM;
     }
     
     static __Instantiate = function(_pattern, _parentInstance, _vinylEmitter, _sound, _loop, _gain, _pitch, _pan)
     {
+        //Set the sound first so that error message make more sense
         __sound = _sound;
+        
         __StateSetCommon(_pattern, _parentInstance, _vinylEmitter, _loop, _gain, _pitch, _pan);
+        
+        __bpm = __pattern.__bpm;
+        
         __Play();
         
     }
@@ -91,6 +97,17 @@ function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
             __VINYL_RETURN_SELF_TO_POOL
         }
     }
+    
+    
+    
+    #region BPM
+    
+    static __BPMGet = function()
+    {
+        return __bpm;
+    }
+    
+    #endregion
     
     
     

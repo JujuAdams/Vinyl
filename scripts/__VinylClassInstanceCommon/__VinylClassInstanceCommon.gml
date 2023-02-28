@@ -230,6 +230,18 @@ function __VinylClassInstanceCommon() constructor
     
     
     
+    #region BPM
+    
+    static __BPMGet = function()
+    {
+        if (__child == undefined) return;
+        return __child.__BPMGet();
+    }
+    
+    #endregion
+    
+    
+    
     #region Semitones
     
     static __TransposeSet = function(_semitones)

@@ -18,12 +18,13 @@ function __VinylClassPatternAsset(_name, _adHoc) : __VinylClassPatternCommon() c
     static __Initialize = function(_patternData = {})
     {
         if (!is_struct(_patternData)) __VinylError("Error in ", self, "\nPattern data must be a struct");
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "effect chain", "stack", "stack priority", "persistent", "label", "labels", "loop point", "loop points"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "bpm", "loop", "effect chain", "stack", "stack priority", "persistent", "label", "labels", "loop point", "loop points"]);
         
         var _asset           = _patternData[$ "asset"         ] ?? _patternData[$ "assets"];
         var _gain            = _patternData[$ "gain"          ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"         ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
         var _transpose       = _patternData[$ "transpose"     ];
+        var _bpm             = _patternData[$ "bpm"           ] ?? VINYL_DEFAULT_BPM;
         var _loop            = _patternData[$ "loop"          ];
         var _persistent      = _patternData[$ "persistent"    ];
         var _stack           = _patternData[$ "stack"         ];
@@ -49,6 +50,10 @@ function __VinylClassPatternAsset(_name, _adHoc) : __VinylClassPatternCommon() c
         if (!audio_exists(_asset)) __VinylError("Error in ", self, " for \"asset\" property\nAudio asset with index ", _asset, " not found");
         
         __asset = _asset;
+        
+        //Sort out the BPM
+        if (!is_numeric(_bpm) || (_bpm <= 0)) __VinylError("Error in ", self, "\n\"bpm\" property should be a number greater than 0 (datatype=", typeof(_bpm), ")");
+        __bpm = _bpm;
         
         
         
