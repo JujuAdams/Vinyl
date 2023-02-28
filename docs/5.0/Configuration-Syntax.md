@@ -60,7 +60,7 @@ Here's an example of how JSON and Loose JSON compare (click the tabs to switch b
 
 ## High-level Structure
 
-The config file must contain a single struct, and each member variable in that struct defines a different component of Vinyl (assets, labels, patterns, and so on). You can read more about the precise meaning of each term [here](Terminology). Not every member variable needs to be present for Vinyl to accept the config file. Each component has its own syntax requirements and behaviours so be sure to read the documentation by choosing a topic from the sidebar.
+The config file must contain a single struct, and each member variable in that struct defines a different component of Vinyl (assets, labels, patterns, and so on). You can read more about the precise meaning of each term [here](Terminology). Not every member variable needs to be present for Vinyl to accept the config file. Each component has its own syntax requirements and behaviours so be sure to read the documentation closely.
 
 ```
 {
@@ -98,6 +98,8 @@ The config file must contain a single struct, and each member variable in that s
 
 ## Assets
 
+You can read more about assets [here](Terminology).
+
 |Name            |Datatype        |Default                             |Notes                                                                                                      |
 |----------------|----------------|------------------------------------|-----------------------------------------------------------------------------------------------------------|
 |`gain`          |number          |`1`                                 |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
@@ -115,6 +117,8 @@ The config file must contain a single struct, and each member variable in that s
 
 ## Labels
 
+You can read more about labels [here](Terminology).
+
 |Name            |Datatype        |Default      |Notes                                                                                                      |
 |----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------|
 |`gain`          |number          |`1`          |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
@@ -131,6 +135,8 @@ The config file must contain a single struct, and each member variable in that s
 
 ## Stacks
 
+You can read more about stacks [here](Terminology).
+
 |Name         |Datatype|Default                                        |Notes                                                                                               |
 |-------------|--------|-----------------------------------------------|----------------------------------------------------------------------------------------------------|
 |`ducked gain`|number  |`0`                                            |Defaults to `-60` db in [decibel mode](Config-Macros) (silence)                                     |
@@ -140,6 +146,8 @@ The config file must contain a single struct, and each member variable in that s
 &nbsp;
 
 ## Patterns
+
+You can read more about patterns [here](Terminology).
 
 |Name            |Datatype        |Default      |Notes                                                                                                                        |
 |----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------------------------|
@@ -171,6 +179,8 @@ The following properties are only relevant for particular pattern types:
 
 ## Knobs
 
+You can read more about knobs [here](Terminology).
+
 |Name          |Datatype        |Default |Notes                                                                                                                           |
 |--------------|----------------|--------|--------------------------------------------------------------------------------------------------------------------------------|
 |`default`     |number          |        |**Required.** Will be clamped between inside of the output range if either the input range or output range is explicitly defined|
@@ -180,6 +190,8 @@ The following properties are only relevant for particular pattern types:
 &nbsp;
 
 ## Effect Chains
+
+You can read more about effect chains [here](Terminology).
 
 An effect chain should be defined as an array with, at most, 8 elements. Each element in the array defines an effect in the chain and must be a struct whose properties depend on what type the effect is.
 
