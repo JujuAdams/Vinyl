@@ -72,11 +72,11 @@ The config file must contain a single struct, and each member variable in that s
         ...
     }
 
-    effect chains: {
+    knobs: {
         ...
     }
 
-    knobs: {
+    effect chains: {
         ...
     }
 }
