@@ -12,5 +12,5 @@ function VinylShutdownGet(_id)
 {
     static __idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
     var _instance = __idToInstanceDict[? _id];
-    return is_struct(_instance)? _instance.__shutdown : undefined;
+    return is_struct(_instance)? (_instance.__shutdown || _instance.__stopCallback) : undefined;
 }

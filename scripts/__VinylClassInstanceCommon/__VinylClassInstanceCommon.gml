@@ -27,8 +27,9 @@ function __VinylClassInstanceCommon() constructor
         __loop = undefined;
         __pan  = undefined;
         
-        __persistent = false;
-        __shutdown   = false;
+        __persistent   = false;
+        __shutdown     = false;
+        __stopCallback = false;
         
         __gainLocal          = 1;
         __gainTarget         = 1;
@@ -177,12 +178,6 @@ function __VinylClassInstanceCommon() constructor
     
     static __PitchSet = function(_pitch)
     {
-        if (__shutdown)
-        {
-            __VinylTrace("Cannot set pitch for ", self, ", it is set to shut down");
-            return;
-        }
-        
         if ((__pitchLocal != _pitch) && (VINYL_DEBUG_LEVEL >= 1))
         {
             __VinylTrace(self, " pitch=", _pitch);
@@ -205,12 +200,6 @@ function __VinylClassInstanceCommon() constructor
     
     static __PitchTargetSet = function(_targetPitch, _rate)
     {
-        if (__shutdown)
-        {
-            __VinylTrace("Cannot set pitch target for ", self, ", it is set to shut down");
-            return;
-        }
-        
         if (VINYL_DEBUG_LEVEL >= 1)
         {
             __VinylTrace(self, " pitch target=", _targetPitch, ", rate=", _rate, "/s");
@@ -244,12 +233,6 @@ function __VinylClassInstanceCommon() constructor
     
     static __TransposeSet = function(_semitones)
     {
-        if (__shutdown)
-        {
-            __VinylTrace("Cannot set transpose for ", self, ", it is set to shut down");
-            return;
-        }
-        
         if (__transposeLocal != _semitones)
         {
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " transpose=", _semitones);
@@ -341,6 +324,8 @@ function __VinylClassInstanceCommon() constructor
     {
         if (__child == undefined) return;
         
+        __StopCallbackExecute();
+        
         __child.__Stop();
         __child = undefined;
         
@@ -363,6 +348,43 @@ function __VinylClassInstanceCommon() constructor
     {
         if (__child == undefined) return 0;
         return __child.__PositionGet();
+    }
+    
+    #endregion
+    
+    
+    
+    #region Stop Callback
+    
+    static __StopCallbackSet = function(_callback, _data)
+    {
+        if (!is_method(_callback) && not (is_numeric(_callback) && script_exists(_callback)))
+        {
+            __VinylError("Callback not a method or a script (datatype=", typeof(_callback), ")");
+        }
+        
+        __stopCallback     = _callback;
+        __stopCallbackData = _data;
+    }
+    
+    static __StopCallbackGet = function()
+    {
+        static _result = {};
+        _result.callback = __stopCallback;
+        _result.data     = __stopCallbackData;
+        return _result;
+    }
+    
+    static __StopCallbackExecute = function()
+    {
+        if (is_method(__stopCallback))
+        {
+            __stopCallback(__stopCallbackData);
+        }
+        else if (is_numeric(__stopCallback) && script_exists(__stopCallback))
+        {
+            script_execute(__stopCallback, __stopCallbackData);
+        }
     }
     
     #endregion

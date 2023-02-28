@@ -104,6 +104,8 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     {
         if (array_length(__childArray) <= 0) return;
         
+        __StopCallbackExecute();
+        
         var _i = 0;
         repeat(array_length(__childArray))
         {

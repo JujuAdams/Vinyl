@@ -167,6 +167,8 @@ function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Stopping ", self);
         
+        __StopCallbackExecute();
+        
         audio_stop_sound(__gmInstance);
         __gmInstance = undefined;
         

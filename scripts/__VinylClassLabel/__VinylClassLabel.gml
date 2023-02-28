@@ -322,6 +322,22 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     
     
+    #region Stop Callback
+    
+    static __StopCallbackSet = function(_callback, _data)
+    {
+        var _i = 0;
+        repeat(array_length(__topLevelArray))
+        {
+            VinylStopCallbackSet(__topLevelArray[_i], _callback, _data);
+            ++_i;
+        }
+    }
+    
+    #endregion
+    
+    
+    
     #region Queue
     
     static __QueuePush = function(_asset, _dontRepeatLast)
