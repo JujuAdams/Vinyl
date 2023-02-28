@@ -22,6 +22,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Patterns","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Patterns.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Advanced","folderPath":"folders/Vinyl/Advanced.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Basics","folderPath":"folders/Vinyl/Basics.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"BPM","folderPath":"folders/Vinyl/BPM.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Gain","folderPath":"folders/Vinyl/Gain.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Knobs","folderPath":"folders/Vinyl/Knobs.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Looping","folderPath":"folders/Vinyl/Looping.yy",},
@@ -33,7 +34,6 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Semitones","folderPath":"folders/Vinyl/Semitones.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stack","folderPath":"folders/Vinyl/Stack.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stopping Audio","folderPath":"folders/Vinyl/Stopping Audio.yy",},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"BPM","folderPath":"folders/Vinyl/BPM.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"vinyl.dat","CopyToMask":-1,"filePath":"datafiles",},

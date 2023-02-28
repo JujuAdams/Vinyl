@@ -9,6 +9,7 @@
     {"name":"Patterns","order":1,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Patterns.yy",},
     {"name":"Advanced","order":16,"path":"folders/Vinyl/Advanced.yy",},
     {"name":"Basics","order":3,"path":"folders/Vinyl/Basics.yy",},
+    {"name":"BPM","order":9,"path":"folders/Vinyl/BPM.yy",},
     {"name":"Gain","order":7,"path":"folders/Vinyl/Gain.yy",},
     {"name":"Knobs","order":15,"path":"folders/Vinyl/Knobs.yy",},
     {"name":"Looping","order":5,"path":"folders/Vinyl/Looping.yy",},
@@ -20,7 +21,6 @@
     {"name":"Semitones","order":10,"path":"folders/Vinyl/Semitones.yy",},
     {"name":"Stack","order":14,"path":"folders/Vinyl/Stack.yy",},
     {"name":"Stopping Audio","order":4,"path":"folders/Vinyl/Stopping Audio.yy",},
-    {"name":"BPM","order":9,"path":"folders/Vinyl/BPM.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"__VinylClassEffectChain","order":2,"path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},
