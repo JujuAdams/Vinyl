@@ -63,6 +63,10 @@
          sndBleep8, sndBleep9, sndBleep10, sndBleep11]: {
             label: sfx
         }
+        
+        [sndSync0, sndSync1, sndSync2,  sndSync3]: {
+            bpm: 75
+        }
     }
     
     
@@ -99,8 +103,8 @@
         music sync test: {
             type: multi
             label: [music, echo]
-            pitch: 0.9
             stack priority: 1
+            pitch: 0.9
             assets: [
                 sndSync0
                 sndSync1

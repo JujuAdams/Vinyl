@@ -28,7 +28,11 @@ function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
         
         __sound      = undefined;
         __gmInstance = undefined;
-        __bpm        = VINYL_DEFAULT_BPM;
+        
+        __bpm            = VINYL_DEFAULT_BPM;
+        __bpmBeat        = 0;
+        __bpmBeatCounter = 0;
+        __bpmPulse       = false;
     }
     
     static __Instantiate = function(_pattern, _parentInstance, _vinylEmitter, _sound, _loop, _gain, _pitch, _pan)
@@ -81,6 +85,8 @@ function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
     
     static __Tick = function(_deltaTimeFactor)
     {
+        __bpmPulse = false;
+        
         if (__IsPlaying())
         {
             __TickCommon(_deltaTimeFactor);
@@ -89,6 +95,14 @@ function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
             {
                 audio_sound_gain(__gmInstance, __VinylCurveAmplitude(__gainOutput), VINYL_STEP_DURATION);
                 audio_sound_pitch(__gmInstance, __pitchOutput);
+                
+                var _beat = floor(audio_sound_get_track_position(__gmInstance) / (60 / __bpm));
+                if (_beat != __bpmBeat)
+                {
+                    __bpmPulse = true;
+                    __bpmBeat = _beat;
+                    ++__bpmBeatCounter;
+                }
             }
         }
         else
@@ -105,6 +119,16 @@ function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
     static __BPMGet = function()
     {
         return __bpm;
+    }
+    
+    static __BPMPulseGet = function()
+    {
+        return __bpmPulse;
+    }
+    
+    static __BPMBeatCountGet = function()
+    {
+        return __bpmPulse;
     }
     
     #endregion
@@ -194,7 +218,7 @@ function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
     
     static __LengthGet = function()
     {
-        if (!is_numeric(__gmInstance)) return;
+        if (!is_numeric(__gmInstance)) return 0;
         
         if (audio_sound_get_loop(__gmInstance))
         {
@@ -222,7 +246,7 @@ function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
     
     static __PositionGet = function()
     {
-        if (!is_numeric(__gmInstance)) return;
+        if (!is_numeric(__gmInstance)) return 0;
         
         if (audio_sound_get_loop(__gmInstance))
         {

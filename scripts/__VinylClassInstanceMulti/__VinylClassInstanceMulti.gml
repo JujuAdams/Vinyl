@@ -43,6 +43,18 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
         return __childArray[__shortestIndex].__BPMGet();
     }
     
+    static __BPMPulseGet = function()
+    {
+        if (array_length(__childArray) <= 0) return false;
+        return __childArray[__shortestIndex].__BPMPulseGet();
+    }
+    
+    static __BPMBeatCountGet = function()
+    {
+        if (array_length(__childArray) <= 0) return 0;
+        return __childArray[__shortestIndex].__BPMBeatCountGet();
+    }
+    
     #endregion
     
     
@@ -148,12 +160,8 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     static __PositionGet = function()
     {
-        var _i = 0;
-        repeat(array_length(__childArray))
-        {
-            __childArray[_i].__PositionGet();
-            ++_i;
-        }
+        if (array_length(__childArray) <= 0) return 0;
+        return __childArray[__shortestIndex].__PositionGet();
     }
     
     #endregion

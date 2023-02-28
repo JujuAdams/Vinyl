@@ -238,6 +238,18 @@ function __VinylClassInstanceCommon() constructor
         return __child.__BPMGet();
     }
     
+    static __BPMPulseGet = function()
+    {
+        if (__child == undefined) return;
+        return __child.__BPMPulseGet();
+    }
+    
+    static __BPMBeatCountGet = function()
+    {
+        if (__child == undefined) return;
+        return __child.__BPMBeatCountGet();
+    }
+    
     #endregion
     
     
