@@ -23,7 +23,7 @@ function __VinylClassStack(_name) constructor
         return "<stack " + string(__name) + ">";
     }
     
-    static __Update = function(_stackData)
+    static __Update = function(_stackData = {})
     {
         if (!is_struct(_stackData)) __VinylError("Error in ", self, "\nStack data must be a struct");
         if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_stackData, ["ducked gain", "rate", "pause"]);

@@ -49,8 +49,8 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         
         //Set the blend state
         var _knobBlend = __VinylParseKnob(_blend, "blend", false, self);
-        __blendFactorLocal = _knobBlend ?? _gain;
-        if (!is_numeric(__blendFactorLocal)) __VinylError("Error in ", self, "\n\"gain\" property must be a number or a knob");
+        __blendFactorLocal = _knobBlend ?? _blend;
+        if (!is_numeric(__blendFactorLocal) && !is_undefined(__blendFactorLocal)) __VinylError("Error in ", self, "\n\"blend\" property must be a number or a knob");
         
         //Set the normalization state
         __blendNormalize = _blendNormalize;

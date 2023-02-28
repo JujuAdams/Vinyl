@@ -78,7 +78,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         
         //Sort out the transposition
         var _knobTranspose = __VinylParseKnob(_transpose, "transpose", false, self);
-        __configTranspose = _knobTranspose ?? _gain;
+        __configTranspose = _knobTranspose ?? _transpose;
         if (!is_numeric(__configTranspose) && !is_undefined(__configTranspose)) __VinylError("Error in ", self, "\n\"transpose\" property must be a number or a knob");
         
         //Sort out the stack
