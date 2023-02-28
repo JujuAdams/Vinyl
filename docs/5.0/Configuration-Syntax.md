@@ -8,19 +8,21 @@ Vinyl's [configuration file](Configuration) is, basically, written as [JSON](htt
 
 The basic rules of Loose JSON as a data format are as follows:
 
-|Rule|                                                                                                                                                                                                                                                                                                                                                                                  |
-|----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|1   |Valid standard JSON is also valid Loose JSON                                                                                                                                                                                                                                                                                                                                      |
-|2   |Loose JSON supports strings, numbers, boolean, and null as basic value types                                                                                                                                                                                                                                                                                                      |
-|3   |Loose JSON can express structs and arrays like normal JSON                                                                                                                                                                                                                                                                                                                        |
-|4   |You can use either commas or newlines to separate elements in a struct or array                                                                                                                                                                                                                                                                                                   |
-|5   |Trailing commas are fine too                                                                                                                                                                                                                                                                                                                                                      |
-|6   |Strings can be delimited with double quote marks `"` but don't have to be. If a string is _not_ delimited then any potential trailing or leading whitespace is automatically clipped off. If you'd like to use special symbols inside a string (e.g. `"` `:` `,` etc.), and you don't want to escape those characters, then you'll need to delimit strings with double quote marks|
-|7   |The keywords `true` `false` `null` `undefined` are translated to their GameMaker equivalents (`null` is convered to GameMaker's `undefined`)                                                                                                                                                                                                                                      |
-|8   |If a value looks like a number then the Loose JSON parser will try to turn it into a number. Numbers inside `"` quote marks will stay as a string                                                                                                                                                                                                                                 |
-|9   |Loose JSON supports escaped characters, including [Unicode escapes](https://dencode.com/en/string/unicode-escape)                                                                                                                                                                                                                                                                 |
-|10  | A keys can be a string or, optionally, an array of strings. Key strings can have spaces in them                                                                                                                                                                                                                                                                                  |
-|11  | If a key is an array of strings, then the value associated with the key array will be duplicated for each member of the key array                                                                                                                                                                                                                                                |
+|Rule|                                                                                                                                                                                        |
+|----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|1   |Valid standard JSON is also valid Loose JSON                                                                                                                                            |
+|2   |Loose JSON supports strings, numbers, boolean, and null as basic value types                                                                                                            |
+|3   |Loose JSON can express structs and arrays like normal JSON                                                                                                                              |
+|4   |You can use either commas or newlines to separate elements in a struct or array                                                                                                         |
+|5   |Trailing commas are fine too                                                                                                                                                            |
+|6   |Strings can be delimited with double quote marks `"` but don't *usually* have to be                                                                                                     |
+|7   |If you'd like to use special symbols inside a string (e.g. `"` `:` `,` etc.), and you don't want to escape those characters, then you'll need to delimit strings with double quote marks|
+|8   |If a string is _not_ delimited then any potential trailing or leading whitespace is automatically clipped off                                                                           |
+|9   |If an undelimited string matches a keyword (`true` `false` `null` `undefined`) then it's converted to the GameMaker equivalent value (`null` is convered to GameMaker's `undefined`)    |
+|10  |If an undelimited string like a number then the Loose JSON parser will try to turn it into a number                                                                                     |
+|11  |Loose JSON supports escaped characters, including [Unicode escapes](https://dencode.com/en/string/unicode-escape)                                                                       |
+|12  |A struct key can be a string or, optionally, an array of strings. Key strings can have spaces in them                                                                                   |
+|13  |If a key is an array of strings, then the value associated with the key array will be duplicated for each member of the key array                                                       |
 
 Here's an example of how JSON and Loose JSON compare (click the tabs to switch between formats):
 
@@ -28,7 +30,7 @@ Here's an example of how JSON and Loose JSON compare (click the tabs to switch b
 
 #### Loose JSON
 
-```
+```loose
 {
     menu: {
         id: 4578,
