@@ -15,11 +15,11 @@ function __VinylTick()
     }
     
     //Update labels
-    var _labelOrder = _globalData.__labelOrder; //Don't use a static here because this struct can be recreated
+    var _labelArray = _globalData.__labelArray; //Don't use a static here because this struct can be recreated
     var _i = 0;
-    repeat(array_length(_labelOrder))
+    repeat(array_length(_labelArray))
     {
-        _labelOrder[_i].__Tick(_deltaTimeFactor);
+        _labelArray[_i].__Tick(_deltaTimeFactor);
         ++_i;
     }
     

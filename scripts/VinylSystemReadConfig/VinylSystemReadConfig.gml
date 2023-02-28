@@ -25,11 +25,11 @@ function VinylSystemReadConfig(_configData)
     _globalData.__knobDict     = {};
     _globalData.__knobArray    = [];
     _globalData.__labelDict    = {};
-    _globalData.__labelOrder   = [];
+    _globalData.__labelArray   = [];
     
     //Cache some values for a lil speed up
     var _newPatternDict = _globalData.__patternDict;
-    var _newLabelOrder  = _globalData.__labelOrder;
+    var _newLabelArray  = _globalData.__labelArray;
     
     
     
@@ -160,9 +160,9 @@ function VinylSystemReadConfig(_configData)
         
         //Copy state data from old labels to new labels
         var _i = 0;
-        repeat(array_length(_newLabelOrder))
+        repeat(array_length(_newLabelArray))
         {
-            var _newLabel = _newLabelOrder[_i];
+            var _newLabel = _newLabelArray[_i];
             var _oldLabel = _oldLabelDict[$ _newLabel.__name];
             if (is_struct(_oldLabel)) _newLabel.__CopyOldState(_oldLabel);
             ++_i;
@@ -246,9 +246,9 @@ function VinylSystemReadConfig(_configData)
     
     //Iterate over every label and collect up sound assets with tags that match the label's definition
     var _i = 0;
-    repeat(array_length(_newLabelOrder))
+    repeat(array_length(_newLabelArray))
     {
-        var _labelData = _newLabelOrder[_i];
+        var _labelData = _newLabelArray[_i];
         var _tagArray = _labelData.__tagArray;
         
         if (is_array(_tagArray))

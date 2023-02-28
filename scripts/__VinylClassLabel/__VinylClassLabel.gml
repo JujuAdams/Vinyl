@@ -146,7 +146,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     static __Store = function()
     {
         var _labelDict  = __VinylGlobalData().__labelDict;
-        var _labelArray = __VinylGlobalData().__labelOrder;
+        var _labelArray = __VinylGlobalData().__labelArray;
         
         _labelDict[$ __name] = self;
         array_push(_labelArray, self);
