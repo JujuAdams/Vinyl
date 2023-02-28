@@ -27,9 +27,10 @@ function __VinylClassInstanceCommon() constructor
         __loop = undefined;
         __pan  = undefined;
         
-        __persistent   = false;
-        __shutdown     = false;
-        __stopCallback = false;
+        __persistent       = false;
+        __shutdown         = false;
+        __stopCallback     = undefined;
+        __stopCallbackData = undefined;
         
         __gainLocal          = 1;
         __gainTarget         = 1;
@@ -379,11 +380,11 @@ function __VinylClassInstanceCommon() constructor
     {
         if (is_method(__stopCallback))
         {
-            __stopCallback(__stopCallbackData);
+            __stopCallback(__stopCallbackData, __id);
         }
         else if (is_numeric(__stopCallback) && script_exists(__stopCallback))
         {
-            script_execute(__stopCallback, __stopCallbackData);
+            script_execute(__stopCallback, __stopCallbackData, __id);
         }
     }
     

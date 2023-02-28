@@ -76,6 +76,12 @@ UIText("music: VinylExists() = " + string(VinylExists(music))
 UIButtonInline("Play music", function()
 {
     music = VinylPlay(sndChickenNuggets);
+    VinylStopCallbackSet(music,
+                         function(_data, _id)
+                         {
+                             show_message(string(_id) + " said \"" + string(_data) + "\" on stop");
+                         },
+                         "boop");
 });
 
 UIButtonInline("Stop music", function()
