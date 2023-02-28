@@ -70,14 +70,6 @@ Value to set for queue patterns when the `blend` property is unset. See [`VinylM
 
 &nbsp;
 
-## `VINYL_DEFAULT_MULTI_BLEND_NORMALIZE`
-
-*Default value: `false`*
-
-Value to set for queue patterns when the `blend normalize` property is unset. See the [config file documentation](Configuration) for more information.
-
-&nbsp;
-
 ## `VINYL_DEFAULT_MULTI_SYNC`
 
 *Default value: `false`*
