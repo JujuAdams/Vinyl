@@ -117,7 +117,7 @@
             }
             {
                 type: reverb
-                size: @reverb size
+                size: [@reverb size, 0, 1]
                 mix: 0.3
             }
             {

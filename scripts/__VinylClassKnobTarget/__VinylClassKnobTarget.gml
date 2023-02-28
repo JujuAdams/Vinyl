@@ -1,10 +1,15 @@
 /// @param scope
 /// @param property
+/// @param rangeLo
+/// @param rangeHi
 
-function __VinylClassKnobTarget(_scope, _property) constructor
+function __VinylClassKnobTarget(_scope, _property, _rangeLo, _rangeHi) constructor
 {
-    __scope      = _scope;
-    __property   = _property;
+    __scope         = _scope;
+    __property      = _property;
+    __rangeFree     = ((_rangeLo != undefined) && (_rangeHi != undefined));
+    __rangeOutputLo = _rangeLo;
+    __rangeOutputHi = _rangeHi;
     
     if (is_instanceof(__scope, __VinylClassLabel)
     ||  is_instanceof(__scope, __VinylClassPatternFallback)
@@ -22,25 +27,31 @@ function __VinylClassKnobTarget(_scope, _property) constructor
         __mode = 0;
     }
     
-    static __Update = function(_value)
+    static __Update = function(_valueOutput, _parameter)
     {
+        if (!__rangeFree)
+        {
+            //Remap the input value if we have a custom range
+            _valueOutput = lerp(__rangeOutputLo, __rangeOutputHi, _parameter);
+        }
+        
         if (__mode == 0)
         {
-            __scope[$ __property] = _value;
+            __scope[$ __property] = _valueOutput;
         }
         else if (__mode == 1) //Labels and Patterns
         {
             if (__property == "gain")
             {
-                __scope.__GainSet(_value, true);
+                __scope.__GainSet(_valueOutput, true);
             }
             else if (__property == "pitch")
             {
-                __scope.__PitchSet(_value, true);
+                __scope.__PitchSet(_valueOutput, true);
             }
             else if (__property == "blend")
             {
-                __scope.__MultiBlendSet(_value, true);
+                __scope.__MultiBlendSet(_valueOutput, true);
             }
         }
     }

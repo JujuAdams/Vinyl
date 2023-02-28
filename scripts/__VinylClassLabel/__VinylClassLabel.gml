@@ -53,7 +53,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
                 var _knob = _knobDict[$ _knobName];
                 if (!is_struct(_knob)) __VinylError("Error in ", self, " for gain property\nKnob \"", _knobName, "\" doesn't exist");
                 
-                _knob.__TargetCreate(self, "gain");
+                _knob.__TargetCreate(self, "gain", undefined, undefined);
                 _gain = _knob.__OutputGet(); //Set gain to the current value of the knob
                 
                 __configGainKnob = true;
@@ -83,7 +83,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
                 var _knob = _knobDict[$ _knobName];
                 if (!is_struct(_knob)) __VinylError("Error in ", self, " for pitch property\nKnob \"", _knobName, "\" doesn't exist");
                 
-                _knob.__TargetCreate(self, "pitch");
+                _knob.__TargetCreate(self, "pitch", undefined, undefined);
                 __configPitchLo = _knob.__OutputGet(); //Set pitch to the current value of the knob
                 __configPitchHi = __configPitchLo;
                 
@@ -132,7 +132,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
                 var _knob = _knobDict[$ _knobName];
                 if (!is_struct(_knob)) __VinylError("Error in ", self, " for transpose property\nKnob \"", _knobName, "\" doesn't exist");
             
-                _knob.__TargetCreate(self, "transpose");
+                _knob.__TargetCreate(self, "transpose", undefined, undefined);
                 __configTranspose = _knob.__OutputGet(); //Set transpose to the current value of the knob
                 
                 __configTransposeKnob = true;

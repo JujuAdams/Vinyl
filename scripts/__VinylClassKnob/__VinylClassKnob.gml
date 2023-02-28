@@ -6,6 +6,7 @@ function __VinylClassKnob(_name) constructor
     
     __valueDefault = 0;
     __valueReset   = true;
+    __valueParam   = 0;
     __valueInput   = 0;
     __valueOutput  = 0;
     
@@ -109,9 +110,9 @@ function __VinylClassKnob(_name) constructor
         if (_oldKnob != undefined) __Set(_oldKnob.__InputGet());
     }
     
-    static __TargetCreate = function(_scope, _property)
+    static __TargetCreate = function(_scope, _property, _rangeLo, _rangeHi)
     {
-        array_push(__targetArray, new __VinylClassKnobTarget(_scope, _property));
+        array_push(__targetArray, new __VinylClassKnobTarget(_scope, _property, _rangeLo, _rangeHi));
     }
     
     static __Set = function(_value)
@@ -163,12 +164,15 @@ function __VinylClassKnob(_name) constructor
             __valueOutput = __valueDefault;
             
             //Remap default value to input
-            __valueInput  = __rangeFree? __valueOutput : lerp(__rangeInputLo, __rangeInputHi, (__valueOutput - __rangeOutputLo) / (__rangeOutputHi - __rangeOutputLo));
+            __valueParam  = clamp((__valueOutput - __rangeOutputLo) / (__rangeOutputHi - __rangeOutputLo), 0, 1);
+            __valueInput  = __rangeFree? __valueOutput : lerp(__rangeInputLo, __rangeInputHi, __valueParam);
             __valueTarget = __valueInput;
             __valueRate   = infinity;
         }
         else
         {
+            __valueParam = clamp((__valueInput - __rangeInputLo) / (__rangeInputHi - __rangeInputLo), 0, 1);
+            
             if (__rangeFree)
             {
                 __valueOutput = __valueInput;
@@ -176,7 +180,7 @@ function __VinylClassKnob(_name) constructor
             else
             {
                 //Remap input value to output
-                __valueOutput = lerp(__rangeOutputLo, __rangeOutputHi, clamp((__valueInput - __rangeInputLo) / (__rangeInputHi - __rangeInputLo), 0, 1));
+                __valueOutput = lerp(__rangeOutputLo, __rangeOutputHi, __valueParam);
             }
         }
         
@@ -189,7 +193,7 @@ function __VinylClassKnob(_name) constructor
         repeat(array_length(__targetArray))
         {
             var _target = __targetArray[_i];
-            _target.__Update(__valueOutput);
+            _target.__Update(__valueOutput, __valueParam);
             ++_i;
         }
     }
