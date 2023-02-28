@@ -6,35 +6,27 @@ Vinyl's [configuration file](Configuration) is, basically, written as [JSON](htt
 
 ?> To match GameMaker's nomenclature, a JavaScript "object" will be referred to as a "struct" throughout Vinyl's documentation.
 
-In brief:
+The basic rules of Loose JSON as a data format are as follows:
 
-1. Valid standard JSON is also valid Loose JSON
-2. Loose JSON supports strings, numbers, boolean, and null as basic value types
-3. Loose JSON can express structs and arrays like normal JSON
-4. You can use either commas or newlines to separate elements in a struct or array
-5. Trailing commas are fine too
-6. Strings can be delimited with double quote marks `"` but don't have to be. If a string is _not_ delimited then any potential trailing or leading whitespace is automatically clipped off. If you'd like to use special symbols inside a string (e.g. `"` `:` `,` etc.), and you don't want to escape those characters, then you'll need to delimit strings with double quote marks
-7. The keywords `true` `false` `null` `undefined` are translated to their GameMaker equivalents (`null` is convered to GameMaker's `undefined`)
-8. If a value looks like a number then the Loose JSON parser will try to turn it into a number. Numbers inside `"` quote marks will stay as a string
-9. Loose JSON supports escaped characters, including [Unicode escapes](https://dencode.com/en/string/unicode-escape)
-10. A keys can be a string or, optionally, an array of strings. Key strings can have spaces in them
-11. If a key is an array of strings, then the value associated with the key array will be duplicated for each member of the key array
+|Rule|                                                                                                                                                                                                                                                                                                                                                                                  |
+|----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|1   |Valid standard JSON is also valid Loose JSON                                                                                                                                                                                                                                                                                                                                      |
+|2   |Loose JSON supports strings, numbers, boolean, and null as basic value types                                                                                                                                                                                                                                                                                                      |
+|3   |Loose JSON can express structs and arrays like normal JSON                                                                                                                                                                                                                                                                                                                        |
+|4   |You can use either commas or newlines to separate elements in a struct or array                                                                                                                                                                                                                                                                                                   |
+|5   |Trailing commas are fine too                                                                                                                                                                                                                                                                                                                                                      |
+|6   |Strings can be delimited with double quote marks `"` but don't have to be. If a string is _not_ delimited then any potential trailing or leading whitespace is automatically clipped off. If you'd like to use special symbols inside a string (e.g. `"` `:` `,` etc.), and you don't want to escape those characters, then you'll need to delimit strings with double quote marks|
+|7   |The keywords `true` `false` `null` `undefined` are translated to their GameMaker equivalents (`null` is convered to GameMaker's `undefined`)                                                                                                                                                                                                                                      |
+|8   |If a value looks like a number then the Loose JSON parser will try to turn it into a number. Numbers inside `"` quote marks will stay as a string                                                                                                                                                                                                                                 |
+|9   |Loose JSON supports escaped characters, including [Unicode escapes](https://dencode.com/en/string/unicode-escape)                                                                                                                                                                                                                                                                 |
+|10  | A keys can be a string or, optionally, an array of strings. Key strings can have spaces in them                                                                                                                                                                                                                                                                                  |
+|11  | If a key is an array of strings, then the value associated with the key array will be duplicated for each member of the key array                                                                                                                                                                                                                                                |
 
-Here's a standard JSON example:
+Here's an example of how JSON and Loose JSON compare (click the tabs to switch between formats):
 
-```
-{
-    "menu": {
-        "id": 4578,
-        "value": "File",
-        "popup": {
-            "menuitem": ["New", "Open", "Close"]
-        }
-    }
-}
-```
+<!-- tabs:start -->
 
-And here's an equivalent Loose JSON example:
+#### Loose JSON
 
 ```
 {
@@ -47,6 +39,22 @@ And here's an equivalent Loose JSON example:
     }
 }
 ```
+
+#### JSON
+
+```json
+{
+    "menu": {
+        "id": 4578,
+        "value": "File",
+        "popup": {
+            "menuitem": ["New", "Open", "Close"]
+        }
+    }
+}
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
@@ -94,31 +102,31 @@ The config file must contain a single struct, and each member variable in that s
 |----------------|----------------|------------------------------------|-----------------------------------------------------------------------------------------------------------|
 |`gain`          |number          |`1`                                 |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
 |`pitch`         |number or array |`1`                                 |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
-|`transpose`     |number          |                                    |                                                                                                           |
+|`transpose`     |number          |*passthrough*                       |                                                                                                           |
 |`bpm`           |number          |[`VINYL_DEFAULT_BPM`](Config-Macros)|                                                                                                           |
-|`loop`          |boolean         |                                    |                                                                                                           |
-|`loop points`   |array of numbers|                                    |Array must have two-elements defining the start and end point of a loop, measured in seconds               |
-|`stack`         |string          |                                    |                                                                                                           |
+|`loop`          |boolean         |*passthrough*                       |                                                                                                           |
+|`loop points`   |array of numbers|*passthrough*                       |Array must have two-elements defining the start and end point of a loop, measured in seconds               |
+|`stack`         |string          |*passthrough*                       |                                                                                                           |
 |`stack priority`|number          |`0`                                 |                                                                                                           |
-|`effect chain`  |string          |                                    |                                                                                                           |
-|`persistent`    |boolean         |                                    |                                                                                                           |
+|`effect chain`  |string          |*passthrough*                       |                                                                                                           |
+|`persistent`    |boolean         |*passthrough*                       |                                                                                                           |
 
 &nbsp;
 
 ## Labels
 
-|Name            |Datatype        |Default|Notes                                                                                                      |
-|----------------|----------------|-------|-----------------------------------------------------------------------------------------------------------|
-|`gain`          |number          |`1`    |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
-|`pitch`         |number or array |`1`    |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
-|`transpose`     |number          |       |                                                                                                           |
-|`loop`          |boolean         |       |                                                                                                           |
-|`stack`         |string          |       |                                                                                                           |
-|`stack priority`|number          |`0`    |                                                                                                           |
-|`effect chain`  |string          |       |                                                                                                           |
-|`tag`           |string or array |       |Links this label to a native GameMaker asset tag. Can be a string for one tag, or an array of tags         |
-|`children`      |array of structs|`[]`   |Must be an array of label structs                                                                          |
-
+|Name            |Datatype        |Default      |Notes                                                                                                      |
+|----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------|
+|`gain`          |number          |`1`          |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
+|`pitch`         |number or array |`1`          |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
+|`transpose`     |number          |*passthrough*|                                                                                                           |
+|`loop`          |boolean         |*passthrough*|                                                                                                           |
+|`stack`         |string          |*passthrough*|                                                                                                           |
+|`stack priority`|number          |`0`          |                                                                                                           |
+|`effect chain`  |string          |*passthrough*|                                                                                                           |
+|`tag`           |string or array |*passthrough*|Links this label to a native GameMaker asset tag. Can be a string for one tag, or an array of tags         |
+|`children`      |array of structs|`[]`         |Must be an array of label structs                                                                          |
+           
 &nbsp;
 
 ## Stacks
@@ -133,20 +141,20 @@ The config file must contain a single struct, and each member variable in that s
 
 ## Patterns
 
-|Name            |Datatype        |Default|Notes                                                                                                                        |
-|----------------|----------------|-------|-----------------------------------------------------------------------------------------------------------------------------|
-|`type`          |string          |       |**Required.** Must be one of the following: `basic` `shuffle` `queue` `multi`                                                |
-|`asset`         |string or struct|       |**Required.** Can be asset name, a pattern name, or a pattern struct. Must be an array for shuffle, queue, and multi patterns|
-|`gain`          |number          |`1`    |Defaults to `0` db in [decibel mode](Config-Macros)                                                                          |
-|`pitch`         |number or array |`1`    |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)                  |
-|`transpose`     |number          |       |                                                                                                                             |
-|`loop`          |boolean         |       |                                                                                                                             |
-|`loop points`   |array of numbers|       |Must be a two-element array defining the start and end point of a loop, measured in seconds                                  |
-|`stack`         |string          |       |                                                                                                                             |
-|`stack priority`|number          |`0`    |                                                                                                                             |
-|`effect chain`  |string          |       |                                                                                                                             |
-|`label`         |string or array |       |Label to assign this pattern to. Can be a string for for label, or an array of label names                                   |
-|`persistent`    |boolean         |       |                                                                                                                             |
+|Name            |Datatype        |Default      |Notes                                                                                                                        |
+|----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------------------------|
+|`type`          |string          |*passthrough*|**Required.** Must be one of the following: `basic` `shuffle` `queue` `multi`                                                |
+|`asset`         |string or struct|*passthrough*|**Required.** Can be asset name, a pattern name, or a pattern struct. Must be an array for shuffle, queue, and multi patterns|
+|`gain`          |number          |`1`          |Defaults to `0` db in [decibel mode](Config-Macros)                                                                          |
+|`pitch`         |number or array |`1`          |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)                  |
+|`transpose`     |number          |*passthrough*|                                                                                                                             |
+|`loop`          |boolean         |*passthrough*|                                                                                                                             |
+|`loop points`   |array of numbers|*passthrough*|Must be a two-element array defining the start and end point of a loop, measured in seconds                                  |
+|`stack`         |string          |*passthrough*|                                                                                                                             |
+|`stack priority`|number          |`0`          |                                                                                                                             |
+|`effect chain`  |string          |*passthrough*|                                                                                                                             |
+|`label`         |string or array |*passthrough*|Label to assign this pattern to. Can be a string for for label, or an array of label names                                   |
+|`persistent`    |boolean         |*passthrough*|                                                                                                                             |
 
 The following properties are only relevant for particular pattern types:
 
