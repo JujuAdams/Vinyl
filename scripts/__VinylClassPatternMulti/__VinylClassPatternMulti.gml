@@ -49,44 +49,17 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         __InitializeLabelArray(_labelNameArray);
         
         //Set the blend state
-        if (is_string(_blend))
-        {
-            if (string_char_at(_blend, 1) == "@")
-            {
-                var _knobName = string_delete(_blend, 1, 1);
-                var _knob = _knobDict[$ _knobName];
-                if (!is_struct(_knob)) __VinylError("Error in ", self, " for blend property\nKnob \"", _knobName, "\" doesn't exist");
-            
-                _knob.__TargetCreate(self, "blend", undefined, undefined);
-                _blend = _knob.__OutputGet(); //Set blend to the current value of the knob
-            }
-            else
-            {
-                __VinylError("Error in ", self, "\n\"blend\" must be a number, a knob name, or undefined");
-            }
-        }
-        else if (!is_numeric(_gain) && !is_undefined(_gain))
-        {
-            __VinylError("Error in ", self, "\n\"blend\" must be a number, a knob name, or undefined");
-        }
-        
-        __blendFactorLocal = _blend;
+        var _knobBlend = __VinylParseKnob(_blend, "blend", false, self);
+        __blendFactorLocal = _knobBlend ?? _gain;
+        if (!is_numeric(__blendFactorLocal)) __VinylError("Error in ", self, "\n\"gain\" property must be a number or a knob");
         
         //Set the normalization state
-        if (!is_bool(_blendNormalize))
-        {
-            __VinylError("Error in pattern ", self, "\n\"blend normalize\" must be a boolean (<true> or <false>)");
-        }
-        
         __blendNormalize = _blendNormalize;
+        if (!is_bool(__blendNormalize)) __VinylError("Error in pattern ", self, "\n\"blend normalize\" must be a boolean (<true> or <false>)");
         
         //Set the sync state
-        if (!is_bool(_sync))
-        {
-            __VinylError("Error in pattern ", self, "\n\"sync\" must be a boolean (<true> or <false>)");
-        }
-        
         __sync = _sync;
+        if (!is_bool(__sync)) __VinylError("Error in pattern ", self, "\n\"sync\" must be a boolean (<true> or <false>)");
         
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
     }

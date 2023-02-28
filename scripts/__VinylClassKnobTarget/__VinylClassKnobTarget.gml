@@ -7,7 +7,7 @@ function __VinylClassKnobTarget(_scope, _property, _rangeLo, _rangeHi) construct
 {
     __scope         = _scope;
     __property      = _property;
-    __rangeFree     = ((_rangeLo != undefined) && (_rangeHi != undefined));
+    __rangeRemap    = ((_rangeLo != undefined) && (_rangeHi != undefined));
     __rangeOutputLo = _rangeLo;
     __rangeOutputHi = _rangeHi;
     
@@ -29,7 +29,7 @@ function __VinylClassKnobTarget(_scope, _property, _rangeLo, _rangeHi) construct
     
     static __Update = function(_valueOutput, _parameter)
     {
-        if (!__rangeFree)
+        if (__rangeRemap)
         {
             //Remap the input value if we have a custom range
             _valueOutput = lerp(__rangeOutputLo, __rangeOutputHi, _parameter);

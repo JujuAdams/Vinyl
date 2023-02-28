@@ -1,8 +1,9 @@
 /// @param value
 /// @param propertyName
-/// @param [allowArray=false]
+/// @param allowArray
+/// @param scope
 
-function __VinylParseKnob(_value, _propertyName, _allowArray)
+function __VinylParseKnob(_value, _propertyName, _allowArray, _scope)
 {
     var _knobDict = __VinylGlobalData().__knobDict;
     
@@ -18,9 +19,9 @@ function __VinylParseKnob(_value, _propertyName, _allowArray)
             _rangeLo  = _value[1];
             _rangeHi  = _value[2];
             
-            if (!is_string( _value  )) __VinylError("Error in ", self, " for \"", _propertyName, "\" property\nKnob name should be a string");
-            if (!is_numeric(_rangeLo)) __VinylError("Error in ", self, " for \"", _propertyName, "\" property\nKnob output range should two numbers");
-            if (!is_numeric(_rangeHi)) __VinylError("Error in ", self, " for \"", _propertyName, "\" property\nKnob output range should two numbers");
+            if (!is_string( _knobName)) __VinylError("Error in ", self, " for \"", _propertyName, "\" property\nKnob name should be a string");
+            if (!is_numeric(_rangeLo )) __VinylError("Error in ", self, " for \"", _propertyName, "\" property\nKnob output range should two numbers");
+            if (!is_numeric(_rangeHi )) __VinylError("Error in ", self, " for \"", _propertyName, "\" property\nKnob output range should two numbers");
         }
         else if (!_allowArray)
         {
@@ -34,7 +35,7 @@ function __VinylParseKnob(_value, _propertyName, _allowArray)
     
     if (_knobName != undefined)
     {
-        if (string_char_at(_value, 1) == "@")
+        if (string_char_at(_knobName, 1) == "@")
         {
             _knobName = string_delete(_knobName, 1, 1);
         }
@@ -46,7 +47,14 @@ function __VinylParseKnob(_value, _propertyName, _allowArray)
         var _knob = _knobDict[$ _knobName];
         if (!is_struct(_knob)) __VinylError("Error in ", self, " for \"", _propertyName, "\" property\nKnob \"", _knobName, "\" doesn't exist");
         
-        _knob.__TargetCreate(self, _propertyName, _rangeLo, _rangeHi);
-        return lerp(_rangeLo, _rangeHi, _knob.__valueParam);
+        _knob.__TargetCreate(_scope, _propertyName, _rangeLo, _rangeHi);
+        if ((_rangeLo != undefined) && (_rangeHi != undefined))
+        {
+            return lerp(_rangeLo, _rangeHi, _knob.__valueParam);
+        }
+        else
+        {
+            return _knob.__OutputGet();
+        }
     }
 }

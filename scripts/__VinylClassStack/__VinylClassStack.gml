@@ -31,25 +31,10 @@ function __VinylClassStack(_name) constructor
         __duckRate   = _stackData[$ "rate"       ] ?? VINYL_DEFAULT_DUCK_GAIN_RATE;
         __duckPause  = _stackData[$ "pause"      ] ?? true;
         
-        if (!is_numeric(__duckedGain) || (__duckedGain < 0) || (__duckedGain > 1))
-        {
-            __VinylError("Error in ", self, "\n\"ducked gain\" must be a number between 0 and 1 (inclusive)");
-        }
-        
-        if (!is_numeric(__duckRate) || (__duckRate <= 0))
-        {
-            __VinylError("Error in ", self, "\n\"rate\" must be a number greater than 0");
-        }
-        
-        if (!is_bool(__duckPause))
-        {
-            __VinylError("Error in ", self, "\n\"pause\" must be either <true> or <false>");
-        }
-        
-        if (__duckPause && (__duckedGain > 0))
-        {
-            __VinylError("Error in ", self, "\n\"pause\" cannot be <true> is \"ducked gain\" is greater than 0");
-        }
+        if (!is_numeric(__duckedGain) || (__duckedGain < 0) || (__duckedGain > 1)) __VinylError("Error in ", self, "\n\"ducked gain\" must be a number between 0 and 1 (inclusive)");
+        if (!is_numeric(__duckRate) || (__duckRate <= 0)) __VinylError("Error in ", self, "\n\"rate\" must be a number greater than 0");
+        if (!is_bool(__duckPause)) __VinylError("Error in ", self, "\n\"pause\" must be either <true> or <false>");
+        if (__duckPause && (__duckedGain > 0)) __VinylError("Error in ", self, "\n\"pause\" cannot be <true> is \"ducked gain\" is greater than 0");
     }
     
     static __Destroy = function()

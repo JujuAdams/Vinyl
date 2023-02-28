@@ -4,8 +4,11 @@
 
 {
     stacks: {
-        music: {} //An empty struct here is fine, it'll just use the default values
+        music: {
+        }
     }
+    
+    
     
     knobs: {
         delay time: {
@@ -47,6 +50,7 @@
         }
         
         sndOw: {
+            gain: [@delay time, 0.1, 0.2]
             label: [sfx, speech]
         }
         
@@ -117,7 +121,7 @@
             }
             {
                 type: reverb
-                size: [@reverb size, 0, 1]
+                size: @reverb size
                 mix: 0.3
             }
             {

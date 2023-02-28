@@ -24,7 +24,6 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_labelData, ["gain", "pitch", "transpose", "loop", "tag", "effect chain", "stack", "stack priority", "children"]);
         
         static _stackDict = __VinylGlobalData().__stackDict;
-        var    _knobDict  = __VinylGlobalData().__knobDict;
         
         //Unpack the definition data
         var _gain            = _labelData[$ "gain"          ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
@@ -40,75 +39,32 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
         
-        
-        
         //Sort out the gain
-        __configGainKnob = false;
-        
-        if (is_string(_gain))
-        {
-            if (string_char_at(_gain, 1) == "@")
-            {
-                var _knobName = string_delete(_gain, 1, 1);
-                var _knob = _knobDict[$ _knobName];
-                if (!is_struct(_knob)) __VinylError("Error in ", self, " for gain property\nKnob \"", _knobName, "\" doesn't exist");
-                
-                _knob.__TargetCreate(self, "gain", undefined, undefined);
-                _gain = _knob.__OutputGet(); //Set gain to the current value of the knob
-                
-                __configGainKnob = true;
-            }
-            else
-            {
-                __VinylError("Error in ", self, "\nGain must be a number or a knob name");
-            }
-        }
-        else if (!is_numeric(_gain))
-        {
-            __VinylError("Error in ", self, "\nGain must be a number or a knob name");
-        }
-        
-        __configGain = _gain;
-        
-        
+        var _knobGain = __VinylParseKnob(_gain, "gain", false, self);
+        __configGainKnob = (_knobGain != undefined);
+        __configGain     = _knobGain ?? _gain;
+        if (!is_numeric(__configGain)) __VinylError("Error in ", self, "\n\"gain\" property must be a number or a knob");
         
         //Sort out the pitch
-        __configPitchKnob = false;
+        var _knobPitch = __VinylParseKnob(_pitch, "pitch", true, self);
+        __configPitchKnob = (_knobPitch != undefined);
+        _pitch            = _knobPitch ?? _pitch;
         
-        if (is_string(_pitch))
-        {
-            if (string_char_at(_pitch, 1) == "@")
-            {
-                var _knobName = string_delete(_pitch, 1, 1);
-                var _knob = _knobDict[$ _knobName];
-                if (!is_struct(_knob)) __VinylError("Error in ", self, " for pitch property\nKnob \"", _knobName, "\" doesn't exist");
-                
-                _knob.__TargetCreate(self, "pitch", undefined, undefined);
-                __configPitchLo = _knob.__OutputGet(); //Set pitch to the current value of the knob
-                __configPitchHi = __configPitchLo;
-                
-                __configPitchKnob = true;
-            }
-            else
-            {
-                __VinylError("Error in label ", self, "\nPitch must be either a number greater than zero, a two-element array, or a knob name");
-            }
-        }
-        else if (is_numeric(_pitch) && (_pitch > 0))
+        if (is_numeric(_pitch) && (_pitch > 0))
         {
             __configPitchLo = _pitch;
             __configPitchHi = _pitch;
         }
         else if (is_array(_pitch))
         {
-            if (array_length(_pitch) != 2) __VinylError("Error in ", self, "\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
+            if (array_length(_pitch) != 2) __VinylError("Error in ", self, "\n\"pitch\" property array must have exactly two elements (length=", array_length(_pitch), ")");
             
             __configPitchLo = _pitch[0];
             __configPitchHi = _pitch[1];
             
             if (__configPitchLo > __configPitchHi)
             {
-                __VinylTrace("Warning! Error in ", self, ". Low pitch (", __configPitchLo, ") is greater than high pitch (", __configPitchHi, ")");
+                __VinylTrace("Warning! Error in ", self, " \"pitch\" property. Low pitch (", __configPitchLo, ") is greater than high pitch (", __configPitchHi, ")");
                 var _temp = __configPitchLo;
                 __configPitchLo = __configPitchHi;
                 __configPitchHi = _temp;
@@ -116,42 +72,13 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         }
         else
         {
-            __VinylError("Error in ", self, "\nPitch must be either a number greater than zero, a two-element array, or a knob name");
+            __VinylError("Error in ", self, "\n\"pitch\" property must be either a number greater than zero, a two-element array, or a knob");
         }
-        
-        
         
         //Sort out the transposition
-        __configTransposeKnob = false;
-        
-        if (is_string(_transpose))
-        {
-            if (string_char_at(_transpose, 1) == "@")
-            {
-                var _knobName = string_delete(_transpose, 1, 1);
-                var _knob = _knobDict[$ _knobName];
-                if (!is_struct(_knob)) __VinylError("Error in ", self, " for transpose property\nKnob \"", _knobName, "\" doesn't exist");
-            
-                _knob.__TargetCreate(self, "transpose", undefined, undefined);
-                __configTranspose = _knob.__OutputGet(); //Set transpose to the current value of the knob
-                
-                __configTransposeKnob = true;
-            }
-            else
-            {
-                __VinylError("Error in ", self, "\nTranspose must be a number or a knob name");
-            }
-        }
-        else if (is_numeric(_transpose) || is_undefined(_transpose))
-        {
-            __configTranspose = _transpose;
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\nTranspose must be a number or a knob name");
-        }
-        
-        
+        var _knobTranspose = __VinylParseKnob(_transpose, "transpose", false, self);
+        __configTranspose = _knobTranspose ?? _gain;
+        if (!is_numeric(__configTranspose) && !is_undefined(__configTranspose)) __VinylError("Error in ", self, "\n\"transpose\" property must be a number or a knob");
         
         //Sort out the stack
         if (is_undefined(_stack))
@@ -183,15 +110,13 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
             __VinylError("Error in ", self, "\n\"stack priority\" property must be a number");
         }
         
-        
-        
         //Sort out the loop state
-        if (!is_bool(_loop) && !is_undefined(_loop)) __VinylError("Error in ", self, "\n\"loop\" property must be a boolean (<true> or <false>)");
         __configLoop = _loop;
+        if (!is_bool(__configLoop) && !is_undefined(__configLoop)) __VinylError("Error in ", self, "\n\"loop\" property must be a boolean (<true> or <false>)");
         
         //Sort out the persistent state
-        if (!is_bool(_persistent) && !is_undefined(_persistent)) __VinylError("Error in ", self, "\n\"persistent\" property must be a boolean (<true> or <false>)");
-        __configPersistent = _loop;
+        __configPersistent = _persistent;
+        if (!is_bool(__configPersistent) && !is_undefined(__configPersistent)) __VinylError("Error in ", self, "\n\"persistent\" property must be a boolean (<true> or <false>)");
         
         //Convert the tag array into an array if necessary
         if (is_string(_tagArray)) _tagArray = [_tagArray];
@@ -199,8 +124,6 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         
         //Sort out the effect chain name
         __effectChainName = _effectChainName ?? ((__parent != undefined)? __parent.__effectChainName : undefined);
-        
-        
         
         //Set remainder of the state
         __topLevelArray = [];

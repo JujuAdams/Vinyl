@@ -111,70 +111,31 @@ function __VinylClassPatternCommon()
     
     static __InitializeGain = function(_gain)
     {
-        var _knobDict = __VinylGlobalData().__knobDict;
-        
-        if (is_string(_gain))
-        {
-            if (string_char_at(_gain, 1) == "@")
-            {
-                var _knobName = string_delete(_gain, 1, 1);
-                var _knob = _knobDict[$ _knobName];
-                if (!is_struct(_knob)) __VinylError("Error in ", self, " for gain property\nKnob \"", _knobName, "\" doesn't exist");
-            
-                _knob.__TargetCreate(self, "gain", undefined, undefined);
-                _gain = _knob.__OutputGet(); //Set gain to the current value of the knob
-            }
-            else
-            {
-                __VinylError("Error in ", self, "\nGain must be a number or a knob name");
-            }
-        }
-        else if (!is_numeric(_gain))
-        {
-            __VinylError("Error in ", self, "\nGain must be a number or a knob name");
-        }
-        
-        __gain = _gain;
+        var _knobValue = __VinylParseKnob(_gain, "gain", false, self);
+        __gain = _knobValue ?? _gain;
+        if (!is_numeric(__gain)) __VinylError("Error in ", self, "\n\"gain\" property must be a number or a knob");
     }
     
     static __InitializePitch = function(_pitch)
     {
-        var _knobDict = __VinylGlobalData().__knobDict;
+        var _knobValue = __VinylParseKnob(_pitch, "pitch", true, self);
+        _pitch = _knobValue ?? _pitch;
         
-        if (is_string(_pitch))
-        {
-            if (string_char_at(_pitch, 1) == "@")
-            {
-                var _knobName = string_delete(_pitch, 1, 1);
-                var _knob = _knobDict[$ _knobName];
-                if (!is_struct(_knob)) __VinylError("Error in ", self, " for pitch property\nKnob \"", _knobName, "\" doesn't exist");
-                
-                _knob.__TargetCreate(self, "pitch", undefined, undefined);
-                __pitchLo = _knob.__OutputGet(); //Set pitch to the current value of the knob
-                __pitchHi = __pitchLo;
-                
-                __configPitchKnob = true;
-            }
-            else
-            {
-                __VinylError("Error in ", self, "\nPitch must be either a number greater than zero, a two-element array, or a knob name");
-            }
-        }
-        else if (is_numeric(_pitch) && (_pitch >= 0))
+        if (is_numeric(_pitch) && (_pitch >= 0))
         {
             __pitchLo = _pitch;
             __pitchHi = _pitch;
         }
         else if (is_array(_pitch))
         {
-            if (array_length(_pitch) != 2) __VinylError("Error in ", self, "\nPitch array must have exactly two elements (length=", array_length(_pitch), ")");
+            if (array_length(_pitch) != 2) __VinylError("Error in ", self, "\n\"pitch\" property array must have exactly two elements (length=", array_length(_pitch), ")");
             
             __pitchLo = _pitch[0];
             __pitchHi = _pitch[1];
             
             if (__pitchLo > __pitchHi)
             {
-                __VinylTrace("Warning! Error in ", self, ". Low pitch (", __pitchLo, ") is greater than high pitch (", __pitchHi, ")");
+                __VinylTrace("Warning! Error in ", self, " \"pitch\" property. Low pitch (", __pitchLo, ") is greater than high pitch (", __pitchHi, ")");
                 var _temp = __pitchLo;
                 __pitchLo = __pitchHi;
                 __pitchHi = _temp;
@@ -182,60 +143,27 @@ function __VinylClassPatternCommon()
         }
         else
         {
-            __VinylError("Error in ", self, "\nPitch must be either a number greater than zero, a two-element array, or a knob name");
+            __VinylError("Error in ", self, "\n\"pitch\" property must be a number greater than zero, a two-element array, or a knob");
         }
     }
     
     static __InitializeTranspose = function(_transpose)
     {
-        var _knobDict = __VinylGlobalData().__knobDict;
-        
-        if (is_string(_transpose))
-        {
-            if (string_char_at(_transpose, 1) == "@")
-            {
-                var _knobName = string_delete(_transpose, 1, 1);
-                var _knob = _knobDict[$ _knobName];
-                if (!is_struct(_knob)) __VinylError("Error in ", self, " for transpose property\nKnob \"", _knobName, "\" doesn't exist");
-            
-                _knob.__TargetCreate(self, "transpose", undefined, undefined);
-                _transpose = _knob.__OutputGet(); //Set transpose to the current value of the knob
-            }
-            else
-            {
-                __VinylError("Error in ", self, "\nTranspose must be a number or a knob name");
-            }
-        }
-        else if (!is_numeric(_transpose) && !is_undefined(_transpose))
-        {
-            __VinylError("Error in ", self, "\nTranspose must be a number or a knob name");
-        }
-        
-        __transpose = _transpose;
+        var _knobValue = __VinylParseKnob(_transpose, "transpose", false, self);
+        __transpose = _knobValue ?? _transpose;
+        if (!is_numeric(__transpose) && !is_undefined(__transpose)) __VinylError("Error in ", self, "\n\"transpose\" property must be a number or a knob");
     }
     
     static __InitializeLoop = function(_loop)
     {
-        if (is_bool(_loop) || is_undefined(_loop))
-        {
-            __loop = _loop;
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\nLoop must be either <true> or <false>");
-        }
+        __loop = _loop;
+        if (!is_bool(__loop) && !is_undefined(__loop))__VinylError("Error in ", self, "\n\"loop\" property must be either <true> or <false>");
     }
     
     static __InitializePersistent = function(_persistent)
     {
-        if (is_bool(_persistent) || is_undefined(_persistent))
-        {
-            __persistent = _persistent;
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\n\"persistent\" property must be either <true> or <false>");
-        }
+        __persistent = _persistent;
+        if (!is_bool(__persistent) && !is_undefined(__persistent))__VinylError("Error in ", self, "\n\"persistent\" property must be either <true> or <false>");
     }
     
     static __InitializeStack = function(_stack, _stackPriority)

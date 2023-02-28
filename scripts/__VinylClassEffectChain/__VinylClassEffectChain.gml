@@ -150,26 +150,8 @@ function __VinylClassEffectChain(_name) constructor
                     }
                     else
                     {
-                        //Handle knobs
-                        if (is_string(_value))
-                        {
-                            if (string_char_at(_value, 1) == "@")
-                            {
-                                var _knobName = string_delete(_value, 1, 1);
-                                var _knob = _knobDict[$ _knobName];
-                                if (!is_struct(_knob)) __VinylError("Error in ", self, " for effect ", _i, "'s ", _effectDataField, " property\nKnob \"", _knobName, "\" doesn't exist");
-                                
-                                _knob.__TargetCreate(_effect, _effectDataField, undefined, undefined);
-                                _value = _knob.__OutputGet(); //Set parameter to the current value of the knob
-                            }
-                            else
-                            {
-                                __VinylError("Error in ", self, " for effect ", _i, "'s ", _effectDataField, " property\nEffect parameters must be a number or a knob name");
-                            }
-                        }
-                        
-                        //Set the actual value, finally
-                        _effect[$ _effectDataField] = _value;
+                        var _knobValue = __VinylParseKnob(_value, _effectDataField, false, _effect);
+                        _effect[$ _effectDataField] = _knobValue ?? _value;
                     }
                 }
                 
