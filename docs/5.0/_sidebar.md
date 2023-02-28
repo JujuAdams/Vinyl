@@ -7,10 +7,11 @@
 
 -    [Terminology](Terminology)
 -    [Gain Structure](Gain-Structure)
+-    [Configuration](Configuration)
+-    [Config Syntax](Configuration-Syntax)
 
 ---
 
--    [Configuration](Configuration)
 -    [Config Macros](Config-Macros)
 -    [Basics](Basics)
 -    [Gain](Gain)
