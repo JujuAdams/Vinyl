@@ -24,7 +24,7 @@
     
     labels: {
         music: {
-            gain: 0.7
+            gain: 0.8
             loop: true
             stack: music
             transpose: 0

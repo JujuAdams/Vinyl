@@ -36,6 +36,10 @@ function __VinylClassStack(_name) constructor
         if (!is_numeric(__duckRate) || (__duckRate <= 0)) __VinylError("Error in ", self, "\n\"rate\" must be a number greater than 0");
         if (!is_bool(__duckPause)) __VinylError("Error in ", self, "\n\"pause\" must be either <true> or <false>");
         if (__duckPause && (__duckedGain > 0)) __VinylError("Error in ", self, "\n\"pause\" cannot be <true> is \"ducked gain\" is greater than 0");
+        
+        __maxPriority = -infinity;
+        array_resize(__instanceArray, 0);
+        array_resize(__priorityArray, 0);
     }
     
     static __Destroy = function()
