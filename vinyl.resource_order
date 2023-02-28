@@ -1,7 +1,7 @@
 {
   "FolderOrderSettings": [
     {"name":"Sounds","order":1,"path":"folders/Sounds.yy",},
-    {"name":"UI","order":25,"path":"folders/UI.yy",},
+    {"name":"UI","order":2,"path":"folders/UI.yy",},
     {"name":"(Internals)","order":17,"path":"folders/Vinyl/(Internals).yy",},
     {"name":"Classes","order":19,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes.yy",},
     {"name":"Config Resources","order":3,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Config Resources.yy",},
@@ -137,7 +137,7 @@
     {"name":"VinylPausedGet","order":12,"path":"scripts/VinylPausedGet/VinylPausedGet.yy",},
     {"name":"VinylEmitterDebugDraw","order":11,"path":"scripts/VinylEmitterDebugDraw/VinylEmitterDebugDraw.yy",},
     {"name":"__VinylClassPatternAsset","order":2,"path":"scripts/__VinylClassPatternAsset/__VinylClassPatternAsset.yy",},
-    {"name":"oTest","order":26,"path":"objects/oTest/oTest.yy",},
+    {"name":"oTest","order":4,"path":"objects/oTest/oTest.yy",},
     {"name":"__VinylRandom","order":12,"path":"scripts/__VinylRandom/__VinylRandom.yy",},
     {"name":"__VinylClassInstanceQueue","order":3,"path":"scripts/__VinylClassInstanceQueue/__VinylClassInstanceQueue.yy",},
     {"name":"UIButtonInline","order":5,"path":"scripts/UIButtonInline/UIButtonInline.yy",},
@@ -150,12 +150,13 @@
     {"name":"__VinylClassInstanceAsset","order":1,"path":"scripts/__VinylClassInstanceAsset/__VinylClassInstanceAsset.yy",},
     {"name":"VinylBPMPulseGet","order":1,"path":"scripts/VinylBPMPulseGet/VinylBPMPulseGet.yy",},
     {"name":"sndBleep9","order":19,"path":"sounds/sndBleep9/sndBleep9.yy",},
+    {"name":"acTest","order":3,"path":"animcurves/acTest/acTest.yy",},
     {"name":"VinylMultiGainSet","order":1,"path":"scripts/VinylMultiGainSet/VinylMultiGainSet.yy",},
     {"name":"VinylOutputPitchGet","order":4,"path":"scripts/VinylOutputPitchGet/VinylOutputPitchGet.yy",},
     {"name":"__VinylClassKnobTarget","order":4,"path":"scripts/__VinylClassKnobTarget/__VinylClassKnobTarget.yy",},
     {"name":"sndBleep2","order":12,"path":"sounds/sndBleep2/sndBleep2.yy",},
     {"name":"VinylQueueBehaviorGet","order":2,"path":"scripts/VinylQueueBehaviorGet/VinylQueueBehaviorGet.yy",},
     {"name":"VinylPlaySimple","order":1,"path":"scripts/VinylPlaySimple/VinylPlaySimple.yy",},
-    {"name":"rMain","order":27,"path":"rooms/rMain/rMain.yy",},
+    {"name":"rMain","order":5,"path":"rooms/rMain/rMain.yy",},
   ],
 }

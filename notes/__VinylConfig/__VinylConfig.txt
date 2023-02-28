@@ -104,6 +104,7 @@
             type: multi
             label: [music, echo]
             stack priority: 1
+            blend curve: acTest
             pitch: 0.9
             assets: [
                 sndSync0

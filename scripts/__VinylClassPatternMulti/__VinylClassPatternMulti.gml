@@ -17,7 +17,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
     static __Initialize = function(_patternData = {})
     {
         if (!is_struct(_patternData)) __VinylError("Error in ", self, "\nPattern data must be a struct");
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "stack", "stack priority", "persistent", "effect chain", "label", "labels", "blend", "blend normalize", "blend normalise", "sync"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "stack", "stack priority", "persistent", "effect chain", "label", "labels", "blend curve", "blend", "blend normalise", "sync"]);
         
         //Set the gain/pitch state from the provided struct
         var _assetArray      = _patternData[$ "assets"         ] ?? (_patternData[$ "asset"] ?? []);
@@ -31,7 +31,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         var _effectChainName = _patternData[$ "effect chain"   ] ?? _patternData[$ "effect"];
         var _labelNameArray  = _patternData[$ "label"          ] ?? _patternData[$ "labels"];
         var _blend           = _patternData[$ "blend"          ] ?? VINYL_DEFAULT_MULTI_BLEND;
-        var _blendNormalize  = _patternData[$ "blend normalize"] ?? (_patternData[$ "blend normalise"] ?? VINYL_DEFAULT_MULTI_BLEND_NORMALIZE);
+        var _blendCurve      = _patternData[$ "blend curve"    ];
         var _sync            = _patternData[$ "sync"           ] ?? VINYL_DEFAULT_MULTI_SYNC;
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
@@ -47,14 +47,29 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         __InitializeEffectChain(_effectChainName);
         __InitializeLabelArray(_labelNameArray);
         
+        //Find a blend curve to track
+        __blendCurve = undefined;
+        if (is_string(_blendCurve))
+        {
+            var _animCurve = asset_get_index(_blendCurve);
+            if ((_animCurve >= 0) && (asset_get_type(_blendCurve) == asset_animationcurve))
+            {
+                __blendCurve = _animCurve;
+            }
+            else
+            {
+                __VinylError("Error in ", self, "\n\Animation curve \"", _blendCurve, "\" not recognised");
+            }
+        }
+        else if (_blendCurve != undefined)
+        {
+            __VinylError("Error in ", self, "\n\"blend curve\" property must be the name of an animation curve as a string");
+        }
+        
         //Set the blend state
         var _knobBlend = __VinylParseKnob(_blend, "blend", false, self);
         __blendFactorLocal = _knobBlend ?? _blend;
         if (!is_numeric(__blendFactorLocal) && !is_undefined(__blendFactorLocal)) __VinylError("Error in ", self, "\n\"blend\" property must be a number or a knob");
-        
-        //Set the normalization state
-        __blendNormalize = _blendNormalize;
-        if (!is_bool(__blendNormalize)) __VinylError("Error in pattern ", self, "\n\"blend normalize\" must be a boolean (<true> or <false>)");
         
         //Set the sync state
         __sync = _sync;
@@ -71,7 +86,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
     static __Play = function(_parentInstance, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _instance = __pool.__Depool();
-        _instance.__Instantiate(self, _parentInstance, _vinylEmitter, __assetArray, _loop, _gain, _pitch, _pan, __sync);
+        _instance.__Instantiate(self, _parentInstance, _vinylEmitter, __assetArray, _loop, _gain, _pitch, _pan, __sync, __blendCurve);
         return _instance;
     }
     

@@ -228,6 +228,7 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
             
             if (__blendFactorOutput == undefined)
             {
+                //Reset all channels to unity gain
                 var _i = 0;
                 repeat(array_length(__gainArray))
                 {
@@ -237,21 +238,37 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
             }
             else
             {
-                if (__pattern.__blendNormalize)
+                if (__blendCurve == undefined) //No blend curve, use linear crossfades
                 {
-                    var _scaled = clamp(__blendFactorOutput, 0, 1)*(array_length(__gainArray) - 1);
+                    //Scale up the blend factor to match the number of channels we have
+                    var _factor = clamp(__blendFactorOutput, 0, 1)*(array_length(__gainArray) - 1);
+                    
+                    //Set channels using linear crossfades
+                    var _i = 0;
+                    repeat(array_length(__gainArray))
+                    {
+                        __gainArray[@ _i] = max(0, 1 - abs(_i - _factor));
+                        ++_i;
+                    }
                 }
                 else
                 {
-                    var _scaled = clamp(__blendFactorOutput, 0, array_length(__gainArray) - 1);
-                }
-                
-                var _i = 0;
-                repeat(array_length(__gainArray))
-                {
-                    var _gain = max(0, 1 - abs(_i - _scaled));
-                    __gainArray[@ _i] = _gain;
-                    ++_i;
+                    var _factor = clamp(__blendFactorOutput, 0, 1);
+                    
+                    //Set channels from the animation curve
+                    var _i = 0;
+                    repeat(min(array_length(animcurve_get(__blendCurve).channels), array_length(__gainArray)))
+                    {
+                        __gainArray[@ _i] = max(0, animcurve_channel_evaluate(animcurve_get_channel(__blendCurve, _i), _factor));
+                        ++_i;
+                    }
+                    
+                    //Set remaining channels to 0
+                    repeat(array_length(__gainArray) - _i)
+                    {
+                        __gainArray[@ _i] = 0;
+                        ++_i;
+                    }
                 }
             }
         }
@@ -261,13 +278,14 @@ function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
     
     
     
-    static __Instantiate = function(_pattern, _parentInstance, _vinylEmitter, _assetArray, _loop, _gain, _pitch, _pan, _sync)
+    static __Instantiate = function(_pattern, _parentInstance, _vinylEmitter, _assetArray, _loop, _gain, _pitch, _pan, _sync, _blendCurve)
     {
         __StateSetCommon(_pattern, _parentInstance, _vinylEmitter, _loop, _gain, _pitch, _pan);
         
         __blendFactorLocal  = undefined;
         __blendFactorOutput = undefined;
         __sync              = _sync;
+        __blendCurve        = _blendCurve;
         
         //Make a local copy of the input asset array
         __assetArray = array_create(array_length(_assetArray), undefined);
