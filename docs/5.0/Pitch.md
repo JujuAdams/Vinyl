@@ -35,20 +35,30 @@ output = asset
 
 `VinylPitchSet(id, pitch)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:*
 
-|Name   |Datatype      |Purpose                                                                    |
-|-------|--------------|---------------------------------------------------------------------------|
-|`id`   |Vinyl instance|Instance to target                                                         |
-|`pitch`|number        |Instance pitch, in normalised pitch units. Defaults to `1`, no pitch change|
+|Name    |Datatype      |Purpose                                                                    |
+|--------|--------------|---------------------------------------------------------------------------|
+|`target`|voice or label|The voice or label to target                                               |
+|`pitch` |number        |Instance pitch, in normalised pitch units. Defaults to `1`, no pitch change|
 
-Sets the pitch of [Vinyl instance](Terminology) or [Vinyl label](Terminology).
+Sets the pitch of [voice or label](Terminology).
 
 If an instance is specified, the instance pitch is set. This pitch is independent of, for example, label pitch and asset pitch.
 
 If a label is specified, the pitch for the label is set. This will immediately impact all current instances assigned to that label, and will impact future instances too.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
@@ -56,13 +66,23 @@ If a label is specified, the pitch for the label is set. This will immediately i
 
 `VinylPitchGet(id)`
 
-&nbsp;
+<!-- tabs:start -->
 
-*Returns:* Number, the pitch for the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
+#### **Description**
 
-|Name|Datatype      |Purpose           |
-|----|--------------|------------------|
-|`id`|Vinyl instance|Instance to target|
+*Returns:* Number, the pitch for the [voice or label](Terminology)
+
+|Name    |Datatype      |Purpose                     |
+|--------|--------------|----------------------------|
+|`target`|voice or label|The voice or label to target|
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
@@ -70,17 +90,27 @@ If a label is specified, the pitch for the label is set. This will immediately i
 
 `VinylPitchTargetSet(id, pitch, [rate=VINYL_DEFAULT_PITCH_RATE])`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:*
 
-|Name    |Datatype        |Purpose                                                                                              |
-|--------|----------------|-----------------------------------------------------------------------------------------------------|
-|`sound` |sound or pattern|The sound to play, either a GameMaker sound or a Vinyl pattern                                       |
-|`pitch` |number          |Target pitch, in normalised pitch units                                                              |
-|`[rate]`|number          |Speed to approach the target pitch, in pitch units per second. Defaults to `VINYL_DEFAULT_PITCH_RATE`|
+|Name    |Datatype      |Purpose                                                                                              |
+|--------|--------------|-----------------------------------------------------------------------------------------------------|
+|`target`|voice or label|The voice or label to target                                                                         |
+|`pitch` |number        |Target pitch, in normalised pitch units                                                              |
+|`[rate]`|number        |Speed to approach the target pitch, in pitch units per second. Defaults to `VINYL_DEFAULT_PITCH_RATE`|
 
-Sets the target pitch of [Vinyl instance](Terminology) or [Vinyl label](Terminology). The pitch for that instance or label will change over time at the given rate until reaching its target.
+Sets the target pitch of [voice or label](Terminology). The pitch for that instance or label will change over time at the given rate until reaching its target.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
@@ -88,13 +118,23 @@ Sets the target pitch of [Vinyl instance](Terminology) or [Vinyl label](Terminol
 
 `VinylPitchTargetGet(id)`
 
-&nbsp;
+<!-- tabs:start -->
 
-*Returns:* Number, the target pitch for the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
+#### **Description**
 
-|Name|Datatype      |Purpose           |
-|----|--------------|------------------|
-|`id`|Vinyl instance|Instance to target|
+*Returns:* Number, the target pitch for the [voice or label](Terminology)
+
+|Name    |Datatype      |Purpose                     |
+|--------|--------------|----------------------------|
+|`target`|voice or label|The voice or label to target|
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
@@ -102,10 +142,20 @@ Sets the target pitch of [Vinyl instance](Terminology) or [Vinyl label](Terminol
 
 `VinylOutputPitchGet(id)`
 
-&nbsp;
+<!-- tabs:start -->
 
-*Returns:* Number, the final output pitch of the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
+#### **Description**
 
-|Name|Datatype      |Purpose           |
-|----|--------------|------------------|
-|`id`|Vinyl instance|Instance to target|
+*Returns:* Number, the final output pitch of the [voice or label](Terminology)
+
+|Name    |Datatype      |Purpose                     |
+|--------|--------------|----------------------------|
+|`target`|voice or label|The voice or label to target|
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
