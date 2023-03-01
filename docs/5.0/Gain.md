@@ -70,9 +70,14 @@ If a label is specified, the gain for the label is set. This will immediately im
 #### **Example**
 
 ```gml
-var _musicGain = global.settings.musicGain; //Get our music volume from the settings
-_musicGain = clamp(_musicGain, 0, 1);       //Make sure we're not setting a silly value
-VinylGainSet("music", _musicGain);          //Apply the new gain to the "music" label
+//Get our music volume from the settings
+var _musicGain = global.settings.musicGain;
+
+//Make sure we're not setting a silly value
+_musicGain = clamp(_musicGain, 0, 1);
+
+//Apply the new gain to the "music" label
+VinylGainSet("music", _musicGain);
 ```
 
 <!-- tabs:end -->
@@ -98,7 +103,7 @@ VinylGainSet("music", _musicGain);          //Apply the new gain to the "music" 
 ```gml
 if (waitForAmbience && VinylGainGet("ambience") <= 0) //Go to the next room when the "ambience" label has faded out
 {
-    show_debug_message("Ambience faded out, going to next room (" + room_get_name(room_next(room)) + ")");
+    show_debug_message("Ambience faded out, going to next room");
     room_goto_next();
 }
 ```
@@ -133,8 +138,11 @@ Sets the target gain of [Vinyl instance](Terminology) or [Vinyl label](Terminolo
 //Enter through a door when the player presses the Enter key
 if (keyboard_check_pressed(vk_enter) && place_meeting(x, y, oRoomExit))
 {
-    VinylGainTargetSet("ambience", 0); //Set up the fade out
-    waitForAmbience = true;            //And indicate we're waiting for the ambience to fade out
+    //Set up the fade out
+    VinylGainTargetSet("ambience", 0);
+
+    //And indicate we're waiting for the ambience to fade out
+    waitForAmbience = true;
 }
 ```
 
