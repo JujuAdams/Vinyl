@@ -59,6 +59,58 @@ If the knob has not had a value set, or the knob has been reset (see `VinylKnobR
 
 &nbsp;
 
+## `VinylKnobTargetSet`
+
+`VinylKnobTargetSet(name, targetValue, rate)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name         |Datatype|Purpose                                          |
+|-------------|--------|-------------------------------------------------|
+|`name`       |string  |Knob to target                                   |
+|`targetValue`|number  |Target input value                               |
+|`rate`       |number  |Speed to approach the target, in units per second|
+
+Sets the target input value of a knob. The knob's input value will change over time at the given rate until reaching its target.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylKnobTargetGet`
+
+`VinylKnobTargetGet(target)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Number, the target value for the knob
+
+|Name  |Datatype|Purpose       |
+|------|--------|--------------|
+|`name`|string  |Knob to target|
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
 ## `VinylKnobOutputGet`
 
 `VinylKnobOutputGet(name)`
@@ -98,6 +150,30 @@ If the knob has not had a value set, or the knob has been reset (see `VinylKnobR
 |`name`|string  |Knob to target|
 
 Resets the output value of a [Vinyl knob](Terminology) to the default. This also "unsets" the normalised input value.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+## `VinylKnobResetAll`
+
+`VinylKnobResetAll(name)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name|Datatype|Purpose|
+|----|--------|-------|
+|None|        |       |
+
+Resets all knobs to their default value.
 
 #### **Example**
 
