@@ -15,7 +15,7 @@ Some professional audio designers prefer to work with decibel gain values rather
 Vinyl offers in-depth volume control through gain variables at multiple stages in the signal path. Here's the fundamental gain equation for sounds:
 
 ```
-output = asset
+output = config
          * local
          * parent
          * ducking
@@ -32,7 +32,7 @@ heardAmplitude = Clamp(ApplyDecibelCurve(output) / VINYL_MAX_GAIN, 0, 1)
 |Term            |Meaning                                                                                                                                                                                                                                                                                 |
 |----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |`output`        |The un-limited resultant gain of the sound after Vinyl finishes messing with it                                                                                                                                                                                                         |
-|`asset`         |Set in the [configuration file](Configuration) per asset (or pattern)                                                                                                                                                                                                                   |
+|`config`        |Set in the [configuration file](Configuration) per asset or pattern                                                                                                                                                                                                                     |
 |`local`         |Set on creation (by `VinylPlay()` etc.) and additionally altered by [`VinylGainSet()` and `VinylTargetGainSet()`](Gain). This gain is further altered by [`VinylFadeOut()`](Basics). For sounds that are children of pattern voices, the `local` gain is inaccessible and is usually `1`|
 |`parent`        |Set implicitly by a pattern that caused a sound to be played e.g. an voice of a Multi pattern is the parent of each child sound that is concurrently playing for that pattern                                                                                                           |
 |`ducking`       |Set by a [stack](Terminology) to control the gain of deprioritised voices                                                                                                                                                                                                               |
@@ -42,7 +42,7 @@ heardAmplitude = Clamp(ApplyDecibelCurve(output) / VINYL_MAX_GAIN, 0, 1)
 |`system`        |Set by `VinylSystemGainSet()`. This gain should be above zero but can otherwise be any number, including greater than `1`                                                                                                                                                               |
 |`heardAmplitude`|The final final *final* amplitude that reaches your ears after the end of this long and exhausting process                                                                                                                                                                              |
 
-The gain for labels is calculated simply as `output = asset * local`.
+The gain for labels is calculated simply as `output = config * local`.
 
 &nbsp;
 
