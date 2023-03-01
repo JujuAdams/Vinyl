@@ -38,10 +38,9 @@ heardAmplitude = Clamp(ApplyDecibelCurve(output) / VINYL_MAX_GAIN, 0, 1)
 |`ducking`       |Set by a [stack](Terminology) to control the gain of deprioritised instances                                                                                                                                                                     |
 |`label`         |Set in the [configuration file](Configuration), and additionally altered by `VinylGainSet()` and `VinylTargetGainSet()` (when targeting a label)                                                                                                 |
 |`emitter`       |Implicitly set by calculating the distance from the listener to the emitter that a Vinyl instance is playing on. Only Vinyl instances created by [`VinylPlayOnEmitter()`](Positional) will factor in emitter gain, otherwise this gain is ignored|
-|                |                                                                                                                                                                                                                                                 |
-|`heard`         |The final final *final* amplitude that reaches your ears after the end of this long and exhausting process                                                                                                                                       |
 |`VINYL_MAX_GAIN`|A [configuration macro](Config-Macros) found in `__VinylConfigMacros`. This value can be from zero to any number                                                                                                                                 |
 |`system`        |Set by `VinylSystemGainSet()`. This gain should be above zero but can otherwise be any number, including greater than `1`                                                                                                                        |
+|`heard`         |The final final *final* amplitude that reaches your ears after the end of this long and exhausting process                                                                                                                                       |
 
 &nbsp;
 
