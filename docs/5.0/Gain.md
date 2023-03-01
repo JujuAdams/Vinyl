@@ -15,7 +15,7 @@ Vinyl offers in-depth volume control through gain variables attached to multiple
 ```
 outputGain = assetGain * (labelGain[0] * labelGain[1] * ...) * instanceGain * emitterGain
 
-heardGain = clamp(outputGain / VINYL_MAX_GAIN, 0, 1) * systemGain
+heardGain = clamp(outputGain / VINYL_MAX_GAIN, 0, 1) * VINYL_MAX_GAIN * systemGain
 ```
 
 `outputGain` is the value returned by [`VinylOutputGainGet()`](Gain) whereas `heardGain` is the actual amplitude that is used to fill the audio buffer. Vinyl separates these two concepts so that the `outputGain` can be any value you like and is only constrained at the very last point in the signal chain.
