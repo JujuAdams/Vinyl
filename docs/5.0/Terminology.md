@@ -18,32 +18,6 @@ An asset is any [sound asset](https://manual.yoyogames.com/The_Asset_Editors/Sou
 
 &nbsp;
 
-## Vinyl Instance
-
-When you play an audio asset using [one of Viny's functions](Basics), Vinyl will create a unique instance that holds information about that specific piece of audio being played.
-
-Vinyl instances can have their gain and pitch altered on the fly, as well as their pan position. Vinyl instances can loop, and can be played at positions in a room using Vinyl's custom emitter system as well.
-
-?> Don't confuse Vinyl instances for GameMaker's [sound instances](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_play_sound.htm). They share some similarities but cannot be used interchangeably.
-
-&nbsp;
-
-## Label
-
-Labels are how Vinyl handles groups of assets (and patterns) of similar types. An asset can be assigned to zero, one, or many labels. When properties on that label are adjusted - such as gain or pitch - those properties are applied to each asset, and further those properties are applied to each Vinyl instance assigned to the label. This means that changing e.g. the gain value on a label called `ambience` to be lower will diminish the volume of all assets assigned to that label.
-
-You can stop all audio that's assigned to a label by using [`VinylStop()`](Basics). You can also fade out labels, set gain and pitch targets for labels etc. Labels can be interacted with in much the same way as Vinyl instances.
-
-Labels can have a limit set on the number of concurrent instances that can be played. If the limit is exceeded, old Vinyl instances that are currently playing will be faded out. This is especially useful for handling swapping between background music tracks. You can change the parameters of label limits in Vinyl's [configuration file](Configuration).
-
-Vinyl allows you to assign assets within the configuration file, but Vinyl can also hook into GameMaker's native asset tagging system. Labels can be configured to be automatically assigned to any sound asset that has a specific tag.
-
-When setting up complex audio systems it's often useful to use a hierarchy to share properties from one parent label to child labels. For example, an `sfx` label might have `ui`, `footsteps`, and `explosions` labels as children. Changing properties on the parent `sfx` label will affect its child labels. Child labels can themselves have children, recursively. Label parenting can be set up in the [configuration file](Configuration).
-
-!> GameMaker's [audio groups](https://manual.yoyogames.com/Settings/Audio_Groups.htm) are vaguely similar to labels. It is recommended to avoid using GameMaker's audio groups for anything apart from managing memory whn using Vinyl.
-
-&nbsp;
-
 ## Pattern
 
 There are certain common operation that crop up frequently when playing sound effects, and audio in general, in games. Vinyl patterns are a way to define behaviours that would otherwise be complex or time-consuming to construct. Vinyl patterns are played using [the standard playback functions](Basics) and return a Vinyl instance like a standard sound asset. Patterns must be set up in the [configuration file](Configuration).
@@ -63,6 +37,34 @@ Plays sound assets from an array one after another. If a sound asset is set to l
 ### Multi
 
 Play sound assets from an array simultaneously. The blend parameter stored within the pattern can be set with [`VinylMultiBlendSet()`](Patterns) and crossfades between assets.
+
+&nbsp;
+
+## Voice
+
+When you play an audio asset using [one of Viny's functions](Basics), Vinyl will create a unique voice that holds information about that specific piece of audio being played.
+
+The best way to understand a voice is to think of them like they're instances of GameMaker objects, only the "objects" in this case are Vinyl patterns.
+
+Voices can have their gain and pitch altered on the fly, as well as their pan position. Voices can loop, and can be played at positions in a room using Vinyl's custom emitter system as well.
+
+?> Don't confuse voices for GameMaker's [sound instances](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_play_sound.htm). They share some similarities but cannot be used interchangeably.
+
+&nbsp;
+
+## Label
+
+Labels are how Vinyl handles groups of assets (and patterns) of similar types. An asset can be assigned to zero, one, or many labels. When properties on that label are adjusted - such as gain or pitch - those properties are applied to each asset, and further those properties are applied to each Vinyl instance assigned to the label. This means that changing e.g. the gain value on a label called `ambience` to be lower will diminish the volume of all assets assigned to that label.
+
+You can stop all audio that's assigned to a label by using [`VinylStop()`](Basics). You can also fade out labels, set gain and pitch targets for labels etc. Labels can be interacted with in much the same way as Vinyl instances.
+
+Labels can have a limit set on the number of concurrent instances that can be played. If the limit is exceeded, old Vinyl instances that are currently playing will be faded out. This is especially useful for handling swapping between background music tracks. You can change the parameters of label limits in Vinyl's [configuration file](Configuration).
+
+Vinyl allows you to assign assets within the configuration file, but Vinyl can also hook into GameMaker's native asset tagging system. Labels can be configured to be automatically assigned to any sound asset that has a specific tag.
+
+When setting up complex audio systems it's often useful to use a hierarchy to share properties from one parent label to child labels. For example, an `sfx` label might have `ui`, `footsteps`, and `explosions` labels as children. Changing properties on the parent `sfx` label will affect its child labels. Child labels can themselves have children, recursively. Label parenting can be set up in the [configuration file](Configuration).
+
+!> GameMaker's [audio groups](https://manual.yoyogames.com/Settings/Audio_Groups.htm) are vaguely similar to labels. It is recommended to avoid using GameMaker's audio groups for anything apart from managing memory whn using Vinyl.
 
 &nbsp;
 
