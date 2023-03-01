@@ -55,3 +55,54 @@ If passed a label name, every voice currently assigned to the label will individ
 ```
 
 <!-- tabs:end -->
+
+&nbsp;
+
+## `VinylStopAllNonPersistent`
+
+`VinylStopAll()`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name|Datatype|Purpose|
+|----|--------|-------|
+|None|        |       |
+
+Immediately stops playback of all currently playing voices not set to "persistent" using `VinylPersistentSet()` and marks them as destroyed.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+## `VinylFadeOutAllNonPersistent`
+
+`VinylFadeOut(target, [rate=VINYL_DEFAULT_GAIN_RATE])`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name    |Datatype      |Purpose                                                                             |
+|--------|--------------|------------------------------------------------------------------------------------|
+|`target`|voice or label|Voice or label to target                                                            |
+|`[rate]`|number  |Speed to approach silence, in gain units per second. Defaults to `VINYL_DEFAULT_GAIN_RATE`|
+
+Begins a fade out for all currently playing voices not set to "persistent" using `VinylPersistentSet()`. This puts targeted voices into "shutdown mode" which can be detected later by [`VinylShutdownGet()`](Advanced).
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
