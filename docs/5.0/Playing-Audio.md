@@ -10,7 +10,9 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 
 `VinylPlaySimple(sound, [gain=1], [pitch=1])`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* GameMaker [sound instance](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_play_sound.htm)
 
@@ -24,15 +26,25 @@ Plays an asset, taking advantage of Vinyl's live updating configuration (includi
 
 !> `VinylPlaySimple()` returns a GameMaker sound instance and **not** a Vinyl instance. As such, the sound instance is not compatible with other Vinyl functions and is provided for your convenience only.
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylPlay`
 
 `VinylPlay(sound, [loop], [gain=1], [pitch=1], [pan])`
 
-&nbsp;
+<!-- tabs:start -->
 
-*Returns:* Vinyl instance
+#### **Description**
+
+*Returns:* [Voice](Terminology)
 
 |Name     |Datatype        |Purpose                                                                                                                                                                           |
 |---------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -46,15 +58,25 @@ Plays an asset or pattern with the desired settings and returns a [Vinyl instanc
 
 !> In the interests of managing performance, if no panning value is specified then the returned instance cannot be panned later with `VinylPanSet()`.
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylPlayFadeIn`
 
 `VinylPlayFadeIn(sound, [loop], [targetGain=1], [rate=VINYL_DEFAULT_GAIN_RATE], [pitch=1])`
 
-&nbsp;
+<!-- tabs:start -->
 
-*Returns:* Vinyl instance
+#### **Description**
+
+*Returns:* [Voice](Terminology)
 
 |Name          |Datatype        |Purpose                                                                                                                                                 |
 |--------------|----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -64,22 +86,36 @@ Plays an asset or pattern with the desired settings and returns a [Vinyl instanc
 |`[rate]`      |number          |Speed to approach the target gain, in gain units per second. Defaults to `VINYL_DEFAULT_GAIN_RATE`                                                      |
 |`[pitch]`     |number          |Instance pitch, in normalised pitch units. Defaults to `1`, no pitch change                                                                             |
 
-A convenience function that starts playing an asset or pattern at silence and then gradually increases its gain to reach the given target. This function is effectively the same as:
+A convenience function that starts playing an asset or pattern at silence and then gradually increases its gain to reach the given target.
+
+#### **Example**
 
 ```gml
-var instance = VinylPlay(sound, loop, 0, pitch);
-VinylGainTargetSet(instance, targetGain, rate);
-return instance;
+//TODO lol
 ```
+
+<!-- tabs:end -->
+
+&nbsp;
 
 ## `VinylExists`
 
 `VinylExists(id)`
 
-&nbsp;
+<!-- tabs:start -->
 
-*Returns:* Boolean, whether the given [Vinyl instance](Terminology) or [Vinyl label](Terminology) exists
+#### **Description**
 
-|Name|Datatype      |Purpose           |
-|----|--------------|------------------|
-|`id`|Vinyl instance|Instance to target|
+*Returns:* Boolean, whether the given [voice or label](Terminology) exists
+
+|Name    |Datatype      |Purpose                     |
+|--------|--------------|----------------------------|
+|`target`|voice or label|The voice or label to target|
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
