@@ -22,24 +22,26 @@ output = asset
          * (label[0] * label[1] * ...)
          * emitter
 
-heard = Clamp(ApplyDecibelCurve(output) / VINYL_MAX_GAIN, 0, 1)
-        * VINYL_MAX_GAIN
-        * system
+heardAmplitude = Clamp(ApplyDecibelCurve(output) / VINYL_MAX_GAIN, 0, 1)
+               * VINYL_MAX_GAIN
+               * system
 ```
 
-`output` is the value returned by `VinylOutputGainGet()` whereas `heard` is the actual amplitude that is used to fill the audio buffer. Vinyl separates these two concepts so that the `output` can be free-floating and is only constrained at the very last point in the signal chain.
+`output` is the value returned by `VinylOutputGainGet()` whereas `heardAmplitude` is the actual amplitude that is used to fill the audio buffer. Vinyl separates these two concepts so that the `output` can be free-floating and is only constrained at the very last point in the signal chain.
 
 |Term            |Meaning                                                                                                                                                                                                                                          |
 |----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`output`        |The un-limited resultant gain of the sound after Vinyl finishes messing with it                                                                                                                                                                  |
 |`asset`         |Set in the [configuration file](Configuration) per asset (or pattern)                                                                                                                                                                            |
 |`instance`      |Set on creation (by `VinylPlay()` etc.) and additionally altered by [`VinylGainSet()` and `VinylTargetGainSet()`](Gain). This gain is further altered by [`VinylFadeOut()`](Basics)                                                              |
 |`parent`        |Set implicitly by a pattern that caused a sound to be played e.g. an instance of a Multi pattern is the parent of each child sound that is concurrently playing for that pattern                                                                 |
 |`ducking`       |Set by a [stack](Terminology) to control the gain of deprioritised instances                                                                                                                                                                     |
 |`label`         |Set in the [configuration file](Configuration), and additionally altered by `VinylGainSet()` and `VinylTargetGainSet()` (when targeting a label)                                                                                                 |
 |`emitter`       |Implicitly set by calculating the distance from the listener to the emitter that a Vinyl instance is playing on. Only Vinyl instances created by [`VinylPlayOnEmitter()`](Positional) will factor in emitter gain, otherwise this gain is ignored|
+|                |                                                                                                                                                                                                                                                 |
+|`heard`         |The final final *final* amplitude that reaches your ears after the end of this long and exhausting process                                                                                                                                       |
 |`VINYL_MAX_GAIN`|A [configuration macro](Config-Macros) found in `__VinylConfigMacros`. This value can be from zero to any number                                                                                                                                 |
 |`system`        |Set by `VinylSystemGainSet()`. This gain should be above zero but can otherwise be any number, including greater than `1`                                                                                                                        |
-|`heard`         |The final final *final* amplitude that reaches your ears after the end of this long and exhausting process                                                                                                                                       |
 
 &nbsp;
 
