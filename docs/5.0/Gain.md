@@ -50,7 +50,9 @@ heardAmplitude = Clamp(ApplyDecibelCurve(output) / VINYL_MAX_GAIN, 0, 1)
 
 `VinylGainSet(id, gain)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -64,6 +66,16 @@ Sets the gain of [Vinyl instance](Terminology) or [Vinyl label](Terminology).
 If an instance is specified, the instance gain is set. This gain is independent of, for example, label gain, asset gain, and system gain.
 
 If a label is specified, the gain for the label is set. This will immediately impact all current instances assigned to that label, and will impact future instances too.
+
+#### **Example**
+
+```gml
+var _musicGain = global.settings.musicGain; //Get our music volume from the settings
+_musicGain = clamp(_musicGain, 0, 1);       //Make sure we're not setting a silly value
+VinylGainSet("music", _musicGain);          //Apply the new gain to the "music" label
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
