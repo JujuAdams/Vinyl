@@ -58,7 +58,7 @@ heardAmplitude = Clamp(ApplyDecibelCurve(output) / VINYL_MAX_GAIN, 0, 1)
 
 |Name    |Datatype      |Purpose                                                                                                                                                                                  |
 |--------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|`target`|voice or label|Voice or label to target                                                                                                                                                                 |
+|`target`|voice or label|The voice or label to target                                                                                                                                                             |
 |`gain`  |number        |Instance gain to set, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
 
 Sets the gain of [Vinyl instance](Terminology) or [Vinyl label](Terminology).
@@ -83,13 +83,27 @@ VinylGainSet("music", _musicGain);          //Apply the new gain to the "music" 
 
 `VinylGainGet(id)`
 
-&nbsp;
+<!-- tabs:start -->
 
-*Returns:* Number, the gain for the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
+#### **Description**
 
-|Name|Datatype      |Purpose           |
-|----|--------------|------------------|
-|`id`|Vinyl instance|Instance to target|
+*Returns:* Number, the gain for the [voice or label](Terminology)
+
+|Name    |Datatype      |Purpose                 |
+|--------|--------------|------------------------|
+|`target`|voice or label|Voice or label to target|
+
+#### **Example**
+
+```gml
+if (waitForAmbience && VinylGainGet("ambience") <= 0) //Go to the next room when the "ambience" label has faded out
+{
+    show_debug_message("Ambience faded out, going to next room (" + room_get_name(room_next(room)) + ")");
+    room_goto_next();
+}
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
@@ -97,7 +111,9 @@ VinylGainSet("music", _musicGain);          //Apply the new gain to the "music" 
 
 `VinylGainTargetSet(id, gain, [rate=VINYL_DEFAULT_GAIN_RATE])`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -111,13 +127,28 @@ Sets the target gain of [Vinyl instance](Terminology) or [Vinyl label](Terminolo
 
 !> Setting a target gain of `0` for an instance will not stop the instance when reaching silence. Please use `VinylFadeOut()` to fade out and stop an instance.
 
+#### **Example**
+
+```gml
+//Enter through a door when the player presses the Enter key
+if (keyboard_check_pressed(vk_enter) && place_meeting(x, y, oRoomExit))
+{
+    VinylGainTargetSet("ambience", 0); //Set up the fade out
+    waitForAmbience = true;            //And indicate we're waiting for the ambience to fade out
+}
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylGainTargetGet`
 
 `VinylGainTargetGet(id)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Number, the target gain for the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
 
@@ -125,13 +156,28 @@ Sets the target gain of [Vinyl instance](Terminology) or [Vinyl label](Terminolo
 |----|--------------|------------------|
 |`id`|Vinyl instance|Instance to target|
 
+#### **Example**
+
+```gml
+//If we're in debug mode and the secret (shift+J) keyboard combo is pressed ...
+if (DEBUG_MODE && keyboard_check(vk_shift) && keyboard_check_pressed(ord("J"))
+{
+    //... output a debug message telling us what the target volume for the music is
+    show_debug_message("Background music target = " + string(VinylGainTargetGet(global.backgroundMusic)));
+}
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylOutputGainGet`
 
 `VinylOutputGainGet(id)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Number, the final output gain of the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
 
@@ -140,3 +186,29 @@ Sets the target gain of [Vinyl instance](Terminology) or [Vinyl label](Terminolo
 |`id`|Vinyl instance|Instance to target|
 
 You can read more about how the output gain of an instance is calculated [here](Gain-Structure).
+
+#### **Example**
+
+```gml
+//Find the coordinates of the view so our rectangle covers the entire screen
+var _l = camera_get_view_x(camera);
+var _t = camera_get_view_y(camera);
+var _r = _l + camera_get_view_width(camera);
+var _b = _t + camera_get_view_height(camera);
+
+//Set the alpha blend factor based on the volume of the heartbeat sound
+//This sound increases in volume when our health is low
+var _alpha = lerp(0, 0.5, VinylOutputGainGet(heartbeat));
+
+//Only draw the rectangle if we have to to save on GPU time where possible
+if (_alpha > 0)
+{
+    draw_set_alpha(_alpha);
+    draw_set_colour(c_red);
+    draw_rectangle(_l, _t, _r, _b, false);
+    draw_set_alpha(1);
+    draw_set_colour(c_white);
+}
+```
+
+<!-- tabs:end -->
