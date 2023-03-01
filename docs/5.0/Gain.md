@@ -126,7 +126,7 @@ if (waitForAmbience && (VinylGainGet("ambience") <= 0))
 |Name    |Datatype        |Purpose                                                                                           |
 |--------|----------------|--------------------------------------------------------------------------------------------------|
 |`target`|voice or label  |Voice or label to target                                                                          |
-|`[gain]`|number          |Target gain, in normalised gain units                                                             |
+|`gain`  |number          |Target gain, in normalised gain units                                                             |
 |`[rate]`|number          |Speed to approach the target gain, in gain units per second. Defaults to `VINYL_DEFAULT_GAIN_RATE`|
 
 Sets the target gain of a[voice or label](Terminology). The gain for that voice or label will change over time at the given rate until reaching its target.
