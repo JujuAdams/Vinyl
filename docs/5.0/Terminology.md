@@ -6,37 +6,7 @@ Vinyl uses standard audio terminology where appropriate. On top of this, Vinyl h
 
 &nbsp;
 
-# General Audio Terms
-
-## Gain
-
-"Gain" is, effectively, the "volume" of a sound. Where Vinyl requires a gain value to be supplied as a function argument, the gain value should from `0` to, typically, `1`.
-
-Some professional audio designers prefer to work with decibel gain values rather than normalised gain values. By setting [`VINYL_CONFIG_DECIBEL_GAIN`](Config-Macros) to `true`, [Vinyl's configuration file](Configuration) will now use decibel values. A value of `0` db is equivalent to a normalised value of `1`, and a decibel value of `-60` db is equivalent to a normalised gain of `0` (i.e. silence).
-
-?> The whys and wherefores of gain structure has its own page [here](Gain-Structure).
-
-&nbsp;
-
-## Pitch
-
-Pitch is a multiplier applied to the frequency of the sound. A higher value makes the sound higher pitched (squeakier) and shorter, whereas a lower value makes the sound deeper and longer. Where Vinyl requires a pitch value to be supplied as a function argument, expects normalised pitch values. A pitch value of `1` indicates no change to pitch, a value of `2` indicates a doubling in pitch, and so on.
-
-I've always found the use of normalised values for pitch confusing. By setting [`VINYL_CONFIG_PERCENTAGE_PITCH`](Config-Macros) to `true`, [Vinyl's configuration file](Configuration) will now use percentage values for pitches (functions still use normalised values, however). A value of `100` is equivalent to a normalised value of `1`, and a value of `50` db is equivalent to a normalised gain of `0.5` (i.e. half the frequency).
-
-&nbsp;
-
-## Transposition
-
-Tuning sound effects to harmonise nicely with background music is a technique that designers regularly employ to tie a game's audio together. Vinyl allows for audio to track changes in pitch per label, asset, pattern, and instance. The entire system can also have a transposition applied to it - though the global transposition state only applies to sounds that are already being transposed (even if the local resultant transposition value is `0`).
-
-To this end, transposition can be enabled in multiple ways. A Vinyl instance will inherit transposition value additively from any labels for the instance, from assets and patterns, and the per-instance transposition value can be set by calling [`VinylTransposeSet()`](Semitones).
-
-Generally speaking, you'll want to set your system-wide transposition based on the background music you're playing. Any instance that has inherited a non-`undefined` transposition (even if it's `0`) will then track along with the global transposition state, hopefully tracking along with the tonality of your background music.
-
-&nbsp;
-
-# Components
+## Components
 
 Vinyl has a lot of internal moving pieces that control playback of audio. These range from basic volume adjustment to crossfading of tracks to automated effect bus manipulation and more besides. It's quite the jigsaw puzzle with lots of different pieces that interlock in different ways. These pieces come in differentiated types, and we call each type of logic a "component". Vinyl currently 
 
