@@ -2,9 +2,51 @@
 
 &nbsp;
 
-Functions on this page relate to setting and manipulating gain for [Vinyl instances](Terminology) and [Vinyl labels](Terminology).
+"Gain" is, effectively, the "volume" of a sound. Where Vinyl requires a gain value to be supplied as a function argument, the gain value should from `0` to, typically, `1`.
+
+Some professional audio designers prefer to work with decibel gain values rather than normalised gain values. By setting [`VINYL_CONFIG_DECIBEL_GAIN`](Config-Macros) to `true`, [Vinyl's configuration file](Configuration) will now use decibel values. A value of `0` db is equivalent to a normalised value of `1`, and a decibel value of `-60` db is equivalent to a normalised gain of `0` (i.e. silence).
+
+Vinyl offers in-depth volume control through gain variables attached to multiple layers. Here's the fundamental gain equation:
+
+```
+outputGain = assetGain * (labelGain[0] * labelGain[1] * ...) * instanceGain * emitterGain
+
+heardGain = clamp(outputGain / VINYL_MAX_GAIN, 0, 1) * systemGain
+```
+
+?> If you're a professional audio person used to working in decibels rather than normalised gain units then read multiplication `*` as addition `+`.
+
+`outputGain` is the value returned by [`VinylOutputGainGet()`](Gain) whereas `heardGain` is the actual amplitude that is used to fill the audio buffer. Vinyl separates these two concepts so that the `outputGain` can be any value you like and is only constrained at the very last point in the signal chain.
 
 &nbsp;
+
+### Asset Gain
+
+Set in the [configuration file](Configuration) per asset (or pattern).
+
+### Label Gain
+
+Set in the [configuration file](Configuration), and additionally altered by `VinylGainSet()` and `VinylTargetGainSet()` (when targeting a label).
+
+### Instance Gain
+
+Set on creation (by `VinylPlay()` etc.) and additionally altered by [`VinylGainSet()` and `VinylTargetGainSet()`](Gain). This gain is further altered by [`VinylFadeOut()`](Basics).
+
+### Emitter Gain
+
+Implicitly set by calculating the distance from the listener to the emitter that a Vinyl instance is playing on. Only Vinyl instances created by [`VinylPlayOnEmitter()`](Positional) will factor in emitter gain, otherwise this gain is ignored.
+
+### `VINYL_MAX_GAIN`
+
+A [configuration macro](Config-Macros) found in `__VinylConfigMacros`. This value can be from zero to any number.
+
+### System Gain
+
+Set by `VinylSystemGainSet()`. This gain should be above zero but can otherwise be any number, including greater than `1`.
+
+&nbsp;
+
+# Functions
 
 ## `VinylGainSet`
 

@@ -5,9 +5,7 @@
 
 **Before You Begin**
 
--    [General Audio Terms](General-Audio-Terms)
--    [Vinyl Terms](Vinyl-Terms)
--    [Gain Structure](Gain-Structure)
+-    [Terminology](Terminology)
 -    [Configuration](Configuration)
 -    [Config Syntax](Configuration-Syntax)
 
