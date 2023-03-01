@@ -4,17 +4,27 @@
 
 ## `VinylTypeGet`
 
-`VinylTypeGet(id)`
+`VinylTypeGet(target)`
 
-&nbsp;
+<!-- tabs:start -->
 
-*Returns:* String, the type of a [Vinyl instance](Terminology)
+#### **Description**
 
-|Name|Datatype      |Purpose           |
-|----|--------------|------------------|
-|`id`|Vinyl instance|Instance to target|
+*Returns:* String, the type of a [voice](Terminology)
+
+|Name    |Datatype|Purpose            |
+|--------|--------|-------------------|
+|`target`|voice   |The voice to target|
 
 This function can return one of the following values as strings: `"basic"` `"queue"` `"multi"`
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
@@ -22,7 +32,9 @@ This function can return one of the following values as strings: `"basic"` `"que
 
 `VinylLabelInstancesGet(name)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Array of [Vinyl instances](Terminology)
 
@@ -34,13 +46,23 @@ Returns an array containing every Vinyl instance assigned to the label.
 
 !> Do not modify the array returned by this function!
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylLabelInstanceCountGet`
 
 `VinylLabelInstanceCountGet(name)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Number, the number of [Vinyl instances](Terminology) assigned to the label
 
@@ -48,13 +70,23 @@ Returns an array containing every Vinyl instance assigned to the label.
 |------|--------|---------------|
 |`name`|string  |Label to target|
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylSystemGainSet`
 
 `VinylSystemGainSet(gain)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -64,13 +96,23 @@ Returns an array containing every Vinyl instance assigned to the label.
 
 Sets the gain of the overall system. You may want to use this for controlling the master volume of all sounds, or to compensate for platform-specific audio requirements.
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylSystemGainGet`
 
 `VinylSystemGainGet()`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Number, the gain value for the entire system
 
@@ -78,13 +120,23 @@ Sets the gain of the overall system. You may want to use this for controlling th
 |----|--------|-------|
 |None|        |       |
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylSystemPlayCountGet`
 
 `VinylSystemPlayCountGet()`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Number, the number of [Vinyl instances](Terminology) being played across the entire system
 
@@ -92,13 +144,23 @@ Sets the gain of the overall system. You may want to use this for controlling th
 |----|--------|-------|
 |None|        |       |
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylSystemReadConfig`
 
 `VinylSystemReadConfig(configStruct)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -108,13 +170,23 @@ Sets the gain of the overall system. You may want to use this for controlling th
 
 Updates Vinyl's internal configuration from a struct representation of the [configuration file](Configuration). You'll generally never need to call this if you've got live update enabled, but it is provided if you're building out a custom workflow of some kind (e.g. loading YAML-formatted configuration instead).
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylLiveUpdateSet`
 
 `VinylLiveUpdateSet(state)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -126,13 +198,23 @@ Toggles live updating on and off. Live updating has a slight performance hit (mo
 
 ?> This function will do nothing when running outside the IDE, or when not running on Windows, Mac, or Linux.
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylLiveUpdateGet`
 
 `VinylLiveUpdateGet()`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Boolean, whether live updating of [Vinyl's configuration file](Configuration) is enabled
 
@@ -141,3 +223,11 @@ Toggles live updating on and off. Live updating has a slight performance hit (mo
 |None|        |       |
 
 This function will always return `false` when running outside the IDE, or when not running on Windows, Mac, or Linux.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
