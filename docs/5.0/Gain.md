@@ -2,9 +2,13 @@
 
 &nbsp;
 
-"Gain" is, effectively, the "volume" of a sound. Where Vinyl requires a gain value to be supplied as a function argument, the gain value should from `0` to, typically, `1`.
+"Gain" is a value that controls the volume of a sound. A higher gain value will make a sound louder, a lower gain value will make a sound quieter. GameMaker's treats gain as a value from `0` to `1` relative to the original volume of the asset you imported. This is called "normalised gain". A gain value of `0` in GameMaker will make a sound silent; a gain value of `1` will leave a sound's volume untouched and it will play as loud as the original source file, more or less. Vinyl's audio functions copy this basic behaviour.
 
-Some professional audio designers prefer to work with decibel gain values rather than normalised gain values. By setting [`VINYL_CONFIG_DECIBEL_GAIN`](Config-Macros) to `true`, [Vinyl's configuration file](Configuration) will now use decibel values. A value of `0` db is equivalent to a normalised value of `1`, and a decibel value of `-60` db is equivalent to a normalised gain of `0` (i.e. silence).
+GameMaker's gain values don't map accurately to the perceived loudness. When using GameMaker's audio functions, you might expect a gain value of `0.5` to be half the loudness of a gain value of `1`. Sadly, this is not the case. GameMaker doesn't use a decibel loudness curve as it should and instead GameMaker's audio functions naively adjust the *amplitude* of the output audio. Gains are also clamped to a maximum value of `1` meaning that audio cannot be made louder than the source.
+
+Vinyl fixes these oversights in GameMaker's native implementation. Setting a gain using Vinyl to `0.5` will result in a sound half as loud as a gain of `1`. All audio fades operate in this "decibel loudness space" too meaning that fades will sound more natural throughout. Additionally, Vinyl allows for audio to have a gain larger than `1`, up the to value set by [`VINYL_MAX_GAIN`](Config-Macros). Try not to set this value too high otherwise you may start to notice subtle distortion of your audio.
+
+Some professional audio designers prefer to work with decibel gain values rather than normalised gain values. By setting [`VINYL_CONFIG_DECIBEL_GAIN`](Config-Macros) to `true`, [Vinyl's configuration file](Configuration) will now use decibel values. A value of `0` db is equivalent to a normalised value of `1`, and a decibel value of `-60` db is equivalent to a normalised gain of `0` (i.e. silence). At any rate, Vinyl's **GML functions** expect a normalised gain value (`0` -> `1`) regardless of what value `VINYL_CONFIG_DECIBEL_GAIN` is set to.
 
 Vinyl offers in-depth volume control through gain variables attached to multiple layers. Here's the fundamental gain equation:
 
