@@ -50,7 +50,7 @@ Sets the listener "head" for the player. This will typically be the centre of th
 
 Sets the panning position of a voice created by `VinylPlay()`. The panning position should be a value from `-1` to `+1`, with `-1` indicating hard left and `+1` indicating hard right.
 
-!> The target Vinyl instance must be created by the `VinylPlay()` function with a defined `pan` argument (even if that value is `0` for centred panned).
+!> The target voice must be created by the `VinylPlay()` function with a defined `pan` argument (even if that value is `0` for centred panned).
 
 #### **Example**
 
