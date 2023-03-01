@@ -27,7 +27,7 @@ heard = Clamp(ApplyDecibelCurve(output) / VINYL_MAX_GAIN, 0, 1)
         * system
 ```
 
-`outputGain` is the value returned by `VinylOutputGainGet()` whereas `heard` is the actual amplitude that is used to fill the audio buffer. Vinyl separates these two concepts so that the `outputGain` can be any value you like and is only constrained at the very last point in the signal chain.
+`output` is the value returned by `VinylOutputGainGet()` whereas `heard` is the actual amplitude that is used to fill the audio buffer. Vinyl separates these two concepts so that the `output` can be free-floating and is only constrained at the very last point in the signal chain.
 
 |Term            |Meaning                                                                                                                                                                                                                                          |
 |----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
