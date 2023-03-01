@@ -18,22 +18,6 @@ This function can return one of the following values as strings: `"basic"` `"que
 
 &nbsp;
 
-## `VinylShutdownGet`
-
-`VinylShutdownGet(id)`
-
-&nbsp;
-
-*Returns:* Boolean, whether a [Vinyl instance](Terminology) is in "shutdown mode"
-
-|Name|Datatype      |Purpose           |
-|----|--------------|------------------|
-|`id`|Vinyl instance|Instance to target|
-
-An instance will be put into shutdown mode if [`VinylFadeOut()`](Basics) has been called for either the instance itself for one of the label it's assigned to.
-
-&nbsp;
-
 ## `VinylLabelInstancesGet`
 
 `VinylLabelInstancesGet(name)`
