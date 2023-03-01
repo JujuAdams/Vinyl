@@ -58,9 +58,9 @@ if (keyboard_check_pressed(vk_escape))
 
 *Returns:* Boolean, whether the given [voice](Terminology) is paused
 
-|Name    |Datatype      |Purpose                 |
-|--------|--------------|------------------------|
-|`target`|voice or label|Voice or label to target|
+|Name    |Datatype|Purpose        |
+|--------|--------|---------------|
+|`target`|voice   |Voice to target|
 
 ?> You cannot get a "paused" state from a label as they have no independent paused state.
 
