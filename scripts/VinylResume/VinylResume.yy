@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Basics",
-    "path": "folders/Vinyl/Basics.yy",
+    "name": "Pausing",
+    "path": "folders/Vinyl/Pausing.yy",
   },
 }

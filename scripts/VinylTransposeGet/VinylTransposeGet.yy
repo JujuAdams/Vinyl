@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Semitones",
-    "path": "folders/Vinyl/Semitones.yy",
+    "name": "Transposition",
+    "path": "folders/Vinyl/Transposition.yy",
   },
 }

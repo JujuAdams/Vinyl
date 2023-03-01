@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Stack",
-    "path": "folders/Vinyl/Stack.yy",
+    "name": "Stacks",
+    "path": "folders/Vinyl/Stacks.yy",
   },
 }

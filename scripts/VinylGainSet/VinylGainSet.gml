@@ -1,4 +1,4 @@
-/// Sets the input gain of a Vinyl playback instance, or Vinyl label
+/// Sets the input gain of a voice or label
 /// Setting gain with this function immediately resets the gain target (as set by VinylGainTargetSet())
 /// 
 /// If this function is given a label name then all currently playing audio assigned with that label will
@@ -6,19 +6,19 @@
 /// 
 /// This function will not affect currently playing audio played using VinylPlaySimple()
 /// 
-/// @param vinylID/labelName
+/// @param target
 /// @param gain
 
-function VinylGainSet(_id, _gain)
+function VinylGainSet(_target, _gain)
 {
     static _globalData = __VinylGlobalData();
     static _idToInstanceDict = _globalData.__idToInstanceDict;
     
-    var _instance = _idToInstanceDict[? _id];
+    var _instance = _idToInstanceDict[? _target];
     if (is_struct(_instance)) return _instance.__GainSet(_gain);
     
-    var _label = _globalData.__labelDict[$ _id];
+    var _label = _globalData.__labelDict[$ _target];
     if (is_struct(_label)) return _label.__GainSet(_gain);
     
-    __VinylTrace("Warning! Failed to execute VinylGainSet() for ", _id);
+    __VinylTrace("Warning! Failed to execute VinylGainSet() for ", _target);
 }
