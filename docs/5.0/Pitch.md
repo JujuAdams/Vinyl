@@ -9,7 +9,7 @@ Some people may find the use of normalised pitch confusing. By setting [`VINYL_C
 Vinyl can adjust the pitch of a sound at multiple stages in the signal path. Here's the fundamental pitch equation:
 
 ```
-output = asset
+output = config
          * voice
          * transposition
          * parent
@@ -21,7 +21,7 @@ output = asset
 |Term           |Meaning                                                                                                                                                                                                                    |
 |---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |`output`       |The resultant pitch of the sound after Vinyl finishes messing with it                                                                                                                                                      |
-|`asset`        |Set in the [configuration file](Configuration) per asset (or pattern)                                                                                                                                                      |
+|`config`       |Set in the [configuration file](Configuration) per asset or pattern                                                                                                                                                        |
 |`voice`        |Set on creation (by `VinylPlay()` etc.) and additionally altered by [`VinylPitchSet()` and `VinylTargetPitchSet()`](Gain). For sounds that are children of pattern voices, `voice pitch` is inaccessible and is usually `1`|
 |`transposition`|The pitch contribution from [transposition](Transposition) (which has its own inheritance behaviour)                                                                                                                       |
 |`parent`       |Set implicitly by a pattern that caused a sound to be played e.g. a Multi pattern voice is the parent of each child voice that is concurrently playing for that pattern                                                    |
