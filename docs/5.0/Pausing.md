@@ -67,18 +67,14 @@ if (keyboard_check_pressed(vk_escape))
 #### **Example**
 
 ```gml
-//Pause the game when the player pressed escape
-if (keyboard_check_pressed(vk_escape))
+//If we're paused, draw a flash pause symbol top-right
+if (VinylPausedGet(global.backgroundMusic))
 {
-	//Make sure the background loops pause
-	VinylPause("music");
-	VinylPause("ambience");
-    
-    //Stop sound effects entirely
-    VinylStop("sfx");
-    
-    //Create the pause menu handler
-	instance_create_layer(x, y, "GUI", oPauseMenu);
+	//Flash at with the pattern of 150ms on, 150ms off
+	if ((current_time mod 300) < 150)
+	{
+		draw_sprite(sprPaused, 0, 10, display_gui_get_width() - 10);
+	}
 }
 ```
 
