@@ -220,3 +220,53 @@ if (_alpha > 0)
 ```
 
 <!-- tabs:end -->
+
+&nbsp;
+
+## `VinylSystemGainSet`
+
+`VinylSystemGainSet(gain)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name  |Datatype|Purpose    |
+|------|--------|-----------|
+|`gain`|number  |Gain to set|
+
+Sets the gain of the overall system. You may want to use this for controlling the master volume of all sounds, or to compensate for platform-specific audio requirements.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylSystemGainGet`
+
+`VinylSystemGainGet()`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Number, the gain value for the entire system
+
+|Name|Datatype|Purpose|
+|----|--------|-------|
+|None|        |       |
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
