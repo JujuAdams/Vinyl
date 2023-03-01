@@ -123,7 +123,7 @@ if (waitForAmbience && VinylGainGet("ambience") <= 0)
 
 |Name    |Datatype        |Purpose                                                                                           |
 |--------|----------------|--------------------------------------------------------------------------------------------------|
-|`sound` |sound or pattern|The sound to play, either a GameMaker sound or a Vinyl pattern                                    |
+|`target`|voice or label  |Voice or label to target                                                                          |
 |`[gain]`|number          |Target gain, in normalised gain units                                                             |
 |`[rate]`|number          |Speed to approach the target gain, in gain units per second. Defaults to `VINYL_DEFAULT_GAIN_RATE`|
 
@@ -159,9 +159,9 @@ if (keyboard_check_pressed(vk_enter) && place_meeting(x, y, oRoomExit))
 
 *Returns:* Number, the target gain for the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
 
-|Name|Datatype      |Purpose           |
-|----|--------------|------------------|
-|`id`|Vinyl instance|Instance to target|
+|Name    |Datatype      |Purpose                 |
+|--------|--------------|------------------------|
+|`target`|voice or label|Voice or label to target|
 
 #### **Example**
 
@@ -188,9 +188,9 @@ if (DEBUG_MODE && keyboard_check(vk_shift) && keyboard_check_pressed(ord("J"))
 
 *Returns:* Number, the final output gain of the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
 
-|Name|Datatype      |Purpose           |
-|----|--------------|------------------|
-|`id`|Vinyl instance|Instance to target|
+|Name    |Datatype      |Purpose                 |
+|--------|--------------|------------------------|
+|`target`|voice or label|Voice or label to target|
 
 You can read more about how the output gain of an instance is calculated [here](Gain-Structure).
 
