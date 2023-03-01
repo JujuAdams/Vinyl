@@ -54,6 +54,8 @@ Here's an example of how JSON and Loose JSON compare (click the tabs to switch b
 }
 ```
 
+<!-- tabs:end -->
+
 As mentioned above, arrays of strings can be used in place of a string for struct keys. This will create duplicate key-value pairs for each element in the array. This feature is very helpful for sharing configuration across many assets. Here's an example of this:
 
 <!-- tabs:start -->
