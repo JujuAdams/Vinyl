@@ -6,7 +6,7 @@ Vinyl's [configuration file](Configuration) is, basically, written as [JSON](htt
 
 ?> To match GameMaker's nomenclature, a JavaScript "object" will be referred to as a "struct" throughout Vinyl's documentation.
 
-|    |The Basic Rules of Loose JSON                                                                                                                                                           |
+|Rule|                                                                                                                                                                                        |
 |----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |1   |Valid standard JSON is also valid Loose JSON                                                                                                                                            |
 |2   |Loose JSON supports strings, numbers, boolean, and null/undefined as basic value types                                                                                                  |
