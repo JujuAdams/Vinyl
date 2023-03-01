@@ -47,7 +47,6 @@ If passed a label name, every voice currently assigned to the label will individ
 
 ?> You cannot get a "persistent" state from a label as they have no independent persistent state (at least not one set by `VinylLoopSet()`).
 
-
 #### **Example**
 
 ```gml
