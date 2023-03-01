@@ -2,7 +2,7 @@
 
 &nbsp;
 
-Stopping audio is a surprisingly involved process.
+Stopping audio is a surprisingly involved process. Vinyl offers two basic ways to stop audio - stopping it instantly, or fading it out. Both methods can be applied to a single voice, all voices assigned to a label, or all voices currently playing. Alternatively, you can use the [persistence](Persistence) feature alongside the persistence-related stopper functions for a third way to stop audio playing.
 
 &nbsp;
 
