@@ -10,7 +10,9 @@ Functions on this page relate to spatial positioning of audio, either through pa
 
 `VinylListenerSet(x, y)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -21,40 +23,68 @@ Functions on this page relate to spatial positioning of audio, either through pa
 
 Sets the listener "head" for the player. This will typically be the centre of the view or the player character's position.
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylPanSet`
 
-`VinylPanSet(id, pan)`
+`VinylPanSet(target, pan)`
 
-&nbsp;
+<!-- tabs:start -->
 
-*Returns:*
+#### **Description**
 
-|Name |Datatype      |Purpose                                                        |
-|-----|--------------|---------------------------------------------------------------|
-|`id` |Vinyl instance|Instance to target                                             |
-|`pan`|number        |Panning value, from `-1` (left) to `0` (centre) to `+1` (right)|
+*Returns:* N/A (`undefined`)
 
-Sets the panning position of a Vinyl instance created by `VinylPlay()`. The panning position should be a value from `-1` to `+1`, with `-1` indicating hard left and `+1` indicating hard right.
+|Name    |Datatype|Purpose                                                        |
+|--------|--------|---------------------------------------------------------------|
+|`target`|voice   |The voice to target                                            |
+|`pan`   |number  |Panning value, from `-1` (left) to `0` (centre) to `+1` (right)|
+
+Sets the panning position of a voice created by `VinylPlay()`. The panning position should be a value from `-1` to `+1`, with `-1` indicating hard left and `+1` indicating hard right.
 
 !> The target Vinyl instance must be created by the `VinylPlay()` function with a defined `pan` argument (even if that value is `0` for centred panned).
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
 ## `VinylPanGet`
 
-`VinylPanGet(id)`
+`VinylPanGet(target)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Number, the panning position for the Vinyl instance
 
-|Name |Datatype      |Purpose           |
-|-----|--------------|------------------|
-|`id` |Vinyl instance|Instance to target|
+|Name    |Datatype      |Purpose                     |
+|--------|--------------|----------------------------|
+|`target`|voice or label|The voice or label to target|
 
 This function will return a value from `-1` to `+1`, with `-1` indicating hard left and `+1` indicating hard right.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
@@ -62,9 +92,11 @@ This function will return a value from `-1` to `+1`, with `-1` indicating hard l
 
 `VinylPlayOnEmitter(emitter, sound, [loop], [gain=1], [pitch=1])`
 
-&nbsp;
+<!-- tabs:start -->
 
-*Returns:* Vinyl instance
+#### **Description**
+
+*Returns:* Voice
 
 |Name     |Datatype        |Purpose                                                                                                                                                                           |
 |---------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -74,8 +106,15 @@ This function will return a value from `-1` to `+1`, with `-1` indicating hard l
 |`[gain]` |number          |Instance gain, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
 |`[pitch]`|number          |Instance pitch, in normalised pitch units. Defaults to `1`, no pitch change                                                                                                       |
 
-
 Begins playback of a sound on a Vinyl emitter, as created by the functions below (`VinylEmitterPoint()` etc.). It is not possible to use this function to play sounds on a native GameMaker emitter.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
@@ -83,7 +122,9 @@ Begins playback of a sound on a Vinyl emitter, as created by the functions below
 
 `VinylEmitterPoint(x, y)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Vinyl emitter, point-type
 
@@ -96,13 +137,23 @@ Creates an emitter at a point in your game world. This is the same behaviour as 
 
 !> Vinyl will automatically clean up orphaned emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylEmitterCircle`
 
 `VinylEmitterPoint(x, y, radius)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Vinyl emitter, circle-type
 
@@ -116,13 +167,23 @@ Creates an emitter that occupies a circular region in your game world. This mean
 
 !> Vinyl will automatically clean up orphaned emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylEmitterRectangle`
 
 `VinylEmitterPoint(left, top, right, bottom)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Vinyl emitter, rectangle-type
 
@@ -137,13 +198,23 @@ Creates an emitter that occupies a rectangular region in your game world. This m
 
 !> Vinyl will automatically clean up orphaned emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylEmitterPositionSet`
 
 `VinylEmitterPositionSet(emitter, x, y)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -153,13 +224,23 @@ Creates an emitter that occupies a rectangular region in your game world. This m
 |`x`      |number       |New x-position of the centre of the emitter                                           |
 |`y`      |number       |New y-position of the centre of the emitter                                           |
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylEmitterFalloffSet`
 
 `VinylEmitterFalloffSet(emitter, min, max, factor)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -172,13 +253,23 @@ Creates an emitter that occupies a rectangular region in your game world. This m
 
 Sets the falloff parameters for the Vinyl emitter. For more information on falloff parameters, please see the [GameMaker documentation](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_falloff_set_model.htm) on the topic.
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylEmitterExists`
 
 `VinylEmitterExists(emitter)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Boolean, whether the emitter exists
 
@@ -186,13 +277,23 @@ Sets the falloff parameters for the Vinyl emitter. For more information on fallo
 |---------|-------------|--------------------------------------------------------------------------------------|
 |`emitter`|Vinyl emitter|Emitter to target. This must be a Vinyl emitter and **not** a native GameMaker emitter|
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylEmitterDestroy`
 
 `VinylEmitterDestroy(emitter)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -202,13 +303,23 @@ Sets the falloff parameters for the Vinyl emitter. For more information on fallo
 
 Destroys the target emitter immediately.
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylEmitterDebugDraw`
 
 `VinylEmitterDebugDraw(emitter)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -217,3 +328,11 @@ Destroys the target emitter immediately.
 |`emitter`|Vinyl emitter|Emitter to target. This must be a Vinyl emitter and **not** a native GameMaker emitter|
 
 Draws a debug representation of a Vinyl emitter to assist with visualising how emitters are positioned in your game world.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
