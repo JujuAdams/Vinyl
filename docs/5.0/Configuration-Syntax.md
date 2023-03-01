@@ -237,7 +237,9 @@ You can read more about effect chains [here](Terminology).
 
 An effect chain should be defined as an array with, at most, 8 elements. Each element in the array defines an effect in the chain and must be a struct whose properties depend on what type the effect is.
 
-### `reverb` type
+<!-- tabs:start -->
+
+#### **Reverb**
 
 Equivalent to `AudioEffectType.Reverb1`.
 
@@ -249,7 +251,7 @@ Equivalent to `AudioEffectType.Reverb1`.
 |`damp`  |number  |From `0` to `1`. Larger values reduce high frequencies more        |
 |`mix`   |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)|
 
-### `delay` type
+#### **Delay**
 
 Equivalent to `AudioEffectType.Delay`.
 
@@ -261,7 +263,7 @@ Equivalent to `AudioEffectType.Delay`.
 |`feedback`|number  |From `0` to `1`. Proportion of the signal to pass back into the effect|
 |`mix`     |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)   |
 
-### `bitcrusher` type
+#### **Bitcrusher**
 
 Equivalent to `AudioEffectType.Bitcrusher`.
 
@@ -274,7 +276,7 @@ Equivalent to `AudioEffectType.Bitcrusher`.
 |`resolution`|number  |From `1` to `16`. Bit depth                                        |
 |`mix`       |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)|
 
-### `lpf` type
+#### **Low-pass**
 
 A low-pass filter that reduces high frequencies. Equivalent to `AudioEffectType.LPF2`.
 
@@ -285,7 +287,7 @@ A low-pass filter that reduces high frequencies. Equivalent to `AudioEffectType.
 |`cutoff`|number  |Cutoff frequency, in Hertz                     |
 |`q`     |number  |From `1` to `100`. How sharp the cutoff is     |
 
-### `hpf` type
+#### **High-pass**
 
 A high-pass filter that thins out sounds by reducing low frequencies. Equivalent to `AudioEffectType.HPF2`.
 
@@ -296,7 +298,7 @@ A high-pass filter that thins out sounds by reducing low frequencies. Equivalent
 |`cutoff`|number  |Cutoff frequency, in Hertz                     |
 |`q`     |number  |From `1` to `100`. How sharp the cutoff is     |
 
-### `tremolo` type
+#### **Tremolo**
 
 Equivalent to `AudioEffectType.Tremolo`.
 
@@ -309,7 +311,7 @@ Equivalent to `AudioEffectType.Tremolo`.
 |`offset`    |number  |From `0` to `1`. Left/right offset                                                    |
 |`shape`     |string  |Mudt be one of the following: `sine` `square` `triangle` `sawtooth` `inverse sawtooth`|
 
-### `gain` type
+#### **Gain**
 
 Basic volume control. Equivalent to `AudioEffectType.Gain`.
 
@@ -318,6 +320,8 @@ Basic volume control. Equivalent to `AudioEffectType.Gain`.
 |`type`  |string  |**Must be `gain`**                             |
 |`bypass`|boolean |Whether the effect should be bypassed (ignored)|
 |`gain`  |number  |From `0` to `1`. Attenuates the signal         |
+
+<!-- tabs:end -->
 
 &nbsp;
 
