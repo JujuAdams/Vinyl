@@ -170,7 +170,8 @@ if (keyboard_check_pressed(vk_enter) && place_meeting(x, y, oRoomExit))
 if (DEBUG_MODE && keyboard_check(vk_shift) && keyboard_check_pressed(ord("J"))
 {
     //... output a debug message telling us what the target volume for the music is
-    show_debug_message("Background music target = " + string(VinylGainTargetGet(global.backgroundMusic)));
+    show_debug_message("Background music target = "
+                     + string(VinylGainTargetGet(global.backgroundMusic)));
 }
 ```
 
