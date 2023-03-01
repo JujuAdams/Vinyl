@@ -2,7 +2,7 @@
 
 &nbsp;
 
-Functions on this page relate to specific behaviours for [Multi pattern](Terminology) instances.
+Functions on this page relate to specific behaviours for [Multi pattern](Terminology) voices.
 
 &nbsp;
 

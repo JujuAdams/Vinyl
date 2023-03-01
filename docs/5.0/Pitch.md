@@ -10,7 +10,7 @@ Vinyl can adjust the pitch of a sound at multiple stages in the signal path. Her
 
 ```
 output = asset
-         * instance
+         * voice
          * transposition
          * parent
          * (label[0] * label[1] * ...)
@@ -18,14 +18,14 @@ output = asset
 
 `output` is the value returned by `VinylOutputPitchGet()`, which is also the actual pitch that is used to fill the audio buffer.
 
-|Term           |Meaning                                                                                                                                                                                                                       |
-|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|`output`       |The resultant pitch of the sound after Vinyl finishes messing with it                                                                                                                                                         |
-|`asset`        |Set in the [configuration file](Configuration) per asset (or pattern)                                                                                                                                                         |
-|`instance`     |Set on creation (by `VinylPlay()` etc.) and additionally altered by [`VinylPitchSet()` and `VinylTargetPitchSet()`](Gain). For sounds that are children of pattern voices, `instance pitch` is inaccessible and is usually `1`|
-|`transposition`|The pitch contribution from [transposition](Transposition) (which has its own inheritance behaviour)                                                                                                                          |
-|`parent`       |Set implicitly by a pattern that caused a sound to be played e.g. an instance of a Multi pattern is the parent of each child sound that is concurrently playing for that pattern                                              |
-|`label`        |Set in the [configuration file](Configuration), and additionally altered by `VinylPitchSet()` and `VinylTargetPitchSet()` when targeting a label                                                                              |
+|Term           |Meaning                                                                                                                                                                                                                    |
+|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`output`       |The resultant pitch of the sound after Vinyl finishes messing with it                                                                                                                                                      |
+|`asset`        |Set in the [configuration file](Configuration) per asset (or pattern)                                                                                                                                                      |
+|`voice`        |Set on creation (by `VinylPlay()` etc.) and additionally altered by [`VinylPitchSet()` and `VinylTargetPitchSet()`](Gain). For sounds that are children of pattern voices, `voice pitch` is inaccessible and is usually `1`|
+|`transposition`|The pitch contribution from [transposition](Transposition) (which has its own inheritance behaviour)                                                                                                                       |
+|`parent`       |Set implicitly by a pattern that caused a sound to be played e.g. a Multi pattern voice is the parent of each child voice that is concurrently playing for that pattern                                                    |
+|`label`        |Set in the [configuration file](Configuration), and additionally altered by `VinylPitchSet()` and `VinylTargetPitchSet()` when targeting a label                                                                           |
 
 &nbsp;
 
@@ -39,10 +39,10 @@ output = asset
 
 *Returns:*
 
-|Name    |Datatype      |Purpose                                                                    |
-|--------|--------------|---------------------------------------------------------------------------|
-|`target`|voice or label|The voice or label to target                                               |
-|`pitch` |number        |Instance pitch, in normalised pitch units. Defaults to `1`, no pitch change|
+|Name    |Datatype      |Purpose                                                                 |
+|--------|--------------|------------------------------------------------------------------------|
+|`target`|voice or label|The voice or label to target                                            |
+|`pitch` |number        |Voice pitch, in normalised pitch units. Defaults to `1`, no pitch change|
 
 Sets the pitch of [voice or label](Terminology).
 

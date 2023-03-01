@@ -56,10 +56,10 @@ The gain for labels is calculated simply as `output = asset * local`.
 
 *Returns:* N/A (`undefined`)
 
-|Name    |Datatype      |Purpose                                                                                                                                                                                  |
-|--------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|`target`|voice or label|The voice or label to target                                                                                                                                                             |
-|`gain`  |number        |Instance gain to set, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
+|Name    |Datatype      |Purpose                                                                                                                                                                               |
+|--------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`target`|voice or label|The voice or label to target                                                                                                                                                          |
+|`gain`  |number        |Voice gain to set, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
 
 Sets the gain of a [voice or label](Terminology).
 

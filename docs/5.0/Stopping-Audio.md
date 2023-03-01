@@ -181,11 +181,11 @@ if (not VinylShutdownGet(global.backgroundMusic))
 
 *Returns:* N/A (`undefined`)
 
-|Name            |Datatype                      |Purpose                                                                                                   |
-|----------------|------------------------------|----------------------------------------------------------------------------------------------------------|
-|`target`        |voice or label                |Voice or label to target                                                                                  |
-|`callback`      |method, script, or `undefined`|Method or script to execute when the instance stops playing                                               |
-|`[callbackData]`|any                           |Data to be passed into the callback when the instance stops playing. If not specified, `undefined` is used|
+|Name            |Datatype                      |Purpose                                                                                                |
+|----------------|------------------------------|-------------------------------------------------------------------------------------------------------|
+|`target`        |voice or label                |Voice or label to target                                                                               |
+|`callback`      |method, script, or `undefined`|Method or script to execute when the voice stops playing                                               |
+|`[callbackData]`|any                           |Data to be passed into the callback when the voice stops playing. If not specified, `undefined` is used|
 
 Sets a callback for execution when the voice stops playing. This callback will be executed no matter how the voice is stopped (e.g. via the sound ending, via a direct stop command, etc.). The callback function will be given two arguments:
 
@@ -235,17 +235,17 @@ if (not dead)
 
 The struct returned from this function contains two member variables.
 
-|Member    |Datatype                      |Usage                                                              |
-|----------|------------------------------|-------------------------------------------------------------------|
-|`callback`|method, script, or `undefined`|Method or script to execute when the instance stops playing        |
-|`data`    |any                           |Data to be passed into the callback when the instance stops playing|
+|Member    |Datatype                      |Usage                                                           |
+|----------|------------------------------|----------------------------------------------------------------|
+|`callback`|method, script, or `undefined`|Method or script to execute when the voice stops playing        |
+|`data`    |any                           |Data to be passed into the callback when the voice stops playing|
 
 !> The returned struct is static! Do not keep a copy of this struct as it is liable to change unexpectedly.
 
 #### **Example**
 
 ```gml
-//Grab whatever callback has been attached to the background music instance
+//Grab whatever callback has been attached to the background music voice
 var _callbackInfo = VinylStopCallbackGet(global.backgroundMusic);
 
 //Only try to attach a callback if one hasn't been defined already

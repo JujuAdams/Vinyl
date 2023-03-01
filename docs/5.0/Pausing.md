@@ -24,7 +24,7 @@ Audio playback can also be paused by a [stack](Stacks) if a sound is played with
 
 Pauses playback of a [voice or label](Terminology). Playback can be resumed using `VinylResume()` (see below).
 
-If a label is specified instead then all currently playing instances assigned to the label are paused individually. The label itself does not hold a "paused" state and any new audio played on that label will not start paused.
+If a label is specified instead then all currently playing voices assigned to the label are paused individually. The label itself does not hold a "paused" state and any new audio played on that label will not start paused.
 
 #### **Example**
 
@@ -96,7 +96,7 @@ if (VinylPausedGet(global.backgroundMusic))
 |--------|--------------|------------------------|
 |`target`|voice or label|Voice or label to target|
 
-Resumes playback of a [voice or label](Terminology). If a label is provided instead then all currently playing instances assigned to the label are resumed.
+Resumes playback of a [voice or label](Terminology). If a label is provided instead then all currently playing voices assigned to the label are resumed.
 
 #### **Example**
 

@@ -56,9 +56,9 @@ Returns an array containing every voice assigned to the label.
 
 &nbsp;
 
-## `VinylLabelInstanceCountGet`
+## `VinylLabelVoiceCountGet`
 
-`VinylLabelInstanceCountGet(name)`
+`VinylLabelVoiceCountGet(name)`
 
 <!-- tabs:start -->
 

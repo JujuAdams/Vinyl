@@ -2,7 +2,7 @@
 
 &nbsp;
 
-Functions on this page relate to specific behaviours for [Queue pattern](Terminology) instances.
+Functions on this page relate to specific behaviours for [Queue pattern](Terminology) voices.
 
 &nbsp;
 

@@ -10,7 +10,7 @@ In addition to Vinyl's [configuration file](Configuration), there are a number o
 
 *Default value: `1`*
 
-Maximum output gain for sound instances. Must be greater than or equal to zero. You can read more about Vinyl's gain structure [here](Gain-Structure).
+Maximum output gain for sound voices. Must be greater than or equal to zero. You can read more about Vinyl's gain structure [here](Gain-Structure).
 
 &nbsp;
 
@@ -160,7 +160,7 @@ Whether to output extra debug information when reading configuration data.
 
 *Default value: `20`*
 
-Number of audio instances and emitters pre-created in the pool.
+Number of voices and emitters pre-created per pool.
 
 &nbsp;
 
