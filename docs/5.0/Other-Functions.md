@@ -16,7 +16,7 @@
 |--------|--------|-------------------|
 |`target`|voice   |The voice to target|
 
-This function can return one of the following values as strings: `"basic"` `"queue"` `"multi"`
+This function can return one of the following values as strings: `"asset"` `"basic"` `"queue"` `"multi"`
 
 #### **Example**
 
