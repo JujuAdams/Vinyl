@@ -102,13 +102,18 @@ function __VinylUpdateData()
         __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         show_debug_message("");
         
+        var _trimmedMessage = string_replace(_error.message, "Vinyl:\n", "");
+        _trimmedMessage = string_copy(_trimmedMessage, 1, string_length(_trimmedMessage)-2);
+        
         if (_firstUpdate)
         {
-            __VinylError("There was an error whilst reading \"", _filename, "\"\n- Check the file contains valid JSON\n- Check that the config meets Vinyl's requirements\n- Check the nature of error by reading the output log");
+            __VinylError("There was an error whilst reading \"", _filename, "\"\n \n", _trimmedMessage);
         }
         else
         {
-            __VinylTrace("There was an error whilst reading \"", _filename, "\"\n- Check the file contains valid JSON\n- Check that the config meets Vinyl's requirements\n- Check the nature of error by reading the output log");
+            _trimmedMessage = string_replace_all(_trimmedMessage, "\n", "\n       ");
+            __VinylTrace("There was an error whilst reading \"", _filename, "\"");
+            __VinylTrace(_trimmedMessage);
         }
     }
     finally
