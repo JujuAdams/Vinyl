@@ -100,7 +100,7 @@ VinylGainSet("music", _musicGain);
 
 ```gml
 //Go to the next room when the "ambience" label has faded out
-if (waitForAmbience && VinylGainGet("ambience") <= 0)
+if (waitForAmbience && (VinylGainGet("ambience") <= 0))
 {
     show_debug_message("Ambience faded out, going to next room");
     room_goto_next();
