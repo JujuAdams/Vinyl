@@ -30,7 +30,9 @@ If a label is specified, each currently playing instance assigned to that label 
 //Oops we died
 if (hp <= 0)
 {
-	VinylStop(global.backgroundMusic); //Stop the background music we're playing
+	//Stop any background music we're playing
+	VinylStop("music");
+	
     room_restart();
 }
 ```
