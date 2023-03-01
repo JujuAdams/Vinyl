@@ -28,21 +28,21 @@ This function can return one of the following values as strings: `"asset"` `"bas
 
 &nbsp;
 
-## `VinylLabelInstancesGet`
+## `VinylLabelVoicesGet`
 
-`VinylLabelInstancesGet(name)`
+`VinylLabelVoicesGet(name)`
 
 <!-- tabs:start -->
 
 #### **Description**
 
-*Returns:* Array of [Vinyl instances](Terminology)
+*Returns:* Array of [voices](Terminology)
 
 |Name  |Datatype|Purpose        |
 |------|--------|---------------|
 |`name`|string  |Label to target|
 
-Returns an array containing every Vinyl instance assigned to the label.
+Returns an array containing every voice assigned to the label.
 
 !> Do not modify the array returned by this function!
 
@@ -64,7 +64,7 @@ Returns an array containing every Vinyl instance assigned to the label.
 
 #### **Description**
 
-*Returns:* Number, the number of [Vinyl instances](Terminology) assigned to the label
+*Returns:* Number, the number of [voices](Terminology) assigned to the label
 
 |Name  |Datatype|Purpose        |
 |------|--------|---------------|
@@ -90,9 +90,9 @@ Returns an array containing every Vinyl instance assigned to the label.
 
 *Returns:* N/A (`undefined`)
 
-|Name  |Datatype|Purpose                                                                                     |
-|------|--------|--------------------------------------------------------------------------------------------|
-|`gain`|number  |Gain to set. This value should be greater than `0` but **isn't** limited to a maximum of `1`|
+|Name  |Datatype|Purpose    |
+|------|--------|-----------|
+|`gain`|number  |Gain to set|
 
 Sets the gain of the overall system. You may want to use this for controlling the master volume of all sounds, or to compensate for platform-specific audio requirements.
 
@@ -138,7 +138,7 @@ Sets the gain of the overall system. You may want to use this for controlling th
 
 #### **Description**
 
-*Returns:* Number, the number of [Vinyl instances](Terminology) being played across the entire system
+*Returns:* Number, the number of [voices](Terminology) being played across the entire system
 
 |Name|Datatype|Purpose|
 |----|--------|-------|
