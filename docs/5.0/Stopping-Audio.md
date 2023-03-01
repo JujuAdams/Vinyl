@@ -77,7 +77,7 @@ if (keyboard_check_pressed(vk_escape))
 
 ## `VinylFadeOut`
 
-`VinylFadeOut(id, [rate=VINYL_DEFAULT_GAIN_RATE])`
+`VinylFadeOut(target, [rate=VINYL_DEFAULT_GAIN_RATE])`
 
 <!-- tabs:start -->
 
@@ -113,7 +113,7 @@ if (keyboard_check_pressed(vk_enter) && place_meeting(x, y, oRoomExit))
 
 ## `VinylFadeOutAll`
 
-`VinylFadeOut(id, [rate=VINYL_DEFAULT_GAIN_RATE])`
+`VinylFadeOut(target, [rate=VINYL_DEFAULT_GAIN_RATE])`
 
 <!-- tabs:start -->
 
@@ -145,7 +145,7 @@ VinylPlayFadeIn(sndTheFinalShowdown, 0.1); //Fade in the epic end game boss musi
 
 ## `VinylShutdownGet`
 
-`VinylShutdownGet(id)`
+`VinylShutdownGet(target)`
 
 <!-- tabs:start -->
 
@@ -173,7 +173,7 @@ if (not VinylShutdownGet(global.backgroundMusic))
 
 ## `VinylStopCallbackSet`
 
-`VinylStopCallbackSet(id, callback, [callbackData])`
+`VinylStopCallbackSet(target, callback, [callbackData])`
 
 <!-- tabs:start -->
 
@@ -221,7 +221,7 @@ if (not dead)
 
 ## `VinylStopCallbackSet`
 
-`VinylStopCallbackGet(id)`
+`VinylStopCallbackGet(target)`
 
 <!-- tabs:start -->
 
