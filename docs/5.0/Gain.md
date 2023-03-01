@@ -12,11 +12,11 @@ Vinyl improves upon GameMaker's native gain implementation. Setting a gain using
 
 Some professional audio designers prefer to work with decibel gain values rather than normalised gain values. By setting [`VINYL_CONFIG_DECIBEL_GAIN`](Config-Macros) to `true`, [Vinyl's configuration file](Configuration) will now use decibel values. A value of `0` db is equivalent to a normalised value of `1`, and a decibel value of `-60` db is equivalent to a normalised gain of `0` (i.e. silence). At any rate, Vinyl's **GML functions** expect a normalised gain value (`0` -> `1`) regardless of what value `VINYL_CONFIG_DECIBEL_GAIN` is set to.
 
-Vinyl offers in-depth volume control through gain variables at multiple stages in the signal path. Here's the fundamental gain equation:
+Vinyl offers in-depth volume control through gain variables at multiple stages in the signal path. Here's the fundamental gain equation for sounds:
 
 ```
 output = asset
-         * instance
+         * local
          * parent
          * ducking
          * (label[0] * label[1] * ...)
@@ -29,18 +29,20 @@ heardAmplitude = Clamp(ApplyDecibelCurve(output) / VINYL_MAX_GAIN, 0, 1)
 
 `output` is the value returned by `VinylOutputGainGet()` whereas `heardAmplitude` is the actual amplitude that is used to fill the audio buffer. Vinyl separates these two concepts so that the `output` can be free-floating and is only constrained at the very last point in the signal chain.
 
-|Term            |Meaning                                                                                                                                                                                                                                                                                       |
-|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|`output`        |The un-limited resultant gain of the sound after Vinyl finishes messing with it                                                                                                                                                                                                               |
-|`asset`         |Set in the [configuration file](Configuration) per asset (or pattern)                                                                                                                                                                                                                         |
-|`instance`      |Set on creation (by `VinylPlay()` etc.) and additionally altered by [`VinylGainSet()` and `VinylTargetGainSet()`](Gain). This gain is further altered by [`VinylFadeOut()`](Basics). For sounds that are children of pattern instances, the `instance` gain is inaccessible and is usually `1`|
-|`parent`        |Set implicitly by a pattern that caused a sound to be played e.g. an instance of a Multi pattern is the parent of each child sound that is concurrently playing for that pattern                                                                                                              |
-|`ducking`       |Set by a [stack](Terminology) to control the gain of deprioritised instances                                                                                                                                                                                                                  |
-|`label`         |Set in the [configuration file](Configuration), and additionally altered by `VinylGainSet()` and `VinylTargetGainSet()` when targeting a label                                                                                                                                                |
-|`emitter`       |Implicitly set by calculating the distance from the listener to the emitter that a Vinyl instance is playing on. Only Vinyl instances created by [`VinylPlayOnEmitter()`](Positional) will factor in emitter gain, otherwise this gain is ignored                                             |
-|`VINYL_MAX_GAIN`|A [configuration macro](Config-Macros) found in `__VinylConfigMacros`. This value can be from zero to any number                                                                                                                                                                              |
-|`system`        |Set by `VinylSystemGainSet()`. This gain should be above zero but can otherwise be any number, including greater than `1`                                                                                                                                                                     |
-|`heardAmplitude`|The final final *final* amplitude that reaches your ears after the end of this long and exhausting process                                                                                                                                                                                    |
+|Term            |Meaning                                                                                                                                                                                                                                                                                 |
+|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`output`        |The un-limited resultant gain of the sound after Vinyl finishes messing with it                                                                                                                                                                                                         |
+|`asset`         |Set in the [configuration file](Configuration) per asset (or pattern)                                                                                                                                                                                                                   |
+|`local`         |Set on creation (by `VinylPlay()` etc.) and additionally altered by [`VinylGainSet()` and `VinylTargetGainSet()`](Gain). This gain is further altered by [`VinylFadeOut()`](Basics). For sounds that are children of pattern voices, the `local` gain is inaccessible and is usually `1`|
+|`parent`        |Set implicitly by a pattern that caused a sound to be played e.g. an voice of a Multi pattern is the parent of each child sound that is concurrently playing for that pattern                                                                                                           |
+|`ducking`       |Set by a [stack](Terminology) to control the gain of deprioritised voices                                                                                                                                                                                                               |
+|`label`         |Set in the [configuration file](Configuration), and additionally altered by `VinylGainSet()` and `VinylTargetGainSet()` when targeting a label                                                                                                                                          |
+|`emitter`       |Implicitly set by calculating the distance from the listener to the emitter that a Vinyl voice is playing on. Only Vinyl voices created by [`VinylPlayOnEmitter()`](Positional) will factor in emitter gain, otherwise this gain is ignored                                             |
+|`VINYL_MAX_GAIN`|A [configuration macro](Config-Macros) found in `__VinylConfigMacros`. This value can be from zero to any number                                                                                                                                                                        |
+|`system`        |Set by `VinylSystemGainSet()`. This gain should be above zero but can otherwise be any number, including greater than `1`                                                                                                                                                               |
+|`heardAmplitude`|The final final *final* amplitude that reaches your ears after the end of this long and exhausting process                                                                                                                                                                              |
+
+The gain for labels is calculated simply as `output = asset * local`.
 
 &nbsp;
 
@@ -59,11 +61,11 @@ heardAmplitude = Clamp(ApplyDecibelCurve(output) / VINYL_MAX_GAIN, 0, 1)
 |`target`|voice or label|The voice or label to target                                                                                                                                                             |
 |`gain`  |number        |Instance gain to set, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
 
-Sets the gain of [Vinyl instance](Terminology) or [Vinyl label](Terminology).
+Sets the gain of a [voice or label](Terminology).
 
-If an instance is specified, the instance gain is set. This gain is independent of, for example, label gain, asset gain, and system gain.
+If an voice is specified, the voice gain is set. This gain is independent of, for example, label gain, asset gain, and system gain.
 
-If a label is specified, the gain for the label is set. This will immediately impact all current instances assigned to that label, and will impact future instances too.
+If a label is specified, the gain for the label is set. This will immediately impact all current voices assigned to that label, and will impact future voices too.
 
 #### **Example**
 
@@ -127,9 +129,9 @@ if (waitForAmbience && (VinylGainGet("ambience") <= 0))
 |`[gain]`|number          |Target gain, in normalised gain units                                                             |
 |`[rate]`|number          |Speed to approach the target gain, in gain units per second. Defaults to `VINYL_DEFAULT_GAIN_RATE`|
 
-Sets the target gain of [Vinyl instance](Terminology) or [Vinyl label](Terminology). The gain for that instance or label will change over time at the given rate until reaching its target.
+Sets the target gain of a[voice or label](Terminology). The gain for that voice or label will change over time at the given rate until reaching its target.
 
-!> Setting a target gain of `0` for an instance will not stop the instance when reaching silence. Please use `VinylFadeOut()` to fade out and stop an instance.
+!> Setting a target gain of `0` for an voice will not stop the voice when reaching silence. Please use `VinylFadeOut()` to fade out and stop an voice.
 
 #### **Example**
 
@@ -157,7 +159,7 @@ if (keyboard_check_pressed(vk_enter) && place_meeting(x, y, oRoomExit))
 
 #### **Description**
 
-*Returns:* Number, the target gain for the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
+*Returns:* Number, the target gain for the [voice or label](Terminology)
 
 |Name    |Datatype      |Purpose                 |
 |--------|--------------|------------------------|
@@ -187,13 +189,11 @@ if (DEBUG_MODE && keyboard_check(vk_shift) && keyboard_check_pressed(ord("J"))
 
 #### **Description**
 
-*Returns:* Number, the final output gain of the [Vinyl instance](Terminology) or [Vinyl label](Terminology)
+*Returns:* Number, the final output gain of the [voice or label](Terminology)
 
 |Name    |Datatype      |Purpose                 |
 |--------|--------------|------------------------|
 |`target`|voice or label|Voice or label to target|
-
-You can read more about how the output gain of an instance is calculated [here](Gain-Structure).
 
 #### **Example**
 
