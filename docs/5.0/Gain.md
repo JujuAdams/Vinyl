@@ -44,8 +44,6 @@ heardAmplitude = Clamp(ApplyDecibelCurve(output) / VINYL_MAX_GAIN, 0, 1)
 
 &nbsp;
 
-# Functions
-
 ## `VinylGainSet`
 
 `VinylGainSet(id, gain)`
