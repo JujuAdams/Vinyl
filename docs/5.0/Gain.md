@@ -56,10 +56,10 @@ heardAmplitude = Clamp(ApplyDecibelCurve(output) / VINYL_MAX_GAIN, 0, 1)
 
 *Returns:* N/A (`undefined`)
 
-|Name  |Datatype      |Purpose                                                                                                                                                                                  |
-|------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|`id`  |Vinyl instance|Instance to target                                                                                                                                                                       |
-|`gain`|number        |Instance gain to set, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
+|Name    |Datatype      |Purpose                                                                                                                                                                                  |
+|--------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`target`|voice or label|Voice or label to target                                                                                                                                                                 |
+|`gain`  |number        |Instance gain to set, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
 
 Sets the gain of [Vinyl instance](Terminology) or [Vinyl label](Terminology).
 
