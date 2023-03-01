@@ -54,6 +54,46 @@ Here's an example of how JSON and Loose JSON compare (click the tabs to switch b
 }
 ```
 
+As mentioned above, arrays of strings can be used in place of a string for struct keys. This will create duplicate key-value pairs for each element in the array. This feature is very helpful for sharing configuration across many assets. Here's an example of this:
+
+<!-- tabs:start -->
+
+#### **Loose JSON**
+
+```loose
+{
+    [sndFootstepGrass, sndFootstepMetal, sndFootstepStone]: {
+        gain: 0.9
+        pitch: [0.9, 1.1]
+        effect: footstep reverb
+    }
+}
+```
+
+#### **JSON**
+
+```json
+{
+    "sndFootstepGrass": {
+        "gain": 0.9,
+        "pitch": [0.9, 1.1],
+        "effect": "footstep reverb"
+    },
+
+    "sndFootstepMetal": {
+        "gain": 0.9,
+        "pitch": [0.9, 1.1],
+        "effect": "footstep reverb"
+    },
+
+    "sndFootstepStone": {
+        "gain": 0.9,
+        "pitch": [0.9, 1.1],
+        "effect": "footstep reverb"
+    }
+}
+```
+
 <!-- tabs:end -->
 
 &nbsp;
