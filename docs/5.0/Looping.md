@@ -19,7 +19,7 @@
 
 Sets the looping state of a [voice or label](Terminology). If a voice currently has loop points enabled then turning off looping (setting state to `false`) will disable the loop points and allow the audio to play to the end.
 
-If passed a label name, every voice currently assigned to the label will individually have its loop state set. This is the same as calling `VinylLoopSet()` for each individual audio instance. The label itself does not hold a "looped" state and any new audio will not be affected by the loop state set by this function.
+If passed a label name, every voice currently assigned to the label will individually have its loop state set. This is the same as calling `VinylLoopSet()` for each individual voice. The label itself does not hold a "looped" state and any new audio will not be affected by the loop state set by this function.
 
 #### **Example**
 
@@ -33,7 +33,7 @@ If passed a label name, every voice currently assigned to the label will individ
 
 ## `VinylLoopGet`
 
-`VinylPause(target)`
+`VinylLoopGet(target)`
 
 <!-- tabs:start -->
 
