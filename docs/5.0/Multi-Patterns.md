@@ -6,15 +6,15 @@ Functions on this page relate to specific behaviours for [Multi pattern](Termino
 
 &nbsp;
 
-## `VinylMultiChannelCountGet`
+## `VinylMultiVoiceCountGet`
 
-`VinylMultiChannelCountGet(target)`
+`VinylMultiVoiceCountGet(target)`
 
 <!-- tabs:start -->
 
 #### **Description**
 
-*Returns:* Number, the number of channels for the [Multi pattern voice](Terminology)
+*Returns:* Number, the number of voices created as children for the specified [Multi pattern voice](Terminology)
 
 |Name    |Datatype|Purpose                          |
 |--------|--------|---------------------------------|
