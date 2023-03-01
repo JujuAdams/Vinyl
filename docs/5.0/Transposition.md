@@ -64,7 +64,7 @@ The pitch shift set by this function follows the Western diatonic scale with the
 
 ## `VinylTransposeSet`
 
-`VinylTransposeSet(id, semitone)`
+`VinylTransposeSet(target, semitone)`
 
 <!-- tabs:start -->
 
@@ -93,7 +93,7 @@ If a label is specified, each currently playing voice assigned to that label wil
 
 ## `VinylTransposeGet`
 
-`VinylGlobalTransposeGet(id)`
+`VinylGlobalTransposeGet(target)`
 
 <!-- tabs:start -->
 
