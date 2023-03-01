@@ -22,7 +22,9 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 |`[gain]` |number          |Instance gain, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
 |`[pitch]`|number          |Instance pitch, in normalised pitch units. Defaults to `1`, no pitch change                                                                                                       |
 
-Plays an asset, taking advantage of Vinyl's live updating configuration (including labels). However, this function does **not** create a full fat [Vinyl instance](Terminology) and is, in effect, only a wrapper around GameMaker's native [`audio_play_sound()`](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_play_sound.htm) with the gain and pitch calculated through Vinyl.
+Plays an asset, taking advantage of Vinyl's live updating configuration (including labels). However, this function does **not** create a full fat [voice](Terminology) and is, in effect, only a wrapper around GameMaker's native [`audio_play_sound()`](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_play_sound.htm) with a few basic properties calculated through Vinyl.
+
+Sounds played using this function will never loop.
 
 !> `VinylPlaySimple()` returns a GameMaker sound instance and **not** a Vinyl instance. As such, the sound instance is not compatible with other Vinyl functions and is provided for your convenience only.
 
@@ -100,7 +102,7 @@ A convenience function that starts playing an asset or pattern at silence and th
 
 ## `VinylExists`
 
-`VinylExists(id)`
+`VinylExists(target)`
 
 <!-- tabs:start -->
 
