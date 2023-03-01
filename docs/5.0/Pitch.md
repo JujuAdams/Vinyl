@@ -29,8 +29,6 @@ output = asset
 
 &nbsp;
 
-# Functions
-
 ## `VinylPitchSet`
 
 `VinylPitchSet(target, pitch)`
