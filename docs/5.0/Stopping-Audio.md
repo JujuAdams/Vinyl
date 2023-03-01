@@ -172,7 +172,9 @@ if (not VinylShutdownGet(global.backgroundMusic))
 
 `VinylStopCallbackSet(id, callback, [callbackData])`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -182,12 +184,35 @@ if (not VinylShutdownGet(global.backgroundMusic))
 |`callback`      |method or script|Method or script to execute when the instance stops playing                                               |
 |`[callbackData]`|any             |Data to be passed into the callback when the instance stops playing. If not specified, `undefined` is used|
 
-Sets a callback for execution when the instance stops playing. This callback will be executed no matter how the instance is stopped (e.g. via a fade out, via a direct stop command, via a stack). The callback function will be given two arguments:
+Sets a callback for execution when the instance stops playing. This callback will be executed no matter how the instance is stopped (e.g. via the sound ending, via a direct stop command, etc.). The callback function will be given two arguments:
 
 |Argument   |Name         |Datatype|                                                               |
 |-----------|-------------|--------|---------------------------------------------------------------|
 |`argument0`|Callback data|any     |The data that was defined when calling `VinylStopCallbackSet()`|
-|`argument1`|Instance ID  |number  |The ID of the Vinyl instance that triggered the callback       |
+|`argument1`|Voice ID     |number  |The ID of the voice that triggered the callback                |
+
+#### **Example**
+
+```gml
+if (not dead)
+{
+	//Make sure we don't trigger this code more than once
+	dead = true;
+
+	//Play a sound effect on death
+	var _urk = VinylPlay(sndDeathrattle);
+
+	//Only actually destroy this instance after the sound stops
+	VinylStopCallbackSet(_urk,
+		                 function(_data, _voice)
+	                     {
+	                         instance_destroy(_data);
+	                     }
+	                     self);
+ }
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
@@ -195,7 +220,9 @@ Sets a callback for execution when the instance stops playing. This callback wil
 
 `VinylStopCallbackGet(id)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Struct, containing the callback and callback data as set by `VinylStopCallbackGet()`
 
@@ -211,3 +238,23 @@ The struct returned from this function contains two members variable.
 |`data`    |any                           |Data to be passed into the callback when the instance stops playing|
 
 !> The returned struct is static! Do not keep a copy of this struct as it is liable to change unexpectedly.
+
+#### **Example**
+
+```gml
+//Grab whatever callback has been attached to the background music instance
+var _callbackInfo = VinylStopCallbackGet(global.backgroundMusic);
+
+//Only try to attach a callback if once hasn't been defined already
+if (_callbackInfo.callback == undefined)
+{
+	VinylStopCallbackSet(global.backgroundMusic,
+		                 function(_data, _voice)
+	                     {
+	                         room_goto(_data)
+	                     }
+	                     rBonusLevel);
+ }
+```
+
+<!-- tabs:end -->
