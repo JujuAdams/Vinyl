@@ -252,7 +252,7 @@ if (_callbackInfo.callback == undefined)
 	VinylStopCallbackSet(global.backgroundMusic,
 		                 function(_data, _voice)
 	                     {
-	                         room_goto(_data)
+	                         room_goto(_data);
 	                     }
 	                     rBonusLevel);
  }
