@@ -12,7 +12,7 @@ Vinyl improves upon GameMaker's native gain implementation. Setting a gain using
 
 Some professional audio designers prefer to work with decibel gain values rather than normalised gain values. By setting [`VINYL_CONFIG_DECIBEL_GAIN`](Config-Macros) to `true`, [Vinyl's configuration file](Configuration) will now use decibel values. A value of `0` db is equivalent to a normalised value of `1`, and a decibel value of `-60` db is equivalent to a normalised gain of `0` (i.e. silence). At any rate, Vinyl's **GML functions** expect a normalised gain value (`0` -> `1`) regardless of what value `VINYL_CONFIG_DECIBEL_GAIN` is set to.
 
-Vinyl offers in-depth volume control through gain variables attached to multiple layers. Here's the fundamental gain equation:
+Vinyl offers in-depth volume control through gain variables at multiple stages in the signal path. Here's the fundamental gain equation:
 
 ```
 output = asset
@@ -36,7 +36,7 @@ heardAmplitude = Clamp(ApplyDecibelCurve(output) / VINYL_MAX_GAIN, 0, 1)
 |`instance`      |Set on creation (by `VinylPlay()` etc.) and additionally altered by [`VinylGainSet()` and `VinylTargetGainSet()`](Gain). This gain is further altered by [`VinylFadeOut()`](Basics). For sounds that are children of pattern instances, the `instance` gain is inaccessible and is usually `1`|
 |`parent`        |Set implicitly by a pattern that caused a sound to be played e.g. an instance of a Multi pattern is the parent of each child sound that is concurrently playing for that pattern                                                                                                              |
 |`ducking`       |Set by a [stack](Terminology) to control the gain of deprioritised instances                                                                                                                                                                                                                  |
-|`label`         |Set in the [configuration file](Configuration), and additionally altered by `VinylGainSet()` and `VinylTargetGainSet()` (when targeting a label)                                                                                                                                              |
+|`label`         |Set in the [configuration file](Configuration), and additionally altered by `VinylGainSet()` and `VinylTargetGainSet()` when targeting a label                                                                                                                                                |
 |`emitter`       |Implicitly set by calculating the distance from the listener to the emitter that a Vinyl instance is playing on. Only Vinyl instances created by [`VinylPlayOnEmitter()`](Positional) will factor in emitter gain, otherwise this gain is ignored                                             |
 |`VINYL_MAX_GAIN`|A [configuration macro](Config-Macros) found in `__VinylConfigMacros`. This value can be from zero to any number                                                                                                                                                                              |
 |`system`        |Set by `VinylSystemGainSet()`. This gain should be above zero but can otherwise be any number, including greater than `1`                                                                                                                                                                     |
