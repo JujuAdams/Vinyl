@@ -48,7 +48,7 @@ The gain for labels is calculated simply as `output = asset * local`.
 
 ## `VinylGainSet`
 
-`VinylGainSet(id, gain)`
+`VinylGainSet(target, gain)`
 
 <!-- tabs:start -->
 
@@ -86,7 +86,7 @@ VinylGainSet("music", _musicGain);
 
 ## `VinylGainGet`
 
-`VinylGainGet(id)`
+`VinylGainGet(target)`
 
 <!-- tabs:start -->
 
@@ -115,7 +115,7 @@ if (waitForAmbience && (VinylGainGet("ambience") <= 0))
 
 ## `VinylGainTargetSet`
 
-`VinylGainTargetSet(id, gain, [rate=VINYL_DEFAULT_GAIN_RATE])`
+`VinylGainTargetSet(target, gain, [rate=VINYL_DEFAULT_GAIN_RATE])`
 
 <!-- tabs:start -->
 
@@ -153,7 +153,7 @@ if (keyboard_check_pressed(vk_enter) && place_meeting(x, y, oRoomExit))
 
 ## `VinylGainTargetGet`
 
-`VinylGainTargetGet(id)`
+`VinylGainTargetGet(target)`
 
 <!-- tabs:start -->
 
@@ -183,7 +183,7 @@ if (DEBUG_MODE && keyboard_check(vk_shift) && keyboard_check_pressed(ord("J"))
 
 ## `VinylOutputGainGet`
 
-`VinylOutputGainGet(id)`
+`VinylOutputGainGet(target)`
 
 <!-- tabs:start -->
 
