@@ -6,7 +6,7 @@
 
 GameMaker's gain values don't map accurately to the perceived loudness. When using GameMaker's audio functions, you might expect a gain value of `0.5` to be half the loudness of a gain value of `1`. Sadly, this is not the case. GameMaker doesn't use a decibel loudness curve as it should and instead GameMaker's audio functions naively adjust the *amplitude* of the output audio. Gains are also clamped to a maximum value of `1` meaning that audio cannot be made louder than the source.
 
-?> Interestingly, GameMaker allows the entire audio system gain to exceed `1` and this does indeed increase the loudness of audio playback, albeit across every sound. Vinyl leverages this behaviour to allow for maximum gain values per sound to exceed `1`.
+?> Interestingly, GameMaker allows the entire audio system gain to exceed `1` and this does indeed increase the loudness of audio playback, albeit across every sound without fine control over what's louder and what's not. Vinyl leverages this behaviour to allow for maximum gain values per sound to exceed `1`.
 
 Vinyl improves upon GameMaker's native gain implementation. Setting a gain using Vinyl to `0.5` will result in a sound half as loud as a gain of `1` by applying a curve to the amplitude of audio playback. All audio fades operate on this curve meaning that fades will sound more natural throughout. Additionally, Vinyl allows for audio to have a gain larger than `1`, up the to value set by [`VINYL_MAX_GAIN`](Config-Macros). Try not to set this value too high otherwise you may start to notice subtle distortion of your audio.
 
