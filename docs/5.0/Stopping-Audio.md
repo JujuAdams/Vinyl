@@ -231,7 +231,7 @@ if (not dead)
 |--------|--------------|------------------------|
 |`target`|voice or label|Voice or label to target|
 
-The struct returned from this function contains two members variable.
+The struct returned from this function contains two member variables.
 
 |Member    |Datatype                      |Usage                                                              |
 |----------|------------------------------|-------------------------------------------------------------------|
