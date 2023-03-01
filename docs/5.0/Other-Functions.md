@@ -80,30 +80,6 @@ Returns an array containing every voice assigned to the label.
 
 &nbsp;
 
-## `VinylSystemPlayCountGet`
-
-`VinylSystemPlayCountGet()`
-
-<!-- tabs:start -->
-
-#### **Description**
-
-*Returns:* Number, the number of [voices](Terminology) being played across the entire system
-
-|Name|Datatype|Purpose|
-|----|--------|-------|
-|None|        |       |
-
-#### **Example**
-
-```gml
-//TODO lol
-```
-
-<!-- tabs:end -->
-
-&nbsp;
-
 ## `VinylSystemReadConfig`
 
 `VinylSystemReadConfig(configStruct)`
