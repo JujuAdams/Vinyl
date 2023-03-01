@@ -26,7 +26,7 @@ Here's an example of how JSON and Loose JSON compare (click the tabs to switch b
 
 <!-- tabs:start -->
 
-#### Loose JSON
+#### **Loose JSON**
 
 ```loose
 {
@@ -40,7 +40,7 @@ Here's an example of how JSON and Loose JSON compare (click the tabs to switch b
 }
 ```
 
-#### JSON
+#### **JSON**
 
 ```json
 {
