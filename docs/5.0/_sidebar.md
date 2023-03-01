@@ -12,12 +12,18 @@
 
 ---
 
--    [Basics](Basics)
+-    [Playing Audio](Playing-Audio)
+-    [Stopping Audio](Stopping-Audio)
+-    [Looping](Looping)
+-    [Pausing](Pausing)
+-    [Persistence](Persistence)
 -    [Gain](Gain)
 -    [Pitch](Pitch)
 -    [Transposition](Transposition)
+-    [BPM](BPM)
 -    [Positional](Positional)
 -    [Queue Patterns](Queue-Patterns)
 -    [Multi Patterns](Multi-Patterns)
+-    [Stacks](Stacks)
 -    [Knobs](Knobs)
--    [Advanced](Advanced)
+-    [Other Functions](Other-Functions)
