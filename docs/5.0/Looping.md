@@ -2,8 +2,6 @@
 
 &nbsp;
 
-&nbsp;
-
 ## `VinylLoopSet`
 
 `VinylLoopSet(target, state)`
