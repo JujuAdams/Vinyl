@@ -55,7 +55,7 @@ if (hp <= 0)
 
 Immediately stops playback of all currently playing Vinyl instances and marks them as destroyed.
 
-?> If you want a little more control of which instances get stopped, consider using `VinylStop()` with a [label](Terminology), or using `VinylStopAllNonPersistent()`.
+?> If you want a little more control of which instances get stopped, consider using `VinylStop()` with a [label](Terminology), or using [`VinylStopAllNonPersistent()`](Persistence).
 
 #### **Example**
 
@@ -126,7 +126,7 @@ if (keyboard_check_pressed(vk_enter) && place_meeting(x, y, oRoomExit))
 
 Begins a fade out for all currently playing voices. This puts all instances into "shutdown mode" which can be detected later by [`VinylShutdownGet()`](Advanced).
 
-?> If you want a little more control of which instances get faded out, consider using `VinylFadeOut()` with a [label](Terminology), or using `VinylFadeOutAllNonPersistent()`.
+?> If you want a little more control of which instances get faded out, consider using `VinylFadeOut()` with a [label](Terminology), or using [`VinylFadeOutAllNonPersistent()`](Persistence).
 
 #### **Example**
 
