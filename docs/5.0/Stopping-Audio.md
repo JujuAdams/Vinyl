@@ -20,9 +20,9 @@ Stopping audio is a surprisingly involved process. Vinyl offers two basic ways t
 |--------|--------------|----------------------------|
 |`target`|voice or label|The voice or label to target|
 
-Immediately stops playback of a Vinyl instance and marks it as destroyed.
+Immediately stops playback of a voice and marks it as destroyed.
 
-If a label is specified, each currently playing instance assigned to that label will be immediately stopped. The label itself has no "stopped" state and any new instances will be played as normal.
+If a label is specified, each currently playing voice assigned to that label will be immediately stopped. The label itself has no "stopped" state and any new voices will be played as normal.
 
 #### **Example**
 
@@ -55,9 +55,9 @@ if (hp <= 0)
 |----|--------|-------|
 |None|        |       |
 
-Immediately stops playback of all currently playing Vinyl instances and marks them as destroyed.
+Immediately stops playback of all currently playing voices and marks them as destroyed.
 
-?> If you want a little more control of which instances get stopped, consider using `VinylStop()` with a [label](Terminology), or using [`VinylStopAllNonPersistent()`](Persistence).
+?> If you want a little more control of which voices get stopped, consider using `VinylStop()` with a [label](Terminology), or using [`VinylStopAllNonPersistent()`](Persistence).
 
 #### **Example**
 
@@ -90,11 +90,11 @@ if (keyboard_check_pressed(vk_escape))
 |`target`|voice or label|The voice or label to target                                                              |
 |`[rate]`|number        |Speed to approach silence, in gain units per second. Defaults to `VINYL_DEFAULT_GAIN_RATE`|
 
-Begins a fade out for a [voice or label](Terminology). This puts the instance into "shutdown mode" which can be detected later by [`VinylShutdownGet()`](Advanced).
+Begins a fade out for a [voice or label](Terminology). This puts the voice into "shutdown mode" which can be detected later by [`VinylShutdownGet()`](Advanced).
 
-If an instance is specified, the instance's gain will decrease at the given rate (in normalised gain units per second) until the gain reaches zero, at which point the sound is stopped and the instance is marked as destroyed.
+If a voice is specified, the voice's gain will decrease at the given rate (in normalised gain units per second) until the gain reaches zero, at which point the sound is stopped and the voice is marked as destroyed.
 
-If a label is specified, each currently playing instance assigned to that label will fade out. The label itself has no "fade out" state and any new instances will be played at their normal gain.
+If a label is specified, each currently playing voice assigned to that label will fade out. The label itself has no "fade out" state and any new voices will be played at their normal gain.
 
 #### **Example**
 
@@ -126,9 +126,9 @@ if (keyboard_check_pressed(vk_enter) && place_meeting(x, y, oRoomExit))
 |`target`|voice or label|Voice or label to target                                                            |
 |`[rate]`|number  |Speed to approach silence, in gain units per second. Defaults to `VINYL_DEFAULT_GAIN_RATE`|
 
-Begins a fade out for all currently playing voices. This puts all instances into "shutdown mode" which can be detected later by [`VinylShutdownGet()`](Advanced).
+Begins a fade out for all currently playing voices. This puts all voices into "shutdown mode" which can be detected later by [`VinylShutdownGet()`](Advanced).
 
-?> If you want a little more control of which instances get faded out, consider using `VinylFadeOut()` with a [label](Terminology), or using [`VinylFadeOutAllNonPersistent()`](Persistence).
+?> If you want a little more control of which voices get faded out, consider using `VinylFadeOut()` with a [label](Terminology), or using [`VinylFadeOutAllNonPersistent()`](Persistence).
 
 #### **Example**
 
@@ -151,7 +151,7 @@ VinylPlayFadeIn(sndTheFinalShowdown, 0.1); //Fade in the epic end game boss musi
 
 #### **Description**
 
-*Returns:* Boolean, whether a [Vinyl instance](Terminology) is in "shutdown mode"
+*Returns:* Boolean, whether a [voice](Terminology) is in "shutdown mode"
 
 |Name    |Datatype      |Purpose                 |
 |--------|--------------|------------------------|
@@ -187,7 +187,7 @@ if (not VinylShutdownGet(global.backgroundMusic))
 |`callback`      |method, script, or `undefined`|Method or script to execute when the instance stops playing                                               |
 |`[callbackData]`|any                           |Data to be passed into the callback when the instance stops playing. If not specified, `undefined` is used|
 
-Sets a callback for execution when the instance stops playing. This callback will be executed no matter how the instance is stopped (e.g. via the sound ending, via a direct stop command, etc.). The callback function will be given two arguments:
+Sets a callback for execution when the voice stops playing. This callback will be executed no matter how the voice is stopped (e.g. via the sound ending, via a direct stop command, etc.). The callback function will be given two arguments:
 
 |Argument   |Name         |Datatype|                                                               |
 |-----------|-------------|--------|---------------------------------------------------------------|
