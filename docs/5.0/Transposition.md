@@ -10,8 +10,6 @@ Generally speaking, you'll want to set your system-wide transposition based on t
 
 &nbsp;
 
-# Functions
-
 ## `VinylGlobalTransposeSet`
 
 `VinylGlobalTransposeSet(semitone)`
@@ -79,9 +77,9 @@ The pitch shift set by this function follows the Western diatonic scale with the
 |`target`  |voice or label|The voice or label to target                      |
 |`semitone`|number        |Number of semitones to transpose the entire system|
 
-Sets the number of semitones to transpose a particular [voice or label](Terminology). A value of `0` will turn on transposition for the instance and make it sensitive to the global transposition state. The pitch shift set by this function follows the Western diatonic scale with the pitch shift being calculated as `pitch = power(2, semitones/12)`.
+Sets the number of semitones to transpose a particular [voice or label](Terminology). A value of `0` will turn on transposition for the voice and make it sensitive to the global transposition state. The pitch shift set by this function follows the Western diatonic scale with the pitch shift being calculated as `pitch = power(2, semitones/12)`.
 
-If a label is specified, each currently playing instance assigned to that label will have its transposition state set. The label itself has no "transposition" state and any new instances will be played without transposition.
+If a label is specified, each currently playing voice assigned to that label will have its transposition state set. The label itself has no "transposition" state and any new voices will be played without transposition.
 
 #### **Example**
 
@@ -101,11 +99,11 @@ If a label is specified, each currently playing instance assigned to that label 
 
 #### **Description**
 
-*Returns:* Number, the current transposition state for the [Vinyl instance](Terminology)
+*Returns:* Number, the current transposition state for the [voice](Terminology)
 
-|Name    |Datatype      |Purpose                     |
-|--------|--------------|----------------------------|
-|`target`|voice or label|The voice or label to target|
+|Name    |Datatype|Purpose  |
+|--------|--------|---------|
+|`target`|voice   |The voice|
 
 ?> You cannot get a transposition state from a label as they have none.
 
