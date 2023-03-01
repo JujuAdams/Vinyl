@@ -16,7 +16,9 @@ Generally speaking, you'll want to set your system-wide transposition based on t
 
 `VinylGlobalTransposeSet(semitone)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -28,13 +30,23 @@ The pitch shift set by this function follows the Western diatonic scale with the
 
 ?> Setting the global transposition will only affect [Vinyl instances](Terminology) that have had their transposition state set.
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylGlobalTransposeGet`
 
 `VinylGlobalTransposeGet()`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Number, the current transposition state
 
@@ -42,24 +54,42 @@ The pitch shift set by this function follows the Western diatonic scale with the
 |----|--------|-------|
 |None|        |       |
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylTransposeSet`
 
 `VinylTransposeSet(id, semitone)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
 |Name      |Datatype      |Purpose                                           |
 |----------|--------------|--------------------------------------------------|
-|`id`      |Vinyl instance|Instance to target                                |
+|`target`  |voice or label|The voice or label to target                      |
 |`semitone`|number        |Number of semitones to transpose the entire system|
 
-Sets the number of semitones to transpose a particular [Vinyl instance](Terminology) or [Vinyl label](Terminology). A value of `0` will turn on transposition for the instance and make it sensitive to the global transposition state. The pitch shift set by this function follows the Western diatonic scale with the pitch shift being calculated as `pitch = power(2, semitones/12)`.
+Sets the number of semitones to transpose a particular [voice or label](Terminology). A value of `0` will turn on transposition for the instance and make it sensitive to the global transposition state. The pitch shift set by this function follows the Western diatonic scale with the pitch shift being calculated as `pitch = power(2, semitones/12)`.
 
 If a label is specified, each currently playing instance assigned to that label will have its transposition state set. The label itself has no "transposition" state and any new instances will be played without transposition.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
@@ -67,12 +97,22 @@ If a label is specified, each currently playing instance assigned to that label 
 
 `VinylGlobalTransposeGet(id)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Number, the current transposition state for the [Vinyl instance](Terminology)
 
-|Name|Datatype      |Purpose           |
-|----|--------------|------------------|
-|`id`|Vinyl instance|Instance to target|
+|Name    |Datatype      |Purpose                     |
+|--------|--------------|----------------------------|
+|`target`|voice or label|The voice or label to target|
 
 ?> You cannot get a transposition state from a label as they have none.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
