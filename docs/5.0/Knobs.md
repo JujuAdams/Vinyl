@@ -10,7 +10,9 @@ Functions on this page relate to [Vinyl knobs](Terminology), used to manipulate 
 
 `VinylKnobSet(name, value)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -21,13 +23,23 @@ Functions on this page relate to [Vinyl knobs](Terminology), used to manipulate 
 
 Sets the normalised input value of a [Vinyl knob](Terminology). This is converted into an output value using the range of the knob if necessary.
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylKnobGet`
 
 `VinylKnobGet(name)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Number, the normalised input value of the knob
 
@@ -37,13 +49,23 @@ Sets the normalised input value of a [Vinyl knob](Terminology). This is converte
 
 If the knob has not had a value set, or the knob has been reset (see `VinylKnobReset()`), this function will return `undefined`.
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylKnobOutputGet`
 
 `VinylKnobOutputGet(name)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Number, the output value of the knob
 
@@ -51,13 +73,23 @@ If the knob has not had a value set, or the knob has been reset (see `VinylKnobR
 |------|--------|--------------|
 |`name`|number  |Knob to target|
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylKnobReset`
 
 `VinylKnobReset(name)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -67,16 +99,34 @@ If the knob has not had a value set, or the knob has been reset (see `VinylKnobR
 
 Resets the output value of a [Vinyl knob](Terminology) to the default. This also "unsets" the normalised input value.
 
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylKnobExists`
 
 `VinylKnobExists(name)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Boolean, if a [Vinyl knob](Terminology) with the given name exists
 
 |Name  |Datatype|Purpose       |
 |------|--------|--------------|
 |`name`|number  |Knob to target|
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
