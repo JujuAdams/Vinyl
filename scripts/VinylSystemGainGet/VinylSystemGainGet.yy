@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Other",
-    "path": "folders/Vinyl/Other.yy",
+    "name": "Gain",
+    "path": "folders/Vinyl/Gain.yy",
   },
 }

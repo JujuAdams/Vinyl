@@ -1,8 +1,8 @@
-/// Returns the number of channels being played on a Vinyl Multi instance
+/// Returns the number of voices being played on a Vinyl Multi instance
 /// 
 /// @param vinylID
 
-function VinylMultiChannelCountGet(_id)
+function VinylMultiVoiceCountGet(_id)
 {
     static _globalData = __VinylGlobalData();
     static _idToInstanceDict = _globalData.__idToInstanceDict;

@@ -4,7 +4,7 @@
 /// 
 /// @param labelName
 
-function VinylLabelInstancesGet(_id)
+function VinylLabelVoicesGet(_id)
 {
     static _globalData = __VinylGlobalData();
     

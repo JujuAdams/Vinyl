@@ -2,7 +2,7 @@
 /// 
 /// @param labelName
 
-function VinylLabelInstanceCountGet(_id)
+function VinylLabelVoiceCountGet(_id)
 {
     static _globalData = __VinylGlobalData();
     

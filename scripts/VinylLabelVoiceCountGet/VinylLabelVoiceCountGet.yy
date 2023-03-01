@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylMultiChannelCountGet",
+  "name": "VinylLabelVoiceCountGet",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Multi Patterns",
-    "path": "folders/Vinyl/Multi Patterns.yy",
+    "name": "Other",
+    "path": "folders/Vinyl/Other.yy",
   },
 }

@@ -3,9 +3,9 @@
 /// 
 /// @param name
 /// @param targetValue
-/// @param [rate=VINYL_DEFAULT_KNOB_RATE]
+/// @param rate
 
-function VinylKnobTargetSet(_name, _targetValue, _rate = VINYL_DEFAULT_KNOB_RATE)
+function VinylKnobTargetSet(_name, _targetValue, _rate)
 {
     static _globalData = __VinylGlobalData();
     

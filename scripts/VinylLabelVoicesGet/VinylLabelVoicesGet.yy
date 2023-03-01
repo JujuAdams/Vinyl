@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylLabelInstanceCountGet",
+  "name": "VinylLabelVoicesGet",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
