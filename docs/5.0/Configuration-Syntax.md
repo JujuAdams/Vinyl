@@ -323,8 +323,6 @@ Basic volume control. Equivalent to `AudioEffectType.Gain`.
 
 <!-- tabs:end -->
 
-&nbsp;
-
 ```
 {
     ...
