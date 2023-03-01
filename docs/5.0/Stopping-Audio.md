@@ -8,19 +8,34 @@ Stopping audio is a surprisingly involved process.
 
 ## `VinylStop`
 
-`VinylStop(id)`
+`VinylStop(target)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
-|Name|Datatype      |Purpose           |
-|----|--------------|------------------|
-|`id`|Vinyl instance|Instance to target|
+|Name    |Datatype      |Purpose                     |
+|--------|--------------|----------------------------|
+|`target`|voice or label|The voice or label to target|
 
 Immediately stops playback of a Vinyl instance and marks it as destroyed.
 
 If a label is specified, each currently playing instance assigned to that label will be immediately stopped. The label itself has no "stopped" state and any new instances will be played as normal.
+
+#### **Example**
+
+```gml
+//Oops we died
+if (hp <= 0)
+{
+	VinylStop(global.backgroundMusic); //Stop the background music we're playing
+    room_restart();
+}
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
@@ -28,7 +43,9 @@ If a label is specified, each currently playing instance assigned to that label 
 
 `VinylStopAll()`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -40,13 +57,29 @@ Immediately stops playback of all currently playing Vinyl instances and marks th
 
 ?> If you want a little more control of which instances get stopped, consider using `VinylStop()` with a [label](Terminology), or using `VinylStopAllNonPersistent()`.
 
+#### **Example**
+
+```gml
+//Quit to the main menu
+if (keyboard_check_pressed(vk_escape))
+{
+    VinylStopAll();           //Stop everything!
+    VinylPlay(sndTransition); //Play a nice "swoosh" to sell the transition
+    room_goto(rMainMenu);
+}
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylFadeOut`
 
 `VinylFadeOut(id, [rate=VINYL_DEFAULT_GAIN_RATE])`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -61,13 +94,28 @@ If an instance is specified, the instance's gain will decrease at the given rate
 
 If a label is specified, each currently playing instance assigned to that label will fade out. The label itself has no "fade out" state and any new instances will be played at their normal gain.
 
+#### **Example**
+
+```gml
+//Enter through a door when the player presses the Enter key
+if (keyboard_check_pressed(vk_enter) && place_meeting(x, y, oRoomExit))
+{
+    VinylGainTargetSet("ambience", 0); //Set up the fade out
+    waitForAmbience = true;            //And indicate we're waiting for the ambience to fade out
+}
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylFadeOutAll`
 
 `VinylFadeOut(id, [rate=VINYL_DEFAULT_GAIN_RATE])`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* N/A (`undefined`)
 
@@ -79,19 +127,44 @@ Begins a fade out for all currently playing Vinyl instances. This puts all insta
 
 ?> If you want a little more control of which instances get faded out, consider using `VinylFadeOut()` with a [label](Terminology), or using `VinylFadeOutAllNonPersistent()`.
 
+#### **Example**
+
+```gml
+instance_create_layer(x, y, "Instances", objBigBadBossman);
+
+VinylFadeOutAll(0.1);                      //Fade out everything currently playing slowly for maximum impact
+VinylPlayFadeIn(sndTheFinalShowdown, 0.1); //Fade in the epic end game boss music
+```
+
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylShutdownGet`
 
 `VinylShutdownGet(id)`
 
-&nbsp;
+<!-- tabs:start -->
+
+#### **Description**
 
 *Returns:* Boolean, whether a [Vinyl instance](Terminology) is in "shutdown mode"
 
 |Name|Datatype      |Purpose           |
 |----|--------------|------------------|
 |`id`|Vinyl instance|Instance to target|
+
+#### **Example**
+
+```gml
+//Don't try to pitch shift the background music if we're fading it out
+if (not VinylShutdownGet(global.backgroundMusic))
+{
+    VinylPitchTargetSet(global.backgroundMusic, 0.8);
+}
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
