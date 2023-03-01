@@ -246,7 +246,7 @@ The struct returned from this function contains two members variable.
 //Grab whatever callback has been attached to the background music instance
 var _callbackInfo = VinylStopCallbackGet(global.backgroundMusic);
 
-//Only try to attach a callback if once hasn't been defined already
+//Only try to attach a callback if one hasn't been defined already
 if (_callbackInfo.callback == undefined)
 {
 	VinylStopCallbackSet(global.backgroundMusic,
