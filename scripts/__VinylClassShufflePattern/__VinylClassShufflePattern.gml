@@ -136,13 +136,19 @@ function __VinylClassShufflePattern(_name, _patternArray, _labelDict, _patternDa
         return _pattern;
     }
     
-    static __Play = function(_gain = 1, _pitch = 1, _pattern_UNUSED)
+    static __Play = function(_sound, _loop, _gain, _pitch, _pan)
     {
         var _pattern = __PopPattern();
-        return __VinylPatternGet(_pattern).__Play(_gain, _pitch, _pattern);
+        return __VinylPatternGet(_pattern).__Play(_sound, _loop, _gain, _pitch, _pan);
     }
     
-    static __PlaySimple = function(_gain = 1, _pitch = 1, _pattern_UNUSED)
+    static __PlayOnEmitter = function(_sound, _loop, _gain, _pitch, _pan)
+    {
+        var _pattern = __PopPattern();
+        return __VinylPatternGet(_pattern).__PlayOnEmitter(_sound, _loop, _gain, _pitch, _pan);
+    }
+    
+    static __PlaySimple = function(_sound_UNUSED, _gain, _pitch)
     {
         var _pattern = __PopPattern();
         return __VinylPatternGet(_pattern).__PlaySimple(_gain, _pitch, _pattern);

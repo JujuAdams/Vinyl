@@ -1,13 +1,17 @@
+/// @param patternName
 /// @param sound
 /// @param patternArray
 /// @param labelDict
 /// @param [patternData]
 
-function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternData = {}) constructor
+function __VinylClassBasicPattern(_patternName, _sound, _patternArray, _labelDict, _patternData = {}) constructor
 {
+    static __idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+    
     array_push(_patternArray, self);
     
-    __sound = _sound;
+    __patternName = _patternName;
+    __sound       = _sound;
     
     var _gain  = _patternData[$ "gain" ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
     var _pitch = _patternData[$ "pitch"] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
@@ -91,8 +95,40 @@ function __VinylClassBasicPattern(_sound, _patternArray, _labelDict, _patternDat
         return false;
     }
     
-    static __PlaySimple = function(_gain = 1, _pitch = 1, _sound = __sound)
+    static __Play = function(_sound, _loop, _gain, _pitch, _pan)
     {
+        if (__sound >= 0) _sound = __sound;
+        
+        var _id = __VinylDepoolInstance();
+        var _instance = __idToInstanceDict[? _id];
+        
+        if (_pan == undefined)
+        {
+            _instance.__Play(__patternName ?? _sound, _sound, _loop, _gain, _pitch);
+        }
+        else
+        {
+            _instance.__PlayPan(__patternName ?? _sound, _sound, _loop, _gain, _pitch, _pan);
+        }
+        
+        return _instance;
+    }
+    
+    static __PlayOnEmitter = function(_emitter, _sound, _loop, _gain, _pitch)
+    {
+        if (__sound >= 0) _sound = __sound;
+        
+        var _id = __VinylDepoolInstance();
+        var _instance = __idToInstanceDict[? _id];
+        _instance.__PlayOnEmitter(__patternName ?? _sound, _emitter, _sound, _loop, _gain, _pitch);
+        
+        return _instance;
+    }
+    
+    static __PlaySimple = function(_sound, _gain, _pitch)
+    {
+        if (__sound >= 0) _sound = __sound;
+        
         var _randomPitchParam = __VinylRandom(1);
         
         _gain *= __gain;

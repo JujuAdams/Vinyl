@@ -14,6 +14,8 @@ function __VinylClassBasicInstance() constructor
     {
         if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);
         
+        __patternName = undefined;
+        
         __sound      = undefined;
         __loop       = undefined;
         __inputGain  = 0.0;
@@ -196,8 +198,10 @@ function __VinylClassBasicInstance() constructor
         __ApplyLabel(true);
     }
        
-    static __Play = function(_sound, _loop, _gain, _pitch)
+    static __Play = function(_patternName, _sound, _loop, _gain, _pitch)
     { 
+        __patternName = _patternName;
+        
         __PlaySetState(_sound, _loop, _gain, _pitch);
         
         __instance = audio_play_sound(__sound, 1, __loop, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
@@ -213,8 +217,10 @@ function __VinylClassBasicInstance() constructor
         }
     }
     
-    static __PlayPan = function(_sound, _loop, _gain, _pitch, _pan)
+    static __PlayPan = function(_patternName, _sound, _loop, _gain, _pitch, _pan)
     {
+        __patternName = _patternName;
+        
         __PlaySetState(_sound, _loop, _gain, _pitch);
         
         __panEmitter = __VinylDepoolPanEmitter();
@@ -233,8 +239,10 @@ function __VinylClassBasicInstance() constructor
         }
     }
     
-    static __PlayOnEmitter = function(_emitter, _sound, _loop, _gain, _pitch)
+    static __PlayOnEmitter = function(_patternName, _emitter, _sound, _loop, _gain, _pitch)
     {
+        __patternName = _patternName;
+        
         __PlaySetState(_sound, _loop, _gain, _pitch);
         
         __instance = audio_play_sound_on(_emitter.__GetEmitter(), __sound, __loop, 1, __VinylCurveAmplitude(__outputGain), 0, __outputPitch);
@@ -257,7 +265,7 @@ function __VinylClassBasicInstance() constructor
     
     static __GetLoopFromLabel = function()
     {
-        var _asset = __VinylPatternGet(__sound);
+        var _asset = __VinylPatternGet(__patternName);
         return is_struct(_asset)? _asset.__GetLoopFromLabel() : false;
     }
     
@@ -267,7 +275,7 @@ function __VinylClassBasicInstance() constructor
         __outputGain  = __inputGain;
         __outputPitch = __inputPitch;
         
-        var _asset = __VinylPatternGet(__sound);
+        var _asset = __VinylPatternGet(__patternName);
         if (is_struct(_asset))
         {
             __outputGain *= _asset.__gain;
@@ -345,7 +353,7 @@ function __VinylClassBasicInstance() constructor
         __Stop();
         
         //Remove this instance from all labels that we're attached to
-        var _asset = __VinylPatternGet(__sound);
+        var _asset = __VinylPatternGet(__patternName);
         if (is_struct(_asset))
         {
             var _id = __id;
@@ -437,7 +445,7 @@ function __VinylClassBasicInstance() constructor
     
     static __DebugLabelNames = function()
     {
-        var _asset = __VinylPatternGet(__sound);
+        var _asset = __VinylPatternGet(__patternName);
         return is_struct(_asset)? _asset.__DebugLabelNames() : "";
     }
     

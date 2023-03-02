@@ -20,7 +20,8 @@ function VinylPlayOnEmitter(_emitter, _sound, _loop = undefined, _gain = 1, _pit
     if (!is_struct(_emitter)) __VinylError("Emitter not valid");
     if (!is_struct(_emitter.__emitter)) __VinylError(_emitter, " has been destroyed");
     
-    var _id = __VinylDepoolInstance();
-    _idToInstanceDict[? _id].__PlayOnEmitter(_emitter, _sound, _loop, _gain, _pitch);
-    return _id;
+    var _pattern = __VinylPatternGet(_sound);
+    if (_pattern == undefined) __VinylError("Sound \"", _sound, "\" not recognised");
+    
+    return _pattern.__PlayOnEmitter(_emitter, _sound, _loop, _gain, _pitch).__id;
 }

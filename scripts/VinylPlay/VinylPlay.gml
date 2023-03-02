@@ -15,18 +15,8 @@
 
 function VinylPlay(_sound, _loop = undefined, _gain = 1, _pitch = 1, _pan)
 {
-    static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+    var _pattern = __VinylPatternGet(_sound);
+    if (_pattern == undefined) __VinylError("Sound \"", _sound, "\" not recognised");
     
-    var _id = __VinylDepoolInstance();
-    
-    if (_pan == undefined)
-    {
-        _idToInstanceDict[? _id].__Play(_sound, _loop, _gain, _pitch);
-    }
-    else
-    {
-        _idToInstanceDict[? _id].__PlayPan(_sound, _loop, _gain, _pitch, _pan ?? 0);
-    }
-    
-    return _id;
+    return _pattern.__Play(_sound, _loop, _gain, _pitch, _pan).__id;
 }
