@@ -62,11 +62,11 @@ Multi patterns play assets from an array simultaneously. The blend parameter sto
 
 *Returns:* N/A (`undefined`)
 
-|Name    |Datatype      |Purpose                                                                                                                                                                               |
-|--------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|`target`|voice or label|The voice or label to target                                                                                                                                                          |
-|`index` |number        |Channel to target                                                                                                                                                                     |
-|`gain`  |number        |Voice gain to set, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
+|Name    |Datatype      |Purpose                                                                                                                                                                     |
+|--------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`target`|voice or label|The voice or label to target                                                                                                                                                |
+|`index` |number        |Channel to target                                                                                                                                                           |
+|`gain`  |number        |Voice gain to set, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain)|
 
 Sets the gain of an individual channel of a Multi pattern voice. Gain set by this function will be overwritten by `VinylMultiBlendSet()`.
 

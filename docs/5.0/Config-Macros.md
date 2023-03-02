@@ -12,7 +12,7 @@ In addition to Vinyl's [configuration file](Configuration), there are a number o
 
 *Default value: `1`*
 
-Maximum output gain for sound voices. Must be greater than or equal to zero. You can read more about Vinyl's gain structure [here](Gain-Structure).
+Maximum output gain for sound voices. Must be greater than or equal to zero. You can read more about Vinyl's gain structure [here](Gain).
 
 &nbsp;
 
