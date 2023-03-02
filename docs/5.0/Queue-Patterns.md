@@ -2,7 +2,9 @@
 
 &nbsp;
 
-Functions on this page relate to specific behaviours for [Queue pattern](Terminology) voices.
+Queue patterns play assets from an array one after another. If a sound asset is set to loop then the queue will hold on that looping asset until the voice is told to stop looping by using `VinylLoopSet()`.
+
+The queue itself can be set to loop, restarting the entire sequence from the start once playback reaches the end of the queue.
 
 &nbsp;
 
@@ -20,7 +22,7 @@ Functions on this page relate to specific behaviours for [Queue pattern](Termino
 |`stack`         |string          |*passthrough*                                  |                                                                                                                             |
 |`stack priority`|number          |`0`                                            |                                                                                                                             |
 |`effect chain`  |string          |*passthrough*                                  |                                                                                                                             |
-|`label`         |string or array |*passthrough*                                  |Label to assign this pattern to. Can be a string for for label, or an array of label names                                   |
+|`label`         |string or array |*passthrough*                                  |Label to assign this pattern to. Can be a string for a single label, or an array of label names                              |
 |`persistent`    |boolean         |*passthrough*                                  |                                                                                                                             |
 |`behavior`      |number          |[`VINYL_DEFAULT_QUEUE_BEHAVIOR`](Config-Macros)|Must be one of the following: `0` `1` `2`             |
 
