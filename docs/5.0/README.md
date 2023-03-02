@@ -11,7 +11,7 @@
 
 ## Features
 
-- Live reloading of [audio configuration](Configuration). You can mix whilst the game is running, no need for recompilation
+- Live reloading of [audio configuration](Config-File). You can mix whilst the game is running, no need for recompilation
 - In-built systems to handle common designs ([fade in](Playing-Audio), [callbacks on fade out](Stopping-Audio), [audio ducking](Stacks) etc.)
 - Multi-inheritance using Vinyl's ["labels"](Labels) (similar to audio groups)
 - Integral [shuffle](Shuffle-Patterns), [queue](Queue-Patterns), and [multi patterns](Multi-Patterns)

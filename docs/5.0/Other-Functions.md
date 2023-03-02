@@ -94,7 +94,7 @@ Returns an array containing every voice assigned to the label.
 |--------------|--------|--------------------------------------------------|
 |`configStruct`|        |                                                  |
 
-Updates Vinyl's internal configuration from a struct representation of the [configuration file](Configuration). You'll generally never need to call this if you've got live update enabled, but it is provided if you're building out a custom workflow of some kind (e.g. loading YAML-formatted configuration instead).
+Updates Vinyl's internal configuration from a struct representation of the [configuration file](Config-File). You'll generally never need to call this if you've got live update enabled, but it is provided if you're building out a custom workflow of some kind (e.g. loading YAML-formatted configuration instead).
 
 #### **Example**
 
@@ -142,7 +142,7 @@ Toggles live updating on and off. Live updating has a slight performance hit (mo
 
 #### **Description**
 
-*Returns:* Boolean, whether live updating of [Vinyl's configuration file](Configuration) is enabled
+*Returns:* Boolean, whether live updating of [Vinyl's configuration file](Config-File) is enabled
 
 |Name|Datatype|Purpose|
 |----|--------|-------|

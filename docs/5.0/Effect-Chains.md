@@ -2,7 +2,7 @@
 
 &nbsp;
 
-Vinyl offers a streamlined version of GameMaker's native ["effect bus" system](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/Audio_Effects/AudioEffect.htm) that automates much of the boilerplate code required to use dynamic audio effects, such as reverb or low-pass filters. Vinyl also allows you to live update effect parameters whilst the game is running, much like other properties in the [configuration file](Configuration).
+Vinyl offers a streamlined version of GameMaker's native ["effect bus" system](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/Audio_Effects/AudioEffect.htm) that automates much of the boilerplate code required to use dynamic audio effects, such as reverb or low-pass filters. Vinyl also allows you to live update effect parameters whilst the game is running, much like other properties in the [configuration file](Config-File).
 
 Vinyl supports the following effects:
 - Reverb (`AudioEffectType.Reverb1`)
@@ -12,11 +12,11 @@ Vinyl supports the following effects:
 - High-pass filter (`AudioEffectType.HPF2`)
 - Tremolo (`AudioEffectType.Tremolo`)
 
-Assets can be set up to automatically play using effect chains in the [configuration file](Configuration).
+Assets can be set up to automatically play using effect chains in the [configuration file](Config-File).
 
 ?> When playing an asset using `VinylPlayOnEmitter()`, the effect chain will be determined by the emitter rather than the asset or label(s). You can set the effect chain to use for an emitter with `VinylEmitterEffectChain()`.
 
-Labels can also be set up in the [configuration file](Configuration) such that any assigned assets will use a particular effect chain.
+Labels can also be set up in the [configuration file](Config-File) such that any assigned assets will use a particular effect chain.
 
 You can read in-depth information about configuring effect chains [here](Effect-Chains).
 

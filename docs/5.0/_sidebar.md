@@ -9,7 +9,7 @@
 
 -    [Config Macros](Config-Macros)
 -    [Debug Macros](Debug-Macros)
--    [Configuration Syntax](Configuration-Syntax)
+-    [Config File](Config-File)
 
 ---
 

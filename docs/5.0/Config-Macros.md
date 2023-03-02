@@ -2,7 +2,7 @@
 
 &nbsp;
 
-In addition to Vinyl's [configuration file](Configuration), there are a number of macros that can be adjusted to customise Vinyl to your liking. You can find all these macros in the `__VinylConfigMacros` script. You should adjust these macros as you see fit.
+In addition to Vinyl's [configuration file](Config-File), there are a number of macros that can be adjusted to customise Vinyl to your liking. You can find all these macros in the `__VinylConfigMacros` script. You should adjust these macros as you see fit.
 
 ?> Vinyl also has a [few other macros](Debug-Macros) you can tweak to get better debug information.
 
@@ -108,7 +108,7 @@ Whether to strictly filter config file properties to detect any incorrect or inv
 
 *Default value: `false`*
 
-Controls how the [configuration file](Configuration) is read regarding gain values. Setting this macro to `true` will cause Vinyl to treat gain values as decibels (dbFS). A decibel value of `0` will be translated to an unchanged gain i.e. a GM amplitude value of 1. Negative decibel values will be translated to an attenuation of audio amplitude.
+Controls how the [configuration file](Config-File) is read regarding gain values. Setting this macro to `true` will cause Vinyl to treat gain values as decibels (dbFS). A decibel value of `0` will be translated to an unchanged gain i.e. a GM amplitude value of 1. Negative decibel values will be translated to an attenuation of audio amplitude.
 
 &nbsp;
 
@@ -116,7 +116,7 @@ Controls how the [configuration file](Configuration) is read regarding gain valu
 
 *Default value: `false`*
 
-Controls how the [configuration file](Configuration) is read regarding pitches. Setting this macro to `true` will cause Vinyl to treat pitch values as percentages. This means a value of `50` will be translated into 50%, or a halving of a sound's pitch.
+Controls how the [configuration file](Config-File) is read regarding pitches. Setting this macro to `true` will cause Vinyl to treat pitch values as percentages. This means a value of `50` will be translated into 50%, or a halving of a sound's pitch.
 
 &nbsp;
 
