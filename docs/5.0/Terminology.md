@@ -4,6 +4,18 @@
 
 Vinyl uses standard audio terminology where appropriate. On top of this, Vinyl has some specific concepts unique to the library.
 
+You can read in-depth information for different terms here:
+- [Assets](Assets)
+- [Basic Patterns](Basic-Patterns)
+- [Shuffle Patterns](Shuffle-Patterns)
+- [Queue Patterns](Queue-Patterns)
+- [Multi Patterns](Multi-Patterns)
+- [Voices](Voices)
+- [Labels](Labels)
+- [Emitters](Positional)
+- [Effect Chains](Effect-Chains)
+- [Knobs](Knobs)
+
 &nbsp;
 
 ## Asset
