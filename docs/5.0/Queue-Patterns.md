@@ -6,6 +6,25 @@ Functions on this page relate to specific behaviours for [Queue pattern](Termino
 
 &nbsp;
 
+## Configuration Properties
+
+|Property         |Config Name     |Purpose                         |
+|-----------------|----------------|--------------------------------|
+|Type             |`type`          |                                |
+|Assets           |`assets`        |                                |
+|Gain             |`gain`          |                                |
+|Pitch            |`pitch`         |                                |
+|Transpose        |`transpose`     |                                |
+|Loop             |`loop`          |                                |
+|Stack            |`stack`         |                                |
+|Stack priority   |`stack priority`|                                |
+|Effect chain     |`effect chain`  |                                |
+|Label            |`label`         |                                |
+|Persistent       |`persistent`    |                                |
+|Behaviour        |`behavior`      |                                |
+
+&nbsp;
+
 ## `VinylQueuePush`
 
 `VinylQueuePush(target, asset, [dontRepeatLast=false])`
