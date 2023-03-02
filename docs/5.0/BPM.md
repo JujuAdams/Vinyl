@@ -26,6 +26,8 @@
 
 <!-- tabs:end -->
 
+&nbsp;
+
 ## `VinylBPMPulseGet`
 
 `VinylBPMPulseGet(target)`
@@ -47,6 +49,8 @@
 ```
 
 <!-- tabs:end -->
+
+&nbsp;
 
 ## `VinylBeatCountGet`
 
