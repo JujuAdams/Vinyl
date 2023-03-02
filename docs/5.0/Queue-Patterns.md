@@ -99,7 +99,7 @@ The `behavior` argument can be set to one of the following values:
 
 #### **Description**
 
-*Returns:* Number, the behaviour for the [Queue pattern voice](Terminology)
+*Returns:* Number, the behaviour for the Queue pattern voice
 
 |Name    |Datatype|Purpose                          |
 |--------|--------|---------------------------------|

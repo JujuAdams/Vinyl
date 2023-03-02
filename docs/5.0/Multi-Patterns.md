@@ -2,9 +2,7 @@
 
 &nbsp;
 
-Multi patterns play assets from an array simultaneously. The blend parameter stored within the pattern can be set with [`VinylMultiBlendSet()`](Patterns) and crossfades between assets.
-
-You can read in-depth information about working with Multi patterns [here](Multi-Patterns) (both in the configuration file and at runtime).
+Multi patterns play assets from an array simultaneously. The blend parameter stored within the pattern can be set with `VinylMultiBlendSet()` and crossfades between assets.
 
 &nbsp;
 
@@ -38,7 +36,7 @@ You can read in-depth information about working with Multi patterns [here](Multi
 
 #### **Description**
 
-*Returns:* Number, the number of voices created as children for the specified [Multi pattern voice](Terminology)
+*Returns:* Number, the number of voices created as children for the specified Multi pattern voice
 
 |Name    |Datatype|Purpose                          |
 |--------|--------|---------------------------------|
@@ -70,7 +68,7 @@ You can read in-depth information about working with Multi patterns [here](Multi
 |`index` |number        |Channel to target                                                                                                                                                                     |
 |`gain`  |number        |Voice gain to set, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
 
-Sets the gain of an individual channel of a [Multi pattern voice](Terminology). Gain set by this function will be overwritten by `VinylMultiBlendSet()`.
+Sets the gain of an individual channel of a Multi pattern voice. Gain set by this function will be overwritten by `VinylMultiBlendSet()`.
 
 #### **Example**
 
@@ -90,7 +88,7 @@ Sets the gain of an individual channel of a [Multi pattern voice](Terminology). 
 
 #### **Description**
 
-*Returns:* Number, the gain for the channel of a [Multi pattern voice](Terminology)
+*Returns:* Number, the gain for the channel of a Multi pattern voice
 
 |Name    |Datatype|Purpose                          |
 |--------|--------|---------------------------------|
@@ -122,7 +120,7 @@ Sets the gain of an individual channel of a [Multi pattern voice](Terminology). 
 |`target`     |voice or label|The voice or label to target  |
 |`blendFactor`|number        |Blend factor to set, see below|
 
-Sets the blending factor, mixing between different assets playing on a [Multi pattern voice](Terminology). The blending factor is a normalised value between `0` and `1`.
+Sets the blending factor, mixing between different assets playing on a Multi pattern voice. The blending factor is a normalised value between `0` and `1`.
 
 Gain set by this function will be overwritten by `VinylMultiGainSet()`.
 
@@ -144,7 +142,7 @@ Gain set by this function will be overwritten by `VinylMultiGainSet()`.
 
 #### **Description**
 
-*Returns:* Number, the blend factor for the [Multi pattern voice](Terminology)
+*Returns:* Number, the blend factor for the Multi pattern voice
 
 |Name    |Datatype|Purpose                         |
 |--------|--------|--------------------------------|
@@ -175,7 +173,7 @@ Gain set by this function will be overwritten by `VinylMultiGainSet()`.
 |`target`|voice or label|The voice or label to target   |
 |`state` |boolean       |Whether to synchronise playback|
 
-?> [Multi pattern](Terminology) synchronisation is not absolutely precise and may wander a little.
+?> Multi pattern synchronisation is not absolutely precise and may wander a little.
 
 !> Make sure that all sound assets played on a synchronised Multi pattern are the same length or you may encounter unexpected behaviour.
 
@@ -197,7 +195,7 @@ Gain set by this function will be overwritten by `VinylMultiGainSet()`.
 
 #### **Description**
 
-*Returns:* Boolean, whether the [Multi pattern voice](Terminology) is set to synchronise playback
+*Returns:* Boolean, whether the Multi pattern voice is set to synchronise playback
 
 |Name    |Datatype|Purpose                          |
 |--------|--------|---------------------------------|

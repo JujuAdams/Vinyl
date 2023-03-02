@@ -99,7 +99,7 @@ If a label is specified, each currently playing voice assigned to that label wil
 
 #### **Description**
 
-*Returns:* Number, the current transposition state for the [voice](Terminology)
+*Returns:* Number, the current transposition state for the [voice](Voices)
 
 |Name    |Datatype|Purpose  |
 |--------|--------|---------|

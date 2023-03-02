@@ -1,7 +1,7 @@
 -    [Home](README)
 -    [FAQ](faq)
 -    [Introduction](Introduction)
--    [Terminology](Terminology)
+-    [Glossary](Glossary)
 
 ---
 

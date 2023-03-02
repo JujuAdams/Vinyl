@@ -12,7 +12,7 @@
 
 #### **Description**
 
-*Returns:* Number, the BPM for a [voice](Terminology)
+*Returns:* Number, the BPM for a [voice](Voices)
 
 |Name    |Datatype|Purpose        |
 |--------|--------|---------------|
@@ -36,7 +36,7 @@
 
 #### **Description**
 
-*Returns:* Boolean, a BPM pulse for a [voice](Terminology)
+*Returns:* Boolean, a BPM pulse for a [voice](Voices)
 
 |Name    |Datatype|Purpose        |
 |--------|--------|---------------|
@@ -60,7 +60,7 @@
 
 #### **Description**
 
-*Returns:* Number, the total number of beats played for a [voice](Terminology)
+*Returns:* Number, the total number of beats played for a [voice](Voices)
 
 |Name    |Datatype|Purpose        |
 |--------|--------|---------------|

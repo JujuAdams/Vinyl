@@ -39,7 +39,7 @@ If passed a label name, every voice currently assigned to the label will individ
 
 #### **Description**
 
-*Returns:* Boolean, the loop state of the [voice](Terminology)
+*Returns:* Boolean, the loop state of the [voice](Voices)
 
 |Name    |Datatype|Purpose        |
 |--------|--------|---------------|

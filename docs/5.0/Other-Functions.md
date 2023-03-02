@@ -10,7 +10,7 @@
 
 #### **Description**
 
-*Returns:* String, the type of a [voice](Terminology)
+*Returns:* String, the type of a [voice](Voices)
 
 |Name    |Datatype|Purpose            |
 |--------|--------|-------------------|
@@ -36,7 +36,7 @@ This function can return one of the following values as strings: `"asset"` `"bas
 
 #### **Description**
 
-*Returns:* Array of [voices](Terminology)
+*Returns:* Array of [voices](Voices)
 
 |Name  |Datatype|Purpose        |
 |------|--------|---------------|
@@ -64,7 +64,7 @@ Returns an array containing every voice assigned to the label.
 
 #### **Description**
 
-*Returns:* Number, the number of [voices](Terminology) assigned to the label
+*Returns:* Number, the number of [voices](Voices) assigned to the label
 
 |Name  |Datatype|Purpose        |
 |------|--------|---------------|

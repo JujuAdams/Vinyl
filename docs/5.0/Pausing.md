@@ -56,7 +56,7 @@ if (keyboard_check_pressed(vk_escape))
 
 #### **Description**
 
-*Returns:* Boolean, whether the given [voice](Terminology) is paused
+*Returns:* Boolean, whether the given [voice](Voices) is paused
 
 |Name    |Datatype|Purpose        |
 |--------|--------|---------------|

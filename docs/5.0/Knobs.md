@@ -39,7 +39,7 @@ You can get and set the input value for knobs using [`VinylKnobGet()` and `Vinyl
 |`name` |string  |Knob to target                           |
 |`value`|number  |Input value for the knob, from `0` to `1`|
 
-Sets the normalised input value of a [Vinyl knob](Terminology). This is converted into an output value using the range of the knob if necessary.
+Sets the normalised input value of a knob. This is converted into an output value using the range of the knob if necessary.
 
 #### **Example**
 
@@ -167,7 +167,7 @@ Sets the target input value of a knob. The knob's input value will change over t
 |------|--------|--------------|
 |`name`|string  |Knob to target|
 
-Resets the output value of a [Vinyl knob](Terminology) to the default. This also "unsets" the normalised input value.
+Resets the output value of a knob to the default. This also "unsets" the normalised input value.
 
 #### **Example**
 
@@ -211,7 +211,7 @@ Resets all knobs to their default value.
 
 #### **Description**
 
-*Returns:* Boolean, if a [Vinyl knob](Terminology) with the given name exists
+*Returns:* Boolean, if a knob with the given name exists
 
 |Name  |Datatype|Purpose       |
 |------|--------|--------------|

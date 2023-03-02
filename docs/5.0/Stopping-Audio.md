@@ -57,7 +57,7 @@ if (hp <= 0)
 
 Immediately stops playback of all currently playing voices and marks them as destroyed.
 
-?> If you want a little more control of which voices get stopped, consider using `VinylStop()` with a [label](Terminology), or using [`VinylStopAllNonPersistent()`](Persistence).
+?> If you want a little more control of which voices get stopped, consider using `VinylStop()` with a [label](Labels), or using [`VinylStopAllNonPersistent()`](Persistence).
 
 #### **Example**
 
@@ -128,7 +128,7 @@ if (keyboard_check_pressed(vk_enter) && place_meeting(x, y, oRoomExit))
 
 Begins a fade out for all currently playing voices. This puts all voices into "shutdown mode" which can be detected later by [`VinylShutdownGet()`](Advanced).
 
-?> If you want a little more control of which voices get faded out, consider using `VinylFadeOut()` with a [label](Terminology), or using [`VinylFadeOutAllNonPersistent()`](Persistence).
+?> If you want a little more control of which voices get faded out, consider using `VinylFadeOut()` with a [label](Labels), or using [`VinylFadeOutAllNonPersistent()`](Persistence).
 
 #### **Example**
 
@@ -151,7 +151,7 @@ VinylPlayFadeIn(sndTheFinalShowdown, 0.1); //Fade in the epic end game boss musi
 
 #### **Description**
 
-*Returns:* Boolean, whether a [voice](Terminology) is in "shutdown mode"
+*Returns:* Boolean, whether a [voice](Voices) is in "shutdown mode"
 
 |Name    |Datatype      |Purpose                 |
 |--------|--------------|------------------------|

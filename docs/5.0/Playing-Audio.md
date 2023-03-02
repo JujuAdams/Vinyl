@@ -22,7 +22,7 @@ Functions on this page relate to using Vinyl at a basic level - playing audio, s
 |`[gain]` |number          |Instance gain, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
 |`[pitch]`|number          |Instance pitch, in normalised pitch units. Defaults to `1`, no pitch change                                                                                                       |
 
-Plays an asset, taking advantage of Vinyl's live updating configuration (including labels). However, this function does **not** create a full fat [voice](Terminology) and is, in effect, only a wrapper around GameMaker's native [`audio_play_sound()`](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_play_sound.htm) with a few basic properties calculated through Vinyl.
+Plays an asset, taking advantage of Vinyl's live updating configuration (including labels). However, this function does **not** create a full fat [voice](Voices) and is, in effect, only a wrapper around GameMaker's native [`audio_play_sound()`](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_play_sound.htm) with a few basic properties calculated through Vinyl.
 
 Sounds played using this function will never loop.
 
@@ -46,7 +46,7 @@ Sounds played using this function will never loop.
 
 #### **Description**
 
-*Returns:* [Voice](Terminology)
+*Returns:* [Voice](Voices)
 
 |Name     |Datatype        |Purpose                                                                                                                                                                        |
 |---------|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -56,7 +56,7 @@ Sounds played using this function will never loop.
 |`[pitch]`|number          |Voice pitch, in normalised pitch units. Defaults to `1`, no pitch change                                                                                                       |
 |`[pan]`  |number          |Panning value, from `-1` (left) to `0` (centre) to `+1` (right). Defaults to no panning                                                                                        |
 
-Plays an asset or pattern with the desired settings and returns a [voice](Terminology). This voice can then be used with many other Vinyl functions to manipulate and adjust the sound.
+Plays an asset or pattern with the desired settings and returns a [voice](Voices). This voice can then be used with many other Vinyl functions to manipulate and adjust the sound.
 
 !> In the interests of managing performance, if no panning value is specified then the returned voice cannot be panned later with `VinylPanSet()`.
 
@@ -78,7 +78,7 @@ Plays an asset or pattern with the desired settings and returns a [voice](Termin
 
 #### **Description**
 
-*Returns:* [Voice](Terminology)
+*Returns:* [Voice](Voices)
 
 |Name          |Datatype        |Purpose                                                                                                                                                 |
 |--------------|----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|

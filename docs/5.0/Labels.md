@@ -1,6 +1,6 @@
 # Labels
 
-Labels are an evolution of GameMaker's native audio groups, expanded to allow you to control the properties of many [assets and patterns](Terminology) in bulk, both when configuring audio and at runtime. Labels can further be used as a way to execute commands on p[voices](Terminology) without worrying about whether a voice actually exists for you to act upon.
+Labels are an evolution of GameMaker's native audio groups, expanded to allow you to control the properties of many [assets](Assets) and [patterns](Patterns) in bulk, both when configuring audio and at runtime. Labels can further be used as a way to execute commands on [voices](Voices) without worrying about whether a voice actually exists for you to act upon.
 
 Labels are how Vinyl handles groups of assets (and patterns) of similar types. An asset can be assigned to zero, one, or many labels. When properties on that label are adjusted - such as gain or pitch - those properties are applied to each asset, and further those properties are applied to each voice assigned to the label. This means that changing e.g. the gain value on a label called `ambience` to be lower will diminish the volume of all assets assigned to that label.
 
