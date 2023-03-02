@@ -35,84 +35,84 @@ The effect chain name `main` is special and is used for any voices without a def
 
 #### **Reverb**
 
-Equivalent to `AudioEffectType.Reverb1`.
+Emulates an echoey room where individual reflections cannot be clearly heard. Equivalent to `AudioEffectType.Reverb1`.
 
-|Property   |Config Name|Datatype|Description                                                        |
-|-----------|-----------|--------|-------------------------------------------------------------------|
-|Effect type|`type`     |string  |**Must be `reverb`**                                               |
-|Bypass     |`bypass`   |boolean |Whether the effect should be bypassed (ignored)                    |
-|Size       |`size`     |number  |From `0` to `1`. Larger values lead to a longer reverb             |
-|Damping    |`damp`     |number  |From `0` to `1`. Larger values reduce high frequencies more        |
-|Mix        |`mix`      |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)|
+|Property|Datatype|Description                                                        |
+|--------|--------|-------------------------------------------------------------------|
+|`type`  |string  |**Must be `reverb`**                                               |
+|`bypass`|boolean |Whether the effect should be bypassed (ignored)                    |
+|`size`  |number  |From `0` to `1`. Larger values lead to a longer reverb             |
+|`damp`  |number  |From `0` to `1`. Larger values reduce high frequencies more        |
+|`mix`   |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)|
 
 #### **Delay**
 
-Equivalent to `AudioEffectType.Delay`.
+Emulates a cavern or hard surface where individual reflections can be clearly heard. Equivalent to `AudioEffectType.Delay`.
 
-|Property   |Config Name|Datatype|Description                                                           |
-|-----------|-----------|--------|----------------------------------------------------------------------|
-|Effect type|`type`     |string  |**Must be `delay`**                                                   |
-|Bypass     |`bypass`   |boolean |Whether the effect should be bypassed (ignored)                       |
-|Time       |`time`     |number  |Length of the delay (in seconds)                                      |
-|Feedback   |`feedback` |number  |From `0` to `1`. Proportion of the signal to pass back into the effect|
-|Mix        |`mix`      |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)   |
+|Name      |Datatype|Description                                                           |
+|----------|--------|----------------------------------------------------------------------|
+|`type`    |string  |**Must be `delay`**                                                   |
+|`bypass`  |boolean |Whether the effect should be bypassed (ignored)                       |
+|`time`    |number  |Length of the delay (in seconds)                                      |
+|`feedback`|number  |From `0` to `1`. Proportion of the signal to pass back into the effect|
+|`mix`     |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)   |
 
 #### **Bitcrusher**
 
-Equivalent to `AudioEffectType.Bitcrusher`.
+Distortion effect that futzes up audio for a harsh sound. Equivalent to `AudioEffectType.Bitcrusher`.
 
-|Property   |Config Name |Datatype|Description                                                        |
-|-----------|------------|--------|-------------------------------------------------------------------|
-|Effect type|`type`      |string  |**Must be `bitcrusher`**                                           |
-|Bypass     |`bypass`    |boolean |Whether the effect should be bypassed (ignored)                    |
-|Gain       |`gain`      |number  |Input gain going into the clipping stage                           |
-|Factor     |`factor`    |number  |From `0` to `100`. Downsampling factor                             |
-|Resolution |`resolution`|number  |From `1` to `16`. Bit depth                                        |
-|Mix        |`mix`       |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)|
+|Name        |Datatype|Description                                                        |
+|------------|--------|-------------------------------------------------------------------|
+|`type`      |string  |**Must be `bitcrusher`**                                           |
+|`bypass`    |boolean |Whether the effect should be bypassed (ignored)                    |
+|`gain`      |number  |Input gain going into the clipping stage                           |
+|`factor`    |number  |From `0` to `100`. Downsampling factor                             |
+|`resolution`|number  |From `1` to `16`. Bit depth                                        |
+|`mix`       |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)|
 
 #### **Low-pass**
 
-A low-pass filter that reduces high frequencies. Equivalent to `AudioEffectType.LPF2`.
+A low-pass filter that thickens up sounds by reducing high frequencies. Equivalent to `AudioEffectType.LPF2`.
 
-|Property   |Config Name|Datatype|Description                                    |
-|-----------|-----------|--------|-----------------------------------------------|
-|Effect type|`type`     |string  |**Must be `lpf`**                              |
-|Bypass     |`bypass`   |boolean |Whether the effect should be bypassed (ignored)|
-|Cutoff     |`cutoff`   |number  |Cutoff frequency, in Hertz                     |
-|Q          |`q`        |number  |From `1` to `100`. How sharp the cutoff is     |
+|Name    |Datatype|Description                                    |
+|--------|--------|-----------------------------------------------|
+|`type`  |string  |**Must be `lpf`**                              |
+|`bypass`|boolean |Whether the effect should be bypassed (ignored)|
+|`cutoff`|number  |Cutoff frequency, in Hertz                     |
+|`q`     |number  |From `1` to `100`. How sharp the cutoff is     |
 
 #### **High-pass**
 
-A high-pass filter that thins out sounds by reducing low frequencies. Equivalent to `AudioEffectType.HPF2`.
+A high-pass filter that thins out sounds by reducing low frequencies Equivalent to `AudioEffectType.HPF2`.
 
-|Property   |Config Name|Datatype|Description                                    |
-|-----------|-----------|--------|-----------------------------------------------|
-|Effect type|`type`     |string  |**Must be `hpf`**                              |
-|Bypass     |`bypass`   |boolean |Whether the effect should be bypassed (ignored)|
-|Cutoff     |`cutoff`   |number  |Cutoff frequency, in Hertz                     |
-|Q          |`q`        |number  |From `1` to `100`. How sharp the cutoff is     |
+|Name    |Datatype|Description                                    |
+|--------|--------|-----------------------------------------------|
+|`type`  |string  |**Must be `hpf`**                              |
+|`bypass`|boolean |Whether the effect should be bypassed (ignored)|
+|`cutoff`|number  |Cutoff frequency, in Hertz                     |
+|`q`     |number  |From `1` to `100`. How sharp the cutoff is     |
 
 #### **Tremolo**
 
-Equivalent to `AudioEffectType.Tremolo`.
+Modulates the gain of audio up and down over time. Equivalent to `AudioEffectType.Tremolo`.
 
-|Property   |Config Name|Datatype|Description                                                                           |
-|-----------|-----------|--------|--------------------------------------------------------------------------------------|
-|Effect type|`type`     |string  |**Must be `tremolo`**                                                                 |
-|Bypass     |`bypass`   |boolean |Whether the effect should be bypassed (ignored)                                       |
-|Cutoff     |`rate`     |number  |From `0` to `20` Hertz. Frequency of the LFO modulating the gain                      |
-|Intensity  |`intensity`|number  |From `0` to `1`. The depth of the effect. `1` is 100% affected                        |
-|Offset     |`offset`   |number  |From `0` to `1`. Left/right offset                                                    |
-|Shape      |`shape`    |string  |Mudt be one of the following: `sine` `square` `triangle` `sawtooth` `inverse sawtooth`|
+|Name        |Datatype|Description                                                                           |
+|------------|--------|--------------------------------------------------------------------------------------|
+|`type`      |string  |**Must be `tremolo`**                                                                 |
+|`bypass`    |boolean |Whether the effect should be bypassed (ignored)                                       |
+|`rate`      |number  |From `0` to `20` Hertz. Frequency of the LFO modulating the gain                      |
+|`intensity` |number  |From `0` to `1`. The depth of the effect. `1` is 100% affected                        |
+|`offset`    |number  |From `0` to `1`. Left/right offset                                                    |
+|`shape`     |string  |Mudt be one of the following: `sine` `square` `triangle` `sawtooth` `inverse sawtooth`|
 
 #### **Gain**
 
 Basic volume control. Equivalent to `AudioEffectType.Gain`.
 
-|Property   |Config Name|Datatype|Description                                    |
-|-----------|-----------|--------|-----------------------------------------------|
-|Effect type|`type`     |string  |**Must be `gain`**                             |
-|Bypass     |`bypass`   |boolean |Whether the effect should be bypassed (ignored)|
-|Gain       |`gain`     |number  |From `0` to `1`. Attenuates the signal         |
+|Name    |Datatype|Description                                    |
+|--------|--------|-----------------------------------------------|
+|`type`  |string  |**Must be `gain`**                             |
+|`bypass`|boolean |Whether the effect should be bypassed (ignored)|
+|`gain`  |number  |From `0` to `1`. Attenuates the signal         |
 
 <!-- tabs:end -->
