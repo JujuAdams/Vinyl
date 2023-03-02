@@ -6,6 +6,8 @@
 
 Everything! You might run into edge cases on platforms that I don't regularly test; please [report any bugs](https://github.com/JujuAdams/Vinyl/issues) if and when you find them. Don't be surprised if you run into weird issues on HTML5 though.
 
+Live updating is only supported when running your game from the IDE on the same machine that built the game. Maybe in the future this'll change.
+
 &nbsp;
 
 **What versions of GameMaker does Vinyl support?**
@@ -17,6 +19,12 @@ Version 5 of Vinyl primarily supports GameMaker 2023.2, and in theory supports e
 **How is Vinyl licensed? Can I use it for commercial projects?**
 
 [Vinyl is released under the MIT license](https://github.com/JujuAdams/Vinyl/blob/master/LICENSE). This means you can use it for whatever purpose you want, including commercial projects. It'd mean a lot to me if you'd drop my name in the credits (Juju Adams) and/or say thanks, but you're under no obligation to do so.
+
+&nbsp;
+
+**Do I *really* need source control to use Vinyl?**
+
+No, but don't be surprised if you regret it.
 
 &nbsp;
 
