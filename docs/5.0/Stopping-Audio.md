@@ -90,7 +90,7 @@ if (keyboard_check_pressed(vk_escape))
 |`target`|voice or label|The voice or label to target                                                              |
 |`[rate]`|number        |Speed to approach silence, in gain units per second. Defaults to `VINYL_DEFAULT_GAIN_RATE`|
 
-Begins a fade out for a [voice or label](Terminology). This puts the voice into "shutdown mode" which can be detected later by [`VinylShutdownGet()`](Advanced).
+Begins a fade out for a [voice](Voice) or [label](Label). This puts the voice into "shutdown mode" which can be detected later by [`VinylShutdownGet()`](Advanced).
 
 If a voice is specified, the voice's gain will decrease at the given rate (in normalised gain units per second) until the gain reaches zero, at which point the sound is stopped and the voice is marked as destroyed.
 

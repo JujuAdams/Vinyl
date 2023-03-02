@@ -61,7 +61,7 @@ The gain for labels is calculated simply as `output = config * local`.
 |`target`|voice or label|The voice or label to target                                                                                                                                                          |
 |`gain`  |number        |Voice gain to set, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain-Structure)|
 
-Sets the gain of a [voice or label](Terminology).
+Sets the gain of a [voice](Voice) or [label](Label).
 
 If an voice is specified, the voice gain is set. This gain is independent of, for example, label gain, asset gain, and system gain.
 
@@ -92,7 +92,7 @@ VinylGainSet("music", _musicGain);
 
 #### **Description**
 
-*Returns:* Number, the gain for the [voice or label](Terminology)
+*Returns:* Number, the gain for the [voice](Voice) or [label](Label)
 
 |Name    |Datatype      |Purpose                 |
 |--------|--------------|------------------------|
@@ -129,7 +129,7 @@ if (waitForAmbience && (VinylGainGet("ambience") <= 0))
 |`gain`  |number          |Target gain, in normalised gain units                                                             |
 |`[rate]`|number          |Speed to approach the target gain, in gain units per second. Defaults to `VINYL_DEFAULT_GAIN_RATE`|
 
-Sets the target gain of a[voice or label](Terminology). The gain for that voice or label will change over time at the given rate until reaching its target.
+Sets the target gain of a[voice](Voice) or [label](Label). The gain for that voice or label will change over time at the given rate until reaching its target.
 
 !> Setting a target gain of `0` for an voice will not stop the voice when reaching silence. Please use `VinylFadeOut()` to fade out and stop an voice.
 
@@ -159,7 +159,7 @@ if (keyboard_check_pressed(vk_enter) && place_meeting(x, y, oRoomExit))
 
 #### **Description**
 
-*Returns:* Number, the target gain for the [voice or label](Terminology)
+*Returns:* Number, the target gain for the [voice](Voice) or [label](Label)
 
 |Name    |Datatype      |Purpose                 |
 |--------|--------------|------------------------|
@@ -189,7 +189,7 @@ if (DEBUG_MODE && keyboard_check(vk_shift) && keyboard_check_pressed(ord("J"))
 
 #### **Description**
 
-*Returns:* Number, the final output gain of the [voice or label](Terminology)
+*Returns:* Number, the final output gain of the [voice](Voice) or [label](Label)
 
 |Name    |Datatype      |Purpose                 |
 |--------|--------------|------------------------|

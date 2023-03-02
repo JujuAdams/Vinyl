@@ -17,7 +17,7 @@
 |`target`|voice or label|Voice or label to target|
 |`state` |boolean       |Loop state to set       |
 
-Sets the persistence state of a [voice or label](Terminology).
+Sets the persistence state of a [voice](Voice) or [label](Label).
 
 If passed a label name, every voice currently assigned to the label will individually have its persistence state set. This is the same as calling `VinylPersistentSet()` for each individual voice. The label itself does not hold a "looped" state and any new audio will not be affected by the loop state set by this function.
 

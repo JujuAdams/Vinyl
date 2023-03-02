@@ -26,7 +26,7 @@ Generally speaking, you'll want to set your system-wide transposition based on t
 
 The pitch shift set by this function follows the Western diatonic scale with the pitch shift being calculated as `pitch = power(2, semitones/12)`.
 
-?> Setting the global transposition will only affect [voices](Terminology) that have had their transposition state set.
+?> Setting the global transposition will only affect [voices](Voices) that have had their transposition state set.
 
 #### **Example**
 
@@ -77,7 +77,7 @@ The pitch shift set by this function follows the Western diatonic scale with the
 |`target`  |voice or label|The voice or label to target                      |
 |`semitone`|number        |Number of semitones to transpose the entire system|
 
-Sets the number of semitones to transpose a particular [voice or label](Terminology). A value of `0` will turn on transposition for the voice and make it sensitive to the global transposition state. The pitch shift set by this function follows the Western diatonic scale with the pitch shift being calculated as `pitch = power(2, semitones/12)`.
+Sets the number of semitones to transpose a particular [voice](Voice) or [label](Label). A value of `0` will turn on transposition for the voice and make it sensitive to the global transposition state. The pitch shift set by this function follows the Western diatonic scale with the pitch shift being calculated as `pitch = power(2, semitones/12)`.
 
 If a label is specified, each currently playing voice assigned to that label will have its transposition state set. The label itself has no "transposition" state and any new voices will be played without transposition.
 

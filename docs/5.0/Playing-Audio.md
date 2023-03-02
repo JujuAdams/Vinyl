@@ -108,7 +108,7 @@ A convenience function that starts playing an asset or pattern at silence and th
 
 #### **Description**
 
-*Returns:* Boolean, whether the given [voice or label](Terminology) exists
+*Returns:* Boolean, whether the given [voice](Voice) or [label](Label) exists
 
 |Name    |Datatype      |Purpose                     |
 |--------|--------------|----------------------------|

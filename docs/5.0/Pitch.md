@@ -44,7 +44,7 @@ output = config
 |`target`|voice or label|The voice or label to target                                            |
 |`pitch` |number        |Voice pitch, in normalised pitch units. Defaults to `1`, no pitch change|
 
-Sets the pitch of [voice or label](Terminology).
+Sets the pitch of [voice](Voice) or [label](Label).
 
 If a voice is specified, the voice pitch is set. This pitch is independent of, for example, label pitch and asset pitch.
 
@@ -68,7 +68,7 @@ If a label is specified, the pitch for the label is set. This will immediately i
 
 #### **Description**
 
-*Returns:* Number, the pitch for the [voice or label](Terminology)
+*Returns:* Number, the pitch for the [voice](Voice) or [label](Label)
 
 |Name    |Datatype      |Purpose                     |
 |--------|--------------|----------------------------|
@@ -100,7 +100,7 @@ If a label is specified, the pitch for the label is set. This will immediately i
 |`pitch` |number        |Target pitch, in normalised pitch units                                                              |
 |`[rate]`|number        |Speed to approach the target pitch, in pitch units per second. Defaults to `VINYL_DEFAULT_PITCH_RATE`|
 
-Sets the target pitch of [voice or label](Terminology). The pitch for that voice or label will change over time at the given rate until reaching its target.
+Sets the target pitch of a [voice](Voice) or [label](Label). The pitch for that voice or label will change over time at the given rate until reaching its target.
 
 #### **Example**
 
@@ -120,7 +120,7 @@ Sets the target pitch of [voice or label](Terminology). The pitch for that voice
 
 #### **Description**
 
-*Returns:* Number, the target pitch for the [voice or label](Terminology)
+*Returns:* Number, the target pitch for the [voice](Voice) or [label](Label)
 
 |Name    |Datatype      |Purpose                     |
 |--------|--------------|----------------------------|
@@ -144,7 +144,7 @@ Sets the target pitch of [voice or label](Terminology). The pitch for that voice
 
 #### **Description**
 
-*Returns:* Number, the final output pitch of the [voice or label](Terminology)
+*Returns:* Number, the final output pitch of the [voice](Voice) or [label](Label)
 
 |Name    |Datatype      |Purpose                     |
 |--------|--------------|----------------------------|
