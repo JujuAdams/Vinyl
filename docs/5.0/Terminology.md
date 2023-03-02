@@ -30,19 +30,21 @@ You can read in-depth information about configuring assets [here](Assets).
 
 There are certain common operations that crop up frequently when playing sound effects, and audio in general, in games. Vinyl patterns are a way to define behaviours that would otherwise be complex or time-consuming to construct. Vinyl patterns are played using [the standard playback functions](Playing-Audio) and return a voice similar to the way `audio_play_sound()` returns a sound instance. Patterns must be set up in the [configuration file](Configuration).
 
-### Basic
+<!-- tabs:start -->
+
+#### **Basic**
 
 Basic patterns are effectively a copy of asset definitions but with the option to change properties independently of the source asset. This is useful for repurposing a single sound asset for multiple purposes, such as a coin pick-up sound effect pitch shifted to different values depending on whether a low value or high value coin has been collected.
 
 You can read in-depth information about configuring basic patterns [here](Basic-Patterns).
 
-### Shuffle
+#### **Shuffle**
 
 Plays a random sound asset from an array. Shuffle patterns also try to ensure that the same sound is not played twice in a row (in fact, shuffle patterns try to space out sounds as much as possible).
 
 You can read in-depth information about working with Shuffle patterns [here](Shuffle-Patterns) (both in the configuration file and at runtime).
 
-### Queue
+#### **Queue**
 
 Plays sound assets from an array one after another. If a sound asset is set to loop then the queue will hold on that looping asset until the voice is told to stop looping by using `VinylLoopSet()`.
 
@@ -50,11 +52,13 @@ The queue itself can be set to loop, restarting the entire sequence from the sta
 
 You can read in-depth information about working with Queue patterns [here](Queue-Patterns) (both in the configuration file and at runtime).
 
-### Multi
+#### **Multi**
 
 Play sound assets from an array simultaneously. The blend parameter stored within the pattern can be set with [`VinylMultiBlendSet()`](Patterns) and crossfades between assets.
 
 You can read in-depth information about working with Multi patterns [here](Multi-Patterns) (both in the configuration file and at runtime).
+
+<!-- tabs:end -->
 
 &nbsp;
 
