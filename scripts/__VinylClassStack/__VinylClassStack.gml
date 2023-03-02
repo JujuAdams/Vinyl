@@ -10,7 +10,7 @@ function __VinylClassStack(_name) constructor
     
     __duckedGain  = 0;
     __duckRate    = VINYL_DEFAULT_DUCK_GAIN_RATE;
-    __duckPause   = true;
+    __duckPauseOnFade   = true;
     
     __maxPriority   = -infinity;
     __voiceArray = [];
@@ -30,12 +30,12 @@ function __VinylClassStack(_name) constructor
         
         __duckedGain = _stackData[$ "ducked gain"] ?? 0;
         __duckRate   = _stackData[$ "rate"       ] ?? VINYL_DEFAULT_DUCK_GAIN_RATE;
-        __duckPause  = _stackData[$ "pause"      ] ?? true;
+        __duckPauseOnFade  = _stackData[$ "pause"      ] ?? true;
         
         if (!is_numeric(__duckedGain) || (__duckedGain < 0) || (__duckedGain > 1)) __VinylError("Error in ", self, "\n\"ducked gain\" must be a number between 0 and 1 (inclusive)");
         if (!is_numeric(__duckRate) || (__duckRate <= 0)) __VinylError("Error in ", self, "\n\"rate\" must be a number greater than 0");
-        if (!is_bool(__duckPause)) __VinylError("Error in ", self, "\n\"pause\" must be either <true> or <false>");
-        if (__duckPause && (__duckedGain > 0)) __VinylError("Error in ", self, "\n\"pause\" cannot be <true> is \"ducked gain\" is greater than 0");
+        if (!is_bool(__duckPauseOnFade)) __VinylError("Error in ", self, "\n\"pause\" must be either <true> or <false>");
+        if (__duckPauseOnFade && (__duckedGain > 0)) __VinylError("Error in ", self, "\n\"pause\" cannot be <true> is \"ducked gain\" is greater than 0");
         
         __maxPriority = -infinity;
         array_resize(__voiceArray, 0);
@@ -64,7 +64,7 @@ function __VinylClassStack(_name) constructor
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pushing ", _voice, " to stack \"", __name, "\" with lower priorty (", _priority, ") versus max (", __maxPriority, ")");
             
             //We should duck down straight away since we're at a lower priority
-            _voice.__GainDuckSet(__duckedGain, _onInstantiate? infinity : __duckRate, __duckPause, false);
+            _voice.__GainDuckSet(__duckedGain, _onInstantiate? infinity : __duckRate, __duckPauseOnFade, false);
             
             //Try to find an existing voice to replace
             var _i = 0;
@@ -75,7 +75,7 @@ function __VinylClassStack(_name) constructor
                     if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__voiceArray[_i], " on stack \"", __name, "\" shares priorty ", _priority, ", replacing it");
                     
                     //We found an existing voice with the same priority - fade out the existing voice and replace with ourselves
-                    __voiceArray[_i].__GainDuckSet(0, __duckRate, __duckPause, false);
+                    __voiceArray[_i].__GainDuckSet(0, __duckRate, __duckPauseOnFade, false);
                     __voiceArray[@ _i] = _voice;
                     return;
                 }
@@ -104,7 +104,7 @@ function __VinylClassStack(_name) constructor
                     if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__voiceArray[_i], " on stack \"", __name, "\" has lesser priorty (", _existingPriority, ") than incoming (", _priority, ")");
                     
                     //We found an existing voice with a lower priority - duck the existing voice
-                    __voiceArray[_i].__GainDuckSet(__duckedGain, __duckRate, __duckPause, false);
+                    __voiceArray[_i].__GainDuckSet(__duckedGain, __duckRate, __duckPauseOnFade, false);
                 }
                 else if (_existingPriority == _priority)
                 {
@@ -181,7 +181,7 @@ function __VinylClassStack(_name) constructor
             //Activate whatever voice is now the highest priority
             if (_maxVoice != undefined)
             {
-                _maxVoice.__Resume();
+                _maxVoice.__ResumeDuck();
                 _maxVoice.__GainDuckSet(1, __duckRate, false, false);
             }
         }

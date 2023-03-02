@@ -41,11 +41,11 @@ function __VinylClassVoiceCommon() constructor
         __gainOutputNoLabels = 1;
         __gainOutput         = 1;
         
-        __gainDuck       = 1;
-        __gainDuckTarget = 1;
-        __gainDuckRate   = VINYL_DEFAULT_DUCK_GAIN_RATE;
-        __duckPause      = true;
-        __duckStop       = false;
+        __gainDuck        = 1;
+        __gainDuckTarget  = 1;
+        __gainDuckRate    = VINYL_DEFAULT_DUCK_GAIN_RATE;
+        __duckPauseOnFade = false;
+        __duckStopOnFade  = false;
         
         __transposeLocal          = undefined;
         __transposePattern        = undefined;
@@ -109,7 +109,7 @@ function __VinylClassVoiceCommon() constructor
             return;
         }
         
-        if ((__gainLocal != _gain) && (VINYL_DEBUG_LEVEL >= 1))
+        if ((__gainLocal != _gain) && (VINYL_DEBUG_LEVEL >= 2))
         {
             __VinylTrace(self, " gain=", _gain);
         }
@@ -165,10 +165,10 @@ function __VinylClassVoiceCommon() constructor
     
     static __GainDuckSet = function(_targetGain, _rate, _pauseOnDuck, _stopOnDuck)
     {
-        __gainDuckTarget = _targetGain;
-        __gainDuckRate   = _rate;
-        __duckPause    = _pauseOnDuck;
-        __duckStop     = _stopOnDuck;
+        __gainDuckTarget  = _targetGain;
+        __gainDuckRate    = _rate;
+        __duckPauseOnFade = _pauseOnDuck;
+        __duckStopOnFade  = _stopOnDuck;
     }
     
     #endregion
@@ -179,7 +179,7 @@ function __VinylClassVoiceCommon() constructor
     
     static __PitchSet = function(_pitch)
     {
-        if ((__pitchLocal != _pitch) && (VINYL_DEBUG_LEVEL >= 1))
+        if ((__pitchLocal != _pitch) && (VINYL_DEBUG_LEVEL >= 2))
         {
             __VinylTrace(self, " pitch=", _pitch);
         }
@@ -338,6 +338,18 @@ function __VinylClassVoiceCommon() constructor
     {
         if (__child == undefined) return;
         __child.__Resume();
+    }
+    
+    static __PauseDuck = function()
+    {
+        if (__child == undefined) return;
+        __child.__PauseDuck();
+    }
+    
+    static __ResumeDuck = function()
+    {
+        if (__child == undefined) return;
+        __child.__ResumeDuck();
     }
     
     static __FadeOut = function(_rate)
@@ -774,14 +786,14 @@ function __VinylClassVoiceCommon() constructor
         
         if (_canFinishDuck && (__gainDuck == __gainDuckTarget))
         {
-            if (__duckStop)
+            if (__duckStopOnFade)
             {
                 __Stop();
                 return false;
             }
-            else if (__duckPause)
+            else if (__duckPauseOnFade)
             {
-                __Pause();
+                __PauseDuck();
             }
         }
         

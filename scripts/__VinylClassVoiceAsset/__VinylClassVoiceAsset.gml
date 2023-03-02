@@ -33,6 +33,9 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
         __bpmBeat        = 0;
         __bpmBeatCounter = 0;
         __bpmPulse       = false;
+        
+        __paused     = false;
+        __duckPaused = false;
     }
     
     static __Instantiate = function(_pattern, _parentVoice, _vinylEmitter, _sound, _loop, _gain, _pitch, _pan)
@@ -170,36 +173,60 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
     static __IsPlaying = function()
     {
         if (!is_numeric(__gmInstance)) return false;
-        
         return audio_is_playing(__gmInstance);
     }
     
     static __Pause = function()
     {
-        if (!is_numeric(__gmInstance)) return;
-        if (audio_is_paused(__gmInstance)) return;
+        if (!is_numeric(__gmInstance) || __paused) return;
         
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pausing ", self);
         
+        __paused = true;
         audio_pause_sound(__gmInstance);
     }
     
     static __PauseGet = function()
     {
         if (!is_numeric(__gmInstance)) return;
-        if (audio_is_paused(__gmInstance)) return;
         
-        return audio_is_paused(__gmInstance);
+        return __paused;
     }
     
     static __Resume = function()
     {
         if (!is_numeric(__gmInstance)) return;
-        if (!audio_is_paused(__gmInstance)) return;
         
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming ", self);
+        if (__paused)
+        {
+            __paused = false;
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming ", self);
+            
+            if (!__duckPaused) audio_resume_sound(__gmInstance);
+        }
+    }
+    
+    static __PauseDuck = function()
+    {
+        if (!is_numeric(__gmInstance)) return;
         
-        audio_resume_sound(__gmInstance);
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pausing ", self, " (via stack)");
+        
+        __duckPaused = true;
+        audio_pause_sound(__gmInstance);
+    }
+    
+    static __ResumeDuck = function()
+    {
+        if (!is_numeric(__gmInstance)) return;
+        
+        if (__duckPaused)
+        {
+            __duckPaused = false;
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming ", self, " (via stack)");
+            
+            if (!__paused) audio_resume_sound(__gmInstance);
+        }
     }
     
     static __Stop = function()

@@ -124,6 +124,26 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
         }
     }
     
+    static __PauseDuck = function()
+    {
+        var _i = 0;
+        repeat(array_length(__childArray))
+        {
+            __childArray[_i].__PauseDuck();
+            ++_i;
+        }
+    }
+    
+    static __ResumeDuck = function()
+    {
+        var _i = 0;
+        repeat(array_length(__childArray))
+        {
+            __childArray[_i].__ResumeDuck();
+            ++_i;
+        }
+    }
+    
     static __Stop = function()
     {
         if (array_length(__childArray) <= 0) return;
