@@ -28,6 +28,21 @@ function VinylSystemReadConfig(_configData)
     _globalData.__labelDict    = {};
     _globalData.__labelArray   = [];
     
+    if (_configData == undefined)
+    {
+        __VinylTrace("Warning! Config data was <undefined>. No data has been loaded");
+        
+        var _pattern = new __VinylClassPatternFallback();
+        _pattern.__Initialize(undefined);
+        _pattern.__Store();
+        
+        return;
+    }
+    else if (!is_struct(_configData))
+    {
+        __VinylError("Config data must be a struct");
+    }
+    
     //Cache some values for a lil speed up
     var _newPatternDict = _globalData.__patternDict;
     var _newLabelArray  = _globalData.__labelArray;
