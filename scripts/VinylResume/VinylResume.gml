@@ -14,7 +14,7 @@ function VinylResume(_id)
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _id];
-    if (is_struct(_voice)) _voice.__Resume();
+    if (is_struct(_voice)) return _voice.__Resume();
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__Resume();
