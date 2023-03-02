@@ -49,7 +49,6 @@
         }
         
         sndOw: {
-            gain: [@delay time, 0.1, 0.2]
             label: [sfx, speech]
         }
         
@@ -74,7 +73,6 @@
         space cat: {
             type: basic
             asset: sndCat
-            gain: 0.3
             pitch: 0.75
             effect chain: echo
         }
@@ -129,10 +127,6 @@
                 type: reverb
                 size: @reverb size
                 mix: 0.3
-            }
-            {
-                type: gain
-                gain: 2
             }
         ]
     }
