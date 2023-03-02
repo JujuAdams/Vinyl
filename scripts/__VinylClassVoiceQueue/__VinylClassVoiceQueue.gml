@@ -51,12 +51,12 @@ function __VinylClassVoiceQueue() : __VinylClassVoiceCommon() constructor
     
     
     
-    static __Instantiate = function(_pattern, _parentVoice, _vinylEmitter, _assetArray, _loop, _gain, _pitch, _pan, _behavior)
+    static __Instantiate = function(_pattern, _parentVoice, _vinylEmitter, _assetArray, _loop, _gain, _pitch, _pan)
     {
         __index = 0;
         
         __StateSetCommon(_pattern, _parentVoice, _vinylEmitter, _loop, _gain, _pitch, _pan);
-        __behavior = _behavior;
+        __behavior = __pattern.__behavior;
         
         //Make a local copy of the input asset array
         __assetArray = array_create(array_length(_assetArray), undefined);

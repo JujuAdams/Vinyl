@@ -311,14 +311,14 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
     
     
     
-    static __Instantiate = function(_pattern, _parentVoice, _vinylEmitter, _assetArray, _loop, _gain, _pitch, _pan, _sync, _blendCurve)
+    static __Instantiate = function(_pattern, _parentVoice, _vinylEmitter, _assetArray, _loop, _gain, _pitch, _pan)
     {
         __StateSetCommon(_pattern, _parentVoice, _vinylEmitter, _loop, _gain, _pitch, _pan);
         
         __blendFactorLocal  = undefined;
         __blendFactorOutput = undefined;
-        __sync              = _sync;
-        __blendCurve        = _blendCurve;
+        __sync              = __pattern.__sync;
+        __blendCurve        = __pattern.__blendCurve;
         
         //Make a local copy of the input asset array
         __assetArray = array_create(array_length(_assetArray), undefined);

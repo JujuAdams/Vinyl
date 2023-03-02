@@ -86,7 +86,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
     static __Play = function(_parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _voice = __pool.__Depool();
-        _voice.__Instantiate(self, _parentVoice, _vinylEmitter, __assetArray, _loop, _gain, _pitch, _pan, __sync, __blendCurve);
+        _voice.__Instantiate(self, _parentVoice, _vinylEmitter, __assetArray, _loop, _gain, _pitch, _pan);
         return _voice;
     }
     
