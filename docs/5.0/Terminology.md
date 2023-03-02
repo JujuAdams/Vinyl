@@ -10,6 +10,8 @@ Vinyl uses standard audio terminology where appropriate. On top of this, Vinyl h
 
 An asset is any [sound asset](https://manual.yoyogames.com/The_Asset_Editors/Sounds.htm) added to the GameMaker IDE. You should aim to further define properties for these assets to [Vinyl's internal configuration file](Configuration) in order to take advantage of Vinyl's features. Vinyl allows you to control the gain and pitch for assets, as well as assigning assets to labels for bulk control.
 
+You can read in-depth information about configuring assets [here](Assets).
+
 &nbsp;
 
 ## Pattern
@@ -20,9 +22,13 @@ There are certain common operations that crop up frequently when playing sound e
 
 Basic patterns are effectively a copy of asset definitions but with the option to change properties independently of the source asset. This is useful for repurposing a single sound asset for multiple purposes, such as a coin pick-up sound effect pitch shifted to different values depending on whether a low value or high value coin has been collected.
 
+You can read in-depth information about configuring basic patterns [here](Basic-Patterns).
+
 ### Shuffle
 
 Plays a random sound asset from an array. Shuffle patterns also try to ensure that the same sound is not played twice in a row (in fact, shuffle patterns try to space out sounds as much as possible).
+
+You can read in-depth information about working with Shuffle patterns [here](Shuffle-Patterns) (both in the configuration file and at runtime).
 
 ### Queue
 
@@ -30,9 +36,13 @@ Plays sound assets from an array one after another. If a sound asset is set to l
 
 The queue itself can be set to loop, restarting the entire sequence from the start once playback reaches the end of the queue.
 
+You can read in-depth information about working with Queue patterns [here](Queue-Patterns) (both in the configuration file and at runtime).
+
 ### Multi
 
 Play sound assets from an array simultaneously. The blend parameter stored within the pattern can be set with [`VinylMultiBlendSet()`](Patterns) and crossfades between assets.
+
+You can read in-depth information about working with Multi patterns [here](Multi-Patterns) (both in the configuration file and at runtime).
 
 &nbsp;
 
@@ -43,6 +53,8 @@ When you play an audio asset using [one of Viny's functions](Basics), Vinyl will
 The best way to understand a voice is to think of them like they're instances of GameMaker objects, only the "objects" in this case are Vinyl patterns.
 
 Voices can have their gain and pitch altered on the fly, as well as their pan position. Voices can loop, and can be played at positions in a room using Vinyl's custom emitter system as well.
+
+You can read in-depth information about voices [here](Voices).
 
 ?> Don't confuse voices for GameMaker's [sound instances](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_play_sound.htm). They share some similarities but cannot be used interchangeably.
 
@@ -58,6 +70,8 @@ Vinyl allows you to assign assets within the configuration file, but Vinyl can a
 
 When setting up complex audio systems it's often useful to use a hierarchy to share properties from one parent label to child labels. For example, an `sfx` label might have `ui`, `footsteps`, and `explosions` labels as children. Changing properties on the parent `sfx` label will affect its child labels. Child labels can themselves have children, recursively. Label parenting can be set up in the [configuration file](Configuration).
 
+You can read in-depth information about working with labels [here](Multi-Patterns) (both in the configuration file and at runtime).
+
 !> GameMaker's [audio groups](https://manual.yoyogames.com/Settings/Audio_Groups.htm) are vaguely similar to labels. It is recommended to avoid using GameMaker's audio groups for anything apart from managing memory whn using Vinyl.
 
 &nbsp;
@@ -65,6 +79,8 @@ When setting up complex audio systems it's often useful to use a hierarchy to sh
 ## Emitter
 
 Building sonically convincing environments involves a lot of detailed work, not least the considered use of panning and spatial positioning. Emitters are points or regions in space that can play voices. As the player moves towards and away from each emitter, sounds played on that emitter pan and modulate their volume accordingly. GameMaker has its own [emitter system](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/Audio_Emitters/Audio_Emitters.htm) built around point emitters. Vinyl extends this basic featureset to allow for [region emitters](Positional) as well as simple [panned audio](Positional).
+
+You can read in-depth information about emitters [here](Positional).
 
 &nbsp;
 
@@ -86,6 +102,8 @@ Assets can be set up to automatically play using effect chains in the [configura
 
 Labels can also be set up in the [configuration file](Configuration) such that any assigned assets will use a particular effect chain.
 
+You can read in-depth information about configuring basic patterns [here](Effect-Chains).
+
 !> A sound can only be played on one effect chain at a time. As a result, the label `effect chain` property can potentially conflict with effect chain definitions in other labels if an asset is assigned to multiple labels. This is not considered a critical error by Vinyl but can lead to unexpected behaviour.
 
 &nbsp;
@@ -101,3 +119,5 @@ Knobs take a input value in a certain range and remaps it to an output value in 
 Knobs further have a default value. This is the initial output value for the knob. The default value is an **output** value rather than a normalised input value. This means the default value is limited within the knob's output range.
 
 You can get and set the input value for knobs using [`VinylKnobGet()` and `VinylKnobSet()`](Knobs). You can also check if a knob exists or reset a knob using other [knob functions](Knobs). Generally speaking, knob functions will not throw an exception if the knob they're targetting doesn't exist to reduce the likelihood of annoying crashes if you spell a knob name wrong.
+
+You can read in-depth information about working with Knobs [here](Knobs) (both in the configuration file and at runtime).
