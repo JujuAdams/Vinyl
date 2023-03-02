@@ -155,6 +155,7 @@ You can read more about assets [here](Terminology).
 |`stack`         |string          |*passthrough*                       |                                                                                                           |
 |`stack priority`|number          |`0`                                 |                                                                                                           |
 |`effect chain`  |string          |*passthrough*                       |                                                                                                           |
+|`label`         |string or array |`[]`                                |Label to assign this asset to. Can be a string for for label, or an array of label names                   |
 |`persistent`    |boolean         |*passthrough*                       |                                                                                                           |
 
 &nbsp;
