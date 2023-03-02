@@ -26,7 +26,7 @@ Plays an asset, taking advantage of Vinyl's live updating configuration (includi
 
 Sounds played using this function will never loop.
 
-!> `VinylPlaySimple()` returns a GameMaker sound instance and **not** a Vinyl voice. As such, the sound instance is not compatible with other Vinyl functions and is provided for your convenience only.
+!> `VinylPlaySimple()` returns a GameMaker sound instance and **not** a Vinyl voice. As such, the sound instance is not compatible with any Vinyl functions and is provided for your convenience only.
 
 #### **Example**
 
