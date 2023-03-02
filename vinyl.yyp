@@ -83,6 +83,7 @@
     {"id":{"name":"VinylEmitterDestroy","path":"scripts/VinylEmitterDestroy/VinylEmitterDestroy.yy",},},
     {"id":{"name":"UIText","path":"scripts/UIText/UIText.yy",},},
     {"id":{"name":"__VinylClassPatternFallback","path":"scripts/__VinylClassPatternFallback/__VinylClassPatternFallback.yy",},},
+    {"id":{"name":"__VinylPatternGetUnsafe","path":"scripts/__VinylPatternGetUnsafe/__VinylPatternGetUnsafe.yy",},},
     {"id":{"name":"VinylPlay","path":"scripts/VinylPlay/VinylPlay.yy",},},
     {"id":{"name":"sndBleep4","path":"sounds/sndBleep4/sndBleep4.yy",},},
     {"id":{"name":"VinylKnobResetAll","path":"scripts/VinylKnobResetAll/VinylKnobResetAll.yy",},},

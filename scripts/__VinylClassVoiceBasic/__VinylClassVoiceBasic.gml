@@ -31,7 +31,15 @@ function __VinylClassVoiceBasic() : __VinylClassVoiceCommon() constructor
     
     static __Migrate = function()
     {
-        __pattern = __VinylPatternGet(__pattern.__name);
+        var _pattern = __VinylPatternGetUnsafe(__pattern.__name);
+        if (_pattern == undefined)
+        {
+            __VinylTrace("Warning! Pattern \"", __pattern.__name, "\" no longer exists in configuration file. ", self, " now in limbo");
+            return;
+        }
+        
+        __pattern = _pattern;
+        
         __MigrateCommon();
         
         if (__child != undefined) __child.__Migrate();

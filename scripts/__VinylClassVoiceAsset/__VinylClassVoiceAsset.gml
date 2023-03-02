@@ -70,9 +70,19 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
     
     static __Migrate = function()
     {
+        if (__pattern.__name == "fallback")
+        {
+            __pattern = __VinylPatternGet(__sound);
+        }
+        else
+        {
+            var _pattern = __VinylPatternGetUnsafe(__pattern.__name);
+            if (_pattern == undefined) __VinylTrace("Warning! Asset definition for ", audio_get_name(__sound), " no longer exists in configuration file. ", self, " now using fallback asset properties");
+            __pattern = __VinylPatternGet(__sound);
+        }
+        
         var _oldEmitter = __vinylEmitter;
         
-        __pattern = __VinylPatternGet((__pattern.__name == "fallback")? __sound : __pattern.__name);
         __MigrateCommon();
         
         if (_oldEmitter != __vinylEmitter)
