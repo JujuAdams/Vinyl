@@ -8,25 +8,25 @@ Labels are an evolution of GameMaker's native audio groups, expanded to allow yo
 
 The following properties can be set for a label in the [configuration file](Configuration-Syntax).
 
-|Property         |Config Name     |Purpose                         |
-|-----------------|----------------|--------------------------------|
-|Gain             |`gain`          |                                |
-|Pitch            |`pitch`         |                                |
-|Transpose        |`transpose`     |                                |
-|Loop             |`loop`          |                                |
-|Effect chain     |`effect chain`  |                                |
-|Stack            |`stack`         |                                |
-|Stack priority   |`stack priority`|                                |
-|GM asset tag link|`tag`           |                                |
-|Child labels     |`children`      |                                |
-
+|Property        |Datatype        |Default      |Notes                                                                                                      |
+|----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------|
+|`gain`          |number          |`1`          |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
+|`pitch`         |number or array |`1`          |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
+|`transpose`     |number          |*passthrough*|                                                                                                           |
+|`loop`          |boolean         |*passthrough*|                                                                                                           |
+|`stack`         |string          |*passthrough*|                                                                                                           |
+|`stack priority`|number          |`0`          |                                                                                                           |
+|`effect chain`  |string          |*passthrough*|                                                                                                           |
+|`tag`           |string or array |*passthrough*|Links this label to a native GameMaker asset tag. Can be a string for one tag, or an array of tags         |
+|`children`      |array of structs|`[]`         |Must be an array of label structs                                                                          |
+    
 &nbsp;
 
 ## Runtime State
 
 Labels themselves do not hold much in the way of runtime state.
 
-|State            |Purpose                                                                                                             |
+|State            |Notes                                                                                                               |
 |-----------------|--------------------------------------------------------------------------------------------------------------------|
 |Gain             |A gain factor for all voices assigned to the label. [Applied multiplicatively with other voice gain values](Gain)   |
 |Gain target      |Target gain for the label                                                                                           |
