@@ -8,17 +8,17 @@ Labels are an evolution of GameMaker's native audio groups, expanded to allow yo
 
 The following properties can be set for a label in the [configuration file](Configuration-Syntax).
 
-|Property        |Purpose                         |
-|----------------|--------------------------------|
-|`gain`          |                                |
-|`pitch`         |                                |
-|`transpose`     |                                |
-|`loop`          |                                |
-|`effect chain`  |                                |
-|`stack`         |                                |
-|`stack priority`|                                |
-|`tag`           |                                |
-|`children`      |                                |
+|Property         |Config Name     |Purpose                         |
+|-----------------|----------------|--------------------------------|
+|Gain             |`gain`          |                                |
+|Pitch            |`pitch`         |                                |
+|Transpose        |`transpose`     |                                |
+|Loop             |`loop`          |                                |
+|Effect chain     |`effect chain`  |                                |
+|Stack            |`stack`         |                                |
+|Stack priority   |`stack priority`|                                |
+|GM asset tag link|`tag`           |                                |
+|Child labels     |`children`      |                                |
 
 &nbsp;
 
