@@ -2,10 +2,20 @@
 
 &nbsp;
 
-Vinyl is centred around a single configuration file that controls the underlying volumes, pitches, and behaviours of audio played with Vinyl. You can find this configuration file in the Vinyl folder in your asset browser; its name is `__VinylConfig`. When you import Vinyl for the first time, this config file will be filled with some example configuration and some comments (you can see an online copy of this file [here](https://github.com/JujuAdams/Vinyl/blob/master/notes/__VinylConfig/__VinylConfig.txt)).
+Vinyl is a powerful libraries with a lot of features. Keeping a handle on how it all interacts requires a custom solution. The core of Vinyl is a single configuration file that controls the underlying gains, pitches, and behaviours of audio played with Vinyl. You can find this configuration file in the Vinyl folder in your asset browser; its name is `__VinylConfig`. When you import Vinyl for the first time, this config file will be filled with some example configuration and some comments. You can see an online copy of this file [here](https://github.com/JujuAdams/Vinyl/blob/master/notes/__VinylConfig/__VinylConfig.txt).
 
-You can read more about the syntax of the configuration file [here](Config-Syntax). As an overview: it uses an abbreviated form of JSON with a couple extra helpful feature geared towards human readability and brevity for configuring groups of assets at the same time. `__VinylConfig` can be edited whilst the game is running from the IDE on Windows, Mac, or Linux. If Vinyl detects that a change has been made, Vinyl will live update audio playback without you having to close and recompile the entire game. This means you can finesse your audio mix without having to stop playing the game - a substantial workflow improvement over what GameMaker offers natively.
+?> The configuration file uses its own syntax and expects data to be formatted in a certain way. You can read about how to use `__VinylConfig` [here](Config-Syntax).
 
-?> If you're changing values inside the configuration file and nothing seems to be happening, check your debug log for any errors, and then check your [config macros](Config-Macros).
+`__VinylConfig` can be edited whilst the game is running from the IDE on Windows, Mac, or Linux. If Vinyl detects that a change has been made, Vinyl will live update audio playback without you having to close and recompile the entire game. This means you can finesse your audio mix without having to stop playing the game - a substantial workflow improvement over what GameMaker offers natively.
 
-The gain and pitch values `__VinylConfig` default to GameMaker's standard normalised values: a gain of `0` is silent and a gain of `1` is unaffected, a pitch of `0.5` is half the frequency and a pitch of `1` is unaffected. These can be changed to decibel and percentage values respectively by toggling a couple of [config macros](Config-Macros). Many properties are marked as having a default value of *`passthrough`* which means that the eventual value that's used by Vinyl will be inherited, if possible, from somewhere else. The exact rules of inheritance depend on the property in question so please read documentation carefully for each feature.
+In addition to the configuration file, Vinyl also has a couple other scripts used to control behaviour. These are [`__VinylConfigMacros`](Config-Macros) and [`__VinylDebugMacros`](Debug-Macros). Each script contains a handful of macros that you can adjust to get Vinyl operating exactly how you want. You should edit these scripts.
+
+Vinyl is intended for use with Git, or an equivalent source control system. You may notice that during compilation, the `vinyl.dat` file in Included Files (called the `/datafiles` directory on disk) frequently shows changes. If you're working in a team, you can either add `vinyl.dat` to your `.gitignore` or you can literally ignore any changes made to that file. `vinyl.dat` is regenerated for every compile and doesn't contain persistent data that's relevant for other developers.
+
+&nbsp;
+
+### Updating Vinyl
+
+Vinyl is distributed as a `.yymps`. Standard practice when importing these sorts of files into GameMaker is to delete the existing library completely before reimporting it, and this is still broadly an effective technique for Vinyl. However, `__VinylConfig` comes packaged with the Vinyl library and, as such, replacing Vinyl necessarily means replacing `__VinylConfig` and erasing all of the work you put in configuring your audio.
+
+There's no great trick to get around this - make a backup of `__VinylConfig` before updating, or restore the old file from your source control history. You may find that you need to do similar things to restore macros in [`__VinylConfigMacros`](Config-Macros) and [`__VinylDebugMacros`](Debug-Macros). *You're using source control, right? You really should be using source control.*
