@@ -42,7 +42,7 @@ This is where the rubber meets the road, so to speak. Configuring audio is all w
 
 If you take a look at the sidebar, the API is split across multiple different features. Each broad feature gets its own page, and on each page there's a description of feature, any quirks you need to be aware of, and functions that interact with that feature. Where I've had time I've also added example code to make things a bit quicker to pick up.
 
-Functions are rarely complex and follow GML-ish conventions. Many functions take a [voice ID](Terminology) as an argument, and these functions *often* (but not *always*) accept a label too. With only a few exceptions ([1](Gain)) ([2](Pitch)), if you provided a label instead of a voice ID then the operation in question will be executed for each individual voice assigned to that label. [Labels do not carry much state](State) and so operations will typically pass through them and then get picked up by voices themselves.
+Functions are rarely complex and follow GML-ish conventions. Many functions take a [voice ID](Terminology) as an argument, and these functions *often* (but not *always*) accept a label too. With only a few exceptions ([1](Gain)) ([2](Pitch)), if you provide a label instead of a voice ID then the operation in question will be executed for each individual voice assigned to that label. [Labels do not carry much state](State) and so operations will typically pass through them and then get picked up by voices themselves.
 
 &nbsp;
 
