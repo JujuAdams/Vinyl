@@ -15,7 +15,7 @@ function VinylPersistentSet(_id, _state)
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _id];
-    if (is_struct(_voice)) return _instance.__PersistentSet(_state);
+    if (is_struct(_voice)) return _voice.__PersistentSet(_state);
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__PersistentSet(_state);

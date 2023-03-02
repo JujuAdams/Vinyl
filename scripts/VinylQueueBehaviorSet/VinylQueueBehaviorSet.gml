@@ -20,7 +20,7 @@ function VinylQueueBehaviorSet(_id, _behavior)
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _id];
-    if (is_struct(_voice)) return _instance.__QueueBehaviorSet(_behavior);
+    if (is_struct(_voice)) return _voice.__QueueBehaviorSet(_behavior);
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__QueueBehaviorSet(_behavior);

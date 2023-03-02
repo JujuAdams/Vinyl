@@ -10,5 +10,5 @@ function VinylPersistentGet(_id)
     static _idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _id];
-    if (is_struct(_voice)) return _instance.__PersistentGet();
+    if (is_struct(_voice)) return _voice.__PersistentGet();
 }

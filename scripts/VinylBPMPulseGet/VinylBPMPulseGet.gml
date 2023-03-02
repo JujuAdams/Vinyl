@@ -9,7 +9,7 @@ function VinylBPMPulseGet(_id)
     static _idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _id];
-    if (is_struct(_voice)) return _instance.__BPMPulseGet();
+    if (is_struct(_voice)) return _voice.__BPMPulseGet();
     
     return false;
 }

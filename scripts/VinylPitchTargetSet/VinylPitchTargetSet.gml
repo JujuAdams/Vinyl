@@ -16,7 +16,7 @@ function VinylPitchTargetSet(_id, _targetPitch, _rate = VINYL_DEFAULT_PITCH_RATE
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _id];
-    if (is_struct(_voice)) return _instance.__PitchTargetSet(_targetPitch, _rate);
+    if (is_struct(_voice)) return _voice.__PitchTargetSet(_targetPitch, _rate);
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__PitchTargetSet(_targetPitch, _rate);

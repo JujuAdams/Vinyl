@@ -12,7 +12,7 @@ function VinylMultiSyncSet(_id, _state)
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _id];
-    if (is_struct(_voice)) return _instance.__MultiSyncSet(_state);
+    if (is_struct(_voice)) return _voice.__MultiSyncSet(_state);
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__MultiSyncSet(_state);

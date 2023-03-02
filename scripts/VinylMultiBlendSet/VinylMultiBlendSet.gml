@@ -18,7 +18,7 @@ function VinylMultiBlendSet(_id, _blendFactor)
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _id];
-    if (is_struct(_voice)) return _instance.__MultiBlendSet(_blendFactor);
+    if (is_struct(_voice)) return _voice.__MultiBlendSet(_blendFactor);
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__MultiBlendSet(_blendFactor);

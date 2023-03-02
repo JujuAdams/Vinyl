@@ -9,5 +9,5 @@ function VinylMultiBlendGet(_id)
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _id];
-    if (is_struct(_voice)) return _instance.__MultiBlendGet();
+    if (is_struct(_voice)) return _voice.__MultiBlendGet();
 }

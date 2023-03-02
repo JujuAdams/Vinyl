@@ -16,5 +16,5 @@
 function VinylPlay(_sound, _loop = undefined, _gain = 1, _pitch = 1, _pan)
 {
     var _instance = __VinylPatternGet(_sound).__Play(undefined, undefined, _sound, _loop, _gain, _pitch, _pan);
-    return _instance.__id;
+    return _voice.__id;
 }

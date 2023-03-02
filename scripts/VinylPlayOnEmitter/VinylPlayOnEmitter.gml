@@ -18,5 +18,5 @@ function VinylPlayOnEmitter(_emitter, _sound, _loop = undefined, _gain = 1, _pit
     if (!is_struct(_emitter.__emitter)) __VinylError(_emitter, " has been destroyed");
     
     var _instance = __VinylPatternGet(_sound).__Play(undefined, _emitter, _sound, _loop, _gain, _pitch, undefined);
-    return _instance.__id;
+    return _voice.__id;
 }

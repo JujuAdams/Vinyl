@@ -9,5 +9,5 @@ function VinylMultiGainGet(_id, _index)
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _id];
-    if (is_struct(_voice)) return _instance.__MultiGainGet(_index);
+    if (is_struct(_voice)) return _voice.__MultiGainGet(_index);
 }

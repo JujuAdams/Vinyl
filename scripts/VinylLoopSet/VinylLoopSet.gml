@@ -17,7 +17,7 @@ function VinylLoopSet(_id, _state)
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _id];
-    if (is_struct(_voice)) return _instance.__LoopSet(_state);
+    if (is_struct(_voice)) return _voice.__LoopSet(_state);
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__LoopSet(_state);

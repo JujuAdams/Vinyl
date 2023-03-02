@@ -18,7 +18,7 @@ function VinylTransposeSet(_id, _semitone)
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _id];
-    if (is_struct(_voice)) return _instance.__TransposeSet(_semitone);
+    if (is_struct(_voice)) return _voice.__TransposeSet(_semitone);
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__TransposeSet(_semitone);

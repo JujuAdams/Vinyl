@@ -15,7 +15,7 @@ function VinylPitchSet(_id, _pitch)
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _id];
-    if (is_struct(_voice)) return _instance.__PitchSet(_pitch);
+    if (is_struct(_voice)) return _voice.__PitchSet(_pitch);
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__PitchSet(_pitch);
