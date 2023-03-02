@@ -6,6 +6,27 @@ Functions on this page relate to specific behaviours for [Multi pattern](Termino
 
 &nbsp;
 
+## Configuration Properties
+
+|Property         |Config Name     |Purpose                         |
+|-----------------|----------------|--------------------------------|
+|Type             |`type`          |                                |
+|Asset            |`asset`         |                                |
+|Gain             |`gain`          |                                |
+|Pitch            |`pitch`         |                                |
+|Transpose        |`transpose`     |                                |
+|Loop             |`loop`          |                                |
+|Stack            |`stack`         |                                |
+|Stack priority   |`stack priority`|                                |
+|Effect chain     |`effect chain`  |                                |
+|Label            |`label`         |                                |
+|Persistent       |`persistent`    |                                |
+|Blend            |`effect chain`  |                                |
+|Blend curve      |`label`         |                                |
+|Sync             |`sync`          |                                |
+
+&nbsp;
+
 ## `VinylMultiVoiceCountGet`
 
 `VinylMultiVoiceCountGet(target)`
