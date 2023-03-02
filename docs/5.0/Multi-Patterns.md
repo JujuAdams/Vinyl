@@ -2,7 +2,9 @@
 
 &nbsp;
 
-Functions on this page relate to specific behaviours for [Multi pattern](Terminology) voices.
+Multi patterns play assets from an array simultaneously. The blend parameter stored within the pattern can be set with [`VinylMultiBlendSet()`](Patterns) and crossfades between assets.
+
+You can read in-depth information about working with Multi patterns [here](Multi-Patterns) (both in the configuration file and at runtime).
 
 &nbsp;
 
@@ -20,7 +22,7 @@ Functions on this page relate to specific behaviours for [Multi pattern](Termino
 |`stack`         |string          |*passthrough*                               |                                                                                                                             |
 |`stack priority`|number          |`0`                                         |                                                                                                                             |
 |`effect chain`  |string          |*passthrough*                               |                                                                                                                             |
-|`label`         |string or array |*passthrough*                               |Label to assign this pattern to. Can be a string for for label, or an array of label names                                   |
+|`label`         |string or array |*passthrough*                               |Label to assign this pattern to. Can be a string for a single label, or an array of label names                              |
 |`persistent`    |boolean         |*passthrough*                               |                                                                                                                             |
 |`sync`          |boolean         |[`VINYL_DEFAULT_MULTI_SYNC`](Config-Macros) |                                                                                                                             |
 |`blend`         |number          |[`VINYL_DEFAULT_MULTI_BLEND`](Config-Macros)|This is a normalised value from `0` to `1` (inclusive)                                                                       |
