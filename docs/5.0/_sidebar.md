@@ -1,17 +1,19 @@
 -    [Home](README)
 -    [FAQ](faq)
+-    [Introduction](Introduction)
+-    [Terminology](Terminology)
 
 ---
 
-**Before You Begin**
+**Configuration**
 
--    [Terminology](Terminology)
--    [Configuration](Configuration)
--    [Config Syntax](Configuration-Syntax)
 -    [Config Macros](Config-Macros)
 -    [Debug Macros](Debug-Macros)
+-    [Configuration Syntax](Configuration-Syntax)
 
 ---
+
+**API**
 
 -    [Playing Audio](Playing-Audio)
 -    [Stopping Audio](Stopping-Audio)
