@@ -17,6 +17,9 @@
 -    [Stacks](Stacks)
 -    [Effect Chains](Effect-Chains)
 -    [Knobs](Knobs)
+-    [Gain](Gain)
+-    [Pitch](Pitch)
+-    [Transposition](Transposition)
 
 ---
 
@@ -35,9 +38,9 @@
 -    [Looping](Looping)
 -    [Pausing](Pausing)
 -    [Persistence](Persistence)
--    [Gain](Gain)
--    [Pitch](Pitch)
--    [Transposition](Transposition)
+-    [Gain](Gain-Functions)
+-    [Pitch](Pitch-Functions)
+-    [Transposition](Transposition-Functions)
 -    [BPM](BPM)
 -    [Panning](Panning)
 -    [Emitters](Emitters)
