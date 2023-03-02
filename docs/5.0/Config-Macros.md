@@ -4,6 +4,8 @@
 
 In addition to Vinyl's [configuration file](Configuration), there are a number of macros that can be adjusted to customise Vinyl to your liking. You can find all these macros in the `__VinylConfigMacros` script. You should adjust these macros as you see fit.
 
+?> Vinyl also has a [few other macros](Debug-Macros) you can tweak to get better debug information.
+
 &nbsp;
 
 ## `VINYL_MAX_GAIN`
