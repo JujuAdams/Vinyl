@@ -1,4 +1,4 @@
-function __VinylClassInstanceMulti() : __VinylClassInstanceCommon() constructor
+function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
 {
     __StateReset();
     

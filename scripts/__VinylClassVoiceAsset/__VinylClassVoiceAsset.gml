@@ -1,4 +1,4 @@
-function __VinylClassInstanceAsset() : __VinylClassInstanceCommon() constructor
+function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
 {
     __StateReset();
     

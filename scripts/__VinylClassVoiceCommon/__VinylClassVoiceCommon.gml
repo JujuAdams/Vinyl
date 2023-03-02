@@ -1,4 +1,4 @@
-function __VinylClassInstanceCommon() constructor
+function __VinylClassVoiceCommon() constructor
 {
     static __patternType = "???";
     
