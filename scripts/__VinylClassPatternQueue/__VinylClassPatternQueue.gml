@@ -56,10 +56,10 @@ function __VinylClassPatternQueue(_name, _adHoc) : __VinylClassPatternCommon() c
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
     }
     
-    static __Play = function(_parentInstance, _vinylEmitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
+    static __Play = function(_parentVoice, _vinylEmitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _instance = __pool.__Depool();
-        _instance.__Instantiate(self, _parentInstance, _vinylEmitter, __assetArray, _loop, _gain, _pitch, _pan, __behavior);
+        _instance.__Instantiate(self, _parentVoice, _vinylEmitter, __assetArray, _loop, _gain, _pitch, _pan, __behavior);
         return _instance;
     }
     

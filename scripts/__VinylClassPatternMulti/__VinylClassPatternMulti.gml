@@ -83,10 +83,10 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
         __blendFactorLocal = _blend;
     }
     
-    static __Play = function(_parentInstance, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
+    static __Play = function(_parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _instance = __pool.__Depool();
-        _instance.__Instantiate(self, _parentInstance, _vinylEmitter, __assetArray, _loop, _gain, _pitch, _pan, __sync, __blendCurve);
+        _instance.__Instantiate(self, _parentVoice, _vinylEmitter, __assetArray, _loop, _gain, _pitch, _pan, __sync, __blendCurve);
         return _instance;
     }
     

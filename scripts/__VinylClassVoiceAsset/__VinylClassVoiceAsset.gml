@@ -35,12 +35,12 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
         __bpmPulse       = false;
     }
     
-    static __Instantiate = function(_pattern, _parentInstance, _vinylEmitter, _sound, _loop, _gain, _pitch, _pan)
+    static __Instantiate = function(_pattern, _parentVoice, _vinylEmitter, _sound, _loop, _gain, _pitch, _pan)
     {
         //Set the sound first so that error message make more sense
         __sound = _sound;
         
-        __StateSetCommon(_pattern, _parentInstance, _vinylEmitter, _loop, _gain, _pitch, _pan);
+        __StateSetCommon(_pattern, _parentVoice, _vinylEmitter, _loop, _gain, _pitch, _pan);
         
         __bpm = __pattern.__bpm;
         

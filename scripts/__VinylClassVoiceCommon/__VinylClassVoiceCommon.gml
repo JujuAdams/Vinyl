@@ -67,12 +67,12 @@ function __VinylClassVoiceCommon() constructor
         __usingPanEmitter = false;
     }
     
-    static __StateSetCommon = function(_pattern, _parentInstance, _emitter, _loop, _gain, _pitch, _pan)
+    static __StateSetCommon = function(_pattern, _parentVoice, _emitter, _loop, _gain, _pitch, _pan)
     {
         static _globalTopLevelArray = __globalData.__topLevelArray;
         
         __pattern        = _pattern;
-        __parentInstance = _parentInstance;
+        __parentInstance = _parentVoice;
         __initialEmitter = _emitter;
         __initialLoop    = _loop;
         __gainLocal      = _gain;
