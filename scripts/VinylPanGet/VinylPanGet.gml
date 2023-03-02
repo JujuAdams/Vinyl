@@ -11,8 +11,8 @@ function VinylPanGet(_id)
     
     var _pan = 0;
     
-    var _instance = _idToVoiceDict[? _id];
-    if (is_struct(_instance))
+    var _voice = _idToVoiceDict[? _id];
+    if (is_struct(_voice))
     {
         if (!_instance.__usingPanEmitter || (_instance.__vinylEmitter == undefined)) return undefined;
         _pan = _instance.__vinylEmitter.__pan;

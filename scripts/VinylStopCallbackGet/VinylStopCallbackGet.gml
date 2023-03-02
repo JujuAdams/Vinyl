@@ -12,6 +12,6 @@ function VinylStopCallbackGet(_id)
 {
     static _idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
     
-    var _instance = _idToVoiceDict[? _id];
-    if (is_struct(_instance)) return _instance.__StopCallbackGet();
+    var _voice = _idToVoiceDict[? _id];
+    if (is_struct(_voice)) return _instance.__StopCallbackGet();
 }

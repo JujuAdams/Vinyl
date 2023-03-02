@@ -11,8 +11,8 @@ function VinylPitchGet(_id)
     
     var _pitch = 1;
     
-    var _instance = _idToVoiceDict[? _id];
-    if (is_struct(_instance))
+    var _voice = _idToVoiceDict[? _id];
+    if (is_struct(_voice))
     {
         _pitch = _instance.__PitchGet();
     }

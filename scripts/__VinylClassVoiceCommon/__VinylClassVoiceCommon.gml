@@ -420,17 +420,17 @@ function __VinylClassVoiceCommon() constructor
     
     static __QueuePush = function(_asset, _dontRepeatLast)
     {
-        __VinylError("Cannot use VinylQueuePush() on an instance of a ", __patternType, " pattern");
+        __VinylError("Cannot use VinylQueuePush() on a ", __patternType, " voice");
     }
     
     static __QueueBehaviorSet = function(_behavior)
     {
-        __VinylError("Cannot use VinylQueueBehaviorSet() on an instance of a ", __patternType, " pattern");
+        __VinylError("Cannot use VinylQueueBehaviorSet() on a ", __patternType, " voice");
     }
     
     static __QueueBehaviorGet = function()
     {
-        __VinylError("Cannot use VinylQueueBehaviorGet() on an instance of a ", __patternType, " pattern");
+        __VinylError("Cannot use VinylQueueBehaviorGet() on a ", __patternType, " voice");
     }
     
     #endregion
@@ -441,37 +441,37 @@ function __VinylClassVoiceCommon() constructor
     
     static __MultiChannelCountGet = function(_asset)
     {
-        __VinylError("Cannot use VinylMultiChannelCountGet() on an instance of a ", __patternType, " pattern");
+        __VinylError("Cannot use VinylMultiChannelCountGet() on a ", __patternType, " voice");
     }
     
     static __MultiGainSet = function(_index, _gain)
     {
-        __VinylError("Cannot use VinylMultiGainSet() on an instance of a ", __patternType, " pattern");
+        __VinylError("Cannot use VinylMultiGainSet() on a ", __patternType, " voice");
     }
     
     static __MultiGainGet = function(_index)
     {
-        __VinylError("Cannot use VinylMultiGainGet() on an instance of a ", __patternType, " pattern");
+        __VinylError("Cannot use VinylMultiGainGet() on a ", __patternType, " voice");
     }
     
     static __MultiBlendSet = function(_blendFactor)
     {
-        __VinylError("Cannot use VinylMultiBlendSet() on an instance of a ", __patternType, " pattern");
+        __VinylError("Cannot use VinylMultiBlendSet() on a ", __patternType, " voice");
     }
     
     static __MultiBlendGet = function()
     {
-        __VinylError("Cannot use VinylMultiBlendGet() on an instance of a ", __patternType, " pattern");
+        __VinylError("Cannot use VinylMultiBlendGet() on a ", __patternType, " voice");
     }
     
     static __MultiSyncSet = function(_state)
     {
-        __VinylError("Cannot use VinylMultiSyncSet() on an instance of a ", __patternType, " pattern");
+        __VinylError("Cannot use VinylMultiSyncSet() on a ", __patternType, " voice");
     }
     
     static __MultiSyncGet = function()
     {
-        __VinylError("Cannot use VinylMultiSyncGet() on an instance of a ", __patternType, " pattern");
+        __VinylError("Cannot use VinylMultiSyncGet() on a ", __patternType, " voice");
     }
     
     static __ApplyBlendFactorRecursive = function()

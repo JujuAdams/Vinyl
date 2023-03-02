@@ -13,8 +13,8 @@ function VinylOutputPitchGet(_id)
     
     var _outputPitch = 1;
     
-    var _instance = _idToVoiceDict[? _id];
-    if (is_struct(_instance))
+    var _voice = _idToVoiceDict[? _id];
+    if (is_struct(_voice))
     {
         _outputPitch = _instance.__PitchOutputGet();
     }

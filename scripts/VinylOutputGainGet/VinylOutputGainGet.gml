@@ -11,8 +11,8 @@ function VinylOutputGainGet(_id)
     
     var _outputGain = 0;
     
-    var _instance = _idToVoiceDict[? _id];
-    if (is_struct(_instance))
+    var _voice = _idToVoiceDict[? _id];
+    if (is_struct(_voice))
     {
         _outputGain = _instance.__GainOutputGet();
     }

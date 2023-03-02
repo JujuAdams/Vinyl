@@ -15,8 +15,8 @@ function VinylQueuePush(_id, _asset, _dontRepeatLast = false)
     static _globalData = __VinylGlobalData();
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
-    var _instance = _idToVoiceDict[? _id];
-    if (is_struct(_instance)) return _instance.__QueuePush(_asset, _dontRepeatLast);
+    var _voice = _idToVoiceDict[? _id];
+    if (is_struct(_voice)) return _instance.__QueuePush(_asset, _dontRepeatLast);
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__QueuePush(_asset, _dontRepeatLast);

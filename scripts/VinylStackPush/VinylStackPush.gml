@@ -7,8 +7,8 @@ function VinylStackPush(_name, _priority, _id)
     static _idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
     static _stackDict        = __VinylGlobalData().__stackDict;
     
-    var _instance = _idToVoiceDict[? _id];
-    if (is_struct(_instance))
+    var _voice = _idToVoiceDict[? _id];
+    if (is_struct(_voice))
     {
         var _stack = _stackDict[$ _name];
         if (!is_struct(_stack))

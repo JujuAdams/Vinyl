@@ -16,6 +16,6 @@ function VinylQueueBehaviorGet(_id)
     static _globalData = __VinylGlobalData();
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
-    var _instance = _idToVoiceDict[? _id];
-    if (is_struct(_instance)) return _instance.__QueueBehaviorGet();
+    var _voice = _idToVoiceDict[? _id];
+    if (is_struct(_voice)) return _instance.__QueueBehaviorGet();
 }

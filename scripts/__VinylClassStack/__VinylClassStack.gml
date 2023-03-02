@@ -13,7 +13,7 @@ function __VinylClassStack(_name) constructor
     __duckPause   = true;
     
     __maxPriority   = -infinity;
-    __instanceArray = [];
+    __voiceArray = [];
     __priorityArray = [];
     
     
@@ -38,16 +38,16 @@ function __VinylClassStack(_name) constructor
         if (__duckPause && (__duckedGain > 0)) __VinylError("Error in ", self, "\n\"pause\" cannot be <true> is \"ducked gain\" is greater than 0");
         
         __maxPriority = -infinity;
-        array_resize(__instanceArray, 0);
+        array_resize(__voiceArray, 0);
         array_resize(__priorityArray, 0);
     }
     
     static __Destroy = function()
     {
         var _i = 0;
-        repeat(array_length(__instanceArray))
+        repeat(array_length(__voiceArray))
         {
-            __instanceArray[_i].__GainDuckSet(1, __duckRate);
+            __voiceArray[_i].__GainDuckSet(1, __duckRate);
             ++_i;
         }
     }
@@ -72,11 +72,11 @@ function __VinylClassStack(_name) constructor
             {
                 if (__priorityArray[_i] == _priority)
                 {
-                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__instanceArray[_i], " on stack \"", __name, "\" shares priorty ", _priority, ", replacing it");
+                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__voiceArray[_i], " on stack \"", __name, "\" shares priorty ", _priority, ", replacing it");
                     
                     //We found an existing instance with the same priority - fade out the existing instance and replace with ourselves
-                    __instanceArray[_i].__GainDuckSet(0, __duckRate, __duckPause, false);
-                    __instanceArray[@ _i] = _instance;
+                    __voiceArray[_i].__GainDuckSet(0, __duckRate, __duckPause, false);
+                    __voiceArray[@ _i] = _instance;
                     return;
                 }
                 
@@ -86,7 +86,7 @@ function __VinylClassStack(_name) constructor
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Adding ", _instance, " to stack \"", __name, "\"");
             
             //If no instance exists to replace, add the incoming instance
-            array_push(__instanceArray, _instance);
+            array_push(__voiceArray, _instance);
             array_push(__priorityArray, _priority);
         }
         else //priority >= maxPriority
@@ -101,18 +101,18 @@ function __VinylClassStack(_name) constructor
                 var _existingPriority = __priorityArray[_i];
                 if (_existingPriority < _priority)
                 {
-                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__instanceArray[_i], " on stack \"", __name, "\" has lesser priorty (", _existingPriority, ") than incoming (", _priority, ")");
+                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__voiceArray[_i], " on stack \"", __name, "\" has lesser priorty (", _existingPriority, ") than incoming (", _priority, ")");
                     
                     //We found an existing instance with a lower priority - duck the existing instance
-                    __instanceArray[_i].__GainDuckSet(__duckedGain, __duckRate, __duckPause, false);
+                    __voiceArray[_i].__GainDuckSet(__duckedGain, __duckRate, __duckPause, false);
                 }
                 else if (_existingPriority == _priority)
                 {
-                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__instanceArray[_i], " on stack \"", __name, "\" shares priorty ", _priority, ", replacing it");
+                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__voiceArray[_i], " on stack \"", __name, "\" shares priorty ", _priority, ", replacing it");
                     
                     //We found an existing instance with the same priority - fade out the existing instance and replace with ourselves
-                    __instanceArray[_i].__GainDuckSet(0, __duckRate, false, true);
-                    __instanceArray[@ _i] = _instance;
+                    __voiceArray[_i].__GainDuckSet(0, __duckRate, false, true);
+                    __voiceArray[@ _i] = _instance;
                     return;
                 }
                 
@@ -122,7 +122,7 @@ function __VinylClassStack(_name) constructor
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Adding ", _instance, " to stack \"", __name, "\"");
             
             //If no instance exists to replace, add the incoming instance
-            array_push(__instanceArray, _instance);
+            array_push(__voiceArray, _instance);
             array_push(__priorityArray, _priority);
         }
     }
@@ -132,7 +132,7 @@ function __VinylClassStack(_name) constructor
         var _i = 0;
         repeat(array_length(__priorityArray))
         {
-            if (__priorityArray[_i] == _priority) return __instanceArray[_i];
+            if (__priorityArray[_i] == _priority) return __voiceArray[_i];
             ++_i;
         }
     }
@@ -145,12 +145,12 @@ function __VinylClassStack(_name) constructor
         
         //Remove any stopped instances
         var _i = 0;
-        repeat(array_length(__instanceArray))
+        repeat(array_length(__voiceArray))
         {
-            if (!__instanceArray[_i].__IsPlaying())
+            if (!__voiceArray[_i].__IsPlaying())
             {
                 if (__priorityArray[_i] >= __maxPriority) _refresh = true;
-                array_delete(__instanceArray, _i, 1);
+                array_delete(__voiceArray, _i, 1);
                 array_delete(__priorityArray, _i, 1);
             }
             else
@@ -166,13 +166,13 @@ function __VinylClassStack(_name) constructor
             var _maxVoice = undefined;
             
             var _i = 0;
-            repeat(array_length(__instanceArray))
+            repeat(array_length(__voiceArray))
             {
                 var _priority = __priorityArray[_i];
                 if (_priority > __maxPriority)
                 {
                     __maxPriority = _priority;
-                    _maxVoice = __instanceArray[_i];
+                    _maxVoice = __voiceArray[_i];
                 }
                 
                 ++_i;

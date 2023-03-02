@@ -13,8 +13,8 @@ function VinylPanSet(_id, _pan)
     static _globalData       = __VinylGlobalData();
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
-    var _instance = _idToVoiceDict[? _id];
-    if (is_struct(_instance))
+    var _voice = _idToVoiceDict[? _id];
+    if (is_struct(_voice))
     {
         if (!_instance.__usingPanEmitter)
         {
