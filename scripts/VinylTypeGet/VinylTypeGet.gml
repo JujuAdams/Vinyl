@@ -1,4 +1,4 @@
-/// Returns the type for a Vinyl instance
+/// Returns the type for a voice
 /// 
 /// The value returned can be one of the following:
 ///   "asset"

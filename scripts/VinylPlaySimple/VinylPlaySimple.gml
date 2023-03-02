@@ -1,4 +1,4 @@
-/// Starts playing an untracked soumd and returns a native GameMaker audio instance ID
+/// Starts playing an untracked soumd and returns a native GameMaker voice ID
 /// This function is a more performant way to play short audio clips
 /// 
 /// You cannot use Vinyl functions to later control/manipulate audio playback when using this function

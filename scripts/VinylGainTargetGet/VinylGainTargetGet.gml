@@ -1,4 +1,4 @@
-/// Returns the current input gain target for a Vinyl playback instance, or a Vinyl label
+/// Returns the current input gain target for a voice or label
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
@@ -14,7 +14,7 @@ function VinylGainTargetGet(_id)
     var _voice = _idToVoiceDict[? _id];
     if (is_struct(_voice))
     {
-        _gainTarget = _instance.__GainTargetGet();
+        _gainTarget = _voice.__GainTargetGet();
     }
     else if (_id == undefined)
     {

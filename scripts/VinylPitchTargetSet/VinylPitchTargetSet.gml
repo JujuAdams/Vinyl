@@ -1,4 +1,4 @@
-/// Sets the input pitch target for a Vinyl playback instance, or a Vinyl label
+/// Sets the input pitch target for a voice or label
 /// The input pitch will approach the target smoothly over a few frames, determined by the rate
 /// 
 /// If this function is given a label name then all currently playing audio assigned with that label will

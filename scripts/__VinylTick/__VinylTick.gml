@@ -32,20 +32,20 @@ function __VinylTick()
         ++_i;
     }
     
-    //Update top-level instances. Each top-level instance then updates its children
+    //Update top-level voices. Each top-level voice then updates its children
     static _topLevelArray = _globalData.__topLevelArray;
     var _i = 0;
     repeat(array_length(_topLevelArray))
     {
-        var _instance = _topLevelArray[_i];
-        if (_instance.__pool == undefined)
+        var _voice = _topLevelArray[_i];
+        if (_voice.__pool == undefined)
         {
-            //If this instance has been pooled then we don't need to update it any more
+            //If this voice has been pooled then we don't need to update it any more
             array_delete(_topLevelArray, _i, 1);
         }
         else
         {
-            _instance.__Tick(_deltaTimeFactor);
+            _voice.__Tick(_deltaTimeFactor);
             ++_i;
         }
     }

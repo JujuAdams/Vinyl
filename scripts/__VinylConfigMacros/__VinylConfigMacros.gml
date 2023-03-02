@@ -1,4 +1,4 @@
-//Maximum output gain for audio instances. Must be greater than or equal to zero
+//Maximum output gain for audio voices. Must be greater than or equal to zero
 //Choose lower values to get more resolution in perceived volume levels
 #macro VINYL_MAX_GAIN  1
 
@@ -10,7 +10,7 @@
 //Measured in units/second
 #macro VINYL_DEFAULT_PITCH_RATE  0.3
 
-//Default rate of gain adjument when a stack ducks a Vinyl instance
+//Default rate of gain adjument when a stack ducks a voice
 //Measured in units/second
 #macro VINYL_DEFAULT_DUCK_GAIN_RATE  1
 
@@ -63,7 +63,7 @@
 //Choose higher values for smooth, less glitchy gain adjustment
 #macro VINYL_STEP_DURATION  50
 
-//Number of audio instances / emitters pre-created in the pool
+//Number of audio voices / emitters pre-created in the pool
 #macro VINYL_POOL_START_SIZE  20
 
 //Listener index to use for Vinyl functions

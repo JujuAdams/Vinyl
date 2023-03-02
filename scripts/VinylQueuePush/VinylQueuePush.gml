@@ -1,6 +1,6 @@
-/// Pushes an asset onto a Vinyl queue instance, or queue instances assigned to a Vinyl label
+/// Pushes an asset onto a Queue voice, or Queue voices assigned to a label
 /// 
-/// If this function is given a label name then all currently playing queue instances assigned
+/// If this function is given a label name then all currently playing Queue voices assigned
 /// with that label will have that asset pushed
 /// 
 /// If the dontRepeatLast argument is set to <true> then a duplicate asset cannot be pushed

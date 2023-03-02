@@ -1,4 +1,4 @@
-/// Returns the persistence state of a Vinyl instance
+/// Returns the persistence state of a voice
 /// 
 /// This function will return <undefined> if passed a label name. This function will further
 /// return <undefined> for audio played using VinylPlaySimple()

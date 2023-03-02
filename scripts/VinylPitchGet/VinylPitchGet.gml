@@ -1,4 +1,4 @@
-/// Returns the current input pitch for a Vinyl playback instance, or a Vinyl label
+/// Returns the current input pitch for a voice or label
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
@@ -14,7 +14,7 @@ function VinylPitchGet(_id)
     var _voice = _idToVoiceDict[? _id];
     if (is_struct(_voice))
     {
-        _pitch = _instance.__PitchGet();
+        _pitch = _voice.__PitchGet();
     }
     else if (_id == undefined)
     {

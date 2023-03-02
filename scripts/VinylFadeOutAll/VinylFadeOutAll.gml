@@ -1,7 +1,7 @@
-/// Fades out all Vinyl playback instances, stopping them once they reach silence
+/// Fades out all Vinyl playback voices, stopping them once they reach silence
 // 
-/// Once a playback instance is fading out, the process cannot be halted or paused
-/// This is called "shutdown" mode, and you can detect if a Vinyl instance is fading
+/// Once a voice is fading out, the process cannot be halted or paused
+/// This is called "shutdown" mode, and you can detect if a voice is fading
 /// out by calling VinylShutdownGet()
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()

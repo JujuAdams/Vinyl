@@ -1,4 +1,4 @@
-/// Returns the current pan for a Vinyl playback instance
+/// Returns the current pan for a voice
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
@@ -14,8 +14,8 @@ function VinylPanGet(_id)
     var _voice = _idToVoiceDict[? _id];
     if (is_struct(_voice))
     {
-        if (!_instance.__usingPanEmitter || (_instance.__vinylEmitter == undefined)) return undefined;
-        _pan = _instance.__vinylEmitter.__pan;
+        if (!_voice.__usingPanEmitter || (_voice.__vinylEmitter == undefined)) return undefined;
+        _pan = _voice.__vinylEmitter.__pan;
     }
     else if (_id == undefined)
     {

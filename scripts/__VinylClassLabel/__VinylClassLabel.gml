@@ -270,7 +270,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __Stop = function()
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Stopping ", array_length(__topLevelArray), " audio instances playing (", self, ")");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Stopping ", array_length(__topLevelArray), " voices playing (", self, ")");
         
         var _i = 0;
         repeat(array_length(__topLevelArray))
@@ -284,7 +284,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __Pause = function()
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pausing ", array_length(__topLevelArray), " audio instances playing (", self, ")");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pausing ", array_length(__topLevelArray), " voices playing (", self, ")");
         
         var _i = 0;
         repeat(array_length(__topLevelArray))
@@ -296,7 +296,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __Resume = function()
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming ", array_length(__topLevelArray), " audio instances playing (", self, ")");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Resuming ", array_length(__topLevelArray), " voices playing (", self, ")");
         
         var _i = 0;
         repeat(array_length(__topLevelArray))
@@ -308,7 +308,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __FadeOut = function(_rate)
     {
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Fading out ", array_length(__topLevelArray), " audio instances (", self, ")");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Fading out ", array_length(__topLevelArray), " voices (", self, ")");
         
         var _i = 0;
         repeat(array_length(__topLevelArray))
@@ -421,8 +421,8 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __VoiceAdd = function(_id)
     {
-        //Add this instance to each label's playing array
-        //Playing instances are removed from labels inside the label's __Tick() method
+        //Add this voice to each label's playing array
+        //Playing voices are removed from labels inside the label's __Tick() method
         //  N.B. This has no protection for duplicate entries!
         array_push(__topLevelArray, _id);
     }

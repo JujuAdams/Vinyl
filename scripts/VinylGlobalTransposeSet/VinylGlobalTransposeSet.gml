@@ -1,6 +1,6 @@
 /// Sets the global transposition state
 /// 
-/// Global transposition only affect Vinyl instances that have had their transposition
+/// Global transposition only affect Vinyl voices that have had their transposition
 /// state set by VinylTransposition() or labels/patterns, even if that value is 0
 /// 
 /// @param semitones

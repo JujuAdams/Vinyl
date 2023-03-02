@@ -1,4 +1,4 @@
-/// Returns the number of playback instance IDs being played for a given Vinyl label
+/// Returns the number of voice IDs being played for a given label
 /// 
 /// @param labelName
 

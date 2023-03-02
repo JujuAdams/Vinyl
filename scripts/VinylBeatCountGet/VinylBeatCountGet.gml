@@ -1,4 +1,4 @@
-/// Returns the total number of beats played for a Vinyl playback instance
+/// Returns the total number of beats played for a voice
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 

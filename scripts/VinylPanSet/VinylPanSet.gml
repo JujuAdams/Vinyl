@@ -1,6 +1,6 @@
-/// Sets the panning for a Vinyl playback instance
+/// Sets the panning for a voice
 /// 
-/// Panning can only be adjusted for Vinyl instances that were played with a panning value
+/// Panning can only be adjusted for Vinyl voices that were played with a panning value
 /// initially, even if that panning value is 0 (centred)
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
@@ -16,14 +16,14 @@ function VinylPanSet(_id, _pan)
     var _voice = _idToVoiceDict[? _id];
     if (is_struct(_voice))
     {
-        if (!_instance.__usingPanEmitter)
+        if (!_voice.__usingPanEmitter)
         {
-            __VinylError("Cannot set panning for a Vinyl instance that was not created with a panning value");
+            __VinylError("Cannot set panning for a voice that was not created with a panning value");
         }
         
-        if (_instance.__vinylEmitter != undefined)
+        if (_voice.__vinylEmitter != undefined)
         {
-            _instance.__vinylEmitter.__Pan(_pan);
+            _voice.__vinylEmitter.__Pan(_pan);
         }
     }
     

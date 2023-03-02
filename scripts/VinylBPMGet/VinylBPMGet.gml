@@ -1,4 +1,4 @@
-/// Returns the BPM for a Vinyl playback instance
+/// Returns the BPM for a voice
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
@@ -12,8 +12,8 @@ function VinylBPMGet(_id, _pitchAdjusted = false)
     var _voice = _idToVoiceDict[? _id];
     if (is_struct(_voice))
     {
-        var _bpm = _instance.__PersistentGet();
-        if (_pitchAdjusted) _bpm *= _instance.__PitchGet();
+        var _bpm = _voice.__PersistentGet();
+        if (_pitchAdjusted) _bpm *= _voice.__PitchGet();
         return _bpm;
     }
     

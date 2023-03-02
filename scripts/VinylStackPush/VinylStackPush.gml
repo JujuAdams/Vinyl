@@ -17,6 +17,6 @@ function VinylStackPush(_name, _priority, _id)
             return;
         }
         
-        return _stack.__Push(_priority, _instance, false);
+        return _stack.__Push(_priority, _voice, false);
     }
 }

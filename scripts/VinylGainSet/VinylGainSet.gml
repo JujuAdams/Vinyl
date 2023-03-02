@@ -14,7 +14,7 @@ function VinylGainSet(_target, _gain)
     static _globalData = __VinylGlobalData();
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
-    var _instance = _idToVoiceDict[? _target];
+    var _voice = _idToVoiceDict[? _target];
     if (is_struct(_voice)) return _voice.__GainSet(_gain);
     
     var _label = _globalData.__labelDict[$ _target];

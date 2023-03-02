@@ -1,4 +1,4 @@
-/// Returns the current input pitch target for a Vinyl playback instance, or a Vinyl label
+/// Returns the current input pitch target for a voice or label
 /// 
 /// This function will not affect currently playing audio played using VinylPlaySimple()
 /// 
@@ -14,7 +14,7 @@ function VinylPitchTargetGet(_id)
     var _voice = _idToVoiceDict[? _id];
     if (is_struct(_voice))
     {
-        _pitchTarget = _instance.__PitchTargetGet();
+        _pitchTarget = _voice.__PitchTargetGet();
     }
     else if (_id == undefined)
     {

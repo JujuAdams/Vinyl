@@ -1,4 +1,4 @@
-/// Adds an on-stop callback to a playback instance, or all instances assigned to the given label
+/// Adds an on-stop callback to a voice, or all voices assigned to the given label
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 

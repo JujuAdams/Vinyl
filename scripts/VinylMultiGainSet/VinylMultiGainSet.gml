@@ -1,8 +1,8 @@
-/// Sets the gain for a channel for a Vinyl Multi instance, or Vinyl label
-/// This gain is applied multiplicatively with the overall gain of the Multi instance
+/// Sets the gain for a channel for a Multi voice, or label
+/// This gain is applied multiplicatively with the overall gain of the Multi voice
 /// Setting a channel gain with this function overrides VinylMultiBlendSet()
 /// 
-/// If this function is given a label name then all current multi instances assigned to that label
+/// If this function is given a label name then all current multi voices assigned to that label
 /// will have their channel gain adjusted
 /// 
 /// @param vinylID

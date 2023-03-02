@@ -1,6 +1,6 @@
-/// Sets behaviour for a Vinyl queue instance, or queue instances assigned to a Vinyl label
+/// Sets behaviour for a Queue voice, or Queue voices assigned to a label
 /// 
-/// If this function is given a label name then all currently playing queue instances assigned
+/// If this function is given a label name then all currently playing Queue voices assigned
 /// with that label will have their behaviour set
 /// 
 /// The behaviour value must be one of the following:

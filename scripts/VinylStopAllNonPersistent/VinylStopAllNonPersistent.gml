@@ -1,4 +1,4 @@
-/// Immediately stops all non-persistent Vinyl playback instances
+/// Immediately stops all non-persistent Vinyl playback voices
 /// 
 /// This function will NOT affect audio played by VinylPlaySimple()
 

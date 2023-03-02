@@ -1,12 +1,12 @@
-/// Sets the blend factor for a Vinyl Multi instance, or Vinyl label
-/// This gain is applied multiplicatively with the overall gain of the Multi instance
+/// Sets the blend factor for a Multi voice, or label
+/// This gain is applied multiplicatively with the overall gain of the Multi voice
 /// Setting a channel gain with this function overrides VinylMultiGainSet()
 /// 
-/// The blend factor smoothly interpolates the gain across channels in a Multi instance. The
+/// The blend factor smoothly interpolates the gain across channels in a Multi voice. The
 /// blend factor should be a value from 0 to 1 (inclusive). Vinyl internally recalculates gain
 /// per channel depending on the blend factor provided
 /// 
-/// If this function is given a label name then all current multi instances assigned to that label
+/// If this function is given a label name then all current multi voices assigned to that label
 /// will have their blend factor adjusted
 /// 
 /// @param vinylID

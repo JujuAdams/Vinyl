@@ -57,16 +57,16 @@ function __VinylClassStack(_name) constructor
         return __maxPriority;
     }
     
-    static __Push = function(_priority, _instance, _onInstantiate)
+    static __Push = function(_priority, _voice, _onInstantiate)
     {
         if (_priority < __maxPriority)
         {
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pushing ", _instance, " to stack \"", __name, "\" with lower priorty (", _priority, ") versus max (", __maxPriority, ")");
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pushing ", _voice, " to stack \"", __name, "\" with lower priorty (", _priority, ") versus max (", __maxPriority, ")");
             
             //We should duck down straight away since we're at a lower priority
-            _instance.__GainDuckSet(__duckedGain, _onInstantiate? infinity : __duckRate, __duckPause, false);
+            _voice.__GainDuckSet(__duckedGain, _onInstantiate? infinity : __duckRate, __duckPause, false);
             
-            //Try to find an existing instance to replace
+            //Try to find an existing voice to replace
             var _i = 0;
             repeat(array_length(__priorityArray))
             {
@@ -74,24 +74,24 @@ function __VinylClassStack(_name) constructor
                 {
                     if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__voiceArray[_i], " on stack \"", __name, "\" shares priorty ", _priority, ", replacing it");
                     
-                    //We found an existing instance with the same priority - fade out the existing instance and replace with ourselves
+                    //We found an existing voice with the same priority - fade out the existing voice and replace with ourselves
                     __voiceArray[_i].__GainDuckSet(0, __duckRate, __duckPause, false);
-                    __voiceArray[@ _i] = _instance;
+                    __voiceArray[@ _i] = _voice;
                     return;
                 }
                 
                 ++_i;
             }
             
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Adding ", _instance, " to stack \"", __name, "\"");
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Adding ", _voice, " to stack \"", __name, "\"");
             
-            //If no instance exists to replace, add the incoming instance
-            array_push(__voiceArray, _instance);
+            //If no voice exists to replace, add the incoming voice
+            array_push(__voiceArray, _voice);
             array_push(__priorityArray, _priority);
         }
         else //priority >= maxPriority
         {
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pushing ", _instance, " to stack \"", __name, "\" with sufficient priorty (", _priority, ") versus max (", __maxPriority, ")");
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pushing ", _voice, " to stack \"", __name, "\" with sufficient priorty (", _priority, ") versus max (", __maxPriority, ")");
             
             __maxPriority = _priority;
             
@@ -103,26 +103,26 @@ function __VinylClassStack(_name) constructor
                 {
                     if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__voiceArray[_i], " on stack \"", __name, "\" has lesser priorty (", _existingPriority, ") than incoming (", _priority, ")");
                     
-                    //We found an existing instance with a lower priority - duck the existing instance
+                    //We found an existing voice with a lower priority - duck the existing voice
                     __voiceArray[_i].__GainDuckSet(__duckedGain, __duckRate, __duckPause, false);
                 }
                 else if (_existingPriority == _priority)
                 {
                     if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__voiceArray[_i], " on stack \"", __name, "\" shares priorty ", _priority, ", replacing it");
                     
-                    //We found an existing instance with the same priority - fade out the existing instance and replace with ourselves
+                    //We found an existing voice with the same priority - fade out the existing voice and replace with ourselves
                     __voiceArray[_i].__GainDuckSet(0, __duckRate, false, true);
-                    __voiceArray[@ _i] = _instance;
+                    __voiceArray[@ _i] = _voice;
                     return;
                 }
                 
                 ++_i;
             }
             
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Adding ", _instance, " to stack \"", __name, "\"");
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Adding ", _voice, " to stack \"", __name, "\"");
             
-            //If no instance exists to replace, add the incoming instance
-            array_push(__voiceArray, _instance);
+            //If no voice exists to replace, add the incoming voice
+            array_push(__voiceArray, _voice);
             array_push(__priorityArray, _priority);
         }
     }
@@ -143,7 +143,7 @@ function __VinylClassStack(_name) constructor
         
         var _refresh = false;
         
-        //Remove any stopped instances
+        //Remove any stopped voices
         var _i = 0;
         repeat(array_length(__voiceArray))
         {
@@ -161,7 +161,7 @@ function __VinylClassStack(_name) constructor
         
         if (_refresh)
         {
-            //Find the instance with the highest priority
+            //Find the voice with the highest priority
             __maxPriority = -infinity;
             var _maxVoice = undefined;
             
@@ -178,7 +178,7 @@ function __VinylClassStack(_name) constructor
                 ++_i;
             }
             
-            //Activate whatever instance is now the highest priority
+            //Activate whatever voice is now the highest priority
             if (_maxVoice != undefined)
             {
                 _maxVoice.__Resume();

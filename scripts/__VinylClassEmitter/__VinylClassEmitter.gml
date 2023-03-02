@@ -42,7 +42,7 @@ function __VinylClassEmitter() constructor
         __falloffMax    = VINYL_DEFAULT_FALLOFF_MAX;
         __falloffFactor = VINYL_DEFAULT_FALLOFF_FACTOR;
         
-        __instanceIDArray = [];
+        __voiceIDArray = [];
         
         audio_emitter_position(__emitter, __actualX, __actualY, 0);
         audio_emitter_velocity(__emitter, 0, 0, 0);
@@ -155,7 +155,7 @@ function __VinylClassEmitter() constructor
     
     static __VoiceAdd = function(_id)
     {
-        array_push(__instanceIDArray, __id);
+        array_push(__voiceIDArray, __id);
     }
     
     static __VoiceRemove = function(_id)
@@ -170,7 +170,7 @@ function __VinylClassEmitter() constructor
         });
         
         _closure.__value = _id;
-        array_resize(__instanceIDArray, array_filter_ext(__instanceIDArray, _function));
+        array_resize(__voiceIDArray, array_filter_ext(__voiceIDArray, _function));
     }
     
     static __ManagePosition = function()
@@ -214,11 +214,11 @@ function __VinylClassEmitter() constructor
     
     static __PoolCallback = function()
     {
-        //Stop all instances playing on this emitter
+        //Stop all voices playing on this emitter
         var _i = 0;
-        repeat(array_length(__instanceIDArray))
+        repeat(array_length(__voiceIDArray))
         {
-            VinylStop(__instanceIDArray[_i]);
+            VinylStop(__voiceIDArray[_i]);
             ++_i;
         }
         

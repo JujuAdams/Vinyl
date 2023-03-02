@@ -1,4 +1,4 @@
-/// Returns the current transposition for a Vinyl playback instance, or a Vinyl label
+/// Returns the current transposition for a voice or label
 /// 
 /// This function does NOT take into account global transposition
 /// 

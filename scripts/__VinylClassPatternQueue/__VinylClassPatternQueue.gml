@@ -58,9 +58,9 @@ function __VinylClassPatternQueue(_name, _adHoc) : __VinylClassPatternCommon() c
     
     static __Play = function(_parentVoice, _vinylEmitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
-        var _instance = __pool.__Depool();
-        _instance.__Instantiate(self, _parentVoice, _vinylEmitter, __assetArray, _loop, _gain, _pitch, _pan, __behavior);
-        return _instance;
+        var _voice = __pool.__Depool();
+        _voice.__Instantiate(self, _parentVoice, _vinylEmitter, __assetArray, _loop, _gain, _pitch, _pan, __behavior);
+        return _voice;
     }
     
     static __PlaySimple = function(_sound, _gain = 1, _pitch = 1)

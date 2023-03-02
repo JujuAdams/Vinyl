@@ -1,4 +1,4 @@
-/// Returns the current output pitch for a Vinyl playback instance, or a Vinyl label
+/// Returns the current output pitch for a voice or label
 /// 
 /// The value returned takes into account transposition, both local and global
 /// 
@@ -16,7 +16,7 @@ function VinylOutputPitchGet(_id)
     var _voice = _idToVoiceDict[? _id];
     if (is_struct(_voice))
     {
-        _outputPitch = _instance.__PitchOutputGet();
+        _outputPitch = _voice.__PitchOutputGet();
     }
     else if (_id == undefined)
     {

@@ -1,4 +1,4 @@
-/// Returns the current input gain for a Vinyl playback instance, or a Vinyl label
+/// Returns the current input gain for a voice or label
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
@@ -14,7 +14,7 @@ function VinylGainGet(_id)
     var _voice = _idToVoiceDict[? _id];
     if (is_struct(_voice))
     {
-        _gain = _instance.__GainGet();
+        _gain = _voice.__GainGet();
     }
     else if (_id == undefined)
     {

@@ -48,9 +48,9 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     
     static __Play = function(_parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
-        var _instance = __pool.__Depool();
-        _instance.__Instantiate(self, _parentVoice, _vinylEmitter, _sound, _loop, _gain, _pitch, _pan);
-        return _instance;
+        var _voice = __pool.__Depool();
+        _voice.__Instantiate(self, _parentVoice, _vinylEmitter, _sound, _loop, _gain, _pitch, _pan);
+        return _voice;
     }
     
     static __PlaySimple = function(_sound, _gain = 1, _pitch = 1)

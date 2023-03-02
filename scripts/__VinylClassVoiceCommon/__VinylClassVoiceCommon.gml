@@ -302,7 +302,7 @@ function __VinylClassVoiceCommon() constructor
     {
         __persistent = _state;
         
-        //If the state is <undefined> then re-evaluate the inherited persistence of the instance
+        //If the state is <undefined> then re-evaluate the inherited persistence of the voice
         if (_state == undefined) __PersistenceResolve();
     }
     
@@ -623,7 +623,7 @@ function __VinylClassVoiceCommon() constructor
     
     static __LabelAdd = function()
     {
-        //Only add top-level instances to labels
+        //Only add top-level voices to labels
         if (__parentVoice == undefined)
         {
             var _i = 0;
@@ -637,7 +637,7 @@ function __VinylClassVoiceCommon() constructor
     
     static __LabelRemove = function()
     {
-        //Only top-level instances can be assigned to labels
+        //Only top-level voices can be assigned to labels
         if (__parentVoice == undefined)
         {
             var _i = 0;
@@ -653,7 +653,7 @@ function __VinylClassVoiceCommon() constructor
     {
         static __stackDict = __VinylGlobalData().__stackDict;
         
-        //Only top-level instances can be pushed to a stack
+        //Only top-level voices can be pushed to a stack
         if (__parentVoice == undefined)
         {
             var _stackName     = __pattern.__stackName;

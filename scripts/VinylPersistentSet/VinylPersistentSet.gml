@@ -1,8 +1,8 @@
-/// Sets the persistence state of a Vinyl instance
+/// Sets the persistence state of a voice
 /// 
-/// If passed a label name, every audio instance currently assigned to the label will
+/// If passed a label name, every voice currently assigned to the label will
 /// individually have its persistence state set. This is the same as calling VinylPersistentSet()
-/// for each individual audio instance
+/// for each individual voice
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 

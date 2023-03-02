@@ -1,4 +1,4 @@
-/// Instantly stops a playback instance, or all instances assigned to the given label
+/// Instantly stops a voice, or all voices assigned to the given label
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 

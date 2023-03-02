@@ -1,8 +1,8 @@
-/// Pauses a Vinyl playback instance, or all audio playing with the given label
+/// Pauses a voice, or all audio playing with the given label
 /// 
-/// If passed a label name, every audio instance currently assigned to the label will
+/// If passed a label name, every voice currently assigned to the label will
 /// individually be paused. This is the same as calling VinylPause() for each individual
-/// audio instance. The label itself has no "is paused" state
+/// voice. The label itself has no "is paused" state
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
@@ -14,7 +14,7 @@ function VinylPause(_id)
     static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _id];
-    if (is_struct(_voice)) _instance.__Pause();
+    if (is_struct(_voice)) _voice.__Pause();
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__Pause();

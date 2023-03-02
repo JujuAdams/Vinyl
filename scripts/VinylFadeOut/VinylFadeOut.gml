@@ -1,12 +1,12 @@
-/// Fades out a Vinyl playback instance, stopping it once it reaches silence
+/// Fades out a voice, stopping it once it reaches silence
 /// 
-/// Once a playback instance is fading out, the process cannot be halted or paused
-/// This is called "shutdown" mode, and you can detect if a Vinyl instance is fading
+/// Once a voice is fading out, the process cannot be halted or paused
+/// This is called "shutdown" mode, and you can detect if a voice is fading
 /// out by calling VinylShutdownGet()
 /// 
-/// If passed a label name, every audio instance currently assigned to the label will
+/// If passed a label name, every voice currently assigned to the label will
 /// individually fade out. This is the same as calling VinylFadeOut() for each individual
-/// audio instance. The gain target for the label itself is NOT affected
+/// voice. The gain target for the label itself is NOT affected
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 

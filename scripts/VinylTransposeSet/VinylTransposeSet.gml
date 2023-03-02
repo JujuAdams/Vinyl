@@ -1,6 +1,6 @@
-/// Sets the transposition of a Vinyl playback instance, or Vinyl label
+/// Sets the transposition of a voice, or label
 /// 
-/// Transposition is applied multiplicatively with pitch. Any Vinyl instance that has transposition
+/// Transposition is applied multiplicatively with pitch. Any voice that has transposition
 /// set (even if that value is 0) will further be affected by the global transposition value. See
 /// VinylGlobalTranspositionSet() for more details
 /// 

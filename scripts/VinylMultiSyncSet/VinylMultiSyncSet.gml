@@ -1,6 +1,6 @@
-/// Sets the synchronisation state for a Vinyl Multi instance, or Vinyl label
+/// Sets the synchronisation state for a Multi voice, or label
 /// 
-/// If this function is given a label name then all current multi instances assigned to that label
+/// If this function is given a label name then all current multi voices assigned to that label
 /// will have their synchronisation state adjusted
 /// 
 /// @param vinylID

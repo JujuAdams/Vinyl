@@ -381,10 +381,10 @@ function VinylSystemReadConfig(_configData)
         _pattern.__Migrate();
     });
     
-    //Migrate all of our top-level instances to the new config data
-    array_foreach(_globalData.__topLevelArray, function(_instance)
+    //Migrate all of our top-level voices to the new config data
+    array_foreach(_globalData.__topLevelArray, function(_voice)
     {
-        _instance.__Migrate();
+        _voice.__Migrate();
     });
     
     //Update all values from knobs

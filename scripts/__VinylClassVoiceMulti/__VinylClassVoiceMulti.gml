@@ -311,19 +311,19 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
         var _i = 0;
         repeat(array_length(_assetArray))
         {
-            //Start an instance for this track
+            //Start a voice for this track
             var _asset = _assetArray[_i];
-            var _instance = __VinylPatternGet(_asset).__Play(self, __initialEmitter, _asset, __initialLoop, __gainArray[_i], 1, __pan);
-            __childArray[@ _i] = _instance;
+            var _voice = __VinylPatternGet(_asset).__Play(self, __initialEmitter, _asset, __initialLoop, __gainArray[_i], 1, __pan);
+            __childArray[@ _i] = _voice;
             
-            //And then find the shortest instance and use that for syncing purposes
-            var _length = _instance.__LengthGet();
+            //And then find the shortest voice and use that for syncing purposes
+            var _length = _voice.__LengthGet();
             if (_length < _shortestLength)
             {
                 _shortestLength = _length;
                 
                 __shortestIndex        = _i;
-                __shortestPrevPosition = _instance.__PositionGet();
+                __shortestPrevPosition = _voice.__PositionGet();
             }
             
             ++_i;
@@ -350,7 +350,7 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
     {
         if ((__shortestIndex >= array_length(__childArray)) || !__childArray[__shortestIndex].__IsPlaying())
         {
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Shortest instance for ", self, " is no longer playing, returning to pool");
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Shortest voice for ", self, " is no longer playing, returning to pool");
             __VINYL_RETURN_SELF_TO_POOL
         }
         else
@@ -363,13 +363,13 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
                     if (_shortestPosition < __shortestPrevPosition)
                     {
                         //We've looped!
-                        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace(self, " shortest instance ", __childArray[__shortestIndex], " has looped, setting position for all other instances");
+                        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace(self, " shortest voice ", __childArray[__shortestIndex], " has looped, setting position for all other voices");
                         
                         var _i = 0;
                         repeat(array_length(__childArray))
                         {
-                            var _instance = __childArray[_i];
-                            _instance.__PositionSet(_shortestPosition);
+                            var _voice = __childArray[_i];
+                            _voice.__PositionSet(_shortestPosition);
                             ++_i;
                         }
                     }

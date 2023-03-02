@@ -1,4 +1,4 @@
-/// Starts playing a sound by fading it in, and returns a Vinyl ID to identify the playback instance
+/// Starts playing a sound by fading it in, and returns an ID to identify the voice
 /// 
 /// @param sound
 /// @param [loop]
