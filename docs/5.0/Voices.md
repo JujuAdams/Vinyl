@@ -16,16 +16,16 @@ Voices can have their gain and pitch altered on the fly, as well as their pan po
 
 Voices have no configuration properties because they're created on demand at runtime. They do, however, inherit properties on instantiation by drawing on values set in assets, patterns, and labels. This, regretably, is complex. I've done my best to make it clear!
 
-|Property      |Notes                           |
-|--------------|--------------------------------|
-|Label         |                                |
-|Gain          |                                |
-|Pitch         |                                |
-|Transpose     |                                |
-|Loop          |                                |
-|Effect chain  |                                |
-|Stack         |                                |
-|Stack priority|                                |
+|Property      |Notes                                                                                                                                                                             |
+|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|Label         |Inherited cumulatively                                                                                                                                                            |
+|Gain          |Inherited multiplicatively. See [gain documentation](Gain)                                                                                                                        |
+|Pitch         |Inherited multiplicatively. See [pitch documentation](Pitch)                                                                                                                      |
+|Transpose     |Inherited additively. See [transposition documentation](Transposition)                                                                                                            |
+|Loop          |Loop state set via `VinylPlay()` function takes precedence, otherwise the loop state on our pattern takes precedence, otherwise `true` if any of our labels are configured to loop|
+|Effect chain  |Inherited from the parent voice if defined, otherwise use our own effect chain defined by our pattern                                                                             |
+|Stack         |**Only applies to top-level voices.** Use our pattern's stack, otherwise use the first defined stack we find from our labels                                                      |
+|Stack priority|**Only applies to top-level voices.** Choose the maximum priority from our pattern and our labels                                                                                 |
 
 &nbsp;
 
