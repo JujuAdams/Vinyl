@@ -10,7 +10,7 @@
 
 function VinylShutdownGet(_id)
 {
-    static __idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
-    var _instance = __idToInstanceDict[? _id];
+    static __idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
+    var _instance = __idToVoiceDict[? _id];
     return is_struct(_instance)? (_instance.__shutdown || _instance.__stopCallback) : undefined;
 }

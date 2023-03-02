@@ -139,7 +139,7 @@ function __VinylClassStack(_name) constructor
     
     static __Tick = function()
     {
-        static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+        static _idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
         
         var _refresh = false;
         

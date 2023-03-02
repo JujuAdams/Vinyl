@@ -111,7 +111,7 @@ UIButtonInline("Persistent toggle", function()
 
 UINewline();
 
-UITextInline("\"music\" label count = " + string(VinylLabelInstanceCountGet("music")));
+UITextInline("\"music\" label count = " + string(VinylLabelVoiceCountGet("music")));
 
 UIButtonInline("Stop \"music\" label", function()
 {

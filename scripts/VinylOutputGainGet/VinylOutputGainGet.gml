@@ -7,11 +7,11 @@
 function VinylOutputGainGet(_id)
 {
     static _globalData = __VinylGlobalData();
-    static _idToInstanceDict = _globalData.__idToInstanceDict;
+    static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _outputGain = 0;
     
-    var _instance = _idToInstanceDict[? _id];
+    var _instance = _idToVoiceDict[? _id];
     if (is_struct(_instance))
     {
         _outputGain = _instance.__GainOutputGet();

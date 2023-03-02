@@ -7,9 +7,9 @@
 
 function VinylBPMGet(_id, _pitchAdjusted = false)
 {
-    static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+    static _idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
     
-    var _instance = _idToInstanceDict[? _id];
+    var _instance = _idToVoiceDict[? _id];
     if (is_struct(_instance))
     {
         var _bpm = _instance.__PersistentGet();

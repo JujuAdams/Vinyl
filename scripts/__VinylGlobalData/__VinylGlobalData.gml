@@ -8,7 +8,7 @@ function __VinylGlobalData()
         __listenerX: 0,
         __listenerY: 0,
         
-        __idToInstanceDict: ds_map_create(),
+        __idToVoiceDict: ds_map_create(),
         
         __transpose: 0,
         

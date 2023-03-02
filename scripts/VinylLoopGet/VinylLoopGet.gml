@@ -7,8 +7,8 @@
 
 function VinylLoopGet(_id)
 {
-    static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+    static _idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
     
-    var _instance = _idToInstanceDict[? _id];
+    var _instance = _idToVoiceDict[? _id];
     if (is_struct(_instance)) return _instance.__LoopGet();
 }

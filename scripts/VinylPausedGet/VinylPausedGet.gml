@@ -8,7 +8,7 @@
 
 function VinylPausedGet(_id)
 {
-    static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
-    var _instance = _idToInstanceDict[? _id];
+    static _idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
+    var _instance = _idToVoiceDict[? _id];
     return (_instance == undefined)? undefined : _instance.__PauseGet();
 }

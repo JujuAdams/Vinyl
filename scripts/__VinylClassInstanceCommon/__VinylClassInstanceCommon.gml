@@ -3,7 +3,7 @@ function __VinylClassInstanceCommon() constructor
     static __patternType = "???";
     
     static __globalData       = __VinylGlobalData();
-    static __idToInstanceDict = __globalData.__idToInstanceDict;
+    static __idToVoiceDict = __globalData.__idToVoiceDict;
     static __effectChainDict  = __globalData.__effectChainDict;
     
     __id   = undefined;
@@ -715,12 +715,12 @@ function __VinylClassInstanceCommon() constructor
     
     static __DepoolCallback = function()
     {
-        __idToInstanceDict[? __id] = self;
+        __idToVoiceDict[? __id] = self;
     }
     
     static __PoolCallback = function()
     {
-        ds_map_delete(__idToInstanceDict, __id);
+        ds_map_delete(__idToVoiceDict, __id);
         
         __EmitterRemove();
         __LabelRemove();

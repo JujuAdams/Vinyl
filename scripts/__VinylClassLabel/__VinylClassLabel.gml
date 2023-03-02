@@ -4,7 +4,7 @@
 
 function __VinylClassLabel(_name, _parent, _adHoc) constructor
 {
-    static __idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
+    static __idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
     
     __name   = _name;
     __parent = _parent;
