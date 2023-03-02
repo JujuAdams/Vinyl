@@ -2,9 +2,6 @@
 
 &nbsp;
 
-Functions on this page relate to using Vinyl at a basic level - playing audio, stopping audio, and pausing/resuming audio.
-
-&nbsp;
 
 ## `VinylPlaySimple`
 
