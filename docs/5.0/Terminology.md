@@ -6,12 +6,6 @@ Vinyl uses standard audio terminology where appropriate. On top of this, Vinyl h
 
 &nbsp;
 
-## Components
-
-Vinyl has a lot of internal moving pieces that control playback of audio. These range from basic volume adjustment to crossfading of tracks to automated effect bus manipulation and more besides. It's quite the jigsaw puzzle with lots of different pieces that interlock in different ways. These pieces come in differentiated types, and we call each type of logic a "component". Vinyl currently 
-
-&nbsp;
-
 ## Asset
 
 An asset is any [sound asset](https://manual.yoyogames.com/The_Asset_Editors/Sounds.htm) added to the GameMaker IDE. You should aim to further define properties for these assets to [Vinyl's internal configuration file](Configuration) in order to take advantage of Vinyl's features. Vinyl allows you to control the gain and pitch for assets, as well as assigning assets to labels for bulk control.
