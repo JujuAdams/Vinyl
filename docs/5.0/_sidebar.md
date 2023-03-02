@@ -10,6 +10,7 @@
 -    [Config Macros](Config-Macros)
 -    [Debug Macros](Debug-Macros)
 -    [Configuration Syntax](Configuration-Syntax)
+-    [Labels](Labels)
 
 ---
 
@@ -25,6 +26,7 @@
 -    [Transposition](Transposition)
 -    [BPM](BPM)
 -    [Positional](Positional)
+-    [Shuffle Patterns](Shuffle-Patterns)
 -    [Queue Patterns](Queue-Patterns)
 -    [Multi Patterns](Multi-Patterns)
 -    [Stacks](Stacks)
