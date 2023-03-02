@@ -16,11 +16,11 @@
 - Multi-inheritance using Vinyl's ["labels"](Labels) (similar to audio groups)
 - Integral [shuffle](Shuffle-Patterns), [queue](Queue-Patterns), and [multi patterns](Multi-Patterns)
 - Modular design that allows for nested patterns to create even more complex behaviours
-- [Native panning](Positional)
+- [Native panning](Panning)
 - Improved natural [gain curves](Gain)
 - [Pitch randomisation](Pitch) 
 - Out-of-the-box [BPM tracking](BPM) for audio
-- Improved [positional audio](Positional) via region emitters
+- Improved [positional audio](Emitters) via region emitters
 - [Musical transposition](Transposition) per asset and across all assets
 - System-wide parameter tweaking using ["knobs"](Knobs)
 

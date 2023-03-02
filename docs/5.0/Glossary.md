@@ -12,7 +12,7 @@ You can read in-depth information for different terms here:
 - [Multi Patterns](Multi-Patterns)
 - [Voices](Voices)
 - [Labels](Labels)
-- [Emitters](Positional)
+- [Emitters](Emitters)
 - [Effect Chains](Effect-Chains)
 - [Knobs](Knobs)
 
