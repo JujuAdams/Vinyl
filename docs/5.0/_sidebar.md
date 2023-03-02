@@ -25,6 +25,7 @@
 -    [Transposition](Transposition)
 -    [BPM](BPM)
 -    [Positional](Positional)
+-    [Emitters](Emitters)
 -    [Shuffle Patterns](Shuffle-Patterns)
 -    [Queue Patterns](Queue-Patterns)
 -    [Multi Patterns](Multi-Patterns)
