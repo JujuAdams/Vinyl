@@ -2,6 +2,10 @@
 
 &nbsp;
 
+An asset is any [sound asset](https://manual.yoyogames.com/The_Asset_Editors/Sounds.htm) added to the GameMaker IDE. You should aim to further define properties for these assets to [Vinyl's internal configuration file](Configuration) in order to take advantage of Vinyl's features. Vinyl allows you to control the gain and pitch for assets, as well as assigning assets to labels for bulk control.
+
+&nbsp;
+
 ## Configuration Properties
 
 |Property        |Datatype        |Default                             |Notes                                                                                                      |
@@ -15,5 +19,5 @@
 |`stack`         |string          |*passthrough*                       |                                                                                                           |
 |`stack priority`|number          |`0`                                 |                                                                                                           |
 |`effect chain`  |string          |*passthrough*                       |                                                                                                           |
-|`label`         |string or array |`[]`                                |Label to assign this asset to. Can be a string for for label, or an array of label names                   |
+|`label`         |string or array |`[]`                                |Label to assign this asset to. Can be a string for a single label, or an array of label names              |
 |`persistent`    |boolean         |*passthrough*                       |                                                                                                           |
