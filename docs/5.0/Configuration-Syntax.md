@@ -138,11 +138,13 @@ The config file must contain a single struct, and each member variable in that s
 
 # Properties Overview
 
+The following is a cheat sheet of properties that each Vinyl component can have. Following the links underneath each heading to see more detailed information on how each component behaves.
+
 &nbsp;
 
 ## Assets
 
-You can read more about assets [here](Terminology).
+You can read more about assets [here](Assets).
 
 |Name            |Datatype        |Default                             |Notes                                                                                                      |
 |----------------|----------------|------------------------------------|-----------------------------------------------------------------------------------------------------------|
@@ -162,7 +164,7 @@ You can read more about assets [here](Terminology).
 
 ## Labels
 
-You can read more about labels [here](Terminology).
+You can read more about labels [here](Labels).
 
 |Name            |Datatype        |Default      |Notes                                                                                                      |
 |----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------|
@@ -180,7 +182,7 @@ You can read more about labels [here](Terminology).
 
 ## Stacks
 
-You can read more about stacks [here](Terminology).
+You can read more about stacks [here](Stacks).
 
 |Name         |Datatype|Default                                        |Notes                                                                                           |
 |-------------|--------|-----------------------------------------------|------------------------------------------------------------------------------------------------|
@@ -192,7 +194,11 @@ You can read more about stacks [here](Terminology).
 
 ## Patterns
 
-You can read more about patterns [here](Terminology).
+You can read more about patterns by following these links
+- [Basic](Basic-Patterns)
+- [Shuffle](Shuffle-Patterns)
+- [Queue](Queue-Patterns)
+- [Multi](Multi-Patterns)
 
 |Name            |Datatype        |Default      |Notes                                                                                                                        |
 |----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------------------------|
@@ -224,7 +230,7 @@ The following properties are only relevant for particular pattern types:
 
 ## Knobs
 
-You can read more about knobs [here](Terminology).
+You can read more about knobs [here](Knobs).
 
 |Name          |Datatype        |Default |Notes                                                                                                                           |
 |--------------|----------------|--------|--------------------------------------------------------------------------------------------------------------------------------|
@@ -236,7 +242,7 @@ You can read more about knobs [here](Terminology).
 
 ## Effect Chains
 
-You can read more about effect chains [here](Terminology).
+You can read more about effect chains [here](Effect-Chains).
 
 An effect chain should be defined as an array with, at most, 8 elements. Each element in the array defines an effect in the chain and must be a struct whose properties depend on what type the effect is.
 
