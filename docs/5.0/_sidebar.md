@@ -24,7 +24,7 @@
 -    [Pitch](Pitch)
 -    [Transposition](Transposition)
 -    [BPM](BPM)
--    [Positional](Positional)
+-    [Panning](Panning)
 -    [Emitters](Emitters)
 -    [Shuffle Patterns](Shuffle-Patterns)
 -    [Queue Patterns](Queue-Patterns)
