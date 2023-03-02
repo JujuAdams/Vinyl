@@ -26,6 +26,8 @@ Multi patterns play assets from an array simultaneously. The blend parameter sto
 |`blend`         |number          |[`VINYL_DEFAULT_MULTI_BLEND`](Config-Macros)|This is a normalised value from `0` to `1` (inclusive)                                                                       |
 |`blend curve`   |string          |`undefined`                                 |If not defined, linear crossfades are used                                                                                   |
 
+?> Animation curves used for Multi patterns are live updated by Vinyl and can be adjusted at runtime.
+
 &nbsp;
 
 ## `VinylMultiVoiceCountGet`
