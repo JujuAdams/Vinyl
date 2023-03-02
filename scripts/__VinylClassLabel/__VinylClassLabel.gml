@@ -272,11 +272,12 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     {
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Stopping ", array_length(__topLevelArray), " voices playing (", self, ")");
         
-        var _i = 0;
+        //Go backwards because each Stop() command removes the voice from the array
+        var _i = array_length(__topLevelArray)-1;
         repeat(array_length(__topLevelArray))
         {
             VinylStop(__topLevelArray[_i]);
-            ++_i;
+            --_i;
         }
         
         array_resize(__topLevelArray, 0);
