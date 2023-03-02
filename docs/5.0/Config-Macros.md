@@ -30,6 +30,14 @@ Default rate of pitch adjument when approaching a pitch target. Measured in norm
 
 &nbsp;
 
+## `VINYL_DEFAULT_DUCK_RATE`
+
+*Default value: `1.0`*
+
+Default rate of gain adjument when a stack ducks a voice. Measured in normalised gain units per second.
+
+&nbsp;
+
 ## `VINYL_DEFAULT_FALLOFF_MIN`
 
 *Default value: `50`*
