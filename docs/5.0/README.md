@@ -23,3 +23,5 @@
 - Improved [positional audio](Positional) via region emitters
 - [Musical transposition](Transposition) per asset and across all assets
 - System-wide parameter tweaking using ["knobs"](Knobs)
+
+!> Vinyl is intended for use with Git, or an equivalent source control system.
