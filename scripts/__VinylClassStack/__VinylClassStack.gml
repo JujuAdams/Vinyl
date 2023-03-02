@@ -163,7 +163,7 @@ function __VinylClassStack(_name) constructor
         {
             //Find the instance with the highest priority
             __maxPriority = -infinity;
-            var _maxInstance = undefined;
+            var _maxVoice = undefined;
             
             var _i = 0;
             repeat(array_length(__instanceArray))
@@ -172,17 +172,17 @@ function __VinylClassStack(_name) constructor
                 if (_priority > __maxPriority)
                 {
                     __maxPriority = _priority;
-                    _maxInstance = __instanceArray[_i];
+                    _maxVoice = __instanceArray[_i];
                 }
                 
                 ++_i;
             }
             
             //Activate whatever instance is now the highest priority
-            if (_maxInstance != undefined)
+            if (_maxVoice != undefined)
             {
-                _maxInstance.__Resume();
-                _maxInstance.__GainDuckSet(1, __duckRate, false, false);
+                _maxVoice.__Resume();
+                _maxVoice.__GainDuckSet(1, __duckRate, false, false);
             }
         }
     }

@@ -153,12 +153,12 @@ function __VinylClassEmitter() constructor
     
     #region Private
     
-    static __InstanceAdd = function(_id)
+    static __VoiceAdd = function(_id)
     {
         array_push(__instanceIDArray, __id);
     }
     
-    static __InstanceRemove = function(_id)
+    static __VoiceRemove = function(_id)
     {
         static _closure = {
             __value: undefined,

@@ -419,7 +419,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         }
     }
     
-    static __InstanceAdd = function(_id)
+    static __VoiceAdd = function(_id)
     {
         //Add this instance to each label's playing array
         //Playing instances are removed from labels inside the label's __Tick() method
@@ -427,7 +427,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         array_push(__topLevelArray, _id);
     }
               
-    static __InstanceRemove = function(_id)
+    static __VoiceRemove = function(_id)
     {
         static _closure = {
             __value: undefined,

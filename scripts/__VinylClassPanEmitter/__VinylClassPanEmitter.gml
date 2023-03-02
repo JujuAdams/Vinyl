@@ -55,12 +55,12 @@ function __VinylClassPanEmitter() constructor
         audio_emitter_bus(__emitter, (_effectChainStruct == undefined)? audio_bus_main : _effectChainStruct.__bus);
     }
     
-    static __InstanceAdd = function(_id)
+    static __VoiceAdd = function(_id)
     {
         //Do nothing!
     }
     
-    static __InstanceRemove = function(_id)
+    static __VoiceRemove = function(_id)
     {
         //Do nothing!
     }

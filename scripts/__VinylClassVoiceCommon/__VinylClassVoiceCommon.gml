@@ -18,9 +18,9 @@ function __VinylClassVoiceCommon() constructor
     
     static __StateResetCommon = function()
     {
-        __pattern        = undefined;
-        __parentInstance = undefined;
-        __child          = undefined;
+        __pattern     = undefined;
+        __parentVoice = undefined;
+        __child       = undefined;
         
         __labelArray = [];
         
@@ -72,7 +72,7 @@ function __VinylClassVoiceCommon() constructor
         static _globalTopLevelArray = __globalData.__topLevelArray;
         
         __pattern        = _pattern;
-        __parentInstance = _parentVoice;
+        __parentVoice = _parentVoice;
         __initialEmitter = _emitter;
         __initialLoop    = _loop;
         __gainLocal      = _gain;
@@ -94,7 +94,7 @@ function __VinylClassVoiceCommon() constructor
         
         __pitchRandomParam = __VinylRandom(1);
         
-        if (__parentInstance == undefined) array_push(_globalTopLevelArray, self);
+        if (__parentVoice == undefined) array_push(_globalTopLevelArray, self);
     }
     
     
@@ -531,24 +531,24 @@ function __VinylClassVoiceCommon() constructor
     
     static __LabelArrayResolve = function()
     {
-        if (__parentInstance == undefined)
+        if (__parentVoice == undefined)
         {
             __labelArray = __pattern.__labelArray;
         }
         else
         {
-            __labelArray = array_union(__parentInstance.__labelArray, __pattern.__labelArray);
+            __labelArray = array_union(__parentVoice.__labelArray, __pattern.__labelArray);
         }
     }
     
     static __EffectChainResolve = function()
     {
         //Search up the tree until we hit a parent with a defined effect chain
-        if (__parentInstance != undefined)
+        if (__parentVoice != undefined)
         {
-            if (__parentInstance.__effectChainName != undefined)
+            if (__parentVoice.__effectChainName != undefined)
             {
-                __effectChainName = __parentInstance.__effectChainName;
+                __effectChainName = __parentVoice.__effectChainName;
                 return;
             }
         }
@@ -568,7 +568,7 @@ function __VinylClassVoiceCommon() constructor
             {
                 __EmitterRemove();
                 __vinylEmitter = __initialEmitter;
-                __vinylEmitter.__InstanceAdd(__id);
+                __vinylEmitter.__VoiceAdd(__id);
             }
         }
         else
@@ -613,7 +613,7 @@ function __VinylClassVoiceCommon() constructor
             }
             else
             {
-                __vinylEmitter.__InstanceRemove(__id);
+                __vinylEmitter.__VoiceRemove(__id);
             }
             
             __vinylEmitter    = undefined;
@@ -624,12 +624,12 @@ function __VinylClassVoiceCommon() constructor
     static __LabelAdd = function()
     {
         //Only add top-level instances to labels
-        if (__parentInstance == undefined)
+        if (__parentVoice == undefined)
         {
             var _i = 0;
             repeat(array_length(__labelArray))
             {
-                __labelArray[_i].__InstanceAdd(__id);
+                __labelArray[_i].__VoiceAdd(__id);
                 ++_i;
             }
         }
@@ -638,12 +638,12 @@ function __VinylClassVoiceCommon() constructor
     static __LabelRemove = function()
     {
         //Only top-level instances can be assigned to labels
-        if (__parentInstance == undefined)
+        if (__parentVoice == undefined)
         {
             var _i = 0;
             repeat(array_length(__labelArray))
             {
-                __labelArray[_i].__InstanceRemove(__id);
+                __labelArray[_i].__VoiceRemove(__id);
                 ++_i;
             }
         }
@@ -654,7 +654,7 @@ function __VinylClassVoiceCommon() constructor
         static __stackDict = __VinylGlobalData().__stackDict;
         
         //Only top-level instances can be pushed to a stack
-        if (__parentInstance == undefined)
+        if (__parentVoice == undefined)
         {
             var _stackName     = __pattern.__stackName;
             var _stackPriority = __pattern.__stackPriority;
@@ -710,7 +710,7 @@ function __VinylClassVoiceCommon() constructor
     
     static __ParentTopLevelGet = function()
     {
-        return (__parentInstance == undefined)? self : __parentInstance.__ParentTopLevelGet();
+        return (__parentVoice == undefined)? self : __parentVoice.__ParentTopLevelGet();
     }
     
     static __DepoolCallback = function()
@@ -734,19 +734,19 @@ function __VinylClassVoiceCommon() constructor
         
         __gainLocal          += clamp(__gainTarget - __gainLocal, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
         __gainPattern         = __pattern.__gain;
-        __gainParent          = (__parentInstance == undefined)? 1 : __parentInstance.__gainOutputNoLabels;
+        __gainParent          = (__parentVoice == undefined)? 1 : __parentVoice.__gainOutputNoLabels;
         __gainDuck           += clamp(__gainDuckTarget - __gainDuck, -_deltaTimeFactor*__gainDuckRate, _deltaTimeFactor*__gainDuckRate);
         __gainOutputNoLabels  = __gainLocal*__gainPattern*__gainParent*__gainDuck;
         __gainOutput          = __gainOutputNoLabels*__gainLabels;
         
         __pitchLocal          += clamp(__pitchTarget - __pitchLocal, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
         __pitchPattern         = lerp(__pattern.__pitchLo, __pattern.__pitchHi, __pitchRandomParam);
-        __pitchParent          = (__parentInstance == undefined)? 1 : __parentInstance.__pitchOutputNoLabels;
+        __pitchParent          = (__parentVoice == undefined)? 1 : __parentVoice.__pitchOutputNoLabels;
         __pitchOutputNoLabels  = __pitchLocal*__pitchPattern*__pitchParent;
         __pitchOutput          = __pitchOutputNoLabels*__pitchLabels;
         
         __transposePattern = __pattern.__transpose;
-        __transposeParent  = (__parentInstance == undefined)? undefined : __parentInstance.__transposeOutputNoLabels;
+        __transposeParent  = (__parentVoice == undefined)? undefined : __parentVoice.__transposeOutputNoLabels;
         
         if ((__transposeLocal != undefined) || (__transposePattern != undefined) || (__transposeParent != undefined))
         {
