@@ -54,7 +54,7 @@ You can read in-depth information about working with Queue patterns [here](Queue
 
 #### **Multi**
 
-Multi patterns play assets from an array simultaneously. The blend parameter stored within the pattern can be set with [`VinylMultiBlendSet()`](Patterns) and crossfades between assets.
+Multi patterns play assets from an array simultaneously. The blend parameter stored within the pattern can be set with [`VinylMultiBlendSet()`](Multi-Patterns) and crossfades between assets.
 
 You can read in-depth information about working with Multi patterns [here](Multi-Patterns) (both in the configuration file and at runtime).
 
@@ -64,7 +64,7 @@ You can read in-depth information about working with Multi patterns [here](Multi
 
 ## Voice
 
-When you play an audio asset using [one of Viny's functions](Basics), Vinyl will create a unique voice that holds information about that specific piece of audio being played.
+When you play an audio asset using [one of Viny's functions](Playing-Audio), Vinyl will create a unique voice that holds information about that specific piece of audio being played.
 
 The best way to understand a voice is to think of them like they're instances of GameMaker objects, only the "objects" in this case are Vinyl patterns.
 
@@ -80,7 +80,7 @@ You can read in-depth information about voices [here](Voices).
 
 Labels are how Vinyl handles groups of assets (and patterns) of similar types. An asset can be assigned to zero, one, or many labels. When properties on that label are adjusted - such as gain or pitch - those properties are applied to each asset, and further those properties are applied to each voice assigned to the label. This means that changing e.g. the gain value on a label called `ambience` to be lower will diminish the volume of all assets assigned to that label.
 
-You can stop all audio that's assigned to a label by using [`VinylStop()`](Basics). You can also fade out labels, set gain and pitch targets for labels etc. Labels can be interacted with in much the same way as voices.
+You can stop all audio that's assigned to a label by using [`VinylStop()`](Stopping-Audio). You can also fade out labels, set gain and pitch targets for labels etc. Labels can be interacted with in much the same way as voices.
 
 Vinyl allows you to assign assets within the configuration file, but Vinyl can also hook into GameMaker's native asset tagging system. Labels can be configured to be automatically assigned to any sound asset that has a specific tag.
 
@@ -94,9 +94,9 @@ You can read in-depth information about working with labels [here](Multi-Pattern
 
 ## Emitter
 
-Building sonically convincing environments involves a lot of detailed work, not least the considered use of panning and spatial positioning. Emitters are points or regions in space that can play voices. As the player moves towards and away from each emitter, sounds played on that emitter pan and modulate their volume accordingly. GameMaker has its own [emitter system](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/Audio_Emitters/Audio_Emitters.htm) built around point emitters. Vinyl extends this basic featureset to allow for [region emitters](Positional) as well as simple [panned audio](Positional).
+Building sonically convincing environments involves a lot of detailed work, not least the considered use of panning and spatial positioning. Emitters are points or regions in space that can play voices. As the player moves towards and away from each emitter, sounds played on that emitter pan and modulate their volume accordingly. GameMaker has its own [emitter system](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/Audio_Emitters/Audio_Emitters.htm) built around point emitters. Vinyl extends this basic featureset to allow for [region emitters](Emitters) as well as simple [panned audio](Panning).
 
-You can read in-depth information about emitters [here](Positional).
+You can read in-depth information about emitters [here](Emitters).
 
 &nbsp;
 
