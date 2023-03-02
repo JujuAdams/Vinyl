@@ -2,6 +2,9 @@
 
 &nbsp;
 
+Macros on this page relate to debug behaviour and can be found in the `__VinylConfigDebug` script.
+
+!> You should turn off these values before creating production builds to avoid unnecessary performance penalties for your players.
 
 &nbsp;
 
