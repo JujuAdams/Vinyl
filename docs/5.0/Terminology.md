@@ -14,7 +14,7 @@ An asset is any [sound asset](https://manual.yoyogames.com/The_Asset_Editors/Sou
 
 ## Pattern
 
-There are certain common operation that crop up frequently when playing sound effects, and audio in general, in games. Vinyl patterns are a way to define behaviours that would otherwise be complex or time-consuming to construct. Vinyl patterns are played using [the standard playback functions](Playing-Audio) and return a voice similar to the way `audio_play_sound()` returns a sound instance. Patterns must be set up in the [configuration file](Configuration).
+There are certain common operations that crop up frequently when playing sound effects, and audio in general, in games. Vinyl patterns are a way to define behaviours that would otherwise be complex or time-consuming to construct. Vinyl patterns are played using [the standard playback functions](Playing-Audio) and return a voice similar to the way `audio_play_sound()` returns a sound instance. Patterns must be set up in the [configuration file](Configuration).
 
 ### Basic
 
