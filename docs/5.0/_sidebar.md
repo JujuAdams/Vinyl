@@ -1,7 +1,22 @@
 -    [Home](README)
 -    [FAQ](faq)
 -    [Introduction](Introduction)
--    [Glossary](Glossary)
+
+---
+
+**Glossary**
+
+-    [Overview](Glossary)
+-    [Assets](Assets)
+-    [Basic Patterns](Basic-Patterns)
+-    [Shuffle Patterns](Shuffle-Patterns)
+-    [Queue Patterns](Queue-Patterns)
+-    [Multi Patterns](Multi-Patterns)
+-    [Voices](Voices)
+-    [Labels](Labels)
+-    [Stacks](Stacks)
+-    [Effect Chains](Effect-Chains)
+-    [Knobs](Knobs)
 
 ---
 
@@ -26,9 +41,8 @@
 -    [BPM](BPM)
 -    [Panning](Panning)
 -    [Emitters](Emitters)
--    [Shuffle Patterns](Shuffle-Patterns)
--    [Queue Patterns](Queue-Patterns)
--    [Multi Patterns](Multi-Patterns)
--    [Stacks](Stacks)
--    [Knobs](Knobs)
+-    [Queue Patterns](Queue-Pattern-Functions)
+-    [Multi Patterns](Multi-Pattern-Functions)
+-    [Stacks](Stack-Functions)
+-    [Knobs](Knob-Functions)
 -    [Other Functions](Other-Functions)
