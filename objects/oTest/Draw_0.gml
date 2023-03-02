@@ -58,12 +58,12 @@ UIButtonInline("Delay down", function()
 
 UIButtonInline("Delay target 0", function()
 {
-    VinylKnobTargetSet("delay time", 0);
+    VinylKnobTargetSet("delay time", 0, 0.1);
 });
 
 UIButtonInline("Delay target 1", function()
 {
-    VinylKnobTargetSet("delay time", 1);
+    VinylKnobTargetSet("delay time", 1, 0.5);
 });
 
 UINewline();
@@ -121,6 +121,16 @@ UIButtonInline("Stop \"music\" label", function()
 UIButtonInline("Fade out \"music\" label", function()
 {
      VinylFadeOut("music");
+});
+
+UIButtonInline("Pause \"music\" label", function()
+{
+    VinylPause("music");
+});
+
+UIButtonInline("Resume \"music\" label", function()
+{
+    VinylResume("music");
 });
 
 UINewline();
