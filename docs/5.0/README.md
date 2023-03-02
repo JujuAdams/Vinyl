@@ -14,8 +14,8 @@
 - Live reloading of [audio configuration](Configuration). You can mix whilst the game is running, no need for recompilation
 - In-built systems to handle common designs ([fade in](Playing-Audio), [callbacks on fade out](Stopping-Audio), [audio ducking](Stacks) etc.)
 - Multi-inheritance using Vinyl's ["labels"](Labels) (similar to audio groups)
-- Modular design using ["patterns"](Patterns)
-- [Patterns](Patterns) can be nested to create even more complex behaviours
+- Integral [shuffle, queue, and multi patterns](Patterns)
+- Modular design that allows for nested patterns to create even more complex behaviours
 - [Native panning](Positional)
 - Improved natural [gain curves](Gain)
 - [Pitch randomisation](Pitch) 
