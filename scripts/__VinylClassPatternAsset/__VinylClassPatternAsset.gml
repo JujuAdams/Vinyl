@@ -1,26 +1,26 @@
 /// @param name
 /// @param adHoc
+/// @param asset
 
-function __VinylClassPatternAsset(_name, _adHoc) : __VinylClassPatternCommon() constructor
+function __VinylClassPatternAsset(_name, _adHoc, _asset) : __VinylClassPatternCommon() constructor
 {
     static __patternType = "asset";
     static __pool = __VinylGlobalData().__poolAsset;
     
     __name  = _name;
     __adHoc = _adHoc;
-    __asset = undefined;
+    __asset = _asset;
     
     static toString = function()
     {
-        return (__asset == undefined)? "<asset ???>" : "<asset " + audio_get_name(__asset) + ">";
+        return "<asset " + audio_get_name(__asset) + ">";
     }
     
     static __Initialize = function(_patternData = {})
     {
         if (!is_struct(_patternData)) __VinylError("Error in ", self, "\nPattern data must be a struct");
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["asset", "assets", "gain", "pitch", "transpose", "bpm", "loop", "effect chain", "stack", "stack priority", "persistent", "label", "labels", "loop point", "loop points"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["gain", "pitch", "transpose", "bpm", "loop", "effect chain", "stack", "stack priority", "persistent", "label", "labels", "loop point", "loop points"]);
         
-        var _asset           = _patternData[$ "asset"         ] ?? _patternData[$ "assets"];
         var _gain            = _patternData[$ "gain"          ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"         ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
         var _transpose       = _patternData[$ "transpose"     ];
@@ -37,19 +37,6 @@ function __VinylClassPatternAsset(_name, _adHoc) : __VinylClassPatternCommon() c
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
         
         
-        
-        //Sort out the asset
-        if (is_string(_asset))
-        {
-            if (asset_get_index(_asset) < 0) __VinylError("Error in ", self, " for \"asset\" property\nAsset \"", _asset, "\" not found in the project");
-            if (asset_get_type(_asset) != asset_sound) __VinylError("Error in ", self, " for \"asset\" property\nAsset \"", _asset, "\" not a sound asset");
-            _asset = asset_get_index(_asset);
-        }
-        
-        if (!is_numeric(_asset)) __VinylError("Error in ", self, " for \"asset\" property\nAsset should be specified as an audio asset index or audio asset name (datatype=", typeof(_asset), ")");
-        if (!audio_exists(_asset)) __VinylError("Error in ", self, " for \"asset\" property\nAudio asset with index ", _asset, " not found");
-        
-        __asset = _asset;
         
         //Sort out the BPM
         if (!is_numeric(_bpm) || (_bpm <= 0)) __VinylError("Error in ", self, "\n\"bpm\" property should be a number greater than 0 (datatype=", typeof(_bpm), ")");

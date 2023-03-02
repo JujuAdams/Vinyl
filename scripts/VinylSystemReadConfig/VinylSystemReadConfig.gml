@@ -218,8 +218,7 @@ function VinylSystemReadConfig(_configData)
                     }
                     else
                     {
-                        var _pattern = new __VinylClassPatternAsset(_key, false);
-                        _patternData.asset = _assetIndex; //Spoof a proper Basic pattern data struct
+                        var _pattern = new __VinylClassPatternAsset(_key, false, _assetIndex);
                     }
                     
                     _pattern.__Initialize(_patternData);
