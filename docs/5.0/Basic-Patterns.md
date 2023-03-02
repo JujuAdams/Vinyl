@@ -6,12 +6,12 @@
 
 |Property         |Config Name     |Purpose                         |
 |-----------------|----------------|--------------------------------|
+|Type             |`type`          |                                |
+|Asset            |`asset`         |                                |
 |Gain             |`gain`          |                                |
 |Pitch            |`pitch`         |                                |
 |Transpose        |`transpose`     |                                |
-|Beats-per-minute |`bpm`           |                                |
 |Loop             |`loop`          |                                |
-|Loop points      |`loop points`   |                                |
 |Stack            |`stack`         |                                |
 |Stack priority   |`stack priority`|                                |
 |Effect chain     |`effect chain`  |                                |
