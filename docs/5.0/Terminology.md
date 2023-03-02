@@ -118,7 +118,7 @@ Assets can be set up to automatically play using effect chains in the [configura
 
 Labels can also be set up in the [configuration file](Configuration) such that any assigned assets will use a particular effect chain.
 
-You can read in-depth information about configuring basic patterns [here](Effect-Chains).
+You can read in-depth information about configuring effect chains [here](Effect-Chains).
 
 !> A sound can only be played on one effect chain at a time. As a result, the label `effect chain` property can potentially conflict with effect chain definitions in other labels if an asset is assigned to multiple labels. This is not considered a critical error by Vinyl but can lead to unexpected behaviour.
 
