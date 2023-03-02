@@ -16,7 +16,7 @@ When setting up complex audio systems it's often useful to use a hierarchy to sh
 
 ## Configuration Properties
 
-The following properties can be set for a label in the [configuration file](Configuration-Syntax).
+The following properties can be set for a label in the [configuration file](Config-File).
 
 |Property        |Datatype        |Default      |Notes                                                                                                      |
 |----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------|

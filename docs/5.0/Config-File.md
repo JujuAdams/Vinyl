@@ -1,4 +1,4 @@
-# Configuration Syntax
+# Configuration File
 
 &nbsp;
 
