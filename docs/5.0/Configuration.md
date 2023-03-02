@@ -10,7 +10,7 @@ Vinyl is a powerful library with a lot of features. Keeping a handle on how it a
 
 In addition to the configuration file, Vinyl also has a couple other scripts used to control behaviour. These are [`__VinylConfigMacros`](Config-Macros) and [`__VinylDebugMacros`](Debug-Macros). Each script contains a handful of macros that you can adjust to get Vinyl operating exactly how you want. You should edit these scripts.
 
-Vinyl is intended for use with Git, or an equivalent source control system. You may notice that during compilation, the `vinyl.dat` file in Included Files (called the `/datafiles` directory on disk) frequently shows changes. If you're working in a team, you can either add `vinyl.dat` to your `.gitignore` or you can literally ignore any changes made to that file. `vinyl.dat` is regenerated for every compile and doesn't contain persistent data that's relevant for other developers.
+Vinyl is intended for use with Git, or an equivalent source control system. You may notice that during compilation, the `vinyl.dat` file in Included Files (called the `/datafiles` directory on disk) frequently shows changes. `vinyl.dat` is regenerated for every compile and doesn't contain persistent data that's relevant for other developers. If you're working in a team, you can either add `vinyl.dat` to your `.gitignore` or you can literally ignore any changes made to that file.
 
 &nbsp;
 
