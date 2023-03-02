@@ -4,7 +4,7 @@
 
 ## Configuration Properties
 
-|Property         |Config Name     |Purpose                         |
+|Property         |Config Name     |Description                     |
 |-----------------|----------------|--------------------------------|
 |Gain             |`gain`          |                                |
 |Pitch            |`pitch`         |                                |
