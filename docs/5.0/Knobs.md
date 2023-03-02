@@ -8,11 +8,11 @@ Functions on this page relate to [Vinyl knobs](Terminology), used to manipulate 
 
 ## Configuration Properties
 
-|Property            |Config Name   |Purpose                         |
-|--------------------|--------------|--------------------------------|
-|Default output value|`default`     |                                |
-|Input range         |`input range` |                                |
-|Output range        |`output range`|                                |
+|Property      |Datatype        |Default |Notes                                                                                                                           |
+|--------------|----------------|--------|--------------------------------------------------------------------------------------------------------------------------------|
+|`default`     |number          |        |**Required.** Will be clamped between inside of the output range if either the input range or output range is explicitly defined|
+|`input range` |array of numbers|`[0, 1]`|Must be a two-element array                                                                                                     |
+|`output range`|array of numbers|`[0, 1]`|Must be a two-element array                                                                                                     |
 
 &nbsp;
 

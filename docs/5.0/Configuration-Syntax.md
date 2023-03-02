@@ -146,7 +146,7 @@ The following is a cheat sheet of properties that each Vinyl component can have.
 
 You can read more about assets [here](Assets).
 
-|Name            |Datatype        |Default                             |Notes                                                                                                      |
+|Property        |Datatype        |Default                             |Notes                                                                                                      |
 |----------------|----------------|------------------------------------|-----------------------------------------------------------------------------------------------------------|
 |`gain`          |number          |`1`                                 |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
 |`pitch`         |number or array |`1`                                 |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
@@ -166,7 +166,7 @@ You can read more about assets [here](Assets).
 
 You can read more about labels [here](Labels).
 
-|Name            |Datatype        |Default      |Notes                                                                                                      |
+|Property        |Datatype        |Default      |Notes                                                                                                      |
 |----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------|
 |`gain`          |number          |`1`          |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
 |`pitch`         |number or array |`1`          |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
@@ -184,7 +184,7 @@ You can read more about labels [here](Labels).
 
 You can read more about stacks [here](Stacks).
 
-|Name         |Datatype|Default                                        |Notes                                                                                           |
+|Property     |Datatype|Default                                        |Notes                                                                                           |
 |-------------|--------|-----------------------------------------------|------------------------------------------------------------------------------------------------|
 |`ducked gain`|number  |`0`                                            |Defaults to `-60` db in [decibel mode](Config-Macros) (silence)                                 |
 |`rate`       |number  |[`VINYL_DEFAULT_DUCK_GAIN_RATE`](Config-Macros)|Measured in gain units per second                                                               |
@@ -200,7 +200,7 @@ You can read more about patterns by following these links
 - [Queue](Queue-Patterns)
 - [Multi](Multi-Patterns)
 
-|Name            |Datatype        |Default      |Notes                                                                                                                        |
+|Property        |Datatype        |Default      |Notes                                                                                                                        |
 |----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------------------------|
 |`type`          |string          |*passthrough*|**Required.** Must be one of the following: `basic` `shuffle` `queue` `multi`                                                |
 |`asset`         |string or struct|*passthrough*|**Required.** Can be asset name, a pattern name, or a pattern struct. Must be an array for shuffle, queue, and multi patterns|
@@ -217,7 +217,7 @@ You can read more about patterns by following these links
 
 The following properties are only relevant for particular pattern types:
 
-|Name         |Datatype|Default                                        |Notes                                                                          |
+|Property     |Datatype|Default                                        |Notes                                                                          |
 |-------------|--------|-----------------------------------------------|-------------------------------------------------------------------------------|
 |`behavior`   |number  |[`VINYL_DEFAULT_QUEUE_BEHAVIOR`](Config-Macros)|**Queue patterns only.** Must be one of the following: `0` `1` `2`             |
 |`sync`       |boolean |[`VINYL_DEFAULT_MULTI_SYNC`](Config-Macros)    |**Multi patterns only**                                                        |
@@ -232,7 +232,7 @@ The following properties are only relevant for particular pattern types:
 
 You can read more about knobs [here](Knobs).
 
-|Name          |Datatype        |Default |Notes                                                                                                                           |
+|Property      |Datatype        |Default |Notes                                                                                                                           |
 |--------------|----------------|--------|--------------------------------------------------------------------------------------------------------------------------------|
 |`default`     |number          |        |**Required.** Will be clamped between inside of the output range if either the input range or output range is explicitly defined|
 |`input range` |array of numbers|`[0, 1]`|Must be a two-element array                                                                                                     |
@@ -245,6 +245,8 @@ You can read more about knobs [here](Knobs).
 You can read more about effect chains [here](Effect-Chains).
 
 An effect chain should be defined as an array with, at most, 8 elements. Each element in the array defines an effect in the chain and must be a struct whose properties depend on what type the effect is.
+
+The effect chain name `main` is special and is used for any voices without a defined effect chain.
 
 <!-- tabs:start -->
 
@@ -264,7 +266,7 @@ Equivalent to `AudioEffectType.Reverb1`.
 
 Equivalent to `AudioEffectType.Delay`.
 
-|Name      |Datatype|Description                                                           |
+|Property  |Datatype|Description                                                           |
 |----------|--------|----------------------------------------------------------------------|
 |`type`    |string  |**Must be `delay`**                                                   |
 |`bypass`  |boolean |Whether the effect should be bypassed (ignored)                       |
@@ -276,7 +278,7 @@ Equivalent to `AudioEffectType.Delay`.
 
 Equivalent to `AudioEffectType.Bitcrusher`.
 
-|Name        |Datatype|Description                                                        |
+|Property    |Datatype|Description                                                        |
 |------------|--------|-------------------------------------------------------------------|
 |`type`      |string  |**Must be `bitcrusher`**                                           |
 |`bypass`    |boolean |Whether the effect should be bypassed (ignored)                    |
@@ -289,7 +291,7 @@ Equivalent to `AudioEffectType.Bitcrusher`.
 
 A low-pass filter that reduces high frequencies. Equivalent to `AudioEffectType.LPF2`.
 
-|Name    |Datatype|Description                                    |
+|Property|Datatype|Description                                    |
 |--------|--------|-----------------------------------------------|
 |`type`  |string  |**Must be `lpf`**                              |
 |`bypass`|boolean |Whether the effect should be bypassed (ignored)|
@@ -300,7 +302,7 @@ A low-pass filter that reduces high frequencies. Equivalent to `AudioEffectType.
 
 A high-pass filter that thins out sounds by reducing low frequencies. Equivalent to `AudioEffectType.HPF2`.
 
-|Name    |Datatype|Description                                    |
+|Property|Datatype|Description                                    |
 |--------|--------|-----------------------------------------------|
 |`type`  |string  |**Must be `hpf`**                              |
 |`bypass`|boolean |Whether the effect should be bypassed (ignored)|
@@ -311,7 +313,7 @@ A high-pass filter that thins out sounds by reducing low frequencies. Equivalent
 
 Equivalent to `AudioEffectType.Tremolo`.
 
-|Name        |Datatype|Description                                                                           |
+|Property    |Datatype|Description                                                                           |
 |------------|--------|--------------------------------------------------------------------------------------|
 |`type`      |string  |**Must be `tremolo`**                                                                 |
 |`bypass`    |boolean |Whether the effect should be bypassed (ignored)                                       |
@@ -324,7 +326,7 @@ Equivalent to `AudioEffectType.Tremolo`.
 
 Basic volume control. Equivalent to `AudioEffectType.Gain`.
 
-|Name    |Datatype|Description                                    |
+|Property|Datatype|Description                                    |
 |--------|--------|-----------------------------------------------|
 |`type`  |string  |**Must be `gain`**                             |
 |`bypass`|boolean |Whether the effect should be bypassed (ignored)|

@@ -49,7 +49,7 @@ Emulates an echoey room where individual reflections cannot be clearly heard. Eq
 
 Emulates a cavern or hard surface where individual reflections can be clearly heard. Equivalent to `AudioEffectType.Delay`.
 
-|Name      |Datatype|Description                                                           |
+|Property  |Datatype|Description                                                           |
 |----------|--------|----------------------------------------------------------------------|
 |`type`    |string  |**Must be `delay`**                                                   |
 |`bypass`  |boolean |Whether the effect should be bypassed (ignored)                       |
@@ -61,7 +61,7 @@ Emulates a cavern or hard surface where individual reflections can be clearly he
 
 Distortion effect that futzes up audio for a harsh sound. Equivalent to `AudioEffectType.Bitcrusher`.
 
-|Name        |Datatype|Description                                                        |
+|Property    |Datatype|Description                                                        |
 |------------|--------|-------------------------------------------------------------------|
 |`type`      |string  |**Must be `bitcrusher`**                                           |
 |`bypass`    |boolean |Whether the effect should be bypassed (ignored)                    |
@@ -74,7 +74,7 @@ Distortion effect that futzes up audio for a harsh sound. Equivalent to `AudioEf
 
 A low-pass filter that thickens up sounds by reducing high frequencies. Equivalent to `AudioEffectType.LPF2`.
 
-|Name    |Datatype|Description                                    |
+|Property|Datatype|Description                                    |
 |--------|--------|-----------------------------------------------|
 |`type`  |string  |**Must be `lpf`**                              |
 |`bypass`|boolean |Whether the effect should be bypassed (ignored)|
@@ -85,7 +85,7 @@ A low-pass filter that thickens up sounds by reducing high frequencies. Equivale
 
 A high-pass filter that thins out sounds by reducing low frequencies Equivalent to `AudioEffectType.HPF2`.
 
-|Name    |Datatype|Description                                    |
+|Property|Datatype|Description                                    |
 |--------|--------|-----------------------------------------------|
 |`type`  |string  |**Must be `hpf`**                              |
 |`bypass`|boolean |Whether the effect should be bypassed (ignored)|
@@ -96,7 +96,7 @@ A high-pass filter that thins out sounds by reducing low frequencies Equivalent 
 
 Modulates the gain of audio up and down over time. Equivalent to `AudioEffectType.Tremolo`.
 
-|Name        |Datatype|Description                                                                           |
+|Property    |Datatype|Description                                                                           |
 |------------|--------|--------------------------------------------------------------------------------------|
 |`type`      |string  |**Must be `tremolo`**                                                                 |
 |`bypass`    |boolean |Whether the effect should be bypassed (ignored)                                       |
@@ -109,7 +109,7 @@ Modulates the gain of audio up and down over time. Equivalent to `AudioEffectTyp
 
 Basic volume control. Equivalent to `AudioEffectType.Gain`.
 
-|Name    |Datatype|Description                                    |
+|Property|Datatype|Description                                    |
 |--------|--------|-----------------------------------------------|
 |`type`  |string  |**Must be `gain`**                             |
 |`bypass`|boolean |Whether the effect should be bypassed (ignored)|
