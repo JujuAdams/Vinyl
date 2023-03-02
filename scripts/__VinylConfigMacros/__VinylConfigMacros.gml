@@ -12,7 +12,7 @@
 
 //Default rate of gain adjument when a stack ducks a voice
 //Measured in units/second
-#macro VINYL_DEFAULT_DUCK_GAIN_RATE  1
+#macro VINYL_DEFAULT_DUCK_GAIN_RATE  1.0
 
 //Falloff values to use for emitters when first created
 #macro VINYL_DEFAULT_FALLOFF_MIN       0
