@@ -6,9 +6,11 @@ An asset is any [sound asset](https://manual.yoyogames.com/The_Asset_Editors/Sou
 
 &nbsp;
 
+## Configuration
+
 <!-- tabs:start -->
 
-#### **Configuration Properties**
+#### **Properties**
 
 |Property        |Datatype        |Default                             |Notes                                                                                                      |
 |----------------|----------------|------------------------------------|-----------------------------------------------------------------------------------------------------------|
