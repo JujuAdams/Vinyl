@@ -2,7 +2,7 @@
 
 &nbsp;
 
-Functions on this page relate to specific behaviours for [Shuffle pattern](Terminology) voices.
+Shuffle patterns play a random asset from an array. Shuffle patterns also try to ensure that the same sound is not played twice in a row (in fact, shuffle patterns try to space out sounds as much as possible).
 
 &nbsp;
 
@@ -20,5 +20,5 @@ Functions on this page relate to specific behaviours for [Shuffle pattern](Termi
 |`stack`         |string          |*passthrough*|                                                                                                                             |
 |`stack priority`|number          |`0`          |                                                                                                                             |
 |`effect chain`  |string          |*passthrough*|                                                                                                                             |
-|`label`         |string or array |*passthrough*|Label to assign this pattern to. Can be a string for for label, or an array of label names                                   |
+|`label`         |string or array |*passthrough*|Label to assign this pattern to. Can be a string for a single label, or an array of label names                              |
 |`persistent`    |boolean         |*passthrough*|                                                                                                                             |
