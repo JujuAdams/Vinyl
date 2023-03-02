@@ -38,7 +38,7 @@ Vinyl is intended for use with Git, or an equivalent source control system. You 
 
 ## The API
 
-This is where the rubber meets the road, so to speak. Configuring audio is all well and good but at some point you'll need to execute functions to get Vinyl to do anything. There are no special setup functions to call - you can start using Vinyl straight away.
+This is where the rubber meets the road, so to speak. Configuring audio is all well and good but at some point you'll need to execute functions to get Vinyl to do anything. There are no special setup functions to call - you can start calling Vinyl functions straight away after importing it.
 
 If you take a look at the sidebar, the API is split across multiple different features. Each broad feature gets its own page, and on each page there's a description of feature, any quirks you need to be aware of, and functions that interact with that feature. Where I've had time I've also added example code to make things a bit quicker to pick up.
 
