@@ -2,7 +2,7 @@
 
 &nbsp;
 
-Vinyl is an audio system built for GameMaker 2023.2 that serves as a replacement for GameMaker's audio API. It builds on top of what GameMaker already provides by wrapping functionality in a more convenient form and by adding altogether new audio features for GameMaker games.
+Vinyl is an audio system built for GameMaker 2023.2 that serves as a replacement for GameMaker's audio API. It builds on top of what GameMaker already provides by wrapping functionality in a more convenient form and by adding altogether new audio features for GameMaker games. Its biggest feature is being able to live update the properties and behaviour of audio without recompiling your game.
 
 There is one particular feature that Vinyl does **not** concern itself with, and that's loading audio via GameMaker's native audio groups. At some point in the future this may change, but GameMaker's audio group system works well enough for memory management so I don't feel a pressing need to augment it. Using audio groups to manage gain is crap though and Vinyl happily replaces that functionality with [its own label system](Labels).
 
@@ -38,7 +38,11 @@ Vinyl is intended for use with Git, or an equivalent source control system. You 
 
 ## The API
 
-This is where the rubber meets the road, so to speak. Configuring audio is all well and good but at some point you'll need to execute functions to get Vinyl to do anything. There are no special setup functions to call - you can 
+This is where the rubber meets the road, so to speak. Configuring audio is all well and good but at some point you'll need to execute functions to get Vinyl to do anything. There are no special setup functions to call - you can start using Vinyl straight away.
+
+If you take a look at the sidebar, the API is split across multiple different features. Each broad feature gets its own page, and on each page there's a description of feature, any quirks you need to be aware of, and functions that interact with that feature. Where I've had time I've also added example code to make things a bit quicker to pick up.
+
+Functions are rarely complex and follow GML-ish conventions. Many functions take a [voice ID](Terminology) as an argument, and these functions *often* (but not *always*) accept a label too. With only a few exceptions ([1](Gain)) ([2](Pitch)), if you provided a label instead of a voice ID then the operation in question will be executed for each individual voice assigned to that label. [Labels do not carry much state](State) and so operations will typically pass through them and then get picked up by voices themselves.
 
 &nbsp;
 
