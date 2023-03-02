@@ -40,13 +40,13 @@ You can read in-depth information about configuring basic patterns [here](Basic-
 
 #### **Shuffle**
 
-Plays a random sound asset from an array. Shuffle patterns also try to ensure that the same sound is not played twice in a row (in fact, shuffle patterns try to space out sounds as much as possible).
+Shuffle patterns play a random asset from an array. Shuffle patterns also try to ensure that the same sound is not played twice in a row (in fact, shuffle patterns try to space out sounds as much as possible).
 
 You can read in-depth information about working with Shuffle patterns [here](Shuffle-Patterns) (both in the configuration file and at runtime).
 
 #### **Queue**
 
-Plays sound assets from an array one after another. If a sound asset is set to loop then the queue will hold on that looping asset until the voice is told to stop looping by using `VinylLoopSet()`.
+Queue patterns play assets from an array one after another. If a sound asset is set to loop then the queue will hold on that looping asset until the voice is told to stop looping by using `VinylLoopSet()`.
 
 The queue itself can be set to loop, restarting the entire sequence from the start once playback reaches the end of the queue.
 
@@ -54,7 +54,7 @@ You can read in-depth information about working with Queue patterns [here](Queue
 
 #### **Multi**
 
-Play sound assets from an array simultaneously. The blend parameter stored within the pattern can be set with [`VinylMultiBlendSet()`](Patterns) and crossfades between assets.
+Multi patterns play assets from an array simultaneously. The blend parameter stored within the pattern can be set with [`VinylMultiBlendSet()`](Patterns) and crossfades between assets.
 
 You can read in-depth information about working with Multi patterns [here](Multi-Patterns) (both in the configuration file and at runtime).
 
