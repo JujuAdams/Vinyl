@@ -124,7 +124,7 @@ function __VinylClassVoiceQueue() : __VinylClassVoiceCommon() constructor
         {
             __TickCommon(_deltaTimeFactor);
             
-            if (__child != undefined) //Instance can be destroyed in __TickCommon()
+            if (__child != undefined) //Child voice can be destroyed in __TickCommon()
             {
                 __child.__Tick(_deltaTimeFactor);
             }

@@ -115,7 +115,6 @@
     {"name":"VinylGainGet","order":1,"path":"scripts/VinylGainGet/VinylGainGet.yy",},
     {"name":"snd1KHz","order":5,"path":"sounds/snd1KHz/snd1KHz.yy",},
     {"name":"VinylListenerSet","order":2,"path":"scripts/VinylListenerSet/VinylListenerSet.yy",},
-    {"name":"__VinylInstanceGet","order":11,"path":"scripts/__VinylInstanceGet/__VinylInstanceGet.yy",},
     {"name":"VinylMultiGainGet","order":2,"path":"scripts/VinylMultiGainGet/VinylMultiGainGet.yy",},
     {"name":"VinylStackPush","order":1,"path":"scripts/VinylStackPush/VinylStackPush.yy",},
     {"name":"VinylFadeOut","order":3,"path":"scripts/VinylFadeOut/VinylFadeOut.yy",},
