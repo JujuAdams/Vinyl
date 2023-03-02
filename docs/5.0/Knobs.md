@@ -6,6 +6,16 @@ Functions on this page relate to [Vinyl knobs](Terminology), used to manipulate 
 
 &nbsp;
 
+## Configuration Properties
+
+|Property            |Config Name   |Purpose                         |
+|--------------------|--------------|--------------------------------|
+|Default output value|`default`     |                                |
+|Input range         |`input range` |                                |
+|Output range        |`output range`|                                |
+
+&nbsp;
+
 ## `VinylKnobSet`
 
 `VinylKnobSet(name, value)`
