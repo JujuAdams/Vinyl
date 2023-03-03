@@ -36,7 +36,7 @@ The configuration file is stored in `__VinylConfig` and has its own particular s
 
 ## The API
 
-This is where the rubber meets the road, so to speak. Configuring audio is all well and good but at some point you'll need to execute functions to get Vinyl to do anything. There are no special setup functions to call - you can start calling Vinyl functions straight away after importing it.
+This is where the rubber meets the road, so to speak. Configuring audio is all well and good but at some point you'll need to execute functions to get Vinyl to do anything. There are no special setup functions to call - you can start calling Vinyl functions straight away after importing it. There's plenty of stuff you can do even without using the [configuration file](Config-File) at all; being able to pan audio easily is useful by itself.
 
 If you take a look at the sidebar, the API is split across multiple different features. Each broad feature gets its own page, and on each page there's a description of feature, any quirks you need to be aware of, and functions that interact with that feature. Where I've had time I've also added example code to make things a bit quicker to pick up.
 
