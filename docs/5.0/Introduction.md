@@ -16,6 +16,8 @@ Vinyl is a library of two halves: 1) Configuration 2) The API. As a solo develop
 
 You can find the latest version of Vinyl [here](https://github.com/JujuAdams/Vinyl/releases). Make sure that you're using a version of GameMaker that Vinyl supports, and then download the `.yymps` from that page and import into GameMaker. You'll see a folder called `Vinyl` appear in your asset browser, and a file called `vinyl.dat` will also be created in your Included Files.
 
+?> You may notice that `vinyl.dat` frequently shows changes in your source control, typically after recompiling the game. `vinyl.dat` is regenerated for every compile and doesn't contain persistent data. You can either add `vinyl.dat` to your `.gitignore`, or you can literally ignore any changes made to that file.
+
 If you look inside the Vinyl folder you'll see a lot of subfolders. These subfolders contain functions that comprise the API - the interface that you'll need to execute Vinyl code in your game. The `(Internals)` folder holds code that Vinyl requires to operate and has to be there but otherwise you can forget it exists. You'll also see two scripts and a Note asset (`__VinylConfigMacros` `__VinylConfigDebug` `__VinylConfig`). You'll be using these to customise Vinyl for your use case.
 
 &nbsp;
@@ -29,8 +31,6 @@ You can find information about the two macro scripts, `__VinylConfigMacros` and 
 The configuration file is stored in `__VinylConfig` and has its own particular syntax and expects data to be formatted in [a certain way](Config-File). You can use this file to control the underlying gains, pitches, and behaviours of audio played with Vinyl. When you import Vinyl for the first time, this config file will be filled with an empty template. You'll need to add information to the file to customise Vinyl.
 
 `__VinylConfig` can be edited whilst the game is running from the IDE on Windows, Mac, or Linux. If Vinyl detects that a change has been made, Vinyl will live update audio playback without you having to close and recompile the entire game. This means you can finesse your audio mix without having to stop playing the game - a substantial workflow improvement over what GameMaker offers natively.
-
-?> You may notice that `vinyl.dat` frequently shows changes in your source control, typically after recompiling the game. `vinyl.dat` is regenerated for every compile and doesn't contain persistent data. You can either add `vinyl.dat` to your `.gitignore`, or you can literally ignore any changes made to that file.
 
 &nbsp;
 
