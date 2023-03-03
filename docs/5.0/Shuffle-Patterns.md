@@ -6,11 +6,9 @@ Shuffle patterns play a random asset from an array. Shuffle patterns also try to
 
 &nbsp;
 
-## Configuration
+## Properties
 
-<!-- tabs:start -->
-
-#### **Properties**
+Shuffle patterns should be set up in the [configuration file](Config-File).
 
 |Property        |Datatype        |Default      |Notes                                                                                                      |
 |----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------|
@@ -26,7 +24,9 @@ Shuffle patterns play a random asset from an array. Shuffle patterns also try to
 |`label`         |string or array |*passthrough*|Label to assign this pattern to. Can be a string for a single label, or an array of label names            |
 |`persistent`    |boolean         |*passthrough*|                                                                                                           |
 
-#### **Examples**
+&nbsp;
+
+## Examples
 
 ```
 { //Start of __VinylConfig
@@ -66,5 +66,3 @@ Shuffle patterns play a random asset from an array. Shuffle patterns also try to
 	...
 }
 ```
-
-<!-- tabs:end -->

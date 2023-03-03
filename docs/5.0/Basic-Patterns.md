@@ -6,7 +6,9 @@ Basic patterns are wrappers around asset definitions that allow you to further t
 
 &nbsp;
 
-## Configuration Properties
+## Configuration
+
+Basic patterns should be set up in the [configuration file](Config-File).
 
 |Property        |Datatype        |Default      |Notes                                                                                                      |
 |----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------|

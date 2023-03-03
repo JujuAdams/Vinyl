@@ -12,9 +12,7 @@ The blend parameter for voices played from Multi patterns can be set with [`Viny
 
 ## Configuration
 
-<!-- tabs:start -->
-
-#### **Properties**
+Multi patterns should be set up in the [configuration file](Config-File).
 
 |Property        |Datatype        |Default                                     |Notes                                                                                                      |
 |----------------|----------------|--------------------------------------------|-----------------------------------------------------------------------------------------------------------|
@@ -33,7 +31,9 @@ The blend parameter for voices played from Multi patterns can be set with [`Viny
 |`blend`         |number          |[`VINYL_DEFAULT_MULTI_BLEND`](Config-Macros)|This is a normalised value from `0` to `1` (inclusive)                                                     |
 |`blend curve`   |string          |`undefined`                                 |Animation curve to use If not defined, linear crossfades are used                                          |
 
-#### **Examples**
+&nbsp;
+
+## Examples
 
 ```
 { //Start of __VinylConfig

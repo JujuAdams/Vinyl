@@ -16,11 +16,9 @@ You can set the behaviour of a Queue pattern in the [configuration file](Config-
 
 &nbsp;
 
-## Configuration
+## Properties
 
-<!-- tabs:start -->
-
-#### **Properties**
+Queue patterns should be set up in the [configuration file](Config-File).
 
 |Property        |Datatype        |Default                                        |Notes                                                                                                                         |
 |----------------|----------------|-----------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
@@ -37,7 +35,9 @@ You can set the behaviour of a Queue pattern in the [configuration file](Config-
 |`persistent`    |boolean         |*passthrough*                                  |                                                                                                                              |
 |`behavior`      |number          |[`VINYL_DEFAULT_QUEUE_BEHAVIOR`](Config-Macros)|Must be one of the following: `0` `1` `2`                                                                                     |
 
-#### **Examples**
+&nbsp;
+
+## Examples
 
 ```
 { //Start of __VinylConfig
@@ -87,5 +87,3 @@ You can set the behaviour of a Queue pattern in the [configuration file](Config-
 	...
 }
 ```
-
-<!-- tabs:end -->

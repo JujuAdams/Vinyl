@@ -6,11 +6,9 @@ An asset is any [sound asset](https://manual.yoyogames.com/The_Asset_Editors/Sou
 
 &nbsp;
 
-## Configuration
+## Properties
 
-<!-- tabs:start -->
-
-#### **Properties**
+Assets should be set up in the [configuration file](Config-File).
 
 |Property        |Datatype        |Default                             |Notes                                                                                                      |
 |----------------|----------------|------------------------------------|-----------------------------------------------------------------------------------------------------------|
@@ -26,7 +24,7 @@ An asset is any [sound asset](https://manual.yoyogames.com/The_Asset_Editors/Sou
 |`label`         |string or array |`[]`                                |Label to assign this asset to. Can be a string for a single label, or an array of label names              |
 |`persistent`    |boolean         |*passthrough*                       |                                                                                                           |
 
-#### **Examples**
+## Examples
 
 ```
 { //Start of __VinylConfig
@@ -87,5 +85,3 @@ An asset is any [sound asset](https://manual.yoyogames.com/The_Asset_Editors/Sou
 	...
 }
 ```
-
-<!-- tabs:end -->
