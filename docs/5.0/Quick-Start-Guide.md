@@ -63,6 +63,8 @@ This is all very simplistic and of course we do can more. Let's take a look at a
 #### **Create Event**
 
 ```gml
+/// oMainMenu Create event
+
 //Starts the music at silence and at a reduced pitch
 music = VinylPlay(sndMainMenuMusic, true, 0, 0.5);
 
