@@ -98,7 +98,7 @@ VinylPitchTargetSet(music, 0.5);
 
 Looking at the examples above - playback of `sndMainMenu` `sndSmallMeow` etc. - you'll notice that they involve hardcoding magic numbers for different properties. Inserting magic numbers into your codebase is a guaranteed way to have a bad time later on, and especially so if we intend to use a sound effect in multiple places which would mean copy-pasting numbers all over the place.
 
-Vinyl solves this problem by giving you a way to define properties in a single place and have those properties influence how audio is played no matter where in your code its being played. With the correct configuration, the above example would look like this:
+Vinyl solves this problem by giving you a way to define properties in a single place and have those properties influence how audio is played no matter where in your code it's being played. With the correct configuration, the above example would look like this:
 
 <!-- tabs:start -->
 
@@ -161,6 +161,14 @@ It's very easy to set up this sort of configuration in Vinyl. If you go to the `
 ```
 
 Each asset gets its own struct, and each struct contains information that changes how the audio is played back. Whenever `sndBonk` is played, it'll be played with a 90% to 110% pitch variation, chosen randomly. Whenever `sndSmallMeow` is played, it will be played at half gain, and so on. There are a lot of different properties you can manipulate for assets and you can read about that [here](Assets).
+
+Setting up configuration doesn't mean that you can't further customise per-usage properties. Let's say we wanted to play `sndSmallMeow` slightly louder in one particular situation. We can still do that by using `VinylPlay()` in the same way as before.
+
+```gml
+VinylPlay(sndSmallMeow, false, 1.2);
+```
+
+Gain is applied multiplicatively between the gain set when calling `VinylPlay()` (called "voice gain") and the gain set up in the configuration file (called "asset gain"). The rules on gain inheritance are a little complex so they get their own page [here](Gain). Similar rules exist for [pitch](Pitch) and [transposition](Transposition) as well, and you can find a complete overview of voice properties [here](Voices).
 
 &nbsp;
 
