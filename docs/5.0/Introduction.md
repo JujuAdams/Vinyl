@@ -12,13 +12,13 @@ Vinyl is a library of two halves: 1) Configuration 2) The API. As a solo develop
 
 ## Importing Vinyl
 
-!> Vinyl is intended for use with Git, or an equivalent source control system.
+!> Vinyl is intended for use with Git, or an equivalent source control system. You should set up source control before importing Vinyl.
 
 You can find the latest version of Vinyl [here](https://github.com/JujuAdams/Vinyl/releases). Make sure that you're using a version of GameMaker that Vinyl supports, and then download the `.yymps` from that page and import into your GameMaker project. You'll see a folder called `Vinyl` appear in your asset browser, and a file called `vinyl.dat` will also be created in your Included Files.
 
-?> You may notice that `vinyl.dat` frequently shows changes in your source control, typically after recompiling the game. `vinyl.dat` is regenerated for every compile and doesn't contain persistent data. You can either add `vinyl.dat` to your `.gitignore`, or you can literally ignore any changes made to that file.
-
 If you look inside the Vinyl folder you'll see a lot of subfolders. These subfolders contain functions that comprise the API - the interface that you'll need to execute Vinyl code in your game. The `(Internals)` folder holds code that Vinyl requires to operate and has to be there but otherwise you can forget it exists. You'll also see two scripts and a Note asset (`__VinylConfigMacros` `__VinylConfigDebug` `__VinylConfig`). You'll be using these to customise Vinyl for your use case.
+
+You may notice that `vinyl.dat` frequently shows inscrutiable changes in your source control. Don't worry! `vinyl.dat` is regenerated for every compile from `__VinylConfig` and doesn't contain persistent data. You can either add `vinyl.dat` to your `.gitignore`, or you can literally ignore any changes made to that file.
 
 &nbsp;
 
