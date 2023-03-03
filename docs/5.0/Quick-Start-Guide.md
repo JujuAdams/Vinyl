@@ -56,7 +56,7 @@ VinylPlay(sndBonk, false, 1, random_range(0.9, 1.1));
 VinylPlay(sndHorrorAmbience, true, 0.2, 0.6);
 ```
 
-This is all very simplistic and of course we do can more.
+This is nice and everything but it's not much of a step up from GameMaker's native functionality. What else can we do?
 
 Let's take a look at a common thing to do with music - fade it in and fade it out. We going to add an extra spin on this as well by pitch shifting as we fade in and out to give the effect of a record player or casette deck accelerating. For this we'll use [`VinylGainTargetSet()`](Gain-Functions), [`VinylPitchTargetSet()`](Pitch-Functions), and [`VinylFadeOut()`](Stopping-Audio). (You could also use [`VinylPlayFadeIn()`](Playing-Audio).)
 
