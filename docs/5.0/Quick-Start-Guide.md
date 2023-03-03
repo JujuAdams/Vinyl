@@ -96,6 +96,10 @@ Looking at the examples above - playback of `sndMainMenu` `sndSmallMeow` etc. - 
 
 Vinyl solves this problem by giving you a way to define properties in a single place and have those properties influence how audio is played no matter where in your code its being played. With the correct configuration, the above example would look like this:
 
+<!-- tabs:start -->
+
+#### **New, Good Version**
+
 ```gml
 VinylPlay(sndMeow);
 
@@ -107,6 +111,27 @@ VinylPlay(sndBonk);
 
 VinylPlay(sndHorrorAmbience);
 ```
+
+#### **Old, Bad Version**
+
+```gml
+//Play sndMeow with no frills
+VinylPlay(sndMeow);
+
+//Play the sound and loop it
+VinylPlay(sndMainMenuMusic, true);
+
+//Play sndSmallMeow, but at half gain
+VinylPlay(sndSmallMeow, false, 0.5);
+
+//Bonk! at a randomised pitch
+VinylPlay(sndBonk, false, 1, random_range(0.9, 1.1));
+
+//Play a creepy noise on repeat at a low volume and pitch shifted down
+VinylPlay(sndHorrorAmbience, true, 0.2, 0.6);
+```
+
+<!-- tabs:end -->
 
 I'm sure you'll agree this is much cleaner!
 
