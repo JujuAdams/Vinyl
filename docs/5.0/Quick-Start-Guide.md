@@ -25,7 +25,7 @@ If you look inside the Vinyl folder you'll see a lot of subfolders. These subfol
 
 ## Basic Audio Playback
 
-Vinyl has a few functions to play back audio. You should choose which function to play based on your needs. To begin with we'll stick to using [`VinylPlay()`](Playing-Audio) but you may want to look into the other playback functions [`VinylPlaySimple()`](Playing-Audio) and [`VinylPlayOnEmitter()`](Emitter-Functions) as you get more comfortable with the library.
+Vinyl has a few functions to play back audio. You should choose which function to use based on your needs. To begin with we'll stick to using [`VinylPlayFadeIn()`](Playing-Audio), [`VinylPlay()`](Playing-Audio) but you may want to look into the other playback functions [`VinylPlaySimple()`](Playing-Audio) and [`VinylPlayOnEmitter()`](Emitter-Functions) as you get more comfortable with the library.
 
 `VinylPlay()` has the following arguments:
 
