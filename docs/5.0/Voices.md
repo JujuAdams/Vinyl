@@ -2,7 +2,7 @@
 
 &nbsp;
 
-When you play an audio asset using [`VinylPlay()`](Playing-Audio), [`VinylPlayFadeIn()`](Playing-Audio), or [`VinylPlayOnEmitter()`](Emitters), Vinyl will create a unique voice that holds information about that specific piece of audio being played.
+When you play an audio asset using [`VinylPlay()`](Playing-Audio), [`VinylPlayFadeIn()`](Playing-Audio), or [`VinylPlayOnEmitter()`](Emitter-Functions), Vinyl will create a unique voice that holds information about that specific piece of audio being played.
 
 The best way to understand a voice is to think of them like they're instances of GameMaker objects, only the "objects" in this case are Vinyl patterns.
 

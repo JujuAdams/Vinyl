@@ -20,6 +20,7 @@
 -    [Gain](Gain)
 -    [Pitch](Pitch)
 -    [Transposition](Transposition)
+-    [Emitters](Emitters)
 
 ---
 
@@ -43,7 +44,7 @@
 -    [Transposition](Transposition-Functions)
 -    [BPM](BPM)
 -    [Panning](Panning)
--    [Emitters](Emitters)
+-    [Emitters](Emitter-Functions)
 -    [Queue Patterns](Queue-Pattern-Functions)
 -    [Multi Patterns](Multi-Pattern-Functions)
 -    [Stacks](Stack-Functions)
