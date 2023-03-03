@@ -23,7 +23,7 @@ The blend parameter for voices played from Multi patterns can be set with [`Viny
 |`gain`          |number          |`1`                                         |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
 |`pitch`         |number or array |`1`                                         |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
 |`transpose`     |number          |*passthrough*                               |                                                                                                           |
-|`loop`          |boolean         |*passthrough*                               |                                                                                                           |
+|`loop`          |boolean         |*passthrough*                               |This property is inherited by assets played by this pattern; a Multi pattern cannot inherently loop        |
 |`stack`         |string          |*passthrough*                               |                                                                                                           |
 |`stack priority`|number          |`0`                                         |                                                                                                           |
 |`effect chain`  |string          |*passthrough*                               |                                                                                                           |
