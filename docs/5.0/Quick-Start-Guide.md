@@ -84,7 +84,7 @@ VinylPitchTargetSet(music, 1);
 
 //Fade out the music whilst slowing it down
 //VinylFadeOut() explicitly stops audio when it's faded out
-VinylFadeOut(sndMainMenuMusic);
+VinylFadeOut(music);
 VinylPitchTargetSet(music, 0.5);
 ```
 
