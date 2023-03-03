@@ -5,6 +5,7 @@
 #macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
 
 #macro __VINYL_USE_GAIN_CURVE  true
+#macro __VINYL_OVERRIDE_NOTE   undefined
 
 #macro __VINYL_FALLOFF_MODEL  audio_falloff_exponent_distance_scaled
 
