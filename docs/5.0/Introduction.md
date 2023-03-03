@@ -48,4 +48,6 @@ Functions are rarely complex and follow GML-ish conventions. Many functions take
 
 Vinyl is distributed as a `.yymps`. Standard practice when importing these sorts of files into GameMaker is to delete the existing library completely before reimporting it, and this is still broadly an effective technique for Vinyl. However, `__VinylConfig` comes packaged with the Vinyl library and, as such, replacing Vinyl necessarily means replacing `__VinylConfig` and erasing all of the work you put in configuring your audio.
 
-There's no great trick to get around this - make a backup of `__VinylConfig` before updating, or restore the old file from your source control history. You may find that you need to do similar things to restore macros in [`__VinylConfigMacros`](Config-Macros) and [`__VinylDebugMacros`](Debug-Macros). *You're using source control, right? You really should be using source control.*
+There's no great trick to get around this - make a backup of `__VinylConfig` before updating, or restore the old file from your source control history. You may find that you need to do similar things to restore macros in [`__VinylConfigMacros`](Config-Macros) and [`__VinylDebugMacros`](Debug-Macros).
+
+!> You're using source control, right? You really should be using source control.
