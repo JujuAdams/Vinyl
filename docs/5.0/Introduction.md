@@ -14,7 +14,7 @@ Vinyl is a library of two halves: 1) Configuration 2) The API. As a solo develop
 
 !> Vinyl is intended for use with Git, or an equivalent source control system.
 
-You can find the latest version of Vinyl [here](https://github.com/JujuAdams/Vinyl/releases). Make sure that you're using a version of GameMaker that Vinyl supports, and then download the `.yymps` from that page and import into GameMaker. You'll see a folder called `Vinyl` appear in your asset browser, and a file called `vinyl.dat` will also be created in your Included Files.
+You can find the latest version of Vinyl [here](https://github.com/JujuAdams/Vinyl/releases). Make sure that you're using a version of GameMaker that Vinyl supports, and then download the `.yymps` from that page and import into your GameMaker project. You'll see a folder called `Vinyl` appear in your asset browser, and a file called `vinyl.dat` will also be created in your Included Files.
 
 ?> You may notice that `vinyl.dat` frequently shows changes in your source control, typically after recompiling the game. `vinyl.dat` is regenerated for every compile and doesn't contain persistent data. You can either add `vinyl.dat` to your `.gitignore`, or you can literally ignore any changes made to that file.
 
