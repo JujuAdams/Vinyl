@@ -26,7 +26,7 @@ An asset is any [sound asset](https://manual.yoyogames.com/The_Asset_Editors/Sou
 |`label`         |string or array |`[]`                                |Label to assign this asset to. Can be a string for a single label, or an array of label names              |
 |`persistent`    |boolean         |*passthrough*                       |                                                                                                           |
 
-#### **Example**
+#### **Examples**
 
 ```
 { //Start of __VinylConfig
