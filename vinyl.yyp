@@ -172,7 +172,6 @@
     {"id":{"name":"sndPop","path":"sounds/sndPop/sndPop.yy",},},
     {"id":{"name":"VinylTransposeGet","path":"scripts/VinylTransposeGet/VinylTransposeGet.yy",},},
     {"id":{"name":"VinylKnobExists","path":"scripts/VinylKnobExists/VinylKnobExists.yy",},},
-    {"id":{"name":"VinylMultiSyncSet","path":"scripts/VinylMultiSyncSet/VinylMultiSyncSet.yy",},},
     {"id":{"name":"VinylPersistentGet","path":"scripts/VinylPersistentGet/VinylPersistentGet.yy",},},
     {"id":{"name":"VinylPausedGet","path":"scripts/VinylPausedGet/VinylPausedGet.yy",},},
     {"id":{"name":"VinylGlobalTransposeSet","path":"scripts/VinylGlobalTransposeSet/VinylGlobalTransposeSet.yy",},},

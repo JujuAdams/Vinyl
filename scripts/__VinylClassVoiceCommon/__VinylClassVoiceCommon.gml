@@ -2,9 +2,9 @@ function __VinylClassVoiceCommon() constructor
 {
     static __patternType = "???";
     
-    static __globalData       = __VinylGlobalData();
-    static __idToVoiceDict = __globalData.__idToVoiceDict;
-    static __effectChainDict  = __globalData.__effectChainDict;
+    static __globalData      = __VinylGlobalData();
+    static __idToVoiceDict   = __globalData.__idToVoiceDict;
+    static __effectChainDict = __globalData.__effectChainDict;
     
     __id   = undefined;
     __pool = undefined;

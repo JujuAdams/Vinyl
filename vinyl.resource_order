@@ -134,7 +134,6 @@
     {"name":"VinylPitchTargetSet","order":2,"path":"scripts/VinylPitchTargetSet/VinylPitchTargetSet.yy",},
     {"name":"sndPop","order":4,"path":"sounds/sndPop/sndPop.yy",},
     {"name":"VinylTransposeGet","order":4,"path":"scripts/VinylTransposeGet/VinylTransposeGet.yy",},
-    {"name":"VinylMultiSyncSet","order":5,"path":"scripts/VinylMultiSyncSet/VinylMultiSyncSet.yy",},
     {"name":"VinylPersistentGet","order":1,"path":"scripts/VinylPersistentGet/VinylPersistentGet.yy",},
     {"name":"VinylPausedGet","order":2,"path":"scripts/VinylPausedGet/VinylPausedGet.yy",},
     {"name":"VinylEmitterDebugDraw","order":11,"path":"scripts/VinylEmitterDebugDraw/VinylEmitterDebugDraw.yy",},
