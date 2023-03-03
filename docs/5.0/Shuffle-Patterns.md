@@ -8,16 +8,16 @@ Shuffle patterns play a random asset from an array. Shuffle patterns also try to
 
 ## Configuration Properties
 
-|Property        |Datatype        |Default      |Notes                                                                                                                        |
-|----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------------------------|
-|`type`          |string          |*passthrough*|**Required.** Must be one of the following: `basic` `shuffle` `queue` `multi`                                                |
-|`asset`         |string or struct|*passthrough*|**Required.** Can be asset name, a pattern name, or a pattern struct. Must be an array for shuffle, queue, and multi patterns|
-|`gain`          |number          |`1`          |Defaults to `0` db in [decibel mode](Config-Macros)                                                                          |
-|`pitch`         |number or array |`1`          |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)                  |
-|`transpose`     |number          |*passthrough*|                                                                                                                             |
-|`loop`          |boolean         |*passthrough*|                                                                                                                             |
-|`stack`         |string          |*passthrough*|                                                                                                                             |
-|`stack priority`|number          |`0`          |                                                                                                                             |
-|`effect chain`  |string          |*passthrough*|                                                                                                                             |
-|`label`         |string or array |*passthrough*|Label to assign this pattern to. Can be a string for a single label, or an array of label names                              |
-|`persistent`    |boolean         |*passthrough*|                                                                                                                             |
+|Property        |Datatype        |Default      |Notes                                                                                                      |
+|----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------|
+|`type`          |string          |             |**Required. Must be `shuffle`**                                                                            |
+|`assets`        |array           |             |**Required.** An array of asset names as strings                                                           |
+|`gain`          |number          |`1`          |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
+|`pitch`         |number or array |`1`          |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
+|`transpose`     |number          |*passthrough*|                                                                                                           |
+|`loop`          |boolean         |*passthrough*|                                                                                                           |
+|`stack`         |string          |*passthrough*|                                                                                                           |
+|`stack priority`|number          |`0`          |                                                                                                           |
+|`effect chain`  |string          |*passthrough*|                                                                                                           |
+|`label`         |string or array |*passthrough*|Label to assign this pattern to. Can be a string for a single label, or an array of label names            |
+|`persistent`    |boolean         |*passthrough*|                                                                                                           |
