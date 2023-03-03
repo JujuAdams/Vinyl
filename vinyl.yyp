@@ -166,6 +166,7 @@
     {"id":{"name":"UISpace","path":"scripts/UISpace/UISpace.yy",},},
     {"id":{"name":"VinylStopCallbackSet","path":"scripts/VinylStopCallbackSet/VinylStopCallbackSet.yy",},},
     {"id":{"name":"sndSync3","path":"sounds/sndSync3/sndSync3.yy",},},
+    {"id":{"name":"TestConfig","path":"notes/TestConfig/TestConfig.yy",},},
     {"id":{"name":"sndBleep0","path":"sounds/sndBleep0/sndBleep0.yy",},},
     {"id":{"name":"__VinylConfigDebug","path":"scripts/__VinylConfigDebug/__VinylConfigDebug.yy",},},
     {"id":{"name":"VinylPitchTargetSet","path":"scripts/VinylPitchTargetSet/VinylPitchTargetSet.yy",},},
