@@ -30,29 +30,6 @@ An effect chain should be defined as an array with, at most, 8 elements. Each el
 
 The effect chain name `main` is special and is used for any voices without a defined effect chain.
 
-```
-{
-    ...
-    
-    effect chains: {
-        main: [
-            {
-                type: delay
-                time: 0.25
-                mix: 0.4
-            }
-            {
-                type: reverb
-                size: 0.6
-                mix: 0.3
-            }
-        ]
-    }
-
-    ...
-}
-```
-
 <!-- tabs:start -->
 
 #### **Reverb**
@@ -138,3 +115,47 @@ Basic volume control. Equivalent to `AudioEffectType.Gain`.
 |`gain`  |number  |From `0` to `1`. Attenuates the signal         |
 
 <!-- tabs:end -->
+
+## Examples
+
+```
+{
+    ...
+    
+    effect chains: {
+
+        //Set up a default effect chain
+        main: [
+            {
+                type: delay
+                time: 0.25
+                mix: 0.4
+            }
+            {
+                type: reverb
+                size: 0.6
+                mix: 0.3
+            }
+        ]
+
+        radio: [
+            {
+                type: hpf
+                cutoff: 12000
+                q: 10
+            }
+            {
+                type: bitcrusher
+                //Use GameMaker's default settings
+            }
+            {
+                type: hpf
+                cutoff: 400
+                q: 65
+            }
+        ]
+    }
+
+    ...
+}
+```
