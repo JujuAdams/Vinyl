@@ -30,7 +30,7 @@ The configuration file is stored in `__VinylConfig` and has its own particular s
 
 `__VinylConfig` can be edited whilst the game is running from the IDE on Windows, Mac, or Linux. If Vinyl detects that a change has been made, Vinyl will live update audio playback without you having to close and recompile the entire game. This means you can finesse your audio mix without having to stop playing the game - a substantial workflow improvement over what GameMaker offers natively.
 
-Vinyl is intended for use with Git, or an equivalent source control system. You may notice that during compilation, the `vinyl.dat` file in Included Files (called the `/datafiles` directory on disk) frequently shows changes. `vinyl.dat` is regenerated for every compile and doesn't contain persistent data that's relevant for other developers. If you're working in a team, you can either add `vinyl.dat` to your `.gitignore` or you can literally ignore any changes made to that file.
+You may notice that after compilation the `vinyl.dat` file in Included Files (called the `/datafiles` directory on disk) frequently shows changes in your source control. `vinyl.dat` is regenerated for every compile and doesn't contain persistent data that's relevant for other developers. If you're working in a team, you can either add `vinyl.dat` to your `.gitignore` or you can literally ignore any changes made to that file.
 
 &nbsp;
 
