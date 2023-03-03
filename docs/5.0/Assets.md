@@ -29,16 +29,58 @@ An asset is any [sound asset](https://manual.yoyogames.com/The_Asset_Editors/Sou
 #### **Example**
 
 ```
-{
+{ //Start of __VinylConfig
 	...
+    
+	assets: { //Start of asset definitions
 
-	assets: {
-		sndCat: {
+        sndGunshot: {
+        	gain: 1.5 //Boom!
+        }
+        
+        sndFootstep: {
+        	pitch: [0.92, 1.08] //Vary the pitch as we're walking
+        }
+
+        sndPlayerMumble: {
+        	gain: 0.9
+        	label: speech //Use the "speech" label for extra control
+        }
+
+        sndMusic: {
+        	loop: true
+            stack: bgm //Use the background music stack
+            //Stack priority defaults to 0
+        }
+        
+        sndMusicWithLoopPoints: {
+            loop: true
+            loop points: [3, 33] //Loop the middle 30 seconds of the asset
+            stack: bgm
+            //Stack priority defaults to 0
+        }
+        
+        sndChestJingle: {
+        	stack: bgm
+        	stack priority: 1 //Duck lower priority music when we're playing
+        }
+
+		sndDeath: {
 			gain: 1.4
 			pitch: 0.9
-			effect chain: echo
+			effect chain: echo //Echoey for extra drama!
 			label: [sfx, speech]
 		}
+
+		sndTransition: {
+			gain: 0.4
+			persistent: true //Don't stop this audio between rooms
+		}
+        
+        sndXylophone: {
+        	transpose: 0 //We want to track the global transposition
+        	pitch: [0.98, 1.02] //Add a subtle pitch variation
+        }
 	}
 
 	...
