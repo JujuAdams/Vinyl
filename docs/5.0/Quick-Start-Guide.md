@@ -90,7 +90,7 @@ VinylPitchTargetSet(music, 0.5);
 
 <!-- tabs:end -->
 
-!> The other Vinyl playback functions [`VinylPlayFadeIn()`](Playing-Audio) and [`VinylPlayOnEmitter()`](Emitter-Functions) return a voice ID. **However, `VinylPlaySimple()` does not return a voice ID**. It instead returns a standard GameMaker sound instance ID which cannot be used with any other Vinyl functions. A sound instance ID can be used with native GameMaker functions though, should you wish to endure that.
+!> The other Vinyl playback functions [`VinylPlayFadeIn()`](Playing-Audio) and [`VinylPlayOnEmitter()`](Emitter-Functions) return a voice ID. **However, [`VinylPlaySimple()`](Playing-Audio) does not return a voice ID**. It instead returns a standard GameMaker sound instance ID which cannot be used with any other Vinyl functions. A sound instance ID can be used with native GameMaker functions though, should you wish to endure that.
 
 &nbsp;
 
