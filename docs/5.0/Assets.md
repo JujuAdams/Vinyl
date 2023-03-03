@@ -38,7 +38,8 @@ An asset is any [sound asset](https://manual.yoyogames.com/The_Asset_Editors/Sou
         	gain: 1.5 //Boom!
         }
         
-        sndFootstep: {
+        //Duplicate pitch randomisation across three different assets
+        [sndFootstepGrass, sndFootstepMetal, sndFootstepWood]: {
         	pitch: [0.92, 1.08] //Vary the pitch as we're walking
         }
 

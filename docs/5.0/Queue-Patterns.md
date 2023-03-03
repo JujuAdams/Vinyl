@@ -18,7 +18,6 @@ The queue itself can be set to loop, restarting the entire sequence from the sta
 |`pitch`         |number or array |`1`                                            |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)                  |
 |`transpose`     |number          |*passthrough*                                  |                                                                                                                             |
 |`loop`          |boolean         |*passthrough*                                  |                                                                                                                             |
-|`loop points`   |array of numbers|*passthrough*                                  |Must be a two-element array defining the start and end point of a loop, measured in seconds                                  |
 |`stack`         |string          |*passthrough*                                  |                                                                                                                             |
 |`stack priority`|number          |`0`                                            |                                                                                                                             |
 |`effect chain`  |string          |*passthrough*                                  |                                                                                                                             |
