@@ -161,7 +161,7 @@ It's very easy to set up this sort of configuration in Vinyl. If you go to the `
 }
 ```
 
-Each asset gets its own struct, and each struct contains information that changes how the audio is played back. Whenever `sndBonk` is played, it'll be played with a 90% to 110% pitch variation, chosen randomly. Whenever `sndSmallMeow` is played, it will be played at half gain.
+Each asset gets its own struct, and each struct contains information that changes how the audio is played back. Whenever `sndBonk` is played, it'll be played with a 90% to 110% pitch variation, chosen randomly. Whenever `sndSmallMeow` is played, it will be played at half gain, and so on. There are a lot of different properties you can manipulate for assets and you can read about that [here](Assets).
 
 &nbsp;
 
