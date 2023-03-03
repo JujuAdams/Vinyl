@@ -128,37 +128,6 @@ Gain set by this function will be overwritten by `VinylMultiGainSet()`.
 //TODO lol
 ```
 
-<!-- tabs:end -->
-
-&nbsp;
-
-## `VinylMultiSyncSet`
-
-`VinylMultiSyncSet(target, state)`
-
-<!-- tabs:start -->
-
-#### **Description**
-
-*Returns:* N/A (`undefined`)
-
-|Name    |Datatype      |Purpose                        |
-|--------|--------------|-------------------------------|
-|`target`|voice or label|The voice or label to target   |
-|`state` |boolean       |Whether to synchronise playback|
-
-?> Multi pattern synchronisation is not absolutely precise and may wander a little.
-
-!> Make sure that all sound assets played on a synchronised Multi pattern are the same length or you may encounter unexpected behaviour.
-
-#### **Example**
-
-```gml
-//TODO lol
-```
-
-<!-- tabs:end -->
-
 &nbsp;
 
 ## `VinylMultiSyncGet`
