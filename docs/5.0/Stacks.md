@@ -2,7 +2,7 @@
 
 &nbsp;
 
-Stacks are special logic containers that automatically manage audio clips interrupting each other.
+Stacks are special logic containers that automatically manage voices interrupting each other.
 
 &nbsp;
 
@@ -23,7 +23,17 @@ Stacks are special logic containers that automatically manage audio clips interr
 	...
     
 	stacks: { //Start of stack definitions
-		
+
+		basic stack: {} //Use a blank struct to use the default settings
+
+		slow fade: {
+			rate: 0.05 //Reaaaally slow fade
+		}
+
+		shallow duck: {
+			ducked gain: 0.4 //Don't duck all the way
+			rate: 1.4        //Faster rate
+		}
 	}
 
 	...
