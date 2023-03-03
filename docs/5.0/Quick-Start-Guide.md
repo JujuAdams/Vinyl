@@ -19,8 +19,6 @@ You can find the latest version of Vinyl [here](https://github.com/JujuAdams/Vin
 
 If you look inside the Vinyl folder you'll see a lot of subfolders. These subfolders contain functions that comprise the API - the interface that you'll need to execute Vinyl code in your game. The `(Internals)` folder holds code that Vinyl requires to operate and has to be there but otherwise you can forget it exists. You'll also see two scripts and a Note asset (`__VinylConfigMacros` `__VinylConfigDebug` `__VinylConfig`). You'll be using these to customise Vinyl for your use case.
 
-?> When you import `__VinylConfig` it'll contain some example data. If you run your game straight away you'll likely see warnings or outright errors. If you want to postpone getting Vinyl ready for use, delete the entire contents of `__VinylConfig` and that'll avoid errors on boot.
-
 &nbsp;
 
 ## Basic Audio Playback
