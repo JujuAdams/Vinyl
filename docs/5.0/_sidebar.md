@@ -1,6 +1,7 @@
 -    [Home](README)
 -    [FAQ](faq)
 -    [Introduction](Introduction)
+-    [Quick Start Guide](Quick-Start-Guide)
 
 ---
 
