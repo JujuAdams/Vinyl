@@ -167,7 +167,9 @@ Each asset gets its own struct, and each struct contains information that change
 
 ## Live Updating
 
-Vinyl allows to live update any properties in the configuration file whilst the game is running. If you want to experiment with a louder `sndSmallMeow` then you can change the `gain` property for the asset. If you want your `sndBonk` to bonk higher, change its `pitch` property. You can even add new definitions for assets you didn't define before you compiled the game. This becomes especially powerful when you're working on a bigger project and getting audio to mix nicely would otherwise involve dozens of recompiles to adjust gain values by tiny amounts.
+Vinyl allows to live update any properties in the configuration file whilst the game is running. You don't need to set up anything else, it works out of the box.
+
+If you want to experiment with a louder `sndSmallMeow` then you can change the `gain` property for the asset in your IDE whilst the game is running and, when you save the project to disk, those changes will be reflect near instantly in the game. If you want your `sndBonk` to bonk higher, change its `pitch` property. You can even add new definitions for assets you didn't define before you compiled the game. This becomes especially powerful when you're working on a bigger project and getting audio to mix nicely would otherwise involve dozens of recompiles to adjust gain values by tiny amounts.
 
 There is one limitation however: you can't live update audio when running the game on a different device to the machine you're running the IDE in. Maybe in the future I'll write something to make that happen, but for now you can only live update locally.
 
