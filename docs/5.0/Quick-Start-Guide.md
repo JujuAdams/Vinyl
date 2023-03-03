@@ -56,7 +56,13 @@ VinylPlay(sndBonk, false, 1, random_range(0.9, 1.1));
 VinylPlay(sndHorrorAmbience, true, 0.2, 0.6);
 ```
 
-This is all very simplistic and of course we do can more. Let's take a look at a common thing to do with music - fade it in and fade it out. We going to add an extra spin on this as well by pitch shifting as we fade in and out to give the effect of a record player or casette deck accelerating. For this we'll use [`VinylGainTargetSet()`](Gain-Functions), [`VinylPitchTargetSet()`](Pitch-Functions), and [`VinylFadeOut()`](Stopping-Audio). (You could also use [`VinylPlayFadeIn()`](Playing-Audio).)
+This is all very simplistic and of course we do can more.
+
+Let's take a look at a common thing to do with music - fade it in and fade it out. We going to add an extra spin on this as well by pitch shifting as we fade in and out to give the effect of a record player or casette deck accelerating. For this we'll use [`VinylGainTargetSet()`](Gain-Functions), [`VinylPitchTargetSet()`](Pitch-Functions), and [`VinylFadeOut()`](Stopping-Audio). (You could also use [`VinylPlayFadeIn()`](Playing-Audio).)
+
+Every time you call `VinylPlay()`, Vinyl will internally create a "voice" that holds all the information necessary to manage playback of the asset (or pattern) that you specified. This voice is indentified by a numeric ID that is returned to you from the `VinylPlay()` function. You can think of `VinylPlay()` being like `instance_create_depth()` and assets being like GameMaker objects.
+
+!> The other Vinyl playback functions [`VinylPlayFadeIn()`](Playing-Audio) and [`VinylPlayOnEmitter()`](Emitter-Functions) return a voice ID. However, `VinylPlaySimple()` does **not return a voice ID**. It instead returns a standard GameMaker sound instance ID which cannot be used with any other Vinyl functions or Vinyl's live updating systems (it can be used with native GameMaker functions though should you wish to endure that).
 
 <!-- tabs:start -->
 
