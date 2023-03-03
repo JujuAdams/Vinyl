@@ -98,7 +98,7 @@ Vinyl solves this problem by giving you a way to define properties in a single p
 
 <!-- tabs:start -->
 
-#### **New, Good Version**
+#### **New, Clean Version**
 
 ```gml
 VinylPlay(sndMeow);
@@ -112,7 +112,7 @@ VinylPlay(sndBonk);
 VinylPlay(sndHorrorAmbience);
 ```
 
-#### **Old, Bad Version**
+#### **Old, Messy Version**
 
 ```gml
 VinylPlay(sndMeow);
