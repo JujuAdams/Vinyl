@@ -1,12 +1,13 @@
 # Quick Start Guide
 
-There's a lot you can do with Vinyl, but sticking to simple stuff is the best way to get started. This guide will take you through five things:
+There's a lot you can do with Vinyl, but sticking to simple stuff is the best way to get started. This guide will take you through these topics:
 
 1. Importing Vinyl
 2. Basic audio playback
 3. Setting up Vinyl's [configuration file](Config-File) for your audio assets
-4. Basic use of labels
-5. Basic use of patterns
+4. Live updating
+5. Basic use of labels
+6. Basic use of patterns
 
 &nbsp;
 
@@ -105,7 +106,9 @@ VinylPlay(sndBonk);
 VinylPlay(sndHorrorAmbience);
 ```
 
-I'm sure you'll agree this is much cleaner! Here's what the [config file](Config-File) would look like to support this:
+I'm sure you'll agree this is much cleaner!
+
+It's very easy to set up this sort of configuration in Vinyl. If you go to the `Vinyl` folder in your Asset Browser in the GameMaker IDE you'll see a Note asset called `__VinylConfig`. Open that up and you'll see a template configuration. You can read in-depth documentation for what sort of data you can put into the configuration file [here](Config-File). For expediency, here's an example of a configuration file that replicates the hardcoded numbers we had before:
 
 ```
 {
@@ -130,6 +133,16 @@ I'm sure you'll agree this is much cleaner! Here's what the [config file](Config
 	}
 }
 ```
+
+Each asset gets its own struct, and each struct contains information that changes how the audio is played back. Whenever `sndBonk` is played, it'll be played with a 90% to 110% pitch variation, chosen randomly. Whenever `sndSmallMeow` is played, it will be played at half gain.
+
+&nbsp;
+
+## Live Updating
+
+Vinyl allows to live update any properties in the configuration file whilst the game is running. If you want to experiment with a louder `sndSmallMeow` then you can change the `gain` property for the asset. If you want your `sndBonk` to bonk higher, change its `pitch` property. You can even add new definitions for assets you didn't define before you compiled the game. This becomes especially powerful when you're working on a bigger project and getting audio to mix nicely would otherwise involve dozens of recompiles to adjust gain values by tiny amounts.
+
+There is one limitation however: you can't live update audio when running the game on a different device to the machine you're running the IDE in. Maybe in the future I'll write something to make that happen, but for now you can only live update locally.
 
 &nbsp;
 
