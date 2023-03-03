@@ -115,19 +115,14 @@ VinylPlay(sndHorrorAmbience);
 #### **Old, Bad Version**
 
 ```gml
-//Play sndMeow with no frills
 VinylPlay(sndMeow);
 
-//Play the sound and loop it
 VinylPlay(sndMainMenuMusic, true);
 
-//Play sndSmallMeow, but at half gain
 VinylPlay(sndSmallMeow, false, 0.5);
 
-//Bonk! at a randomised pitch
 VinylPlay(sndBonk, false, 1, random_range(0.9, 1.1));
 
-//Play a creepy noise on repeat at a low volume and pitch shifted down
 VinylPlay(sndHorrorAmbience, true, 0.2, 0.6);
 ```
 
