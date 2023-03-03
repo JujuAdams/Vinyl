@@ -2,11 +2,19 @@
 
 &nbsp;
 
-Multi patterns play assets from an array simultaneously. The blend parameter stored within the pattern can be set with `VinylMultiBlendSet()` and crossfades between assets.
+Multi patterns play assets from an array simultaneously. This can be used to create musical arrangement made of many independent parts that can be faded in and out individually, or to smoothly transition between different ambiences depending on time of day.
+
+The blend parameter for voices played from Multi patterns can be set with [`VinylMultiBlendSet()`](Multi-Pattern-Functions) and crossfades between assets. If `blend curve` is not defined, these crossfades will be linear and one voice will fade out as the next voice fades in. If `blend curve` is defined then the relative gains of voices will be derived from the animation curve. Each channel in the animation curve is linked to each asset defined for the Multi pattern. If no channel exists for an asset in the Multi pattern then the gain of that asset will be set to 0 when played.
+
+?> Animation curves used for Multi patterns are live updated by Vinyl and any changes made to animation curves in the IDE will be reflected at runtime.
 
 &nbsp;
 
-## Configuration Properties
+## Configuration
+
+<!-- tabs:start -->
+
+#### **Properties**
 
 |Property        |Datatype        |Default                                     |Notes                                                                                                      |
 |----------------|----------------|--------------------------------------------|-----------------------------------------------------------------------------------------------------------|
@@ -23,4 +31,57 @@ Multi patterns play assets from an array simultaneously. The blend parameter sto
 |`persistent`    |boolean         |*passthrough*                               |                                                                                                           |
 |`sync`          |boolean         |[`VINYL_DEFAULT_MULTI_SYNC`](Config-Macros) |                                                                                                           |
 |`blend`         |number          |[`VINYL_DEFAULT_MULTI_BLEND`](Config-Macros)|This is a normalised value from `0` to `1` (inclusive)                                                     |
-|`blend curve`   |string          |`undefined`                                 |If not defined, linear crossfades are used                                                                 |
+|`blend curve`   |string          |`undefined`                                 |Animation curve to use If not defined, linear crossfades are used                                          |
+
+#### **Examples**
+
+```
+{ //Start of __VinylConfig
+	...
+    
+	patterns: { //Start of pattern definitions
+
+        ambience: {
+        	type: multi
+        	loop: true
+        	assets: [
+                sndAmbienceDay
+                sndAmbienceNight
+        	]
+        }
+
+		synced music: {
+			type: multi
+			loop: true
+			sync: true //Ensure each subvoice stays in time with each other
+			assets: [ //Array of music stems to play together
+			    sndMusicGong
+                sndMusicDulcimer
+                sndMusicPiccoloBass
+                sndMusicMutedTrumpet
+			]
+		}
+
+		machinery clank: {
+			type: multi
+
+			//Start with the blend factor playing at distance
+			blend: 0
+
+			//Use this curve to mix together different sounds
+			//acClankMultiWeights should be added to the project as a normal animation curve
+			blend curve: acClankMultiWeights
+
+			assets: [
+                sndClankDistant
+                sndClankNearby
+                sndClankClose
+			]
+		}
+	}
+
+	...
+}
+```
+
+<!-- tabs:end -->
