@@ -14,10 +14,26 @@ You can get and set the input value for knobs using [`VinylKnobGet()` and `Vinyl
 
 &nbsp;
 
-## Configuration Properties
+## Properties
 
 |Property      |Datatype        |Default |Notes                                                                                                                           |
 |--------------|----------------|--------|--------------------------------------------------------------------------------------------------------------------------------|
 |`default`     |number          |        |**Required.** Will be clamped between inside of the output range if either the input range or output range is explicitly defined|
 |`input range` |array of numbers|`[0, 1]`|Must be a two-element array                                                                                                     |
 |`output range`|array of numbers|`[0, 1]`|Must be a two-element array                                                                                                     |
+
+&nbsp;
+
+## Examples
+
+```
+{ //Start of __VinylConfig
+	...
+    
+	knobs: { //Start of knob definitions
+
+	}
+
+	...
+}
+```

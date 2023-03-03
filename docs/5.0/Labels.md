@@ -32,6 +32,20 @@ The following properties can be set for a label in the [configuration file](Conf
     
 &nbsp;
 
+## Examples
+
+```
+{ //Start of __VinylConfig
+    ...
+    
+    labels: { //Start of label definitions
+
+	}
+}
+```
+
+&nbsp;
+
 ## Runtime State
 
 Labels themselves do not hold much in the way of runtime state.

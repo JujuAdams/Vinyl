@@ -70,5 +70,3 @@ Basic patterns should be set up in the [configuration file](Config-File).
 	...
 }
 ```
-
-<!-- tabs:end -->

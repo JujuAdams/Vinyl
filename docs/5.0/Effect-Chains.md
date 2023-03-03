@@ -119,10 +119,10 @@ Basic volume control. Equivalent to `AudioEffectType.Gain`.
 ## Examples
 
 ```
-{
+{ //Start of __VinylConfig
     ...
     
-    effect chains: {
+    effect chains: { //Start of effect chain definitions
 
         //Set up a default effect chain
         main: [
