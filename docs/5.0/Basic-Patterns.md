@@ -6,11 +6,7 @@ Basic patterns are wrappers around asset definitions that allow you to further t
 
 &nbsp;
 
-## Configuration
-
-<!-- tabs:start -->
-
-#### **Properties**
+## Configuration Properties
 
 |Property        |Datatype        |Default      |Notes                                                                                                      |
 |----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------|
@@ -26,7 +22,9 @@ Basic patterns are wrappers around asset definitions that allow you to further t
 |`label`         |string or array |*passthrough*|Label to assign this pattern to. Can be a string for a single label, or an array of label names            |
 |`persistent`    |boolean         |*passthrough*|                                                                                                           |
 
-#### **Examples**
+&nbsp;
+
+## Examples
 
 ```
 { //Start of __VinylConfig
