@@ -56,13 +56,13 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
         var _gmEmitter = (__vinylEmitter == undefined)? undefined : __vinylEmitter.__GetEmitter();
         if (_gmEmitter == undefined)
         {
-            __gmInstance = audio_play_sound(__sound, 1, __loop, __VinylCurveAmplitude(__gainOutput), 0, __pitchOutput);
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, ", loop=", __loop? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput, ", persistent=", __persistent);
+            __gmInstance = audio_play_sound(__sound, 1, __loopOutput, __VinylCurveAmplitude(__gainOutput), 0, __pitchOutput);
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, ", loop=", __loopOutput? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput, ", persistent=", __persistent);
         }
         else
         {
-            __gmInstance = audio_play_sound_on(_gmEmitter, __sound, __loop, 1, __VinylCurveAmplitude(__gainOutput), 0, __pitchOutput);
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, " on GM emitter ", _gmEmitter, ", loop=", __loop? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput, ", persistent=", __persistent);
+            __gmInstance = audio_play_sound_on(_gmEmitter, __sound, __loopOutput, 1, __VinylCurveAmplitude(__gainOutput), 0, __pitchOutput);
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, " on GM emitter ", _gmEmitter, ", loop=", __loopOutput? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput, ", persistent=", __persistent);
         }
         
         __LoopPointsSet();
@@ -108,6 +108,7 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
             {
                 audio_sound_gain(__gmInstance, __VinylCurveAmplitude(__gainOutput), VINYL_STEP_DURATION);
                 audio_sound_pitch(__gmInstance, __pitchOutput);
+                audio_sound_loop(__gmInstance, __loopOutput);
                 
                 var _beat = floor(audio_sound_get_track_position(__gmInstance) / (60 / __bpm));
                 if (_beat != __bpmBeat)
@@ -152,8 +153,7 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
     
     static __LoopSet = function(_state)
     {
-        __loop = _state;
-        audio_sound_loop(__gmInstance, _state);
+        __loopLocal = _state;
     }
     
     static __LoopPointsSet = function()

@@ -24,7 +24,10 @@ function __VinylClassVoiceCommon() constructor
         
         __labelArray = [];
         
-        __loop = undefined;
+        __loopLocal  = undefined;
+        __loopConfig = false;
+        __loopOutput = false;
+        
         __pan  = undefined;
         
         __persistent       = false;
@@ -72,9 +75,9 @@ function __VinylClassVoiceCommon() constructor
         static _globalTopLevelArray = __globalData.__topLevelArray;
         
         __pattern        = _pattern;
-        __parentVoice = _parentVoice;
+        __parentVoice    = _parentVoice;
         __initialEmitter = _emitter;
-        __initialLoop    = _loop;
+        __loopLocal      = _loop;
         __gainLocal      = _gain;
         __pitchLocal     = _pitch;
         __pan            = _pan;
@@ -278,13 +281,13 @@ function __VinylClassVoiceCommon() constructor
     
     static __LoopSet = function(_state)
     {
-        __loop = _state;
+        __loopLocal = _state;
         if (__child != undefined) __child.__LoopSet(_state);
     }
     
     static __LoopGet = function()
     {
-        return __loop;
+        return __loopOutput;
     }
     
     static __LoopPointsSet = function()
@@ -538,7 +541,24 @@ function __VinylClassVoiceCommon() constructor
     
     static __LoopResolve = function(_loop)
     {
-        __loop = __initialLoop ?? __ParentTopLevelGet().__pattern.__LoopGet();
+        __loopConfig = __ParentTopLevelGet().__pattern.__LoopGet();
+        
+        if (__loopConfig == undefined)
+        {
+            var _i = 0;
+            repeat(array_length(__labelArray))
+            {
+                if (__labelArray[_i].__configLoop == true)
+                {
+                    __loopConfig = true;
+                    break;
+                }
+                
+                ++_i;
+            }
+        }
+        
+        __loopOutput = __loopLocal ?? __loopConfig ?? false;
     }
     
     static __LabelArrayResolve = function()
@@ -743,6 +763,8 @@ function __VinylClassVoiceCommon() constructor
     static __CalculateGainPitchTranspose = function(_deltaTimeFactor)
     {
         __LabelGainPitchTransposeGet();
+        
+        __loopOutput = __loopLocal ?? __loopConfig ?? false;
         
         __gainLocal          += clamp(__gainTarget - __gainLocal, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
         __gainPattern         = __pattern.__gain;

@@ -26,7 +26,7 @@ function __VinylClassVoiceBasic() : __VinylClassVoiceCommon() constructor
     static __Instantiate = function(_pattern, _parentVoice, _vinylEmitter, _asset, _loop, _gain, _pitch, _pan)
     {
         __StateSetCommon(_pattern, _parentVoice, _vinylEmitter, _loop, _gain, _pitch, _pan);
-        __child = __VinylPatternGet(_asset).__Play(self, __initialEmitter, _asset, __initialLoop, 1, 1, __pan);
+        __child = __VinylPatternGet(_asset).__Play(self, __initialEmitter, _asset, __loopLocal, 1, 1, __pan);
     }
     
     static __Migrate = function()

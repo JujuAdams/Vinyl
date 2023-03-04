@@ -63,9 +63,9 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
     
     static __LoopSet = function(_state)
     {
-        if (__loop != _state)
+        if (__loopLocal != _state)
         {
-            __loop = _state;
+            __loopLocal = _state;
             
             var _i = 0;
             repeat(array_length(__childArray))
@@ -333,7 +333,7 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
         {
             //Start a voice for this track
             var _asset = _assetArray[_i];
-            var _voice = __VinylPatternGet(_asset).__Play(self, __initialEmitter, _asset, __initialLoop, __gainArray[_i], 1, __pan);
+            var _voice = __VinylPatternGet(_asset).__Play(self, __initialEmitter, _asset, __loopLocal, __gainArray[_i], 1, __pan);
             __childArray[@ _i] = _voice;
             
             //And then find the shortest voice and use that for syncing purposes
