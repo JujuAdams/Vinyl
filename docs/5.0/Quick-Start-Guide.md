@@ -2,12 +2,12 @@
 
 There's a lot you can do with Vinyl, but sticking to simple stuff is the best way to get started. This guide will take you through these topics:
 
-1. Importing Vinyl
-2. Basic audio playback
-3. Setting up Vinyl's [configuration file](Config-File) for your audio assets
-4. Live updating
-5. Basic use of labels
-6. Basic use of patterns
+1. Importing Vinyl ([jump](Quick-Start-Guide?id=importing-vinyl))
+2. Basic audio playback ([jump](Quick-Start-Guide?id=basic-audio-playback))
+3. Setting up Vinyl's [configuration file](Config-File) for your audio assets ([jump](Quick-Start-Guide?id=the-config-file))
+4. Live updating ([jump](Quick-Start-Guide?id=live-updating))
+5. Basic use of labels ([jump](Quick-Start-Guide?id=labels))
+6. Basic use of patterns ([jump](Quick-Start-Guide?id=patterns))
 
 &nbsp;
 
