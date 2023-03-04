@@ -327,9 +327,127 @@ Writing out `[sfx, speech]` for each and every asset that wants to be assigned t
 
 ## Patterns
 
-Patterns allow you to execute behaviours
+Patterns are the next step up from assets. They offer wrappers around logic that simplifies a lot of common uses a sound effects. This is only a brief overview and some quick examples - please check out the specific documentation on patterns (linked below) for more details on exactly what they do.
 
-1. Basic
-2. Shuffle
-3. Queue
-4. Multi
+### Basic
+
+The simplest sort of pattern: it's just a wrapper around an asset that modifies properties. When you play a Basic pattern, the properties set for the Basic pattern will be inherited by the asset following rules explained [here](Assets). This means you can use a Basic pattern to repurpose a single asset for multiple purposes.
+
+<!-- tabs:start -->
+
+#### **Configuration File**
+
+```
+{
+    patterns: {
+        dramatic gunshot: {
+    		type: basic
+    		asset: sndGunshot
+    		effect chain: echo
+        }
+    }
+}
+```
+
+#### **GML**
+
+```gml
+VinylPlay("dramatic gunshot");
+```
+
+<!-- tabs:end -->
+
+### Shuffle
+
+<!-- tabs:start -->
+
+#### **Configuration File**
+
+```
+{
+    patterns: {
+        bird: {
+    		type: shuffle
+        	asset: [
+        		sndBirdCheep
+        		sndBirdChirp
+        		sndBirdTweet
+        	]
+        }
+    }
+}
+```
+
+#### **GML**
+
+```gml
+//Play a random sound from sndBirdCheep, sndBirdChirp, or sndBirdTweet
+VinylPlay("bird");
+```
+
+<!-- tabs:end -->
+
+### Queue
+
+<!-- tabs:start -->
+
+#### **Configuration File**
+
+```
+{
+    patterns: {
+        car radio: {
+        	type: queue
+        	behavior: 1 //Replay the queue when it ends
+        	asset: [
+        		sndRadioRockSong
+        		sndRadioPopSong
+        		sndRadioHiphopSong
+        		sndRadioDanceSong
+        	]
+        }
+    }
+}
+```
+
+#### **GML**
+
+```gml
+VinylPlay("car radio");
+```
+
+<!-- tabs:end -->
+
+### Multi
+
+<!-- tabs:start -->
+
+#### **Configuration File**
+
+```
+{
+    patterns: {
+        cave ambience: {
+        	type: multi
+        	blend: 0 //Cave ambience should start playing with the entrance asset
+        	asset: [
+        		sndAmbienceCaveEntrance
+        		sndAmbienceCaveWind
+        		sndAmbienceCaveWaterfallDistant
+        		sndAmbienceCaveWaterfallClose
+        	]
+        }
+    }
+}
+```
+
+#### **GML**
+
+```gml
+multi = VinylPlay("cave ambience");
+
+//Modulate the cave ambience depending on where we are in the room
+VinylBlendSet(multi, x / room_width);
+```
+
+<!-- tabs:end -->
