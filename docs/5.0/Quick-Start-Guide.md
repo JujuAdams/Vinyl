@@ -197,6 +197,7 @@ Labels are a useful way to share properties across categories of assets (and pat
 
 Patterns allow you to execute behaviours
 
-1. Shuffle
-2. Queue
-3. Multi
+1. Basic
+2. Shuffle
+3. Queue
+4. Multi
