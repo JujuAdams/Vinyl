@@ -24,16 +24,82 @@ You can get and set the input value for knobs using [`VinylKnobGet()` and `Vinyl
 
 &nbsp;
 
-## Examples
+## Implementing Knobs
+
+Knobs must be set up in the [configuration file](Config-File). Any numerical property - so **not** a boolean and **not** a string - can be adjusted using a knob. Knobs must first be defined in the `knobs: {}` struct in the configuration file before trying to set them up for other components.
+
+A knob can be hooked up to a property in one of two ways. You can mix 
+
+### `@knob`
+
+This is called "direct knob syntax". Whatever output value the knob is emitting will be routed to the property, affecting all current and future voices that inherit the property.
 
 ```
-{ //Start of __VinylConfig
-	...
-    
-	knobs: { //Start of knob definitions
+{
+	knobs: {
+		bird tone: {
+			//Start at no transposition
+			default: 0
 
+			//Span a full octave for both input and output
+			input range: [0, 12]
+			output range: [0, 12]
+		}
 	}
 
-	...
+	assets: {
+		sndBirdThrob: {
+			transpose: @bird tone
+		}
+
+		sndBirdWorble: {
+			transpose: @bird tone
+		}
+
+		sndBirdCackle: {
+			transpose: @bird tone
+		}
+	}
+}
+```
+
+### `[@knob, min, max]`
+
+This is called "knob array syntax". The input value from the knob is remapped to the range specified in the array. This is useful if you're using a knob to control many properties that each have their own expected ranges.
+
+```
+{
+	knobs: {
+		shellshock: {
+			//Start at no pitch shift
+			default: 1
+
+			//Decrease pitch as knob increases in value
+			output range: [1, 0.8]
+		}
+	}
+
+	assets: {
+		sndGunshot: {
+			pitch: @shellshock
+			effect chain: shock echo
+		}
+
+		sndNPCShout: {
+			pitch: @shellshock
+			effect chain: shock echo
+		}
+	}
+
+	effect chains: {
+		shock echo: [
+			{
+				type: reverb
+
+				//Remap the "shellshock" knob to a smaller range
+				mix: [@shellshock, 0, 0.3]
+			}
+		]
+	}
 }
 ```
