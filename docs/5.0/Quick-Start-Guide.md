@@ -398,6 +398,8 @@ VinylPlay("bird");
 
 [In-depth documentation](Queue-Pattern)
 
+A Queue pattern, when played, will create a voice that goes through each defined asset in turn and plays it. Queues can have their behaviour set to one of three options: playing the queue once, playing the queue repeatedly, or playing the last entry in the queue repeatedly.
+
 <!-- tabs:start -->
 
 #### **Configuration File**
@@ -430,6 +432,8 @@ VinylPlay("car radio");
 ### Multi
 
 [In-depth documentation](Multi-Pattern)
+
+Plays multiple assets all at the same time. You can blend between these assets by [setting a blend factor](Multi-Pattern-Functions), including using an animation curve to control per-asset weights. Multi patterns can also be configured to synchronise playback which is useful for multitrack songs where you want to be able to fade individual instruments in and out.
 
 <!-- tabs:start -->
 
