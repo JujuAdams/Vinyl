@@ -138,25 +138,25 @@ It's very easy to set up this sort of configuration in Vinyl. If you go to the `
 
 ```
 {
-	assets: {
-		sndMainMenuMusic: {
-			loop: true
-		}
+    assets: {
+        sndMainMenuMusic: {
+            loop: true
+        }
 
-		sndSmallMeow: {
-			gain: 0.5
-		}
+        sndSmallMeow: {
+            gain: 0.5
+        }
 
-		sndBonk: {
-			pitch: [0.9, 1.1]
-		}
+        sndBonk: {
+            pitch: [0.9, 1.1]
+        }
 
-		sndHorrorAmbience: {
-			loop: true
-			gain: 0.2
-			pitch: 0.6
-		}
-	}
+        sndHorrorAmbience: {
+            loop: true
+            gain: 0.2
+            pitch: 0.6
+        }
+    }
 }
 ```
 
@@ -186,9 +186,9 @@ If you want to experiment with a louder `sndSmallMeow` then you can change the `
 
 Labels are a useful way to share properties and operations across categories of assets (and patterns). Labels can be configured in a similar way to assets and share a lot of the [same properties](Labels). Any asset that is assigned to a label will inherit those properties. This means that a label with a `pitch` property of `1.3` will cause any assets assigned to that label to be played at a higher pitch. You can read the in-depth guide on labels [here](Labels).
 
-An asset can be assigned to multiple labels at the same time and will inherit properties from all labels. The logic behind inheritance is explained [here](Assets). It gets pretty complicated but hopefully makes sense when you start using it in context.
+Labels have their own gain and pitch states at runtime. You can change the gain or pitch of a label whilst the game is running and all voices assigned to that label will dynamically update, following the changes you've made. This is useful for any number of things, but the primary use case is allowing users to control the volume of e.g. music, sound effects, speech, ambience etc. This can be done with a little setup in the configuration file and then a single line of code in GML.
 
-Labels have their own gain and pitch states at runtime. You can change the gain or pitch of a label whilst the game is running and all voices assigned to that label will dynamically update, following the changes you've made. This is useful for any number of things, but the primary use case is allowing users to control the volume of e.g. music, sound effects, speech, ambience etc.
+?> The gain and pitch contributions from labels are applied multiplicatively with other gain/pitch values. Please read the documentation for [gain](Gain) and [pitch](Pitch) for more information.
 
 <!-- tabs:start -->
 
@@ -196,43 +196,104 @@ Labels have their own gain and pitch states at runtime. You can change the gain 
 
 ```
 {
-	labels: {
-		music: {}
-		sfx: {}
-	}
+    labels: {
+        //Use the default settings for the "music" label
+        music: {}
+        
+        //Mix sound effects a little quieter always
+        sfx: {
+            gain: 0.8
+        }
+    }
 
-	assets: {
-		sndMainMenuMusic: {
-			label: music
-		}
+    assets: {
+        sndMainMenuMusic: {
+            //Assign this asset to the "music" label
+            label: music
+        }
 
-		sndGameMusic: {
-			label: music
-		}
+        sndGameMusic: {
+            label: music
+        }
 
-		sndUIClick: {
-			label: sfx
-		}
+        sndUIClick: {
+            //Assign this asset to the "sfx" label
+            label: sfx
+        }
 
-		sndJump: {
-			label: sfx
-		}
-	}
+        sndJump: {
+            label: sfx
+        }
+    }
 }
 ```
 
 #### **GML**
 
 ```gml
-//Set the gain
-VinylGainSet("music", global.musicGain);
-VinylGainSet("sfx", global.sfxGain);
+//Set the gain of the "music" and "sfx" labels from the settings
+VinylGainSet("music", global.settings.musicGain);
+VinylGainSet("sfx", global.settings.sfxGain);
 
-//Will use the gain from the "sfx" label (from global.sfxGain)
+//Will be affect by the new gain value for the "sfx" label
 VinylPlay(sndUIClick);
 ```
 
 <!-- tabs:end -->
+
+An asset can be assigned to multiple labels at the same time and will inherit properties from all labels. The logic behind inheritance is explained [here](Assets). It gets pretty complicated but hopefully makes sense when you start using it in context. You can assign an asset to multiple labels by putting all of the labels you want in an array inside the configuration file.
+
+```
+{
+    labels: {
+        //Mix sound effects a little quieter always
+        sfx: {
+            gain: 0.8
+        }
+
+        //Assets assigned to "speech" will vary their pitch a little
+        speech: {
+            pitch: [0.9, 1.1]
+        }
+    }
+
+    assets: {
+        sndNPCYoungGirl: {
+            label: [sfx, speech]
+        }
+    }
+}
+```
+
+Writing out `[sfx, speech]` for each and every asset that wants to be assigned to both labels is going to be tiring. To alleviate the strain you can add child labels to a parent label. Any asset that's assigned to the child label is automatically assigned to the parent label too.
+
+```
+{
+    labels: {
+        sfx: {
+        	//Mix all sound effects a little quieter always
+            gain: 0.8
+
+        	//All assets assigned to "speech" will automatically be assigned to "sfx"
+            children: {
+                speech: {
+        			//Assets assigned to "speech" will vary their pitch a little
+                    pitch: [0.9, 1.1]
+                }
+            }
+        }
+    }
+
+    assets: {
+        sndNPCYoungGirl: {
+        	//This asset will also be assigned to "sfx"
+            label: speech
+        }
+    }
+}
+```
+
+?> Labels have another interesting use case too, and that's distributing a single Vinyl function call across all voices assigned to a label. This is a more advanced topic and best left to the dedicated [labels](Labels) page.
 
 &nbsp;
 
