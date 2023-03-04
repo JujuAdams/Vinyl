@@ -19,7 +19,7 @@
 
 Sets the gain of a [voice](Voice) or [label](Label).
 
-If an voice is specified, the voice gain is set. This gain is independent of, for example, label gain, asset gain, and system gain.
+If a voice is specified, the voice gain is set. This gain is independent of, for example, label gain, asset gain, and system gain.
 
 If a label is specified, the gain for the label is set. This will immediately impact all current voices assigned to that label, and will impact future voices too.
 
