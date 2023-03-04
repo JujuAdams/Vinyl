@@ -18,8 +18,8 @@ Assets should be set up in the [configuration file](Config-File).
 |`bpm`           |number          |[`VINYL_DEFAULT_BPM`](Config-Macros)|                                                                                                           |
 |`loop`          |boolean         |*passthrough*                       |                                                                                                           |
 |`loop points`   |array of numbers|*passthrough*                       |Array must have two-elements defining the start and end point of a loop, measured in seconds               |
-|`stack`         |string          |*passthrough*                       |                                                                                                           |
-|`stack priority`|number          |`0`                                 |                                                                                                           |
+|`stack`         |string          |*passthrough*                       |[Stack](Stacks) to push voices to                                                                          |
+|`stack priority`|number          |`0`                                 |Priority for voices when pushed to the stack above                                                         |
 |`effect chain`  |string          |*passthrough*                       |                                                                                                           |
 |`label`         |string or array |`[]`                                |Label to assign this asset to. Can be a string for a single label, or an array of label names              |
 |`persistent`    |boolean         |*passthrough*                       |                                                                                                           |

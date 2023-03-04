@@ -22,8 +22,8 @@ Multi patterns should be set up in the [configuration file](Config-File).
 |`pitch`         |number or array |`1`                                         |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
 |`transpose`     |number          |*passthrough*                               |                                                                                                           |
 |`loop`          |boolean         |*passthrough*                               |This property is inherited by assets played by this pattern; a Multi pattern cannot inherently loop        |
-|`stack`         |string          |*passthrough*                               |                                                                                                           |
-|`stack priority`|number          |`0`                                         |                                                                                                           |
+|`stack`         |string          |*passthrough*                               |[Stack](Stacks) to push voices to                                                                          |
+|`stack priority`|number          |`0`                                         |Priority for voices when pushed to the stack above                                                         |
 |`effect chain`  |string          |*passthrough*                               |                                                                                                           |
 |`label`         |string or array |*passthrough*                               |Label to assign this pattern to. Can be a string for a single label, or an array of label names            |
 |`persistent`    |boolean         |*passthrough*                               |                                                                                                           |
