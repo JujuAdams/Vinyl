@@ -12,6 +12,7 @@ You can read in-depth information for different terms here:
 - [Multi Patterns](Multi-Patterns)
 - [Voices](Voices)
 - [Labels](Labels)
+- [Stacks](Stacks)
 - [Emitters](Emitters)
 - [Effect Chains](Effect-Chains)
 - [Knobs](Knobs)
@@ -85,6 +86,14 @@ Labels are how Vinyl handles groups of assets (and patterns) of similar types. A
 Vinyl allows you to assign assets within the configuration file, but Vinyl can also hook into GameMaker's native asset tagging system. Labels can be configured to be automatically assigned to any sound asset that has a specific tag.
 
 !> GameMaker's [audio groups](https://manual.yoyogames.com/Settings/Audio_Groups.htm) are vaguely similar to labels. It is recommended to avoid using GameMaker's audio groups for anything apart from managing memory whn using Vinyl.
+
+&nbsp;
+
+## Stack
+
+[In-depth documentation](Stacks)
+
+Most of the time, you'll only want one music track playing at a time. At the same time, it's common to want to be able to duck music to play a short jingle such as finding a secret or opening a chest. Stacks are containers that automate both of these requirements. You can push a voice to a stack [manually](Stack) or assets (and patterns and labels) can be configured to automatically push to a stack when played.
 
 &nbsp;
 

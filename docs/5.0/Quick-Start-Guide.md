@@ -96,7 +96,7 @@ VinylPitchTargetSet(music, 0.5);
 
 ## The Config File
 
-Looking at the examples above - playback of `sndMainMenu` `sndSmallMeow` etc. - you'll notice that they involve hardcoding magic numbers for different properties. Inserting magic numbers into your codebase is a guaranteed way to have a bad time later on, and especially so if we intend to use a sound effect in multiple places which would mean copy-pasting numbers all over the place.
+Looking at the examples above - playback of `sndMainMenuMusic` `sndSmallMeow` etc. - you'll notice that they involve hardcoding magic numbers for different properties. Inserting magic numbers into your codebase is a guaranteed way to have a bad time later on, and especially so if we intend to use a sound effect in multiple places which would mean copy-pasting numbers all over the place.
 
 Vinyl solves this problem by giving you a way to define properties in a single place and have those properties influence how audio is played no matter where in your code it's being played. With the correct configuration, the above example would look like this:
 
