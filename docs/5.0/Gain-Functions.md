@@ -19,7 +19,7 @@
 
 Sets the gain of a [voice](Voice) or [label](Label).
 
-If an voice is specified, the voice gain is set. This gain is independent of, for example, label gain, asset gain, and system gain.
+If a voice is specified, the voice gain is set. This gain is independent of, for example, label gain, asset gain, and system gain.
 
 If a label is specified, the gain for the label is set. This will immediately impact all current voices assigned to that label, and will impact future voices too.
 
@@ -85,9 +85,9 @@ if (waitForAmbience && (VinylGainGet("ambience") <= 0))
 |`gain`  |number          |Target gain, in normalised gain units                                                             |
 |`[rate]`|number          |Speed to approach the target gain, in gain units per second. Defaults to `VINYL_DEFAULT_GAIN_RATE`|
 
-Sets the target gain of a[voice](Voice) or [label](Label). The gain for that voice or label will change over time at the given rate until reaching its target.
+Sets the target gain of a [voice](Voice) or [label](Label). The gain for that voice or label will change over time at the given rate until reaching its target.
 
-!> Setting a target gain of `0` for an voice will not stop the voice when reaching silence. Please use `VinylFadeOut()` to fade out and stop an voice.
+!> Setting a target gain of `0` for a voice will not stop the voice when reaching silence. Please use `VinylFadeOut()` to fade out and stop a voice.
 
 #### **Example**
 
