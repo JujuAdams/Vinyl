@@ -29,6 +29,39 @@ Sets the listener "head" for the player. This will typically be the centre of th
 
 &nbsp;
 
+## `VinylListenerGet`
+
+`VinylListenerGet()`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Struct
+
+|Name|Datatype|Purpose|
+|----|--------|-------|
+|None|        |       |
+
+This function returns a struct that contains the following member variables:
+
+|Name|Datatype|Purpose                                                |
+|----|--------|-------------------------------------------------------|
+|`.x` |number  |x-coordinate the listener position is currently set to|
+|`.y` |number  |y-coordinate the listener position is currently set to|
+
+!> The struct returned from this function is static. Do not keep a reference to the struct as it is liable to change unexpectedly.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
 ## `VinylPlayOnEmitter`
 
 `VinylPlayOnEmitter(emitter, sound, [loop], [gain=1], [pitch=1])`
