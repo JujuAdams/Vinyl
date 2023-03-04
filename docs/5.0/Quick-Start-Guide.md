@@ -233,7 +233,7 @@ VinylPlay(sndUIClick);
 
 <!-- tabs:end -->
 
-Labels have another interesting use case too, and that's distributing a single Vinyl function call across all voices assigned to a label. This is a more advanced topic and best left to the dedicated [labels](Labels) page.
+Labels have another interesting use case too, and that's distributing a single Vinyl function call across all voices assigned to a label. This is a more advanced topic and the specific details are best left to the dedicated [labels](Labels) page. However, I would like to bring your attention to the fact that calling [`VinylStop()`](Stopping-Audio) using a label name will cause [`VinylStop()`](Stopping-Audio) to be called for each individual voice that's assigned to that label. This also applies to [`VinylFadeOut()`](Stopping-Audio), [`VinylLoopSet()`](Looping), and many other functions. The places where you can use a label instead of a voice, and how that behaves, are notated clearly in documentation.
 
 <!-- tabs:start -->
 
