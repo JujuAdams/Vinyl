@@ -184,6 +184,19 @@ If you want to experiment with a louder `sndSmallMeow` then you can change the `
 
 ## Labels
 
+Labels are a useful way to share properties across categories of assets (and patterns).
+
+1. Share configuration properties
+2. Execute code indirectly
+3. Execute code across many assets
+4. Change properties across many assets at the same time
+
 &nbsp;
 
 ## Patterns
+
+Patterns allow you to execute behaviours
+
+1. Shuffle
+2. Queue
+3. Multi
