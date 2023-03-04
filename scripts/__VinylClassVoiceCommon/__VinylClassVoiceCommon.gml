@@ -558,7 +558,7 @@ function __VinylClassVoiceCommon() constructor
             }
         }
         
-        __loopOutput = __loopLocal ?? __loopConfig ?? false;
+        __loopOutput = __loopLocal ?? (__loopConfig ?? false);
     }
     
     static __LabelArrayResolve = function()
@@ -764,7 +764,7 @@ function __VinylClassVoiceCommon() constructor
     {
         __LabelGainPitchTransposeGet();
         
-        __loopOutput = __loopLocal ?? __loopConfig ?? false;
+        __loopOutput = (__loopLocal ?? __loopConfig) ?? false;
         
         __gainLocal          += clamp(__gainTarget - __gainLocal, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
         __gainPattern         = __pattern.__gain;
