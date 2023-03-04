@@ -89,6 +89,14 @@ Vinyl allows you to assign assets within the configuration file, but Vinyl can a
 
 &nbsp;
 
+## Stack
+
+[In-depth documentation](Stacks)
+
+Most of the time, you'll only want one music track playing at a time. At the same time, it's common to want to be able to duck music to play a short jingle such as finding a secret or opening a chest. Stacks are containers that automate both of these requirements. You can push a voice to a stack [manually](Stack) or assets (and patterns and labels) can be configured to automatically push to a stack when played.
+
+&nbsp;
+
 ## Emitter
 
 [In-depth documentation](Emitters)
