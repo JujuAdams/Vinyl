@@ -184,12 +184,55 @@ If you want to experiment with a louder `sndSmallMeow` then you can change the `
 
 ## Labels
 
-Labels are a useful way to share properties across categories of assets (and patterns).
+Labels are a useful way to share properties and operations across categories of assets (and patterns). Labels can be configured in a similar way to assets and share a lot of the [same properties](Labels). Any asset that is assigned to a label will inherit those properties. This means that a label with a `pitch` property of `1.3` will cause any assets assigned to that label to be played at a higher pitch. You can read the in-depth guide on labels [here](Labels).
 
-1. Share configuration properties
-2. Execute code indirectly
-3. Execute code across many assets
-4. Change properties across many assets at the same time
+An asset can be assigned to multiple labels at the same time and will inherit properties from all labels. The logic behind inheritance is explained [here](Assets). It gets pretty complicated but hopefully makes sense when you start using it in context.
+
+Labels have their own gain and pitch states at runtime. You can change the gain or pitch of a label whilst the game is running and all voices assigned to that label will dynamically update, following the changes you've made. This is useful for any number of things, but the primary use case is allowing users to control the volume of e.g. music, sound effects, speech, ambience etc.
+
+<!-- tabs:start -->
+
+#### **Configuration File**
+
+```
+{
+	labels: {
+		music: {}
+		sfx: {}
+	}
+
+	assets: {
+		sndMainMenuMusic: {
+			label: music
+		}
+
+		sndGameMusic: {
+			label: music
+		}
+
+		sndUIClick: {
+			label: sfx
+		}
+
+		sndJump: {
+			label: sfx
+		}
+	}
+}
+```
+
+#### **GML**
+
+```gml
+//Set the gain
+VinylGainSet("music", global.musicGain);
+VinylGainSet("sfx", global.sfxGain);
+
+//Will use the gain from the "sfx" label (from global.sfxGain)
+VinylPlay(sndUIClick);
+```
+
+<!-- tabs:end -->
 
 &nbsp;
 
