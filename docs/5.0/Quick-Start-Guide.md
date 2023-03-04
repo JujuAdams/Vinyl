@@ -233,6 +233,44 @@ VinylPlay(sndUIClick);
 
 <!-- tabs:end -->
 
+Labels have another interesting use case too, and that's distributing a single Vinyl function call across all voices assigned to a label. This is a more advanced topic and best left to the dedicated [labels](Labels) page.
+
+<!-- tabs:start -->
+
+#### **Configuration File**
+
+```
+{
+    labels: {
+        music: {}
+    }
+
+    assets: {
+        sndMainMenuMusic: {
+            label: music
+        }
+
+        sndGameMusic: {
+            label: music
+        }
+    }
+}
+```
+
+#### **GML**
+
+```gml
+//Play both music tracks
+//... not sure why you'd ever do this but stick with me
+VinylPlay(sndMainMenuMusic);
+VinylPlay(sndGameMusic);
+
+//Stop both audio tracks we just played
+VinylStop("music");
+```
+
+<!-- tabs:end -->
+
 An asset can be assigned to multiple labels at the same time and will inherit properties from all labels. The logic behind inheritance is explained [here](Assets). It gets pretty complicated but hopefully makes sense when you start using it in context. You can assign an asset to multiple labels by putting all of the labels you want in an array inside the configuration file.
 
 ```
@@ -284,8 +322,6 @@ Writing out `[sfx, speech]` for each and every asset that wants to be assigned t
     }
 }
 ```
-
-?> Labels have another interesting use case too, and that's distributing a single Vinyl function call across all voices assigned to a label. This is a more advanced topic and best left to the dedicated [labels](Labels) page.
 
 &nbsp;
 
