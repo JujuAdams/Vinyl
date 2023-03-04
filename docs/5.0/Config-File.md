@@ -335,26 +335,3 @@ Basic volume control. Equivalent to `AudioEffectType.Gain`.
 |`gain`  |number  |From `0` to `1`. Attenuates the signal         |
 
 <!-- tabs:end -->
-
-```
-{
-    ...
-    
-    effect chains: {
-        main: [
-            {
-                type: delay
-                time: 0.25
-                mix: 0.4
-            }
-            {
-                type: reverb
-                size: 0.6
-                mix: 0.3
-            }
-        ]
-    }
-
-    ...
-}
-```
