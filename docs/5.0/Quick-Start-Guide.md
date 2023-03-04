@@ -273,7 +273,7 @@ VinylStop("music");
 
 <!-- tabs:end -->
 
-An asset can be assigned to multiple labels at the same time and will inherit properties from all labels. The logic behind inheritance is explained [here](Assets). It gets pretty complicated but hopefully makes sense when you start using it in context. You can assign an asset to multiple labels by putting all of the labels you want in an array inside the configuration file.
+An asset can be assigned to multiple labels at the same time and will inherit properties from all labels. The logic behind inheritance is explained [here](Voices). It gets pretty complicated but hopefully makes sense when you start using it in context. You can assign an asset to multiple labels by putting all of the labels you want in an array inside the configuration file.
 
 ```
 {
@@ -335,7 +335,7 @@ Patterns are the next step up from assets. They offer wrappers around logic that
 
 [In-depth documentation](Basic-Pattern)
 
-The simplest sort of pattern: it's just a wrapper around an asset which modifies properties. When you play a Basic pattern, the properties set for the Basic pattern will be inherited by the asset following rules explained [here](Assets). This means you can use a Basic pattern to repurpose a single asset for multiple purposes.
+The simplest sort of pattern: it's just a wrapper around an asset which modifies properties. When you play a Basic pattern, the properties set for the Basic pattern will be inherited by the asset following rules explained [here](Voices). This means you can use a Basic pattern to repurpose a single asset for multiple purposes.
 
 <!-- tabs:start -->
 
