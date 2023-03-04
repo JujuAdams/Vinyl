@@ -424,6 +424,7 @@ A Queue pattern, when played, will create a voice that goes through each defined
 #### **GML**
 
 ```gml
+//Play the car radio which will cycle through songs
 VinylPlay("car radio");
 ```
 
@@ -459,6 +460,7 @@ Plays multiple assets all at the same time. You can blend between these assets b
 #### **GML**
 
 ```gml
+//Play the "cave ambience" pattern and store the voice ID in <multi>
 multi = VinylPlay("cave ambience");
 
 //Modulate the cave ambience depending on where we are in the room
