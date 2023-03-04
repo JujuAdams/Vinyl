@@ -24,7 +24,11 @@ If passed a label name, every voice currently assigned to the label will individ
 #### **Example**
 
 ```gml
-//TODO lol
+//If the Big Bad Boss instance has been destroyed, let the music play out
+if (not instance_exists(oBigBadBoss))
+{
+	VinylLoopSet("music", true);
+}
 ```
 
 <!-- tabs:end -->
@@ -51,7 +55,17 @@ If passed a label name, every voice currently assigned to the label will individ
 #### **Example**
 
 ```gml
-//TODO lol
+//If the voice stored in <global.voiceMusic> is playing and is looping then make the Jester dance
+if (VinylExists(global.voiceMusic) and VinylLoopGet(global.voiceMusic))
+{
+	sprite_index = sprJesterDance;
+	image_speed = 0.5;
+}
+else
+{
+	sprite_index = sprJesterIdle
+	image_speed = 0.25;
+}
 ```
 
 <!-- tabs:end -->
