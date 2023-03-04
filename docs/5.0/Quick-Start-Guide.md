@@ -174,7 +174,9 @@ Gain is applied multiplicatively between the gain set when calling `VinylPlay()`
 
 ## Live Updating
 
-Vinyl allows to live update any properties in the configuration file whilst the game is running. You don't need to set up anything else, it works out of the box.
+Vinyl allows to live update any properties in the configuration file whilst the game is running. There is no special code to run, this feature is enabled out of the box, though there is one thing you'll have to do ...
+
+!> In order for live updating to work you must ensure that you have disabled the file system sandbox for your target platform. You can find this setting in Game Options in your project.
 
 If you want to experiment with a louder `sndSmallMeow` then you can change the `gain` property for the asset in your IDE whilst the game is running and, when you save the project to disk, those changes will be reflect near instantly in the game. If you want your `sndBonk` to bonk higher, change its `pitch` property. You can even add new definitions for assets you didn't define before you compiled the game. This becomes especially powerful when you're working on a bigger project and getting audio to mix nicely would otherwise involve dozens of recompiles to adjust gain values by tiny amounts.
 

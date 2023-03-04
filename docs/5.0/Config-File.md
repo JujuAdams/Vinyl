@@ -6,6 +6,8 @@ Vinyl's [configuration file](Config-File) is, basically, written as [JSON](https
 
 ?> To match GameMaker's nomenclature, a JavaScript "object" will be referred to as a "struct" throughout Vinyl's documentation.
 
+!> In order for live updating to work you must ensure that you have disabled the file system sandbox for your target platform. You can find this setting in Game Options in your project.
+
 |Rule|                                                                                                                                                                                        |
 |----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |1   |Valid standard JSON is also valid Loose JSON                                                                                                                                            |
