@@ -331,7 +331,9 @@ Patterns are the next step up from assets. They offer wrappers around logic that
 
 ### Basic
 
-The simplest sort of pattern: it's just a wrapper around an asset that modifies properties. When you play a Basic pattern, the properties set for the Basic pattern will be inherited by the asset following rules explained [here](Assets). This means you can use a Basic pattern to repurpose a single asset for multiple purposes.
+[In-depth documentation](Basic-Pattern)
+
+The simplest sort of pattern: it's just a wrapper around an asset which modifies properties. When you play a Basic pattern, the properties set for the Basic pattern will be inherited by the asset following rules explained [here](Assets). This means you can use a Basic pattern to repurpose a single asset for multiple purposes.
 
 <!-- tabs:start -->
 
@@ -343,7 +345,7 @@ The simplest sort of pattern: it's just a wrapper around an asset that modifies 
         dramatic gunshot: {
     		type: basic
     		asset: sndGunshot
-    		effect chain: echo
+    		effect chain: echo //Add an echo for  d r a m a
         }
     }
 }
@@ -352,12 +354,17 @@ The simplest sort of pattern: it's just a wrapper around an asset that modifies 
 #### **GML**
 
 ```gml
+//Don't just play a normal gunshot, play a *dramatic* gunshot
 VinylPlay("dramatic gunshot");
 ```
 
 <!-- tabs:end -->
 
 ### Shuffle
+
+[In-depth documentation](Shuffle-Pattern)
+
+Chooses an asset from an array and plays it. A Shuffle pattern is not truly random and will attempt to prevent the same sound being played twice in a row.
 
 <!-- tabs:start -->
 
@@ -389,6 +396,8 @@ VinylPlay("bird");
 
 ### Queue
 
+[In-depth documentation](Queue-Pattern)
+
 <!-- tabs:start -->
 
 #### **Configuration File**
@@ -419,6 +428,8 @@ VinylPlay("car radio");
 <!-- tabs:end -->
 
 ### Multi
+
+[In-depth documentation](Multi-Pattern)
 
 <!-- tabs:start -->
 
