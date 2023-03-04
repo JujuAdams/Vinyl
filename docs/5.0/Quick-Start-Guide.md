@@ -13,19 +13,19 @@ There's a lot you can do with Vinyl, but sticking to simple stuff is the best wa
 
 ## Importing Vinyl
 
-!> Vinyl is intended for use with Git, or an equivalent source control system.
+!> Vinyl is intended for use with Git, or an equivalent source control system. You should set up source control before importing Vinyl.
 
-You can find the latest version of Vinyl [here](https://github.com/JujuAdams/Vinyl/releases). Make sure that you're using a version of GameMaker that Vinyl supports, and then download the `.yymps` from that page and import into GameMaker. You'll see a folder called `Vinyl` appear in your asset browser, and a file called `vinyl.dat` will also be created in your Included Files.
+You can find the latest version of Vinyl [here](https://github.com/JujuAdams/Vinyl/releases). Make sure that you're using a version of GameMaker that Vinyl supports, and then download the `.yymps` from that page and import into your GameMaker project. You'll see a folder called `Vinyl` appear in your asset browser, and a file called `vinyl.dat` will also be created in your Included Files.
 
 If you look inside the Vinyl folder you'll see a lot of subfolders. These subfolders contain functions that comprise the API - the interface that you'll need to execute Vinyl code in your game. The `(Internals)` folder holds code that Vinyl requires to operate and has to be there but otherwise you can forget it exists. You'll also see two scripts and a Note asset (`__VinylConfigMacros` `__VinylConfigDebug` `__VinylConfig`). You'll be using these to customise Vinyl for your use case.
 
-?> When you import `__VinylConfig` it'll contain some example data. If you run your game straight away you'll likely see warnings or outright errors. If you want to postpone getting Vinyl ready for use, delete the entire contents of `__VinylConfig` and that'll avoid errors on boot.
+?> You may notice that `vinyl.dat` frequently shows inscrutiable changes in your source control. Don't worry! `vinyl.dat` is regenerated for every compile from `__VinylConfig` and doesn't contain persistent data. You can either add `vinyl.dat` to your `.gitignore`, or you can literally ignore any changes made to that file.
 
 &nbsp;
 
 ## Basic Audio Playback
 
-Vinyl has a few functions to play back audio. You should choose which function to play based on your needs. To begin with we'll stick to using [`VinylPlay()`](Playing-Audio) but you may want to look into the other playback functions [`VinylPlaySimple()`](Playing-Audio) and [`VinylPlayOnEmitter()`](Emitter-Functions) as you get more comfortable with the library.
+Vinyl has a few functions to play back audio. You should choose which function to use based on your needs. To begin with we'll stick to using [`VinylPlay()`](Playing-Audio) but you may want to look into the other playback functions, [`VinylPlayFadeIn()`](Playing-Audio), [`VinylPlaySimple()`](Playing-Audio), and [`VinylPlayOnEmitter()`](Emitter-Functions), as you get more comfortable with the library.
 
 `VinylPlay()` has the following arguments:
 
@@ -56,7 +56,7 @@ VinylPlay(sndBonk, false, 1, random_range(0.9, 1.1));
 VinylPlay(sndHorrorAmbience, true, 0.2, 0.6);
 ```
 
-This is all very simplistic and of course we do can more.
+This is nice and everything but it's not much of a step up from GameMaker's native functionality. What else can we do?
 
 Let's take a look at a common thing to do with music - fade it in and fade it out. We going to add an extra spin on this as well by pitch shifting as we fade in and out to give the effect of a record player or casette deck accelerating. For this we'll use [`VinylGainTargetSet()`](Gain-Functions), [`VinylPitchTargetSet()`](Pitch-Functions), and [`VinylFadeOut()`](Stopping-Audio). (You could also use [`VinylPlayFadeIn()`](Playing-Audio).)
 
