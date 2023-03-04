@@ -40,6 +40,33 @@ The following properties can be set for a label in the [configuration file](Conf
     
     labels: { //Start of label definitions
 
+        music: {
+            //Mix music louder
+            gain: 1.1
+
+            //Default to looping every voice assigned to the "music" label
+            loop: true
+        }
+
+        sfx: {
+            //Mix sfx quieter
+            gain: 0.8
+
+            //Create a child label of "sfx"
+            //Any voice assigned to "speech" are automatically assigned to "sfx"
+            children: {
+                speech: {
+                    //Voices assigned to the "speech" label vary their pitch a lil bit
+                    pitch: [0.9, 1.1]
+                }
+            }
+        }
+
+        ambience: {
+            //Any 
+            tag: amb
+            loop: true
+        }
 	}
 }
 ```
