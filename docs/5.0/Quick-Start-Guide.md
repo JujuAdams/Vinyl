@@ -207,21 +207,13 @@ Labels have their own gain and pitch states at runtime. You can change the gain 
     }
 
     assets: {
-        sndMainMenuMusic: {
-            //Assign this asset to the "music" label
-            label: music
-        }
-
         sndGameMusic: {
+            //Assign this asset to the "music" label too
             label: music
         }
 
         sndUIClick: {
             //Assign this asset to the "sfx" label
-            label: sfx
-        }
-
-        sndJump: {
             label: sfx
         }
     }
