@@ -63,8 +63,10 @@ The following properties can be set for a label in the [configuration file](Conf
         }
 
         ambience: {
-            //Any 
+            //Any GameMaker sound assets tagged with "amb" in the IDE will be assigned to the "ambience" label
             tag: amb
+
+            //Loop 'em too, why not
             loop: true
         }
 	}
