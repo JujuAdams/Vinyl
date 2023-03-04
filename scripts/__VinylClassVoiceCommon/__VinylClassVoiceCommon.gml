@@ -72,7 +72,7 @@ function __VinylClassVoiceCommon() constructor
         static _globalTopLevelArray = __globalData.__topLevelArray;
         
         __pattern        = _pattern;
-        __parentVoice    = _parentVoice;
+        __parentVoice = _parentVoice;
         __initialEmitter = _emitter;
         __initialLoop    = _loop;
         __gainLocal      = _gain;
@@ -88,10 +88,11 @@ function __VinylClassVoiceCommon() constructor
         __LoopResolve();
         __EffectChainResolve();
         __EmitterResolve();
-        __PatternGainPitchTransposeResolve();
         
         __gainTarget  = __gainLocal;
         __pitchTarget = __pitchLocal;
+        
+        __pitchRandomParam = __VinylRandom(1);
         
         if (__parentVoice == undefined) array_push(_globalTopLevelArray, self);
     }
@@ -508,19 +509,8 @@ function __VinylClassVoiceCommon() constructor
         __LoopResolve();
         __EffectChainResolve();
         __EmitterResolve();
-        __PatternGainPitchTransposeResolve();
         
         __LoopPointsSet();
-    }
-    
-    static __PatternGainPitchTransposeResolve = function()
-    {
-        __gainPattern = __pattern.__gain;
-        
-        __pitchRandomParam = __VinylRandom(1);
-        __pitchPattern     = lerp(__pattern.__pitchLo, __pattern.__pitchHi, __pitchRandomParam);
-        
-        __transposePattern = __pattern.__transpose;
     }
     
     static __PersistenceResolve = function()
@@ -755,16 +745,19 @@ function __VinylClassVoiceCommon() constructor
         __LabelGainPitchTransposeGet();
         
         __gainLocal          += clamp(__gainTarget - __gainLocal, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
+        __gainPattern         = __pattern.__gain;
         __gainParent          = (__parentVoice == undefined)? 1 : __parentVoice.__gainOutputNoLabels;
         __gainDuck           += clamp(__gainDuckTarget - __gainDuck, -_deltaTimeFactor*__gainDuckRate, _deltaTimeFactor*__gainDuckRate);
         __gainOutputNoLabels  = __gainLocal*__gainPattern*__gainParent*__gainDuck;
         __gainOutput          = __gainOutputNoLabels*__gainLabels;
         
         __pitchLocal          += clamp(__pitchTarget - __pitchLocal, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
+        __pitchPattern         = lerp(__pattern.__pitchLo, __pattern.__pitchHi, __pitchRandomParam);
         __pitchParent          = (__parentVoice == undefined)? 1 : __parentVoice.__pitchOutputNoLabels;
         __pitchOutputNoLabels  = __pitchLocal*__pitchPattern*__pitchParent;
         __pitchOutput          = __pitchOutputNoLabels*__pitchLabels;
         
+        __transposePattern = __pattern.__transpose;
         __transposeParent  = (__parentVoice == undefined)? undefined : __parentVoice.__transposeOutputNoLabels;
         
         if ((__transposeLocal != undefined) || (__transposePattern != undefined) || (__transposeParent != undefined))
