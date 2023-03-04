@@ -227,7 +227,7 @@ Labels have their own gain and pitch states at runtime. You can change the gain 
 VinylGainSet("music", global.settings.musicGain);
 VinylGainSet("sfx", global.settings.sfxGain);
 
-//Will be affect by the new gain value for the "sfx" label
+//Will be affected by the new gain value for the "sfx" label
 VinylPlay(sndUIClick);
 ```
 
