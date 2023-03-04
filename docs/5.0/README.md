@@ -15,7 +15,6 @@
 - In-built systems to handle common designs ([fade in](Playing-Audio), [callbacks on fade out](Stopping-Audio), [audio ducking](Stacks) etc.)
 - Multi-inheritance using Vinyl's ["labels"](Labels) (similar to audio groups)
 - Integral [shuffle](Shuffle-Patterns), [queue](Queue-Patterns), and [multi patterns](Multi-Patterns)
-- Modular design that allows for nested patterns to create even more complex behaviours
 - [Native panning](Panning)
 - Improved natural [gain curves](Gain)
 - [Pitch randomisation](Pitch) 
