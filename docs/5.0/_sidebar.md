@@ -7,7 +7,7 @@
 
 **Glossary**
 
--    [Overview](Glossary)
+-    [Overview](Overview)
 -    [Assets](Assets)
 -    [Basic Patterns](Basic-Patterns)
 -    [Shuffle Patterns](Shuffle-Patterns)
