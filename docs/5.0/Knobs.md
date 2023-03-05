@@ -12,7 +12,7 @@ Knobs further have a default value. This is the initial output value for the kno
 
 ?> When a knob is set to its default value in reality Vinyl will calculate the appropriate input value to achieve the output value. This is important when considering how per property "array syntax" operates (see below).
 
-You can get and set the input value for knobs using [`VinylKnobGet()` and `VinylKnobSet()`](Knobs). You can also check if a knob exists or reset a knob using other [knob functions](Knobs). Generally speaking, knob functions will not throw an exception if the knob they're targetting doesn't exist to reduce the likelihood of annoying crashes if you spell a knob name wrong in your configuration file.
+You can get and set the input value for knobs using [`VinylKnobGet()` and `VinylKnobSet()`](Knob-Functions). You can also check if a knob exists or reset a knob using other [knob functions](Knob-Functions). Generally speaking, knob functions will not throw an exception if the knob they're targetting doesn't exist to reduce the likelihood of annoying crashes if you spell a knob name wrong in your configuration file.
 
 &nbsp;
 
