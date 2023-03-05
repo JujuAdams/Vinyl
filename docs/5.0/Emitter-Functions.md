@@ -75,7 +75,7 @@ This function returns a struct that contains the following member variables:
 |Name     |Datatype        |Purpose                                                                                                                                                              |
 |---------|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |`emitter`|Vinyl emitter   |Emitter to play on. This must be a Vinyl emitter and **not** a native GameMaker emitter                                                                              |
-|`sound`  |sound or pattern|The sound to play, either a GameMaker sound or a Vinyl pattern                                                                                                       |
+|`sound`  |asset or pattern|The sound to play, either an asset or a pattern                                                                                                                      |
 |`[loop]` |boolean         |Whether the sound should loop. Defaults to whatever has been set for the asset or pattern in question, and if none has been set, the sound will not loop             |
 |`[gain]` |number          |Voice gain, in normalised gain units, greater than or equal to `0`. Defaults to `1`, no change in volume. Applied multiplicatively with other [sources of gain](Gain)|
 |`[pitch]`|number          |Voice pitch, in normalised pitch units. Defaults to `1`, no pitch change                                                                                             |
