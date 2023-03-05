@@ -12,10 +12,10 @@
 
 *Returns:*
 
-|Name    |Datatype      |Purpose                                                                 |
-|--------|--------------|------------------------------------------------------------------------|
-|`target`|voice or label|The voice or label to target                                            |
-|`pitch` |number        |Voice pitch, in normalised pitch units. Defaults to `1`, no pitch change|
+|Name    |Datatype      |Purpose                                                                                                                       |
+|--------|--------------|------------------------------------------------------------------------------------------------------------------------------|
+|`target`|voice or label|The voice or label to target                                                                                                  |
+|`pitch` |number        |Voice pitch, in normalised pitch units. Defaults to `1`, no pitch change. Applied multiplicatively with other sources of pitch|
 
 Sets the pitch of [voice](Voice) or [label](Label).
 
