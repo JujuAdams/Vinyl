@@ -28,11 +28,11 @@ You can get and set the input value for knobs using [`VinylKnobGet()` and `Vinyl
 
 Knobs must be set up in the [configuration file](Config-File). Any numerical property - so **not** a boolean and **not** a string - can be adjusted using a knob. Knobs must first be defined in the `knobs: {}` struct in the configuration file before trying to set them up for other components.
 
-A knob can be hooked up to a property in one of two ways: direct syntax and array syntax.
+A knob can be hooked up to a property in one of two ways:
 
 ### `@knob`
 
-This is called "direct knob syntax". Whatever output value the knob is emitting will be routed to the property, affecting all current and future voices that inherit the property.
+This is called "direct syntax". Whatever output value the knob is emitting will be routed to the property, affecting all current and future voices that inherit the property.
 
 ```
 {
@@ -65,7 +65,7 @@ This is called "direct knob syntax". Whatever output value the knob is emitting 
 
 ### `[@knob, output min, output max]`
 
-This is called "knob array syntax". The minimum and maximum values specified will override the output range defined for the knob itself. The value set for the property is calculated by mapping the knob's **input value** to the new output range specified in the array. If you're using the default value for the knob then this will be remapped from the original output range to the new output range.
+This is called "knob syntax". The minimum and maximum values specified will override the output range defined for the knob itself. The value set for the property is calculated by mapping the knob's **input value** to the new output range specified in the array. If you're using the default value for the knob then this will be remapped from the original output range to the new output range.
 
 Array syntax is useful if you're using a knob to control many properties that each have their own expected ranges.
 
