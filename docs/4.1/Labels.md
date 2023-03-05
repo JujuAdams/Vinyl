@@ -26,7 +26,6 @@ The following properties can be set for a label in the [configuration file](Conf
 |`loop`          |boolean         |*passthrough*|                                                                                                           |
 |`stack`         |string          |*passthrough*|[Stack](Stacks) to push voices assigned to this label to                                                   |
 |`stack priority`|number          |`0`          |Priority for voices when pushed to the stack above                                                         |
-|`effect chain`  |string          |*passthrough*|                                                                                                           |
 |`tag`           |string or array |*passthrough*|Links this label to a native GameMaker asset tag. Can be a string for one tag, or an array of tags         |
 |`children`      |array of structs|`[]`         |Must be an array of label structs                                                                          |
     

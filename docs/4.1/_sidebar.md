@@ -16,7 +16,6 @@
 -    [Voices](Voices)
 -    [Labels](Labels)
 -    [Stacks](Stacks)
--    [Effect Chains](Effect-Chains)
 -    [Knobs](Knobs)
 -    [Gain](Gain)
 -    [Pitch](Pitch)

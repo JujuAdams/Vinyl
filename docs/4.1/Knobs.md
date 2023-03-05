@@ -79,31 +79,19 @@ Array syntax is useful if you're using a knob to control many properties that ea
 			default: 1
 
 			//Decrease pitch as knob increases in value
-			output range: [1, 0.8]
+			output range: [1, 0.6]
 		}
 	}
 
 	assets: {
 		sndGunshot: {
 			pitch: @shellshock
-			effect chain: shock echo
 		}
 
 		sndNPCShout: {
-			pitch: @shellshock
-			effect chain: shock echo
+			//Use a different output range for NPC bark
+			pitch: [@shellshock, 1, 0.9]
 		}
-	}
-
-	effect chains: {
-		shock echo: [
-			{
-				type: reverb
-
-				//Remap the "shellshock" knob to a smaller range
-				mix: [@shellshock, 0, 0.3]
-			}
-		]
 	}
 }
 ```

@@ -127,10 +127,6 @@ The config file must contain a single struct, and each member variable in that s
     knobs: {
         ...
     }
-
-    effect chains: {
-        ...
-    }
 }
 ```
 
@@ -158,7 +154,6 @@ You can read more about assets [here](Assets).
 |`loop points`   |array of numbers|*passthrough*                       |Array must have two-elements defining the start and end point of a loop, measured in seconds               |
 |`stack`         |string          |*passthrough*                       |[Stack](Stacks) to push voices to                                                                          |
 |`stack priority`|number          |`0`                                 |Priority for voices when pushed to the stack above                                                         |
-|`effect chain`  |string          |*passthrough*                       |                                                                                                           |
 |`label`         |string or array |`[]`                                |Label to assign this asset to. Can be a string for a single label, or an array of label names              |
 |`persistent`    |boolean         |*passthrough*                       |                                                                                                           |
 
@@ -176,7 +171,6 @@ You can read more about labels [here](Labels).
 |`loop`          |boolean         |*passthrough*|                                                                                                           |
 |`stack`         |string          |*passthrough*|[Stack](Stacks) to push voices assigned to this label to                                                   |
 |`stack priority`|number          |`0`          |Priority for voices when pushed to the stack above                                                         |
-|`effect chain`  |string          |*passthrough*|                                                                                                           |
 |`tag`           |string or array |*passthrough*|Links this label to a native GameMaker asset tag. Can be a string for one tag, or an array of tags         |
 |`children`      |array of structs|`[]`         |Must be an array of label structs                                                                          |
            
@@ -213,7 +207,6 @@ You can read more about patterns by following these links
 |`loop points`   |array of numbers|*passthrough*|Must be a two-element array defining the start and end point of a loop, measured in seconds                                  |
 |`stack`         |string          |*passthrough*|[Stack](Stacks) to push voices to                                                                                            |
 |`stack priority`|number          |`0`          |Priority for voices when pushed to the stack above                                                                           |
-|`effect chain`  |string          |*passthrough*|                                                                                                                             |
 |`label`         |string or array |`[]`         |Label to assign this asset to. Can be a string for a single label, or an array of label names                                |
 |`persistent`    |boolean         |*passthrough*|                                                                                                                             |
 
@@ -239,99 +232,3 @@ You can read more about knobs [here](Knobs).
 |`default`     |number          |        |**Required.** Will be clamped between inside of the output range if either the input range or output range is explicitly defined|
 |`input range` |array of numbers|`[0, 1]`|Must be a two-element array                                                                                                     |
 |`output range`|array of numbers|`[0, 1]`|Must be a two-element array                                                                                                     |
-
-&nbsp;
-
-## Effect Chains
-
-You can read more about effect chains [here](Effect-Chains).
-
-An effect chain should be defined as an array with, at most, 8 elements. Each element in the array defines an effect in the chain and must be a struct whose properties depend on what type the effect is.
-
-The effect chain name `main` is special and is used for any voices without a defined effect chain.
-
-<!-- tabs:start -->
-
-#### **Reverb**
-
-Equivalent to `AudioEffectType.Reverb1`.
-
-|Property|Datatype|Description                                                        |
-|--------|--------|-------------------------------------------------------------------|
-|`type`  |string  |**Must be `reverb`**                                               |
-|`bypass`|boolean |Whether the effect should be bypassed (ignored)                    |
-|`size`  |number  |From `0` to `1`. Larger values lead to a longer reverb             |
-|`damp`  |number  |From `0` to `1`. Larger values reduce high frequencies more        |
-|`mix`   |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)|
-
-#### **Delay**
-
-Equivalent to `AudioEffectType.Delay`.
-
-|Property  |Datatype|Description                                                           |
-|----------|--------|----------------------------------------------------------------------|
-|`type`    |string  |**Must be `delay`**                                                   |
-|`bypass`  |boolean |Whether the effect should be bypassed (ignored)                       |
-|`time`    |number  |Length of the delay (in seconds)                                      |
-|`feedback`|number  |From `0` to `1`. Proportion of the signal to pass back into the effect|
-|`mix`     |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)   |
-
-#### **Bitcrusher**
-
-Equivalent to `AudioEffectType.Bitcrusher`.
-
-|Property    |Datatype|Description                                                        |
-|------------|--------|-------------------------------------------------------------------|
-|`type`      |string  |**Must be `bitcrusher`**                                           |
-|`bypass`    |boolean |Whether the effect should be bypassed (ignored)                    |
-|`gain`      |number  |Input gain going into the clipping stage                           |
-|`factor`    |number  |From `0` to `100`. Downsampling factor                             |
-|`resolution`|number  |From `1` to `16`. Bit depth                                        |
-|`mix`       |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)|
-
-#### **Low-pass**
-
-A low-pass filter that reduces high frequencies. Equivalent to `AudioEffectType.LPF2`.
-
-|Property|Datatype|Description                                    |
-|--------|--------|-----------------------------------------------|
-|`type`  |string  |**Must be `lpf`**                              |
-|`bypass`|boolean |Whether the effect should be bypassed (ignored)|
-|`cutoff`|number  |Cutoff frequency, in Hertz                     |
-|`q`     |number  |From `1` to `100`. How sharp the cutoff is     |
-
-#### **High-pass**
-
-A high-pass filter that thins out sounds by reducing low frequencies. Equivalent to `AudioEffectType.HPF2`.
-
-|Property|Datatype|Description                                    |
-|--------|--------|-----------------------------------------------|
-|`type`  |string  |**Must be `hpf`**                              |
-|`bypass`|boolean |Whether the effect should be bypassed (ignored)|
-|`cutoff`|number  |Cutoff frequency, in Hertz                     |
-|`q`     |number  |From `1` to `100`. How sharp the cutoff is     |
-
-#### **Tremolo**
-
-Equivalent to `AudioEffectType.Tremolo`.
-
-|Property    |Datatype|Description                                                                           |
-|------------|--------|--------------------------------------------------------------------------------------|
-|`type`      |string  |**Must be `tremolo`**                                                                 |
-|`bypass`    |boolean |Whether the effect should be bypassed (ignored)                                       |
-|`rate`      |number  |From `0` to `20` Hertz. Frequency of the LFO modulating the gain                      |
-|`intensity` |number  |From `0` to `1`. The depth of the effect. `1` is 100% affected                        |
-|`offset`    |number  |From `0` to `1`. Left/right offset                                                    |
-|`shape`     |string  |Mudt be one of the following: `sine` `square` `triangle` `sawtooth` `inverse sawtooth`|
-
-#### **Gain**
-
-Basic volume control. Equivalent to `AudioEffectType.Gain`.
-
-|Property|Datatype|Description                                    |
-|--------|--------|-----------------------------------------------|
-|`type`  |string  |**Must be `gain`**                             |
-|`bypass`|boolean |Whether the effect should be bypassed (ignored)|
-|`gain`  |number  |From `0` to `1`. Attenuates the signal         |
-
-<!-- tabs:end -->

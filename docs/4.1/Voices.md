@@ -53,15 +53,6 @@ In order of precedence, with the first rule being the highest precedence that ov
 - If any of the voice's labels are set to loop then loop (labels set to **not** loop are ignored)
 - Otherwise, default to not looping
 
-### Effect Chain
-
-In order of precedence, with the first rule being the highest precedence that overrides following rules:
-
-- Use the top-level pattern's effect chain
-- Use our own asset's (or pattern's) effect chain
-- Choose a label's effect chain *(If there's a conflict amongst labels then Vinyl will chose a random effect chain. Try not to let this happen!)*
-- Otherwise, default to playing using the [`main` effect chain](Effect-Chains).
-
 ### Stack
 
 ?> Pushing to a stack only applies to top-level voices.
@@ -78,7 +69,7 @@ Choose the maximum priority from our pattern and our labels.
 
 ## Runtime State
 
-The following are the state variables that a voice will track at runtime. You can modify and interact with these variables per voice. Notably missing is the effect chain that a voice is playing on as this is determined when the voice is first created for playback.
+The following are the state variables that a voice will track at runtime. You can modify and interact with these variables per voice.
 
 |State            |Notes                                                                                                          |
 |-----------------|---------------------------------------------------------------------------------------------------------------|

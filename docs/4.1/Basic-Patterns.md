@@ -20,7 +20,6 @@ Basic patterns should be set up in the [configuration file](Config-File).
 |`loop`          |boolean         |*passthrough*|                                                                                                           |
 |`stack`         |string          |*passthrough*|[Stack](Stacks) to push voices to                                                                          |
 |`stack priority`|number          |`0`          |Priority for voices when pushed to the stack above                                                         |
-|`effect chain`  |string          |*passthrough*|                                                                                                           |
 |`label`         |string or array |*passthrough*|Label to assign this pattern to. Can be a string for a single label, or an array of label names            |
 |`persistent`    |boolean         |*passthrough*|                                                                                                           |
 
@@ -57,13 +56,6 @@ Basic patterns should be set up in the [configuration file](Config-File).
         	gain: 0.5
         	pitch: [0.7, 1.1]
         	label: speech //Repurpose this sound for use as speech
-        }
-
-        radio voice: {
-        	type: basic
-        	asset: sndVoice
-        	gain: 0.7 //Sound is a bit harsh, make it quieter
-        	effect chain: radio //High-pass filter + distortion
         }
 	}
 

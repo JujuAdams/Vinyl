@@ -30,7 +30,6 @@ Queue patterns should be set up in the [configuration file](Config-File).
 |`loop`          |boolean         |*passthrough*                                  |This property is inherited by assets played by this pattern; to automatically replay Queue pattern use the `behavior` property|
 |`stack`         |string          |*passthrough*                                  |[Stack](Stacks) to push voices to                                                                                             |
 |`stack priority`|number          |`0`                                            |Priority for voices when pushed to the stack above                                                                            |
-|`effect chain`  |string          |*passthrough*                                  |                                                                                                                              |
 |`label`         |string or array |*passthrough*                                  |Label to assign this pattern to. Can be a string for a single label, or an array of label names                               |
 |`persistent`    |boolean         |*passthrough*                                  |                                                                                                                              |
 |`behavior`      |number          |[`VINYL_DEFAULT_QUEUE_BEHAVIOR`](Config-Macros)|Must be one of the following: `0` `1` `2`                                                                                     |
@@ -61,7 +60,6 @@ Queue patterns should be set up in the [configuration file](Config-File).
 
         ambient loop: {
         	type: queue
-        	effect chain: echo
         	label: ambience
         	behaviour: 1 //Replay forever
         	assets: [

@@ -347,7 +347,8 @@ The simplest sort of pattern: it's just a wrapper around an asset which modifies
         dramatic gunshot: {
     		type: basic
     		asset: sndGunshot
-    		effect chain: echo //Add an echo for  d r a m a
+            gain: 1.1
+            pitch: 0.8
         }
     }
 }
