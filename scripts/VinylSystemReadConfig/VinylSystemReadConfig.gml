@@ -343,20 +343,29 @@ function VinylSystemReadConfig(_configData)
     
     
     //Migrate all of our patterns to the new dataset
-    array_foreach(_globalData.__patternArray, function(_pattern)
+    var _array = _globalData.__patternArray;
+    var _i = 0;
+    repeat(array_length(_array))
     {
-        _pattern.__Migrate();
-    });
+        _array[_i].__Migrate();
+        ++_i;
+    }
     
     //Migrate all of our top-level voices to the new config data
-    array_foreach(_globalData.__topLevelArray, function(_voice)
+    var _array = _globalData.__topLevelArray;
+    var _i = 0;
+    repeat(array_length(_array))
     {
-        _voice.__Migrate();
-    });
+        _array[_i].__Migrate();
+        ++_i;
+    }
     
     //Update all values from knobs
-    array_foreach(_globalData.__knobArray, function(_knob)
+    var _array = _globalData.__knobArray;
+    var _i = 0;
+    repeat(array_length(_array))
     {
-        _knob.__OutputRefresh();
-    });
+        _array[_i].__OutputRefresh();
+        ++_i;
+    }
 }
