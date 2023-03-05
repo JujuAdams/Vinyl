@@ -4,7 +4,7 @@
 
 When you play an audio asset using [`VinylPlay()`](Playing-Audio), [`VinylPlayFadeIn()`](Playing-Audio), or [`VinylPlayOnEmitter()`](Emitter-Functions), Vinyl will create a unique voice that holds information about that specific piece of audio being played.
 
-The best way to understand a voice is to think of them like they're instances of GameMaker objects, only the "objects" in this case are Vinyl patterns.
+The best way to understand a voice is to think of them like they're instances of GameMaker objects, only the "objects" in this case are Vinyl assets (or patterns).
 
 Voices can have their gain and pitch altered on the fly, as well as their pan position. Voices can loop, and can be played at positions in a room using Vinyl's custom emitter system as well.
 
