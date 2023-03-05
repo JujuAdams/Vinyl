@@ -12,12 +12,12 @@
 
 *Returns:* N/A (`undefined`)
 
-|Name   |Datatype|Purpose                                  |
-|-------|--------|-----------------------------------------|
-|`name` |string  |Knob to target                           |
-|`value`|number  |Input value for the knob, from `0` to `1`|
+|Name   |Datatype|Purpose                                                                   |
+|-------|--------|--------------------------------------------------------------------------|
+|`name` |string  |Knob to target                                                            |
+|`value`|number  |Input value for the knob, clamped to the [input range](Knobs) for the knob|
 
-Sets the normalised input value of a knob. This is converted into an output value using the range of the knob if necessary.
+Sets the input value of a knob. This value is remapped via the [input range and output range](Knobs) and then sets downstream property linked to the knob.
 
 #### **Example**
 
@@ -37,13 +37,11 @@ Sets the normalised input value of a knob. This is converted into an output valu
 
 #### **Description**
 
-*Returns:* Number, the normalised input value of the knob
+*Returns:* Number, the input value of the knob
 
 |Name  |Datatype|Purpose       |
 |------|--------|--------------|
 |`name`|string  |Knob to target|
-
-If the knob has not had a value set, or the knob has been reset (see `VinylKnobReset()`), this function will return `undefined`.
 
 #### **Example**
 
@@ -145,7 +143,7 @@ Sets the target input value of a knob. The knob's input value will change over t
 |------|--------|--------------|
 |`name`|string  |Knob to target|
 
-Resets the output value of a knob to the default. This also "unsets" the normalised input value.
+Resets the output value of a knob to the [default](Knobs) specified in the [configuration file](Config-File). This will also reset the input value as returned by `VinylKnobGet()`.
 
 #### **Example**
 
