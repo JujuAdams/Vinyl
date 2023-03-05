@@ -32,9 +32,6 @@
                 speech: {
                     pitch: [0.75, 1.25]
                 }
-                echo: {
-                    effect chain: echo
-                }
             }
         }
     }
@@ -73,7 +70,6 @@
             type: basic
             asset: sndCat
             pitch: 0.75
-            effect chain: echo
         }
         
         bleep shuffle: {
@@ -112,22 +108,5 @@
                 sndSync3
             ]
         }
-    }
-    
-    
-    
-    effect chains: {
-        echo: [
-            {
-                type: delay
-                time: @delay time
-                mix: 0.4
-            }
-            {
-                type: reverb
-                size: @reverb size
-                mix: 0.3
-            }
-        ]
     }
 }

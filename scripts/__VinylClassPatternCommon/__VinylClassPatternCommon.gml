@@ -1,7 +1,5 @@
 function __VinylClassPatternCommon()
 {
-    static __effectChainDict = __VinylGlobalData().__effectChainDict;
-    
     static __Store = function()
     {
         var _patternDict  = __VinylGlobalData().__patternDict;
@@ -13,33 +11,6 @@ function __VinylClassPatternCommon()
     
     static __Migrate = function()
     {
-        if (__effectChainName == undefined)
-        {
-            var _j = 0;
-            repeat(array_length(__labelArray))
-            {
-                var _labelStruct = __labelArray[_j];
-                
-                if (_labelStruct.__effectChainName != undefined)
-                {
-                    if (__effectChainName == undefined)
-                    {
-                        __effectChainName = _labelStruct.__effectChainName;
-                    }
-                    else if (_labelStruct.__effectChainName != __effectChainName)
-                    {
-                        __VinylTrace("Warning! ", self, " has conflicting effect chains (chosen = \"", __effectChainName, "\", conflict = \"", _labelStruct.__effectChainName, "\" from ", _labelStruct, ")");
-                    }
-                }
-                
-                ++_j;
-            }
-        
-            if ((__effectChainName != undefined) && !variable_struct_exists(__effectChainDict, __effectChainName))
-            {
-                __VinylError("Effect chain \"", __effectChainName, "\" for ", self, " doesn't exist");
-            }
-        }
     }
     
     static __GainSet = function(_gain)
@@ -197,18 +168,6 @@ function __VinylClassPatternCommon()
         else
         {
             __VinylError("Error in ", self, "\n\"stack priority\" property must be a number");
-        }
-    }
-    
-    static __InitializeEffectChain = function(_effectChainName)
-    {
-        if (is_string(_effectChainName) || is_undefined(_effectChainName))
-        {
-            __effectChainName = _effectChainName;
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\n\"effect chain\" property must be a name (as a string)");
         }
     }
     

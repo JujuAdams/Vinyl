@@ -20,8 +20,4 @@
     patterns: {
         
     }
-    
-    effect chains: {
-        
-    }
 }

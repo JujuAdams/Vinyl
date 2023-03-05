@@ -22,20 +22,19 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     static __Initialize = function(_labelData = {})
     {
         if (!is_struct(_labelData)) __VinylError("Error in ", self, "\nLabel data must be a struct");
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_labelData, ["gain", "pitch", "transpose", "loop", "tag", "effect chain", "stack", "stack priority", "children"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_labelData, ["gain", "pitch", "transpose", "loop", "tag", "stack", "stack priority", "children"]);
         
         static _stackDict = __VinylGlobalData().__stackDict;
         
         //Unpack the definition data
-        var _gain            = _labelData[$ "gain"          ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-        var _pitch           = _labelData[$ "pitch"         ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
-        var _transpose       = _labelData[$ "transpose"     ];
-        var _loop            = _labelData[$ "loop"          ] ?? undefined;
-        var _persistent      = _labelData[$ "persistent"    ];
-        var _stack           = _labelData[$ "stack"         ];
-        var _stackPriority   = _labelData[$ "stack priority"] ?? 0;
-        var _tagArray        = _labelData[$ "tag"           ] ?? _labelData[$ "tags"];
-        var _effectChainName = _labelData[$ "effect chain"  ];
+        var _gain          = _labelData[$ "gain"          ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
+        var _pitch         = _labelData[$ "pitch"         ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
+        var _transpose     = _labelData[$ "transpose"     ];
+        var _loop          = _labelData[$ "loop"          ] ?? undefined;
+        var _persistent    = _labelData[$ "persistent"    ];
+        var _stack         = _labelData[$ "stack"         ];
+        var _stackPriority = _labelData[$ "stack priority"] ?? 0;
+        var _tagArray      = _labelData[$ "tag"           ] ?? _labelData[$ "tags"];
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
@@ -122,9 +121,6 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         //Convert the tag array into an array if necessary
         if (is_string(_tagArray)) _tagArray = [_tagArray];
         __tagArray = _tagArray;
-        
-        //Sort out the effect chain name
-        __effectChainName = _effectChainName ?? ((__parent != undefined)? __parent.__effectChainName : undefined);
         
         //Set remainder of the state
         __topLevelArray = [];

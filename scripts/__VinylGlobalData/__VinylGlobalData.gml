@@ -27,9 +27,6 @@ function __VinylGlobalData()
         __labelDict:  {},
         __labelArray: [],
         
-        __effectChainDict:  {},
-        __effectChainArray: [],
-        
         __knobDict:  {},
         __knobArray: [],
         

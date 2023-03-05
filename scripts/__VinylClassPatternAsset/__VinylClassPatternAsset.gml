@@ -19,7 +19,7 @@ function __VinylClassPatternAsset(_name, _adHoc, _asset) : __VinylClassPatternCo
     static __Initialize = function(_patternData = {})
     {
         if (!is_struct(_patternData)) __VinylError("Error in ", self, "\nPattern data must be a struct");
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["gain", "pitch", "transpose", "bpm", "loop", "effect chain", "stack", "stack priority", "persistent", "label", "labels", "loop point", "loop points"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["gain", "pitch", "transpose", "bpm", "loop", "stack", "stack priority", "persistent", "label", "labels", "loop point", "loop points"]);
         
         var _gain            = _patternData[$ "gain"          ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"         ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
@@ -29,7 +29,6 @@ function __VinylClassPatternAsset(_name, _adHoc, _asset) : __VinylClassPatternCo
         var _persistent      = _patternData[$ "persistent"    ];
         var _stack           = _patternData[$ "stack"         ];
         var _stackPriority   = _patternData[$ "stack priority"] ?? 0;
-        var _effectChainName = _patternData[$ "effect chain"  ] ?? _patternData[$ "effect"];
         var _loopPoints      = _patternData[$ "loop points"   ] ?? _patternData[$ "loop point"];
         var _labelNameArray  = _patternData[$ "label"         ] ?? _patternData[$ "labels"];
         
@@ -50,11 +49,10 @@ function __VinylClassPatternAsset(_name, _adHoc, _asset) : __VinylClassPatternCo
         __InitializeLoop(_loop);
         __InitializePersistent(_persistent);
         __InitializeStack(_stack, _stackPriority);
-        __InitializeEffectChain(_effectChainName);
         __InitializeLoopPoints(_loopPoints);
         __InitializeLabelArray(_labelNameArray);
         
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
     }
     
     static __Play = function(_parentVoice, _vinylEmitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
@@ -66,6 +64,6 @@ function __VinylClassPatternAsset(_name, _adHoc, _asset) : __VinylClassPatternCo
     
     static __PlaySimple = function(_sound_UNUSED, _gain = 1, _pitch = 1)
     {
-        return __VinylPlaySimple(__asset, _gain*__gain, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, __effectChainName);
+        return __VinylPlaySimple(__asset, _gain*__gain, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray);
     }
 }

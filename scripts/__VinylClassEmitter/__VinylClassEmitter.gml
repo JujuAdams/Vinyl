@@ -48,7 +48,6 @@ function __VinylClassEmitter() constructor
         audio_emitter_velocity(__emitter, 0, 0, 0);
         audio_emitter_gain(__emitter, 1);
         audio_emitter_falloff(__emitter, __falloffMin, __falloffMax, __falloffFactor);
-        audio_emitter_bus(__emitter, audio_bus_main);
     }
     
     

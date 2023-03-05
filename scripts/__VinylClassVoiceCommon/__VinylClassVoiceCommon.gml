@@ -2,9 +2,8 @@ function __VinylClassVoiceCommon() constructor
 {
     static __patternType = "???";
     
-    static __globalData      = __VinylGlobalData();
-    static __idToVoiceDict   = __globalData.__idToVoiceDict;
-    static __effectChainDict = __globalData.__effectChainDict;
+    static __globalData    = __VinylGlobalData();
+    static __idToVoiceDict = __globalData.__idToVoiceDict;
     
     __id   = undefined;
     __pool = undefined;
@@ -89,7 +88,6 @@ function __VinylClassVoiceCommon() constructor
         
         __PersistenceResolve();
         __LoopResolve();
-        __EffectChainResolve();
         __EmitterResolve();
         
         __gainTarget  = __gainLocal;
@@ -510,7 +508,6 @@ function __VinylClassVoiceCommon() constructor
         
         __PersistenceResolve();
         __LoopResolve();
-        __EffectChainResolve();
         __EmitterResolve();
         
         __LoopPointsSet();
@@ -573,22 +570,6 @@ function __VinylClassVoiceCommon() constructor
         }
     }
     
-    static __EffectChainResolve = function()
-    {
-        //Search up the tree until we hit a parent with a defined effect chain
-        if (__parentVoice != undefined)
-        {
-            if (__parentVoice.__effectChainName != undefined)
-            {
-                __effectChainName = __parentVoice.__effectChainName;
-                return;
-            }
-        }
-        
-        //If none could be found, return our own
-        __effectChainName = __pattern.__effectChainName;
-    }
-    
     static __EmitterResolve = function()
     {
         static _poolPanEmitter = __globalData.__poolPanEmitter;
@@ -617,16 +598,13 @@ function __VinylClassVoiceCommon() constructor
                 
                 //Update the pan emitter
                 __vinylEmitter.__Pan(__pan);
-                __vinylEmitter.__Bus(__effectChainName);
             }
             else
             {
-                //Only use an emitter if the effect chain demands it
-                var _newVinylEmitter = __effectChainDict[$ __effectChainName];
-                if (_newVinylEmitter != __vinylEmitter)
+                if (__vinylEmitter != undefined)
                 {
                     __EmitterRemove();
-                    __vinylEmitter = _newVinylEmitter;
+                    __vinylEmitter = undefined;
                 }
             }
         }

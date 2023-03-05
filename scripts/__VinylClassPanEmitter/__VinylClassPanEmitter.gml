@@ -1,7 +1,6 @@
 function __VinylClassPanEmitter() constructor
 {
     static __globalData = __VinylGlobalData();
-    static __effectChainDict = __globalData.__effectChainDict;
     
     
     
@@ -28,8 +27,6 @@ function __VinylClassPanEmitter() constructor
         
         __pan = 0;
         
-        audio_emitter_bus(__emitter, audio_bus_main);
-        
         __UpdatePosition();
     }
     
@@ -47,12 +44,6 @@ function __VinylClassPanEmitter() constructor
             __pan = _pan;
             __UpdatePosition();
         }
-    }
-    
-    static __Bus = function(_effectChainName)
-    {
-        var _effectChainStruct = __effectChainDict[$ _effectChainName];
-        audio_emitter_bus(__emitter, (_effectChainStruct == undefined)? audio_bus_main : _effectChainStruct.__bus);
     }
     
     static __VoiceAdd = function(_id)

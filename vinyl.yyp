@@ -3,7 +3,6 @@
   "resourceVersion": "1.6",
   "name": "vinyl",
   "resources": [
-    {"id":{"name":"__VinylClassEffectChain","path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},"order":0,},
     {"id":{"name":"sndBonk","path":"sounds/sndBonk/sndBonk.yy",},"order":0,},
     {"id":{"name":"__VinylClassPatternCommon","path":"scripts/__VinylClassPatternCommon/__VinylClassPatternCommon.yy",},"order":0,},
     {"id":{"name":"VinylSystemReadConfig","path":"scripts/VinylSystemReadConfig/VinylSystemReadConfig.yy",},"order":0,},
@@ -141,7 +140,6 @@
     {"id":{"name":"__VinylClassVoiceQueue","path":"scripts/__VinylClassVoiceQueue/__VinylClassVoiceQueue.yy",},"order":0,},
     {"id":{"name":"UIButtonInline","path":"scripts/UIButtonInline/UIButtonInline.yy",},"order":0,},
     {"id":{"name":"__VinylStackEnsure","path":"scripts/__VinylStackEnsure/__VinylStackEnsure.yy",},"order":0,},
-    {"id":{"name":"__VinylEffectChainEnsure","path":"scripts/__VinylEffectChainEnsure/__VinylEffectChainEnsure.yy",},"order":0,},
     {"id":{"name":"UIStart","path":"scripts/UIStart/UIStart.yy",},"order":0,},
     {"id":{"name":"VinylPitchSet","path":"scripts/VinylPitchSet/VinylPitchSet.yy",},"order":0,},
     {"id":{"name":"VinylLiveUpdateSet","path":"scripts/VinylLiveUpdateSet/VinylLiveUpdateSet.yy",},"order":0,},

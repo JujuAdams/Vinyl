@@ -1,4 +1,4 @@
-/// Reads in a data struct, setting asset/label/pattern/effect chain/knob definitions as required
+/// Reads in a data struct, setting asset/label/pattern/knob definitions as required
 /// This is useful for e.g. writing your own live mixing system
 /// 
 ///   N.B. Loading a data struct will wipe any existing config data
@@ -9,13 +9,10 @@ function VinylSystemReadConfig(_configData)
 {
     static _globalData = __VinylGlobalData();
     
-    //Effect chain and stack data structures are a bit special because they're never regenerated
-    //We keep the old effect chains around so that we can dynamically update effects
-    static _effectChainDict  = _globalData.__effectChainDict;
-    static _effectChainArray = _globalData.__effectChainArray;
-    static _stackDict        = _globalData.__stackDict;
-    static _stackArray       = _globalData.__stackArray;
-    static _animCurveArray   = _globalData.__animCurveArray;
+    //Stack data structures are a bit special because they're never regenerated
+    static _stackDict      = _globalData.__stackDict;
+    static _stackArray     = _globalData.__stackArray;
+    static _animCurveArray = _globalData.__animCurveArray;
     
     var _oldKnobDict  = _globalData.__knobDict;
     var _oldLabelDict = _globalData.__labelDict;
@@ -331,50 +328,6 @@ function VinylSystemReadConfig(_configData)
     
     
     
-    //Set up effect chains that we find in the incoming data
-    var _inputEffectChainDict = _configData[$ "effect chains"];
-    if (is_undefined(_inputEffectChainDict))
-    {
-        __VinylTrace("Warning! \"effect chains\" data missing");
-    }
-    else if (!is_struct(_inputEffectChainDict))
-    {
-        __VinylError("\"effect chains\" data should be defined as an object (struct)");
-    }
-    else
-    {
-        var _effectChainNameArray = variable_struct_get_names(_inputEffectChainDict);
-        var _i = 0;
-        repeat(array_length(_effectChainNameArray))
-        {
-            var _effectChainName = _effectChainNameArray[_i];
-            __VinylEffectChainEnsure(_effectChainName).__Update(_inputEffectChainDict[$ _effectChainName]);
-            ++_i;
-        }
-    }
-    
-    //Clean up any effect chains that exist in the old data but weren't in the incoming new data
-    var _i = 0;
-    repeat(array_length(_effectChainArray))
-    {
-        var _effectChain = _effectChainArray[_i];
-        var _effectChainName = _effectChain.__name;
-        
-        if ((_effectChainName != "main") && !variable_struct_exists(_inputEffectChainDict, _effectChainName))
-        {
-            _effectChain.__Destroy();
-            
-            variable_struct_remove(_effectChainDict, _effectChainName);
-            array_delete(_effectChainArray, _i, 1);
-        }
-        else
-        {
-            ++_i;
-        }
-    }
-    
-    
-    
     //Reload any animation curves that we're using
     //We don't want to reload animation curves if we're running outside of the IDE
     if (__VinylGetLiveUpdateEnabled())
@@ -406,7 +359,4 @@ function VinylSystemReadConfig(_configData)
     {
         _knob.__OutputRefresh();
     });
-    
-    //Workaround for problems setting effects on the main audio effect bus in 2023.1
-    gc_collect();
 }
