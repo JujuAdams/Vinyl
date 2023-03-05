@@ -235,43 +235,19 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
     static __LengthGet = function()
     {
         if (!is_numeric(__gmInstance)) return 0;
-        
-        if (audio_sound_get_loop(__gmInstance))
-        {
-            return audio_sound_get_loop_end(__gmInstance) - audio_sound_get_loop_start(__gmInstance);
-        }
-        else
-        {
-            return audio_sound_length(__gmInstance);
-        }
+        return audio_sound_length(__gmInstance);
     }
     
     static __PositionSet = function(_position)
     {
         if (!is_numeric(__gmInstance)) return;
-        
-        if (audio_sound_get_loop(__gmInstance))
-        {
-            audio_sound_set_track_position(__gmInstance, _position + audio_sound_get_loop_start(__gmInstance));
-        }
-        else
-        {
-            audio_sound_set_track_position(__gmInstance, _position);
-        }
+        audio_sound_set_track_position(__gmInstance, _position);
     }
     
     static __PositionGet = function()
     {
         if (!is_numeric(__gmInstance)) return 0;
-        
-        if (audio_sound_get_loop(__gmInstance))
-        {
-            return audio_sound_get_track_position(__gmInstance) - audio_sound_get_loop_start(__gmInstance);
-        }
-        else
-        {
-            return audio_sound_get_track_position(__gmInstance);
-        }
+        return audio_sound_get_track_position(__gmInstance);
     }
     
     #endregion
