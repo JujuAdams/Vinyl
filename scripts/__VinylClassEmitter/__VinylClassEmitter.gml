@@ -159,17 +159,17 @@ function __VinylClassEmitter() constructor
     
     static __VoiceRemove = function(_id)
     {
-        static _closure = {
-            __value: undefined,
-        };
-        
-        static _function = method(_closure, function(_value)
+        var _i = 0;
+        repeat(array_length(__voiceIDArray))
         {
-            return (__value != _value);
-        });
-        
-        _closure.__value = _id;
-        array_resize(__voiceIDArray, array_filter_ext(__voiceIDArray, _function));
+            if (__voiceIDArray[_i] == _id)
+            {
+                array_delete(__voiceIDArray, _i, 1);
+                break;
+            }
+            
+            ++_i;
+        }
     }
     
     static __ManagePosition = function()

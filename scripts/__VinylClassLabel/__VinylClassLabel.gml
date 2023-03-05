@@ -426,17 +426,17 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
               
     static __VoiceRemove = function(_id)
     {
-        static _closure = {
-            __value: undefined,
-        };
-        
-        static _function = method(_closure, function(_value)
+        var _i = 0;
+        repeat(array_length(__topLevelArray))
         {
-            return (__value != _value);
-        });
-        
-        _closure.__value = _id;
-        array_resize(__topLevelArray, array_filter_ext(__topLevelArray, _function));
+            if (__topLevelArray[_i] == _id)
+            {
+                array_delete(__topLevelArray, _i, 1);
+                break;
+            }
+            
+            ++_i;
+        }
     }
     
     static __LabelArrayAppend = function(_labelArray)

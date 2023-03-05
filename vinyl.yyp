@@ -74,6 +74,7 @@
     {"id":{"name":"VinylBPMGet","path":"scripts/VinylBPMGet/VinylBPMGet.yy",},"order":0,},
     {"id":{"name":"VinylLabelVoicesGet","path":"scripts/VinylLabelVoicesGet/VinylLabelVoicesGet.yy",},"order":0,},
     {"id":{"name":"__VinylClassPatternQueue","path":"scripts/__VinylClassPatternQueue/__VinylClassPatternQueue.yy",},"order":0,},
+    {"id":{"name":"array_union","path":"scripts/array_union/array_union.yy",},"order":1,},
     {"id":{"name":"__VinylPatternGet","path":"scripts/__VinylPatternGet/__VinylPatternGet.yy",},"order":0,},
     {"id":{"name":"VinylResume","path":"scripts/VinylResume/VinylResume.yy",},"order":0,},
     {"id":{"name":"VinylEmitterPositionSet","path":"scripts/VinylEmitterPositionSet/VinylEmitterPositionSet.yy",},"order":0,},
@@ -138,6 +139,7 @@
     {"id":{"name":"oTest","path":"objects/oTest/oTest.yy",},"order":0,},
     {"id":{"name":"__VinylRandom","path":"scripts/__VinylRandom/__VinylRandom.yy",},"order":0,},
     {"id":{"name":"__VinylClassVoiceQueue","path":"scripts/__VinylClassVoiceQueue/__VinylClassVoiceQueue.yy",},"order":0,},
+    {"id":{"name":"array_contains","path":"scripts/array_contains/array_contains.yy",},"order":0,},
     {"id":{"name":"UIButtonInline","path":"scripts/UIButtonInline/UIButtonInline.yy",},"order":0,},
     {"id":{"name":"__VinylStackEnsure","path":"scripts/__VinylStackEnsure/__VinylStackEnsure.yy",},"order":0,},
     {"id":{"name":"UIStart","path":"scripts/UIStart/UIStart.yy",},"order":0,},
@@ -206,6 +208,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stacks","folderPath":"folders/Vinyl/Stacks.yy","order":0,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stopping Audio","folderPath":"folders/Vinyl/Stopping Audio.yy","order":0,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Transposition","folderPath":"folders/Vinyl/Transposition.yy","order":0,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Utilities","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Utilities.yy","order":1,},
   ],
   "AudioGroups": [
     {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},
