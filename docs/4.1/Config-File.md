@@ -151,7 +151,6 @@ You can read more about assets [here](Assets).
 |`transpose`     |number          |*passthrough*                       |                                                                                                           |
 |`bpm`           |number          |[`VINYL_DEFAULT_BPM`](Config-Macros)|                                                                                                           |
 |`loop`          |boolean         |*passthrough*                       |                                                                                                           |
-|`loop points`   |array of numbers|*passthrough*                       |Array must have two-elements defining the start and end point of a loop, measured in seconds               |
 |`stack`         |string          |*passthrough*                       |[Stack](Stacks) to push voices to                                                                          |
 |`stack priority`|number          |`0`                                 |Priority for voices when pushed to the stack above                                                         |
 |`label`         |string or array |`[]`                                |Label to assign this asset to. Can be a string for a single label, or an array of label names              |
@@ -204,7 +203,6 @@ You can read more about patterns by following these links
 |`pitch`         |number or array |`1`          |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)                  |
 |`transpose`     |number          |*passthrough*|                                                                                                                             |
 |`loop`          |boolean         |*passthrough*|                                                                                                                             |
-|`loop points`   |array of numbers|*passthrough*|Must be a two-element array defining the start and end point of a loop, measured in seconds                                  |
 |`stack`         |string          |*passthrough*|[Stack](Stacks) to push voices to                                                                                            |
 |`stack priority`|number          |`0`          |Priority for voices when pushed to the stack above                                                                           |
 |`label`         |string or array |`[]`         |Label to assign this asset to. Can be a string for a single label, or an array of label names                                |

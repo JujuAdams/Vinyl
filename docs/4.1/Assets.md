@@ -17,7 +17,6 @@ Assets should be set up in the [configuration file](Config-File).
 |`transpose`     |number          |*passthrough*                       |                                                                                                           |
 |`bpm`           |number          |[`VINYL_DEFAULT_BPM`](Config-Macros)|                                                                                                           |
 |`loop`          |boolean         |*passthrough*                       |                                                                                                           |
-|`loop points`   |array of numbers|*passthrough*                       |Array must have two-elements defining the start and end point of a loop, measured in seconds               |
 |`stack`         |string          |*passthrough*                       |[Stack](Stacks) to push voices to                                                                          |
 |`stack priority`|number          |`0`                                 |Priority for voices when pushed to the stack above                                                         |
 |`label`         |string or array |`[]`                                |Label to assign this asset to. Can be a string for a single label, or an array of label names              |
@@ -48,13 +47,6 @@ Assets should be set up in the [configuration file](Config-File).
         sndMusic: {
         	loop: true
             stack: bgm //Use the background music stack
-            //Stack priority defaults to 0
-        }
-        
-        sndMusicWithLoopPoints: {
-            loop: true
-            loop points: [3, 33] //Loop the middle 30 seconds of the asset
-            stack: bgm
             //Stack priority defaults to 0
         }
         
