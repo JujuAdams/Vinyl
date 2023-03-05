@@ -171,26 +171,6 @@ function __VinylClassPatternCommon()
         }
     }
     
-    static __InitializeLoopPoints = function(_loopPoints)
-    {
-        if (is_array(_loopPoints))
-        {
-             if (array_length(_loopPoints) != 2) __VinylError("Error in audio asset ", self, "\nLoop point array must have exactly two elements (length=", array_length(_loopPoints), ")");
-             if (!is_numeric(_loopPoints[0])) __VinylError("Error in ", self, "\nLoop point array elements must be numbers (index 0 datatype=", typeof(_loopPoints[0]), ")");
-             if (!is_numeric(_loopPoints[1])) __VinylError("Error in ", self, "\nLoop point array elements must be numbers (index 1 datatype=", typeof(_loopPoints[1]), ")");
-            
-             __loopPoints = _loopPoints;
-        }
-        else if (is_undefined(_loopPoints))
-        {
-            __loopPoints = _loopPoints;
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\nLoop points must be a two-element array");
-        }
-    }
-    
     static __InitializeLabelArray = function(_labelNameArray)
     {
         var _labelDict = __VinylGlobalData().__labelDict;

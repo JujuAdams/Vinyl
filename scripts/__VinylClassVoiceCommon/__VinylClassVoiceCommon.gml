@@ -288,11 +288,6 @@ function __VinylClassVoiceCommon() constructor
         return __loopOutput;
     }
     
-    static __LoopPointsSet = function()
-    {
-        if (__child != undefined) __child.__LoopPointsSet();
-    }
-    
     #endregion
     
     
@@ -509,8 +504,6 @@ function __VinylClassVoiceCommon() constructor
         __PersistenceResolve();
         __LoopResolve();
         __EmitterResolve();
-        
-        __LoopPointsSet();
     }
     
     static __PersistenceResolve = function()

@@ -64,8 +64,6 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
             __gmInstance = audio_play_sound_on(_gmEmitter, __sound, __loopOutput, 1, __VinylCurveAmplitude(__gainOutput), 0, __pitchOutput);
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, " on GM emitter ", _gmEmitter, ", loop=", __loopOutput? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput, ", persistent=", __persistent);
         }
-        
-        __LoopPointsSet();
     }
     
     static __Migrate = function()
@@ -108,7 +106,6 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
             {
                 audio_sound_gain(__gmInstance, __VinylCurveAmplitude(__gainOutput), VINYL_STEP_DURATION);
                 audio_sound_pitch(__gmInstance, __pitchOutput);
-                audio_sound_loop(__gmInstance, __loopOutput);
                 
                 var _beat = floor(audio_sound_get_track_position(__gmInstance) / (60 / __bpm));
                 if (_beat != __bpmBeat)
@@ -154,24 +151,6 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
     static __LoopSet = function(_state)
     {
         __loopLocal = _state;
-    }
-    
-    static __LoopPointsSet = function()
-    {
-        if (__pattern != undefined)
-        {
-            var _loopPoints = __pattern.__loopPoints;
-            if (is_array(_loopPoints))
-            {
-                audio_sound_loop_start(__gmInstance, _loopPoints[0]);
-                audio_sound_loop_end(  __gmInstance, _loopPoints[1]);
-            }
-            else
-            {
-                audio_sound_loop_start(__gmInstance, 0);
-                audio_sound_loop_end(  __gmInstance, audio_sound_length(__gmInstance));
-            }
-        }
     }
     
     #endregion

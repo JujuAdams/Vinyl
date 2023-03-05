@@ -76,16 +76,6 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
         }
     }
     
-    static __LoopPointsSet = function()
-    {
-        var _i = 0;
-        repeat(array_length(__childArray))
-        {
-            __childArray[_i].__LoopPointsSet();
-            ++_i;
-        }
-    }
-    
     #endregion
     
     

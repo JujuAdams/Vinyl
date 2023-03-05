@@ -39,7 +39,6 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         __InitializePersistent(_persistent);
         __InitializeStack(_stack, _stackPriority);
         __InitializeLabelArray(_labelNameArray);
-        __InitializeLoopPoints(undefined);
         
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
     }
