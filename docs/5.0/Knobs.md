@@ -65,7 +65,7 @@ This is called "direct knob syntax". Whatever output value the knob is emitting 
 
 ### `[@knob, output min, output max]`
 
-This is called "knob array syntax". Array syntax will override the output range defined for the knob itself. The input value from the knob is remapped to the output range specified in the array. If you're using the default value for the knob then this will be remapped from the original output range to the new output range.
+This is called "knob array syntax". The minimum and maximum values specified will override the output range defined for the knob itself. The value set for the property is calculated by mapping the knob's **input value** to the new output range specified in the array. If you're using the default value for the knob then this will be remapped from the original output range to the new output range.
 
 Array syntax is useful if you're using a knob to control many properties that each have their own expected ranges.
 
