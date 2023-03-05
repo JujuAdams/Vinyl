@@ -66,6 +66,14 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
         }
     }
     
+    static __Replay = function()
+    {
+        var _position = audio_sound_get_track_position(__gmInstance);
+        audio_stop_sound(__gmInstance);
+        __Play();
+        audio_sound_set_track_position(__gmInstance, _position);
+    }
+    
     static __Migrate = function()
     {
         if (__pattern.__name == "fallback")
@@ -80,17 +88,19 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
         }
         
         var _oldEmitter = __vinylEmitter;
+        var _oldLoopOutput = __loopOutput;
         
         __MigrateCommon();
         
-        if (_oldEmitter != __vinylEmitter)
+        if (_oldLoopOutput != __loopOutput)
+        {
+            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Loop state changed, replaying ", self);
+            __Replay();
+        }
+        else if (_oldEmitter != __vinylEmitter)
         {
             if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Emitter changed, replaying ", self);
-            
-            var _position = audio_sound_get_track_position(__gmInstance);
-            audio_stop_sound(__gmInstance);
-            __Play();
-            audio_sound_set_track_position(__gmInstance, _position);
+            __Replay();
         }
     }
     
@@ -150,7 +160,19 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
     
     static __LoopSet = function(_state)
     {
-        __loopLocal = _state;
+        if (__loopLocal != _state)
+        {
+            __loopLocal = _state;
+            
+            var _oldLoopOutput = __loopOutput;
+            __LoopResolve();
+            
+            if (_oldLoopOutput != __loopOutput)
+            {
+                if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Loop state changed, replaying ", self);
+                __Replay();
+            }
+        }
     }
     
     #endregion
