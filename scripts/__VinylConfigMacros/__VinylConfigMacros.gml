@@ -1,4 +1,4 @@
-//Maximum output gain for audio instances. Must be greater than or equal to zero
+//Maximum output gain for audio voices. Must be greater than or equal to zero
 //Choose lower values to get more resolution in perceived volume levels
 #macro VINYL_MAX_GAIN  1
 
@@ -10,13 +10,32 @@
 //Measured in units/second
 #macro VINYL_DEFAULT_PITCH_RATE  0.3
 
-#macro VINYL_DEFAULT_FALLOFF_MIN      50
+//Default rate of gain adjument when a stack ducks a voice
+//Measured in units/second
+#macro VINYL_DEFAULT_DUCK_GAIN_RATE  1.0
+
+//Falloff values to use for emitters when first created
+#macro VINYL_DEFAULT_FALLOFF_MIN       0
 #macro VINYL_DEFAULT_FALLOFF_MAX     200
 #macro VINYL_DEFAULT_FALLOFF_FACTOR    1
+
+//Default values to set for queue and multi patterns when the <behavior>, <blend>, and <sync>
+//properties are unsert. See VinylQueueBehaviorSet(), VinylMultiBlendSet(), and VinylMultiSyncSet()
+//for more information
+#macro VINYL_DEFAULT_QUEUE_BEHAVIOR  0
+#macro VINYL_DEFAULT_MULTI_BLEND     undefined
+#macro VINYL_DEFAULT_MULTI_SYNC      false
+
+//Default beats-per-minute to use for assets
+#macro VINYL_DEFAULT_BPM  120
 
 
 
 #region Advanced
+
+//Whether to strictly filter config file properties to detect any incorrect or invalid names. This
+//carries a performance penalty when loading.
+#macro VINYL_CONFIG_VALIDATE_PROPERTIES  true
 
 //Controls how the config file (__VinylConfig) is read regarding gain values
 //Setting this macro to <true> will cause Vinyl to treat gain values as decibels (dbFS)
@@ -40,17 +59,8 @@
 //Choose higher values for smooth, less glitchy gain adjustment
 #macro VINYL_STEP_DURATION  50
 
-//How much debug spam to chuck at the debug log
-//  0 = minimum, warnings only
-//  1 = some, messages created when interacting with most API functions
-//  2 = obnoxious amounts, updates for virtually every internal operation
-#macro VINYL_DEBUG_LEVEL  0
-
-//Whether to output extra debug information when reading configuration data
-#macro VINYL_DEBUG_READ_CONFIG  false
-
-//Number of audio instances pre-created in the pool
-#macro VINYL_POOL_START_SIZE  30
+//Number of audio voices / emitters pre-created in the pool
+#macro VINYL_POOL_START_SIZE  20
 
 //Listener index to use for Vinyl functions
 #macro VINYL_LISTENER_INDEX  0

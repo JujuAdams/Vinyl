@@ -8,7 +8,7 @@ function __VinylRandom(_value)
     _state ^= _state << 13;
     _state ^= _state >> 17;
     _state ^= _state <<  5;
-	return _value * abs(_state) / (real(0x7FFFFFFFFFFFFFFF) + 1.0);
+    return _value * abs(_state) / (real(0x7FFFFFFFFFFFFFFF) + 1.0);
 }
 
 function __VinylRandomBool()
@@ -17,5 +17,5 @@ function __VinylRandomBool()
     _state ^= _state << 13;
     _state ^= _state >> 17;
     _state ^= _state <<  5;
-	return (_state & 0x01);
+    return (_state & 0x01);
 }

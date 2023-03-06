@@ -1,4 +1,4 @@
-/// Returns if a Vinyl playback instance is paused
+/// Returns if a voice is paused
 /// 
 /// This function will return <undefined> if passed a label name as labels cannot have a "paused"
 /// state in themselves. This function will further return <undefined> for audio played using
@@ -8,7 +8,7 @@
 
 function VinylPausedGet(_id)
 {
-    static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
-    var _instance = _idToInstanceDict[? _id];
-    return (is_struct(_instance) && is_numeric(_instance.__instance))? audio_is_paused(_instance.__instance) : undefined;
+    static _idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
+    var _voice = _idToVoiceDict[? _id];
+    return (_voice == undefined)? undefined : _voice.__PauseGet();
 }

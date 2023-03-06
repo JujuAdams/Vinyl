@@ -1,4 +1,4 @@
-/// Instantly stops a playback instance, or all instances assigned to the given label
+/// Instantly stops a voice, or all voices assigned to the given label
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
@@ -7,13 +7,13 @@
 function VinylStop(_id)
 {
     static _globalData = __VinylGlobalData();
-    static _idToInstanceDict = _globalData.__idToInstanceDict;
+    static _idToVoiceDict = _globalData.__idToVoiceDict;
     
-    var _instance = _idToInstanceDict[? _id];
-    if (is_struct(_instance)) return _instance.__Stop();
-    
-    if (_id == undefined) return;
+    var _voice = _idToVoiceDict[? _id];
+    if (is_struct(_voice)) return _voice.__Stop();
     
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) return _label.__Stop();
+    
+    __VinylTrace("Warning! Failed to execute VinylStop() for ", _id);
 }

@@ -1,10 +1,12 @@
+/// Sets the listener position for Vinyl's emitters
+/// 
 /// @param x
 /// @param y
 
 function VinylListenerSet(_x, _y)
 {
     static _globalData       = __VinylGlobalData();
-    static _panEmitterActive = _globalData.__panEmitterActive;
+    static _effectChainArray = _globalData.__effectChainArray;
     
     if ((_x != _globalData.__listenerX) || (_y != _globalData.__listenerY))
     {
@@ -14,9 +16,9 @@ function VinylListenerSet(_x, _y)
         audio_listener_set_position(VINYL_LISTENER_INDEX, _x, _y, 0);
         
         var _i = 0;
-        repeat(array_length(_panEmitterActive))
+        repeat(array_length(_effectChainArray))
         {
-            _panEmitterActive[_i].__UpdatePosition();
+            _effectChainArray[_i].__UpdatePosition();
             ++_i;
         }
     }

@@ -1,10 +1,10 @@
-/// Sets the input gain target for a Vinyl playback instance, or a Vinyl label
-/// The input gain will approach the target smoothly over a few frames, determined by the rate#
+/// Sets the input gain target for a voice or label
+/// The input gain will approach the target smoothly over a few frames, determined by the rate
 /// 
 /// If this function is given a label name then all currently playing audio assigned with that label will
 /// be affected by the change in the label's gain state
 /// 
-/// This function CANNOT be used with audio played using VinylPlaySimple()
+/// This function will not affect currently playing audio played using VinylPlaySimple()
 /// 
 /// @param vinylID/labelName
 /// @param targetGain
@@ -13,13 +13,13 @@
 function VinylGainTargetSet(_id, _targetGain, _rate = VINYL_DEFAULT_GAIN_RATE)
 {
     static _globalData = __VinylGlobalData();
-    static _idToInstanceDict = _globalData.__idToInstanceDict;
+    static _idToVoiceDict = _globalData.__idToVoiceDict;
     
-    var _instance = _idToInstanceDict[? _id];
-    if (is_struct(_instance)) return _instance.__InputGainTargetSet(_targetGain, _rate);
-    
-    if (_id == undefined) return;
+    var _voice = _idToVoiceDict[? _id];
+    if (is_struct(_voice)) return _voice.__GainTargetSet(_targetGain, _rate);
     
     var _label = _globalData.__labelDict[$ _id];
-    if (is_struct(_label)) return _label.__InputGainTargetSet(_targetGain, _rate);
+    if (is_struct(_label)) return _label.__GainTargetSet(_targetGain, _rate);
+    
+    __VinylTrace("Warning! Failed to execute VinylGainTargetSet() for ", _id);
 }

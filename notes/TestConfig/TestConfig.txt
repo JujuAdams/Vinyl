@@ -1,0 +1,133 @@
+//This is a test file
+// Please see https://jujuadams.github.io/Vinyl for documentation
+
+{
+    stacks: {
+        music: {}
+    }
+    
+    
+    
+    knobs: {
+        delay time: {
+            output range: [0.3, 0.6]
+            default: 0.3 //This value is clamped inside the output range
+        }
+        
+        //If we use just a number then that's the default value and we have no defined input or output ranges
+        reverb size: 0.2
+    }
+    
+    
+    
+    labels: {
+        music: {
+            gain: 0.8
+            loop: true
+            stack: music
+            transpose: 0
+        }
+        sfx: {
+            children: {
+                speech: {
+                    pitch: [0.75, 1.25]
+                }
+                echo: {
+                    effect chain: echo
+                }
+            }
+        }
+    }
+    
+    
+    
+    assets: {
+        sndChickenNuggets: {
+            label: music
+            loop point: [0.33, 2.81]
+        }
+        
+        sndOw: {
+            label: [sfx, speech]
+        }
+        
+        sndCat: {
+            label: sfx
+        }
+        
+        [sndBleep0, sndBleep1,  sndBleep2,  sndBleep3,
+         sndBleep4, sndBleep5,  sndBleep6,  sndBleep7,
+         sndBleep8, sndBleep9, sndBleep10, sndBleep11]: {
+            label: sfx
+        }
+        
+        [sndSync0, sndSync1, sndSync2,  sndSync3]: {
+            bpm: 75
+        }
+    }
+    
+    
+    
+    patterns: {
+        space cat: {
+            type: basic
+            asset: sndCat
+            pitch: 0.75
+            effect chain: echo
+        }
+        
+        bleep shuffle: {
+            type: shuffle
+            assets: [sndBleep0, sndBleep1,   sndBleep2,  sndBleep3,
+                     sndBleep4, sndBleep5,   sndBleep6,  sndBleep7,
+                     sndBleep8, sndBleep9,  sndBleep10, sndBleep11]
+        }
+        
+        queue test: {
+            type: queue
+            assets: [
+                { asset: sndPop, transpose:  0 }
+                { asset: sndPop, transpose:  4 }
+                { asset: sndPop, transpose:  7 }
+                { asset: sndPop, transpose: 12 }
+                { asset: sndPop, transpose:  7 }
+                { asset: sndPop, transpose:  4 }
+                { asset: sndPop, transpose:  0 }
+            ]
+        }
+        
+        music sync test: {
+            type: multi
+            label: [music, echo]
+            stack priority: 1
+            blend curve: acTest
+            blend: 0
+            pitch: 0.9
+            gain: 2
+            sync: true
+            assets: [
+                sndSync0
+                sndSync1
+                sndSync2
+                sndSync3
+            ]
+        }
+    }
+    
+    
+    
+    effect chains: {
+        echo: [
+            {
+                type: delay
+                time: @delay time
+                mix: 0.4
+            }
+            {
+                type: reverb
+                size: @reverb size
+                mix: 0.3
+            }
+        ]
+    }
+}

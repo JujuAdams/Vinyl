@@ -1,16 +1,32 @@
 function __VinylClassEmitterRef() constructor
 {
-    __emitter = __VinylDepoolEmitter();
+    static __pool = __VinylGlobalData().__poolEmitter;
+    
+    __emitter = __pool.__Depool();
+    
+    //We check against this when ticking emitters to determine if an emitter reference has been lost
     __emitter.__reference = weak_ref_create(self);
+    
+    static __VoiceAdd = function(_id)
+    {
+        if (__emitter != undefined) __emitter.__VoiceAdd(_id);
+        return self;
+    }
+    
+    static __VoiceRemove = function(_id)
+    {
+        if (__emitter != undefined) __emitter.__VoiceRemove(_id);
+        return self;
+    }
     
     static __GetEmitter = function()
     {
         return (__emitter == undefined)? undefined : __emitter.__emitter;
     }
     
-    static __Falloff = function(_min, _max, _factor = 1)
+    static __FalloffSet = function(_min, _max, _factor = 1)
     {
-        if (__emitter != undefined) __emitter.__Falloff(_min, _max, _factor);
+        if (__emitter != undefined) __emitter.__FalloffSet(_min, _max, _factor);
         return self;
     }
     
@@ -34,8 +50,17 @@ function __VinylClassEmitterRef() constructor
     
     static __Destroy = function()
     {
-        __emitter.__Pool();
-        __emitter = undefined;
+        //If we're being deliberately destroyed, return our emitter to the pool immediately
+        if (__emitter != undefined)
+        {
+            with(__emitter)
+            {
+                if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " destroyed");
+                __VINYL_RETURN_SELF_TO_POOL
+            }
+            
+            __emitter = undefined;
+        }
     }
     
     static __DebugDraw = function()

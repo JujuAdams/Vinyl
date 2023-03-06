@@ -1,37 +1,41 @@
 function __VinylClassPanEmitter() constructor
 {
-    static __globalData           = __VinylGlobalData();
-    static __panEmitterActive     = __globalData.__panEmitterActive;
-    static __panEmitterPoolReturn = __globalData.__panEmitterPoolReturn;
+    static __globalData = __VinylGlobalData();
+    static __effectChainDict = __globalData.__effectChainDict;
     
     
     
-    __id = undefined;
-    __pooled = true;
+    __id   = undefined;
+    __pool = undefined;
     
     audio_falloff_set_model(audio_falloff_none);
     __emitter = audio_emitter_create();
     audio_emitter_falloff(__emitter, 1, 1, 1);
     audio_falloff_set_model(__VINYL_FALLOFF_MODEL);
     
-    __ResetState();
+    __StateReset();
     
     
     
-    static __ResetState = function()
+    static toString = function()
+    {
+        return "<pan emitter " + string(__id) + ">";
+    }
+    
+    static __StateReset = function()
     {
         if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);
         
         __pan = 0;
         
+        audio_emitter_bus(__emitter, audio_bus_main);
+        
         __UpdatePosition();
     }
     
-    
-    
-    static __UpdatePosition = function()
+    static __GetEmitter = function()
     {
-        audio_emitter_position(__emitter, __globalData.__listenerX + __pan, __globalData.__listenerY, 0);
+        return __emitter;
     }
     
     static __Pan = function(_pan)
@@ -45,49 +49,34 @@ function __VinylClassPanEmitter() constructor
         }
     }
     
-    static __Depool = function(_id)
+    static __Bus = function(_effectChainName)
     {
-        if (!__pooled) return;
-        __pooled = false;
-        
-        __id = _id;
-        
-        array_push(__panEmitterActive, self);
-        
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling ", self);
+        var _effectChainStruct = __effectChainDict[$ _effectChainName];
+        audio_emitter_bus(__emitter, (_effectChainStruct == undefined)? audio_bus_main : _effectChainStruct.__bus);
     }
     
-    static __Pool = function()
+    static __VoiceAdd = function(_id)
     {
-        if (__pooled) return;
-        __pooled = true;
-        
-        __ResetState();
-        
-        //Remove this pan emitter from the active array
-        var _i = 0;
-        repeat(array_length(__panEmitterActive))
-        {
-            if (__panEmitterActive[_i] == self)
-            {
-                array_delete(__panEmitterActive, _i, 1);
-            }
-            else
-            {
-                ++_i;
-            }
-        }
-        
-        //Move this instance to the "return" array
-        //This prevents an instance being pooled and depooled in the same step
-        //which would lead to problems with labels tracking what they're playing
-        array_push(__panEmitterPoolReturn, self);
-        
-        __id = undefined;
+        //Do nothing!
     }
     
-    static toString = function()
+    static __VoiceRemove = function(_id)
     {
-        return "<pan emitter " + string(__id) + ">";
+        //Do nothing!
+    }
+    
+    static __DepoolCallback = function()
+    {
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " hosting emitter ", __emitter);
+    }
+    
+    static __PoolCallback = function()
+    {
+        __StateReset();
+    }
+    
+    static __UpdatePosition = function()
+    {
+        audio_emitter_position(__emitter, __globalData.__listenerX + __pan, __globalData.__listenerY, 0);
     }
 }

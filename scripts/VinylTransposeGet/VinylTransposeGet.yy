@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "VinylTransposeGet",
-  "isDnD": false,
   "isCompatibility": false,
+  "isDnD": false,
   "parent": {
-    "name": "Semitones",
-    "path": "folders/Vinyl/Semitones.yy",
+    "name": "Transposition",
+    "path": "folders/Vinyl/Transposition.yy",
   },
 }

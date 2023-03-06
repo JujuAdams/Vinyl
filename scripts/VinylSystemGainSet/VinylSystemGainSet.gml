@@ -1,10 +1,13 @@
 /// Sets the system-wide gain for Vinyl
+/// 
 /// This number is NOT constrained by the VINYL_MAX_GAIN value
 /// 
 /// @param gain
 
 function VinylSystemGainSet(_gain)
 {
+    _gain = max(0, _gain);
+    
     static _oldGain = undefined;
     if (_gain != _oldGain)
     {

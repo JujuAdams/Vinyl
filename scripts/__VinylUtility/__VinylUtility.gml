@@ -20,9 +20,10 @@ function __VinylAmplitudeToGain(_amplitudeCoeff)
 
 function __VinylCurveAmplitude(_value)
 {
-    if (__VINYL_FORCE_EXPONENTIAL_CURVE)
+    if (__VINYL_USE_GAIN_CURVE)
     {
-        return (power(20, _value/VINYL_MAX_GAIN)-1)/19;
+        //Slightly butchered decibel curve to ensure we're at 0 amplitude at 0 gain
+        return ((power(20, _value)-1)/19) / VINYL_MAX_GAIN;
     }
     else
     {

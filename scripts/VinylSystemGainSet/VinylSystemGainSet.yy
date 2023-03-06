@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "VinylSystemGainSet",
-  "isDnD": false,
   "isCompatibility": false,
+  "isDnD": false,
   "parent": {
-    "name": "Advanced",
-    "path": "folders/Vinyl/Advanced.yy",
+    "name": "Gain",
+    "path": "folders/Vinyl/Gain.yy",
   },
 }

@@ -1,15 +1,15 @@
-/// Immediately stops all Vinyl playback instances
+/// Immediately stops all Vinyl playback voices
 /// 
 /// This function will NOT affect audio played by VinylPlaySimple()
 
 function VinylStopAll()
 {
-    static _basicPoolPlaying = __VinylGlobalData().__basicPoolPlaying;
+    static _topLevelArray = __VinylGlobalData().__topLevelArray;
     
     var _i = 0;
-    repeat(array_length(_basicPoolPlaying))
+    repeat(array_length(_topLevelArray))
     {
-        _basicPoolPlaying[_i].__Stop();
+        _topLevelArray[_i].__Stop();
         ++_i;
     }
 }

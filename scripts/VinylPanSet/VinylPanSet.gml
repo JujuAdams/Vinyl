@@ -1,4 +1,7 @@
-/// Sets the panning for a Vinyl playback instance
+/// Sets the panning for a voice
+/// 
+/// Panning can only be adjusted for Vinyl voices that were played with a panning value
+/// initially, even if that panning value is 0 (centred)
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
@@ -8,24 +11,24 @@
 function VinylPanSet(_id, _pan)
 {
     static _globalData       = __VinylGlobalData();
-    static _idToInstanceDict = _globalData.__idToInstanceDict;
+    static _idToVoiceDict = _globalData.__idToVoiceDict;
     
-    var _instance = _idToInstanceDict[? _id];
-    if (is_struct(_instance))
+    var _voice = _idToVoiceDict[? _id];
+    if (is_struct(_voice))
     {
-        var _panEmitter = _instance.__panEmitter;
-        if (is_struct(_panEmitter))
+        if (!_voice.__usingPanEmitter)
         {
-            _panEmitter.__Pan(_pan);
+            __VinylError("Cannot set panning for a voice that was not created with a panning value");
         }
-        else
+        
+        if (_voice.__vinylEmitter != undefined)
         {
-            __VinylError("Cannot set panning for a Vinyl instance that was not created with a panning value");
+            _voice.__vinylEmitter.__Pan(_pan);
         }
     }
     
-    if (_id == undefined) return;
-    
     var _label = _globalData.__labelDict[$ _id];
     if (is_struct(_label)) __VinylError("Cannot get or set panning for labels");
+    
+    __VinylTrace("Warning! Failed to execute VinylPanSet() for ", _id);
 }

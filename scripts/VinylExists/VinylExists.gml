@@ -1,4 +1,4 @@
-/// Returns if the given Vinyl ID is for an active playback instance
+/// Returns if the given Vinyl ID is for an active voice
 /// 
 /// This function will ALWAYS return <false> for audio played using VinylPlaySimple()
 /// 
@@ -6,6 +6,6 @@
 
 function VinylExists(_id)
 {
-    static _idToInstanceDict = __VinylGlobalData().__idToInstanceDict;
-    return ds_map_exists(_idToInstanceDict, _id);
+    static _idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
+    return ds_map_exists(_idToVoiceDict, _id);
 }

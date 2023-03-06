@@ -1,3 +1,5 @@
+/// Creates a Vinyl point emitter and returns a reference to it
+/// 
 /// @param x
 /// @param y
 

@@ -1,19 +1,14 @@
-#macro __VINYL_VERSION  "4.0.13"
-#macro __VINYL_DATE     "2023-03-02"
+#macro __VINYL_VERSION  "5.0.20"
+#macro __VINYL_DATE     "2023-03-06"
 
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.dat"
 #macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
 
-#macro __VINYL_FORCE_EXPONENTIAL_CURVE  true
+#macro __VINYL_USE_GAIN_CURVE  true
 
 #macro __VINYL_FALLOFF_MODEL  audio_falloff_exponent_distance_scaled
 
-enum __VINYL_POOL_STATE
-{
-    __POOLED,
-    __PLAYING,
-}
-
+#macro __VINYL_RETURN_SELF_TO_POOL  if (__pool != undefined) { __pool.__Return(self) }
 
 
 __VinylInitialize();
@@ -27,7 +22,16 @@ function __VinylInitialize()
     __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
     
     __VinylValidateMacros();
-    __VinylGlobalData();
+    
+    var _globalData = __VinylGlobalData();
+    if (VINYL_DEBUG_LEVEL > 0) global.__vinylGlobalData = _globalData;
+    
+    _globalData.__poolAsset.__Populate(VINYL_POOL_START_SIZE);
+    _globalData.__poolBasic.__Populate(VINYL_POOL_START_SIZE);
+    _globalData.__poolQueue.__Populate(VINYL_POOL_START_SIZE);
+    _globalData.__poolMulti.__Populate(VINYL_POOL_START_SIZE);
+    _globalData.__poolEmitter.__Populate(VINYL_POOL_START_SIZE);
+    _globalData.__poolPanEmitter.__Populate(VINYL_POOL_START_SIZE);
     
     if (!file_exists(__VINYL_DATA_BUNDLE_FILENAME))
     {
@@ -37,10 +41,11 @@ function __VinylInitialize()
     
     //Set up default behaviours within GM's audio system
     audio_falloff_set_model(__VINYL_FALLOFF_MODEL);
-    audio_listener_set_orientation(0,   0, 0, 1,   0, -1, 0);
-    audio_listener_set_position(0,   0, 0, 0);
+    audio_listener_set_orientation(VINYL_LISTENER_INDEX,   0, 0, 1,   0, -1, 0);
+    audio_listener_set_position(VINYL_LISTENER_INDEX,   0, 0, 0);
     
     VinylSystemGainSet(1);
+    __VinylEffectChainEnsure("main");
     __VinylUpdateData();
     
     if (__VinylGetLiveUpdateEnabled())
@@ -53,111 +58,20 @@ function __VinylInitialize()
     }
     
     time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylTick, [], -1));
-    
-    //Pre-populate the instance and emitter pools
-    repeat(VINYL_POOL_START_SIZE)
-    {
-        array_push(__VinylGlobalData().__basicPool, new __VinylClassBasicInstance());
-    }
-    
-    repeat(VINYL_POOL_START_SIZE)
-    {
-        array_push(__VinylGlobalData().__emitterPool, new __VinylClassEmitter());
-    }
-}
-
-function __VinylUpdateData()
-{
-    static _globalData = __VinylGlobalData();
-    
-    static _fileHash = undefined;
-    var _firstUpdate = (_fileHash == undefined);
-    
-    //Always allow data to be updated once on boot
-    if (!_globalData.__liveUpdate && (_fileHash != undefined)) return;
-    
-    var _filename = __VinylGetDatafilePath();
-    
-    if (__VinylGetLiveUpdateEnabled())
-    {
-        if (!file_exists(_filename))
-        {
-            __VinylError("Could not find \"", _filename, "\"\n- Ensure that \"", __VINYL_CONFIG_NOTE_NAME, "\" exists as a Notes asset in your project\n- Turn on the \"Disable file system sandbox\" game option for this platform");
-            return;
-        }
-        
-        var _foundHash = md5_file(_filename);
-        if (_foundHash == _fileHash) return false;
-        _fileHash = _foundHash;
-    }
-    else
-    {
-        //Only load once in non-live update mode
-        if (_fileHash != undefined) return false;
-        
-        var _filename = __VINYL_DATA_BUNDLE_FILENAME;
-        var _foundHash = "loaded";
-    }
-    
-    var _success = undefined;
-    var _t = get_timer();
-    
-    try
-    {
-        var _buffer = buffer_load(_filename);
-        try
-        {
-            var _data = __VinylBufferReadLooseJSON(_buffer, 0);
-            __VinylTrace("Read config in plaintext");
-        }
-        catch(_error)
-        {
-            buffer_seek(_buffer, buffer_seek_start, 0);
-            var _string = buffer_read(_buffer, buffer_text);
-            buffer_delete(_buffer);
-            _buffer = buffer_base64_decode(_string);
-            var _data = __VinylBufferReadLooseJSON(_buffer, 0);
-            
-            __VinylTrace("Read config in base64");
-        }
-        
-        _success = true;
-        __VinylTrace("Loaded data in ", (get_timer() - _t)/1000, "ms");
-        
-        var _t = get_timer();
-        VinylSystemReadConfig(_data);
-        __VinylTrace("Read data in ", (get_timer() - _t)/1000, "ms");
-    }
-    catch(_error)
-    {
-        show_debug_message("");
-        __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        __VinylTrace(_error);
-        __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        show_debug_message("");
-        
-        if (_firstUpdate)
-        {
-            __VinylError("There was an error whilst reading \"", _filename, "\"\n- Check the file contains valid JSON\n- Check that the config meets Vinyl's requirements\n- Check the nature of error by reading the output log");
-        }
-        else
-        {
-            __VinylTrace("There was an error whilst reading \"", _filename, "\"\n- Check the file contains valid JSON\n- Check that the config meets Vinyl's requirements\n- Check the nature of error by reading the output log");
-        }
-    }
-    finally
-    {
-        buffer_delete(_buffer);
-    }
-    
-    return _success;
 }
 
 function __VinylTrace()
 {
-    var _string = "Vinyl: ";
+    static _globalData = __VinylGlobalData();
+    
+    if (VINYL_DEBUG_SHOW_FRAMES)
+    {
+        var _string = "Vinyl fr." + string(_globalData.__frame) + ": ";
+    }
+    else
+    {
+        var _string = "Vinyl: ";
+    }
     
     var _i = 0
     repeat(argument_count)

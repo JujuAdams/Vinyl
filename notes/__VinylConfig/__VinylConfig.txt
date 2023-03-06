@@ -1,55 +1,27 @@
 // Please see https://jujuadams.github.io/Vinyl for documentation
 
-
-
 {
-    labels: {
-        music: {
-            loop: true
-            limit: 1
-        }
-        ambience: {
-            loop: true
-            limit: 1
-        }
-        menu: {}
-        gameplay: {}
-        sfx: {
-            children: {
-                speech: {
-                    pitch: [0.9, 1.1]
-                }
-                footsteps: {
-                    pitch: [0.8, 1.2]
-                }
-                ui: {}
-            }
-        }
+    stacks: {
+        
     }
     
+    knobs: {
+        
+    }
     
+    labels: {
+        
+    }
     
     assets: {
-        fallback: {}
-        sndChickenNuggets: {
-            label: music
-            copyTo: sndTestTone
-        }
+        
     }
     
-    
-    
     patterns: {
-        random pitch test: {
-            basic: sndTestTone
-            pitch: [0.8, 1.2]
-        }
         
-        shuffle test: {
-            shuffle: [
-                sndTestTone
-                sndChickenNuggets
-            ]
-        }
+    }
+    
+    effect chains: {
+        
     }
 }

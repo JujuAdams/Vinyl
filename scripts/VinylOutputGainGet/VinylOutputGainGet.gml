@@ -1,4 +1,5 @@
-/// Returns the current output gain for a Vinyl playback instance, or a Vinyl label
+/// Returns the current output gain for a voice or label
+/// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()
 /// 
 /// @param vinylID/labelName
@@ -6,14 +7,14 @@
 function VinylOutputGainGet(_id)
 {
     static _globalData = __VinylGlobalData();
-    static _idToInstanceDict = _globalData.__idToInstanceDict;
+    static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _outputGain = 0;
     
-    var _instance = _idToInstanceDict[? _id];
-    if (is_struct(_instance))
+    var _voice = _idToVoiceDict[? _id];
+    if (is_struct(_voice))
     {
-        _outputGain = _instance.__outputGain;
+        _outputGain = _voice.__GainOutputGet();
     }
     else if (_id == undefined)
     {
@@ -22,7 +23,7 @@ function VinylOutputGainGet(_id)
     else
     {
         var _label = _globalData.__labelDict[$ _id];
-        if (is_struct(_label)) _outputGain = _label.__outputGain;
+        if (is_struct(_label)) _outputGain = _label.__GainOutputGet();
     }
     
     return _outputGain;

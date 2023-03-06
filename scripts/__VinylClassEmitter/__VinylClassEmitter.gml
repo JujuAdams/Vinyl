@@ -1,21 +1,24 @@
 function __VinylClassEmitter() constructor
 {
-    static __globalData        = __VinylGlobalData();
-    static __emitterActive     = __globalData.__emitterActive;
-    static __emitterPoolReturn = __globalData.__emitterPoolReturn;
+    static __globalData = __VinylGlobalData();
     
     
     
-    __id = undefined;
-    __pooled = true;
+    __id   = undefined;
+    __pool = undefined;
     
     __emitter = audio_emitter_create();
     
-    __ResetState();
+    __StateReset();
     
     
     
-    static __ResetState = function()
+    static toString = function()
+    {
+        return "<emitter " + string(__id) + ">";
+    }
+    
+    static __StateReset = function()
     {
         if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);
         
@@ -39,19 +42,20 @@ function __VinylClassEmitter() constructor
         __falloffMax    = VINYL_DEFAULT_FALLOFF_MAX;
         __falloffFactor = VINYL_DEFAULT_FALLOFF_FACTOR;
         
-        __instanceIDArray = [];
+        __voiceIDArray = [];
         
         audio_emitter_position(__emitter, __actualX, __actualY, 0);
         audio_emitter_velocity(__emitter, 0, 0, 0);
         audio_emitter_gain(__emitter, 1);
         audio_emitter_falloff(__emitter, __falloffMin, __falloffMax, __falloffFactor);
+        audio_emitter_bus(__emitter, audio_bus_main);
     }
     
     
     
     #region Public
     
-    static __Falloff = function(_min, _max, _factor = 1)
+    static __FalloffSet = function(_min, _max, _factor = 1)
     {
         _min = max(0, _min);
         _max = max(_min + math_get_epsilon(), _max);
@@ -61,6 +65,19 @@ function __VinylClassEmitter() constructor
         __falloffFactor = _factor;
         
         audio_emitter_falloff(__emitter, __falloffMin, __falloffMax, __falloffFactor);
+    }
+    
+    static __PositionSet = function(_x, _y)
+    {
+        var _dx = _x - __x;
+        var _dy = _y - __y;
+        
+        __x       =  _x;
+        __y       =  _y;
+        __left   += _dx;
+        __top    += _dy;
+        __right  += _dx;
+        __bottom += _dy;
     }
     
     static __Point = function(_x, _y)
@@ -136,10 +153,28 @@ function __VinylClassEmitter() constructor
     
     #region Private
     
+    static __VoiceAdd = function(_id)
+    {
+        array_push(__voiceIDArray, __id);
+    }
+    
+    static __VoiceRemove = function(_id)
+    {
+        static _closure = {
+            __value: undefined,
+        };
+        
+        static _function = method(_closure, function(_value)
+        {
+            return (__value != _value);
+        });
+        
+        _closure.__value = _id;
+        array_resize(__voiceIDArray, array_filter_ext(__voiceIDArray, _function));
+    }
+    
     static __ManagePosition = function()
     {
-        static __globalData = __VinylGlobalData();
-        
         if (__mode == 0)
         {
             __actualX = __x;
@@ -172,62 +207,41 @@ function __VinylClassEmitter() constructor
         audio_emitter_position(__emitter, __actualX, __actualY, 0);
     }
     
-    static __Depool = function(_id)
+    static __DepoolCallback = function()
     {
-        if (!__pooled) return;
-        __pooled = false;
         
-        __id = _id;
-        
-        array_push(__emitterActive, self);
-        
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Depooling ", self);
     }
     
-    static __Pool = function()
+    static __PoolCallback = function()
     {
-        if (__pooled) return;
-        __pooled = true;
-        
-        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pooling ", self);
-        
+        //Stop all voices playing on this emitter
         var _i = 0;
-        repeat(array_length(__instanceIDArray))
+        repeat(array_length(__voiceIDArray))
         {
-            VinylStop(__instanceIDArray[_i]);
+            VinylStop(__voiceIDArray[_i]);
             ++_i;
         }
         
-        __ResetState();
-        
-        //Move this instance to the "return" array
-        //This prevents an instance being pooled and depooled in the same step
-        //which would lead to problems with labels tracking what they're playing
-        array_push(__emitterPoolReturn, self);
-        
-        __id = undefined;
+        __StateReset();
     }
     
     static __Tick = function()
     {
         if (__reference == undefined)
         {
-            __Pool();
+            //Somehow we've lost our reference, let's return to the pool
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Reference for ", self, " is <undefined>");
+            __VINYL_RETURN_SELF_TO_POOL
         }
         else if (!weak_ref_alive(__reference))
         {
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Lost reference for ", self);
-            __Pool();
+            __VINYL_RETURN_SELF_TO_POOL
         }
         else
         {
             __ManagePosition();
         }
-    }
-    
-    static toString = function()
-    {
-        return "<emitter " + string(__id) + ">";
     }
     
     #endregion

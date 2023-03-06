@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "VinylPlaySimple",
-  "isDnD": false,
   "isCompatibility": false,
+  "isDnD": false,
   "parent": {
-    "name": "Basics",
-    "path": "folders/Vinyl/Basics.yy",
+    "name": "Playing Audio",
+    "path": "folders/Vinyl/Playing Audio.yy",
   },
 }
