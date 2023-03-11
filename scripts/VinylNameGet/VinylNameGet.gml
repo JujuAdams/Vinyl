@@ -4,7 +4,8 @@
 
 function VinylNameGet(_value)
 {
-    static _idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
+    static _globalData    = __VinylGlobalData();
+    static _idToVoiceDict = _globalData.__idToVoiceDict;
     
     var _voice = _idToVoiceDict[? _value];
     if (is_struct(_voice)) return string(_voice);
