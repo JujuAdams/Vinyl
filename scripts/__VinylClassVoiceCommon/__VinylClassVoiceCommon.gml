@@ -100,6 +100,11 @@ function __VinylClassVoiceCommon() constructor
         if (__parentVoice == undefined) array_push(_globalTopLevelArray, self);
     }
     
+    static __AssetGet = function()
+    {
+        return (__child == undefined)? undefined : __child.__AssetGet();
+    }
+    
     
     
     #region Gain

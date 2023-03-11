@@ -79,6 +79,7 @@
     {"id":{"name":"VinylStopAll","path":"scripts/VinylStopAll/VinylStopAll.yy",},},
     {"id":{"name":"VinylPersistentSet","path":"scripts/VinylPersistentSet/VinylPersistentSet.yy",},},
     {"id":{"name":"VinylLiveUpdateGet","path":"scripts/VinylLiveUpdateGet/VinylLiveUpdateGet.yy",},},
+    {"id":{"name":"VinylAssetGet","path":"scripts/VinylAssetGet/VinylAssetGet.yy",},},
     {"id":{"name":"VinylKnobTargetGet","path":"scripts/VinylKnobTargetGet/VinylKnobTargetGet.yy",},},
     {"id":{"name":"VinylEmitterDestroy","path":"scripts/VinylEmitterDestroy/VinylEmitterDestroy.yy",},},
     {"id":{"name":"UIText","path":"scripts/UIText/UIText.yy",},},

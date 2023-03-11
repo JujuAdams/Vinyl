@@ -51,6 +51,11 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
         
     }
     
+    static __AssetGet = function()
+    {
+        return __sound;
+    }
+    
     static __Play = function()
     {
         var _gmEmitter = (__vinylEmitter == undefined)? undefined : __vinylEmitter.__GetEmitter();
