@@ -1,16 +1,13 @@
-/// Returns the audio asset playing for the Vinyl voice or pattern
+/// Returns the audio asset playing for a Vinyl voice
 /// 
-/// @param value
+/// @param voice
 
-function VinylAssetGet(_value)
+function VinylAssetGet(_voice)
 {
     static _idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
     
-    var _voice = _idToVoiceDict[? _value];
-    if (is_struct(_voice)) return _voice.__pattern.__AssetGet();
-    
-    var _pattern = __VinylPatternGet(_value);
-    if (is_struct(_pattern)) return _pattern.__AssetGet();
+    var _voice = _idToVoiceDict[? _voice];
+    if (is_struct(_voice)) return _voice.__AssetGet();
     
     return undefined;
 }
