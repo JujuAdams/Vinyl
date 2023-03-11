@@ -78,6 +78,7 @@
     {"name":"VinylEmitterExists","order":10,"path":"scripts/VinylEmitterExists/VinylEmitterExists.yy",},
     {"name":"VinylStackGet","order":2,"path":"scripts/VinylStackGet/VinylStackGet.yy",},
     {"name":"__VinylGlobalData","order":2,"path":"scripts/__VinylGlobalData/__VinylGlobalData.yy",},
+    {"name":"VinylNameGet","order":9,"path":"scripts/VinylNameGet/VinylNameGet.yy",},
     {"name":"sndSync0","order":6,"path":"sounds/sndSync0/sndSync0.yy",},
     {"name":"__VinylClassPool","order":8,"path":"scripts/__VinylClassPool/__VinylClassPool.yy",},
     {"name":"VinylSystemGainSet","order":5,"path":"scripts/VinylSystemGainSet/VinylSystemGainSet.yy",},
