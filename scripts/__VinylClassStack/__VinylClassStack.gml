@@ -132,7 +132,7 @@ function __VinylClassStack(_name) constructor
         var _i = 0;
         repeat(array_length(__priorityArray))
         {
-            if (__priorityArray[_i] == _priority) return __voiceArray[_i];
+            if (__priorityArray[_i] == _priority) return __voiceArray[_i].__id;
             ++_i;
         }
     }
