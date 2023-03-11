@@ -101,6 +101,7 @@
     {"name":"sndBleep6","order":16,"path":"sounds/sndBleep6/sndBleep6.yy",},
     {"name":"VinylLabelVoiceCountGet","order":3,"path":"scripts/VinylLabelVoiceCountGet/VinylLabelVoiceCountGet.yy",},
     {"name":"VinylPitchTargetGet","order":3,"path":"scripts/VinylPitchTargetGet/VinylPitchTargetGet.yy",},
+    {"name":"VinylStackMaxVoiceGet","order":4,"path":"scripts/VinylStackMaxVoiceGet/VinylStackMaxVoiceGet.yy",},
     {"name":"__VinylAnimCurveEnsure","order":9,"path":"scripts/__VinylAnimCurveEnsure/__VinylAnimCurveEnsure.yy",},
     {"name":"__VinylClassVoiceMulti","order":4,"path":"scripts/__VinylClassVoiceMulti/__VinylClassVoiceMulti.yy",},
     {"name":"__VinylClassEmitter","order":5,"path":"scripts/__VinylClassEmitter/__VinylClassEmitter.yy",},
