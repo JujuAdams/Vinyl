@@ -53,7 +53,6 @@
     {"name":"VinylGainTargetGet","order":3,"path":"scripts/VinylGainTargetGet/VinylGainTargetGet.yy",},
     {"name":"VinylStopAll","order":1,"path":"scripts/VinylStopAll/VinylStopAll.yy",},
     {"name":"VinylLiveUpdateGet","order":8,"path":"scripts/VinylLiveUpdateGet/VinylLiveUpdateGet.yy",},
-    {"name":"VinylAssetGet","order":10,"path":"scripts/VinylAssetGet/VinylAssetGet.yy",},
     {"name":"VinylKnobTargetGet","order":4,"path":"scripts/VinylKnobTargetGet/VinylKnobTargetGet.yy",},
     {"name":"VinylEmitterDestroy","order":3,"path":"scripts/VinylEmitterDestroy/VinylEmitterDestroy.yy",},
     {"name":"UIText","order":1,"path":"scripts/UIText/UIText.yy",},

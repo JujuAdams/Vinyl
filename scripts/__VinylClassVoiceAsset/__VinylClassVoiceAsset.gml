@@ -48,12 +48,6 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
         __bpm = __pattern.__bpm;
         
         __Play();
-        
-    }
-    
-    static __AssetGet = function()
-    {
-        return __sound;
     }
     
     static __Play = function()
