@@ -333,8 +333,7 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
         {
             //Start a voice for this track
             var _asset = _assetArray[_i];
-            var _subPattern = __VinylPatternGet(_asset);
-            var _voice = _subPattern.__Play(_patternTop, _subPattern, __initialEmitter, _asset, __loopLocal, __gainArray[_i], 1, __pan);
+            var _voice = __VinylPatternGet(_asset).__Play(_patternTop, self, __initialEmitter, _asset, __loopLocal, __gainArray[_i], 1, __pan);
             __childArray[@ _i] = _voice;
             
             //And then find the shortest voice and use that for syncing purposes
