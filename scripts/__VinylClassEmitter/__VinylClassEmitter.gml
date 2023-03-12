@@ -86,12 +86,12 @@ function __VinylClassEmitter() constructor
         
         __x      = _x;
         __y      = _y;
-        __radius = 0;
+        __radius = 0.5*VINYL_LISTENER_HEAD_SIZE;
         
-        __left   = _x;
-        __top    = _y;
-        __right  = _x;
-        __bottom = _y;
+        __left   = _x - _radius;
+        __top    = _y - _radius;
+        __right  = _x + _radius;
+        __bottom = _y + _radius;
         
         __ManagePosition();
     }
@@ -102,12 +102,12 @@ function __VinylClassEmitter() constructor
         
         __x      = _x;
         __y      = _y;
-        __radius = _radius;
+        __radius = _radius + 0.5*VINYL_LISTENER_HEAD_SIZE;
         
-        __left   = _x;
-        __top    = _y;
-        __right  = _x;
-        __bottom = _y;
+        __left   = _x - _radius;
+        __top    = _y - _radius;
+        __right  = _x + _radius;
+        __bottom = _y + _radius;
         
         __ManagePosition();
     }
@@ -116,10 +116,10 @@ function __VinylClassEmitter() constructor
     {
         __mode = 2;
         
-        __left   = _left;
-        __top    = _top;
-        __right  = _right;
-        __bottom = _bottom;
+        __left   = -0.5*VINYL_LISTENER_HEAD_SIZE + _left;
+        __top    = -0.5*VINYL_LISTENER_HEAD_SIZE + _top;
+        __right  =  0.5*VINYL_LISTENER_HEAD_SIZE + _right;
+        __bottom =  0.5*VINYL_LISTENER_HEAD_SIZE + _bottom;
         
         __x      = 0.5*(__left + __right);
         __y      = 0.5*(__top + __bottom);
