@@ -54,6 +54,7 @@
     {"id":{"name":"VinylGainSet","path":"scripts/VinylGainSet/VinylGainSet.yy",},},
     {"id":{"name":"__VinylParseKnob","path":"scripts/__VinylParseKnob/__VinylParseKnob.yy",},},
     {"id":{"name":"VinylMultiBlendGet","path":"scripts/VinylMultiBlendGet/VinylMultiBlendGet.yy",},},
+    {"id":{"name":"VinylStackPatternGet","path":"scripts/VinylStackPatternGet/VinylStackPatternGet.yy",},},
     {"id":{"name":"__VInylPatternCreate","path":"scripts/__VInylPatternCreate/__VInylPatternCreate.yy",},},
     {"id":{"name":"sndBleep5","path":"sounds/sndBleep5/sndBleep5.yy",},},
     {"id":{"name":"sndChickenNuggets","path":"sounds/sndChickenNuggets/sndChickenNuggets.yy",},},
