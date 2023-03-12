@@ -76,14 +76,16 @@ UIText("music: VinylExists() = " + string(VinylExists(music))
 
 UIButtonInline("Play music", function()
 {
-    if (
-    music = VinylPlay(sndChickenNuggets);
-    VinylStopCallbackSet(music,
-                         function(_data, _id)
-                         {
-                             show_message(string(_id) + " said \"" + string(_data) + "\" on stop");
-                         },
-                         "boop");
+    if (VinylStackPatternGet("music", 0) != sndChickenNuggets)
+    {
+        music = VinylPlay(sndChickenNuggets);
+        VinylStopCallbackSet(music,
+                             function(_data, _id)
+                             {
+                                 show_message(string(_id) + " said \"" + string(_data) + "\" on stop");
+                             },
+                             "boop");
+    }
 });
 
 UIButtonInline("Stop music", function()
@@ -181,7 +183,10 @@ UINewline();
 
 UIButtonInline("Music sync test", function()
 {
-    music = VinylPlay("music sync test");
+    if (VinylStackPatternGet("music", 1) != sndChickenNuggets)
+    {
+        music = VinylPlay("music sync test");
+    }
 });
 
 UIButtonInline("Queue test", function()
