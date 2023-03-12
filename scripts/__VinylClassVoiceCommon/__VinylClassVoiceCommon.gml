@@ -16,8 +16,14 @@ function __VinylClassVoiceCommon() constructor
         return "<inst " + string(__id) + ">";
     }
     
+    static __PatternTopGet = function()
+    {
+        return __patternTop;
+    }
+    
     static __StateResetCommon = function()
     {
+        __patternTop  = undefined;
         __pattern     = undefined;
         __parentVoice = undefined;
         __child       = undefined;
@@ -70,10 +76,11 @@ function __VinylClassVoiceCommon() constructor
         __usingPanEmitter = false;
     }
     
-    static __StateSetCommon = function(_pattern, _parentVoice, _emitter, _loop, _gain, _pitch, _pan)
+    static __StateSetCommon = function(_patternTop, _pattern, _parentVoice, _emitter, _loop, _gain, _pitch, _pan)
     {
         static _globalTopLevelArray = __globalData.__topLevelArray;
         
+        __patternTop   = _patternTop;
         __pattern        = _pattern;
         __parentVoice    = _parentVoice;
         __initialEmitter = _emitter;

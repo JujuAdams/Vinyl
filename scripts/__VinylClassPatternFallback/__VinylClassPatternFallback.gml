@@ -46,10 +46,10 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
     }
     
-    static __Play = function(_parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
+    static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _voice = __pool.__Depool();
-        _voice.__Instantiate(self, _parentVoice, _vinylEmitter, _sound, _loop, _gain, _pitch, _pan);
+        _voice.__Instantiate(_patternTop, self, _parentVoice, _vinylEmitter, _sound, _loop, _gain, _pitch, _pan);
         return _voice;
     }
     

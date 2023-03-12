@@ -115,6 +115,7 @@
     {"id":{"name":"VinylSystemGainSet","path":"scripts/VinylSystemGainSet/VinylSystemGainSet.yy",},},
     {"id":{"name":"sndSync2","path":"sounds/sndSync2/sndSync2.yy",},},
     {"id":{"name":"UINewline","path":"scripts/UINewline/UINewline.yy",},},
+    {"id":{"name":"VinylPatternGet","path":"scripts/VinylPatternGet/VinylPatternGet.yy",},},
     {"id":{"name":"VinylBPMGet","path":"scripts/VinylBPMGet/VinylBPMGet.yy",},},
     {"id":{"name":"VinylLabelVoicesGet","path":"scripts/VinylLabelVoicesGet/VinylLabelVoicesGet.yy",},},
     {"id":{"name":"__VinylClassPatternQueue","path":"scripts/__VinylClassPatternQueue/__VinylClassPatternQueue.yy",},},

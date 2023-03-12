@@ -71,7 +71,8 @@ UINewline();
 UIText("music: VinylExists() = " + string(VinylExists(music))
      + ", VinylShutdownGet() = " + string(VinylShutdownGet(music))
      + ", VinylLoopGet() = " + string(VinylLoopGet(music))
-     + ", VinylPersistentGet() = " + string(VinylPersistentGet(music)));
+     + ", VinylPersistentGet() = " + string(VinylPersistentGet(music))
+     + ", VinylPatternGet() = " + string(VinylPatternGet(music)));
 
 UIButtonInline("Play music", function()
 {

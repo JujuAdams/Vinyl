@@ -51,11 +51,11 @@ function __VinylClassVoiceQueue() : __VinylClassVoiceCommon() constructor
     
     
     
-    static __Instantiate = function(_pattern, _parentVoice, _vinylEmitter, _assetArray, _loop, _gain, _pitch, _pan)
+    static __Instantiate = function(F, _pattern, _parentVoice, _vinylEmitter, _assetArray, _loop, _gain, _pitch, _pan)
     {
         __index = 0;
         
-        __StateSetCommon(_pattern, _parentVoice, _vinylEmitter, _loop, _gain, _pitch, _pan);
+        __StateSetCommon(_patternTop, _pattern, _parentVoice, _vinylEmitter, _loop, _gain, _pitch, _pan);
         __behavior = __pattern.__behavior;
         
         //Make a local copy of the input asset array
@@ -65,7 +65,8 @@ function __VinylClassVoiceQueue() : __VinylClassVoiceCommon() constructor
         if (array_length(__assetArray) > 0)
         {
             var _asset = __assetArray[__index];
-            __child = __VinylPatternGet(_asset).__Play(self, __initialEmitter, _asset, __loopLocal, 1, 1, __pan);
+            var _subPattern = __VinylPatternGet(_asset);
+            __child = _subPattern.__Play(_patternTop, _subPattern, __initialEmitter, _asset, __loopLocal, 1, 1, __pan);
         }
     }
     
@@ -126,7 +127,8 @@ function __VinylClassVoiceQueue() : __VinylClassVoiceCommon() constructor
             }
             
             var _asset = __assetArray[__index];
-            __child = __VinylPatternGet(_asset).__Play(self, __initialEmitter, _asset, __loopLocal, 1, 1, __pan);
+            var _pattern = __VinylPatternGet(_asset);
+            __child = _pattern.__Play(__patternTop, _pattern, __initialEmitter, _asset, __loopLocal, 1, 1, __pan);
         }
         else
         {
