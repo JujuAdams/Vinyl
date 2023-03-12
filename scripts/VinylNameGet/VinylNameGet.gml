@@ -1,4 +1,4 @@
-/// Returns the name of a Vinyl voice, pattern, or label
+/// Returns the friendly, humand-readable name of a Vinyl voice
 /// 
 /// @param value
 
@@ -9,12 +9,6 @@ function VinylNameGet(_value)
     
     var _voice = _idToVoiceDict[? _value];
     if (is_struct(_voice)) return string(_voice);
-    
-    var _pattern = __VinylPatternGet(_value);
-    if (is_struct(_pattern)) return string(_pattern);
-    
-    var _label = _globalData.__labelDict[$ _value];
-    if (is_struct(_label)) return string(_label);
     
     return undefined;
 }
