@@ -96,6 +96,14 @@ Default beats-per-minute to use for assets.
 
 &nbsp;
 
+## `VINYL_LISTENER_HEAD_SIZE`
+
+*Default value: `0`*
+
+Simulates the "head" size of the listener. This applies an offset to all Vinyl emitter types, increasing their size to more realistically position emitter audio in the stereo field. This is particularly noticeable when using point emitters - setting an appropriate head size will prevent audio from quickly, and distractingly, moving from one ear to another as the listener position passes by the emitter.
+
+&nbsp;
+
 &nbsp;
 
 # Advanced
