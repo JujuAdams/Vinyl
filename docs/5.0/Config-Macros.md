@@ -148,7 +148,7 @@ Length of moment-to-moment gain adjustments, in milliseconds. Choose lower value
 
 *Default value: `20`*
 
-Number of voices and emitters pre-created per pool.
+Number of voices and emitters pre-created per pool. This is used for audio scheduling for queue voices.
 
 &nbsp;
 
