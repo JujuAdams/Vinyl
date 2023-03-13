@@ -88,6 +88,14 @@ Value to set for queue patterns when the `sync` property is unset. See [`VinylMu
 
 &nbsp;
 
+## `VINYL_DEFAULT_BPM`
+
+*Default value: `120`*
+
+Default beats-per-minute to use for assets.
+
+&nbsp;
+
 &nbsp;
 
 # Advanced
