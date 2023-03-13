@@ -294,5 +294,12 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
         }
     }
     
+    static __WillStop = function()
+    {
+        if (!is_numeric(__gmInstance)) return false;
+        if (__LoopGet()) return false;
+        return (audio_sound_get_track_position(__gmInstance) >= audio_sound_length(__gmInstance) - VINYL_WILL_STOP_TOLERANCE/1000);
+    }
+    
     #endregion
 }
