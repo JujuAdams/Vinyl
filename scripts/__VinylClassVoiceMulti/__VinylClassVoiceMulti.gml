@@ -33,13 +33,6 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
         __shortestPrevPosition = 0;
     }
     
-    static __WillStop = function()
-    {
-        if (array_length(__childArray) <= 0) return false;
-        var _child = __childArray[__shortestIndex];
-        return (_child == undefined)? false : _child.__WillStop();
-    }
-    
     
     
     #region BPM

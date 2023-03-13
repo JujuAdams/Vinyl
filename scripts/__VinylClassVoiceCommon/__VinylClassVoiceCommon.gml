@@ -390,11 +390,6 @@ function __VinylClassVoiceCommon() constructor
         return __child.__PositionGet();
     }
     
-    static __WillStop = function()
-    {
-        return (__child == undefined)? false : __child.__WillStop();
-    }
-    
     #endregion
     
     
