@@ -66,7 +66,8 @@
 //Choose higher values for smooth, less glitchy gain adjustment
 #macro VINYL_STEP_DURATION  50
 
-//How far from the end of an audio asset to determine the audio as finishing
+//How far from the end of an audio asset to determine the audio as finishing. This is used for
+//audio scheduling for queue voices
 #macro VINYL_WILL_STOP_TOLERANCE  20
 
 //Number of audio voices / emitters pre-created in the pool
