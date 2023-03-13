@@ -28,6 +28,62 @@ This function can return one of the following values as strings: `"asset"` `"bas
 
 &nbsp;
 
+## `VinylNameGet`
+
+`VinylNameGet(target)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* String, the name of a [voice](Voices)
+
+|Name    |Datatype|Purpose            |
+|--------|--------|-------------------|
+|`target`|voice   |The voice to target|
+
+The string returned by this function uniquely indentifies the voice, and further contains information on the pattern used to play the voice.
+
+!> This function is on the slow side and is provided for debug use only.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylPatternGet`
+
+`VinylPatternGet(target)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* String or [audio asset](Overview) index, the pattern or audio asset used to create the voice
+
+|Name    |Datatype|Purpose            |
+|--------|--------|-------------------|
+|`target`|voice   |The voice to target|
+
+#### **Example**
+
+```gml
+//Only play this music track if the stack isn't already playing it
+if (VinylStackPatternGet("music", 1) != sndChickenNuggets)
+{
+    VinylStackPush("music", 1, VinylPlay(sndChickenNuggets));
+}
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
 ## `VinylLabelVoicesGet`
 
 `VinylLabelVoicesGet(name)`
