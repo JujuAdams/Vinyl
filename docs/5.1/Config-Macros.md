@@ -152,6 +152,14 @@ Length of moment-to-moment gain adjustments, in milliseconds. Choose lower value
 
 &nbsp;
 
+## `VINYL_WILL_STOP_TOLERANCE`
+
+*Default value: `20`*
+
+How far from the end of an audio asset to determine the audio as finishing.
+
+&nbsp;
+
 ## `VINYL_POOL_START_SIZE`
 
 *Default value: `20`*
