@@ -87,10 +87,14 @@ function __VinylClassVoiceQueue() : __VinylClassVoiceCommon() constructor
     
     static __Tick = function(_deltaTimeFactor)
     {
-        if ((__child == undefined) || !__child.__IsPlaying())
+        if ((__child == undefined) || __child.__WillStop() || !__child.__IsPlaying())
         {
             //Ensure that the child has depooled
-            if (__child != undefined) __child.__Tick(0);
+            if (__child != undefined)
+            {
+                if (__child.__WillStop()) __child.__Stop();
+                __child.__Tick(0);
+            }
             
             if (__behavior == 0) //Play the queue in its entirety once, popping assets off the queue as they finish
             {
