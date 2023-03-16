@@ -63,6 +63,12 @@ function __VinylClassEmitterRef() constructor
         return self;
     }
     
+    static __PositionSet = function(_x, _y)
+    {
+        if (__emitter != undefined) __emitter.__PositionSet(_x, _y);
+        return self;
+    }
+    
     static __Destroy = function()
     {
         //If we're being deliberately destroyed, return our emitter to the pool immediately
