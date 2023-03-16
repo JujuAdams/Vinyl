@@ -85,6 +85,19 @@ function __VinylClassEmitter() constructor
         if ((_dx != 0) || (_dy != 0)) __ManagePosition();
     }
     
+    static __PositionGet = function()
+    {
+        static _result = {
+            x: undefined,
+            y: undefined,
+        };
+        
+        _result.x = __x;
+        _result.y = __y;
+        
+        return _result;
+    }
+    
     static __Point = function(_x, _y)
     {
         __mode = 0;
