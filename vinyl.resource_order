@@ -159,7 +159,6 @@
     {"name":"sndBleep9","order":19,"path":"sounds/sndBleep9/sndBleep9.yy",},
     {"name":"acTest","order":4,"path":"animcurves/acTest/acTest.yy",},
     {"name":"VinylMultiGainSet","order":1,"path":"scripts/VinylMultiGainSet/VinylMultiGainSet.yy",},
-    {"name":"oPolyline","order":8,"path":"objects/oPolyline/oPolyline.yy",},
     {"name":"VinylOutputPitchGet","order":4,"path":"scripts/VinylOutputPitchGet/VinylOutputPitchGet.yy",},
     {"name":"__VinylClassKnobTarget","order":4,"path":"scripts/__VinylClassKnobTarget/__VinylClassKnobTarget.yy",},
     {"name":"sndBleep2","order":12,"path":"sounds/sndBleep2/sndBleep2.yy",},

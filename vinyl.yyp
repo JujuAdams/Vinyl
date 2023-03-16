@@ -202,7 +202,6 @@
     {"id":{"name":"sndBleep9","path":"sounds/sndBleep9/sndBleep9.yy",},},
     {"id":{"name":"acTest","path":"animcurves/acTest/acTest.yy",},},
     {"id":{"name":"VinylMultiGainSet","path":"scripts/VinylMultiGainSet/VinylMultiGainSet.yy",},},
-    {"id":{"name":"oPolyline","path":"objects/oPolyline/oPolyline.yy",},},
     {"id":{"name":"VinylOutputPitchGet","path":"scripts/VinylOutputPitchGet/VinylOutputPitchGet.yy",},},
     {"id":{"name":"__VinylClassKnobTarget","path":"scripts/__VinylClassKnobTarget/__VinylClassKnobTarget.yy",},},
     {"id":{"name":"sndBleep2","path":"sounds/sndBleep2/sndBleep2.yy",},},
