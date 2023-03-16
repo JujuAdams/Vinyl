@@ -51,6 +51,18 @@ function __VinylClassEmitterRef() constructor
         return self;
     }
     
+    static __Polyline = function(_radius, _pointArray)
+    {
+        if (__emitter != undefined) __emitter.__Polyline(_radius, _pointArray);
+        return self;
+    }
+    
+    static __Polygon = function(_radius, _pointArray)
+    {
+        if (__emitter != undefined) __emitter.__Polygon(_radius, _pointArray);
+        return self;
+    }
+    
     static __Destroy = function()
     {
         //If we're being deliberately destroyed, return our emitter to the pool immediately
