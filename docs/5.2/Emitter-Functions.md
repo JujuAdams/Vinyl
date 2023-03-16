@@ -197,7 +197,7 @@ Creates an emitter that occupies a rectangular region in your game world. This m
 |`radius`         |number       |Radius of the emitter                                                                 |
 |`pointArray/path`|array or path|Array of sequential coordinate pairs defining the polyline, or a GameMaker native path|
 
-Creates an emitter that's defined by a polyline (a.k.a. line strip). The polyline has a "thickness" determined by the `radius` argument. This means that the listener position can be anywhere within the thickness of the polyline to hear sound played on the emitter at full volume at centred in the stereo field, and panning and falloff only occurs when the listener is outside the thickness of the polyline.
+Creates an emitter that's defined by a polyline (a.k.a. line strip). The polyline has a "thickness" determined by the `radius` argument. This means that the listener position can be anywhere within the thickness of the polyline to hear sound played on the emitter at full volume at centred in the stereo field, and panning and falloff only occurs when the listener is outside the thickness of the polyline. The "position" of the polyline is determined by the centre of the axis-aligned bounding box that encloses the polyline.
 
 You can alternatively define the vertices on the polyline by using a native GameMaker patch. This function does not support curved paths, however.
 
@@ -228,7 +228,7 @@ You can alternatively define the vertices on the polyline by using a native Game
 |`radius`         |number       |Radius of the emitter                                                                |
 |`pointArray/path`|array or path|Array of sequential coordinate pairs defining the polygon, or a GameMaker native path|
 
-Creates an emitter that occupies a polygonal region in your game world. This means that the listener position can be anywhere in the polygon to hear sound played on the emitter at full volume at centred in the stereo field, and panning and falloff only occurs when the listener is outside the polygon.
+Creates an emitter that occupies a polygonal region in your game world. This means that the listener position can be anywhere in the polygon to hear sound played on the emitter at full volume at centred in the stereo field, and panning and falloff only occurs when the listener is outside the polygon. The "position" of the polygon is determined by the centre of the axis-aligned bounding box that encloses the polygon.
 
 You can alternatively define the vertices on the polygon by using a native GameMaker patch. This function does not support curved paths, however.
 
