@@ -14,13 +14,13 @@
 ## Features
 
 - Live reloading of [audio configuration](http://jujuadams.github.io/Vinyl/#/5.2/Config-File). You can mix whilst the game is running, no need for recompilation
-- In-built systems to handle common designs ([fade in](http://jujuadams.github.io/Vinyl/Playing-Audio), [callbacks on fade out](http://jujuadams.github.io/Vinyl/Stopping-Audio), [audio ducking](http://jujuadams.github.io/Vinyl/Stacks) etc.)
-- Multi-inheritance using Vinyl's ["labels"](http://jujuadams.github.io/Vinyl/Labels) (similar to audio groups)
-- Integral [shuffle](http://jujuadams.github.io/Vinyl/Shuffle-Patterns), [queue](http://jujuadams.github.io/Vinyl/Queue-Patterns), and [multi patterns](http://jujuadams.github.io/Vinyl/Multi-Patterns)
-- [Native panning](http://jujuadams.github.io/Vinyl/Positional)
-- Improved natural [gain curves](http://jujuadams.github.io/Vinyl/Gain)
-- [Pitch randomisation](http://jujuadams.github.io/Vinyl/Pitch) 
-- Out-of-the-box [BPM tracking](http://jujuadams.github.io/Vinyl/BPM) for audio
-- Improved [positional audio](http://jujuadams.github.io/Vinyl/Emitters) via region emitters
-- [Musical transposition](http://jujuadams.github.io/Vinyl/Transposition) per asset and across all assets
-- System-wide parameter tweaking using ["knobs"](http://jujuadams.github.io/Vinyl/Knobs)
+- In-built systems to handle common designs ([fade in](http://jujuadams.github.io/Vinyl/#/5.2/Playing-Audio), [callbacks on fade out](http://jujuadams.github.io/Vinyl/#/5.2/Stopping-Audio), [audio ducking](http://jujuadams.github.io/Vinyl/#/5.2/Stacks) etc.)
+- Multi-inheritance using Vinyl's ["labels"](http://jujuadams.github.io/Vinyl/#/5.2/Labels) (similar to audio groups)
+- Integral [shuffle](http://jujuadams.github.io/Vinyl/#/5.2/Shuffle-Patterns), [queue](http://jujuadams.github.io/Vinyl/#/5.2/Queue-Patterns), and [multi patterns](http://jujuadams.github.io/Vinyl/#/5.2/Multi-Patterns)
+- [Native panning](http://jujuadams.github.io/Vinyl/#/5.2/Panning)
+- Improved natural [gain curves](http://jujuadams.github.io/Vinyl/#/5.2/Gain)
+- [Pitch randomisation](http://jujuadams.github.io/Vinyl/#/5.2/Pitch) 
+- Out-of-the-box [BPM tracking](http://jujuadams.github.io/Vinyl/#/5.2/BPM) for audio
+- Improved [positional audio](http://jujuadams.github.io/Vinyl/#/5.2/Emitters) via region emitters
+- [Musical transposition](http://jujuadams.github.io/Vinyl/#/5.2/Transposition) per asset and across all assets
+- System-wide parameter tweaking using ["knobs"](http://jujuadams.github.io/Vinyl/#/5.2/Knobs)
