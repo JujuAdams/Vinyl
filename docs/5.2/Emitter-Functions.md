@@ -190,7 +190,7 @@ Creates an emitter that occupies a rectangular region in your game world. This m
 
 #### **Description**
 
-*Returns:* Vinyl emitter, rectangle-type
+*Returns:* Vinyl emitter, polyline-type
 
 |Name             |Datatype     |Purpose                                                                               |
 |-----------------|-------------|--------------------------------------------------------------------------------------|
@@ -221,7 +221,7 @@ You can alternatively define the vertices on the polyline by using a native Game
 
 #### **Description**
 
-*Returns:* Vinyl emitter, rectangle-type
+*Returns:* Vinyl emitter, polygon-type
 
 |Name             |Datatype     |Purpose                                                                              |
 |-----------------|-------------|-------------------------------------------------------------------------------------|
