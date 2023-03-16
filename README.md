@@ -13,7 +13,7 @@
 
 ## Features
 
-- Live reloading of [audio configuration](http://jujuadams.github.io/Vinyl/Configuration). You can mix whilst the game is running, no need for recompilation
+- Live reloading of [audio configuration](http://jujuadams.github.io/Vinyl/Config-Macros). You can mix whilst the game is running, no need for recompilation
 - In-built systems to handle common designs ([fade in](http://jujuadams.github.io/Vinyl/Playing-Audio), [callbacks on fade out](http://jujuadams.github.io/Vinyl/Stopping-Audio), [audio ducking](http://jujuadams.github.io/Vinyl/Stacks) etc.)
 - Multi-inheritance using Vinyl's ["labels"](http://jujuadams.github.io/Vinyl/Labels) (similar to audio groups)
 - Integral [shuffle](http://jujuadams.github.io/Vinyl/Shuffle-Patterns), [queue](http://jujuadams.github.io/Vinyl/Queue-Patterns), and [multi patterns](http://jujuadams.github.io/Vinyl/Multi-Patterns)
