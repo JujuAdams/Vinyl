@@ -182,6 +182,68 @@ Creates an emitter that occupies a rectangular region in your game world. This m
 
 &nbsp;
 
+## `VinylEmitterPolyline`
+
+`VinylEmitterPolyline(radius, pointArray/path)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Vinyl emitter, rectangle-type
+
+|Name             |Datatype     |Purpose                                                                               |
+|-----------------|-------------|--------------------------------------------------------------------------------------|
+|`radius`         |number       |Radius of the emitter                                                                 |
+|`pointArray/path`|array or path|Array of sequential coordinate pairs defining the polyline, or a GameMaker native path|
+
+Creates an emitter that's defined by a polyline (a.k.a. line strip). The polyline has a "thickness" determined by the `radius` argument. This means that the listener position can be anywhere within the thickness of the polyline to hear sound played on the emitter at full volume at centred in the stereo field, and panning and falloff only occurs when the listener is outside the thickness of the polyline.
+
+You can alternatively define the vertices on the polyline by using a native GameMaker patch. This function does not support curved paths, however.
+
+!> Vinyl will automatically clean up orphaned emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylEmitterPolygon`
+
+`VinylEmitterPolygon(radius, pointArray/path)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Vinyl emitter, rectangle-type
+
+|Name             |Datatype     |Purpose                                                                              |
+|-----------------|-------------|-------------------------------------------------------------------------------------|
+|`radius`         |number       |Radius of the emitter                                                                |
+|`pointArray/path`|array or path|Array of sequential coordinate pairs defining the polygon, or a GameMaker native path|
+
+Creates an emitter that occupies a polygonal region in your game world. This means that the listener position can be anywhere in the polygon to hear sound played on the emitter at full volume at centred in the stereo field, and panning and falloff only occurs when the listener is outside the polygon.
+
+You can alternatively define the vertices on the polygon by using a native GameMaker patch. This function does not support curved paths, however.
+
+!> Vinyl will automatically clean up orphaned emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
 ## `VinylEmitterPositionSet`
 
 `VinylEmitterPositionSet(emitter, x, y)`
@@ -197,6 +259,32 @@ Creates an emitter that occupies a rectangular region in your game world. This m
 |`emitter`|Vinyl emitter|Emitter to target. This must be a Vinyl emitter and **not** a native GameMaker emitter|
 |`x`      |number       |New x-position of the centre of the emitter                                           |
 |`y`      |number       |New y-position of the centre of the emitter                                           |
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylEmitterPositionGet`
+
+`VinylEmitterPositionSet(emitter)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Struct, the position of the emitter
+
+|Name     |Datatype     |Purpose                                                                               |
+|---------|-------------|--------------------------------------------------------------------------------------|
+|`emitter`|Vinyl emitter|Emitter to target. This must be a Vinyl emitter and **not** a native GameMaker emitter|
+
+The struct returned by this function contains two variables, `x` and `y`, giving the position of the emitter.
 
 #### **Example**
 
