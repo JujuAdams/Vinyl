@@ -21,6 +21,6 @@
 - Improved natural [gain curves](http://jujuadams.github.io/Vinyl/Gain)
 - [Pitch randomisation](http://jujuadams.github.io/Vinyl/Pitch) 
 - Out-of-the-box [BPM tracking](http://jujuadams.github.io/Vinyl/BPM) for audio
-- Improved [positional audio](http://jujuadams.github.io/Vinyl/Positional) via region emitters
+- Improved [positional audio](http://jujuadams.github.io/Vinyl/Emitters) via region emitters
 - [Musical transposition](http://jujuadams.github.io/Vinyl/Transposition) per asset and across all assets
 - System-wide parameter tweaking using ["knobs"](http://jujuadams.github.io/Vinyl/Knobs)
