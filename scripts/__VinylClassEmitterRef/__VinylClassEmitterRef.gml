@@ -71,6 +71,16 @@ function __VinylClassEmitterRef() constructor
         if (__emitter != undefined) __emitter.__DebugDraw();
     }
     
+    static __ManagePosition = function()
+    {
+        if (__emitter != undefined) __emitter.__ManagePosition();
+    }
+    
+    static __Tick = function(_deltaTimeFactor)
+    {
+        if (__emitter != undefined) __emitter.__Tick(_deltaTimeFactor);
+    }
+    
     static toString = function()
     {
         return string(__emitter);

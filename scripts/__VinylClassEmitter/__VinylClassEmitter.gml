@@ -78,6 +78,9 @@ function __VinylClassEmitter() constructor
         __top    += _dy;
         __right  += _dx;
         __bottom += _dy;
+        
+        //Immediately update
+        if ((_dx != 0) || (_dy != 0)) __ManagePosition();
     }
     
     static __Point = function(_x, _y)
@@ -237,10 +240,6 @@ function __VinylClassEmitter() constructor
         {
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Lost reference for ", self);
             __VINYL_RETURN_SELF_TO_POOL
-        }
-        else
-        {
-            __ManagePosition();
         }
     }
     
