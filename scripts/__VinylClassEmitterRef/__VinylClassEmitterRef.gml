@@ -1,6 +1,9 @@
 function __VinylClassEmitterRef() constructor
 {
-    static __pool = __VinylGlobalData().__poolEmitter;
+    static __emitterRefArray = __VinylGlobalData().__emitterRefArray;
+    static __pool            = __VinylGlobalData().__poolEmitter;
+    
+    array_push(__emitterRefArray, weak_ref_create(self));
     
     __emitter = __pool.__Depool();
     

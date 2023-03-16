@@ -50,6 +50,23 @@ function __VinylTick()
         }
     }
     
+    static _emitterRefArray = _globalData.__emitterRefArray;
+    var _i = 0;
+    repeat(array_length(_emitterRefArray))
+    {
+        var _emitterRef = _emitterRefArray[_i];
+        if (weak_ref_alive(_emitterRef))
+        {
+            _emitterRef.ref.__Tick(_deltaTimeFactor);
+            ++_i;
+        }
+        else
+        {
+            //If this voice has been pooled then we don't need to update it any more
+            array_delete(_emitterRefArray, _i, 1);
+        }
+    }
+    
     //Update our pools. This ensures structs in the return array get shifted over into the active array
     static _poolAsset      = _globalData.__poolAsset;
     static _poolBasic      = _globalData.__poolBasic;
