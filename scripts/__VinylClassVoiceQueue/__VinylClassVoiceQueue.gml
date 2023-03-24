@@ -51,7 +51,7 @@ function __VinylClassVoiceQueue() : __VinylClassVoiceCommon() constructor
     
     
     
-    static __Instantiate = function(F, _pattern, _parentVoice, _vinylEmitter, _assetArray, _loop, _gain, _pitch, _pan)
+    static __Instantiate = function(_patternTop, _pattern, _parentVoice, _vinylEmitter, _assetArray, _loop, _gain, _pitch, _pan)
     {
         __index = 0;
         
