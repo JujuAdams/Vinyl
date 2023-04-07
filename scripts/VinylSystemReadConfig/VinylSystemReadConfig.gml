@@ -17,6 +17,8 @@ function VinylSystemReadConfig(_configData)
     static _stackArray       = _globalData.__stackArray;
     static _animCurveArray   = _globalData.__animCurveArray;
     
+    var _audioAssetArray = undefined;
+    
     var _oldKnobDict  = _globalData.__knobDict;
     var _oldLabelDict = _globalData.__labelDict;
     
@@ -187,6 +189,21 @@ function VinylSystemReadConfig(_configData)
     
     
     
+    static _addAssetFunc = function(_newPatternDict, _key, _assetIndex, _patternData)
+    {
+        if (variable_struct_exists(_newPatternDict, _key))
+        {
+            __VinylTrace("Warning! Asset \"", _key, "\" has already been defined");
+        }
+        else
+        {
+            var _pattern = new __VinylClassPatternAsset(_key, false, _assetIndex);
+            _pattern.__Initialize(_patternData);
+            _pattern.__Store();
+            return _pattern;
+        }
+    }
+    
     //Instantiate basic patterns for each asset in the config data
     var _inputAssetDict = _configData[$ "assets"];
     if (is_undefined(_inputAssetDict))
@@ -203,41 +220,69 @@ function VinylSystemReadConfig(_configData)
         var _i = 0;
         repeat(array_length(_assetNameArray))
         {
-            var _assetName  = _assetNameArray[_i];
-            var _assetIndex = asset_get_index(_assetName);
+            var _assetName = _assetNameArray[_i];
+            var _patternData = _inputAssetDict[$ _assetName];
             
-            if ((_assetIndex < 0) && (_assetName != "fallback"))
+            if (_assetName == "fallback")
             {
-                __VinylTrace("Warning! Asset \"", _assetName, "\" doesn't exist");
-            }
-            else if ((asset_get_type(_assetName) != asset_sound) && (_assetName != "fallback"))
-            {
-                __VinylTrace("Warning! Asset \"", _assetName, "\" isn't a sound");
+                var _pattern = new __VinylClassPatternFallback();
+                _pattern.__Initialize(_patternData);
+                _pattern.__Store();
             }
             else
             {
-                var _key = (_assetName == "fallback")? "fallback" : string(_assetIndex);
-                if (variable_struct_exists(_newPatternDict, _key))
+                //If we have at least one wildcard in the asset name we'll need to make a search
+                if (string_pos("*", _assetName) > 0)
                 {
-                    __VinylTrace("Warning! Asset \"", _key, "\" has already been defined");
-                }
-                else
-                {
-                    //Pull out the asset data
-                    var _patternData = _inputAssetDict[$ _assetName];
-                    
-                    //Make a new pattern for this asset
-                    if (_assetName == "fallback")
+                    //Build an array of all audio asset names on demand
+                    if (!is_array(_audioAssetArray))
                     {
-                        var _pattern = new __VinylClassPatternFallback();
+                        _audioAssetArray = [];
+                        
+                        var _j = 0;
+                        repeat(1000000)
+                        {
+                            if (not audio_exists(_j)) break;
+                            array_push(_audioAssetArray, audio_get_name(_j));
+                            ++_j;
+                        }
+                    }
+                    
+                    //Find all matching assets for the search string
+                    var _array = __VinylFindMatchingAudioAssets(_assetName, _audioAssetArray);
+                    
+                    if (array_length(_array) <= 0)
+                    {
+                        __VinylTrace("Warning! Search string \"", _assetName, "\" matches no assets");
                     }
                     else
                     {
-                        var _pattern = new __VinylClassPatternAsset(_key, false, _assetIndex);
+                        //Iterate over all of the asset we found and set up asset definitions for them
+                        var _j = 0;
+                        repeat(array_length(_array))
+                        {
+                            var _assetIndex = _array[_j];
+                            _addAssetFunc(_newPatternDict, string(_assetIndex), _assetIndex, _patternData);
+                            ++_j;
+                        }
                     }
-                    
-                    _pattern.__Initialize(_patternData);
-                    _pattern.__Store();
+                }
+                else
+                {
+                    var _assetIndex = asset_get_index(_assetName);
+                    if (_assetIndex < 0)
+                    {
+                        __VinylTrace("Warning! Asset \"", _assetName, "\" doesn't exist");
+                    }
+                    else if (asset_get_type(_assetName) != asset_sound)
+                    {
+                        __VinylTrace("Warning! Asset \"", _assetName, "\" isn't a sound");
+                    }
+                    else
+                    {
+                        //Make a new pattern for this asset
+                        _addAssetFunc(_newPatternDict, string(_assetIndex), _assetIndex, _patternData);
+                    }
                 }
             }
             
@@ -281,14 +326,7 @@ function VinylSystemReadConfig(_configData)
                         var _assetIndex = _assetArray[_k];
                         var _key = string(_assetIndex);
                         
-                        var _pattern = _newPatternDict[$ _key];
-                        if (_pattern == undefined)
-                        {
-                            _pattern = new __VinylClassPatternAsset(_key, false, _assetIndex);
-                            _pattern.__Initialize(undefined);
-                            _pattern.__Store();
-                        }
-                        
+                        var _pattern = _newPatternDict[$ _key] ?? _addAssetFunc(_newPatternDict, string(_assetIndex), _assetIndex, undefined);
                         _labelData.__LabelArrayAppend(_pattern.__labelArray);
                         
                         ++_k;

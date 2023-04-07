@@ -2,7 +2,7 @@
 #macro __VINYL_DATE     "2023-04-07"
 
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.dat"
-#macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
+#macro __VINYL_CONFIG_NOTE_NAME      "TestConfig"
 
 #macro __VINYL_USE_GAIN_CURVE  true
 
