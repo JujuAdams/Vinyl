@@ -145,6 +145,7 @@
     {"id":{"name":"__VinylConfig","path":"notes/__VinylConfig/__VinylConfig.yy",},},
     {"id":{"name":"VinylEmitterPositionGet","path":"scripts/VinylEmitterPositionGet/VinylEmitterPositionGet.yy",},},
     {"id":{"name":"__VinylPlaySimple","path":"scripts/__VinylPlaySimple/__VinylPlaySimple.yy",},},
+    {"id":{"name":"VinylPositionGet","path":"scripts/VinylPositionGet/VinylPositionGet.yy",},},
     {"id":{"name":"VinylEmitterRectangle","path":"scripts/VinylEmitterRectangle/VinylEmitterRectangle.yy",},},
     {"id":{"name":"sndBleep3","path":"sounds/sndBleep3/sndBleep3.yy",},},
     {"id":{"name":"VinylFadeOutAll","path":"scripts/VinylFadeOutAll/VinylFadeOutAll.yy",},},

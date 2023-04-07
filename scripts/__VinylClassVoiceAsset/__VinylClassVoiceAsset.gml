@@ -280,6 +280,13 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
         }
     }
     
+    static __RawPositionGet = function()
+    {
+        if (!is_numeric(__gmInstance)) return 0;
+        
+        return audio_sound_get_track_position(__gmInstance);
+    }
+    
     static __PositionGet = function()
     {
         if (!is_numeric(__gmInstance)) return 0;

@@ -185,6 +185,12 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
         }
     }
     
+    static __RawPositionGet = function()
+    {
+        if (array_length(__childArray) <= 0) return 0;
+        return __childArray[__shortestIndex].__RawPositionGet();
+    }
+    
     static __PositionGet = function()
     {
         if (array_length(__childArray) <= 0) return 0;
