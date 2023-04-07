@@ -284,7 +284,7 @@ function VinylSystemReadConfig(_configData)
                         var _pattern = _newPatternDict[$ _key];
                         if (_pattern == undefined)
                         {
-                            _pattern = new __VinylClassPatternBasic(_key, false);
+                            _pattern = new __VinylClassPatternAsset(_key, false, _assetIndex);
                             _pattern.__Initialize(undefined);
                             _pattern.__Store();
                         }
