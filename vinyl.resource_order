@@ -156,7 +156,7 @@
     {"name":"VinylLiveUpdateSet","order":7,"path":"scripts/VinylLiveUpdateSet/VinylLiveUpdateSet.yy",},
     {"name":"sndCat","order":2,"path":"sounds/sndCat/sndCat.yy",},
     {"name":"__VinylValidateStruct","order":14,"path":"scripts/__VinylValidateStruct/__VinylValidateStruct.yy",},
-    {"name":"__VinylBufferReadLooseJSON","order":6,"path":"scripts/__VinylBufferReadLooseJSON/__VinylBufferReadLooseJSON.yy",},
+    {"name":"__VinylBufferReadConfigJSON","order":6,"path":"scripts/__VinylBufferReadConfigJSON/__VinylBufferReadConfigJSON.yy",},
     {"name":"__VinylClassVoiceAsset","order":1,"path":"scripts/__VinylClassVoiceAsset/__VinylClassVoiceAsset.yy",},
     {"name":"VinylBPMPulseGet","order":1,"path":"scripts/VinylBPMPulseGet/VinylBPMPulseGet.yy",},
     {"name":"sndBleep9","order":19,"path":"sounds/sndBleep9/sndBleep9.yy",},

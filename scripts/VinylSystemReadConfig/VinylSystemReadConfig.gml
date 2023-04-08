@@ -217,6 +217,63 @@ function VinylSystemReadConfig(_configData)
     else
     {
         var _assetNameArray = variable_struct_get_names(_inputAssetDict);
+        
+        //Expand any wildcards
+        var _i = 0;
+        repeat(array_length(_assetNameArray))
+        {
+            var _assetName = _assetNameArray[_i];
+            
+            //If we have at least one wildcard in the asset name we'll need to make a search
+            if (string_pos("*", _assetName) > 0)
+            {
+                var _assetData = _inputAssetDict[$ _assetName];
+                
+                //Remove this wildcard entry from our data structures
+                variable_struct_remove(_inputAssetDict, _assetName);
+                array_delete(_assetNameArray, _i, 1);
+                
+                //Build an array of all audio asset names on demand
+                if (!is_array(_audioAssetArray))
+                {
+                    _audioAssetArray = [];
+                    
+                    var _j = 0;
+                    repeat(1000000)
+                    {
+                        if (not audio_exists(_j)) break;
+                        array_push(_audioAssetArray, audio_get_name(_j));
+                        ++_j;
+                    }
+                }
+                
+                //Find all matching assets for the search string
+                var _array = __VinylFindMatchingAudioAssets(_assetName, _audioAssetArray);
+                
+                if (array_length(_array) <= 0)
+                {
+                    __VinylTrace("Warning! Search string \"", _assetName, "\" matches no assets");
+                }
+                else
+                {
+                    //Iterate over all of the asset we found and merge asset data for them
+                    var _j = 0;
+                    repeat(array_length(_array))
+                    {
+                        var _assetName = audio_get_name(_array[_j]);
+                        __VinylBufferReadConfigJSONStructMergeNoOverwrite(_inputAssetDict, _assetName, _assetData);
+                        if (!array_contains(_assetNameArray, _assetName)) array_push(_assetNameArray, _assetName);
+                        ++_j;
+                    }
+                }
+            }
+            else
+            {
+                ++_i;
+            }
+        }
+        
+        //Then iterate over the unpacked asset definitions and set up asset patterns
         var _i = 0;
         repeat(array_length(_assetNameArray))
         {
@@ -231,58 +288,19 @@ function VinylSystemReadConfig(_configData)
             }
             else
             {
-                //If we have at least one wildcard in the asset name we'll need to make a search
-                if (string_pos("*", _assetName) > 0)
+                var _assetIndex = asset_get_index(_assetName);
+                if (_assetIndex < 0)
                 {
-                    //Build an array of all audio asset names on demand
-                    if (!is_array(_audioAssetArray))
-                    {
-                        _audioAssetArray = [];
-                        
-                        var _j = 0;
-                        repeat(1000000)
-                        {
-                            if (not audio_exists(_j)) break;
-                            array_push(_audioAssetArray, audio_get_name(_j));
-                            ++_j;
-                        }
-                    }
-                    
-                    //Find all matching assets for the search string
-                    var _array = __VinylFindMatchingAudioAssets(_assetName, _audioAssetArray);
-                    
-                    if (array_length(_array) <= 0)
-                    {
-                        __VinylTrace("Warning! Search string \"", _assetName, "\" matches no assets");
-                    }
-                    else
-                    {
-                        //Iterate over all of the asset we found and set up asset definitions for them
-                        var _j = 0;
-                        repeat(array_length(_array))
-                        {
-                            var _assetIndex = _array[_j];
-                            _addAssetFunc(_newPatternDict, string(_assetIndex), _assetIndex, _patternData);
-                            ++_j;
-                        }
-                    }
+                    __VinylTrace("Warning! Asset \"", _assetName, "\" doesn't exist");
+                }
+                else if (asset_get_type(_assetName) != asset_sound)
+                {
+                    __VinylTrace("Warning! Asset \"", _assetName, "\" isn't a sound");
                 }
                 else
                 {
-                    var _assetIndex = asset_get_index(_assetName);
-                    if (_assetIndex < 0)
-                    {
-                        __VinylTrace("Warning! Asset \"", _assetName, "\" doesn't exist");
-                    }
-                    else if (asset_get_type(_assetName) != asset_sound)
-                    {
-                        __VinylTrace("Warning! Asset \"", _assetName, "\" isn't a sound");
-                    }
-                    else
-                    {
-                        //Make a new pattern for this asset
-                        _addAssetFunc(_newPatternDict, string(_assetIndex), _assetIndex, _patternData);
-                    }
+                    //Make a new pattern for this asset
+                    _addAssetFunc(_newPatternDict, string(_assetIndex), _assetIndex, _patternData);
                 }
             }
             

@@ -70,7 +70,7 @@ function __VinylUpdateData()
         var _buffer = buffer_load(_filename);
         try
         {
-            var _data = __VinylBufferReadLooseJSON(_buffer, 0);
+            var _data = __VinylBufferReadConfigJSON(_buffer, 0);
             __VinylTrace("Read config in plaintext");
         }
         catch(_error)
@@ -79,7 +79,7 @@ function __VinylUpdateData()
             var _string = buffer_read(_buffer, buffer_text);
             buffer_delete(_buffer);
             _buffer = buffer_base64_decode(_string);
-            var _data = __VinylBufferReadLooseJSON(_buffer, 0);
+            var _data = __VinylBufferReadConfigJSON(_buffer, 0);
             
             __VinylTrace("Read config in base64");
         }
