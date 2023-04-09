@@ -333,7 +333,7 @@ Patterns are the next step up from assets. They offer wrappers around logic that
 
 ### Basic
 
-[In-depth documentation](Basic-Pattern)
+[In-depth documentation](Basic-Patterns)
 
 The simplest sort of pattern: it's just a wrapper around an asset which modifies properties. When you play a Basic pattern, the properties set for the Basic pattern will be inherited by the asset following rules explained [here](Voices). This means you can use a Basic pattern to repurpose a single asset for multiple purposes.
 
@@ -364,7 +364,7 @@ VinylPlay("dramatic gunshot");
 
 ### Shuffle
 
-[In-depth documentation](Shuffle-Pattern)
+[In-depth documentation](Shuffle-Patterns)
 
 Chooses an asset from an array and plays it. A Shuffle pattern is not truly random and will attempt to prevent the same sound being played twice in a row.
 
@@ -398,7 +398,7 @@ VinylPlay("bird");
 
 ### Queue
 
-[In-depth documentation](Queue-Pattern)
+[In-depth documentation](Queue-Patterns)
 
 A Queue pattern, when played, will create a voice that goes through each defined asset in turn and plays it. Queues can have their behaviour set to one of three options: playing the queue once, playing the queue repeatedly, or playing the last entry in the queue repeatedly.
 
@@ -434,7 +434,7 @@ VinylPlay("car radio");
 
 ### Multi
 
-[In-depth documentation](Multi-Pattern)
+[In-depth documentation](Multi-Patterns)
 
 Plays multiple assets all at the same time. You can blend between these assets by [setting a blend factor](Multi-Pattern-Functions), including using an animation curve to control per-asset weights. Multi patterns can also be configured to synchronise playback which is useful for multitrack songs where you want to be able to fade individual instruments in and out.
 
