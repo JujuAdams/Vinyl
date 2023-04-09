@@ -125,6 +125,7 @@
     {"id":{"name":"__VinylPatternGet","path":"scripts/__VinylPatternGet/__VinylPatternGet.yy",},},
     {"id":{"name":"VinylResume","path":"scripts/VinylResume/VinylResume.yy",},},
     {"id":{"name":"VinylEmitterPositionSet","path":"scripts/VinylEmitterPositionSet/VinylEmitterPositionSet.yy",},},
+    {"id":{"name":"VinylPositionSet","path":"scripts/VinylPositionSet/VinylPositionSet.yy",},},
     {"id":{"name":"__VinylArrayShuffle","path":"scripts/__VinylArrayShuffle/__VinylArrayShuffle.yy",},},
     {"id":{"name":"__VinylTick","path":"scripts/__VinylTick/__VinylTick.yy",},},
     {"id":{"name":"VinylLoopGet","path":"scripts/VinylLoopGet/VinylLoopGet.yy",},},
