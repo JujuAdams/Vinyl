@@ -213,6 +213,39 @@ Updates Vinyl's internal configuration from a struct representation of the [conf
 
 &nbsp;
 
+## `VinylSystemArrayOf`
+
+`VinylSystemArrayOf(type)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Array of strings, the names of each Vinyl component of the given type
+
+|Name  |Datatype|Purpose                              |
+|------|--------|-------------------------------------|
+|`type`|string  |The type of Vinyl component to return|
+
+The `type` argument can be one of the following values:
+
+- `"patterns"`
+- `"assets"`
+- `"labels"`
+- `"effect chains"`
+- `"knobs"`
+- `"stacks"`
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
 ## `VinylLiveUpdateSet`
 
 `VinylLiveUpdateSet(state)`
