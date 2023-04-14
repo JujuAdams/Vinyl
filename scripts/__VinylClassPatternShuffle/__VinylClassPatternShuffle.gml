@@ -1,12 +1,14 @@
 /// @param name
 /// @param adHoc
+/// @param child
 
-function __VinylClassPatternShuffle(_name, _adHoc) : __VinylClassPatternCommon() constructor
+function __VinylClassPatternShuffle(_name, _adHoc, _child) : __VinylClassPatternCommon() constructor
 {
     static __patternType = "shuffle";
     
     __name  = _name;
     __adHoc = _adHoc;
+    __child = _child;
     
     static toString = function()
     {

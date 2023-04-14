@@ -168,6 +168,7 @@
     {"name":"sndBleep2","order":12,"path":"sounds/sndBleep2/sndBleep2.yy",},
     {"name":"VinylQueueBehaviorGet","order":2,"path":"scripts/VinylQueueBehaviorGet/VinylQueueBehaviorGet.yy",},
     {"name":"VinylPlaySimple","order":1,"path":"scripts/VinylPlaySimple/VinylPlaySimple.yy",},
+    {"name":"VinylSystemArrayOf","order":10,"path":"scripts/VinylSystemArrayOf/VinylSystemArrayOf.yy",},
     {"name":"rMain","order":7,"path":"rooms/rMain/rMain.yy",},
   ],
 }

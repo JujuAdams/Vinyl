@@ -211,6 +211,7 @@
     {"id":{"name":"sndBleep2","path":"sounds/sndBleep2/sndBleep2.yy",},},
     {"id":{"name":"VinylQueueBehaviorGet","path":"scripts/VinylQueueBehaviorGet/VinylQueueBehaviorGet.yy",},},
     {"id":{"name":"VinylPlaySimple","path":"scripts/VinylPlaySimple/VinylPlaySimple.yy",},},
+    {"id":{"name":"VinylSystemArrayOf","path":"scripts/VinylSystemArrayOf/VinylSystemArrayOf.yy",},},
     {"id":{"name":"rMain","path":"rooms/rMain/rMain.yy",},},
   ],
   "RoomOrderNodes": [

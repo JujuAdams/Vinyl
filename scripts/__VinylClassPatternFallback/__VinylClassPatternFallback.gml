@@ -3,7 +3,8 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     static __patternType = "fallback";
     static __pool = __VinylGlobalData().__poolAsset;
     
-    static __name = "fallback";
+    static __name  = "fallback";
+    static __child = false;
     
     static toString = function()
     {

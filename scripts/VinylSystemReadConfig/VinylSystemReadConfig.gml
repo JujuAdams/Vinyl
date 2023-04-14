@@ -197,7 +197,7 @@ function VinylSystemReadConfig(_configData)
         }
         else
         {
-            var _pattern = new __VinylClassPatternAsset(_key, false, _assetIndex);
+            var _pattern = new __VinylClassPatternAsset(_key, false, false, _assetIndex);
             _pattern.__Initialize(_patternData);
             _pattern.__Store();
             return _pattern;
@@ -379,7 +379,7 @@ function VinylSystemReadConfig(_configData)
             var _patternName = _patternNameArray[_i];
             if (string_pos(">", _patternName)) __VinylError("Pattern names cannot contain the \">\" character (name=", _patternName, ")");
             
-            __VInylPatternCreate(_patternName, _inputPatternsDict[$ _patternName], false);
+            __VInylPatternCreate(_patternName, _inputPatternsDict[$ _patternName], false, false);
             
             ++_i;
         }

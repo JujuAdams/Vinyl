@@ -87,7 +87,7 @@ function __VinylClassPatternCommon()
             {
                 //Generate an anonymous pattern
                 var _patternName = __name + " > " + string(_i);
-                __VInylPatternCreate(_patternName, _asset, false);
+                __VInylPatternCreate(_patternName, _asset, false, true);
                 _assetArray[@ _i] = _patternName;
             }
             else
