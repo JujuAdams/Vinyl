@@ -51,6 +51,15 @@ function __VinylClassEffectChain(_name) constructor
     
     static __Update = function(_busEffectArray)
     {
+        if (is_struct(_busEffectArray))
+        {
+            _busEffectArray = [_busEffectArray];
+        }
+        else if (!is_array(_busEffectArray))
+        {
+            __VinylError("Effect chain definition must be an array (typeof=",  typeof(_busEffectArray), ")");
+        }
+        
         var _knobDict = __VinylGlobalData().__knobDict;
         
         var _i = 0;
