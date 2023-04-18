@@ -1,7 +1,8 @@
 /// @param name
 /// @param adHoc
+/// @param child
 
-function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() constructor
+function __VinylClassPatternMulti(_name, _adHoc, _child) : __VinylClassPatternCommon() constructor
 {
     static __patternType   = "multi";
     static __pool          = __VinylGlobalData().__poolMulti;
@@ -9,6 +10,7 @@ function __VinylClassPatternMulti(_name, _adHoc) : __VinylClassPatternCommon() c
     
     __name  = _name;
     __adHoc = _adHoc;
+    __child = _child;
     
     static toString = function()
     {

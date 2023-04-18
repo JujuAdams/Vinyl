@@ -266,6 +266,13 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
         }
     }
     
+    static __RawPositionSet = function(_position)
+    {
+        if (!is_numeric(__gmInstance)) return;
+        
+        audio_sound_set_track_position(__gmInstance, _position);
+    }
+    
     static __PositionSet = function(_position)
     {
         if (!is_numeric(__gmInstance)) return;
@@ -278,6 +285,13 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
         {
             audio_sound_set_track_position(__gmInstance, _position);
         }
+    }
+    
+    static __RawPositionGet = function()
+    {
+        if (!is_numeric(__gmInstance)) return 0;
+        
+        return audio_sound_get_track_position(__gmInstance);
     }
     
     static __PositionGet = function()

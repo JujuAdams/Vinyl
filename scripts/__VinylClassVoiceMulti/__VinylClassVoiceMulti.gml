@@ -175,6 +175,16 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
         return __childArray[__shortestIndex].__LengthGet();
     }
     
+    static __RawPositionSet = function(_position)
+    {
+        var _i = 0;
+        repeat(array_length(__childArray))
+        {
+            __childArray[_i].__RawPositionSet(_position);
+            ++_i;
+        }
+    }
+    
     static __PositionSet = function(_position)
     {
         var _i = 0;
@@ -183,6 +193,12 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
             __childArray[_i].__PositionSet(_position);
             ++_i;
         }
+    }
+    
+    static __RawPositionGet = function()
+    {
+        if (array_length(__childArray) <= 0) return 0;
+        return __childArray[__shortestIndex].__RawPositionGet();
     }
     
     static __PositionGet = function()

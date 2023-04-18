@@ -1,19 +1,33 @@
 /// @param name
 /// @param adHoc
+/// @param child
 /// @param asset
 
-function __VinylClassPatternAsset(_name, _adHoc, _asset) : __VinylClassPatternCommon() constructor
+function __VinylClassPatternAsset(_name, _adHoc, _child, _asset) : __VinylClassPatternCommon() constructor
 {
     static __patternType = "asset";
     static __pool = __VinylGlobalData().__poolAsset;
     
     __name  = _name;
     __adHoc = _adHoc;
+    __child = _child;
     __asset = _asset;
     
     static toString = function()
     {
         return "<asset " + audio_get_name(__asset) + ">";
+    }
+    
+    static __StoreAsset = function()
+    {
+        //Special case to add assets by name as well as by index (if VINYL_ALLOW_ASSET_REFERENCE_BY_STRING is <true>)
+        
+        var _patternDict  = __VinylGlobalData().__patternDict;
+        var _patternArray = __VinylGlobalData().__patternArray;
+        
+        _patternDict[$ __name] = self;
+        if (VINYL_ALLOW_ASSET_REFERENCE_BY_STRING) _patternDict[$ audio_get_name(__asset)] = self;
+        array_push(_patternArray, self);
     }
     
     static __Initialize = function(_patternData = {})

@@ -1,13 +1,15 @@
 /// @param name
 /// @param adHoc
+/// @param child
 
-function __VinylClassPatternQueue(_name, _adHoc) : __VinylClassPatternCommon() constructor
+function __VinylClassPatternQueue(_name, _adHoc, _child) : __VinylClassPatternCommon() constructor
 {
     static __patternType = "queue";
     static __pool = __VinylGlobalData().__poolQueue;
     
     __name  = _name;
     __adHoc = _adHoc;
+    __child = _child;
     
     static toString = function()
     {

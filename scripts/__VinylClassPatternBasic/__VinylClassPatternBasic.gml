@@ -1,13 +1,15 @@
 /// @param name
 /// @param adHoc
+/// @param child
 
-function __VinylClassPatternBasic(_name, _adHoc) : __VinylClassPatternCommon() constructor
+function __VinylClassPatternBasic(_name, _adHoc, _child) : __VinylClassPatternCommon() constructor
 {
     static __patternType = "basic";
     static __pool = __VinylGlobalData().__poolBasic;
     
     __name  = _name;
     __adHoc = _adHoc;
+    __child = _child;
     __asset = undefined;
     
     static toString = function()

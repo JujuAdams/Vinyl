@@ -385,10 +385,22 @@ function __VinylClassVoiceCommon() constructor
         return __child.__LengthGet();
     }
     
+    static __RawPositionSet = function(_position)
+    {
+        if (__child == undefined) return;
+        return __child.__RawPositionSet(_position);
+    }
+    
     static __PositionSet = function(_position)
     {
         if (__child == undefined) return;
         return __child.__PositionSet(_position);
+    }
+    
+    static __RawPositionGet = function()
+    {
+        if (__child == undefined) return 0;
+        return __child.__RawPositionGet();
     }
     
     static __PositionGet = function()

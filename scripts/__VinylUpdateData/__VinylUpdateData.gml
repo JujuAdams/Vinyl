@@ -4,10 +4,13 @@ function __VinylUpdateData()
     static _topLevelArray  = _globalData.__topLevelArray;
     static _animCurveArray = _globalData.__animCurveArray;
     static _configFileHash = undefined;
-    static _animCurveIndex = 0;
+    
+    //Use a var here because <__updateCallback> can change
+    var _callback = _globalData.__updateCallback;
     
     var _firstUpdate = (_configFileHash == undefined);
     var _reloadConfig = false;
+    
     
     //Always allow data to be updated once on boot
     if (!_globalData.__liveUpdate && (_configFileHash != undefined)) return;
@@ -70,7 +73,7 @@ function __VinylUpdateData()
         var _buffer = buffer_load(_filename);
         try
         {
-            var _data = __VinylBufferReadLooseJSON(_buffer, 0);
+            var _data = __VinylBufferReadConfigJSON(_buffer, 0);
             __VinylTrace("Read config in plaintext");
         }
         catch(_error)
@@ -79,7 +82,7 @@ function __VinylUpdateData()
             var _string = buffer_read(_buffer, buffer_text);
             buffer_delete(_buffer);
             _buffer = buffer_base64_decode(_string);
-            var _data = __VinylBufferReadLooseJSON(_buffer, 0);
+            var _data = __VinylBufferReadConfigJSON(_buffer, 0);
             
             __VinylTrace("Read config in base64");
         }
@@ -119,6 +122,30 @@ function __VinylUpdateData()
     finally
     {
         buffer_delete(_buffer);
+    }
+    
+    //Execute the callback on success
+    if (_success)
+    {
+        if (is_method(_callback))
+        {
+            _callback();
+        }
+        else if (is_numeric(_callback))
+        {
+            if (script_exists(_callback))
+            {
+                script_execute(_callback);
+            }
+            else
+            {
+                __VinylError("Script ", _callback, " set as live update callback doesn't exist");
+            }
+        }
+        else if (_callback != undefined)
+        {
+            __VinylError("Live update callback definition is invalid (typeof=", typeof(_callback), ")");
+        }
     }
     
     return _success;

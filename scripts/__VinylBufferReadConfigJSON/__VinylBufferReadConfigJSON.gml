@@ -1,11 +1,11 @@
-/// @return Nested struct/array data that represents the contents of the JSON string
+/// @return Nested struct/array data that represents the contents of the "Config JSON" string
 /// 
 /// @param buffer  Buffer to read data from
 /// @param offset  Offset in the buffer to read data from
 /// 
-/// @jujuadams 2022-12-11
+/// @jujuadams 2023-04-07
 
-function __VinylBufferReadLooseJSON(_buffer, _inOffset = undefined)
+function __VinylBufferReadConfigJSON(_buffer, _inOffset = undefined)
 {
     if (_inOffset != undefined)
     {
@@ -22,23 +22,23 @@ function __VinylBufferReadLooseJSON(_buffer, _inOffset = undefined)
         
         if ((_byte == ord("/")) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("/")))
         {
-            __VinylBufferReadLooseJSONComment(_buffer, _bufferSize);
+            __VinylBufferReadConfigJSONComment(_buffer, _bufferSize);
         }
         else if ((_byte == ord("/")) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("*")))
         {
-            __VinylBufferReadLooseJSONMultilineComment(_buffer, _bufferSize);
+            __VinylBufferReadConfigJSONMultilineComment(_buffer, _bufferSize);
         }
         else if (_byte == ord("["))
         {
-            _result = __VinylBufferReadLooseJSONArray(_buffer, _bufferSize);
+            _result = __VinylBufferReadConfigJSONArray(_buffer, _bufferSize);
         }
         else if (_byte == ord("{"))
         {
-            _result = __VinylBufferReadLooseJSONStruct(_buffer, _bufferSize);
+            _result = __VinylBufferReadConfigJSONStruct(_buffer, _bufferSize);
         }
         else if (_byte > 0x20)
         {
-            show_error("Found unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting either { or [\n ", true);
+            show_error("SNAP:\nFound unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting either { or [\n ", true);
         }
     }
     
@@ -50,7 +50,7 @@ function __VinylBufferReadLooseJSON(_buffer, _inOffset = undefined)
     return _result;
 }
 
-function __VinylBufferReadLooseJSONArray(_buffer, _bufferSize)
+function __VinylBufferReadConfigJSONArray(_buffer, _bufferSize)
 {
     var _result = [];
     
@@ -60,11 +60,11 @@ function __VinylBufferReadLooseJSONArray(_buffer, _bufferSize)
         
         if ((_byte == ord("/")) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("/")))
         {
-            __VinylBufferReadLooseJSONComment(_buffer, _bufferSize);
+            __VinylBufferReadConfigJSONComment(_buffer, _bufferSize);
         }
         else if ((_byte == ord("/")) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("*")))
         {
-            __VinylBufferReadLooseJSONMultilineComment(_buffer, _bufferSize);
+            __VinylBufferReadConfigJSONMultilineComment(_buffer, _bufferSize);
         }
         else if (_byte == ord("]"))
         {
@@ -72,11 +72,11 @@ function __VinylBufferReadLooseJSONArray(_buffer, _bufferSize)
         }
         else if ((_byte == ord(":")) || (_byte == ord(",")))
         {
-            show_error("Found unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting a value\n ", true);
+            show_error("SNAP:\nFound unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting a value\n ", true);
         }
         else if (_byte > 0x20)
         {
-            var _value = __VinylBufferReadLooseJSONValue(_buffer, _bufferSize, _byte);
+            var _value = __VinylBufferReadConfigJSONValue(_buffer, _bufferSize, _byte);
             array_push(_result, _value);
             
             //Find a comma, newline, or closing bracket
@@ -93,16 +93,16 @@ function __VinylBufferReadLooseJSONArray(_buffer, _bufferSize)
                 }
                 else if (_byte > 0x20)
                 {
-                    show_error("Found unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting comma, newline, or closing bracket\n ", true);
+                    show_error("SNAP:\nFound unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting comma, newline, or closing bracket\n ", true);
                 }
             }
         }
     }
     
-    show_error("Found unterminated array\n ", true);
+    show_error("SNAP:\nFound unterminated array\n ", true);
 }
 
-function __VinylBufferReadLooseJSONStruct(_buffer, _bufferSize)
+function __VinylBufferReadConfigJSONStruct(_buffer, _bufferSize)
 {
     var _result = {};
     
@@ -112,23 +112,26 @@ function __VinylBufferReadLooseJSONStruct(_buffer, _bufferSize)
         
         if ((_byte == ord("/")) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("/")))
         {
-            __VinylBufferReadLooseJSONComment(_buffer, _bufferSize);
+            __VinylBufferReadConfigJSONComment(_buffer, _bufferSize);
         }
         else if ((_byte == ord("/")) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("*")))
         {
-            __VinylBufferReadLooseJSONMultilineComment(_buffer, _bufferSize);
+            __VinylBufferReadConfigJSONMultilineComment(_buffer, _bufferSize);
         }
         else if (_byte == ord("}"))
         {
+            //Handle empty structs
+            if (array_length(_result) <= 0) array_push(_result, {});
+            
             return _result;
         }
         else if ((_byte == ord(":")) || (_byte == ord(",")))
         {
-            show_error("Found unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting a key\n ", true);
+            show_error("SNAP:\nFound unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting a key\n ", true);
         }
         else if (_byte > 0x20)
         {
-            var _key = __VinylBufferReadLooseJSONValue(_buffer, _bufferSize, _byte);
+            var _key = __VinylBufferReadConfigJSONValue(_buffer, _bufferSize, _byte);
             
             if (!is_string(_key))
             {
@@ -139,16 +142,16 @@ function __VinylBufferReadLooseJSONStruct(_buffer, _bufferSize)
                     
                     if (_keyArrayLength <= 0)
                     {
-                        show_error("Struct key arrays must have at least one element\n ", true);
+                        show_error("SNAP:\nStruct key arrays must have at least one element\n ", true);
                     }
                     else if (_keyArrayLength <= 1)
                     {
-                        if (!is_string(_keyArray[0])) show_error("Struct keys must be strings (key was " + string(_keyArray[0]) + ", typeof=" + typeof(_keyArray[0]) + ")\n ", true);
+                        if (!is_string(_keyArray[0])) show_error("SNAP:\nStruct keys must be strings (key was " + string(_keyArray[0]) + ", typeof=" + typeof(_keyArray[0]) + ")\n ", true);
                     }
                 }
                 else
                 {
-                    show_error("Struct keys must be strings (key was " + string(_key) + ", typeof=" + typeof(_key) + ")\n ", true);
+                    show_error("SNAP:\nStruct keys must be strings (key was " + string(_key) + ", typeof=" + typeof(_key) + ")\n ", true);
                 }
             }
             
@@ -159,7 +162,7 @@ function __VinylBufferReadLooseJSONStruct(_buffer, _bufferSize)
                 
                 if ((_byte == ord("/")) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("*")))
                 {
-                    __VinylBufferReadLooseJSONMultilineComment(_buffer, _bufferSize);
+                    __VinylBufferReadConfigJSONMultilineComment(_buffer, _bufferSize);
                 }
                 else if (_byte == ord(":"))
                 {
@@ -167,7 +170,7 @@ function __VinylBufferReadLooseJSONStruct(_buffer, _bufferSize)
                 }
                 else if (_byte > 0x20)
                 {
-                    show_error("Found unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting a colon\n ", true);
+                    show_error("SNAP:\nFound unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting a colon\n ", true);
                 }
             }
             
@@ -179,34 +182,34 @@ function __VinylBufferReadLooseJSONStruct(_buffer, _bufferSize)
                 
                 if ((_byte == ord("/")) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("*")))
                 {
-                    __VinylBufferReadLooseJSONMultilineComment(_buffer, _bufferSize);
+                    __VinylBufferReadConfigJSONMultilineComment(_buffer, _bufferSize);
                 }
                 else if (_byte > 0x20)
                 {
                     break;
                 }
             }
-            if (_byte <= 0x20) show_error("Could not find start of value for key \"" + _key + "\"\n ", true);
+            if (_byte <= 0x20) show_error("SNAP:\nCould not find start of value for key \"" + _key + "\"\n ", true);
             
             //Read a value and store it in the struct
-            var _value = __VinylBufferReadLooseJSONValue(_buffer, _bufferSize, _byte);
+            var _value = __VinylBufferReadConfigJSONValue(_buffer, _bufferSize, _byte);
             
             if (is_string(_key))
             {
-                _result[$ _key] = _value;
+                __VinylBufferReadConfigJSONStructMerge(_result, _key, _value);
             }
             else //Is an array
             {
                 //Use the original return value to set the first key
-                _result[$ _keyArray[0]] = _value;
+                __VinylBufferReadConfigJSONStructMerge(_result, _keyArray[0], _value);
                 
                 //Use duplicate return values for subsequent keys
                 var _i = 1;
                 repeat(_keyArrayLength-1)
                 {
                     var _key = _keyArray[_i];
-                    if (!is_string(_key)) show_error("Struct keys must be strings (key was " + string(_key) + ", typeof=" + typeof(_key) + ")\n ", true);
-                    _result[$ _keyArray[_i]] = __VinylBufferReadLooseJSONDeepCopyInner(_value, self, self);
+                    if (!is_string(_key)) show_error("SNAP:\nStruct keys must be strings (key was " + string(_key) + ", typeof=" + typeof(_key) + ")\n ", true);
+                    __VinylBufferReadConfigJSONStructMerge(_result, _key, __VinylBufferReadConfigJSONDeepCopyInner(_value, self, self));
                     ++_i;
                 }
             }
@@ -218,7 +221,7 @@ function __VinylBufferReadLooseJSONStruct(_buffer, _bufferSize)
                 
                 if ((_byte == ord("/")) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("*")))
                 {
-                    __VinylBufferReadLooseJSONMultilineComment(_buffer, _bufferSize);
+                    __VinylBufferReadConfigJSONMultilineComment(_buffer, _bufferSize);
                 }
                 else if (_byte == ord("}"))
                 {
@@ -230,36 +233,126 @@ function __VinylBufferReadLooseJSONStruct(_buffer, _bufferSize)
                 }
                 else if (_byte > 0x20)
                 {
-                    show_error("Found unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting comma, newline, or closing bracket\n ", true);
+                    show_error("SNAP:\nFound unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting comma, newline, or closing bracket\n ", true);
                 }
             }
         }
     }
     
-    show_error("Found unterminated struct\n ", true);
+    show_error("SNAP:\nFound unterminated struct\n ", true);
 }
 
-function __VinylBufferReadLooseJSONValue(_buffer, _bufferSize, _firstByte)
+function __VinylBufferReadConfigJSONStructMerge(_rootStruct, _key, _newValue)
+{
+    if (variable_struct_exists(_rootStruct, _key))
+    {
+        var _oldValue = _rootStruct[$ _key];
+        if (is_array(_oldValue))
+        {
+            if (is_array(_newValue))
+            {
+                //Merge the new values into the old values
+                var _i = 0;
+                repeat(array_length(_newValue))
+                {
+                    array_push(_oldValue, _newValue[_i]);
+                    ++_i;
+                }
+                
+                return;
+            }
+        }
+        else if (is_struct(_oldValue))
+        {
+            if (is_struct(_newValue))
+            {
+                //Merge the new values into the old values
+                var _variableNameArray = variable_struct_get_names(_newValue);
+                var _i = 0;
+                repeat(array_length(_variableNameArray))
+                {
+                    var _variableName = _variableNameArray[_i];
+                    __VinylBufferReadConfigJSONStructMerge(_oldValue, _variableName, _newValue[$ _variableName]);
+                    ++_i;
+                }
+                
+                return;
+            }
+        }
+    }
+    
+    _rootStruct[$ _key] = _newValue;
+}
+
+function __VinylBufferReadConfigJSONStructMergeNoOverwrite(_rootStruct, _key, _newValue)
+{
+    if (variable_struct_exists(_rootStruct, _key))
+    {
+        var _oldValue = _rootStruct[$ _key];
+        if (is_array(_oldValue))
+        {
+            if (is_array(_newValue))
+            {
+                //Merge the new values into the old values
+                var _i = 0;
+                repeat(array_length(_newValue))
+                {
+                    array_push(_oldValue, _newValue[_i]);
+                    ++_i;
+                }
+            }
+            else
+            {
+                __VinylError("Error when merging arrays");
+            }
+        }
+        else if (is_struct(_oldValue))
+        {
+            if (is_struct(_newValue))
+            {
+                //Merge the new values into the old values
+                var _variableNameArray = variable_struct_get_names(_newValue);
+                var _i = 0;
+                repeat(array_length(_variableNameArray))
+                {
+                    var _variableName = _variableNameArray[_i];
+                    __VinylBufferReadConfigJSONStructMergeNoOverwrite(_oldValue, _variableName, _newValue[$ _variableName]);
+                    ++_i;
+                }
+            }
+            else
+            {
+                __VinylError("Error when merging structs");
+            }
+        }
+        
+        return;
+    }
+    
+    _rootStruct[$ _key] = _newValue;
+}
+
+function __VinylBufferReadConfigJSONValue(_buffer, _bufferSize, _firstByte)
 {
     if (_firstByte == ord("["))
     {
-        return __VinylBufferReadLooseJSONArray(_buffer, _bufferSize);
+        return __VinylBufferReadConfigJSONArray(_buffer, _bufferSize);
     }
     else if (_firstByte == ord("{"))
     {
-        return __VinylBufferReadLooseJSONStruct(_buffer, _bufferSize);
+        return __VinylBufferReadConfigJSONStruct(_buffer, _bufferSize);
     }
     else if (_firstByte == ord("\""))
     {
-        return __VinylBufferReadLooseJSONDelimitedString(_buffer, _bufferSize);
+        return __VinylBufferReadConfigJSONDelimitedString(_buffer, _bufferSize);
     }
     else
     {
-        return __VinylBufferReadLooseJSONString(_buffer, _bufferSize);
+        return __VinylBufferReadConfigJSONString(_buffer, _bufferSize);
     }
 }
 
-function __VinylBufferReadLooseJSONDelimitedString(_buffer, _bufferSize)
+function __VinylBufferReadConfigJSONDelimitedString(_buffer, _bufferSize)
 {
     static _cacheBuffer = buffer_create(1024, buffer_grow, 1);
     buffer_seek(_cacheBuffer, buffer_seek_start, 0);
@@ -377,10 +470,10 @@ function __VinylBufferReadLooseJSONDelimitedString(_buffer, _bufferSize)
         }
     }
     
-    show_error("Found unterminated string\n ", true);
+    show_error("SNAP:\nFound unterminated string\n ", true);
 }
 
-function __VinylBufferReadLooseJSONString(_buffer, _bufferSize)
+function __VinylBufferReadConfigJSONString(_buffer, _bufferSize)
 {
     static _cacheBuffer = buffer_create(1024, buffer_grow, 1);
     buffer_seek(_cacheBuffer, buffer_seek_start, 0);
@@ -453,7 +546,7 @@ function __VinylBufferReadLooseJSONString(_buffer, _bufferSize)
             
             if ((_byte == ord("/")) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("*")))
             {
-                __VinylBufferReadLooseJSONMultilineComment(_buffer, _bufferSize);
+                __VinylBufferReadConfigJSONMultilineComment(_buffer, _bufferSize);
             }
             
             return _result;
@@ -542,10 +635,10 @@ function __VinylBufferReadLooseJSONString(_buffer, _bufferSize)
         }
     }
     
-    show_error("Found unterminated value\n ", true);
+    show_error("SNAP:\nFound unterminated value\n ", true);
 }
 
-function __VinylBufferReadLooseJSONComment(_buffer, _bufferSize)
+function __VinylBufferReadConfigJSONComment(_buffer, _bufferSize)
 {
     while(buffer_tell(_buffer) < _bufferSize)
     {
@@ -558,7 +651,7 @@ function __VinylBufferReadLooseJSONComment(_buffer, _bufferSize)
     }
 }
 
-function __VinylBufferReadLooseJSONMultilineComment(_buffer, _bufferSize)
+function __VinylBufferReadConfigJSONMultilineComment(_buffer, _bufferSize)
 {
     while(buffer_tell(_buffer) < _bufferSize)
     {
@@ -571,7 +664,7 @@ function __VinylBufferReadLooseJSONMultilineComment(_buffer, _bufferSize)
     }
 }
 
-function __VinylBufferReadLooseJSONDeepCopyInner(_value, _oldStruct, _newStruct)
+function __VinylBufferReadConfigJSONDeepCopyInner(_value, _oldStruct, _newStruct)
 {
     var _copy = _value;
     
@@ -586,6 +679,7 @@ function __VinylBufferReadLooseJSONDeepCopyInner(_value, _oldStruct, _newStruct)
         else if (_self != undefined)
         {
             //If the scope of the method isn't <undefined> (global) then spit out a warning
+            show_debug_message("SnapDeepCopy(): Warning! Deep copy found a method reference that could not be appropriately handled");
         }
     }
     else if (is_struct(_value))
@@ -596,7 +690,7 @@ function __VinylBufferReadLooseJSONDeepCopyInner(_value, _oldStruct, _newStruct)
         repeat(array_length(_namesArray))
         {
             var _name = _namesArray[_i];
-            _copy[$ _name] = __VinylBufferReadLooseJSONDeepCopyInner(_value[$ _name], _value, _copy);
+            _copy[$ _name] = __VinylBufferReadConfigJSONDeepCopyInner(_value[$ _name], _value, _copy);
             ++_i;
         }
     }
@@ -607,7 +701,7 @@ function __VinylBufferReadLooseJSONDeepCopyInner(_value, _oldStruct, _newStruct)
         var _i = 0;
         repeat(_count)
         {
-            _copy[@ _i] = __VinylBufferReadLooseJSONDeepCopyInner(_value[_i], _oldStruct, _newStruct);
+            _copy[@ _i] = __VinylBufferReadConfigJSONDeepCopyInner(_value[_i], _oldStruct, _newStruct);
             ++_i;
         }
     }
