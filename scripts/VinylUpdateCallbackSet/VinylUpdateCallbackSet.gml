@@ -6,7 +6,7 @@
 /// 
 /// @param function
 
-function VinyleUpdateCallbackSet(_function)
+function VinylUpdateCallbackSet(_function)
 {
     static _globalData = __VinylGlobalData();
     _globalData.__updateCallback = _function;
