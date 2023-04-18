@@ -193,13 +193,13 @@ function VinylSystemReadConfig(_configData)
     {
         if (variable_struct_exists(_newPatternDict, _key))
         {
-            __VinylTrace("Warning! Asset \"", _key, "\" has already been defined");
+            __VinylTrace("Warning! Asset \"", _key, "\" has already been defined, skipping subsequent definitions");
         }
         else
         {
             var _pattern = new __VinylClassPatternAsset(_key, false, false, _assetIndex);
             _pattern.__Initialize(_patternData);
-            _pattern.__Store();
+            _pattern.__StoreAsset();
             return _pattern;
         }
     }

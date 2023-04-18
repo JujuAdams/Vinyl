@@ -18,6 +18,18 @@ function __VinylClassPatternAsset(_name, _adHoc, _child, _asset) : __VinylClassP
         return "<asset " + audio_get_name(__asset) + ">";
     }
     
+    static __StoreAsset = function()
+    {
+        //Special case to add assets by name as well as by index (if VINYL_ALLOW_ASSET_REFERENCE_BY_STRING is <true>)
+        
+        var _patternDict  = __VinylGlobalData().__patternDict;
+        var _patternArray = __VinylGlobalData().__patternArray;
+        
+        _patternDict[$ __name] = self;
+        if (VINYL_ALLOW_ASSET_REFERENCE_BY_STRING) _patternDict[$ audio_get_name(__asset)] = self;
+        array_push(_patternArray, self);
+    }
+    
     static __Initialize = function(_patternData = {})
     {
         if (!is_struct(_patternData)) __VinylError("Error in ", self, "\nPattern data must be a struct");

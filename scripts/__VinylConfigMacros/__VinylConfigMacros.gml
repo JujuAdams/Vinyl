@@ -55,6 +55,9 @@
 //This means a value of 50 will be translated into 50%, or a halving of a sound's pitch
 #macro VINYL_CONFIG_PERCENTAGE_PITCH  false
 
+//Whether to allow VinylPlay() (and equivalent functions) to play audio assets by their asset name as a string
+#macro VINYL_ALLOW_ASSET_REFERENCE_BY_STRING  false
+
 //How often to scan the Vinyl config file for changes, in milliseconds
 //Set this value to zero (or a negative number) to turn off live update
 //Live update can further be toggled using VinylLiveUpdateGet()
