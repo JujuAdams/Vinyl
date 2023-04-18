@@ -1,10 +1,10 @@
 function __VinylUpdateData()
 {
     static _globalData     = __VinylGlobalData();
+    static _callback       = _globalData.__updateCallback;
     static _topLevelArray  = _globalData.__topLevelArray;
     static _animCurveArray = _globalData.__animCurveArray;
     static _configFileHash = undefined;
-    static _animCurveIndex = 0;
     
     var _firstUpdate = (_configFileHash == undefined);
     var _reloadConfig = false;
@@ -119,6 +119,30 @@ function __VinylUpdateData()
     finally
     {
         buffer_delete(_buffer);
+    }
+    
+    //Execute the callback on success
+    if (_success)
+    {
+        if (is_method(_callback))
+        {
+            _callback();
+        }
+        else if (is_numeric(_callback))
+        {
+            if (script_exists(_callback))
+            {
+                script_execute(_callback);
+            }
+            else
+            {
+                __VinylError("Script ", _callback, " set as live update callback doesn't exist");
+            }
+        }
+        else if (_callback != undefined)
+        {
+            __VinylError("Live update callback definition is invalid (typeof=", typeof(_callback), ")");
+        }
     }
     
     return _success;
