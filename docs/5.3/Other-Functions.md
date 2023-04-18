@@ -256,11 +256,11 @@ The `type` argument can be one of the following values:
 
 *Returns:* N/A (`undefined`)
 
-|Name      |Datatype|Purpose                                       |
-|----------|--------|----------------------------------------------|
-|`function`|boolean |Function to call when Vinyl internally updates|
+|Name      |Datatype       |Purpose                                       |
+|----------|---------------|----------------------------------------------|
+|`function`|function/script|Function to call when Vinyl internally updates|
 
-The callback will be automatically executed once on boot when Vinyl initializes, and for any subsequent successful live updates.
+The callback will be automatically executed once on boot when Vinyl initializes, and for any subsequent successful live updates. Set the `function` argument to `undefined` to unset the callback.
 
 !> The callback will *not* be executed by `VinylSystemReadConfig()`.
 
@@ -287,6 +287,8 @@ The callback will be automatically executed once on boot when Vinyl initializes,
 |Name|Datatype|Purpose|
 |----|--------|-------|
 |None|        |       |
+
+If `VinylUpdateCallbackSet()` hasn't been called, this function returns `undefined`.
 
 #### **Example**
 
