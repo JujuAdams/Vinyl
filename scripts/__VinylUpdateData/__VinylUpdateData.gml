@@ -1,13 +1,16 @@
 function __VinylUpdateData()
 {
     static _globalData     = __VinylGlobalData();
-    static _callback       = _globalData.__updateCallback;
     static _topLevelArray  = _globalData.__topLevelArray;
     static _animCurveArray = _globalData.__animCurveArray;
     static _configFileHash = undefined;
     
+    //Use a var here because <__updateCallback> can change
+    var _callback = _globalData.__updateCallback;
+    
     var _firstUpdate = (_configFileHash == undefined);
     var _reloadConfig = false;
+    
     
     //Always allow data to be updated once on boot
     if (!_globalData.__liveUpdate && (_configFileHash != undefined)) return;
