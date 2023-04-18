@@ -246,6 +246,56 @@ The `type` argument can be one of the following values:
 
 &nbsp;
 
+## `VinylUpdateCallbackSet`
+
+`VinylUpdateCallbackSet(function)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name      |Datatype|Purpose                                       |
+|----------|--------|----------------------------------------------|
+|`function`|boolean |Function to call when Vinyl internally updates|
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylUpdateCallbackGet`
+
+`VinylUpdateCallbackGet()`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Boolean, whether live updating of [Vinyl's configuration file](Config-File) is enabled
+
+|Name|Datatype|Purpose|
+|----|--------|-------|
+|None|        |       |
+
+This function will always return `false` when running outside the IDE, or when not running on Windows, Mac, or Linux.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
 ## `VinylLiveUpdateSet`
 
 `VinylLiveUpdateSet(state)`
