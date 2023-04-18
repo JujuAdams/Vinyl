@@ -260,6 +260,10 @@ The `type` argument can be one of the following values:
 |----------|--------|----------------------------------------------|
 |`function`|boolean |Function to call when Vinyl internally updates|
 
+The callback will be automatically executed once on boot when Vinyl initializes, and for any subsequent successful live updates.
+
+!> The callback will *not* be executed by `VinylSystemReadConfig()`.
+
 #### **Example**
 
 ```gml
@@ -278,13 +282,11 @@ The `type` argument can be one of the following values:
 
 #### **Description**
 
-*Returns:* Boolean, whether live updating of [Vinyl's configuration file](Config-File) is enabled
+*Returns:* Any, the value set by `VinylUpdateCallbackSet()`
 
 |Name|Datatype|Purpose|
 |----|--------|-------|
 |None|        |       |
-
-This function will always return `false` when running outside the IDE, or when not running on Windows, Mac, or Linux.
 
 #### **Example**
 
