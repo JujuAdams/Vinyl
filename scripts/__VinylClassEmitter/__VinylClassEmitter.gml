@@ -106,10 +106,10 @@ function __VinylClassEmitter() constructor
         __y      = _y;
         __radius = 0.5*VINYL_LISTENER_HEAD_SIZE;
         
-        __left   = _x - _radius;
-        __top    = _y - _radius;
-        __right  = _x + _radius;
-        __bottom = _y + _radius;
+        __left   = _x - __radius;
+        __top    = _y - __radius;
+        __right  = _x + __radius;
+        __bottom = _y + __radius;
         
         __pointArray = undefined;
         
