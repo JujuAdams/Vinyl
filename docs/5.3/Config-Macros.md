@@ -136,6 +136,14 @@ Controls how the [configuration file](Config-File) is read regarding pitches. Se
 
 &nbsp;
 
+## `VINYL_ALLOW_ASSET_REFERENCE_BY_STRING`
+
+*Default value: `false`*
+
+Whether to allow [VinylPlay() (and equivalent functions)](Playing-Audio) to play audio assets by their asset name as a string.
+
+&nbsp;
+
 ## `VINYL_LIVE_UPDATE_PERIOD`
 
 *Default value: `250`*
