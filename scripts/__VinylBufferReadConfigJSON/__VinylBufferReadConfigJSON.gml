@@ -38,7 +38,7 @@ function __VinylBufferReadConfigJSON(_buffer, _inOffset = undefined)
         }
         else if (_byte > 0x20)
         {
-            show_error("SNAP:\nFound unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting either { or [\n ", true);
+            __VinylBufferReadConfigJSONError(_buffer, "Found unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting either { or [");
         }
     }
     
@@ -48,6 +48,23 @@ function __VinylBufferReadConfigJSON(_buffer, _inOffset = undefined)
     }
     
     return _result;
+}
+
+function __VinylBufferReadConfigJSONError(_buffer, _message)
+{
+    var _oldTell = buffer_tell(_buffer);
+    var _oldByte = buffer_peek(_buffer, _oldTell-1, buffer_u8);
+    buffer_poke(_buffer, _oldTell, buffer_u8, 0x00);
+    
+    buffer_seek(_buffer, buffer_seek_start, 0);
+    var _string = buffer_read(_buffer, buffer_string);
+    buffer_poke(_buffer, _oldTell, buffer_u8, _oldByte);
+    
+    var _row = 1 + string_count("\n", _string);
+    var _rowString = (_row == 1)? _string : string_delete(_string, 1, string_last_pos("\n", _string));
+    var _column = string_length(_rowString) + 3*string_count(chr(0x09), _rowString);
+    
+    show_error(_message + "\nLine " + string(_row) + ", column " + string(_column) + "\n ", true);
 }
 
 function __VinylBufferReadConfigJSONArray(_buffer, _bufferSize)
@@ -72,7 +89,7 @@ function __VinylBufferReadConfigJSONArray(_buffer, _bufferSize)
         }
         else if ((_byte == ord(":")) || (_byte == ord(",")))
         {
-            show_error("SNAP:\nFound unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting a value\n ", true);
+            __VinylBufferReadConfigJSONError(_buffer, "Found unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting a value");
         }
         else if (_byte > 0x20)
         {
@@ -93,13 +110,13 @@ function __VinylBufferReadConfigJSONArray(_buffer, _bufferSize)
                 }
                 else if (_byte > 0x20)
                 {
-                    show_error("SNAP:\nFound unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting comma, newline, or closing bracket\n ", true);
+                    __VinylBufferReadConfigJSONError(_buffer, "Found unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting comma, newline, or closing bracket");
                 }
             }
         }
     }
     
-    show_error("SNAP:\nFound unterminated array\n ", true);
+    __VinylBufferReadConfigJSONError(_buffer, "Found unterminated array");
 }
 
 function __VinylBufferReadConfigJSONStruct(_buffer, _bufferSize)
@@ -127,7 +144,7 @@ function __VinylBufferReadConfigJSONStruct(_buffer, _bufferSize)
         }
         else if ((_byte == ord(":")) || (_byte == ord(",")))
         {
-            show_error("SNAP:\nFound unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting a key\n ", true);
+            __VinylBufferReadConfigJSONError(_buffer, "Found unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting a key");
         }
         else if (_byte > 0x20)
         {
@@ -142,16 +159,16 @@ function __VinylBufferReadConfigJSONStruct(_buffer, _bufferSize)
                     
                     if (_keyArrayLength <= 0)
                     {
-                        show_error("SNAP:\nStruct key arrays must have at least one element\n ", true);
+                        __VinylBufferReadConfigJSONError(_buffer, "Struct key arrays must have at least one element");
                     }
                     else if (_keyArrayLength <= 1)
                     {
-                        if (!is_string(_keyArray[0])) show_error("SNAP:\nStruct keys must be strings (key was " + string(_keyArray[0]) + ", typeof=" + typeof(_keyArray[0]) + ")\n ", true);
+                        if (!is_string(_keyArray[0])) __VinylBufferReadConfigJSONError(_buffer, "Struct keys must be strings (key was " + string(_keyArray[0]) + ", typeof=" + typeof(_keyArray[0]) + ")");
                     }
                 }
                 else
                 {
-                    show_error("SNAP:\nStruct keys must be strings (key was " + string(_key) + ", typeof=" + typeof(_key) + ")\n ", true);
+                    __VinylBufferReadConfigJSONError(_buffer, "Struct keys must be strings (key was " + string(_key) + ", typeof=" + typeof(_key) + ")");
                 }
             }
             
@@ -170,7 +187,7 @@ function __VinylBufferReadConfigJSONStruct(_buffer, _bufferSize)
                 }
                 else if (_byte > 0x20)
                 {
-                    show_error("SNAP:\nFound unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting a colon\n ", true);
+                    __VinylBufferReadConfigJSONError(_buffer, "Found unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting a colon");
                 }
             }
             
@@ -189,7 +206,7 @@ function __VinylBufferReadConfigJSONStruct(_buffer, _bufferSize)
                     break;
                 }
             }
-            if (_byte <= 0x20) show_error("SNAP:\nCould not find start of value for key \"" + _key + "\"\n ", true);
+            if (_byte <= 0x20) __VinylBufferReadConfigJSONError(_buffer, "Could not find start of value for key \"" + _key + "\"");
             
             //Read a value and store it in the struct
             var _value = __VinylBufferReadConfigJSONValue(_buffer, _bufferSize, _byte);
@@ -208,7 +225,7 @@ function __VinylBufferReadConfigJSONStruct(_buffer, _bufferSize)
                 repeat(_keyArrayLength-1)
                 {
                     var _key = _keyArray[_i];
-                    if (!is_string(_key)) show_error("SNAP:\nStruct keys must be strings (key was " + string(_key) + ", typeof=" + typeof(_key) + ")\n ", true);
+                    if (!is_string(_key)) __VinylBufferReadConfigJSONError(_buffer, "Struct keys must be strings (key was " + string(_key) + ", typeof=" + typeof(_key) + ")");
                     __VinylBufferReadConfigJSONStructMerge(_result, _key, __VinylBufferReadConfigJSONDeepCopyInner(_value, self, self));
                     ++_i;
                 }
@@ -233,13 +250,13 @@ function __VinylBufferReadConfigJSONStruct(_buffer, _bufferSize)
                 }
                 else if (_byte > 0x20)
                 {
-                    show_error("SNAP:\nFound unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting comma, newline, or closing bracket\n ", true);
+                    __VinylBufferReadConfigJSONError(_buffer, "Found unexpected character " + chr(_byte) + " (decimal=" + string(_byte) + ")\nWas expecting comma, newline, or closing bracket");
                 }
             }
         }
     }
     
-    show_error("SNAP:\nFound unterminated struct\n ", true);
+    __VinylBufferReadConfigJSONError(_buffer, "Found unterminated struct");
 }
 
 function __VinylBufferReadConfigJSONStructMerge(_rootStruct, _key, _newValue)
@@ -470,7 +487,7 @@ function __VinylBufferReadConfigJSONDelimitedString(_buffer, _bufferSize)
         }
     }
     
-    show_error("SNAP:\nFound unterminated string\n ", true);
+    __VinylBufferReadConfigJSONError(_buffer, "Found unterminated string");
 }
 
 function __VinylBufferReadConfigJSONString(_buffer, _bufferSize)
@@ -635,7 +652,7 @@ function __VinylBufferReadConfigJSONString(_buffer, _bufferSize)
         }
     }
     
-    show_error("SNAP:\nFound unterminated value\n ", true);
+    __VinylBufferReadConfigJSONError(_buffer, "Found unterminated value");
 }
 
 function __VinylBufferReadConfigJSONComment(_buffer, _bufferSize)
