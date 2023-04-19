@@ -71,20 +71,21 @@ function __VinylUpdateData()
     try
     {
         var _buffer = buffer_load(_filename);
-        try
+        if (buffer_get_size(_buffer) <= 0) throw "File is empty";
+        
+        var _string = buffer_peek(_buffer, 0, buffer_text);
+        var _firstHundred = string_copy(_string, 1, 200);
+        if ((string_pos(" ", _firstHundred) > 0) || (string_pos("\n", _firstHundred) > 0))
         {
+            __VinylTrace("Reading config in plaintext");
             var _data = __VinylBufferReadConfigJSON(_buffer, 0);
-            __VinylTrace("Read config in plaintext");
         }
-        catch(_error)
+        else
         {
-            buffer_seek(_buffer, buffer_seek_start, 0);
-            var _string = buffer_read(_buffer, buffer_text);
+            __VinylTrace("Reading config in base64");
             buffer_delete(_buffer);
             _buffer = buffer_base64_decode(_string);
             var _data = __VinylBufferReadConfigJSON(_buffer, 0);
-            
-            __VinylTrace("Read config in base64");
         }
         
         _success = true;
