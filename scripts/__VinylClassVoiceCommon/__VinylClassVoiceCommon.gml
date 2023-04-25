@@ -417,7 +417,7 @@ function __VinylClassVoiceCommon() constructor
     
     static __WillStop = function()
     {
-        return (__child == undefined)? false : __child.__WillStop();
+        return (__child == undefined)? true : __child.__WillStop();
     }
     
     #endregion

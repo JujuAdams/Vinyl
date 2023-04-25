@@ -27,6 +27,24 @@ function __VinylClassVoiceQueue() : __VinylClassVoiceCommon() constructor
         __behavior   = 0;
     }
     
+    static __WillStop = function()
+    {
+        if (__child == undefined) return false;
+        
+        if (__behavior == 0) //Play the queue in its entirety once, popping assets off the queue as they finish
+        {
+            return (((__child == undefined) || __child.__WillStop() || !__child.__IsPlaying()) && (array_length(__assetArray) <= 1)); //Return <true> if the last voice is about to finish
+        }
+        else if (__behavior == 1) //Repeat the queue from the start once complete
+        {
+            return (array_length(__assetArray) <= 0); //Return <true> only if the queue if empty
+        }
+        else if (__behavior == 2) //Repeat the last asset in the queue (popping previous assets as they finish)
+        {
+            return (array_length(__assetArray) <= 0); //Return <true> only if the queue if empty
+        }
+    }
+    
     
     
     #region Queue
@@ -120,7 +138,7 @@ function __VinylClassVoiceQueue() : __VinylClassVoiceCommon() constructor
                 
                 __index = (__index + 1) mod array_length(__assetArray);
             }
-            else if (__behavior == 2) //Repeat the last asset in the queue (popping assets once finished)
+            else if (__behavior == 2) //Repeat the last asset in the queue (popping previous assets as they finish)
             {
                 if (array_length(__assetArray) > 1)
                 {
