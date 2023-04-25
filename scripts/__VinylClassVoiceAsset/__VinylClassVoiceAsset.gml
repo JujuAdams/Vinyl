@@ -252,6 +252,13 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
         __VINYL_RETURN_SELF_TO_POOL
     }
     
+    static __RawLengthGet = function()
+    {
+        if (!is_numeric(__gmInstance)) return 0;
+        
+        return audio_sound_length(__gmInstance);
+    }
+    
     static __LengthGet = function()
     {
         if (!is_numeric(__gmInstance)) return 0;

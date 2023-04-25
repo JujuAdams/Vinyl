@@ -379,6 +379,12 @@ function __VinylClassVoiceCommon() constructor
         __VINYL_RETURN_SELF_TO_POOL
     }
     
+    static __RawLengthGet = function()
+    {
+        if (__child == undefined) return 0;
+        return __child.__RawLengthGet();
+    }
+    
     static __LengthGet = function()
     {
         if (__child == undefined) return 0;

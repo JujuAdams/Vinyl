@@ -131,6 +131,7 @@
     {"id":{"name":"__VinylTick","path":"scripts/__VinylTick/__VinylTick.yy",},},
     {"id":{"name":"VinylLoopGet","path":"scripts/VinylLoopGet/VinylLoopGet.yy",},},
     {"id":{"name":"VinylPanGet","path":"scripts/VinylPanGet/VinylPanGet.yy",},},
+    {"id":{"name":"VinylLengthGet","path":"scripts/VinylLengthGet/VinylLengthGet.yy",},},
     {"id":{"name":"VinylUpdateCallbackSet","path":"scripts/VinylUpdateCallbackSet/VinylUpdateCallbackSet.yy",},},
     {"id":{"name":"__VinylClassPatternShuffle","path":"scripts/__VinylClassPatternShuffle/__VinylClassPatternShuffle.yy",},},
     {"id":{"name":"VinylPanSet","path":"scripts/VinylPanSet/VinylPanSet.yy",},},
