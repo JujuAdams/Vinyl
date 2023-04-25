@@ -169,6 +169,12 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
         __VINYL_RETURN_SELF_TO_POOL
     }
     
+    static __NativeInstanceGet = function()
+    {
+        if (array_length(__childArray) <= 0) return -1;
+        return __childArray[__shortestIndex].__NativeInstanceGet();
+    }
+    
     static __RawLengthGet = function()
     {
         if (array_length(__childArray) <= 0) return 0;
