@@ -4,13 +4,13 @@
 
 ## `VinylPositionGet`
 
-`VinylPositionGet(target, position)`
+`VinylPositionGet(target)`
 
 <!-- tabs:start -->
 
 #### **Description**
 
-*Returns:* Number, the playback position of a [voice](Voices)
+*Returns:* Number, the playback position of a [voice](Voices) (in seconds)
 
 |Name    |Datatype|Purpose            |
 |--------|--------|-------------------|
@@ -42,6 +42,58 @@ If this function targets a [Multi](Multi-Patterns) voice then the playback posit
 |----------|--------|-------------------------------------|
 |`target`  |voice   |The voice to target                  |
 |`position`|number  |Track position to jump to, in seconds|
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylLengthGet`
+
+`VinylLengthGet(target)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Number, the playback length of a [voice](Voices) (in seconds)
+
+|Name    |Datatype|Purpose            |
+|--------|--------|-------------------|
+|`target`|voice   |The voice to target|
+
+If this function targets a [Multi](Multi-Patterns) voice then the playback length of the shortest channel will be used.
+
+#### **Example**
+
+```gml
+//TODO lol
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylNativeInstanceGet`
+
+`VinylNativeInstanceGet(target)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* GameMaker [sound instance](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Audio/audio_play_sound.htm)
+
+|Name    |Datatype|Purpose            |
+|--------|--------|-------------------|
+|`target`|voice   |The voice to target|
+
+If this function targets a [Multi](Multi-Patterns) voice then the native sound instance for the shortest channel will be used.
 
 #### **Example**
 
