@@ -219,7 +219,7 @@ if (not dead)
 
 &nbsp;
 
-## `VinylStopCallbackSet`
+## `VinylStopCallbackGet`
 
 `VinylStopCallbackGet(target)`
 
