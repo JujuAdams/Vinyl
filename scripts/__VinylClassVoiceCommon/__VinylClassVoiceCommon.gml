@@ -44,6 +44,7 @@ function __VinylClassVoiceCommon() constructor
         __gainLocal          = 1;
         __gainTarget         = 1;
         __gainRate           = VINYL_DEFAULT_GAIN_RATE;
+        __gainRandomParam    = 0.5;
         __gainPattern        = 1;
         __gainParent         = 1;
         __gainLabels         = 1;
@@ -102,6 +103,7 @@ function __VinylClassVoiceCommon() constructor
         __gainTarget  = __gainLocal;
         __pitchTarget = __pitchLocal;
         
+        __gainRandomParam  = __VinylRandom(1);
         __pitchRandomParam = __VinylRandom(1);
         
         if (__parentVoice == undefined) array_push(_globalTopLevelArray, self);
@@ -767,7 +769,7 @@ function __VinylClassVoiceCommon() constructor
         repeat(array_length(__labelArray))
         {
             var _label = __labelArray[_i];
-            __gainLabels  *= _label.__gainOutput;
+            __gainLabels  *= _label.__gainOutput*lerp(_label.__configGainLo, _label.__configGainHi, __gainRandomParam);
             __pitchLabels *= _label.__pitchOutput*lerp(_label.__configPitchLo, _label.__configPitchHi, __pitchRandomParam);
             
             if (_label.__configTranspose != undefined) __transposeLabels = (__transposeLabels ?? 0) + _label.__configTranspose;
@@ -803,7 +805,7 @@ function __VinylClassVoiceCommon() constructor
         __loopOutput = (__loopLocal ?? __loopConfig) ?? false;
         
         __gainLocal          += clamp(__gainTarget - __gainLocal, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
-        __gainPattern         = __pattern.__gain;
+        __gainPattern         = lerp(__pattern.__gainLo, __pattern.__gainHi, __gainRandomParam);
         __gainParent          = (__parentVoice == undefined)? 1 : __parentVoice.__gainOutputNoLabels;
         __gainDuck           += clamp(__gainDuckTarget - __gainDuck, -_deltaTimeFactor*__gainDuckRate, _deltaTimeFactor*__gainDuckRate);
         __gainOutputNoLabels  = __gainLocal*__gainPattern*__gainParent*__gainDuck;

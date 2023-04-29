@@ -1,13 +1,17 @@
 /// @param sound
-/// @param gain
+/// @param gainLo
+/// @param gainHi
 /// @param pitchLo
 /// @param pitchHi
 /// @param labelArray
 /// @param effectChainName
 
-function __VinylPlaySimple(_sound, _gain, _pitchLo, _pitchHi, _labelArray, _effectChainName)
+function __VinylPlaySimple(_sound, _gainLo, _gainHi, _pitchLo, _pitchHi, _labelArray, _effectChainName)
 {
     static _effectChainDict = __VinylGlobalData().__effectChainDict;
+    
+    var _randomGainParam = __VinylRandom(1);
+    var _gain = lerp(_gainLo, _gainHi, _randomGainParam);
     
     var _randomPitchParam = __VinylRandom(1);
     var _pitch = lerp(_pitchLo, _pitchHi, _randomPitchParam);
@@ -17,7 +21,8 @@ function __VinylPlaySimple(_sound, _gain, _pitchLo, _pitchHi, _labelArray, _effe
     {
         var _label = _labelArray[_i];
         
-        _gain *= _label.__gainOutput;
+        var _gainPitch = lerp(_label.__configGainLo, _label.__configGainHi, _randomGainParam);
+        _gain *= _gainPitch*_label.__gainOutput;
         var _labelPitch = lerp(_label.__configPitchLo, _label.__configPitchHi, _randomPitchParam);
         _pitch *= _labelPitch*_label.__pitchOutput;
         

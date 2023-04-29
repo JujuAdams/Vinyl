@@ -62,7 +62,7 @@ function __VinylClassPatternBasic(_name, _adHoc, _child) : __VinylClassPatternCo
         __InitializeEffectChain(_effectChainName);
         __InitializeLabelArray(_labelNameArray);
         
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gainLo, " -> ", __gainHi, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
@@ -74,6 +74,6 @@ function __VinylClassPatternBasic(_name, _adHoc, _child) : __VinylClassPatternCo
     
     static __PlaySimple = function(_sound_UNUSED, _gain = 1, _pitch = 1)
     {
-        return __VinylPatternGet(__asset).__PlaySimple(__asset, _gain*__gain, _pitch*mean(__pitchLo, __pitchHi)); //TODO - Inherit properly
+        return __VinylPatternGet(__asset).__PlaySimple(__asset, _gain*0.5*(__gainLo + __gainHi), _pitch*0.5*(__pitchLo + __pitchHi)); //TODO - Inherit properly
     }
 }

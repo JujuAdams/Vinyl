@@ -44,7 +44,8 @@ function __VinylClassPatternCommon()
     
     static __GainSet = function(_gain)
     {
-        __gain = _gain;
+        __gainLo = _gain;
+        __gainHi = _gain;
     }
     
     static __PitchSet = function(_pitch)
@@ -111,9 +112,33 @@ function __VinylClassPatternCommon()
     
     static __InitializeGain = function(_gain)
     {
-        var _knobValue = __VinylParseKnob(_gain, "gain", false, self);
-        __gain = _knobValue ?? _gain;
-        if (!is_numeric(__gain)) __VinylError("Error in ", self, "\n\"gain\" property must be a number or a knob");
+        var _knobValue = __VinylParseKnob(_gain, "gain", true, self);
+        _gain = _knobValue ?? _gain;
+        
+        if (is_numeric(_gain) && (_gain >= 0))
+        {
+            __gainLo = _gain;
+            __gainHi = _gain;
+        }
+        else if (is_array(_gain))
+        {
+            if (array_length(_gain) != 2) __VinylError("Error in ", self, "\n\"gain\" property array must have exactly two elements (length=", array_length(_gain), ")");
+            
+            __gainLo = _gain[0];
+            __gainHi = _gain[1];
+            
+            if (__gainLo > __gainHi)
+            {
+                __VinylTrace("Warning! Error in ", self, " \"gain\" property. Low gain (", __gainLo, ") is greater than high gain (", __gainHi, ")");
+                var _temp = __gainLo;
+                __gainLo = __gainHi;
+                __gainHi = _temp;
+            }
+        }
+        else
+        {
+            __VinylError("Error in ", self, "\n\"gain\" property must be a number greater than zero, a two-element array, or a knob");
+        }
     }
     
     static __InitializePitch = function(_pitch)

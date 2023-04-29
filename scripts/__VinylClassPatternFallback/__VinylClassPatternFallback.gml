@@ -44,7 +44,7 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         __InitializeLabelArray(_labelNameArray);
         __InitializeLoopPoints(undefined);
         
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gainLo, " -> ", __gainHi, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
@@ -56,6 +56,6 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     
     static __PlaySimple = function(_sound, _gain = 1, _pitch = 1)
     {
-        return __VinylPlaySimple(_sound, _gain*__gain, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, __effectChainName);
+        return __VinylPlaySimple(_sound, _gain*__gainLo, _gain*__gainHi, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, __effectChainName);
     }
 }
