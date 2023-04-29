@@ -37,14 +37,41 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         var _tagArray        = _labelData[$ "tag"           ] ?? _labelData[$ "tags"];
         var _effectChainName = _labelData[$ "effect chain"  ];
         
-        if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
-        if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
-        
         //Sort out the gain
-        var _knobGain = __VinylParseKnob(_gain, "gain", false, self);
+        var _knobGain = __VinylParseKnob(_gain, "gain", true, self);
         __configGainKnob = (_knobGain != undefined);
-        __configGain     = _knobGain ?? _gain;
-        if (!is_numeric(__configGain)) __VinylError("Error in ", self, "\n\"gain\" property must be a number or a knob");
+        _gain            = _knobGain ?? _gain;
+        
+        if (is_numeric(_gain) && (_gain > 0))
+        {
+            __configGainLo = _gain;
+            __configGainHi = _gain;
+        }
+        else if (is_array(_gain))
+        {
+            if (array_length(_gain) != 2) __VinylError("Error in ", self, "\n\"gain\" property array must have exactly two elements (length=", array_length(_gain), ")");
+            
+            __configGainLo = _gain[0];
+            __configGainHi = _gain[1];
+            
+            if (__configGainLo > __configGainHi)
+            {
+                __VinylTrace("Warning! Error in ", self, " \"gain\" property. Low gain (", __configGainLo, ") is greater than high gain (", __configGainHi, ")");
+                var _temp = __configGainLo;
+                __configGainLo = __configGainHi;
+                __configGainHi = _temp;
+            }
+        }
+        else
+        {
+            __VinylError("Error in ", self, "\n\"gain\" property must be either a number greater than zero, a two-element array, or a knob");
+        }
+        
+        if (VINYL_CONFIG_DECIBEL_GAIN)
+        {
+            __configGainLo = __VinylGainToAmplitude(__configGainLo);
+            __configGainHi = __VinylGainToAmplitude(__configGainHi);
+        }
         
         //Sort out the pitch
         var _knobPitch = __VinylParseKnob(_pitch, "pitch", true, self);
@@ -74,6 +101,12 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         else
         {
             __VinylError("Error in ", self, "\n\"pitch\" property must be either a number greater than zero, a two-element array, or a knob");
+        }
+        
+        if (VINYL_CONFIG_PERCENTAGE_PITCH)
+        {
+            __configPitchLo /= 100;
+            __configPitchHi /= 100;
         }
         
         //Sort out the transposition
@@ -140,7 +173,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         __gainOutput  = __gainLocal;
         __pitchOutput = __pitchLocal;
         
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating definition for ", self, ", gain=", __gainOutput, ", pitch=", __pitchOutput*__configPitchLo, " -> ", __pitchOutput*__configPitchHi);
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating definition for ", self, ", gain=", __gainOutput*__configGainLo, " -> ", __gainOutput*__configGainHi, ", pitch=", __pitchOutput*__configPitchLo, " -> ", __pitchOutput*__configPitchHi);
     }
     
     static __Store = function()
@@ -455,7 +488,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         __gainLocal  += clamp(__gainTarget  - __gainLocal,  -_deltaTimeFactor*__gainRate,  _deltaTimeFactor*__gainRate );
         __pitchLocal += clamp(__pitchTarget - __pitchLocal, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
         
-        __gainOutput  = __gainLocal*__configGain;
+        __gainOutput  = __gainLocal;
         __pitchOutput = __pitchLocal;
     }
 }
