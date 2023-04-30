@@ -230,7 +230,7 @@ You can alternatively define the vertices on the polyline by using a native Game
 
 Creates an emitter that occupies a polygonal region in your game world. This means that the listener position can be anywhere in the polygon to hear sound played on the emitter at full volume at centred in the stereo field, and panning and falloff only occurs when the listener is outside the polygon. The "position" of the polygon is determined by the centre of the axis-aligned bounding box that encloses the polygon.
 
-You can alternatively define the vertices on the polygon by using a native GameMaker patch. This function does not support curved paths, however.
+You can alternatively define the vertices on the polygon by using a native GameMaker path. This function does not support curved paths, however.
 
 !> Vinyl will automatically clean up orphaned emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
 
