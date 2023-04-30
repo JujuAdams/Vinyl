@@ -22,7 +22,8 @@ output = config
          * (label[0] * label[1] * ...)
          * emitter
 
-heardAmplitude = Clamp(ApplyDecibelCurve(output) / VINYL_MAX_GAIN, 0, 1)
+heardAmplitude = ApplyDecibelCurve(output)
+               * Clamp(heardAmplitude / VINYL_MAX_GAIN, 0, 1)
                * VINYL_MAX_GAIN
                * system
 ```
