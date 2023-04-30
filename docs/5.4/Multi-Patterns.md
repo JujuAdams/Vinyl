@@ -18,7 +18,7 @@ Multi patterns should be set up in the [configuration file](Config-File).
 |----------------|----------------|--------------------------------------------|-----------------------------------------------------------------------------------------------------------|
 |`type`          |string          |                                            |**Required. Must be `multi`**                                                                              |
 |`assets`        |array           |                                            |**Required.** An array of asset names as strings                                                           |
-|`gain`          |number          |`1`                                         |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
+|`gain`          |number          |`1`                                         |Can be a two-element array for gain variance. Defaults to `0` db in [decibel mode](Config-Macros)          |
 |`pitch`         |number or array |`1`                                         |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
 |`transpose`     |number          |*passthrough*                               |                                                                                                           |
 |`loop`          |boolean         |*passthrough*                               |This property is inherited by assets played by this pattern; a Multi pattern cannot inherently loop        |

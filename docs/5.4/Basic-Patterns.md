@@ -14,7 +14,7 @@ Basic patterns should be set up in the [configuration file](Config-File).
 |----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------|
 |`type`          |string          |             |**Required. Must be `basic`**                                                                              |
 |`asset`         |string          |             |**Required.** The name of the asset to play                                                                |
-|`gain`          |number          |`1`          |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
+|`gain`          |number          |`1`          |Can be a two-element array for gain variance. Defaults to `0` db in [decibel mode](Config-Macros)          |
 |`pitch`         |number or array |`1`          |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
 |`transpose`     |number          |*passthrough*|                                                                                                           |
 |`loop`          |boolean         |*passthrough*|                                                                                                           |

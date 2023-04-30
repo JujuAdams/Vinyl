@@ -12,7 +12,7 @@ Assets should be set up in the [configuration file](Config-File).
 
 |Property        |Datatype        |Default                             |Notes                                                                                                      |
 |----------------|----------------|------------------------------------|-----------------------------------------------------------------------------------------------------------|
-|`gain`          |number          |`1`                                 |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
+|`gain`          |number          |`1`                                 |Can be a two-element array for gain variance. Defaults to `0` db in [decibel mode](Config-Macros)          |
 |`pitch`         |number or array |`1`                                 |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
 |`transpose`     |number          |*passthrough*                       |                                                                                                           |
 |`bpm`           |number          |[`VINYL_DEFAULT_BPM`](Config-Macros)|                                                                                                           |
