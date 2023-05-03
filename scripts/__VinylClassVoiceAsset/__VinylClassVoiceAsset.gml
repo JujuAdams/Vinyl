@@ -165,10 +165,10 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
                 audio_sound_loop_start(__gmInstance, _loopPoints[0]);
                 audio_sound_loop_end(  __gmInstance, _loopPoints[1]);
             }
-            else
+            else if ((audio_sound_get_loop_start(__gmInstance) != 0) || (audio_sound_get_loop_end(__gmInstance) != 0))
             {
                 audio_sound_loop_start(__gmInstance, 0);
-                audio_sound_loop_end(  __gmInstance, audio_sound_length(__gmInstance));
+                audio_sound_loop_end(  __gmInstance, 0);
             }
         }
     }
