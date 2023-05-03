@@ -1,6 +1,7 @@
 UIStart(10, 10, 8);
 
 UIText("Vinyl " + __VINYL_VERSION + ", " + __VINYL_DATE + "\nLibrary by @jujuadams, music \"Chicken Nuggets\" by @WangleLine");
+UIText("Top Level Active = " + string(VinylSystemGetTopLevelVoiceCount()) + " / Total Active = " + string(VinylSystemGetTotalVoiceCount()) + " / Inactive = " + string(VinylSystemGetPoolInactiveCount()));
 
 UITextInline("System gain = " + string_format(VinylSystemGainGet(), 0, 1));
 

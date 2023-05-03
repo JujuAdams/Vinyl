@@ -16,6 +16,20 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
         }
     }
     
+    static __GetCount = function()
+    {
+        var _count = 1;
+        
+        var _i = 0;
+        repeat(array_length(__childArray))
+        {
+            _count += __childArray[_i].__GetCount();
+            ++_i;
+        }
+        
+        return _count;
+    }
+    
     static __StateReset = function()
     {
         if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);

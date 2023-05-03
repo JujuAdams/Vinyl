@@ -21,6 +21,11 @@ function __VinylClassVoiceCommon() constructor
         return __patternTop;
     }
     
+    static __GetCount = function()
+    {
+        return 1;
+    }
+    
     static __StateResetCommon = function()
     {
         __patternTop  = undefined;

@@ -13,6 +13,11 @@ function __VinylClassPool(_startingID, _constructor) constructor
         return "<pool " + string(script_get_name(__constructor)) + ">";
     }
     
+    static __GetInactiveCount = function()
+    {
+        return array_length(__poolArray) + array_length(__returnArray);
+    }
+    
     static __Populate = function(_count)
     {
         if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Populating ", self, " with ", _count, " members");
