@@ -1,4 +1,5 @@
 -    [Home](README)
+-    [Alternatives](Alternatives)
 -    [FAQ](faq)
 -    [Introduction](Introduction)
 -    [Quick Start Guide](Quick-Start-Guide)
