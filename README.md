@@ -8,7 +8,7 @@
 - ### [Download the .yymps](https://github.com/JujuAdams/Vinyl/releases/)
 - ### Read the [documentation](http://jujuadams.github.io/Vinyl)
 - ### Talk about Vinyl on the [Discord server](https://discord.gg/8krYCqr)
-- ### You also like [Bard Audio](https://github.com/gl326/bard-audio), [LineAudio](https://github.com/WangleLine/LineAudio), and [Sonus](https://github.com/tabularelf/Sonus)
+- ### You may also like [Bard Audio](https://github.com/gl326/bard-audio), [LineAudio](https://github.com/WangleLine/LineAudio), and [Sonus](https://github.com/tabularelf/Sonus)
 
 &nbsp;
 
