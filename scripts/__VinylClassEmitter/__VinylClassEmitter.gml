@@ -236,7 +236,7 @@ function __VinylClassEmitter() constructor
             var _i = 0;
             repeat(array_length(__pointArray) div 2)
             {
-                draw_vertex(__pointArray[_i], __pointArray[_i+1]);
+                draw_vertex(__pointArray[_i] + __x, __pointArray[_i+1] + __y);
                 _i += 2;
             }
             
