@@ -297,8 +297,8 @@ function __VinylClassEmitter() constructor
         }
         else if (__mode == 4) //Polygon
         {
-            var _px = __globalData.__listenerX;
-            var _py = __globalData.__listenerY;
+            var _px = __globalData.__listenerX - __x;
+            var _py = __globalData.__listenerY - __y;
             
             var _pointArray = __pointArray;
             
@@ -329,8 +329,8 @@ function __VinylClassEmitter() constructor
             if (_inside)
             {
                 //If the listener is inside the polygon, set our emitter position to the listener
-                __actualX = _px;
-                __actualY = _py;
+                __actualX = _px + __x;
+                __actualY = _py + __y;
             }
             else
             {
@@ -344,8 +344,8 @@ function __VinylClassEmitter() constructor
     
     static __ManageFromEdges = function()
     {
-        var _px = __globalData.__listenerX;
-        var _py = __globalData.__listenerY;
+        var _px = __globalData.__listenerX - __x;
+        var _py = __globalData.__listenerY - __y;
         
         var _pointArray = __pointArray;
         
@@ -382,7 +382,7 @@ function __VinylClassEmitter() constructor
             var _point = __ClosestPointOnEdge(_px, _py, _pointArray[_minI], _pointArray[_minI+1], _pointArray[_minI+2], _pointArray[_minI+3]);
             
             //We then use the same maths as the Circle emitter to create a circular area around the polyline
-            __ManageFromCircle(_point.x, _point.y);
+            __ManageFromCircle(_point.x + __x, _point.y + __y);
         }
     }
     
