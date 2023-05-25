@@ -2,8 +2,10 @@
 /// 
 /// @param radius
 /// @param pointArray/path
+/// @param [xOffset=0]
+/// @param [yOffset=0]
 
-function VinylEmitterPolygon(_radius, _pointArray)
+function VinylEmitterPolygon(_radius, _pointArray, _x = 0, _y = 0)
 {
     if (is_numeric(_pointArray))
     {
@@ -25,6 +27,6 @@ function VinylEmitterPolygon(_radius, _pointArray)
     }
     
     var _emitterRef = new __VinylClassEmitterRef();
-    _emitterRef.__Polygon(_radius, _pointArray);
+    _emitterRef.__Polygon(_radius, _pointArray, _x, _y);
     return _emitterRef;
 }

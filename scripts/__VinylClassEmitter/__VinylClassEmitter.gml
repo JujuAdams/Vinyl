@@ -152,7 +152,7 @@ function __VinylClassEmitter() constructor
         __ManagePosition();
     }
     
-    static __Polyline = function(_radius, _pointArray)
+    static __Polyline = function(_radius, _pointArray, _x = 0, _y = 0)
     {
         __mode = 3;
         
@@ -162,13 +162,15 @@ function __VinylClassEmitter() constructor
         
         __radius     = _radius + 0.5*VINYL_LISTENER_HEAD_SIZE;
         __pointArray = _pointArray;
+        __x          = _x;
+        __y          = _y;
         
         __BuildBoundsFromPointArray();
         
         __ManagePosition();
     }
     
-    static __Polygon = function(_radius, _pointArray)
+    static __Polygon = function(_radius, _pointArray, _x = 0, _y = 0)
     {
         __mode = 4;
         
@@ -184,6 +186,8 @@ function __VinylClassEmitter() constructor
         
         __radius     = _radius + 0.5*VINYL_LISTENER_HEAD_SIZE;
         __pointArray = _pointArray;
+        __x          = _x;
+        __y          = _y;
         
         __BuildBoundsFromPointArray();
         
