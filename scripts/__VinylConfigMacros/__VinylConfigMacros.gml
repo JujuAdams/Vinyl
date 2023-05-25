@@ -62,7 +62,7 @@
 //Set this value to zero (or a negative number) to turn off live update
 //Live update can further be toggled using VinylLiveUpdateGet()
 //Live update only works when running from the IDE on Windows, Mac, or Linux
-#macro VINYL_LIVE_UPDATE_PERIOD  250
+#macro VINYL_CONFIG_UPDATE_PERIOD  250
 
 //Length of moment-to-moment gain adjustments, in milliseconds
 //Choose lower values for tigher, quicker gain adjustment

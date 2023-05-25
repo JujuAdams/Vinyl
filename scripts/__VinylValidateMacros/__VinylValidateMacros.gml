@@ -1,8 +1,8 @@
 function __VinylValidateMacros()
 {
-    if not (is_numeric(VINYL_LIVE_UPDATE_PERIOD))
+    if not (is_numeric(VINYL_CONFIG_UPDATE_PERIOD))
     {
-        __VinylError("VINYL_LIVE_UPDATE_PERIOD must be a number");
+        __VinylError("VINYL_CONFIG_UPDATE_PERIOD must be a number");
     }
     
     if not (is_numeric(VINYL_STEP_DURATION) && (VINYL_STEP_DURATION >= 0))

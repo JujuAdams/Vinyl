@@ -50,11 +50,11 @@ function __VinylInitialize()
     
     if (__VinylGetLiveUpdateEnabled())
     {
-        time_source_start(time_source_create(time_source_global, VINYL_LIVE_UPDATE_PERIOD/1000, time_source_units_seconds, __VinylUpdateData, [], -1));
+        time_source_start(time_source_create(time_source_global, VINYL_CONFIG_UPDATE_PERIOD/1000, time_source_units_seconds, __VinylUpdateData, [], -1));
     }
     else if (GM_build_type == "run")
     {
-        __VinylTrace("Live update *not* enabled (VINYL_LIVE_UPDATE_PERIOD=", VINYL_LIVE_UPDATE_PERIOD, ")");
+        __VinylTrace("Live update *not* enabled (VINYL_CONFIG_UPDATE_PERIOD=", VINYL_CONFIG_UPDATE_PERIOD, ")");
     }
     
     time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylTick, [], -1));
@@ -103,7 +103,7 @@ function __VinylGetLiveUpdateEnabled()
     static _result = undefined;
     if (_result == undefined)
     {
-        _result = ((VINYL_LIVE_UPDATE_PERIOD > 0) && (GM_build_type == "run") && ((os_type == os_windows) || (os_type == os_macosx) || (os_type == os_linux)));
+        _result = ((VINYL_CONFIG_UPDATE_PERIOD > 0) && (GM_build_type == "run") && ((os_type == os_windows) || (os_type == os_macosx) || (os_type == os_linux)));
     }
     
     return _result;
