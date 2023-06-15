@@ -47,36 +47,33 @@ function __VinylClassPatternShuffle(_name, _adHoc, _child) : __VinylClassPattern
         
         //Set up tracking for shuffle pattern
         __currentIndex = 0;
-        __currentSize  = ceil(array_length(__assetArray)/3);
-        __currentArray = array_create(__currentSize);
-        
+		
         //Initialize the currently-playing array with a random sample from the overall pattern array
         __VinylArrayShuffle(__assetArray);
-        array_copy(__currentArray, 0, __assetArray, 0, __currentSize);
-        array_delete(__assetArray, 0, __currentSize);
         
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gainLo, " -> ", __gainHi, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
     }
     
     static __PopPattern = function()
     {
-        if (__currentIndex >= __currentSize)
+        var _pattern = __assetArray[__currentIndex];
+		
+        ++__currentIndex;
+        if (__currentIndex >= array_length(__assetArray))
         {
-            //Copy the currently playing array back to the main pattern array
-            array_copy(__assetArray, array_length(__assetArray), __currentArray, 0, __currentSize);
-            
-            //Copy the next set of random patterns over to the current array, then remove them from the pattern array
-            array_copy(__currentArray, 0, __assetArray, 0, __currentSize);
-            array_delete(__assetArray, 0, __currentSize);
-            
             //Reshuffle
             __VinylArrayShuffle(__assetArray);
             
+			//Ensure we don't play the same sound twice in a row
+			if (__assetArray[0] == _pattern)
+			{
+				array_delete(__assetArray, 0, 1);
+				array_insert(__assetArray, ceil(array_length(__assetArray)/2), _pattern);
+			}
+			
             __currentIndex = 0;
         }
-        
-        var _pattern = __currentArray[__currentIndex];
-        ++__currentIndex;
+		
         return _pattern;
     }
     

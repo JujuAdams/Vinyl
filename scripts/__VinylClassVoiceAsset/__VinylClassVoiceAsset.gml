@@ -141,7 +141,7 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
     
     static __BPMBeatCountGet = function()
     {
-        return __bpmPulse;
+        return __bpmBeatCounter;
     }
     
     #endregion
