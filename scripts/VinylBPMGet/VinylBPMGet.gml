@@ -13,7 +13,7 @@ function VinylBPMGet(_id, _pitchAdjusted = false)
     if (is_struct(_voice))
     {
         var _bpm = _voice.__PersistentGet();
-        if (_pitchAdjusted) _bpm *= _voice.__PitchGet();
+        if (_pitchAdjusted) _bpm *= _voice.__BPMGet();
         return _bpm;
     }
     
