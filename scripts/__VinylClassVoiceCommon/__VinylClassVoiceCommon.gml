@@ -133,12 +133,6 @@ function __VinylClassVoiceCommon() constructor
         
         __gainTarget = _gain;
         __gainRate   = infinity;
-        
-        if (__child != undefined)
-        {
-            //We're setting the gain instantly so propagate the new gain value
-            __child.__GainTargetSet(_gain, infinity, __shutdown);
-        }
     }
     
     static __GainGet = function()
@@ -162,12 +156,6 @@ function __VinylClassVoiceCommon() constructor
         __gainTarget = _targetGain;
         __gainRate   = _rate;
         __shutdown   = _stopAtSilence;
-        
-        if (__child != undefined)
-        {
-            //If we're setting the gain instantly then propagate the new gain value
-            if (is_infinity(_rate)) __child.__GainTargetSet(_targetGain, _rate, _stopAtSilence);
-        }
     }
     
     static __GainTargetGet = function()
@@ -203,12 +191,6 @@ function __VinylClassVoiceCommon() constructor
         
         __pitchTarget = _pitch;
         __pitchRate   = infinity;
-        
-        if (__child != undefined)
-        {
-            //We're setting the pitch instantly so propagate the new pitch value
-            __child.__PitchTargetSet(_pitch, infinity);
-        }
     }
     
     static __PitchGet = function()
@@ -225,12 +207,6 @@ function __VinylClassVoiceCommon() constructor
         
         __pitchTarget = _targetPitch;
         __pitchRate   = _rate;
-        
-        if (__child != undefined)
-        {
-            //If we're setting the pitch instantly then propagate the new pitch value
-            if (is_infinity(_rate)) __child.__PitchTargetSet(_targetPitch, _rate);
-        }
     }
     
     static __PitchTargetGet = function()
