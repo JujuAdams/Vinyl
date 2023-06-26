@@ -12,8 +12,8 @@ function VinylBPMGet(_id, _pitchAdjusted = false)
     var _voice = _idToVoiceDict[? _id];
     if (is_struct(_voice))
     {
-        var _bpm = _voice.__PersistentGet();
-        if (_pitchAdjusted) _bpm *= _voice.__BPMGet();
+        var _bpm = _voice.__BPMGet();
+        if (_pitchAdjusted) _bpm *= _voice.__PitchGet();
         return _bpm;
     }
     
