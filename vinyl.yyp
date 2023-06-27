@@ -42,7 +42,7 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.400.0.317",
+    "IDEVersion": "2023.600.0.368",
   },
   "resources": [
     {"id":{"name":"__VinylClassEffectChain","path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},},
@@ -123,6 +123,7 @@
     {"id":{"name":"VinylBPMGet","path":"scripts/VinylBPMGet/VinylBPMGet.yy",},},
     {"id":{"name":"__VinylFindMatchingAudioAssets","path":"scripts/__VinylFindMatchingAudioAssets/__VinylFindMatchingAudioAssets.yy",},},
     {"id":{"name":"VinylNativeInstanceGet","path":"scripts/VinylNativeInstanceGet/VinylNativeInstanceGet.yy",},},
+    {"id":{"name":"VinylLabelsGet","path":"scripts/VinylLabelsGet/VinylLabelsGet.yy",},},
     {"id":{"name":"VinylLabelVoicesGet","path":"scripts/VinylLabelVoicesGet/VinylLabelVoicesGet.yy",},},
     {"id":{"name":"__VinylClassPatternQueue","path":"scripts/__VinylClassPatternQueue/__VinylClassPatternQueue.yy",},},
     {"id":{"name":"__VinylPatternGet","path":"scripts/__VinylPatternGet/__VinylPatternGet.yy",},},
