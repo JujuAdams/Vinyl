@@ -29,4 +29,6 @@ function VinylLabelsGet(_id)
     
     var _pattern = __VinylPatternGet(_id);
     if (is_struct(_pattern)) return _funcUnpackArray(_pattern.__labelArray);
+    
+    __VinylError("Given value cannot be resolved, must be a voice/pattern/asset (value=", _id, ")");
 }
