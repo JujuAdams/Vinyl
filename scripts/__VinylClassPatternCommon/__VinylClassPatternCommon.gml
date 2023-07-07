@@ -66,7 +66,7 @@ function __VinylClassPatternCommon()
                 ++_i;
             }
             
-            return false;
+            return undefined;
         }
         
         return __loop;

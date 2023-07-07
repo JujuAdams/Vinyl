@@ -32,7 +32,7 @@ function __VinylClassPatternQueue(_name, _adHoc, _child) : __VinylClassPatternCo
         var _stackPriority   = _patternData[$ "stack priority"] ?? 0;
         var _effectChainName = _patternData[$ "effect chain"  ] ?? _patternData[$ "effect"];
         var _labelNameArray  = _patternData[$ "label"         ] ?? _patternData[$ "labels"];
-        var _behavior        = _patternData[$ "behavior"      ] ?? (_patternData[$ "behavior"] ?? VINYL_DEFAULT_QUEUE_BEHAVIOR);
+        var _behavior        = _patternData[$ "behavior"      ] ?? (_patternData[$ "behaviour"] ?? VINYL_DEFAULT_QUEUE_BEHAVIOR);
         
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
