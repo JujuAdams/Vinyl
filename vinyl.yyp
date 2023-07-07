@@ -42,7 +42,7 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.400.0.317",
+    "IDEVersion": "2023.800.0.376",
   },
   "resources": [
     {"id":{"name":"__VinylClassEffectChain","path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},},

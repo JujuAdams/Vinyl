@@ -59,6 +59,14 @@
             label: sfx
         }
         
+        sndBleep6: {
+            loop: true
+        }
+        
+        sndBleep11: {
+            loop: true
+        }
+        
         [sndSync0, sndSync1, sndSync2,  sndSync3]: {
             bpm: 75
         }
@@ -67,6 +75,15 @@
     
     
     patterns: {
+        queue loop test: {
+            type: queue
+            behaviour: 1
+            assets: [
+                sndBleep6
+                sndBleep11
+            ]
+        }
+        
         space cat: {
             type: basic
             asset: sndCat

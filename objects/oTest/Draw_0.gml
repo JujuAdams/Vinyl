@@ -196,3 +196,10 @@ UIButtonInline("Queue test", function()
 });
 
 UINewline();
+
+UIButtonInline("Queue loop test", function()
+{
+    VinylPlay("queue loop test");
+});
+
+UINewline();
