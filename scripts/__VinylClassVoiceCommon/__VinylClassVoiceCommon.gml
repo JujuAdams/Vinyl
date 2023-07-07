@@ -560,23 +560,13 @@ function __VinylClassVoiceCommon() constructor
     
     static __LoopResolve = function(_loop)
     {
+        //Use the loop state of the top-level pattern
         __loopConfig = __ParentTopLevelGet().__pattern.__LoopGet();
         
-        if (__loopConfig == undefined)
-        {
-            var _i = 0;
-            repeat(array_length(__labelArray))
-            {
-                if (__labelArray[_i].__configLoop == true)
-                {
-                    __loopConfig = true;
-                    break;
-                }
-                
-                ++_i;
-            }
-        }
+        //If that's missing, use our own configured loop state
+        if (__loopConfig == undefined) __loopConfig = __pattern.__LoopGet();
         
+        //Prefer the local looping state, otherwise use the config, otherwise don't loop
         __loopOutput = __loopLocal ?? (__loopConfig ?? false);
     }
     
