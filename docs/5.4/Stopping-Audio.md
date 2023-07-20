@@ -113,7 +113,7 @@ if (keyboard_check_pressed(vk_enter) && place_meeting(x, y, oRoomExit))
 
 ## `VinylFadeOutAll`
 
-`VinylFadeOut(target, [rate=VINYL_DEFAULT_GAIN_RATE])`
+`VinylFadeOutAll([rate=VINYL_DEFAULT_GAIN_RATE])`
 
 <!-- tabs:start -->
 
@@ -123,7 +123,6 @@ if (keyboard_check_pressed(vk_enter) && place_meeting(x, y, oRoomExit))
 
 |Name    |Datatype      |Purpose                                                                             |
 |--------|--------------|------------------------------------------------------------------------------------|
-|`target`|voice or label|Voice or label to target                                                            |
 |`[rate]`|number  |Speed to approach silence, in gain units per second. Defaults to `VINYL_DEFAULT_GAIN_RATE`|
 
 Begins a fade out for all currently playing voices. This puts all voices into "shutdown mode" which can be detected later by [`VinylShutdownGet()`](Advanced).
