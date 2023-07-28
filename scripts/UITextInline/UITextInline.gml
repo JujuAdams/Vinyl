@@ -1,3 +1,4 @@
+// Feather disable all
 /// @param text
 
 function UITextInline(_text)

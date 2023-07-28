@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets the *input* value of the named knob
 /// 
 /// @param name

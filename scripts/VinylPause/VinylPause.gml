@@ -1,3 +1,4 @@
+// Feather disable all
 /// Pauses a voice, or all audio playing with the given label
 /// 
 /// If passed a label name, every voice currently assigned to the label will

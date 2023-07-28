@@ -1,3 +1,4 @@
+// Feather disable all
 //How much debug spam to chuck at the debug log
 //  0 = minimum, warnings only
 //  1 = some, messages created when interacting with most API functions

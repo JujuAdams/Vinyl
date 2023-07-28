@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns a struct containing the on-stop callback state of a voice
 /// 
 /// N.B. The returned struct is static. Do not keep a copy of this struct as it is liable to

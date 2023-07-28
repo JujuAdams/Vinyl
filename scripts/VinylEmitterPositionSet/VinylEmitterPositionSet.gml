@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets the position of the centre of a given Vinyl emitter
 /// 
 /// This function CANNOT be used with native GameMaker emitters

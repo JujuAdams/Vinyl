@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns a struct containing the position of a given Vinyl emitter
 /// 
 /// This function CANNOT be used with native GameMaker emitters

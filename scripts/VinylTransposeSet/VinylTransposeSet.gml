@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets the transposition of a voice, or label
 /// 
 /// Transposition is applied multiplicatively with pitch. Any voice that has transposition

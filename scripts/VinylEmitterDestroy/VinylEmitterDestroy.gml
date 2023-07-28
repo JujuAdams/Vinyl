@@ -1,3 +1,4 @@
+// Feather disable all
 /// Destroys a Vinyl emitter
 /// 
 /// This function CANNOT be used with native GameMaker emitters

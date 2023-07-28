@@ -1,3 +1,4 @@
+// Feather disable all
 /// Reads in a data struct, setting asset/label/pattern/effect chain/knob definitions as required
 /// This is useful for e.g. writing your own live mixing system
 /// 

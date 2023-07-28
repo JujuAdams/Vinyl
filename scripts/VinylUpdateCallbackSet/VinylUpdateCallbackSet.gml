@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets a callback for execution when a data update occurs
 /// 
 ///    N.B. The callback will be automatically executed once on boot when Vinyl initializes

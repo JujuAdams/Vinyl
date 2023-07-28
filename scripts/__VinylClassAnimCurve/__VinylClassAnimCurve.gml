@@ -1,3 +1,4 @@
+// Feather disable all
 /// @param animCurveName
 
 function __VinylClassAnimCurve(_animCurveName) constructor

@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the playback length of a Vinyl voice, measured in seconds
 /// 
 /// If the voice targeted is a Multi voice then the length of the shortest voice will be returned

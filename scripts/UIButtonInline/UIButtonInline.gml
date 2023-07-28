@@ -1,3 +1,4 @@
+// Feather disable all
 /// @param text
 /// @param callback
 /// @param [data=undefined]

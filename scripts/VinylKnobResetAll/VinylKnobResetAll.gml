@@ -1,3 +1,4 @@
+// Feather disable all
 /// Resets all knobs to their defaults defined in the config file
 
 function VinylKnobResetAll()

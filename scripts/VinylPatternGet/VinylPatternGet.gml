@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the pattern used to create a voice
 /// 
 /// @param voice

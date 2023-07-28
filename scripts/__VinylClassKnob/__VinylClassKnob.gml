@@ -1,3 +1,4 @@
+// Feather disable all
 /// @param name
 
 function __VinylClassKnob(_name) constructor

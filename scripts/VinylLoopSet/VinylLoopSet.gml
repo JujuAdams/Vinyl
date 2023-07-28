@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets the looping state of a voice. If a voice currently has loop points
 /// enabled then turning off looping (setting state to <false>) will disable the loop points
 /// and allow the audio to play to the end

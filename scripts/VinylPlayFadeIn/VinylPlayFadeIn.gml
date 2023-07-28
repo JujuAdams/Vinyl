@@ -1,3 +1,4 @@
+// Feather disable all
 /// Starts playing a sound by fading it in, and returns an ID to identify the voice
 /// 
 /// @param sound

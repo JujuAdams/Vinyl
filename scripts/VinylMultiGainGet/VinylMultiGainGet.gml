@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the gain for a specific channel for a Multi voice
 /// 
 /// @param vinylID

@@ -1,3 +1,4 @@
+// Feather disable all
 /// Draws a visual representation of a Vinyl emitter for debugging purposes
 /// 
 /// This function is sensitive to the global colour and alpha state as set by

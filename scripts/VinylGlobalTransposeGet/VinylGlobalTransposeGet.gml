@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the global transposition state
 
 function VinylGlobalTransposeGet()

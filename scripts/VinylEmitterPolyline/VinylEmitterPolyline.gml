@@ -1,3 +1,4 @@
+// Feather disable all
 /// Creates a Vinyl linear emitter and returns a reference to it
 /// 
 /// @param radius

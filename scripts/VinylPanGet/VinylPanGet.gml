@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the current pan for a voice
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()

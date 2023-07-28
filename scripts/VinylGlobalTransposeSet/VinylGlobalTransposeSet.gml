@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets the global transposition state
 /// 
 /// Global transposition only affect Vinyl voices that have had their transposition

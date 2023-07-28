@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the current behaviour for a Queue voice
 /// 
 /// The value returned can be one of the following:

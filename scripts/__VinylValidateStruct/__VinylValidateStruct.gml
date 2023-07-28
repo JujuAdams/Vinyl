@@ -1,3 +1,4 @@
+// Feather disable all
 function __VinylValidateStruct(_dataStruct, _expectedVariableArray)
 {
     if (!VINYL_CONFIG_VALIDATE_PROPERTIES) return;

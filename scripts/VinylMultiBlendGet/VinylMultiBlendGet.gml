@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the blend factor for a Multi voice
 /// If no blend has been set then this function will return <undefined>
 /// 

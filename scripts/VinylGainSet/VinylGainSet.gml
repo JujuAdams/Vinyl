@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets the input gain of a voice or label
 /// Setting gain with this function immediately resets the gain target (as set by VinylGainTargetSet())
 /// 

@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns whether a Multi voice is set to synchronise channel playback
 /// 
 /// @param vinylID

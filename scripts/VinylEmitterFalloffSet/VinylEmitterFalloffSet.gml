@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets the falloff properties for the given Vinyl emitter
 /// 
 /// This function CANNOT be used with native GameMaker emitters

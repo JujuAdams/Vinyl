@@ -1,3 +1,4 @@
+// Feather disable all
 function __VinylSemitoneToPitch(_semitone)
 {
     return power(2, _semitone/12);

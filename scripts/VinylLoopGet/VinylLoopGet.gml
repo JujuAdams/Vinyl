@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the loop state of a voice
 /// 
 /// This function will return <undefined> if passed a label name. This function will further

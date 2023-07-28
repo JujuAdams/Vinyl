@@ -1,3 +1,4 @@
+// Feather disable all
 function __VinylValidateMacros()
 {
     if not (is_numeric(VINYL_LIVE_UPDATE_PERIOD))

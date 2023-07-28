@@ -1,3 +1,4 @@
+// Feather disable all
 /// @param name
 
 function VinylStackMaxPriorityGet(_name)

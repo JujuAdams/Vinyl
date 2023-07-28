@@ -1,3 +1,4 @@
+// Feather disable all
 function __VinylUpdateData()
 {
     static _globalData     = __VinylGlobalData();

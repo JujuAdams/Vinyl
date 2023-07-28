@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets the input pitch target for a voice or label
 /// The input pitch will approach the target smoothly over a few frames, determined by the rate
 /// 
