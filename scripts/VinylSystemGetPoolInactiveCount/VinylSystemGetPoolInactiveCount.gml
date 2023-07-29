@@ -1,3 +1,4 @@
+// Feather disable all
 function VinylSystemGetPoolInactiveCount()
 {
     static _globalData = __VinylGlobalData();

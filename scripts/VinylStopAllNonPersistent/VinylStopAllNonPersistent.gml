@@ -1,3 +1,4 @@
+// Feather disable all
 /// Immediately stops all non-persistent Vinyl playback voices
 /// 
 /// This function will NOT affect audio played by VinylPlaySimple()

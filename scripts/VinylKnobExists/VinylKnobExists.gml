@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns if a knob with the given name exists
 /// 
 /// @param name

@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the current input gain for a voice or label
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()

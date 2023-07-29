@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the persistence state of a voice
 /// 
 /// This function will return <undefined> if passed a label name. This function will further

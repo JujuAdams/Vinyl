@@ -1,3 +1,4 @@
+// Feather disable all
 // Basic XORShift32, nothing fancy
 // 
 // @param value

@@ -1,3 +1,4 @@
+// Feather disable all
 function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
 {
     static __patternType = "fallback";

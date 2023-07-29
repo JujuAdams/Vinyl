@@ -1,3 +1,4 @@
+// Feather disable all
 #macro __VINYL_VERSION  "5.4.5"
 #macro __VINYL_DATE     "2023-07-07"
 

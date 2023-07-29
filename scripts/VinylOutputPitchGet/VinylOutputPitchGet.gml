@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the current output pitch for a voice or label
 /// 
 /// The value returned takes into account transposition, both local and global

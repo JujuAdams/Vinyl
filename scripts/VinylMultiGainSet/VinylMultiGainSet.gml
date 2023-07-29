@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets the gain for a channel for a Multi voice, or label
 /// This gain is applied multiplicatively with the overall gain of the Multi voice
 /// Setting a channel gain with this function overrides VinylMultiBlendSet()

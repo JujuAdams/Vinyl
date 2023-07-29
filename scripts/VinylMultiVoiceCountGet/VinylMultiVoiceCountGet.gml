@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the number of voices being played on a Multi voice
 /// 
 /// @param vinylID

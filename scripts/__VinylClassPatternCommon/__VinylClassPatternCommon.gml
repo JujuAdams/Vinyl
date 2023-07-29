@@ -1,3 +1,4 @@
+// Feather disable all
 function __VinylClassPatternCommon()
 {
     static __effectChainDict = __VinylGlobalData().__effectChainDict;

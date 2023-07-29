@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the callback for execution when a data update occurs
 
 function VinylUpdateCallbackGet()

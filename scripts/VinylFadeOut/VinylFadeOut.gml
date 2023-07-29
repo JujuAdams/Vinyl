@@ -1,3 +1,4 @@
+// Feather disable all
 /// Fades out a voice, stopping it once it reaches silence
 /// 
 /// Once a voice is fading out, the process cannot be halted or paused

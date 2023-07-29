@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the playback position of a Vinyl voice, measured in seconds
 /// 
 /// If the voice has finished playing, this function will return 0

@@ -1,3 +1,4 @@
+// Feather disable all
 function VinylSystemGetTotalVoiceCount()
 {
     static _topLevelArray = __VinylGlobalData().__topLevelArray;

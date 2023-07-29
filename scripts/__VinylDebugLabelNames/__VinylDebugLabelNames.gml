@@ -1,3 +1,4 @@
+// Feather disable all
 /// @param patternName
 
 function __VinylDebugLabelNames(_labelArray)

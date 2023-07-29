@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns a BPM pulse for a voice
 /// 
 /// This function CANNOT be used with audio played using VinylPlaySimple()

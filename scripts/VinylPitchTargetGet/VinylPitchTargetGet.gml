@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the current input pitch target for a voice or label
 /// 
 /// This function will not affect currently playing audio played using VinylPlaySimple()

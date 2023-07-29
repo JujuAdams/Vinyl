@@ -1,3 +1,4 @@
+// Feather disable all
 /// Fades out all non-persistent Vinyl playback voices, stopping them once they reach silence
 // 
 /// Once a voice is fading out, the process cannot be halted or paused

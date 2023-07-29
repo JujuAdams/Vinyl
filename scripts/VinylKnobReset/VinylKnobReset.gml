@@ -1,3 +1,4 @@
+// Feather disable all
 /// Resets a knob to the default defined in the config file
 /// 
 /// @param name

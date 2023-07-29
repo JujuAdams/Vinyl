@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns an array of names of all definitions for a particular type of Vinyl component
 /// 
 /// The type argument can be one of the follow values:

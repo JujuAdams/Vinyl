@@ -1,3 +1,4 @@
+// Feather disable all
 function __VinylTick()
 {
     static _globalData = __VinylGlobalData();

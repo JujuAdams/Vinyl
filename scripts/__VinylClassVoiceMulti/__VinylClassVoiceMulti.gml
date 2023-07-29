@@ -1,3 +1,4 @@
+// Feather disable all
 function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
 {
     __StateReset();

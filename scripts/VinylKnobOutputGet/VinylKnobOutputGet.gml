@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the current *output* value for a knob
 /// 
 /// @param name

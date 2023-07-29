@@ -1,3 +1,4 @@
+// Feather disable all
 /// Starts playing an untracked soumd and returns a native GameMaker voice ID
 /// This function is a more performant way to play short audio clips
 /// 

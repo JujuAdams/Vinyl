@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns if the given Vinyl ID is for an active voice
 /// 
 /// This function will ALWAYS return <false> for audio played using VinylPlaySimple()

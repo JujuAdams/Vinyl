@@ -1,3 +1,4 @@
+// Feather disable all
 function UINewline()
 {
     global.__uiX = global.__uiStartX;

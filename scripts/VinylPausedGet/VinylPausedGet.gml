@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns if a voice is paused
 /// 
 /// This function will return <undefined> if passed a label name as labels cannot have a "paused"

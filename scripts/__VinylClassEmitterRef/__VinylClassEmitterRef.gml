@@ -1,3 +1,4 @@
+// Feather disable all
 function __VinylClassEmitterRef() constructor
 {
     static __emitterRefArray = __VinylGlobalData().__emitterRefArray;

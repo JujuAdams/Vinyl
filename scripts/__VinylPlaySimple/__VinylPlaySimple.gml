@@ -1,3 +1,4 @@
+// Feather disable all
 /// @param sound
 /// @param gainLo
 /// @param gainHi

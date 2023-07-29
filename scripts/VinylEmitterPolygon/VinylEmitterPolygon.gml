@@ -1,3 +1,4 @@
+// Feather disable all
 /// Creates a Vinyl polygon emitter and returns a reference to it
 /// 
 /// @param radius

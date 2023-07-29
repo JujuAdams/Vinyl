@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets the target value for a knob
 /// The knob's value will approach the target smoothly over a few frames, determined by the rate
 /// 

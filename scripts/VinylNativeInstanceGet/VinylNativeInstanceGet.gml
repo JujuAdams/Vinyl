@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the native instance ID for a Vinyl voice
 /// 
 /// If the voice targeted is a Multi voice then the instance ID for the shortest voice will be returned

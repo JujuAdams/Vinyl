@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns if the Vinyl emitter exists
 /// 
 /// This function CANNOT be used with native GameMaker emitters

@@ -1,3 +1,4 @@
+// Feather disable all
 /// Starts playing a sound on a Vinyl emitter and returns an ID to identify the voice
 /// 
 /// There is a perfomance overhead when creating and maintaining Vinyl audio voices. In

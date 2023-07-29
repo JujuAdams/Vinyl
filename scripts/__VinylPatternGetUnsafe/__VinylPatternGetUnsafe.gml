@@ -1,3 +1,4 @@
+// Feather disable all
 /// @param sound/patternName
 
 function __VinylPatternGetUnsafe(_key)

@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns whether the a voice is fading out (in "shutdown" mode)
 /// Shutdown mode is started by calling VinylFadeOut()
 /// 

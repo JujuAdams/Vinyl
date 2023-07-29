@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets the pitch of a voice, or label
 /// Setting pitch with this function immediately resets the pitch target (as set by VinylPitchTargetSet())
 /// 

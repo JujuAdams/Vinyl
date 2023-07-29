@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets the playback position of a Vinyl voice
 /// 
 /// If passed a label name, every voice currently assigned to the label will

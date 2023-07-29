@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets the panning for a voice
 /// 
 /// Panning can only be adjusted for Vinyl voices that were played with a panning value

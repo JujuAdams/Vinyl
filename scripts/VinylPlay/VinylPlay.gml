@@ -1,3 +1,4 @@
+// Feather disable all
 /// Starts playing a sound and returns an ID to identify the voice
 /// 
 /// Vinyl IDs are separate from GameMaker's native audio voices IDs and the two sets of
