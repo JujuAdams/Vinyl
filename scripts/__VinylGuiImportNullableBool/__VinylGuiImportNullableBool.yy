@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylArrayDuplicate",
+  "name": "__VinylGuiImportNullableBool",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

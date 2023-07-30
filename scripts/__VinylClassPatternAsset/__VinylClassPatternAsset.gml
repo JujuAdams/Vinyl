@@ -88,18 +88,24 @@ function __VinylClassPatternAsset(_name, _adHoc, _child, _asset) : __VinylClassP
     {
         var _struct = __GuiExportStructCommon();
         
-        _struct.__asset      = __asset;
         _struct.__bpm        = __bpm;
-        _struct.__loopPoints = __VinylArrayDuplicate(__loopPoints);
+        _struct.__loopPoints = __VinylGuiExportArray(__loopPoints);
         
         return _struct;
     }
     
+    static __GuiBuildForStruct = function(_struct)
+    {
+        __GuiBuildForStructCommon(_struct);
+        
+        dbg_text_input(dbg_ref(_struct, "__bpm"), "BPM");
+        dbg_text_input(dbg_ref(_struct, "__loopPoints"), "Loop Points");
+    }
+    
     static __GuiImportStruct = function(_struct)
     {
-        __asset      = _struct.__asset;
-        __bpm        = _struct.__bpm;
-        __loopPoints = __VinylArrayDuplicate(_struct.__loopPoints);
+        __bpm        = __VinylGuiImportReal(_struct.__bpm, __bpm);
+        __loopPoints = __VinylGuiImportStringArray(_struct.__loopPoints);
         
         __GuiImportStructCommon(_struct);
     }

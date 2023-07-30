@@ -59,4 +59,27 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     {
         return __VinylPlaySimple(_sound, _gain*__gainLo, _gain*__gainHi, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, __effectChainName);
     }
+    
+    static __GuiExportStruct = function()
+    {
+        var _struct = __GuiExportStructCommon();
+        
+        _struct.__bpm = __bpm;
+        
+        return _struct;
+    }
+    
+    static __GuiBuildForStruct = function(_struct)
+    {
+        __GuiBuildForStructCommon(_struct);
+        
+        dbg_text_input(dbg_ref(_struct, "__bpm"), "BPM");
+    }
+    
+    static __GuiImportStruct = function(_struct)
+    {
+        __bpm = __VinylGuiImportReal(_struct.__bpm, __bpm);
+        
+        __GuiImportStructCommon(_struct);
+    }
 }

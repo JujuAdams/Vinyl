@@ -110,11 +110,20 @@ function __VinylClassPatternMulti(_name, _adHoc, _child) : __VinylClassPatternCo
         return _struct;
     }
     
+    static __GuiBuildForStruct = function(_struct)
+    {
+        __GuiBuildForStructCommon(_struct);
+        
+        dbg_checkbox(  dbg_ref(_struct, "__sync"            ));
+        dbg_text_input(dbg_ref(_struct, "__blendCurve"      ));
+        dbg_slider(    dbg_ref(_struct, "__blendFactorLocal"), 0, 1, "Blend factor");
+    }
+    
     static __GuiImportStruct = function(_struct)
     {
         __assetArray       = __VinylArrayDuplicate(_struct.__assetArray);
         __sync             = _struct.__sync;
-        __blendCurve       = _struct.__blendCurve;
+        __blendCurve       = __VinylGuiImportString(_struct.__blendCurve);
         __blendFactorLocal = _struct.__blendFactorLocal;
         
         __GuiImportStructCommon(_struct);

@@ -87,9 +87,14 @@ function __VinylClassPatternBasic(_name, _adHoc, _child) : __VinylClassPatternCo
         return _struct;
     }
     
+    static __GuiBuildForStruct = function(_struct)
+    {
+        __GuiBuildForStructCommon(_struct);
+    }
+    
     static __GuiImportStruct = function(_struct)
     {
-        __asset = _struct.__asset;
+        __asset = __VinylGuiImportString(_struct.__asset);
         
         __GuiImportStructCommon(_struct);
     }

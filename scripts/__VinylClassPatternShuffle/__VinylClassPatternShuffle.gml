@@ -94,14 +94,19 @@ function __VinylClassPatternShuffle(_name, _adHoc, _child) : __VinylClassPattern
     {
         var _struct = __GuiExportStructCommon();
         
-        _struct.__assetArray = __VinylArrayDuplicate(__assetArray);
+        _struct.__assetArray = __VinylGuiExportArray(__assetArray);
         
         return _struct;
     }
     
+    static __GuiBuildForStruct = function(_struct)
+    {
+        __GuiBuildForStructCommon(_struct);
+    }
+    
     static __GuiImportStruct = function(_struct)
     {
-        __assetArray = __VinylArrayDuplicate(_struct.__assetArray);
+        __assetArray = __VinylGuiImportStringArray(_struct.__assetArray);
         
         __GuiImportStructCommon(_struct);
     }

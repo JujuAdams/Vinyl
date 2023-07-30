@@ -289,35 +289,49 @@ function __VinylClassPatternCommon()
         }
     }
     
+    static __GuiBuildForStructCommon = function(_struct)
+    {
+        dbg_text_input(dbg_ref(_struct, "__gainLo"              ), "Gain (low)");
+        dbg_text_input(dbg_ref(_struct, "__gainHi"              ), "Gain (high)");
+        dbg_text_input(dbg_ref(_struct, "__pitchLo"             ), "Pitch (low)");
+        dbg_text_input(dbg_ref(_struct, "__pitchHi"             ), "Pitch (high)");
+        dbg_checkbox(  dbg_ref(_struct, "__transposePassthrough"), "Transpose Passthrough");
+        dbg_text_input(dbg_ref(_struct, "__transpose"           ), "Transpose");
+        dbg_drop_down( dbg_ref(_struct, "__loop"                ), "ON,off,(passthrough)", "Loop");
+        dbg_text_input(dbg_ref(_struct, "__stackName"           ), "Stack");
+        dbg_text_input(dbg_ref(_struct, "__stackPriority"       ), "Stack Priority");
+        dbg_text_input(dbg_ref(_struct, "__effectChainName"     ), "Effect Chain");
+        dbg_text_input(dbg_ref(_struct, "__labelNameArray"      ), "Labels");
+        dbg_drop_down( dbg_ref(_struct, "__persistent"          ), "ON,off,(passthrough)", "Persistent");
+    }
+    
     static __GuiExportStructCommon = function()
     {
         return {
-            __gainLo:          __gainLo,
-            __gainHi:          __gainHi,
-            __pitchLo:         __pitchLo,
-            __pitchHi:         __pitchHi,
-            __transpose:       __transpose,
-            __loop:            __loop,
-            __stackName:       __stackName,
-            __stackPriority:   __stackPriority,
-            __effectChainName: __effectChainName,
-            __labelArray:      __VinylArrayDuplicate(__labelArray),
-            __persistent:      __persistent,
+            __gainLo:               __gainLo,
+            __gainHi:               __gainHi,
+            __pitchLo:              __pitchLo,
+            __pitchHi:              __pitchHi,
+            __transposePassthrough: (__transpose == undefined),
+            __transpose:            __transpose ?? "",
+            __loop:                 __VinylGuiExportNullableBool(__loop),
+            __stackName:            __VinylGuiExportNullableString(__stackName),
+            __stackPriority:        __stackPriority,
+            __effectChainName:      __VinylGuiExportNullableString(__effectChainName),
+            __labelNameArray:       __VinylGuiExportArray(__labelArray),
+            __persistent:           __VinylGuiExportNullableBool(__persistent),
         };
     }
     
     static __GuiImportStructCommon = function(_struct)
     {
-        __gainLo          = _struct.__gainLo;
-        __gainHi          = _struct.__gainHi;
-        __pitchLo         = _struct.__pitchLo;
-        __pitchHi         = _struct.__pitchHi;
-        __transpose       = _struct.__transpose;
-        __loop            = _struct.__loop;
-        __stackName       = _struct.__stackName;
-        __stackPriority   = _struct.__stackPriority;
-        __effectChainName = _struct.__effectChainName;
-        __labelArray      = __VinylArrayDuplicate(_struct.__labelArray);
-        __persistent      = _struct.__persistent;
+        __InitializeGain(       [__VinylGuiImportReal(_struct.__gainLo,  __gainLo ), __VinylGuiImportReal(_struct.__gainHi,  __gainHi )]);
+        __InitializePitch(      [__VinylGuiImportReal(_struct.__pitchLo, __pitchLo), __VinylGuiImportReal(_struct.__pitchHi, __pitchHi)]);
+        __InitializeTranspose(  _struct.__transposePassthrough? undefined : __VinylGuiImportReal(_struct.__transpose));
+        __InitializeLoop(       __VinylGuiImportNullableBool(_struct.__loop));
+        __InitializeStack(      __VinylGuiImportNullableString(_struct.__stackName), __VinylGuiImportReal(_struct.__stackPriority, __stackPriority));
+        __InitializeEffectChain(__VinylGuiImportNullableString(_struct.__effectChainName));
+        __InitializeLabelArray( __VinylGuiImportStringArray(_struct.__labelNameArray));
+        __InitializePersistent( __VinylGuiImportNullableBool(_struct.__persistent));
     }
 }

@@ -75,15 +75,22 @@ function __VinylClassPatternQueue(_name, _adHoc, _child) : __VinylClassPatternCo
     {
         var _struct = __GuiExportStructCommon();
         
-        _struct.__assetArray = __VinylArrayDuplicate(__assetArray);
+        _struct.__assetArray = __VinylGuiExportArray(__assetArray);
         _struct.__behavior   = __behavior;
         
         return _struct;
     }
     
+    static __GuiBuildForStruct = function(_struct)
+    {
+        __GuiBuildForStructCommon(_struct);
+        
+        dbg_drop_down(dbg_ref(_struct, "__behavior"), "Play Once,Replay Queue,Replay Last");
+    }
+    
     static __GuiImportStruct = function(_struct)
     {
-        __assetArray = __VinylArrayDuplicate(_struct.__assetArray);
+        __assetArray = __VinylGuiImportStringArray(_struct.__assetArray);
         __behavior   = _struct.__behavior;
         
         __GuiImportStructCommon(_struct);
