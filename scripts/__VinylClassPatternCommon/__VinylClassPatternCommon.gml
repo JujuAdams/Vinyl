@@ -299,7 +299,7 @@ function __VinylClassPatternCommon()
         dbg_text_input(dbg_ref(_struct, "__gain"           ), VINYL_GUI_DECIBEL_GAIN? "Gain (dB)" : "Gain (amp.)");
         dbg_text_input(dbg_ref(_struct, "__pitch"          ), VINYL_GUI_PERCENTAGE_PITCH? "Pitch (%)" : "Pitch (coeff.)");
         dbg_text_input(dbg_ref(_struct, "__transpose"      ), "Transpose (semitones)");
-        dbg_drop_down( dbg_ref(_struct, "__loop"           ), "ON,off,(passthrough)", "Loop");
+        dbg_drop_down( dbg_ref(_struct, "__loop"           ), "On,Off,(passthrough)", "Loop");
         dbg_text_input(dbg_ref(_struct, "__stackName"      ), "Stack");
         dbg_text_input(dbg_ref(_struct, "__stackPriority"  ), "Stack Priority");
         dbg_text_input(dbg_ref(_struct, "__effectChainName"), "Effect Chain");
