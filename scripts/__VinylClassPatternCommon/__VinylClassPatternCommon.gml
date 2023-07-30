@@ -296,43 +296,35 @@ function __VinylClassPatternCommon()
     
     static __GuiBuildForStructCommon = function(_struct)
     {
-        dbg_button("Apply", dbg_ref(global, "testFunc"));
-        
-        dbg_text_input(dbg_ref(_struct, "__gainLo"              ), "Gain (low)");
-        dbg_text_input(dbg_ref(_struct, "__gainHi"              ), "Gain (high)");
-        dbg_text_input(dbg_ref(_struct, "__pitchLo"             ), "Pitch (low)");
-        dbg_text_input(dbg_ref(_struct, "__pitchHi"             ), "Pitch (high)");
-        dbg_checkbox(  dbg_ref(_struct, "__transposePassthrough"), "Transpose Passthrough");
-        dbg_text_input(dbg_ref(_struct, "__transpose"           ), "Transpose");
-        dbg_drop_down( dbg_ref(_struct, "__loop"                ), "ON,off,(passthrough)", "Loop");
-        dbg_text_input(dbg_ref(_struct, "__stackName"           ), "Stack");
-        dbg_text_input(dbg_ref(_struct, "__stackPriority"       ), "Stack Priority");
-        dbg_text_input(dbg_ref(_struct, "__effectChainName"     ), "Effect Chain");
-        dbg_text_input(dbg_ref(_struct, "__labelNameArray"      ), "Labels");
-        dbg_drop_down( dbg_ref(_struct, "__persistent"          ), "ON,off,(passthrough)", "Persistent");
+        dbg_text_input(dbg_ref(_struct, "__gain"           ), "Gain");
+        dbg_text_input(dbg_ref(_struct, "__pitch"          ), "Pitch");
+        dbg_text_input(dbg_ref(_struct, "__transpose"      ), "Transpose");
+        dbg_drop_down( dbg_ref(_struct, "__loop"           ), "ON,off,(passthrough)", "Loop");
+        dbg_text_input(dbg_ref(_struct, "__stackName"      ), "Stack");
+        dbg_text_input(dbg_ref(_struct, "__stackPriority"  ), "Stack Priority");
+        dbg_text_input(dbg_ref(_struct, "__effectChainName"), "Effect Chain");
+        dbg_text_input(dbg_ref(_struct, "__labelNameArray" ), "Labels");
+        dbg_drop_down( dbg_ref(_struct, "__persistent"     ), "ON,off,(passthrough)", "Persistent");
     }
     
     static __GuiExportStructCommon = function(_struct)
     {
-        _struct.__gainLo               = __gainLo;
-        _struct.__gainHi               = __gainHi;
-        _struct.__pitchLo              = __pitchLo;
-        _struct.__pitchHi              = __pitchHi;
-        _struct.__transposePassthrough = (__transpose == undefined);
-        _struct.__transpose            = __transpose ?? "";
-        _struct.__loop                 = __VinylGuiExportNullableBool(__loop);
-        _struct.__stackName            = __VinylGuiExportNullableString(__stackName);
-        _struct.__stackPriority        = __stackPriority;
-        _struct.__effectChainName      = __VinylGuiExportNullableString(__effectChainName);
-        _struct.__labelNameArray       = __VinylGuiExportArray(__labelArray);
-        _struct.__persistent           = __VinylGuiExportNullableBool(__persistent);
+        _struct.__gain            = __VinylGuiExportRangeableReal(__gainLo,  __gainHi );
+        _struct.__pitch           = __VinylGuiExportRangeableReal(__pitchLo, __pitchHi);
+        _struct.__transpose       = __VinylGuiExportNullableReal(__transpose);
+        _struct.__loop            = __VinylGuiExportNullableBool(__loop);
+        _struct.__stackName       = __VinylGuiExportNullableString(__stackName);
+        _struct.__stackPriority   = __stackPriority;
+        _struct.__effectChainName = __VinylGuiExportNullableString(__effectChainName);
+        _struct.__labelNameArray  = __VinylGuiExportLabelArray(__labelArray);
+        _struct.__persistent      = __VinylGuiExportNullableBool(__persistent);
     }
     
     static __GuiImportStructCommon = function(_struct)
     {
-        __InitializeGain(       [__VinylGuiImportReal(_struct.__gainLo,  __gainLo ), __VinylGuiImportReal(_struct.__gainHi,  __gainHi )]);
-        __InitializePitch(      [__VinylGuiImportReal(_struct.__pitchLo, __pitchLo), __VinylGuiImportReal(_struct.__pitchHi, __pitchHi)]);
-        __InitializeTranspose(  _struct.__transposePassthrough? undefined : __VinylGuiImportReal(_struct.__transpose));
+        __InitializeGain(       __VinylGuiImportRangeableReal(_struct.__gain,  __gainLo,  __gainHi ));
+        __InitializePitch(      __VinylGuiImportRangeableReal(_struct.__pitch, __pitchLo, __pitchHi));
+        __InitializeTranspose(  __VinylGuiExportNullableReal(_struct.__transpose));
         __InitializeLoop(       __VinylGuiImportNullableBool(_struct.__loop));
         __InitializeStack(      __VinylGuiImportNullableString(_struct.__stackName), __VinylGuiImportReal(_struct.__stackPriority, __stackPriority));
         __InitializeEffectChain(__VinylGuiImportNullableString(_struct.__effectChainName));
