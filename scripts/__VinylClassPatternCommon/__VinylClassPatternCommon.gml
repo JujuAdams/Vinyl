@@ -8,6 +8,11 @@ function __VinylClassPatternCommon()
 {
     static __effectChainDict = __VinylGlobalData().__effectChainDict;
     
+    static __GetDisplayName = function()
+    {
+        return __name;
+    }
+    
     static __Store = function()
     {
         var _patternDict  = __VinylGlobalData().__patternDict;
@@ -311,13 +316,13 @@ function __VinylClassPatternCommon()
     {
         var _gainLo = __gainLo;
         var _gainHi = __gainHi;
-        if (VINYL_GUI_DECIBEL_GAIN) _gainLo = __VinylAmplitudeToGain(__gainLo);
-        if (VINYL_GUI_DECIBEL_GAIN) _gainHi = __VinylAmplitudeToGain(__gainHi);
+        if (VINYL_GUI_DECIBEL_GAIN) _gainLo = __VinylAmplitudeToGain(_gainLo);
+        if (VINYL_GUI_DECIBEL_GAIN) _gainHi = __VinylAmplitudeToGain(_gainHi);
         
         var _pitchLo = __pitchLo;
         var _pitchHi = __pitchHi;
-        if (VINYL_GUI_PERCENTAGE_PITCH) _pitchLo = __VinylAmplitudeToGain(__pitchLo);
-        if (VINYL_GUI_PERCENTAGE_PITCH) _pitchHi = __VinylAmplitudeToGain(__pitchHi);
+        if (VINYL_GUI_PERCENTAGE_PITCH) _pitchLo *= 100;
+        if (VINYL_GUI_PERCENTAGE_PITCH) _pitchHi *= 100;
         
         _struct.__gain            = __VinylGuiExportRangeableReal(_gainLo,  _gainHi );
         _struct.__pitch           = __VinylGuiExportRangeableReal(_pitchLo, _pitchHi);
@@ -332,8 +337,22 @@ function __VinylClassPatternCommon()
     
     static __GuiImportStructCommon = function(_struct)
     {
-        __InitializeGain(       __VinylGuiImportRangeableReal(_struct.__gain,  __gainLo,  __gainHi ));
-        __InitializePitch(      __VinylGuiImportRangeableReal(_struct.__pitch, __pitchLo, __pitchHi));
+        var _gainArray = __VinylGuiImportRangeableReal(_struct.__gain, __gainLo, __gainHi);
+        if (VINYL_GUI_DECIBEL_GAIN)
+        {
+            _gainArray[@ 0] = __VinylGainToAmplitude(_gainArray[0]);
+            _gainArray[@ 1] = __VinylGainToAmplitude(_gainArray[1]);
+        }
+        
+        var _pitchArray = __VinylGuiImportRangeableReal(_struct.__pitch, __pitchLo, __pitchHi);
+        if (VINYL_GUI_PERCENTAGE_PITCH)
+        {
+            _pitchArray[@ 0] = _pitchArray[0] / 100;
+            _pitchArray[@ 1] = _pitchArray[1] / 100;
+        }
+        
+        __InitializeGain(       _gainArray);
+        __InitializePitch(      _pitchArray);
         __InitializeTranspose(  __VinylGuiExportNullableReal(_struct.__transpose));
         __InitializeLoop(       __VinylGuiImportNullableBool(_struct.__loop));
         __InitializeStack(      __VinylGuiImportNullableString(_struct.__stackName), __VinylGuiImportReal(_struct.__stackPriority, __stackPriority));

@@ -104,7 +104,7 @@ function __VinylClassPatternMulti(_name, _adHoc, _child) : __VinylClassPatternCo
         
         _struct.__assetArray       = __VinylGuiExportArray(__assetArray);
         _struct.__sync             = __sync;
-        _struct.__blendCurve       = __blendCurve;
+        _struct.__blendCurve       = __VinylGuiExportNullableString(__blendCurve);
         _struct.__blendFactorLocal = __blendFactorLocal;
         
         return _struct;
@@ -114,9 +114,9 @@ function __VinylClassPatternMulti(_name, _adHoc, _child) : __VinylClassPatternCo
     {
         __GuiBuildForStructCommon(_struct);
         
-        dbg_checkbox(  dbg_ref(_struct, "__sync"            ));
-        dbg_text_input(dbg_ref(_struct, "__blendCurve"      ));
-        dbg_slider(    dbg_ref(_struct, "__blendFactorLocal"), 0, 1, "Blend factor");
+        dbg_checkbox(  dbg_ref(_struct, "__sync"            ), "Synchronize");
+        dbg_text_input(dbg_ref(_struct, "__blendCurve"      ), "Blend Curve");
+        dbg_text_input(dbg_ref(_struct, "__blendFactorLocal"), "Blend Factor");
     }
     
     static __GuiImportStruct = function(_struct)
@@ -124,7 +124,7 @@ function __VinylClassPatternMulti(_name, _adHoc, _child) : __VinylClassPatternCo
         __assetArray       = __VinylGuiImportStringArray(_struct.__assetArray);
         __sync             = _struct.__sync;
         __blendCurve       = __VinylGuiImportString(_struct.__blendCurve);
-        __blendFactorLocal = _struct.__blendFactorLocal;
+        __blendFactorLocal = __VinylGuiImportReal(_struct.__blendFactorLocal, __blendFactorLocal);
         
         __GuiImportStructCommon(_struct);
     }

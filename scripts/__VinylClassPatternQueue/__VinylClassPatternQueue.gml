@@ -71,7 +71,7 @@ function __VinylClassPatternQueue(_name, _adHoc, _child) : __VinylClassPatternCo
         __VinylError("Cannot use VinylPlaySimple() with a queue pattern");
     }
     
-    static __GuiExportStruct = function()
+    static __GuiExportStruct = function(_struct)
     {
         __GuiExportStructCommon(_struct);
         
@@ -85,7 +85,7 @@ function __VinylClassPatternQueue(_name, _adHoc, _child) : __VinylClassPatternCo
     {
         __GuiBuildForStructCommon(_struct);
         
-        dbg_drop_down(dbg_ref(_struct, "__behavior"), "Play Once,Replay Queue,Replay Last");
+        dbg_drop_down(dbg_ref(_struct, "__behavior"), "Play Once,Replay Queue,Replay Last", "Behavior");
     }
     
     static __GuiImportStruct = function(_struct)

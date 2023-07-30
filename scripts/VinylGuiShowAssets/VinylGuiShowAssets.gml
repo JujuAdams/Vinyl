@@ -4,7 +4,7 @@ function VinylGuiShowAsset(_asset)
     
     var _pattern = __VinylPatternGet(_asset);
     
-    dbg_view(string(_pattern), true);
+    dbg_view(_pattern.__GetDisplayName(), true);
     
     var _guiStruct = {};
     

@@ -18,6 +18,11 @@ function __VinylClassPatternBasic(_name, _adHoc, _child) : __VinylClassPatternCo
         return (__asset == undefined)? "<basic ???>" : "<basic " + audio_get_name(__asset) + ">";
     }
     
+    static __GetDisplayName = function()
+    {
+        return (__asset == undefined)? "???" : audio_get_name(__asset);
+    }
+    
     static __Initialize = function(_patternData = {})
     {
         if (!is_struct(_patternData)) __VinylError("Error in ", self, "\nPattern data must be a struct");

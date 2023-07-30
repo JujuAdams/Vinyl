@@ -8,7 +8,9 @@ function __VinylGuiImportRangeableReal(_inString, _defaultMin, _defaultMax)
     var _size = array_length(_array);
     if (_size == 1)
     {
-        return __VinylGuiImportReal(_inString, 0.5*(_defaultMin + _defaultMax));
+        var _value = __VinylGuiImportReal(_inString, 0.5*(_defaultMin + _defaultMax));
+        
+        return [_value, _value];
     }
     
     if (_size == 2)

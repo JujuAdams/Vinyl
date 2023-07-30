@@ -7,4 +7,4 @@ music = undefined;
 
 VinylSystemGainSet(0.5);
 show_debug_overlay(true);
-VinylGuiShowAsset(sndOw);
+VinylGuiShowAsset("music sync test");
