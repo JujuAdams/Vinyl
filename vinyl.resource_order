@@ -24,6 +24,7 @@
     {"name":"Transposition","order":11,"path":"folders/Vinyl/Transposition.yy",},
   ],
   "ResourceOrderSettings": [
+    {"name":"__asset_get_index","order":1,"path":"scripts/__asset_get_index/__asset_get_index.yy",},
     {"name":"__VinylClassEffectChain","order":2,"path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},
     {"name":"sndBonk","order":3,"path":"sounds/sndBonk/sndBonk.yy",},
     {"name":"VinylSystemReadConfig","order":8,"path":"scripts/VinylSystemReadConfig/VinylSystemReadConfig.yy",},
@@ -67,6 +68,7 @@
     {"name":"__VinylSystem","order":1,"path":"scripts/__VinylSystem/__VinylSystem.yy",},
     {"name":"__VinylClassPanEmitter","order":7,"path":"scripts/__VinylClassPanEmitter/__VinylClassPanEmitter.yy",},
     {"name":"VinylMultiBlendSet","order":3,"path":"scripts/VinylMultiBlendSet/VinylMultiBlendSet.yy",},
+    {"name":"__asset_get_type","order":2,"path":"scripts/__asset_get_type/__asset_get_type.yy",},
     {"name":"VinylStackMaxPriorityGet","order":3,"path":"scripts/VinylStackMaxPriorityGet/VinylStackMaxPriorityGet.yy",},
     {"name":"__VinylDebugLabelNames","order":17,"path":"scripts/__VinylDebugLabelNames/__VinylDebugLabelNames.yy",},
     {"name":"__VinylClassAnimCurve","order":9,"path":"scripts/__VinylClassAnimCurve/__VinylClassAnimCurve.yy",},

@@ -115,7 +115,7 @@
             type: multi
             label: [music, echo]
             stack priority: 1
-            blend curve: acTest
+            //blend curve: acTest
             blend: 0
             pitch: 0.9
             gain: 2

@@ -42,9 +42,10 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.800.0.376",
+    "IDEVersion": "2023.800.0.383",
   },
   "resources": [
+    {"id":{"name":"__asset_get_index","path":"scripts/__asset_get_index/__asset_get_index.yy",},},
     {"id":{"name":"__VinylClassEffectChain","path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},},
     {"id":{"name":"sndBonk","path":"sounds/sndBonk/sndBonk.yy",},},
     {"id":{"name":"__VinylClassPatternCommon","path":"scripts/__VinylClassPatternCommon/__VinylClassPatternCommon.yy",},},
@@ -94,6 +95,7 @@
     {"id":{"name":"__VinylClassVoiceCommon","path":"scripts/__VinylClassVoiceCommon/__VinylClassVoiceCommon.yy",},},
     {"id":{"name":"__VinylClassPanEmitter","path":"scripts/__VinylClassPanEmitter/__VinylClassPanEmitter.yy",},},
     {"id":{"name":"VinylMultiBlendSet","path":"scripts/VinylMultiBlendSet/VinylMultiBlendSet.yy",},},
+    {"id":{"name":"__asset_get_type","path":"scripts/__asset_get_type/__asset_get_type.yy",},},
     {"id":{"name":"VinylStackMaxPriorityGet","path":"scripts/VinylStackMaxPriorityGet/VinylStackMaxPriorityGet.yy",},},
     {"id":{"name":"__VinylDebugLabelNames","path":"scripts/__VinylDebugLabelNames/__VinylDebugLabelNames.yy",},},
     {"id":{"name":"__VinylClassAnimCurve","path":"scripts/__VinylClassAnimCurve/__VinylClassAnimCurve.yy",},},
