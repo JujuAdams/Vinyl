@@ -56,6 +56,17 @@
 //This means a value of 50 will be translated into 50%, or a halving of a sound's pitch
 #macro VINYL_CONFIG_PERCENTAGE_PITCH  false
 
+//Controls how the GUI tool presents gain values
+//Setting this macro to <true> will cause Vinyl to show gain values as decibels (dbFS) in the GUI tool
+//A decibel value of 0 will be translated to an unchanged gain i.e. a GM amplitude value of 1
+//Negative decibel values will be translated to an attenuation of audio amplitude
+#macro VINYL_GUI_DECIBEL_GAIN  false
+
+//Controls how the GUI tool presents pitch values
+//Setting this macro to <true> will cause Vinyl to show pitch values as percentages in the GUI tool
+//This means a value of 50 will be translated into 50%, or a halving of a sound's pitch
+#macro VINYL_GUI_PERCENTAGE_PITCH  false
+
 //Whether to allow VinylPlay() (and equivalent functions) to play audio assets by their asset name as a string
 #macro VINYL_ALLOW_ASSET_REFERENCE_BY_STRING  false
 

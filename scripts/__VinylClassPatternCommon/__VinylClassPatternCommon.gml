@@ -296,9 +296,9 @@ function __VinylClassPatternCommon()
     
     static __GuiBuildForStructCommon = function(_struct)
     {
-        dbg_text_input(dbg_ref(_struct, "__gain"           ), "Gain");
-        dbg_text_input(dbg_ref(_struct, "__pitch"          ), "Pitch");
-        dbg_text_input(dbg_ref(_struct, "__transpose"      ), "Transpose");
+        dbg_text_input(dbg_ref(_struct, "__gain"           ), VINYL_GUI_DECIBEL_GAIN? "Gain (dB)" : "Gain (amp.)");
+        dbg_text_input(dbg_ref(_struct, "__pitch"          ), VINYL_GUI_PERCENTAGE_PITCH? "Pitch (%)" : "Pitch (coeff.)");
+        dbg_text_input(dbg_ref(_struct, "__transpose"      ), "Transpose (semitones)");
         dbg_drop_down( dbg_ref(_struct, "__loop"           ), "ON,off,(passthrough)", "Loop");
         dbg_text_input(dbg_ref(_struct, "__stackName"      ), "Stack");
         dbg_text_input(dbg_ref(_struct, "__stackPriority"  ), "Stack Priority");
@@ -309,8 +309,18 @@ function __VinylClassPatternCommon()
     
     static __GuiExportStructCommon = function(_struct)
     {
-        _struct.__gain            = __VinylGuiExportRangeableReal(__gainLo,  __gainHi );
-        _struct.__pitch           = __VinylGuiExportRangeableReal(__pitchLo, __pitchHi);
+        var _gainLo = __gainLo;
+        var _gainHi = __gainHi;
+        if (VINYL_GUI_DECIBEL_GAIN) _gainLo = __VinylAmplitudeToGain(__gainLo);
+        if (VINYL_GUI_DECIBEL_GAIN) _gainHi = __VinylAmplitudeToGain(__gainHi);
+        
+        var _pitchLo = __pitchLo;
+        var _pitchHi = __pitchHi;
+        if (VINYL_GUI_PERCENTAGE_PITCH) _pitchLo = __VinylAmplitudeToGain(__pitchLo);
+        if (VINYL_GUI_PERCENTAGE_PITCH) _pitchHi = __VinylAmplitudeToGain(__pitchHi);
+        
+        _struct.__gain            = __VinylGuiExportRangeableReal(_gainLo,  _gainHi );
+        _struct.__pitch           = __VinylGuiExportRangeableReal(_pitchLo, _pitchHi);
         _struct.__transpose       = __VinylGuiExportNullableReal(__transpose);
         _struct.__loop            = __VinylGuiExportNullableBool(__loop);
         _struct.__stackName       = __VinylGuiExportNullableString(__stackName);
