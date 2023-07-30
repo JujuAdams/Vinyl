@@ -83,4 +83,24 @@ function __VinylClassPatternAsset(_name, _adHoc, _child, _asset) : __VinylClassP
     {
         return __VinylPlaySimple(__asset, _gain*__gainLo, _gain*__gainHi, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, __effectChainName);
     }
+    
+    static __GuiExportStruct = function()
+    {
+        var _struct = __GuiExportStructCommon();
+        
+        _struct.__asset      = __asset;
+        _struct.__bpm        = __bpm;
+        _struct.__loopPoints = __VinylArrayDuplicate(__loopPoints);
+        
+        return _struct;
+    }
+    
+    static __GuiImportStruct = function(_struct)
+    {
+        __asset      = _struct.__asset;
+        __bpm        = _struct.__bpm;
+        __loopPoints = __VinylArrayDuplicate(_struct.__loopPoints);
+        
+        __GuiImportStructCommon(_struct);
+    }
 }

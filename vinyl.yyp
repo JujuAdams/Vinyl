@@ -180,6 +180,7 @@
     {"id":{"name":"__VinylClassVoiceBasic","path":"scripts/__VinylClassVoiceBasic/__VinylClassVoiceBasic.yy",},},
     {"id":{"name":"VinylEmitterCircle","path":"scripts/VinylEmitterCircle/VinylEmitterCircle.yy",},},
     {"id":{"name":"VinylKnobSet","path":"scripts/VinylKnobSet/VinylKnobSet.yy",},},
+    {"id":{"name":"__VinylArrayDuplicate","path":"scripts/__VinylArrayDuplicate/__VinylArrayDuplicate.yy",},},
     {"id":{"name":"sndOw","path":"sounds/sndOw/sndOw.yy",},},
     {"id":{"name":"sndBleep10","path":"sounds/sndBleep10/sndBleep10.yy",},},
     {"id":{"name":"UISpace","path":"scripts/UISpace/UISpace.yy",},},

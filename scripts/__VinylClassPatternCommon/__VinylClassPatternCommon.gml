@@ -288,4 +288,36 @@ function __VinylClassPatternCommon()
             }
         }
     }
+    
+    static __GuiExportStructCommon = function()
+    {
+        return {
+            __gainLo:          __gainLo,
+            __gainHi:          __gainHi,
+            __pitchLo:         __pitchLo,
+            __pitchHi:         __pitchHi,
+            __transpose:       __transpose,
+            __loop:            __loop,
+            __stackName:       __stackName,
+            __stackPriority:   __stackPriority,
+            __effectChainName: __effectChainName,
+            __labelArray:      __VinylArrayDuplicate(__labelArray),
+            __persistent:      __persistent,
+        };
+    }
+    
+    static __GuiImportStructCommon = function(_struct)
+    {
+        __gainLo          = _struct.__gainLo;
+        __gainHi          = _struct.__gainHi;
+        __pitchLo         = _struct.__pitchLo;
+        __pitchHi         = _struct.__pitchHi;
+        __transpose       = _struct.__transpose;
+        __loop            = _struct.__loop;
+        __stackName       = _struct.__stackName;
+        __stackPriority   = _struct.__stackPriority;
+        __effectChainName = _struct.__effectChainName;
+        __labelArray      = __VinylArrayDuplicate(_struct.__labelArray);
+        __persistent      = _struct.__persistent;
+    }
 }

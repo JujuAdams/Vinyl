@@ -70,4 +70,22 @@ function __VinylClassPatternQueue(_name, _adHoc, _child) : __VinylClassPatternCo
     {
         __VinylError("Cannot use VinylPlaySimple() with a queue pattern");
     }
+    
+    static __GuiExportStruct = function()
+    {
+        var _struct = __GuiExportStructCommon();
+        
+        _struct.__assetArray = __VinylArrayDuplicate(__assetArray);
+        _struct.__behavior   = __behavior;
+        
+        return _struct;
+    }
+    
+    static __GuiImportStruct = function(_struct)
+    {
+        __assetArray = __VinylArrayDuplicate(_struct.__assetArray);
+        __behavior   = _struct.__behavior;
+        
+        __GuiImportStructCommon(_struct);
+    }
 }

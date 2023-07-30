@@ -89,4 +89,20 @@ function __VinylClassPatternShuffle(_name, _adHoc, _child) : __VinylClassPattern
         var _pattern = __PopPattern();
         return __VinylPatternGet(_pattern).__PlaySimple(_pattern, _gain, _pitch); //TODO - Inherit properly
     }
+    
+    static __GuiExportStruct = function()
+    {
+        var _struct = __GuiExportStructCommon();
+        
+        _struct.__assetArray = __VinylArrayDuplicate(__assetArray);
+        
+        return _struct;
+    }
+    
+    static __GuiImportStruct = function(_struct)
+    {
+        __assetArray = __VinylArrayDuplicate(_struct.__assetArray);
+        
+        __GuiImportStructCommon(_struct);
+    }
 }

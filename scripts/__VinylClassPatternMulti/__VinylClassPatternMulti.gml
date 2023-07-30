@@ -97,4 +97,26 @@ function __VinylClassPatternMulti(_name, _adHoc, _child) : __VinylClassPatternCo
     {
         __VinylError("Cannot use VinylPlaySimple() with a multi pattern");
     }
+    
+    static __GuiExportStruct = function()
+    {
+        var _struct = __GuiExportStructCommon();
+        
+        _struct.__assetArray       = __VinylArrayDuplicate(__assetArray);
+        _struct.__sync             = __sync;
+        _struct.__blendCurve       = __blendCurve;
+        _struct.__blendFactorLocal = __blendFactorLocal;
+        
+        return _struct;
+    }
+    
+    static __GuiImportStruct = function(_struct)
+    {
+        __assetArray       = __VinylArrayDuplicate(_struct.__assetArray);
+        __sync             = _struct.__sync;
+        __blendCurve       = _struct.__blendCurve;
+        __blendFactorLocal = _struct.__blendFactorLocal;
+        
+        __GuiImportStructCommon(_struct);
+    }
 }

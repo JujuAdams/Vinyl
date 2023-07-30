@@ -41,6 +41,9 @@ function __VinylGlobalData()
         
         __animCurveDict: {},
         __animCurveArray: [],
+        
+        __guiCurrent:  {},
+        __guiPrevious: {},
     };
     
     return _struct;

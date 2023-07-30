@@ -77,4 +77,20 @@ function __VinylClassPatternBasic(_name, _adHoc, _child) : __VinylClassPatternCo
     {
         return __VinylPatternGet(__asset).__PlaySimple(__asset, _gain*0.5*(__gainLo + __gainHi), _pitch*0.5*(__pitchLo + __pitchHi)); //TODO - Inherit properly
     }
+    
+    static __GuiExportStruct = function()
+    {
+        var _struct = __GuiExportStructCommon();
+        
+        _struct.__asset = __asset;
+        
+        return _struct;
+    }
+    
+    static __GuiImportStruct = function(_struct)
+    {
+        __asset = _struct.__asset;
+        
+        __GuiImportStructCommon(_struct);
+    }
 }
