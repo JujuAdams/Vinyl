@@ -90,9 +90,9 @@ function __VinylClassPatternShuffle(_name, _adHoc, _child) : __VinylClassPattern
         return __VinylPatternGet(_pattern).__PlaySimple(_pattern, _gain, _pitch); //TODO - Inherit properly
     }
     
-    static __GuiExportStruct = function()
+    static __GuiExportStruct = function(_struct)
     {
-        var _struct = __GuiExportStructCommon();
+        __GuiExportStructCommon(_struct);
         
         _struct.__assetArray = __VinylGuiExportArray(__assetArray);
         

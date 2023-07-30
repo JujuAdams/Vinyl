@@ -60,9 +60,9 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         return __VinylPlaySimple(_sound, _gain*__gainLo, _gain*__gainHi, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, __effectChainName);
     }
     
-    static __GuiExportStruct = function()
+    static __GuiExportStruct = function(_struct)
     {
-        var _struct = __GuiExportStructCommon();
+        __GuiExportStructCommon(_struct);
         
         _struct.__bpm = __bpm;
         

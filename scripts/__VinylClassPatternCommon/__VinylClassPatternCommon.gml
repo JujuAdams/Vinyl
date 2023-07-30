@@ -1,4 +1,9 @@
 // Feather disable all
+
+global.testFunc = function() {
+    __VinylGuiCheckForChanges();
+};
+
 function __VinylClassPatternCommon()
 {
     static __effectChainDict = __VinylGlobalData().__effectChainDict;
@@ -291,6 +296,8 @@ function __VinylClassPatternCommon()
     
     static __GuiBuildForStructCommon = function(_struct)
     {
+        dbg_button("Apply", dbg_ref(global, "testFunc"));
+        
         dbg_text_input(dbg_ref(_struct, "__gainLo"              ), "Gain (low)");
         dbg_text_input(dbg_ref(_struct, "__gainHi"              ), "Gain (high)");
         dbg_text_input(dbg_ref(_struct, "__pitchLo"             ), "Pitch (low)");
@@ -305,22 +312,20 @@ function __VinylClassPatternCommon()
         dbg_drop_down( dbg_ref(_struct, "__persistent"          ), "ON,off,(passthrough)", "Persistent");
     }
     
-    static __GuiExportStructCommon = function()
+    static __GuiExportStructCommon = function(_struct)
     {
-        return {
-            __gainLo:               __gainLo,
-            __gainHi:               __gainHi,
-            __pitchLo:              __pitchLo,
-            __pitchHi:              __pitchHi,
-            __transposePassthrough: (__transpose == undefined),
-            __transpose:            __transpose ?? "",
-            __loop:                 __VinylGuiExportNullableBool(__loop),
-            __stackName:            __VinylGuiExportNullableString(__stackName),
-            __stackPriority:        __stackPriority,
-            __effectChainName:      __VinylGuiExportNullableString(__effectChainName),
-            __labelNameArray:       __VinylGuiExportArray(__labelArray),
-            __persistent:           __VinylGuiExportNullableBool(__persistent),
-        };
+        _struct.__gainLo               = __gainLo;
+        _struct.__gainHi               = __gainHi;
+        _struct.__pitchLo              = __pitchLo;
+        _struct.__pitchHi              = __pitchHi;
+        _struct.__transposePassthrough = (__transpose == undefined);
+        _struct.__transpose            = __transpose ?? "";
+        _struct.__loop                 = __VinylGuiExportNullableBool(__loop);
+        _struct.__stackName            = __VinylGuiExportNullableString(__stackName);
+        _struct.__stackPriority        = __stackPriority;
+        _struct.__effectChainName      = __VinylGuiExportNullableString(__effectChainName);
+        _struct.__labelNameArray       = __VinylGuiExportArray(__labelArray);
+        _struct.__persistent           = __VinylGuiExportNullableBool(__persistent);
     }
     
     static __GuiImportStructCommon = function(_struct)

@@ -84,9 +84,9 @@ function __VinylClassPatternAsset(_name, _adHoc, _child, _asset) : __VinylClassP
         return __VinylPlaySimple(__asset, _gain*__gainLo, _gain*__gainHi, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, __effectChainName);
     }
     
-    static __GuiExportStruct = function()
+    static __GuiExportStruct = function(_struct)
     {
-        var _struct = __GuiExportStructCommon();
+        __GuiExportStructCommon(_struct);
         
         _struct.__bpm        = __bpm;
         _struct.__loopPoints = __VinylGuiExportArray(__loopPoints);

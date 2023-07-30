@@ -9,7 +9,17 @@ function __VinylGuiExportArray(_value)
     var _i = 0;
     repeat(_size)
     {
-        _string += string(_array[_i]);
+        var _foundValue = _array[_i];
+        
+        if (is_numeric(_foundValue))
+        {
+            _string += string_format(_foundValue, 0, 3);
+        }
+        else
+        {
+            _string += string(_foundValue);
+        }
+        
         if (_i < _size-1) _string += ", ";
         ++_i;
     }

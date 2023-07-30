@@ -4,7 +4,7 @@ function __VinylGuiImportReal(_inString, _default)
     
     try
     {
-        _value = real(_value);
+        _value = real(_inString);
     }
     catch(_error)
     {

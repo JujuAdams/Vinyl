@@ -98,11 +98,11 @@ function __VinylClassPatternMulti(_name, _adHoc, _child) : __VinylClassPatternCo
         __VinylError("Cannot use VinylPlaySimple() with a multi pattern");
     }
     
-    static __GuiExportStruct = function()
+    static __GuiExportStruct = function(_struct)
     {
-        var _struct = __GuiExportStructCommon();
+        __GuiExportStructCommon(_struct);
         
-        _struct.__assetArray       = __VinylArrayDuplicate(__assetArray);
+        _struct.__assetArray       = __VinylGuiExportArray(__assetArray);
         _struct.__sync             = __sync;
         _struct.__blendCurve       = __blendCurve;
         _struct.__blendFactorLocal = __blendFactorLocal;
@@ -121,7 +121,7 @@ function __VinylClassPatternMulti(_name, _adHoc, _child) : __VinylClassPatternCo
     
     static __GuiImportStruct = function(_struct)
     {
-        __assetArray       = __VinylArrayDuplicate(_struct.__assetArray);
+        __assetArray       = __VinylGuiImportStringArray(_struct.__assetArray);
         __sync             = _struct.__sync;
         __blendCurve       = __VinylGuiImportString(_struct.__blendCurve);
         __blendFactorLocal = _struct.__blendFactorLocal;

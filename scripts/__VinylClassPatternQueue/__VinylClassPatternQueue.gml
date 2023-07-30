@@ -73,7 +73,7 @@ function __VinylClassPatternQueue(_name, _adHoc, _child) : __VinylClassPatternCo
     
     static __GuiExportStruct = function()
     {
-        var _struct = __GuiExportStructCommon();
+        __GuiExportStructCommon(_struct);
         
         _struct.__assetArray = __VinylGuiExportArray(__assetArray);
         _struct.__behavior   = __behavior;
