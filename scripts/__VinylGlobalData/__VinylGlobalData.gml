@@ -42,19 +42,18 @@ function __VinylGlobalData()
         __animCurveDict: {},
         __animCurveArray: [],
         
-        __guiCurrent:  {},
-        __guiPrevious: {},
-        
         __uiData: {
             __pointerMain:       undefined,
-            __pointerProperties: undefined, 
-            
+            __pointerProperties: undefined,
+			
             __assetVisArray:       [],
             __patternVisArray:     [],
             __labelVisArray:       [],
             __stackVisArray:       [],
             __effectChainVisArray: [],
             __knobVisArray:        [],
+            
+			__stateArray: [],
         }
     };
     

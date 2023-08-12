@@ -1,6 +1,6 @@
-function __VinylClassGuiVisibility(_link) constructor
+function __VinylClassGuiVisibility(_target) constructor
 {
-    __link          = _link
+    __target        = _target
     __visible       = false;
     __oldVisibility = undefined;
 }

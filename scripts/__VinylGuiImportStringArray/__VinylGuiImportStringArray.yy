@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "GUI Support",
-    "path": "folders/Vinyl/(Internals)/VIPs only in the green room/GUI Support.yy",
+    "name": "Import",
+    "path": "folders/Vinyl/(Internals)/VIPs only in the green room/GUI Support/Import.yy",
   },
 }

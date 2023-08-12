@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylGuiUpdate",
+  "name": "__VinylGuiCheckVisibility",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
