@@ -101,6 +101,7 @@ function __VinylClassPatternShuffle(_name, _adHoc, _child) : __VinylClassPattern
     
     static __GuiBuildForStruct = function(_struct)
     {
+        dbg_section("Shuffle Pattern \"" + __name + "\"");
         __GuiBuildForStructCommon(_struct);
     }
     

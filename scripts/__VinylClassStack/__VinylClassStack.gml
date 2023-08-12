@@ -187,4 +187,19 @@ function __VinylClassStack(_name) constructor
             }
         }
     }
+    
+    static __GuiBuildForStruct = function(_struct)
+    {
+        dbg_section("Stack \"" + __name + "\"");
+    }
+    
+    static __GuiExportStruct = function(_struct)
+    {
+        
+    }
+    
+    static __GuiImportStruct = function(_struct)
+    {
+        
+    }
 }

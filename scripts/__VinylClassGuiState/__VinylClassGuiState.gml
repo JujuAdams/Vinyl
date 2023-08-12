@@ -6,10 +6,9 @@ function __VinylClassGuiState(_target) constructor
     __target   = _target;
     __current  = _state;
     __previous = __VinylDeepCopy(_state);
-	
-	static __BuildGui = function()
-	{
-	    dbg_section(__target.__GetDisplayName());
-		__target.__GuiBuildForStruct(__current);
-	}
+    
+    static __BuildGui = function()
+    {
+        __target.__GuiBuildForStruct(__current);
+    }
 }

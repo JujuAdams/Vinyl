@@ -201,4 +201,19 @@ function __VinylClassEffectChain(_name) constructor
         //Keep this emitter right underneath the listener
         if (__emitter != undefined) audio_emitter_position(__emitter, __globalData.__listenerX, __globalData.__listenerY, 0);
     }
+    
+    static __GuiBuildForStruct = function(_struct)
+    {
+        dbg_section("Effect Chain \"" + __name + "\"");
+    }
+    
+    static __GuiExportStruct = function(_struct)
+    {
+        
+    }
+    
+    static __GuiImportStruct = function(_struct)
+    {
+        
+    }
 }

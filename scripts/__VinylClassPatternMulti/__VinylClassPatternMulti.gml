@@ -112,6 +112,7 @@ function __VinylClassPatternMulti(_name, _adHoc, _child) : __VinylClassPatternCo
     
     static __GuiBuildForStruct = function(_struct)
     {
+        dbg_section("Multi Pattern \"" + __name + "\"");
         __GuiBuildForStructCommon(_struct);
         
         dbg_checkbox(  ref_create(_struct, "__sync"            ), "Synchronize");

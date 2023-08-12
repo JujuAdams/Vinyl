@@ -12,11 +12,6 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         return "<fallback>";
     }
     
-    static __GetDisplayName = function()
-    {
-        return "fallback";
-    }
-    
     static __Initialize = function(_patternData = {})
     {
         if (!is_struct(_patternData)) __VinylError("Error in ", self, "\nPattern data must be a struct");
@@ -76,6 +71,7 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     
     static __GuiBuildForStruct = function(_struct)
     {
+        dbg_section("Fallback Pattern");
         __GuiBuildForStructCommon(_struct);
         
         dbg_text_input(ref_create(_struct, "__bpm"), "BPM");

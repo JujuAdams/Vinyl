@@ -45,7 +45,7 @@ function __VinylGlobalData()
         __uiData: {
             __pointerMain:       undefined,
             __pointerProperties: undefined,
-			
+            
             __assetVisArray:       [],
             __patternVisArray:     [],
             __labelVisArray:       [],
@@ -53,7 +53,7 @@ function __VinylGlobalData()
             __effectChainVisArray: [],
             __knobVisArray:        [],
             
-			__stateArray: [],
+            __stateArray: [],
         }
     };
     

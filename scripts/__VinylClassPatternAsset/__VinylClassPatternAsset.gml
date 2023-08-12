@@ -19,11 +19,6 @@ function __VinylClassPatternAsset(_name, _adHoc, _child, _asset) : __VinylClassP
         return "<asset " + audio_get_name(__asset) + ">";
     }
     
-    static __GetDisplayName = function()
-    {
-        return audio_get_name(__asset);
-    }
-    
     static __StoreAsset = function()
     {
         //Special case to add assets by name as well as by index (if VINYL_ALLOW_ASSET_REFERENCE_BY_STRING is <true>)
@@ -101,6 +96,7 @@ function __VinylClassPatternAsset(_name, _adHoc, _child, _asset) : __VinylClassP
     
     static __GuiBuildForStruct = function(_struct)
     {
+        dbg_section("Asset \"" + audio_get_name(__name) + "\"");
         __GuiBuildForStructCommon(_struct);
         
         dbg_text_input(ref_create(_struct, "__bpm"), "BPM");

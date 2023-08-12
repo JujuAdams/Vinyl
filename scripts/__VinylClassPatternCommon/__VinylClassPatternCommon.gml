@@ -4,11 +4,6 @@ function __VinylClassPatternCommon()
 {
     static __effectChainDict = __VinylGlobalData().__effectChainDict;
     
-    static __GetDisplayName = function()
-    {
-        return __name;
-    }
-    
     static __Store = function()
     {
         var _patternDict  = __VinylGlobalData().__patternDict;

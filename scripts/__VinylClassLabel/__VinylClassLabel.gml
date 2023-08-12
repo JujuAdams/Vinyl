@@ -492,4 +492,58 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         __gainOutput  = __gainLocal;
         __pitchOutput = __pitchLocal;
     }
+    
+    static __GuiBuildForStruct = function(_struct)
+    {
+        dbg_section("Label \"" + __name + "\"");
+        dbg_text_input(ref_create(_struct, "__gain"           ), VINYL_GUI_DECIBEL_GAIN? "Gain (dB)" : "Gain (amp.)");
+        dbg_text_input(ref_create(_struct, "__pitch"          ), VINYL_GUI_PERCENTAGE_PITCH? "Pitch (%)" : "Pitch (coeff.)");
+        dbg_text_input(ref_create(_struct, "__transpose"      ), "Transpose (semitones)");
+        dbg_drop_down( ref_create(_struct, "__loop"           ), "On,Off,(passthrough)", "Loop");
+        dbg_text_input(ref_create(_struct, "__stackName"      ), "Stack");
+        dbg_text_input(ref_create(_struct, "__stackPriority"  ), "Stack Priority");
+        dbg_text_input(ref_create(_struct, "__effectChainName"), "Effect Chain");
+        dbg_text_input(ref_create(_struct, "__tagArray"       ), "Tags");
+        dbg_drop_down( ref_create(_struct, "__persistent"     ), "ON,off,(passthrough)", "Persistent");
+    }
+    
+    static __GuiExportStruct = function(_struct)
+    {
+        var _gainLo = __configGainLo;
+        var _gainHi = __configGainHi;
+        if (VINYL_GUI_DECIBEL_GAIN) _gainLo = __VinylAmplitudeToGain(_gainLo);
+        if (VINYL_GUI_DECIBEL_GAIN) _gainHi = __VinylAmplitudeToGain(_gainHi);
+        
+        var _pitchLo = __configPitchLo;
+        var _pitchHi = __configPitchHi;
+        if (VINYL_GUI_PERCENTAGE_PITCH) _pitchLo *= 100;
+        if (VINYL_GUI_PERCENTAGE_PITCH) _pitchHi *= 100;
+        
+        _struct.__gain            = __VinylGuiExportRangeableReal(_gainLo,  _gainHi );
+        _struct.__pitch           = __VinylGuiExportRangeableReal(_pitchLo, _pitchHi);
+        _struct.__transpose       = __VinylGuiExportNullableReal(__configTranspose);
+        _struct.__loop            = __VinylGuiExportNullableBool(__configLoop);
+        _struct.__stackName       = __VinylGuiExportNullableString(__stackName);
+        _struct.__stackPriority   = __stackPriority;
+        _struct.__effectChainName = __VinylGuiExportNullableString(__effectChainName);
+        _struct.__tagArray        = __VinylGuiExportLabelArray(__tagArray);
+        _struct.__persistent      = __VinylGuiExportNullableBool(__configPersistent);
+    }
+    
+    static __GuiImportStruct = function(_struct)
+    {
+        var _gainArray = __VinylGuiImportRangeableReal(_struct.__gain, __gainLo, __gainHi);
+        if (VINYL_GUI_DECIBEL_GAIN)
+        {
+            _gainArray[@ 0] = __VinylGainToAmplitude(_gainArray[0]);
+            _gainArray[@ 1] = __VinylGainToAmplitude(_gainArray[1]);
+        }
+        
+        var _pitchArray = __VinylGuiImportRangeableReal(_struct.__pitch, __pitchLo, __pitchHi);
+        if (VINYL_GUI_PERCENTAGE_PITCH)
+        {
+            _pitchArray[@ 0] = _pitchArray[0] / 100;
+            _pitchArray[@ 1] = _pitchArray[1] / 100;
+        }
+    }
 }

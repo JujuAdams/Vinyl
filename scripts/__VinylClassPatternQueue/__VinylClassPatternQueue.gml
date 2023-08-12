@@ -83,6 +83,7 @@ function __VinylClassPatternQueue(_name, _adHoc, _child) : __VinylClassPatternCo
     
     static __GuiBuildForStruct = function(_struct)
     {
+        dbg_section("Queue Pattern \"" + __name + "\"");
         __GuiBuildForStructCommon(_struct);
         
         dbg_drop_down(ref_create(_struct, "__behavior"), "Play Once,Replay Queue,Replay Last", "Behavior");

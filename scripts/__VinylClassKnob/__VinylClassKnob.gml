@@ -211,4 +211,19 @@ function __VinylClassKnob(_name) constructor
             }
         }
     }
+    
+    static __GuiBuildForStruct = function(_struct)
+    {
+        dbg_section("Knob \"" + __name + "\"");
+    }
+    
+    static __GuiExportStruct = function(_struct)
+    {
+        
+    }
+    
+    static __GuiImportStruct = function(_struct)
+    {
+        
+    }
 }
