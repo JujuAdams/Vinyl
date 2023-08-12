@@ -20,6 +20,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Config Resources","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Config Resources.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Patterns","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Patterns.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Voices","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Voices.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"GUI Support","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/GUI Support.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"BPM","folderPath":"folders/Vinyl/BPM.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Gain","folderPath":"folders/Vinyl/Gain.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Knobs","folderPath":"folders/Vinyl/Knobs.yy",},
@@ -35,8 +36,6 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stacks","folderPath":"folders/Vinyl/Stacks.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stopping Audio","folderPath":"folders/Vinyl/Stopping Audio.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Transposition","folderPath":"folders/Vinyl/Transposition.yy",},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"GUI","folderPath":"folders/Vinyl/GUI.yy",},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"GUI Support","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/GUI Support.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"vinyl.dat","CopyToMask":-1,"filePath":"datafiles",},
@@ -44,7 +43,7 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.800.0.383",
+    "IDEVersion": "2023.800.0.396",
   },
   "resources": [
     {"id":{"name":"__asset_get_index","path":"scripts/__asset_get_index/__asset_get_index.yy",},},
@@ -91,6 +90,7 @@
     {"id":{"name":"UIText","path":"scripts/UIText/UIText.yy",},},
     {"id":{"name":"__VinylClassPatternFallback","path":"scripts/__VinylClassPatternFallback/__VinylClassPatternFallback.yy",},},
     {"id":{"name":"__VinylPatternGetUnsafe","path":"scripts/__VinylPatternGetUnsafe/__VinylPatternGetUnsafe.yy",},},
+    {"id":{"name":"__VinylGuiCheck","path":"scripts/__VinylGuiCheck/__VinylGuiCheck.yy",},},
     {"id":{"name":"VinylPlay","path":"scripts/VinylPlay/VinylPlay.yy",},},
     {"id":{"name":"sndBleep4","path":"sounds/sndBleep4/sndBleep4.yy",},},
     {"id":{"name":"VinylKnobResetAll","path":"scripts/VinylKnobResetAll/VinylKnobResetAll.yy",},},
@@ -169,6 +169,7 @@
     {"id":{"name":"sndBleep3","path":"sounds/sndBleep3/sndBleep3.yy",},},
     {"id":{"name":"VinylFadeOutAll","path":"scripts/VinylFadeOutAll/VinylFadeOutAll.yy",},},
     {"id":{"name":"__VinylClassPatternBasic","path":"scripts/__VinylClassPatternBasic/__VinylClassPatternBasic.yy",},},
+    {"id":{"name":"__VinylClassGuiVisibility","path":"scripts/__VinylClassGuiVisibility/__VinylClassGuiVisibility.yy",},},
     {"id":{"name":"UITextWrap","path":"scripts/UITextWrap/UITextWrap.yy",},},
     {"id":{"name":"VinylShutdownGet","path":"scripts/VinylShutdownGet/VinylShutdownGet.yy",},},
     {"id":{"name":"VinylPlayOnEmitter","path":"scripts/VinylPlayOnEmitter/VinylPlayOnEmitter.yy",},},
@@ -190,7 +191,6 @@
     {"id":{"name":"__VinylClassVoiceBasic","path":"scripts/__VinylClassVoiceBasic/__VinylClassVoiceBasic.yy",},},
     {"id":{"name":"VinylEmitterCircle","path":"scripts/VinylEmitterCircle/VinylEmitterCircle.yy",},},
     {"id":{"name":"VinylKnobSet","path":"scripts/VinylKnobSet/VinylKnobSet.yy",},},
-    {"id":{"name":"VinylGuiShowAssets","path":"scripts/VinylGuiShowAssets/VinylGuiShowAssets.yy",},},
     {"id":{"name":"sndOw","path":"sounds/sndOw/sndOw.yy",},},
     {"id":{"name":"sndBleep10","path":"sounds/sndBleep10/sndBleep10.yy",},},
     {"id":{"name":"UISpace","path":"scripts/UISpace/UISpace.yy",},},
@@ -230,6 +230,7 @@
     {"id":{"name":"sndCat","path":"sounds/sndCat/sndCat.yy",},},
     {"id":{"name":"__VinylValidateStruct","path":"scripts/__VinylValidateStruct/__VinylValidateStruct.yy",},},
     {"id":{"name":"__VinylBufferReadConfigJSON","path":"scripts/__VinylBufferReadConfigJSON/__VinylBufferReadConfigJSON.yy",},},
+    {"id":{"name":"__VinylGuiUpdate","path":"scripts/__VinylGuiUpdate/__VinylGuiUpdate.yy",},},
     {"id":{"name":"__VinylClassVoiceAsset","path":"scripts/__VinylClassVoiceAsset/__VinylClassVoiceAsset.yy",},},
     {"id":{"name":"VinylBPMPulseGet","path":"scripts/VinylBPMPulseGet/VinylBPMPulseGet.yy",},},
     {"id":{"name":"sndBleep9","path":"sounds/sndBleep9/sndBleep9.yy",},},
@@ -247,6 +248,7 @@
   "RoomOrderNodes": [
     {"roomId":{"name":"rMain","path":"rooms/rMain/rMain.yy",},},
   ],
+  "templateType": null,
   "TextureGroups": [
     {"resourceType":"GMTextureGroup","resourceVersion":"1.3","name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"targets":-1,},
   ],

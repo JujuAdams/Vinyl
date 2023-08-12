@@ -91,4 +91,6 @@
 //Listener index to use for Vinyl functions
 #macro VINYL_LISTENER_INDEX  0
 
+#macro VINYL_GUI_SECTION_ORDER  ["Assets", "Patterns", "Labels", "Stacks", "Effect Chains", "Knobs"]
+
 #endregion

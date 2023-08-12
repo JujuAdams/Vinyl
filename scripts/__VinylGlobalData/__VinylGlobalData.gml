@@ -44,6 +44,18 @@ function __VinylGlobalData()
         
         __guiCurrent:  {},
         __guiPrevious: {},
+        
+        __uiData: {
+            __pointerMain:       undefined,
+            __pointerProperties: undefined, 
+            
+            __assetVisArray:       [],
+            __patternVisArray:     [],
+            __labelVisArray:       [],
+            __stackVisArray:       [],
+            __effectChainVisArray: [],
+            __knobVisArray:        [],
+        }
     };
     
     return _struct;

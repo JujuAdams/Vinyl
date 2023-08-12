@@ -78,7 +78,7 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     {
         __GuiBuildForStructCommon(_struct);
         
-        dbg_text_input(dbg_ref(_struct, "__bpm"), "BPM");
+        dbg_text_input(ref_create(_struct, "__bpm"), "BPM");
     }
     
     static __GuiImportStruct = function(_struct)

@@ -1,9 +1,5 @@
 // Feather disable all
 
-global.testFunc = function() {
-    __VinylGuiCheckForChanges();
-};
-
 function __VinylClassPatternCommon()
 {
     static __effectChainDict = __VinylGlobalData().__effectChainDict;
@@ -301,15 +297,15 @@ function __VinylClassPatternCommon()
     
     static __GuiBuildForStructCommon = function(_struct)
     {
-        dbg_text_input(dbg_ref(_struct, "__gain"           ), VINYL_GUI_DECIBEL_GAIN? "Gain (dB)" : "Gain (amp.)");
-        dbg_text_input(dbg_ref(_struct, "__pitch"          ), VINYL_GUI_PERCENTAGE_PITCH? "Pitch (%)" : "Pitch (coeff.)");
-        dbg_text_input(dbg_ref(_struct, "__transpose"      ), "Transpose (semitones)");
-        dbg_drop_down( dbg_ref(_struct, "__loop"           ), "On,Off,(passthrough)", "Loop");
-        dbg_text_input(dbg_ref(_struct, "__stackName"      ), "Stack");
-        dbg_text_input(dbg_ref(_struct, "__stackPriority"  ), "Stack Priority");
-        dbg_text_input(dbg_ref(_struct, "__effectChainName"), "Effect Chain");
-        dbg_text_input(dbg_ref(_struct, "__labelNameArray" ), "Labels");
-        dbg_drop_down( dbg_ref(_struct, "__persistent"     ), "ON,off,(passthrough)", "Persistent");
+        dbg_text_input(ref_create(_struct, "__gain"           ), VINYL_GUI_DECIBEL_GAIN? "Gain (dB)" : "Gain (amp.)");
+        dbg_text_input(ref_create(_struct, "__pitch"          ), VINYL_GUI_PERCENTAGE_PITCH? "Pitch (%)" : "Pitch (coeff.)");
+        dbg_text_input(ref_create(_struct, "__transpose"      ), "Transpose (semitones)");
+        dbg_drop_down( ref_create(_struct, "__loop"           ), "On,Off,(passthrough)", "Loop");
+        dbg_text_input(ref_create(_struct, "__stackName"      ), "Stack");
+        dbg_text_input(ref_create(_struct, "__stackPriority"  ), "Stack Priority");
+        dbg_text_input(ref_create(_struct, "__effectChainName"), "Effect Chain");
+        dbg_text_input(ref_create(_struct, "__labelNameArray" ), "Labels");
+        dbg_drop_down( ref_create(_struct, "__persistent"     ), "ON,off,(passthrough)", "Persistent");
     }
     
     static __GuiExportStructCommon = function(_struct)

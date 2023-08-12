@@ -464,6 +464,12 @@ function VinylSystemReadConfig(_configData)
         _knob.__OutputRefresh();
     });
     
+    
+    
+    __VinylGuiUpdate()
+    
+    
+    
     //Workaround for problems setting effects on the main audio effect bus in 2023.1
     gc_collect();
 }

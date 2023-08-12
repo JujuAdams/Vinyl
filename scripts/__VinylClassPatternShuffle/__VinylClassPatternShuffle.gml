@@ -48,7 +48,7 @@ function __VinylClassPatternShuffle(_name, _adHoc, _child) : __VinylClassPattern
         
         //Set up tracking for shuffle pattern
         __currentIndex = 0;
-		
+        
         //Initialize the currently-playing array with a random sample from the overall pattern array
         __VinylArrayShuffle(__assetArray);
         
@@ -58,23 +58,23 @@ function __VinylClassPatternShuffle(_name, _adHoc, _child) : __VinylClassPattern
     static __PopPattern = function()
     {
         var _pattern = __assetArray[__currentIndex];
-		
+        
         ++__currentIndex;
         if (__currentIndex >= array_length(__assetArray))
         {
             //Reshuffle
             __VinylArrayShuffle(__assetArray);
             
-			//Ensure we don't play the same sound twice in a row
-			if (__assetArray[0] == _pattern)
-			{
-				array_delete(__assetArray, 0, 1);
-				array_insert(__assetArray, ceil(array_length(__assetArray)/2), _pattern);
-			}
-			
+            //Ensure we don't play the same sound twice in a row
+            if (__assetArray[0] == _pattern)
+            {
+                array_delete(__assetArray, 0, 1);
+                array_insert(__assetArray, ceil(array_length(__assetArray)/2), _pattern);
+            }
+            
             __currentIndex = 0;
         }
-		
+        
         return _pattern;
     }
     

@@ -3,6 +3,8 @@ function __VinylTick()
 {
     static _globalData = __VinylGlobalData();
     
+    __VinylGuiCheck();
+    
     ++_globalData.__frame;
     var _deltaTimeFactor = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
     

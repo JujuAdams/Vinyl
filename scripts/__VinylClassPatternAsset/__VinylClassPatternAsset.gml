@@ -103,8 +103,8 @@ function __VinylClassPatternAsset(_name, _adHoc, _child, _asset) : __VinylClassP
     {
         __GuiBuildForStructCommon(_struct);
         
-        dbg_text_input(dbg_ref(_struct, "__bpm"), "BPM");
-        dbg_text_input(dbg_ref(_struct, "__loopPoints"), "Loop Points");
+        dbg_text_input(ref_create(_struct, "__bpm"), "BPM");
+        dbg_text_input(ref_create(_struct, "__loopPoints"), "Loop Points");
     }
     
     static __GuiImportStruct = function(_struct)
