@@ -6,6 +6,7 @@
 function __VinylClassPatternShuffle(_name, _adHoc, _child) : __VinylClassPatternCommon() constructor
 {
     static __patternType = "shuffle";
+    static __pool = __VinylGlobalData().__poolBasic; //No need for a dedicated shuffle voice
     
     __name  = _name;
     __adHoc = _adHoc;
@@ -80,8 +81,9 @@ function __VinylClassPatternShuffle(_name, _adHoc, _child) : __VinylClassPattern
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
-        var _pattern = __PopPattern();
-        return __VinylPatternGet(_pattern).__Play(_patternTop, _parentVoice, _vinylEmitter, _pattern, _loop, _gain, _pitch, _pan);
+        var _voice = __pool.__Depool();
+        _voice.__Instantiate(_patternTop, self, _parentVoice, _vinylEmitter, __PopPattern(), _loop, _gain, _pitch, _pan);
+        return _voice;
     }
     
     static __PlaySimple = function(_sound_UNUSED, _gain = 1, _pitch = 1, _effectChainName = __effectChainName)
