@@ -79,8 +79,8 @@ function __VinylClassPatternAsset(_name, _adHoc, _child, _asset) : __VinylClassP
         return _voice;
     }
     
-    static __PlaySimple = function(_sound_UNUSED, _gain = 1, _pitch = 1)
+    static __PlaySimple = function(_sound_UNUSED, _gain = 1, _pitch = 1, _effectChainName = __effectChainName)
     {
-        return __VinylPlaySimple(__asset, _gain*__gainLo, _gain*__gainHi, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, __effectChainName);
+        return __VinylPlaySimple(__asset, _gain*__gainLo, _gain*__gainHi, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, _effectChainName);
     }
 }
