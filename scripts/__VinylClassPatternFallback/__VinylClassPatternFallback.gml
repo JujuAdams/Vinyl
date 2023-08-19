@@ -55,9 +55,9 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         return _voice;
     }
     
-    static __PlaySimple = function(_sound, _gain = 1, _pitch = 1)
+    static __PlaySimple = function(_sound, _gain = 1, _pitch = 1, _effectChainName = __effectChainName)
     {
-        return __VinylPlaySimple(_sound, _gain*__gainLo, _gain*__gainHi, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, __effectChainName);
+        return __VinylPlaySimple(_sound, _gain*__gainLo, _gain*__gainHi, _pitch*__pitchLo, _pitch*__pitchHi, __labelArray, _effectChainName);
     }
     
     static __GuiExportStruct = function(_struct)

@@ -87,7 +87,7 @@ function __VinylClassVoiceCommon() constructor
     {
         static _globalTopLevelArray = __globalData.__topLevelArray;
         
-        __patternTop   = _patternTop;
+        __patternTop     = _patternTop;
         __pattern        = _pattern;
         __parentVoice    = _parentVoice;
         __initialEmitter = _emitter;
