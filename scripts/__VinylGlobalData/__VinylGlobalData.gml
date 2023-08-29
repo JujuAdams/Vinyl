@@ -42,6 +42,8 @@ function __VinylGlobalData()
         __animCurveDict: {},
         __animCurveArray: [],
         
+        __projectAssetDict: {},
+        
         __uiData: {
             __pointerMain:       undefined,
             __pointerProperties: undefined,
