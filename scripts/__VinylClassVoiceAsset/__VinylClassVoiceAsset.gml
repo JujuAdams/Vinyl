@@ -43,6 +43,7 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
     {
         //Set the sound first so that error messages make more sense
         __sound = __VinylAssetResolve(_sound);
+        if (__sound < 0) __VinylTrace("Warning! Could not find valid asset for sound ", (is_string(_sound)? "\"" + _sound + "\"" : _sound));
         
         __StateSetCommon(_patternTop, _pattern, _parentVoice, _vinylEmitter, _loop, _gain, _pitch, _pan);
         
@@ -53,19 +54,22 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
     
     static __Play = function()
     {
-        var _gmEmitter = (__vinylEmitter == undefined)? undefined : __vinylEmitter.__GetEmitter();
-        if (_gmEmitter == undefined)
+        if (__sound >= 0)
         {
-            __gmInstance = audio_play_sound(__sound, 1, __loopOutput, __VinylCurveAmplitude(__gainOutput), 0, __pitchOutput);
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, ", loop=", __loopOutput? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput, ", persistent=", __persistent);
+            var _gmEmitter = (__vinylEmitter == undefined)? undefined : __vinylEmitter.__GetEmitter();
+            if (_gmEmitter == undefined)
+            {
+                __gmInstance = audio_play_sound(__sound, 1, __loopOutput, __VinylCurveAmplitude(__gainOutput), 0, __pitchOutput);
+                if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, ", loop=", __loopOutput? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput, ", persistent=", __persistent);
+            }
+            else
+            {
+                __gmInstance = audio_play_sound_on(_gmEmitter, __sound, __loopOutput, 1, __VinylCurveAmplitude(__gainOutput), 0, __pitchOutput);
+                if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, " on GM emitter ", _gmEmitter, ", loop=", __loopOutput? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput, ", persistent=", __persistent);
+            }
+            
+            __LoopPointsSet();
         }
-        else
-        {
-            __gmInstance = audio_play_sound_on(_gmEmitter, __sound, __loopOutput, 1, __VinylCurveAmplitude(__gainOutput), 0, __pitchOutput);
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " playing ", __gmInstance, " on GM emitter ", _gmEmitter, ", loop=", __loopOutput? "true" : "false", ", gain=", __gainOutput, ", pitch=", __pitchOutput, ", persistent=", __persistent);
-        }
-        
-        __LoopPointsSet();
     }
     
     static __Migrate = function()

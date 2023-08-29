@@ -34,18 +34,25 @@ function __VinylPlaySimple(_sound, _gainLo, _gainHi, _pitchLo, _pitchHi, _labelA
     var _effectChainStruct = _effectChainDict[$ _effectChainName];
     var _effectChainEmitter = (_effectChainStruct == undefined)? undefined : _effectChainStruct.__emitter;
     
+    var _actualSound = __VinylAssetResolve(_sound);
+    if (_actualSound < 0)
+    {
+        __VinylTrace("Warning! Could not find valid asset for sound ", (is_string(_sound)? "\"" + _sound + "\"" : _sound));
+        return -1;
+    }
+    
     if (_effectChainEmitter == undefined)
     {
-        var _instance = audio_play_sound(_sound, 1, false, __VinylCurveAmplitude(_gain), 0, _pitch);
+        var _instance = audio_play_sound(_actualSound, 1, false, __VinylCurveAmplitude(_gain), 0, _pitch);
     }
     else
     {
-        var _instance = audio_play_sound_on(_effectChainEmitter, _sound, false, 1, __VinylCurveAmplitude(_gain), 0, _pitch);
+        var _instance = audio_play_sound_on(_effectChainEmitter, _actualSound, false, 1, __VinylCurveAmplitude(_gain), 0, _pitch);
     }
     
     if (VINYL_DEBUG_LEVEL >= 1)
     {
-        __VinylTrace("Playing ", VinylAssetGetName(_sound), ", gain=", _gain, ", pitch=", _pitch, ", effect chain=", _effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), " (GMinst=", _instance, ")");
+        __VinylTrace("Playing ", VinylAssetGetName(_actualSound), ", gain=", _gain, ", pitch=", _pitch, ", effect chain=", _effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), " (GMinst=", _instance, ")");
     }
     
     return _instance;
