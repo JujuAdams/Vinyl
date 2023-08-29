@@ -1,7 +1,7 @@
 // Feather disable all
 function __VinylClassProjectAsset(_name, _path, _firstTime) constructor
 {
-    static __projectAssetDict = __VinylGlobalData().__projectAssetDict;
+    static __projectAssetNameDict = __VinylGlobalData().__projectAssetNameDict;
     
     
     
@@ -23,8 +23,8 @@ function __VinylClassProjectAsset(_name, _path, _firstTime) constructor
         __Load();
     }
     
-    __projectAssetDict[$ __name] = self;
-    if ((__asset != undefined) && (__asset >= 0)) __projectAssetDict[$ __asset] = self;
+    __projectAssetNameDict[$ __name] = self;
+    //if ((__asset != undefined) && (__asset >= 0)) __projectAssetDict[$ __asset] = self;
     
     
     
@@ -70,8 +70,8 @@ function __VinylClassProjectAsset(_name, _path, _firstTime) constructor
     {
         __Unload();
         
-        variable_struct_remove(__projectAssetDict, __name);
-        if ((__asset != undefined) && (__asset >= 0)) variable_struct_remove(__projectAssetDict, __asset);
+        variable_struct_remove(__projectAssetNameDict, __name);
+        //if ((__asset != undefined) && (__asset >= 0)) variable_struct_remove(__projectAssetDict, __asset);
     }
     
     static __CheckForChange = function()

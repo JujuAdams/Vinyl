@@ -43,7 +43,7 @@ function __VinylGlobalData()
         __animCurveArray: [],
         
         __useProjectAssetDict: (GM_build_type == "run"),
-        __projectAssetDict: {},
+        __projectAssetNameDict: {},
         
         __uiData: {
             __pointerMain:       undefined,

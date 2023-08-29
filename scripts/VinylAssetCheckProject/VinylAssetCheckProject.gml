@@ -2,7 +2,7 @@
 function VinylAssetCheckProject()
 {
     static _globalData = __VinylGlobalData();
-    static _projectAssetDict = _globalData.__projectAssetDict;
+    static _projectAssetDict = _globalData.__projectAssetNameDict;
     static _projectFileHash  = undefined;
     
     var _funcFindSource = function(_yyPath)
@@ -20,7 +20,7 @@ function VinylAssetCheckProject()
     
     var _funcAssetDictFallback = function()
     {
-        static _projectAssetDict = __VinylGlobalData().__projectAssetDict;
+        static _projectAssetDict = __VinylGlobalData().__projectAssetNameDict;
         
         static _firstScan = true;
         if (_firstScan)
@@ -64,7 +64,9 @@ function VinylAssetCheckProject()
         var _i = 0;
         repeat(array_length(_projectAssetArray))
         {
-            _projectAssetDict[$ _projectAssetArray[_i]].__CheckForChange();
+            var _projectAsset = _projectAssetDict[$ _projectAssetArray[_i]];
+            if (is_struct(_projectAsset)) _projectAsset.__CheckForChange();
+            
             ++_i;
         }
         
@@ -116,14 +118,15 @@ function VinylAssetCheckProject()
         var _i = 0;
         repeat(array_length(_projectAssetArray))
         {
-            var _name = _projectAssetArray[_i].name;
+            var _name = _projectAssetArray[_i];
             if (variable_struct_exists(_foundResourceNameDict, _name))
             {
                 ++_i;
             }
             else
             {
-                _projectAssetArray[_i].__Destroy();
+                var _projectAsset = _projectAssetDict[$ _name];
+                if (is_struct(_projectAsset)) _projectAsset.__Destroy();
             }
         }
         

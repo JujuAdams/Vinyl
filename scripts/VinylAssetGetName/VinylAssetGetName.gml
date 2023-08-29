@@ -2,7 +2,7 @@
 function VinylAssetGetName(_asset)
 {
     static _useAssetDict     = __VinylGlobalData().__useProjectAssetDict
-    static _projectAssetDict = __VinylGlobalData().__projectAssetDict
+    static _projectAssetDict = __VinylGlobalData().__projectAssetNameDict
     
     if (_useAssetDict)
     {

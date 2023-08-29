@@ -9,7 +9,7 @@
 function VinylSystemReadConfig(_configData)
 {
     static _globalData = __VinylGlobalData();
-    static _projectAssetDict = _globalData.__projectAssetDict;
+    static _projectAssetDict = _globalData.__projectAssetNameDict;
     
     //Effect chain and stack data structures are a bit special because they're never regenerated
     //We keep the old effect chains around so that we can dynamically update effects
