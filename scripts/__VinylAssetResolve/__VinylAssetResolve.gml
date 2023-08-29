@@ -6,8 +6,8 @@ function __VinylAssetResolve(_asset)
     
     if (_useAssetDict)
     {
-        var _asset = _projectAssetDict[$ _asset];
-        return (_asset == undefined)? -1 : _asset.__asset;
+        var _assetStruct = _projectAssetDict[$ _asset];
+        return (_assetStruct == undefined)? -1 : _assetStruct.__asset;
     }
     else
     {
