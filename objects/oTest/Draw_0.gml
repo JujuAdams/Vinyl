@@ -30,6 +30,11 @@ UIButtonInline("Test tone", function()
     music = VinylPlay(snd1KHz, true);
 });
 
+UIButtonInline("Check for asset changes", function()
+{
+    VinylAssetCheckProject();
+});
+
 UINewline();
 
 UITextInline("Global transpose = " + string(VinylGlobalTransposeGet()));
@@ -178,6 +183,16 @@ UIButtonInline("Space cat", function()
 UIButtonInline("Bleep shuffle", function()
 {
     VinylPlaySimple("bleep shuffle");
+});
+
+UIButtonInline("sndBleep10", function()
+{
+    VinylPlay("sndBleep10");
+});
+
+UIButtonInline("sndBleep11", function()
+{
+    VinylPlay("sndBleep11");
 });
 
 UINewline();
