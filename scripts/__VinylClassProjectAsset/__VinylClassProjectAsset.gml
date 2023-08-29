@@ -7,25 +7,24 @@ function __VinylClassProjectAsset(_name, _path, _firstTime) constructor
     
     
     
-    __name    = _name;
-    __path    = _path;
-    __inBuild = _firstTime;
-    
-    __projectAssetDict[$ __name] = self;
+    __name = _name;
+    __path = _path;
     
     __hash    = md5_file(__path);
     __ogg     = (filename_ext(__path) == ".ogg");
     __cleanUp = false;
     
-    if (__inBuild)
+    if (_firstTime)
     {
         __asset = asset_get_index(__name);
-        __projectAssetDict[$ __asset] = self;
     }
     else
     {
         __Load();
     }
+    
+    __projectAssetDict[$ __name] = self;
+    if ((__asset != undefined) && (__asset >= 0)) __projectAssetDict[$ __asset] = self;
     
     
     
@@ -72,7 +71,7 @@ function __VinylClassProjectAsset(_name, _path, _firstTime) constructor
         __Unload();
         
         variable_struct_remove(__projectAssetDict, __name);
-        if (__inBuild) variable_struct_remove(__projectAssetDict, __asset);
+        if ((__asset != undefined) && (__asset >= 0)) variable_struct_remove(__projectAssetDict, __asset);
     }
     
     static __CheckForChange = function()
