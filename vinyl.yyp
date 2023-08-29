@@ -71,7 +71,7 @@
     {"id":{"name":"VinylEmitterPoint","path":"scripts/VinylEmitterPoint/VinylEmitterPoint.yy",},},
     {"id":{"name":"VinylKnobGet","path":"scripts/VinylKnobGet/VinylKnobGet.yy",},},
     {"id":{"name":"__VinylUtility","path":"scripts/__VinylUtility/__VinylUtility.yy",},},
-    {"id":{"name":"__VinylUpdateData","path":"scripts/__VinylUpdateData/__VinylUpdateData.yy",},},
+    {"id":{"name":"__VinylUpdateConfig","path":"scripts/__VinylUpdateConfig/__VinylUpdateConfig.yy",},},
     {"id":{"name":"__VinylConfigMacros","path":"scripts/__VinylConfigMacros/__VinylConfigMacros.yy",},},
     {"id":{"name":"__VinylGuiExportLabelArray","path":"scripts/__VinylGuiExportLabelArray/__VinylGuiExportLabelArray.yy",},},
     {"id":{"name":"VinylPlayFadeIn","path":"scripts/VinylPlayFadeIn/VinylPlayFadeIn.yy",},},

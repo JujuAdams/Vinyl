@@ -53,7 +53,7 @@ function __VinylInitialize()
     
     VinylSystemGainSet(1);
     __VinylEffectChainEnsure("main");
-    __VinylUpdateData();
+    __VinylUpdateConfig();
     
     if (__VinylGetLiveUpdateEnabled())
     {

@@ -47,7 +47,7 @@
     {"name":"VinylEmitterPoint","order":5,"path":"scripts/VinylEmitterPoint/VinylEmitterPoint.yy",},
     {"name":"VinylKnobGet","order":2,"path":"scripts/VinylKnobGet/VinylKnobGet.yy",},
     {"name":"__VinylUtility","order":4,"path":"scripts/__VinylUtility/__VinylUtility.yy",},
-    {"name":"__VinylUpdateData","order":24,"path":"scripts/__VinylUpdateData/__VinylUpdateData.yy",},
+    {"name":"__VinylUpdateConfig","order":24,"path":"scripts/__VinylUpdateConfig/__VinylUpdateConfig.yy",},
     {"name":"__VinylConfigMacros","order":1,"path":"scripts/__VinylConfigMacros/__VinylConfigMacros.yy",},
     {"name":"__VinylGuiExportLabelArray","order":5,"path":"scripts/__VinylGuiExportLabelArray/__VinylGuiExportLabelArray.yy",},
     {"name":"VinylPlayFadeIn","order":2,"path":"scripts/VinylPlayFadeIn/VinylPlayFadeIn.yy",},

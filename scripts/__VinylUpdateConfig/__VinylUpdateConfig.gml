@@ -1,5 +1,5 @@
 // Feather disable all
-function __VinylUpdateData()
+function __VinylUpdateConfig()
 {
     static _globalData     = __VinylGlobalData();
     static _topLevelArray  = _globalData.__topLevelArray;
@@ -98,32 +98,11 @@ function __VinylUpdateData()
     }
     catch(_error)
     {
-        show_debug_message("");
-        __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        __VinylTrace(_error.longMessage);
-        __VinylTrace(_error.stacktrace);
-        __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        show_debug_message("");
-        
-        var _trimmedMessage = string_replace(_error.message, "Vinyl:\n", "");
-        _trimmedMessage = string_copy(_trimmedMessage, 1, string_length(_trimmedMessage)-2);
-        
-        if (_firstUpdate)
-        {
-            __VinylError("There was an error whilst reading \"", _filename, "\"\n \n", _trimmedMessage);
-        }
-        else
-        {
-            _trimmedMessage = string_replace_all(_trimmedMessage, "\n", "\n       ");
-            __VinylTrace("There was an error whilst reading \"", _filename, "\"");
-            __VinylTrace(_trimmedMessage);
-        }
+        __VinylReportError(_error, _filename, _firstUpdate);
     }
     finally
     {
-        buffer_delete(_buffer);
+        if ((_buffer != undefined) && (_buffer >= 0)) buffer_delete(_buffer);
     }
     
     //Execute the callback on success
