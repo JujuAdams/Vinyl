@@ -62,9 +62,9 @@ function VinylAssetCheckProject()
         
         var _projectAssetArray = variable_struct_get_names(_projectAssetDict);
         var _i = 0;
-        repeat(array_length(_resourcesArray))
+        repeat(array_length(_projectAssetArray))
         {
-            _foundResourceNameDict[$ _projectAssetArray[_i]].__CheckForChange();
+            _projectAssetDict[$ _projectAssetArray[_i]].__CheckForChange();
             ++_i;
         }
         
