@@ -9,6 +9,7 @@
 function VinylSystemReadConfig(_configData)
 {
     static _globalData = __VinylGlobalData();
+    static _projectAssetDict = _globalData.__projectAssetDict;
     
     //Effect chain and stack data structures are a bit special because they're never regenerated
     //We keep the old effect chains around so that we can dynamically update effects
@@ -18,7 +19,7 @@ function VinylSystemReadConfig(_configData)
     static _stackArray       = _globalData.__stackArray;
     static _animCurveArray   = _globalData.__animCurveArray;
     
-    var _audioAssetArray = undefined;
+    var _audioAssetArray = variable_struct_get_names(_projectAssetDict);
     
     var _oldKnobDict  = _globalData.__knobDict;
     var _oldLabelDict = _globalData.__labelDict;
@@ -234,20 +235,6 @@ function VinylSystemReadConfig(_configData)
                 variable_struct_remove(_inputAssetDict, _assetName);
                 array_delete(_assetNameArray, _i, 1);
                 
-                //Build an array of all audio asset names on demand
-                if (!is_array(_audioAssetArray))
-                {
-                    _audioAssetArray = [];
-                    
-                    var _j = 0;
-                    repeat(1000000)
-                    {
-                        if (not audio_exists(_j)) break;
-                        array_push(_audioAssetArray, audio_get_name(_j));
-                        ++_j;
-                    }
-                }
-                
                 //Find all matching assets for the search string
                 var _array = __VinylFindMatchingAudioAssets(_assetName, _audioAssetArray);
                 
@@ -261,7 +248,7 @@ function VinylSystemReadConfig(_configData)
                     var _j = 0;
                     repeat(array_length(_array))
                     {
-                        var _assetName = audio_get_name(_array[_j]);
+                        var _assetName = VinylAssetGetName(_array[_j]);
                         __VinylBufferReadConfigJSONStructMergeNoOverwrite(_inputAssetDict, _assetName, _assetData);
                         if (!array_contains(_assetNameArray, _assetName)) array_push(_assetNameArray, _assetName);
                         ++_j;
@@ -289,12 +276,12 @@ function VinylSystemReadConfig(_configData)
             }
             else
             {
-                var _assetIndex = asset_get_index(_assetName);
+                var _assetIndex = VinylAssetGetIndex(_assetName);
                 if (_assetIndex < 0)
                 {
                     __VinylTrace("Warning! Asset \"", _assetName, "\" doesn't exist");
                 }
-                else if (asset_get_type(_assetName) != asset_sound)
+                else if (VinylAssetGetType(_assetName) != asset_sound)
                 {
                     __VinylTrace("Warning! Asset \"", _assetName, "\" isn't a sound");
                 }

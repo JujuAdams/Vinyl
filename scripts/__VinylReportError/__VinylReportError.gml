@@ -1,3 +1,4 @@
+// Feather disable all
 function __VinylReportError(_errorStruct, _path, _firstTime)
 {
     show_debug_message("");

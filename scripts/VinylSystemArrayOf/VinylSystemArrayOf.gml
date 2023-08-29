@@ -38,7 +38,7 @@ function VinylSystemArrayOf(_type)
             repeat(array_length(_array))
             {
                 var _pattern = _array[_i];
-                if ((not _pattern.__child) && (_pattern.__patternType == "asset")) array_push(_return, audio_get_name(_pattern.__asset));
+                if ((not _pattern.__child) && (_pattern.__patternType == "asset")) array_push(_return, VinylAssetGetName(_pattern.__asset));
                 ++_i;
             }
         break;

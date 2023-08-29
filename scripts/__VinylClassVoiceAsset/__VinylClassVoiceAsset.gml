@@ -17,7 +17,7 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
         }
         else
         {
-            return "<asset " + string(__id) + " " + audio_get_name(__sound) + ">";
+            return "<asset " + string(__id) + " " + VinylAssetGetName(__sound) + ">";
         }
     }
     
@@ -41,8 +41,8 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
     
     static __Instantiate = function(_patternTop, _pattern, _parentVoice, _vinylEmitter, _sound, _loop, _gain, _pitch, _pan)
     {
-        //Set the sound first so that error message make more sense
-        __sound = _sound;
+        //Set the sound first so that error messages make more sense
+        __sound = __VinylAssetResolve(_sound);
         
         __StateSetCommon(_patternTop, _pattern, _parentVoice, _vinylEmitter, _loop, _gain, _pitch, _pan);
         
@@ -77,7 +77,7 @@ function __VinylClassVoiceAsset() : __VinylClassVoiceCommon() constructor
         else
         {
             var _pattern = __VinylPatternGetUnsafe(__pattern.__name);
-            if (_pattern == undefined) __VinylTrace("Warning! Asset definition for ", audio_get_name(__sound), " no longer exists in configuration file. ", self, " now using fallback asset properties");
+            if (_pattern == undefined) __VinylTrace("Warning! Asset definition for ", VinylAssetGetName(__sound), " no longer exists in configuration file. ", self, " now using fallback asset properties");
             __pattern = __VinylPatternGet(__sound);
         }
         

@@ -1,3 +1,4 @@
+// Feather disable all
 function __VinylClassProjectAsset(_name, _path, _firstTime) constructor
 {
     static __projectAssetDict = __VinylGlobalData().__projectAssetDict;

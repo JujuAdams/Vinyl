@@ -1,4 +1,5 @@
-function __VinylUpdateProjectAssets()
+// Feather disable all
+function VinylAssetCheckProject()
 {
     static _globalData = __VinylGlobalData();
     static _projectAssetDict = _globalData.__projectAssetDict;
@@ -17,8 +18,34 @@ function __VinylUpdateProjectAssets()
         return undefined;
     }
     
-    //Always allow data to be updated once on boot
-    if ((GM_build_type != "run") || !__VinylGetLiveUpdateEnabled()) return;
+    var _funcAssetDictFallback = function()
+    {
+        static _projectAssetDict = __VinylGlobalData().__projectAssetDict;
+        
+        static _firstScan = true;
+        if (_firstScan)
+        {
+            _firstScan = false;
+            
+            __VinylTrace("Using asset dictionary fallback");
+            
+            var _i = 0;
+            repeat(1000000)
+            {
+                if (not audio_exists(_i)) break;
+                _projectAssetDict[$ audio_get_name(_i)] = undefined;
+                ++_i;
+            }
+        }
+    }
+    
+    //Even if we're not doing live updates, build an index of asset names
+    //This is used in VinylSystemReadConfig() to verify asset names
+    if (!__VinylGetLiveUpdateEnabled())
+    {
+        _funcAssetDictFallback();
+        return;
+    }
     
     if (!file_exists(GM_project_filename))
     {
@@ -130,6 +157,8 @@ function __VinylUpdateProjectAssets()
     catch(_error)
     {
         __VinylReportError(_error, GM_project_filename, _firstUpdate);
+        
+        _funcAssetDictFallback();
     }
     finally
     {

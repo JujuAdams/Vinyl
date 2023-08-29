@@ -36,7 +36,7 @@ function __VinylFindMatchingAudioAssets(_searchString, _assetNameArray)
         if (_accepted)
         {
             array_push(_result, _i);
-            array_push(_test, audio_get_name(_i));
+            array_push(_test, VinylAssetGetName(_i));
         }
         
         ++_i;

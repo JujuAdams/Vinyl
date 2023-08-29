@@ -16,7 +16,7 @@ function __VinylClassPatternAsset(_name, _adHoc, _child, _asset) : __VinylClassP
     
     static toString = function()
     {
-        return "<asset " + audio_get_name(__asset) + ">";
+        return "<asset " + VinylAssetGetName(__asset) + ">";
     }
     
     static __StoreAsset = function()
@@ -27,7 +27,7 @@ function __VinylClassPatternAsset(_name, _adHoc, _child, _asset) : __VinylClassP
         var _patternArray = __VinylGlobalData().__patternArray;
         
         _patternDict[$ __name] = self;
-        if (VINYL_ALLOW_ASSET_REFERENCE_BY_STRING) _patternDict[$ audio_get_name(__asset)] = self;
+        if (VINYL_ALLOW_ASSET_REFERENCE_BY_STRING) _patternDict[$ VinylAssetGetName(__asset)] = self;
         array_push(_patternArray, self);
     }
     
@@ -96,7 +96,7 @@ function __VinylClassPatternAsset(_name, _adHoc, _child, _asset) : __VinylClassP
     
     static __GuiBuildForStruct = function(_struct)
     {
-        dbg_section("Asset \"" + audio_get_name(__name) + "\"");
+        dbg_section("Asset \"" + VinylAssetGetName(__name) + "\"");
         __GuiBuildForStructCommon(_struct);
         
         dbg_text_input(ref_create(_struct, "__bpm"), "BPM");

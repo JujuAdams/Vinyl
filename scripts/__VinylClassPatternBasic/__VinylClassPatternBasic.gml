@@ -15,7 +15,7 @@ function __VinylClassPatternBasic(_name, _adHoc, _child) : __VinylClassPatternCo
     
     static toString = function()
     {
-        return (__asset == undefined)? "<basic ???>" : "<basic " + audio_get_name(__asset) + ">";
+        return (__asset == undefined)? "<basic ???>" : "<basic " + VinylAssetGetName(__asset) + ">";
     }
     
     static __Initialize = function(_patternData = {})
@@ -42,9 +42,9 @@ function __VinylClassPatternBasic(_name, _adHoc, _child) : __VinylClassPatternCo
         //Sort out the asset
         if (is_string(_asset))
         {
-            if (asset_get_index(_asset) < 0) __VinylError("Error in ", self, " for \"asset\" property\nAsset \"", _asset, "\" not found in the project");
-            if (asset_get_type(_asset) != asset_sound) __VinylError("Error in ", self, " for \"asset\" property\nAsset \"", _asset, "\" not a sound asset");
-            _asset = asset_get_index(_asset);
+            if (VinylAssetGetIndex(_asset) < 0) __VinylError("Error in ", self, " for \"asset\" property\nAsset \"", _asset, "\" not found in the project");
+            if (VinylAssetGetType(_asset) != asset_sound) __VinylError("Error in ", self, " for \"asset\" property\nAsset \"", _asset, "\" not a sound asset");
+            _asset = VinylAssetGetIndex(_asset);
         }
         
         if (!is_numeric(_asset)) __VinylError("Error in ", self, " for \"asset\" property\nAsset should be specified as an audio asset index or audio asset name (datatype=", typeof(_asset), ")");
@@ -89,7 +89,7 @@ function __VinylClassPatternBasic(_name, _adHoc, _child) : __VinylClassPatternCo
     
     static __GuiBuildForStruct = function(_struct)
     {
-        dbg_section("Basic Pattern \"" + ((__asset == undefined)? "???" : audio_get_name(__asset)) + "\"");
+        dbg_section("Basic Pattern \"" + ((__asset == undefined)? "???" : VinylAssetGetName(__asset)) + "\"");
         __GuiBuildForStructCommon(_struct);
     }
     
