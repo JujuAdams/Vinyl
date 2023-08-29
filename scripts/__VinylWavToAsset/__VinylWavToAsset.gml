@@ -1,12 +1,18 @@
 // Feather disable all
 function __VinylWavToAsset(_path)
 {
-    var _buffer = undefined;
-    var _asset  = undefined;
+    var _inBuffer = undefined;
+    var _buffer   = undefined;
+    var _asset    = undefined;
     
     try
     {
-        _buffer = buffer_load(_path);
+        //We have to do this stupid shit to get audio_create_buffer_sound() to work
+        _inBuffer = buffer_load(_path);
+        var _size = buffer_get_size(_inBuffer);
+        _buffer = buffer_create(_size, buffer_fixed, 1);
+        buffer_copy(_inBuffer, 0, _size, _buffer, 0);
+        buffer_delete(_inBuffer);
         
     	// Check RIFF header
     	var _chunkID = buffer_peek(_buffer, 0, buffer_u32);
@@ -59,7 +65,8 @@ function __VinylWavToAsset(_path)
     }
     finally
     {
-        if ((_buffer != undefined) && (_buffer >= 0)) buffer_delete(_buffer);
+        if ((_inBuffer != undefined) && (_inBuffer >= 0)) buffer_delete(_inBuffer);
+        //if ((_buffer != undefined) && (_buffer >= 0)) buffer_delete(_buffer);
     }
     
     return _asset;
