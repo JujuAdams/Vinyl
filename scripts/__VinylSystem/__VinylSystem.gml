@@ -27,10 +27,13 @@ function __VinylInitialize()
     var _globalData = __VinylGlobalData();
     if (VINYL_DEBUG_LEVEL > 0) global.__vinylGlobalData = _globalData;
     
-    with(_globalData.__uiData)
+    if (VINYL_GUI_ENABLED)
     {
-        __pointerMain       = dbg_view("Vinyl UI", false);
-        __pointerProperties = dbg_view("Vinyl Properties", false);
+        with(_globalData.__uiData)
+        {
+            __pointerMain       = dbg_view("Vinyl UI", false);
+            __pointerProperties = dbg_view("Vinyl Properties", false);
+        }
     }
     
     _globalData.__poolAsset.__Populate(VINYL_POOL_START_SIZE);

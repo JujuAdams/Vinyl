@@ -93,4 +93,6 @@
 
 #macro VINYL_GUI_SECTION_ORDER  ["Assets", "Patterns", "Labels", "Stacks", "Effect Chains", "Knobs"]
 
+#macro VINYL_GUI_ENABLED  false
+
 #endregion

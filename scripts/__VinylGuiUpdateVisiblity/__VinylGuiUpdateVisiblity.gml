@@ -2,6 +2,10 @@ function __VinylGuiUpdateVisiblity()
 {
     static _globalData = __VinylGlobalData();
     
+    if (!VINYL_GUI_ENABLED) return;
+    
+    
+    
     var _patternArray     = _globalData.__patternArray;
     var _labelArray       = _globalData.__labelArray;
     var _stackArray       = _globalData.__stackArray;

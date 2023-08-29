@@ -453,7 +453,7 @@ function VinylSystemReadConfig(_configData)
     
     
     
-    __VinylGuiUpdateVisiblity()
+    if (VINYL_GUI_ENABLED) __VinylGuiUpdateVisiblity()
     
     
     
