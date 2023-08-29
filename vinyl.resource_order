@@ -156,7 +156,6 @@
     {"name":"VinylFadeOut","order":3,"path":"scripts/VinylFadeOut/VinylFadeOut.yy",},
     {"name":"VinylKnobTargetSet","order":3,"path":"scripts/VinylKnobTargetSet/VinylKnobTargetSet.yy",},
     {"name":"VinylEmitterPolyline","order":8,"path":"scripts/VinylEmitterPolyline/VinylEmitterPolyline.yy",},
-    {"name":"sndBleep11","order":21,"path":"sounds/sndBleep11/sndBleep11.yy",},
     {"name":"__VinylClassVoiceBasic","order":2,"path":"scripts/__VinylClassVoiceBasic/__VinylClassVoiceBasic.yy",},
     {"name":"VinylEmitterCircle","order":6,"path":"scripts/VinylEmitterCircle/VinylEmitterCircle.yy",},
     {"name":"VinylKnobSet","order":1,"path":"scripts/VinylKnobSet/VinylKnobSet.yy",},

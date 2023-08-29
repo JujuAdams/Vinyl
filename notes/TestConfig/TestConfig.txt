@@ -81,7 +81,7 @@
             behaviour: 1
             assets: [
                 sndBleep6
-                sndBleep11
+                sndBleep10
             ]
         }
         
@@ -96,7 +96,7 @@
             type: shuffle
             assets: [sndBleep0, sndBleep1,   sndBleep2,  sndBleep3,
                      sndBleep4, sndBleep5,   sndBleep6,  sndBleep7,
-                     sndBleep8, sndBleep9,  sndBleep10, sndBleep11]
+                     sndBleep8, sndBleep9,  sndBleep10]
         }
         
         queue test: {

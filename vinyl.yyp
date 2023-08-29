@@ -196,7 +196,6 @@
     {"id":{"name":"__VinylBuildScripts","path":"extensions/__VinylBuildScripts/__VinylBuildScripts.yy",},},
     {"id":{"name":"VinylMultiVoiceCountGet","path":"scripts/VinylMultiVoiceCountGet/VinylMultiVoiceCountGet.yy",},},
     {"id":{"name":"VinylEmitterPolyline","path":"scripts/VinylEmitterPolyline/VinylEmitterPolyline.yy",},},
-    {"id":{"name":"sndBleep11","path":"sounds/sndBleep11/sndBleep11.yy",},},
     {"id":{"name":"__VinylClassVoiceBasic","path":"scripts/__VinylClassVoiceBasic/__VinylClassVoiceBasic.yy",},},
     {"id":{"name":"VinylEmitterCircle","path":"scripts/VinylEmitterCircle/VinylEmitterCircle.yy",},},
     {"id":{"name":"VinylKnobSet","path":"scripts/VinylKnobSet/VinylKnobSet.yy",},},
