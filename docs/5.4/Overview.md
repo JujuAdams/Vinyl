@@ -121,8 +121,6 @@ Vinyl supports the following effects:
 
 Assets can be set up to automatically play using effect chains in the [configuration file](Config-File). Labels can also be set up in the [configuration file](Config-File) such that any assigned assets will use a particular effect chain.
 
-?> When playing an asset using `VinylPlayOnEmitter()`, the effect chain will be determined by the emitter rather than the asset or label(s). You can set the effect chain to use for an emitter with `VinylEmitterEffectChain()`.
-
 !> A sound can only be played on one effect chain at a time. As a result, the label `effect chain` property can potentially conflict with effect chain definitions in other labels if an asset is assigned to multiple labels. This is not considered a critical error by Vinyl but can lead to unexpected behaviour.
 
 &nbsp;
