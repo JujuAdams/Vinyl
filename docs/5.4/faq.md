@@ -4,7 +4,7 @@
 
 **What platforms does Vinyl support?**
 
-Everything! You might run into edge cases on platforms that I don't regularly test; please [report any bugs](https://github.com/JujuAdams/Vinyl/issues) if and when you find them. Don't be surprised if you run into weird issues on HTML5 though.
+Everything, apart from HTML5. You might run into edge cases on platforms that I don't regularly test; please [report any bugs](https://github.com/JujuAdams/Vinyl/issues) if and when you find them. HTML5 isn't supported due to upstream bugs in GameMaker itself.
 
 Live updating is only supported when running your game from the IDE on the same machine that built the game. Maybe in the future this'll change.
 
