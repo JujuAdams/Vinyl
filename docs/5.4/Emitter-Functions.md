@@ -199,7 +199,7 @@ Creates an emitter that occupies a rectangular region in your game world. This m
 
 Creates an emitter that's defined by a polyline (a.k.a. line strip). The polyline has a "thickness" determined by the `radius` argument. This means that the listener position can be anywhere within the thickness of the polyline to hear sound played on the emitter at full volume at centred in the stereo field, and panning and falloff only occurs when the listener is outside the thickness of the polyline. The "position" of the polyline is determined by the centre of the axis-aligned bounding box that encloses the polyline.
 
-You can alternatively define the vertices on the polyline by using a native GameMaker patch. This function does not support curved paths, however.
+You can alternatively define the vertices on the polyline by using a native GameMaker path. This function does not support curved paths, however.
 
 !> Vinyl will automatically clean up orphaned emitters for you, but you should keep a reference to the created emitter and destroy it when it's no longer needed with `VinylEmitterDestroy()` to keep control over how and when that clean up occurs.
 
