@@ -115,6 +115,16 @@ function __VinylClassEffectChain(_name) constructor
                 _gmType = AudioEffectType.PeakEQ;
                 if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "freq", "q", "gain"]);
             }
+            else if (_effectType == "loshelf")
+            {
+                _gmType = AudioEffectType.LoShelf;
+                if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "freq", "q", "gain"]);
+            }
+            else if (_effectType == "hishelf")
+            {
+                _gmType = AudioEffectType.HiShelf;
+                if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "freq", "q", "gain"]);
+            }
             else
             {
                 __VinylError("Effect type \"", _effectType, "\" not recognised (", self, " index=", _i, ")");
