@@ -110,6 +110,11 @@ function __VinylClassEffectChain(_name) constructor
                 _gmType = AudioEffectType.Tremolo;
                 if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "rate", "intensity", "offset", "shape"]);
             }
+            else if (_effectType == "peak")
+            {
+                _gmType = AudioEffectType.PeakEQ;
+                if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "freq", "q", "gain"]);
+            }
             else
             {
                 __VinylError("Effect type \"", _effectType, "\" not recognised (", self, " index=", _i, ")");
