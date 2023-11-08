@@ -101,20 +101,20 @@
             asset: sndCat
             effect chain: peak eq test
         }
-		
-		cat low shelf: {
+        
+        cat low shelf: {
             type: basic
             asset: sndCat
             effect chain: low shelf test
         }
-		
-		cat high shelf: {
+        
+        cat high shelf: {
             type: basic
             asset: sndCat
             effect chain: high shelf test
         }
-		
-		music multiband eq: {
+        
+        music multiband eq: {
             type: basic
             asset: sndChickenNuggets
             effect chain: multiband eq test
@@ -173,7 +173,7 @@
                 mix: 0.3
             }
         ]
-		
+        
         peak eq test: [
             {
                 type: peakeq
@@ -182,7 +182,7 @@
                 gain: 3
             }
         ]
-		
+        
         low shelf test: [
             {
                 type: peakeq
@@ -190,7 +190,7 @@
                 q: 2
             }
         ]
-		
+        
         high shelf test: [
             {
                 type: peakeq
@@ -198,25 +198,25 @@
                 q: 1
             }
         ]
-		
-		multiband eq test: [
-			{
-				type: eq
-				loshelf: {
-					freq: 500
-					q: 1
-					gain: 0.4
-				}
-				eq1: {
-					freq: 60
-					gain: 4
-				}
-				hishelf: {
-					freq: 6000
-					q: 1
-					gain: 0.4
-				}
-			}
-		]
+        
+        multiband eq test: [
+            {
+                type: eq
+                loshelf: {
+                    freq: 500
+                    q: 1
+                    gain: 0.4
+                }
+                eq1: {
+                    freq: 60
+                    gain: 4
+                }
+                hishelf: {
+                    freq: 6000
+                    q: 1
+                    gain: 0.4
+                }
+            }
+        ]
     }
 }

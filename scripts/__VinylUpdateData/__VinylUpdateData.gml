@@ -12,7 +12,6 @@ function __VinylUpdateData()
     var _firstUpdate = (_configFileHash == undefined);
     var _reloadConfig = false;
     
-    
     //Always allow data to be updated once on boot
     if (!_globalData.__liveUpdate && (_configFileHash != undefined)) return;
     

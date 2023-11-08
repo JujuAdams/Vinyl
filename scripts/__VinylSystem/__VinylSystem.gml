@@ -11,6 +11,13 @@
 
 #macro __VINYL_RETURN_SELF_TO_POOL  if (__pool != undefined) { __pool.__Return(self) }
 
+enum __VINYL_ASSET_TYPE {
+    __UNKNOWN,
+    __WAD,
+    __EXTERNAL_WAV,
+    __EXTERNAL_OGG,
+}
+
 
 __VinylInitialize();
 
@@ -47,11 +54,16 @@ function __VinylInitialize()
     
     VinylSystemGainSet(1);
     __VinylEffectChainEnsure("main");
+    __VinylUpdateProject();
     __VinylUpdateData();
     
     if (__VinylGetLiveUpdateEnabled())
     {
-        time_source_start(time_source_create(time_source_global, VINYL_LIVE_UPDATE_PERIOD/1000, time_source_units_seconds, __VinylUpdateData, [], -1));
+        time_source_start(time_source_create(time_source_global, VINYL_LIVE_UPDATE_PERIOD/1000, time_source_units_seconds, function()
+        {
+            __VinylUpdateProject();
+            __VinylUpdateData();
+        }, [], -1));
     }
     else if (GM_build_type == "run")
     {
