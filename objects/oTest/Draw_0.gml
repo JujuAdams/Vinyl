@@ -203,3 +203,23 @@ UIButtonInline("Queue loop test", function()
 });
 
 UINewline();
+
+UIButtonInline("500hz Peak EQ test", function()
+{
+    VinylKnobSet("peak freq", 0);
+    VinylPlay("cat peak eq");
+});
+
+UIButtonInline("1Khz Peak EQ test", function()
+{
+    VinylKnobSet("peak freq", 0.5);
+    VinylPlay("cat peak eq");
+});
+
+UIButtonInline("1.5Khz Peak EQ test", function()
+{
+    VinylKnobSet("peak freq", 1);
+    VinylPlay("cat peak eq");
+});
+
+UINewline();

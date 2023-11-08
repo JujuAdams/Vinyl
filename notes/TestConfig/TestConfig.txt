@@ -16,6 +16,11 @@
         
         //If we use just a number then that's the default value and we have no defined input or output ranges
         reverb size: 0.2
+        
+        peak freq: {
+            output range: [500, 1500]
+            default: 500
+        }
     }
     
     
@@ -91,6 +96,12 @@
             effect chain: echo
         }
         
+        cat peak eq: {
+            type: basic
+            asset: sndCat
+            effect chain: peak eq test
+        }
+        
         bleep shuffle: {
             type: shuffle
             assets: [sndBleep0, sndBleep1,   sndBleep2,  sndBleep3,
@@ -142,6 +153,14 @@
                 type: reverb
                 size: @reverb size
                 mix: 0.3
+            }
+        ]
+        peak eq test: [
+            {
+                type: peak
+                freq: @peak freq
+                q: 0.1
+                gain: 3
             }
         ]
     }
