@@ -113,6 +113,12 @@
             asset: sndCat
             effect chain: high shelf test
         }
+		
+		music multiband eq: {
+            type: basic
+            asset: sndChickenNuggets
+            effect chain: multiband eq test
+        }
         
         bleep shuffle: {
             type: shuffle
@@ -170,7 +176,7 @@
 		
         peak eq test: [
             {
-                type: peak
+                type: peakeq
                 freq: @peak freq
                 q: 0.1
                 gain: 3
@@ -179,7 +185,7 @@
 		
         low shelf test: [
             {
-                type: peak
+                type: peakeq
                 freq: 500
                 q: 2
             }
@@ -187,10 +193,43 @@
 		
         high shelf test: [
             {
-                type: peak
-                freq: 2000
-                q: 2
+                type: peakeq
+                freq: 1000
+                q: 1
             }
         ]
+		
+		multiband eq test: [
+			{
+				type: eq
+				locut: {
+					bypass: true
+				}
+				loshelf: {
+					bypass: true
+				}
+				eq1: {
+					bypass: true
+				}
+				eq2: {
+					bypass: true
+					gain: 0.4
+					freq: 900
+					q: 0.5
+				}
+				eq3: {
+					bypass: true
+				}
+				eq4: {
+					bypass: true
+				}
+				hishelf: {
+					bypass: true
+				}
+				hicut: {
+					bypass: true
+				}
+			}
+		]
     }
 }

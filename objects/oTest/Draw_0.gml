@@ -232,4 +232,9 @@ UIButtonInline("High Shelf EQ test", function()
     VinylPlay("cat high shelf");
 });
 
+UIButtonInline("Mulitband EQ test", function()
+{
+	VinylPlay("music multiband eq");
+});
+
 UINewline();
