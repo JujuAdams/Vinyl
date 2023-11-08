@@ -266,5 +266,19 @@ function __VinylEffectChainParse(_effectData, _existingEffect, _i)
         ++_j;
     }
 	
+	//Fix up GameMaker's wonky default settings by bypassing anything that's not explicitly mentioned in the input struct
+	if (_gmType == AudioEffectType.EQ)
+	{
+		var _dataFieldArray = ["locut", "loshelf", "eq1", "eq2", "eq3", "eq4", "hishelf", "hicut"];
+		var _j = 0;
+		repeat(array_length(_dataFieldArray))
+		{
+			var _effectDataField = _dataFieldArray[_j];
+			var _value = _effectData[$ _effectDataField];
+			_existingEffect[$ _effectDataField].bypass = is_struct(_value)? (_value[$ "bypass"] ?? false) : true;
+			++_j;
+		}
+	}
+	
 	return _existingEffect;
 }
