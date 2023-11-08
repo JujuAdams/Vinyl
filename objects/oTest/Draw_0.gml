@@ -222,4 +222,14 @@ UIButtonInline("1.5Khz Peak EQ test", function()
     VinylPlay("cat peak eq");
 });
 
+UIButtonInline("Low Shelf EQ test", function()
+{
+    VinylPlay("cat low shelf");
+});
+
+UIButtonInline("High Shelf EQ test", function()
+{
+    VinylPlay("cat high shelf");
+});
+
 UINewline();
