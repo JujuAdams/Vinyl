@@ -1,3 +1,5 @@
+// Feather disable all
+
 function __VinylSystemReadProject(_projectData, _firstUpdate)
 {
     static _projectDirectory = filename_dir(GM_project_filename) + "/";
@@ -6,6 +8,8 @@ function __VinylSystemReadProject(_projectData, _firstUpdate)
     static _oldSoundDict     = _globalData.__projectSoundDict;
     static _oldSoundArray    = _globalData.__projectSoundArray;
     static _oldSoundHashDict = _globalData.__projectSoundHashDict;
+    
+    var _anyChanges = false;
     
     var _newSoundDict  = {};
     var _newSoundArray = [];
@@ -37,6 +41,8 @@ function __VinylSystemReadProject(_projectData, _firstUpdate)
         var _assetName = _newSoundArray[_i];
         if (not variable_struct_exists(_oldSoundDict, _assetName))
         {
+            _anyChanges = true;
+            
             //Try to figure out what type of file the raw data on disk is
             var _absolutePath = _projectDirectory + _newSoundDict[$ _assetName];
             var _type = __VINYL_ASSET_TYPE.__EXTERNAL_WAV;
@@ -75,8 +81,6 @@ function __VinylSystemReadProject(_projectData, _firstUpdate)
                 var _oldAsset = _oldSoundHashDict[$ _hash];
                 if (is_struct(_oldAsset))
                 {
-                    __VinylTrace("Project: Asset \"", _oldAsset.__name, "\" renamed to \"", _assetName, "\"");
-                    
                     //Remove the old asset reference but not the hash (since that hasn't changed)
                     variable_struct_remove(_oldSoundDict, _oldAsset.__name);
                     
@@ -109,6 +113,8 @@ function __VinylSystemReadProject(_projectData, _firstUpdate)
         var _oldSoundName = _oldSoundArray[_i];
         if (not variable_struct_exists(_newSoundDict, _oldSoundName))
         {
+            _anyChanges = true;
+            
             var _oldSound = _oldSoundDict[$ _oldSoundName];
             if (is_struct(_oldSound) && (_oldSound.__name == _oldSoundName))
             {
@@ -133,4 +139,6 @@ function __VinylSystemReadProject(_projectData, _firstUpdate)
             ++_i;
         }
     }
+    
+    return _anyChanges;
 }

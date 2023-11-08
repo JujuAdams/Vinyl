@@ -61,8 +61,8 @@ function __VinylInitialize()
     {
         time_source_start(time_source_create(time_source_global, VINYL_LIVE_UPDATE_PERIOD/1000, time_source_units_seconds, function()
         {
-            __VinylUpdateProject();
-            __VinylUpdateData();
+            var _anyProjectChanges = __VinylUpdateProject();
+            __VinylUpdateData(_anyProjectChanges);
         }, [], -1));
     }
     else if (GM_build_type == "run")

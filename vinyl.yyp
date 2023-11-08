@@ -35,6 +35,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stacks","folderPath":"folders/Vinyl/Stacks.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stopping Audio","folderPath":"folders/Vinyl/Stopping Audio.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Transposition","folderPath":"folders/Vinyl/Transposition.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Assets","folderPath":"folders/Vinyl/Assets.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"vinyl.dat","CopyToMask":-1,"filePath":"datafiles",},
@@ -119,6 +120,7 @@
     {"id":{"name":"__VinylClassPool","path":"scripts/__VinylClassPool/__VinylClassPool.yy",},},
     {"id":{"name":"VinylSystemGainSet","path":"scripts/VinylSystemGainSet/VinylSystemGainSet.yy",},},
     {"id":{"name":"sndSync2","path":"sounds/sndSync2/sndSync2.yy",},},
+    {"id":{"name":"VinylAssetExists","path":"scripts/VinylAssetExists/VinylAssetExists.yy",},},
     {"id":{"name":"UINewline","path":"scripts/UINewline/UINewline.yy",},},
     {"id":{"name":"VinylPatternGet","path":"scripts/VinylPatternGet/VinylPatternGet.yy",},},
     {"id":{"name":"VinylBPMGet","path":"scripts/VinylBPMGet/VinylBPMGet.yy",},},
@@ -216,6 +218,7 @@
     {"id":{"name":"acTest","path":"animcurves/acTest/acTest.yy",},},
     {"id":{"name":"VinylMultiGainSet","path":"scripts/VinylMultiGainSet/VinylMultiGainSet.yy",},},
     {"id":{"name":"VinylOutputPitchGet","path":"scripts/VinylOutputPitchGet/VinylOutputPitchGet.yy",},},
+    {"id":{"name":"VinylAssetGetIndex","path":"scripts/VinylAssetGetIndex/VinylAssetGetIndex.yy",},},
     {"id":{"name":"__VinylClassKnobTarget","path":"scripts/__VinylClassKnobTarget/__VinylClassKnobTarget.yy",},},
     {"id":{"name":"sndBleep2","path":"sounds/sndBleep2/sndBleep2.yy",},},
     {"id":{"name":"VinylQueueBehaviorGet","path":"scripts/VinylQueueBehaviorGet/VinylQueueBehaviorGet.yy",},},

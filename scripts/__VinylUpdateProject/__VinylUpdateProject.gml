@@ -1,13 +1,13 @@
+// Feather disable all
+
 function __VinylUpdateProject()
 {
     static _globalData     = __VinylGlobalData();
     static _projectFileHash = undefined;
-    var _projectFileHashReflect = _projectFileHash;
     
     if ((not __VinylGetLiveUpdateEnabled()) || (GM_build_type != "run")) return;
     
     var _firstUpdate = (_projectFileHash == undefined);
-    var _reloadProject = false;
     
     var _filename = GM_project_filename;
     if (!file_exists(_filename))
@@ -20,7 +20,7 @@ function __VinylUpdateProject()
     if (_foundHash == _projectFileHash) return;
     _projectFileHash = _foundHash;
     
-    var _success = undefined;
+    var _anyChanges = undefined;
     var _t = get_timer();
     
     try
@@ -30,9 +30,8 @@ function __VinylUpdateProject()
         
         var _string = buffer_read(_buffer, buffer_string);
         var _data = json_parse(_string);
-        __VinylSystemReadProject(_data, _firstUpdate);
+        _anyChanges = __VinylSystemReadProject(_data, _firstUpdate);
         
-        _success = true;
         __VinylTrace("Loaded project file in ", (get_timer() - _t)/1000, "ms");
     }
     catch(_error)
@@ -65,5 +64,5 @@ function __VinylUpdateProject()
         buffer_delete(_buffer);
     }
     
-    return _success;
+    return _anyChanges;
 }

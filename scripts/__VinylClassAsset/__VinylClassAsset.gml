@@ -1,3 +1,5 @@
+// Feather disable all
+
 /// @param type
 /// @param name
 /// @param [absolutePath]
@@ -12,8 +14,6 @@ function __VinylClassAsset(_type, _name, _absolutePath = undefined) constructor
     
     static __Load = function()
     {
-        __VinylTrace("Loading \"", __name, "\" as type ", __type, " (path=", __absolutePath, ")");
-        
         switch(__type)
         {
             case __VINYL_ASSET_TYPE.__WAD:
@@ -78,6 +78,8 @@ function __VinylClassAsset(_type, _name, _absolutePath = undefined) constructor
                 __soundID = audio_create_stream(__absolutePath);
             break;
         }
+        
+        __VinylTrace("Loaded \"", __name, "\" type ", __type, " as sound ID <", __soundID, "> (path=", __absolutePath, ")");
     }
     
     static __Unload = function()
@@ -87,7 +89,7 @@ function __VinylClassAsset(_type, _name, _absolutePath = undefined) constructor
         
         __Stop();
         
-        __VinylTrace("Unloading \"", __name, "\" as type ", __type, " (path=", __absolutePath, ")");
+        __VinylTrace("Unloading \"", __name, "\" type ", __type, " sound ID <", __soundID, "> (path=", __absolutePath, ")");
         
         switch(__type)
         {
@@ -110,12 +112,14 @@ function __VinylClassAsset(_type, _name, _absolutePath = undefined) constructor
     {
         if (__soundID == undefined) return;
         
-        __VinylTrace("Stopping \"", __name, "\" (path=", __absolutePath, ")");
+        __VinylTrace("Stopping \"", __name, "\" sound ID <", __soundID, "> (path=", __absolutePath, ")");
         audio_stop_sound(__soundID);
     }
     
     static __Change = function(_newType, _newName, _newAbsolutePath)
     {
+        __VinylTrace("Renaming \"", __name, "\" type ", __type, " (path=", __absolutePath, ") to \"", _newName, "\" type ", _newType, " (path=", _newAbsolutePath, ")");
+        
         __Stop();
         
         var _oldType = __type;
@@ -134,6 +138,10 @@ function __VinylClassAsset(_type, _name, _absolutePath = undefined) constructor
             //If we weren't using an external file before, reload
             //Also, if the new type is an audio stream then reload too
             __Load();
+        }
+        else
+        {
+            __VinylTrace("Sound ID for \"", __name, "\" remains <", __soundID, ">");
         }
     }
 }

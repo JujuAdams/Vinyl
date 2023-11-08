@@ -1,4 +1,5 @@
 // Feather disable all
+
 function __VinylGlobalData()
 {
     static _struct = {
