@@ -101,6 +101,18 @@
             asset: sndCat
             effect chain: peak eq test
         }
+		
+		cat low shelf: {
+            type: basic
+            asset: sndCat
+            effect chain: low shelf test
+        }
+		
+		cat high shelf: {
+            type: basic
+            asset: sndCat
+            effect chain: high shelf test
+        }
         
         bleep shuffle: {
             type: shuffle
@@ -155,12 +167,29 @@
                 mix: 0.3
             }
         ]
+		
         peak eq test: [
             {
                 type: peak
                 freq: @peak freq
                 q: 0.1
                 gain: 3
+            }
+        ]
+		
+        low shelf test: [
+            {
+                type: peak
+                freq: 500
+                q: 2
+            }
+        ]
+		
+        high shelf test: [
+            {
+                type: peak
+                freq: 2000
+                q: 2
             }
         ]
     }
