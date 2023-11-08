@@ -67,9 +67,9 @@ function __VinylClassEffectChain(_name) constructor
             var _effectData = _busEffectArray[_i];
             if (!is_struct(_effectData)) __VinylError("Error in ", self, " effect index ", _i, "\nEffect data must be a struct");
             
-			var _effect = __VinylEffectChainParse(_effectData, __bus.effects[_i], _i);
+            var _effect = __VinylEffectChainParse(_effectData, __bus.effects[_i], _i);
             __bus.effects[_i] = _effect;
-			
+            
             if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Effect chain ", self, " effects[", _i, "] = ", json_stringify(_effect));
             
             ++_i;
@@ -192,93 +192,93 @@ function __VinylEffectChainParse(_effectData, _existingEffect, _i)
             var _value = _effectData[$ _effectDataField];
             
             //Special case for tremolo shape
-			switch(_effectDataField)
-			{
-				case "shape":
-	                if (_value == "sine")
-	                {
-	                    _existingEffect[$ _effectDataField] = AudioLFOType.Sine;
-	                }
-	                else if (_value == "square")
-	                {
-	                    _existingEffect[$ _effectDataField] = AudioLFOType.Square;
-	                }
-	                else if (_value == "triangle")
-	                {
-	                    _existingEffect[$ _effectDataField] = AudioLFOType.Triangle;
-	                }
-	                else if (_value == "sawtooth")
-	                {
-	                    _existingEffect[$ _effectDataField] = AudioLFOType.Sawtooth;
-	                }
-	                else if (_value == "inverse sawtooth")
-	                {
-	                    _existingEffect[$ _effectDataField] = AudioLFOType.InvSawtooth;
-	                }
-	                else
-	                {
-	                    __VinylError("Tremolo effect shape type \"", _value, "\" not recognised");
-	                }
-				break;
-				
-				case "locut":
-					if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
-					_value.type = "hpf2";
-					__VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
-				break;
-				
-				case "loshelf":
-					if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
-					_value.type = "loshelf";
-					__VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
-				break;
-				
-				case "eq1":
-				case "eq2":
-				case "eq3":
-				case "eq4":
-					if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
-					_value.type = "peakeq";
-					__VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
-				break;
-				
-				case "hishelf":
-					if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
-					_value.type = "hishelf";
-					__VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
-				break;
-				
-				case "hicut":
-					if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
-					_value.type = "lpf2";
-					__VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
-				break;
-				
-				default:
-	                var _knobValue = __VinylParseKnob(_value, _effectDataField, false, _existingEffect);
-	                _value = _knobValue ?? _value;
-	                if (!is_numeric(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a number");
-	                _existingEffect[$ _effectDataField] = _value;
-	            break;
-			}
+            switch(_effectDataField)
+            {
+                case "shape":
+                    if (_value == "sine")
+                    {
+                        _existingEffect[$ _effectDataField] = AudioLFOType.Sine;
+                    }
+                    else if (_value == "square")
+                    {
+                        _existingEffect[$ _effectDataField] = AudioLFOType.Square;
+                    }
+                    else if (_value == "triangle")
+                    {
+                        _existingEffect[$ _effectDataField] = AudioLFOType.Triangle;
+                    }
+                    else if (_value == "sawtooth")
+                    {
+                        _existingEffect[$ _effectDataField] = AudioLFOType.Sawtooth;
+                    }
+                    else if (_value == "inverse sawtooth")
+                    {
+                        _existingEffect[$ _effectDataField] = AudioLFOType.InvSawtooth;
+                    }
+                    else
+                    {
+                        __VinylError("Tremolo effect shape type \"", _value, "\" not recognised");
+                    }
+                break;
+                
+                case "locut":
+                    if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
+                    _value.type = "hpf2";
+                    __VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
+                break;
+                
+                case "loshelf":
+                    if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
+                    _value.type = "loshelf";
+                    __VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
+                break;
+                
+                case "eq1":
+                case "eq2":
+                case "eq3":
+                case "eq4":
+                    if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
+                    _value.type = "peakeq";
+                    __VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
+                break;
+                
+                case "hishelf":
+                    if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
+                    _value.type = "hishelf";
+                    __VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
+                break;
+                
+                case "hicut":
+                    if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
+                    _value.type = "lpf2";
+                    __VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
+                break;
+                
+                default:
+                    var _knobValue = __VinylParseKnob(_value, _effectDataField, false, _existingEffect);
+                    _value = _knobValue ?? _value;
+                    if (!is_numeric(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a number");
+                    _existingEffect[$ _effectDataField] = _value;
+                break;
+            }
         }
         
         ++_j;
     }
-	
-	//Fix up GameMaker's wonky default settings by bypassing anything that's not explicitly mentioned in the input struct
-	if (_gmType == AudioEffectType.EQ)
-	{
-		var _dataFieldArray = ["locut", "loshelf", "eq1", "eq2", "eq3", "eq4", "hishelf", "hicut"];
-		var _j = 0;
-		repeat(array_length(_dataFieldArray))
-		{
-			var _effectDataField = _dataFieldArray[_j];
-			var _value = _effectData[$ _effectDataField];
-			_existingEffect[$ _effectDataField].bypass = is_struct(_value)? (_value[$ "bypass"] ?? false) : true;
-			++_j;
-		}
-	}
-	
-	return _existingEffect;
+    
+    //Fix up GameMaker's wonky default settings by bypassing anything that's not explicitly mentioned in the input struct
+    if (_gmType == AudioEffectType.EQ)
+    {
+        var _dataFieldArray = ["locut", "loshelf", "eq1", "eq2", "eq3", "eq4", "hishelf", "hicut"];
+        var _j = 0;
+        repeat(array_length(_dataFieldArray))
+        {
+            var _effectDataField = _dataFieldArray[_j];
+            var _value = _effectData[$ _effectDataField];
+            _existingEffect[$ _effectDataField].bypass = is_struct(_value)? (_value[$ "bypass"] ?? false) : true;
+            ++_j;
+        }
+    }
+    
+    return _existingEffect;
 }
