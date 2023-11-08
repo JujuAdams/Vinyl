@@ -125,6 +125,11 @@ function __VinylClassEffectChain(_name) constructor
                 _gmType = AudioEffectType.HiShelf;
                 if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "freq", "q", "gain"]);
             }
+            else if (_effectType == "compressor")
+            {
+                _gmType = AudioEffectType.Compressor;
+                if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "ingain", "threshold", "ratio", "attack", "release", "outgain"]);
+            }
             else
             {
                 __VinylError("Effect type \"", _effectType, "\" not recognised (", self, " index=", _i, ")");
