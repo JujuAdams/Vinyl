@@ -202,32 +202,19 @@
 		multiband eq test: [
 			{
 				type: eq
-				locut: {
-					bypass: true
-				}
 				loshelf: {
-					bypass: true
+					freq: 500
+					q: 1
+					gain: 0.4
 				}
 				eq1: {
-					bypass: true
-				}
-				eq2: {
-					bypass: true
-					gain: 0.4
-					freq: 900
-					q: 0.5
-				}
-				eq3: {
-					bypass: true
-				}
-				eq4: {
-					bypass: true
+					freq: 60
+					gain: 4
 				}
 				hishelf: {
-					bypass: true
-				}
-				hicut: {
-					bypass: true
+					freq: 6000
+					q: 1
+					gain: 0.4
 				}
 			}
 		]
