@@ -332,10 +332,9 @@ function __VinylClassPatternCommon()
                     {
                         __VinylTrace("Warning! Creating new label \"", _labelName, "\" because it is missing (", self, ")");
                         
-                        var _label = new __VinylClassLabel(_labelName, undefined, false);
-                        _label.__Initialize();
-                        _label.__Store();
-                        
+                        var _labelData = new __VinylClassLabel(_labelName, undefined, false);
+                        _labelData.__Initialize();
+                        _labelData.__Store();
                         _labelData.__LabelArrayAppend(__labelArray);
                     }
                     else
