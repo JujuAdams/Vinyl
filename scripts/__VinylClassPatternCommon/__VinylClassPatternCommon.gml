@@ -328,7 +328,18 @@ function __VinylClassPatternCommon()
                 var _labelData = _labelDict[$ _labelName];
                 if (_labelData == undefined)
                 {
-                    __VinylTrace("Warning! Label \"", _labelName, "\" could not be found (", self, ")");
+                    if (VINYL_LAZY_LABEL_DEFINITION)
+                    {
+                        __VinylTrace("Warning! Creating new label \"", _labelName, "\" because it is missing (", self, ")");
+                        
+                        var _label = new __VinylClassLabel(_labelName, undefined, false);
+                        _label.__Initialize();
+                        _label.__Store();
+                    }
+                    else
+                    {
+                        __VinylTrace("Warning! Label \"", _labelName, "\" could not be found (", self, ")");
+                    }
                 }
                 else
                 {
