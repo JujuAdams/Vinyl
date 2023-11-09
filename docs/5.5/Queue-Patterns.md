@@ -23,7 +23,8 @@ Queue patterns should be set up in the [configuration file](Config-File).
 |Property        |Datatype        |Default                                        |Notes                                                                                                                         |
 |----------------|----------------|-----------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
 |`type`          |string          |                                               |**Required. Must be `queue`**                                                                                                 |
-|`assets`        |array           |                                               |**Required.** An array of asset names as strings                                                                              |
+|`assets`        |array           |                                               |**Required (or use `assetsWithTag`).** An array of asset names as strings                                                     |
+|`assetsWithTag` |string or array |                                               |**Required (or use `assets`).** Adds every sound asset with the given native GameMaker asset tag to the asset array           |
 |`gain`          |number          |`1`                                            |Can be a two-element array for gain variance. Defaults to `0` db in [decibel mode](Config-Macros)                             |
 |`pitch`         |number or array |`1`                                            |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)                   |
 |`transpose`     |number          |*passthrough*                                  |                                                                                                                              |

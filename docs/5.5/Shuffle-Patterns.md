@@ -10,19 +10,20 @@ Shuffle patterns play a random asset from an array. Shuffle patterns also try to
 
 Shuffle patterns should be set up in the [configuration file](Config-File).
 
-|Property        |Datatype        |Default      |Notes                                                                                                      |
-|----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------|
-|`type`          |string          |             |**Required. Must be `shuffle`**                                                                            |
-|`assets`        |array           |             |**Required.** An array of asset names as strings                                                           |
-|`gain`          |number          |`1`          |Can be a two-element array for gain variance. Defaults to `0` db in [decibel mode](Config-Macros)          |
-|`pitch`         |number or array |`1`          |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
-|`transpose`     |number          |*passthrough*|                                                                                                           |
-|`loop`          |boolean         |*passthrough*|This property is inherited by assets played by this pattern; a Shuffle pattern cannot inherently loop      |
-|`stack`         |string          |*passthrough*|[Stack](Stacks) to push voices to                                                                          |
-|`stack priority`|number          |`0`          |Priority for voices when pushed to the stack above                                                         |
-|`effect chain`  |string          |*passthrough*|                                                                                                           |
-|`label`         |string or array |*passthrough*|Label to assign this pattern to. Can be a string for a single label, or an array of label names            |
-|`persistent`    |boolean         |*passthrough*|                                                                                                           |
+|Property        |Datatype        |Default      |Notes                                                                                                              |
+|----------------|----------------|-------------|-------------------------------------------------------------------------------------------------------------------|
+|`type`          |string          |             |**Required. Must be `shuffle`**                                                                                    |
+|`assets`        |array           |             |**Required (or use `assetsWithTag`).** An array of asset names as strings                                          |
+|`assetsWithTag` |string or array |             |**Required (or use `assets`).** Adds every sound asset with the given native GameMaker asset tag to the asset array|
+|`gain`          |number          |`1`          |Can be a two-element array for gain variance. Defaults to `0` db in [decibel mode](Config-Macros)                  |
+|`pitch`         |number or array |`1`          |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)        |
+|`transpose`     |number          |*passthrough*|                                                                                                                   |
+|`loop`          |boolean         |*passthrough*|This property is inherited by assets played by this pattern; a Shuffle pattern cannot inherently loop              |
+|`stack`         |string          |*passthrough*|[Stack](Stacks) to push voices to                                                                                  |
+|`stack priority`|number          |`0`          |Priority for voices when pushed to the stack above                                                                 |
+|`effect chain`  |string          |*passthrough*|                                                                                                                   |
+|`label`         |string or array |*passthrough*|Label to assign this pattern to. Can be a string for a single label, or an array of label names                    |
+|`persistent`    |boolean         |*passthrough*|                                                                                                                   |
 
 &nbsp;
 

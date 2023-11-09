@@ -29,7 +29,7 @@ The following properties can be set for a label in the [configuration file](Conf
 |`effect chain`  |string          |*passthrough*|                                                                                                           |
 |`tag`           |string or array |*passthrough*|Links this label to a native GameMaker asset tag. Can be a string for one tag, or an array of tags         |
 |`children`      |array of structs|`[]`         |Must be an array of label structs                                                                          |
-    
+
 &nbsp;
 
 ## Examples
