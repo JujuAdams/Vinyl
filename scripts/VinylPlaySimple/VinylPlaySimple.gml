@@ -17,13 +17,13 @@ function VinylPlaySimple(_sound, _gain = 1, _pitch = 1)
     static _checkForRemapping = __VinylGetLiveUpdateEnabled();
     if (_checkForRemapping && is_numeric(_sound))
     {
+        var _inSound = _sound;
         var _soundName = audio_get_name(_sound);
         _sound = VinylAssetGetIndex(_soundName);
         
-        if (_sound == undefined)
+        if (_sound < 0)
         {
-            __VinylTrace("Warning! Sound \"", _soundName, "\" (", _sound, ") does not have an updated asset");
-            _sound = -1;
+            __VinylTrace("Warning! Sound \"", _soundName, "\" (", _inSound, ") does not have an updated asset");
         }
     }
     
