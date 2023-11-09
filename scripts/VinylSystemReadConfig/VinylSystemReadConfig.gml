@@ -176,16 +176,6 @@ function VinylSystemReadConfig(_configData)
     else
     {
         _loadLabelsFunc(_loadLabelsFunc, _inputLabelDict, undefined);
-        
-        //Copy state data from old labels to new labels
-        var _i = 0;
-        repeat(array_length(_newLabelArray))
-        {
-            var _newLabel = _newLabelArray[_i];
-            var _oldLabel = _oldLabelDict[$ _newLabel.__name];
-            if (is_struct(_oldLabel)) _newLabel.__CopyOldState(_oldLabel);
-            ++_i;
-        }
     }
     
     
@@ -446,6 +436,16 @@ function VinylSystemReadConfig(_configData)
     }
     
     
+    
+    //Copy state data from old labels to new labels
+    var _i = 0;
+    repeat(array_length(_newLabelArray))
+    {
+        var _newLabel = _newLabelArray[_i];
+        var _oldLabel = _oldLabelDict[$ _newLabel.__name];
+        if (is_struct(_oldLabel)) _newLabel.__CopyOldState(_oldLabel);
+        ++_i;
+    }
     
     //Migrate all of our patterns to the new dataset
     array_foreach(_globalData.__patternArray, function(_pattern)

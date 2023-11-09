@@ -37,6 +37,11 @@
 //position passes by the emitter
 #macro VINYL_LISTENER_HEAD_SIZE  0
 
+//Whether to create labels on demand if they've not been formally defined. Setting this to <false>
+//will improve code safety as typos will be more easily detected, but setting it to <true> makes
+//setting up complex label structures quicker.
+#macro VINYL_LAZY_LABEL_DEFINITION  false
+
 
 
 #region Advanced

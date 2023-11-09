@@ -1,5 +1,5 @@
 // Feather disable all
-#macro __VINYL_VERSION  "5.5.0"
+#macro __VINYL_VERSION  "5.5.1"
 #macro __VINYL_DATE     "2023-11-09"
 
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.dat"
