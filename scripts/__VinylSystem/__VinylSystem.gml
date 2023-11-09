@@ -1,6 +1,6 @@
 // Feather disable all
-#macro __VINYL_VERSION  "5.4.6"
-#macro __VINYL_DATE     "2023-08-19"
+#macro __VINYL_VERSION  "5.5.0"
+#macro __VINYL_DATE     "2023-11-09"
 
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.dat"
 #macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
@@ -10,6 +10,13 @@
 #macro __VINYL_FALLOFF_MODEL  audio_falloff_exponent_distance_scaled
 
 #macro __VINYL_RETURN_SELF_TO_POOL  if (__pool != undefined) { __pool.__Return(self) }
+
+enum __VINYL_ASSET_TYPE {
+    __UNKNOWN,
+    __WAD,
+    __EXTERNAL_WAV,
+    __EXTERNAL_OGG,
+}
 
 
 __VinylInitialize();
@@ -47,11 +54,16 @@ function __VinylInitialize()
     
     VinylSystemGainSet(1);
     __VinylEffectChainEnsure("main");
+    __VinylUpdateProject();
     __VinylUpdateData();
     
     if (__VinylGetLiveUpdateEnabled())
     {
-        time_source_start(time_source_create(time_source_global, VINYL_LIVE_UPDATE_PERIOD/1000, time_source_units_seconds, __VinylUpdateData, [], -1));
+        time_source_start(time_source_create(time_source_global, VINYL_LIVE_UPDATE_PERIOD/1000, time_source_units_seconds, function()
+        {
+            var _anyProjectChanges = __VinylUpdateProject();
+            __VinylUpdateData(_anyProjectChanges);
+        }, [], -1));
     }
     else if (GM_build_type == "run")
     {

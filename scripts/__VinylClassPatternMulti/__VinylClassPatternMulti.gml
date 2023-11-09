@@ -21,10 +21,11 @@ function __VinylClassPatternMulti(_name, _adHoc, _child) : __VinylClassPatternCo
     static __Initialize = function(_patternData = {})
     {
         if (!is_struct(_patternData)) __VinylError("Error in ", self, "\nPattern data must be a struct");
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "gain", "pitch", "transpose", "loop", "stack", "stack priority", "persistent", "effect chain", "label", "labels", "blend curve", "blend", "blend normalise", "sync"]);
+        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "assetsWithTag", "gain", "pitch", "transpose", "loop", "stack", "stack priority", "persistent", "effect chain", "label", "labels", "blend curve", "blend", "blend normalise", "sync"]);
         
         //Set the gain/pitch state from the provided struct
         var _assetArray      = _patternData[$ "assets"         ] ?? (_patternData[$ "asset"] ?? []);
+        var _tagArray        = _patternData[$ "assetsWithTag"  ];
         var _gain            = _patternData[$ "gain"           ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
         var _pitch           = _patternData[$ "pitch"          ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
         var _transpose       = _patternData[$ "transpose"      ];
@@ -41,7 +42,7 @@ function __VinylClassPatternMulti(_name, _adHoc, _child) : __VinylClassPatternCo
         if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
         if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
         
-        __InitializeAssetArray(_assetArray);
+        __InitializeAssetArray(_assetArray, _tagArray);
         __InitializeGain(_gain);
         __InitializePitch(_pitch);
         __InitializeTranspose(_transpose);

@@ -1,5 +1,7 @@
 // Feather disable all
-function __VinylUpdateData()
+/// @param [forceReload=false]
+
+function __VinylUpdateData(_forceReload)
 {
     static _globalData     = __VinylGlobalData();
     static _topLevelArray  = _globalData.__topLevelArray;
@@ -11,7 +13,6 @@ function __VinylUpdateData()
     
     var _firstUpdate = (_configFileHash == undefined);
     var _reloadConfig = false;
-    
     
     //Always allow data to be updated once on boot
     if (!_globalData.__liveUpdate && (_configFileHash != undefined)) return;
@@ -38,6 +39,12 @@ function __VinylUpdateData()
         var _filename = __VINYL_DATA_BUNDLE_FILENAME;
         var _foundHash = "loaded";
         
+        _reloadConfig = true;
+    }
+    
+    if (_forceReload)
+    {
+        __VinylTrace("Forcing reload of config file");
         _reloadConfig = true;
     }
     

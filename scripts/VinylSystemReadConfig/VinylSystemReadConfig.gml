@@ -206,6 +206,7 @@ function VinylSystemReadConfig(_configData)
     }
     
     //Instantiate basic patterns for each asset in the config data
+    var _assetIndexGetter = VinylLiveUpdateGet()? VinylAssetGetIndex : asset_get_index;
     var _inputAssetDict = _configData[$ "assets"];
     if (is_undefined(_inputAssetDict))
     {
@@ -289,7 +290,7 @@ function VinylSystemReadConfig(_configData)
             }
             else
             {
-                var _assetIndex = asset_get_index(_assetName);
+                var _assetIndex = _assetIndexGetter(_assetName);
                 if (_assetIndex < 0)
                 {
                     __VinylTrace("Warning! Asset \"", _assetName, "\" doesn't exist");

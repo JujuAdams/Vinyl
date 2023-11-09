@@ -42,9 +42,17 @@ function __VinylClassPatternBasic(_name, _adHoc, _child) : __VinylClassPatternCo
         //Sort out the asset
         if (is_string(_asset))
         {
-            if (asset_get_index(_asset) < 0) __VinylError("Error in ", self, " for \"asset\" property\nAsset \"", _asset, "\" not found in the project");
-            if (asset_get_type(_asset) != asset_sound) __VinylError("Error in ", self, " for \"asset\" property\nAsset \"", _asset, "\" not a sound asset");
-            _asset = asset_get_index(_asset);
+            if (VinylLiveUpdateGet())
+            {
+                if (not VinylAssetExists(_asset)) __VinylError("Error in ", self, " for \"assets\" property\nAsset \"", _asset, "\" not recognised");
+                _asset = VinylAssetGetIndex(_asset);
+            }
+            else
+            {
+                if (asset_get_index(_asset) < 0) __VinylError("Error in ", self, " for \"assets\" property\nAsset \"", _asset, "\" not found in the project");
+                if (asset_get_type(_asset) != asset_sound) __VinylError("Error in ", self, " for \"assets\" property\nAsset \"", _asset, "\" not a sound asset");
+                _asset = asset_get_index(_asset);
+            }
         }
         
         if (!is_numeric(_asset)) __VinylError("Error in ", self, " for \"asset\" property\nAsset should be specified as an audio asset index or audio asset name (datatype=", typeof(_asset), ")");

@@ -18,6 +18,9 @@
   "preload": false,
   "sampleRate": 44100,
   "soundFile": "sndBleep7.wav",
+  "tags": [
+    "bleep",
+  ],
   "type": 0,
   "volume": 1.0,
 }

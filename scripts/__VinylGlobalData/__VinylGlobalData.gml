@@ -1,4 +1,5 @@
 // Feather disable all
+
 function __VinylGlobalData()
 {
     static _struct = {
@@ -6,6 +7,9 @@ function __VinylGlobalData()
         
         __liveUpdate: (VINYL_LIVE_UPDATE_PERIOD > 0),
         __updateCallback: undefined,
+        __projectSoundDict:     {},
+        __projectSoundArray:    [],
+        __projectSoundHashDict: {},
         
         __listenerX: 0,
         __listenerY: 0,

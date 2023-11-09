@@ -16,7 +16,7 @@ function __VinylClassPatternAsset(_name, _adHoc, _child, _asset) : __VinylClassP
     
     static toString = function()
     {
-        return "<asset " + audio_get_name(__asset) + ">";
+        return "<asset " + string(__asset) + " " + audio_get_name(__asset) + ">";
     }
     
     static __StoreAsset = function()
