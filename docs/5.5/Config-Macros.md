@@ -104,6 +104,14 @@ Simulates the "head" size of the listener. This applies an offset to all Vinyl e
 
 &nbsp;
 
+## `VINYL_LAZY_LABEL_DEFINITION`
+
+*Default value: `false`*
+
+Whether to create labels on demand if they've not been formally defined. Setting this to `false` will improve code safety as typos will be more easily detected, but setting it to `true` makes setting up complex label structures quicker.
+
+&nbsp;
+
 &nbsp;
 
 # Advanced
