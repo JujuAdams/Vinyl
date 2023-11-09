@@ -122,9 +122,7 @@
         
         bleep shuffle: {
             type: shuffle
-            assets: [sndBleep0, sndBleep1,   sndBleep2,  sndBleep3,
-                     sndBleep4, sndBleep5,   sndBleep6,  sndBleep7,
-                     sndBleep8, sndBleep9,  sndBleep10, sndBleep11]
+            assetsWithTag: bleep
         }
         
         queue test: {
