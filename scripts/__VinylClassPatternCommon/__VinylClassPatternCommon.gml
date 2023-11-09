@@ -335,6 +335,8 @@ function __VinylClassPatternCommon()
                         var _label = new __VinylClassLabel(_labelName, undefined, false);
                         _label.__Initialize();
                         _label.__Store();
+                        
+                        _labelData.__LabelArrayAppend(__labelArray);
                     }
                     else
                     {
