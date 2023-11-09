@@ -73,10 +73,8 @@ function __VinylClassPatternCommon()
         return __loop;
     }
     
-    static __InitializeAssetArray = function(_assetArray)
+    static __InitializeAssetArray = function(_assetArray, _tagArray)
     {
-        if (array_length(_assetArray) <= 0) __VinylError("Error in ", self, "\n", __patternType, "-type patterns must have at least one asset");
-        
         __assetArray = _assetArray;
         
         //Convert any basic patterns into audio asset indexes
@@ -117,6 +115,51 @@ function __VinylClassPatternCommon()
             
             ++_i;
         }
+        
+        //Append any asset we find from tags
+        if (_tagArray != undefined)
+        {
+            if (not is_array(_tagArray))
+            {
+                if (is_string(_tagArray))
+                {
+                    _tagArray = [_tagArray];
+                }
+                else
+                {
+                    __VinylError("Error in ", self, " for \"assetsWithTag\" property\nDatatype must be an array, string, or undefined, was ", typeof(_tagArray));
+                }
+            }
+            
+            var _i = 0;
+            repeat(array_length(_tagArray))
+            {
+                var _tag = _tagArray[_i];
+                var _foundAssetArray = tag_get_asset_ids(_tag, asset_sound);
+                if (is_array(_foundAssetArray) && (array_length(_foundAssetArray) > 0))
+                {
+                    var _j = 0;
+                    repeat(array_length(_foundAssetArray))
+                    {
+                        var _assetIndex = _foundAssetArray[_j];
+                        if (!array_contains(__assetArray, _assetIndex))
+                        {
+                            array_push(__assetArray, _assetIndex);
+                        }
+                        
+                        ++_j;
+                    }
+                }
+                else
+                {
+                    __VinylTrace("Warning! No sound assets found for tag name \"", _tag, "\"");
+                }
+                
+                ++_i;
+            }
+        }
+        
+        if (array_length(_assetArray) <= 0) __VinylError("Error in ", self, "\n", __patternType, "-type patterns must have at least one asset");
     }
     
     static __InitializeGain = function(_gain)
