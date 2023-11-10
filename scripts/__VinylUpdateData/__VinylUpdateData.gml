@@ -17,7 +17,7 @@ function __VinylUpdateData(_forceReload)
     //Always allow data to be updated once on boot
     if (!_globalData.__liveUpdate && (_configFileHash != undefined)) return;
     
-    var _filename = __VinylGetDatafilePath();
+    var _filename = undefined;
     
     if (__VinylGetLiveUpdateEnabled())
     {

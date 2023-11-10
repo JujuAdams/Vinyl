@@ -3924,7 +3924,7 @@ try {
 } catch(e) {
 	var ind = asset_get_index("ImGui_");
 	if (ind == -1) {
-		if (GM_build_type == "run") {
+		if __VinylGetRunningFromIDE() {
 			if (!file_exists("warning.bin")) {
 				var b = buffer_create(2, buffer_fixed, 1);
 				buffer_poke(b, 0, buffer_u16, 26984);
@@ -3948,101 +3948,143 @@ try {
 	show_debug_message("[ImGui_GM - WARNING] Failed version check, it is advised that you use a runtime that supports the \"static_get\" function");
 }
 
-global.__IMGUI_MAPPING = array_create(ImGuiKey.KeysData_SIZE, -1);
-global.__IMGUI_MAPPING[ImGuiKey.None] = vk_nokey;
-global.__IMGUI_MAPPING[ImGuiKey.Enter] = vk_enter;
-global.__IMGUI_MAPPING[ImGuiKey.Escape] = vk_escape;
-global.__IMGUI_MAPPING[ImGuiKey.Space] = vk_space;
-global.__IMGUI_MAPPING[ImGuiKey.Backspace] = vk_backspace;
-global.__IMGUI_MAPPING[ImGuiKey.Tab] = vk_tab;
-global.__IMGUI_MAPPING[ImGuiKey.Pause] = vk_pause;
-global.__IMGUI_MAPPING[ImGuiKey.LeftArrow] = vk_left;
-global.__IMGUI_MAPPING[ImGuiKey.RightArrow] = vk_right;
-global.__IMGUI_MAPPING[ImGuiKey.UpArrow] = vk_up;
-global.__IMGUI_MAPPING[ImGuiKey.DownArrow] = vk_down;
-global.__IMGUI_MAPPING[ImGuiKey.Home] = vk_home;
-global.__IMGUI_MAPPING[ImGuiKey.End] = vk_end;
-global.__IMGUI_MAPPING[ImGuiKey.Delete] = vk_delete;
-global.__IMGUI_MAPPING[ImGuiKey.Insert] = vk_insert;
-global.__IMGUI_MAPPING[ImGuiKey.PageUp] = vk_pageup;
-global.__IMGUI_MAPPING[ImGuiKey.PageDown] = vk_pagedown;
-global.__IMGUI_MAPPING[ImGuiKey.F1] = vk_f1;
-global.__IMGUI_MAPPING[ImGuiKey.F2] = vk_f2;
-global.__IMGUI_MAPPING[ImGuiKey.F3] = vk_f3;
-global.__IMGUI_MAPPING[ImGuiKey.F4] = vk_f4;
-global.__IMGUI_MAPPING[ImGuiKey.F5] = vk_f5;
-global.__IMGUI_MAPPING[ImGuiKey.F6] = vk_f6;
-global.__IMGUI_MAPPING[ImGuiKey.F7] = vk_f7;
-global.__IMGUI_MAPPING[ImGuiKey.F8] = vk_f8;
-global.__IMGUI_MAPPING[ImGuiKey.F9] = vk_f9;
-global.__IMGUI_MAPPING[ImGuiKey.F10] = vk_f10;
-global.__IMGUI_MAPPING[ImGuiKey.F11] = vk_f11;
-global.__IMGUI_MAPPING[ImGuiKey.F12] = vk_f12;
-global.__IMGUI_MAPPING[ImGuiKey.Keypad0] = vk_numpad0;
-global.__IMGUI_MAPPING[ImGuiKey.Keypad1] = vk_numpad1;
-global.__IMGUI_MAPPING[ImGuiKey.Keypad2] = vk_numpad2;
-global.__IMGUI_MAPPING[ImGuiKey.Keypad3] = vk_numpad3;
-global.__IMGUI_MAPPING[ImGuiKey.Keypad4] = vk_numpad4;
-global.__IMGUI_MAPPING[ImGuiKey.Keypad5] = vk_numpad5;
-global.__IMGUI_MAPPING[ImGuiKey.Keypad6] = vk_numpad6;
-global.__IMGUI_MAPPING[ImGuiKey.Keypad7] = vk_numpad7;
-global.__IMGUI_MAPPING[ImGuiKey.Keypad8] = vk_numpad8;
-global.__IMGUI_MAPPING[ImGuiKey.Keypad9] = vk_numpad9;
-global.__IMGUI_MAPPING[ImGuiKey.KeypadDivide] = vk_divide;
-global.__IMGUI_MAPPING[ImGuiKey.KeypadMultiply] = vk_multiply;
-global.__IMGUI_MAPPING[ImGuiKey.KeypadSubtract] = vk_subtract;
-global.__IMGUI_MAPPING[ImGuiKey.KeypadAdd] = vk_add;
-global.__IMGUI_MAPPING[ImGuiKey.KeypadDecimal] = vk_decimal;
-global.__IMGUI_MAPPING[ImGuiKey.LeftShift] = vk_lshift;
-global.__IMGUI_MAPPING[ImGuiKey.LeftCtrl] = vk_lcontrol;
-global.__IMGUI_MAPPING[ImGuiKey.LeftAlt] = vk_lalt;
-global.__IMGUI_MAPPING[ImGuiKey.RightShift] = vk_rshift;
-global.__IMGUI_MAPPING[ImGuiKey.RightCtrl] = vk_rcontrol;
-global.__IMGUI_MAPPING[ImGuiKey.RightAlt] = vk_ralt;
-global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_1] = ord("1");
-global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_2] = ord("2");
-global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_3] = ord("3");
-global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_4] = ord("4");
-global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_5] = ord("5");
-global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_6] = ord("6");
-global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_7] = ord("7");
-global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_8] = ord("8");
-global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_9] = ord("9");
-global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_0] = ord("0");
-global.__IMGUI_MAPPING[ImGuiKey.A] = ord("A");
-global.__IMGUI_MAPPING[ImGuiKey.B] = ord("B");
-global.__IMGUI_MAPPING[ImGuiKey.C] = ord("C");
-global.__IMGUI_MAPPING[ImGuiKey.D] = ord("D");
-global.__IMGUI_MAPPING[ImGuiKey.E] = ord("E");
-global.__IMGUI_MAPPING[ImGuiKey.F] = ord("F");
-global.__IMGUI_MAPPING[ImGuiKey.G] = ord("G");
-global.__IMGUI_MAPPING[ImGuiKey.H] = ord("H");
-global.__IMGUI_MAPPING[ImGuiKey.I] = ord("I");
-global.__IMGUI_MAPPING[ImGuiKey.J] = ord("J");
-global.__IMGUI_MAPPING[ImGuiKey.K] = ord("K");
-global.__IMGUI_MAPPING[ImGuiKey.L] = ord("L");
-global.__IMGUI_MAPPING[ImGuiKey.M] = ord("M");
-global.__IMGUI_MAPPING[ImGuiKey.N] = ord("N");
-global.__IMGUI_MAPPING[ImGuiKey.O] = ord("O");
-global.__IMGUI_MAPPING[ImGuiKey.P] = ord("P");
-global.__IMGUI_MAPPING[ImGuiKey.Q] = ord("Q");
-global.__IMGUI_MAPPING[ImGuiKey.R] = ord("R");
-global.__IMGUI_MAPPING[ImGuiKey.S] = ord("S");
-global.__IMGUI_MAPPING[ImGuiKey.T] = ord("T");
-global.__IMGUI_MAPPING[ImGuiKey.U] = ord("U");
-global.__IMGUI_MAPPING[ImGuiKey.V] = ord("V");
-global.__IMGUI_MAPPING[ImGuiKey.W] = ord("W");
-global.__IMGUI_MAPPING[ImGuiKey.X] = ord("X");
-global.__IMGUI_MAPPING[ImGuiKey.Y] = ord("Y");
-global.__IMGUI_MAPPING[ImGuiKey.Z] = ord("Z");
-global.__IMGUI_CURSOR = array_create(ImGuiMouseCursor.NotAllowed + 1, cr_none);
-global.__IMGUI_CURSOR[ImGuiMouseCursor.None + 1] = cr_none;
-global.__IMGUI_CURSOR[ImGuiMouseCursor.Arrow + 1] = cr_default;
-global.__IMGUI_CURSOR[ImGuiMouseCursor.TextInput + 1] = cr_beam;
-global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeAll + 1] = cr_size_all;
-global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNS + 1] = cr_size_ns;
-global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeEW + 1] = cr_size_we;
-global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNESW + 1] = cr_size_nesw;
-global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNWSE + 1] = cr_size_nwse;
-global.__IMGUI_CURSOR[ImGuiMouseCursor.Hand + 1] = cr_handpoint;
-global.__IMGUI_CURSOR[ImGuiMouseCursor.NotAllowed + 1] = cr_default;
+
+
+__ImGuiBoot();
+
+function __ImGuiBoot()
+{
+    static _initialized = false;
+    if (_initialized) return;
+    _initialized = true;
+    
+    // Version Check
+    try {
+    	var _get = static_get(new ImGui());
+    	show_debug_message("[ImGui_GM - INFO] Successfully passed version check");
+    } catch(e) {
+    	var ind = asset_get_index("ImGui_");
+    	if (ind == -1) {
+    		if (GM_build_type == "run") {
+    			if (!file_exists("warning.bin")) {
+    				var b = buffer_create(2, buffer_fixed, 1);
+    				buffer_poke(b, 0, buffer_u16, 26984);
+    				buffer_save(b, "warning.bin");
+    				buffer_delete(b);
+			
+    				var _msg = "[WARNING]\nIt looks like you're using a version of GameMaker that does not support the \"static_get\" function.\n\nTo effectively use this extension, please rename the \"ImGui\" script and function to \"ImGui_\" and uncomment the ImGui globalvar delcaration below this warning (search: imgui_compat) to properly access the ImGui namespace\n\nThis warning will only appear when running from the IDE, additionally a stub file has been created in your game's save data directory to prevent this warning from displaying again.";
+    				show_message(_msg);
+    				game_end();
+    			}
+    		}
+    	} else {
+    		/*
+    			NOTE: If using LTS or unsupported runtime, rename this script and constructor to ImGui_ and uncomment the below globalvar delcaration
+    		*/
+		
+    		// [imgui_compat]
+    		//globalvar ImGui;
+    		variable_global_set("ImGui", new ImGui_());
+    	}
+    	show_debug_message("[ImGui_GM - WARNING] Failed version check, it is advised that you use a runtime that supports the \"static_get\" function");
+    }
+
+    global.__IMGUI_MAPPING = array_create(ImGuiKey.KeysData_SIZE, -1);
+    global.__IMGUI_MAPPING[ImGuiKey.None] = vk_nokey;
+    global.__IMGUI_MAPPING[ImGuiKey.Enter] = vk_enter;
+    global.__IMGUI_MAPPING[ImGuiKey.Escape] = vk_escape;
+    global.__IMGUI_MAPPING[ImGuiKey.Space] = vk_space;
+    global.__IMGUI_MAPPING[ImGuiKey.Backspace] = vk_backspace;
+    global.__IMGUI_MAPPING[ImGuiKey.Tab] = vk_tab;
+    global.__IMGUI_MAPPING[ImGuiKey.Pause] = vk_pause;
+    global.__IMGUI_MAPPING[ImGuiKey.LeftArrow] = vk_left;
+    global.__IMGUI_MAPPING[ImGuiKey.RightArrow] = vk_right;
+    global.__IMGUI_MAPPING[ImGuiKey.UpArrow] = vk_up;
+    global.__IMGUI_MAPPING[ImGuiKey.DownArrow] = vk_down;
+    global.__IMGUI_MAPPING[ImGuiKey.Home] = vk_home;
+    global.__IMGUI_MAPPING[ImGuiKey.End] = vk_end;
+    global.__IMGUI_MAPPING[ImGuiKey.Delete] = vk_delete;
+    global.__IMGUI_MAPPING[ImGuiKey.Insert] = vk_insert;
+    global.__IMGUI_MAPPING[ImGuiKey.PageUp] = vk_pageup;
+    global.__IMGUI_MAPPING[ImGuiKey.PageDown] = vk_pagedown;
+    global.__IMGUI_MAPPING[ImGuiKey.F1] = vk_f1;
+    global.__IMGUI_MAPPING[ImGuiKey.F2] = vk_f2;
+    global.__IMGUI_MAPPING[ImGuiKey.F3] = vk_f3;
+    global.__IMGUI_MAPPING[ImGuiKey.F4] = vk_f4;
+    global.__IMGUI_MAPPING[ImGuiKey.F5] = vk_f5;
+    global.__IMGUI_MAPPING[ImGuiKey.F6] = vk_f6;
+    global.__IMGUI_MAPPING[ImGuiKey.F7] = vk_f7;
+    global.__IMGUI_MAPPING[ImGuiKey.F8] = vk_f8;
+    global.__IMGUI_MAPPING[ImGuiKey.F9] = vk_f9;
+    global.__IMGUI_MAPPING[ImGuiKey.F10] = vk_f10;
+    global.__IMGUI_MAPPING[ImGuiKey.F11] = vk_f11;
+    global.__IMGUI_MAPPING[ImGuiKey.F12] = vk_f12;
+    global.__IMGUI_MAPPING[ImGuiKey.Keypad0] = vk_numpad0;
+    global.__IMGUI_MAPPING[ImGuiKey.Keypad1] = vk_numpad1;
+    global.__IMGUI_MAPPING[ImGuiKey.Keypad2] = vk_numpad2;
+    global.__IMGUI_MAPPING[ImGuiKey.Keypad3] = vk_numpad3;
+    global.__IMGUI_MAPPING[ImGuiKey.Keypad4] = vk_numpad4;
+    global.__IMGUI_MAPPING[ImGuiKey.Keypad5] = vk_numpad5;
+    global.__IMGUI_MAPPING[ImGuiKey.Keypad6] = vk_numpad6;
+    global.__IMGUI_MAPPING[ImGuiKey.Keypad7] = vk_numpad7;
+    global.__IMGUI_MAPPING[ImGuiKey.Keypad8] = vk_numpad8;
+    global.__IMGUI_MAPPING[ImGuiKey.Keypad9] = vk_numpad9;
+    global.__IMGUI_MAPPING[ImGuiKey.KeypadDivide] = vk_divide;
+    global.__IMGUI_MAPPING[ImGuiKey.KeypadMultiply] = vk_multiply;
+    global.__IMGUI_MAPPING[ImGuiKey.KeypadSubtract] = vk_subtract;
+    global.__IMGUI_MAPPING[ImGuiKey.KeypadAdd] = vk_add;
+    global.__IMGUI_MAPPING[ImGuiKey.KeypadDecimal] = vk_decimal;
+    global.__IMGUI_MAPPING[ImGuiKey.LeftShift] = vk_lshift;
+    global.__IMGUI_MAPPING[ImGuiKey.LeftCtrl] = vk_lcontrol;
+    global.__IMGUI_MAPPING[ImGuiKey.LeftAlt] = vk_lalt;
+    global.__IMGUI_MAPPING[ImGuiKey.RightShift] = vk_rshift;
+    global.__IMGUI_MAPPING[ImGuiKey.RightCtrl] = vk_rcontrol;
+    global.__IMGUI_MAPPING[ImGuiKey.RightAlt] = vk_ralt;
+    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_1] = ord("1");
+    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_2] = ord("2");
+    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_3] = ord("3");
+    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_4] = ord("4");
+    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_5] = ord("5");
+    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_6] = ord("6");
+    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_7] = ord("7");
+    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_8] = ord("8");
+    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_9] = ord("9");
+    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_0] = ord("0");
+    global.__IMGUI_MAPPING[ImGuiKey.A] = ord("A");
+    global.__IMGUI_MAPPING[ImGuiKey.B] = ord("B");
+    global.__IMGUI_MAPPING[ImGuiKey.C] = ord("C");
+    global.__IMGUI_MAPPING[ImGuiKey.D] = ord("D");
+    global.__IMGUI_MAPPING[ImGuiKey.E] = ord("E");
+    global.__IMGUI_MAPPING[ImGuiKey.F] = ord("F");
+    global.__IMGUI_MAPPING[ImGuiKey.G] = ord("G");
+    global.__IMGUI_MAPPING[ImGuiKey.H] = ord("H");
+    global.__IMGUI_MAPPING[ImGuiKey.I] = ord("I");
+    global.__IMGUI_MAPPING[ImGuiKey.J] = ord("J");
+    global.__IMGUI_MAPPING[ImGuiKey.K] = ord("K");
+    global.__IMGUI_MAPPING[ImGuiKey.L] = ord("L");
+    global.__IMGUI_MAPPING[ImGuiKey.M] = ord("M");
+    global.__IMGUI_MAPPING[ImGuiKey.N] = ord("N");
+    global.__IMGUI_MAPPING[ImGuiKey.O] = ord("O");
+    global.__IMGUI_MAPPING[ImGuiKey.P] = ord("P");
+    global.__IMGUI_MAPPING[ImGuiKey.Q] = ord("Q");
+    global.__IMGUI_MAPPING[ImGuiKey.R] = ord("R");
+    global.__IMGUI_MAPPING[ImGuiKey.S] = ord("S");
+    global.__IMGUI_MAPPING[ImGuiKey.T] = ord("T");
+    global.__IMGUI_MAPPING[ImGuiKey.U] = ord("U");
+    global.__IMGUI_MAPPING[ImGuiKey.V] = ord("V");
+    global.__IMGUI_MAPPING[ImGuiKey.W] = ord("W");
+    global.__IMGUI_MAPPING[ImGuiKey.X] = ord("X");
+    global.__IMGUI_MAPPING[ImGuiKey.Y] = ord("Y");
+    global.__IMGUI_MAPPING[ImGuiKey.Z] = ord("Z");
+    global.__IMGUI_CURSOR = array_create(ImGuiMouseCursor.NotAllowed + 1, cr_none);
+    global.__IMGUI_CURSOR[ImGuiMouseCursor.None + 1] = cr_none;
+    global.__IMGUI_CURSOR[ImGuiMouseCursor.Arrow + 1] = cr_default;
+    global.__IMGUI_CURSOR[ImGuiMouseCursor.TextInput + 1] = cr_beam;
+    global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeAll + 1] = cr_size_all;
+    global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNS + 1] = cr_size_ns;
+    global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeEW + 1] = cr_size_we;
+    global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNESW + 1] = cr_size_nesw;
+    global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNWSE + 1] = cr_size_nwse;
+    global.__IMGUI_CURSOR[ImGuiMouseCursor.Hand + 1] = cr_handpoint;
+    global.__IMGUI_CURSOR[ImGuiMouseCursor.NotAllowed + 1] = cr_default;
+}

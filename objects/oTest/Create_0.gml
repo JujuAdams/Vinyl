@@ -6,3 +6,5 @@ if (__VINYL_CONFIG_NOTE_NAME != "TestConfig")
 music = undefined;
 
 VinylSystemGainSet(0.5);
+
+VinylEditorShow();

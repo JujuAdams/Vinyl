@@ -3,6 +3,9 @@
 function __VinylGlobalData()
 {
     static _struct = {
+        __editor: {},
+        __document: undefined,
+        
         __frame: 0,
         
         __liveUpdate: (VINYL_LIVE_UPDATE_PERIOD > 0),

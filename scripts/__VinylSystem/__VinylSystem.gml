@@ -3,7 +3,9 @@
 #macro __VINYL_DATE     "2023-11-09"
 
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.dat"
-#macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
+#macro __VINYL_CONFIG_NOTE_NAME      "TestConfig"
+
+#macro __VINYL_DOCUMENT_FILENAME  "VinylDocument.json"
 
 #macro __VINYL_USE_GAIN_CURVE  true
 
@@ -52,25 +54,18 @@ function __VinylInitialize()
     audio_listener_set_orientation(VINYL_LISTENER_INDEX,   0, 0, 1,   0, -1, 0);
     audio_listener_set_position(VINYL_LISTENER_INDEX,   0, 0, 0);
     
+    __ImGuiBoot();
+    __VinylEditorInit();
+    
     VinylSystemGainSet(1);
     __VinylEffectChainEnsure("main");
-    __VinylUpdateProject();
-    __VinylUpdateData();
     
-    if (__VinylGetLiveUpdateEnabled())
-    {
-        time_source_start(time_source_create(time_source_global, VINYL_LIVE_UPDATE_PERIOD/1000, time_source_units_seconds, function()
-        {
-            var _anyProjectChanges = __VinylUpdateProject();
-            __VinylUpdateData(_anyProjectChanges);
-        }, [], -1));
-    }
-    else if (GM_build_type == "run")
-    {
-        __VinylTrace("Live update *not* enabled (VINYL_LIVE_UPDATE_PERIOD=", VINYL_LIVE_UPDATE_PERIOD, ")");
-    }
+    _globalData.__document = new __VinylClassDocument(__VinylGetDocumentPath());
     
-    time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylTick, [], -1));
+    //__VinylUpdateProject();
+    //__VinylUpdateData();
+    //
+    //time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylTick, [], -1));
 }
 
 function __VinylTrace()
@@ -111,25 +106,42 @@ function __VinylError()
     show_error("Vinyl:\n" + _string + "\n ", true);
 }
 
-function __VinylGetLiveUpdateEnabled()
+function __VinylGetRunningFromIDE()
+{
+    static _result = (GM_build_type == "run");
+    return _result;
+}
+
+function __VinylGetEditorEnabled()
 {
     static _result = undefined;
     if (_result == undefined)
     {
-        _result = ((VINYL_LIVE_UPDATE_PERIOD > 0) && (GM_build_type == "run") && ((os_type == os_windows) || (os_type == os_macosx) || (os_type == os_linux)));
+        _result = (VINYL_EDITOR_ENABLED && __VinylGetRunningFromIDE() && (os_type == os_windows));
     }
     
     return _result;
 }
 
-function __VinylGetDatafilePath()
+function __VinylGetLiveUpdateEnabled()
 {
     static _result = undefined;
     if (_result == undefined)
     {
-        if (__VinylGetLiveUpdateEnabled())
+        _result = ((VINYL_LIVE_UPDATE_PERIOD > 0) && __VinylGetRunningFromIDE() && ((os_type == os_windows) || (os_type == os_macosx) || (os_type == os_linux)));
+    }
+    
+    return _result;
+}
+
+function __VinylGetDocumentPath()
+{
+    static _result = undefined;
+    if (_result == undefined)
+    {
+        if (__VinylGetEditorEnabled())
         {
-            _result = filename_dir(GM_project_filename) + "/notes/" + __VINYL_CONFIG_NOTE_NAME + "/" + __VINYL_CONFIG_NOTE_NAME + ".txt";
+            _result = filename_dir(GM_project_filename) + "/" + __VINYL_DOCUMENT_FILENAME;
         }
         else
         {

@@ -1,3 +1,9 @@
+__VinylEditorDraw();
+
+if (VinylEditorIsShowing()) return;
+
+
+
 UIStart(10, 10, 8);
 
 UIText("Vinyl " + __VINYL_VERSION + ", " + __VINYL_DATE + "\nLibrary by @jujuadams, music \"Chicken Nuggets\" by @WangleLine");

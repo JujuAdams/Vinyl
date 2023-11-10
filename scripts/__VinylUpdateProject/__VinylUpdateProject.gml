@@ -5,7 +5,7 @@ function __VinylUpdateProject()
     static _globalData     = __VinylGlobalData();
     static _projectFileHash = undefined;
     
-    if ((not __VinylGetLiveUpdateEnabled()) || (GM_build_type != "run")) return;
+    if ((not __VinylGetLiveUpdateEnabled()) || (not __VinylGetRunningFromIDE())) return;
     
     var _firstUpdate = (_projectFileHash == undefined);
     
