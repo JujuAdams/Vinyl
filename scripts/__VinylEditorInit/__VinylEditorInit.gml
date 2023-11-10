@@ -33,6 +33,7 @@ function __VinylEditorInit()
                 __multiselect: false,
                 __selectedDict: {},
                 __lastSelected: undefined,
+                __popupData: {},
             },
             
             __configPatterns: {
@@ -42,6 +43,7 @@ function __VinylEditorInit()
                 __multiselect: false,
                 __selectedDict: {},
                 __lastSelected: undefined,
+                __popupData: {},
             },
             
             __configLabels: {
@@ -51,6 +53,7 @@ function __VinylEditorInit()
                 __multiselect: false,
                 __selectedDict: {},
                 __lastSelected: undefined,
+                __popupData: {},
             },
             
             __configStacks: {
@@ -60,6 +63,7 @@ function __VinylEditorInit()
                 __multiselect: false,
                 __selectedDict: {},
                 __lastSelected: undefined,
+                __popupData: {},
             },
             
             __configKnobs: {
@@ -69,6 +73,7 @@ function __VinylEditorInit()
                 __multiselect: false,
                 __selectedDict: {},
                 __lastSelected: undefined,
+                __popupData: {},
             },
             
             __configEffectChains: {
@@ -78,6 +83,7 @@ function __VinylEditorInit()
                 __multiselect: false,
                 __selectedDict: {},
                 __lastSelected: undefined,
+                __popupData: {},
             },
             
             __nowPlaying: {

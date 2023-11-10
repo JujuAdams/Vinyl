@@ -38,6 +38,22 @@ function __VinylClassDocument(_path) constructor
         __assetsCompiled = {};
     }
     
+    static __Write = function(_struct, _name, _value)
+    {
+        if (not __VinylGetEditorEnabled()) return;
+        if (not variable_struct_exists(_struct, _name))
+        {
+            __VinylError("Struct variable \"", _name, "\" doesn't exist");
+            return;
+        }
+        
+        if (_struct[$ _name] != _value)
+        {
+            _struct[$ _name] = _value;
+            __Save();
+        }
+    }
+    
     static __Save = function(_immediate = false)
     {
         __dirty = true;

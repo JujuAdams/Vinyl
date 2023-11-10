@@ -5,6 +5,8 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
     static _editor = __VinylGlobalData().__editor;
     if (not VinylEditorIsShowing()) return;
     
+    var _nameConflictPopup = false;
+    
     var _selectedDict = _stateStruct.__selectedDict;
     
     var _document = __VinylDocument();
@@ -36,9 +38,15 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
                     _newName = "Stack " + string(_index);
                 }
                 
+                
+                
                 _resourceDict[$ _newName] = {
-                    
+                    duckedGain: 0,
+                    duckRate: VINYL_DEFAULT_DUCK_GAIN_RATE,
+                    pauseWhenDucked: true,
                 };
+                
+                
                 
                 if (_stateStruct.__multiselect)
                 {
@@ -196,7 +204,91 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
             
         ImGui.EndChild();
         
-        ImGui.BeginChild("Right Pane", 0.7*_width, _height);
+        ImGui.SameLine();
+        
+        ImGui.BeginChild("Right Pane", 0.7*_width - 7, _height);
+            switch(variable_struct_names_count(_selectedDict))
+            {
+                case 0:
+                    if (array_length(_resourceNameArray) > 0)
+                    {
+                        ImGui.Text("Select a stack from the menu on the left");
+                    }
+                    else
+                    {
+                        ImGui.Text("Add a new stack from the menu on the left");
+                    }
+                break;
+                
+                case 1:
+                    var _selectedName = variable_struct_get_names(_selectedDict)[0];
+                    var _resourceData = _resourceDict[$ _selectedName];
+                    
+                    var _newName = ImGui.InputText("##Resource Name", _selectedName);
+                    if (ImGui.IsItemDeactivatedAfterEdit() && (_newName != _selectedName))
+                    {
+                        if (variable_struct_exists(_resourceDict, _newName))
+                        {
+                            _nameConflictPopup = true;
+                            _stateStruct.__popupData = {
+                                __name: _newName,
+                            };
+                        }
+                        else
+                        {
+                            variable_struct_remove(_resourceDict, _selectedName);
+                            _resourceDict[$ _newName] = _resourceData;
+                            
+                            _stateStruct.__selectedDict = {};
+                            _selectedDict = _stateStruct.__selectedDict;
+                            
+                            _selectedDict[$ _newName] = true;
+                            _stateStruct.__lastSelected = _newName;
+                        }
+                    }
+                    
+                    ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), true);
+                        ImGui.Text("Ducked Gain");
+                        ImGui.SameLine();
+                        
+                        _document.__Write(_resourceData, "duckedGain",
+                                          ImGui.SliderFloat("##Ducked Gain", _resourceData.duckedGain, 0, 1, "%.2f"));
+                        
+                        ImGui.NewLine();
+                        
+                        ImGui.Text("Duck Rate (gain/sec.)");
+                        ImGui.SameLine();
+                        
+                        _document.__Write(_resourceData, "duckRate",
+                                          ImGui.SliderFloat("##Duck Rate", _resourceData.duckRate, 0.1, 10, "%.2f"));
+                       
+                        ImGui.NewLine();
+                        
+                        ImGui.Text("Pause When Ducked");
+                        ImGui.SameLine();
+                        
+                        _document.__Write(_resourceData, "pauseWhenDucked",
+                                          ImGui.Checkbox("##Pause When Ducked", _resourceData.pauseWhenDucked));
+                    ImGui.EndChild();
+                break;
+                
+                default:
+                    ImGui.Text("Cannot modify multiple stacks");
+                break;
+            }
+    
+            if (_nameConflictPopup) ImGui.OpenPopup("Name Conflict");
+            ImGui.SetNextWindowPos(window_get_width()/2, window_get_height()/2, ImGuiCond.Appearing, 0.5, 0.5);
+            if (ImGui.BeginPopupModal("Name Conflict", undefined, ImGuiWindowFlags.NoResize))
+            {
+                ImGui.Text("\"" + string(_stateStruct.__popupData.__name) + "\" already exists.");
+                
+                ImGui.Separator();
+                
+                if (ImGui.Button("Got it!")) ImGui.CloseCurrentPopup();
+                ImGui.EndPopup();
+            }
+            
         ImGui.EndChild();
     }
     
