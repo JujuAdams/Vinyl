@@ -30,37 +30,7 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
             
             if (ImGui.Button("Add"))
             {
-                var _index = 1;
-                var _newName = "Stack " + string(_index);
-                while(variable_struct_exists(_resourceDict, _newName))
-                {
-                    ++_index;
-                    _newName = "Stack " + string(_index);
-                }
-                
-                
-                
-                _resourceDict[$ _newName] = {
-                    duckedGain: 0,
-                    duckRate: VINYL_DEFAULT_DUCK_GAIN_RATE,
-                    pauseWhenDucked: true,
-                };
-                
-                
-                
-                if (_stateStruct.__multiselect)
-                {
-                    _selectedDict[$ _newName] = true;
-                    _stateStruct.__lastSelected = _newName;
-                }
-                else
-                {
-                    _stateStruct.__selectedDict = {};
-                    _selectedDict = _stateStruct.__selectedDict;
-                    
-                    _selectedDict[$ _newName] = true;
-                    _stateStruct.__lastSelected = _newName;
-                }
+                __VinylMultiselectAdd(_stateStruct, _resourceDict, __VinylClassStackNew);
             }
             
             ImGui.SameLine(undefined, 120);

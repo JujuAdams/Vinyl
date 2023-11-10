@@ -88,6 +88,7 @@
     {"id":{"name":"VinylPlayFadeIn","path":"scripts/VinylPlayFadeIn/VinylPlayFadeIn.yy",},},
     {"id":{"name":"__VinylGlobalSettingSet","path":"scripts/__VinylGlobalSettingSet/__VinylGlobalSettingSet.yy",},},
     {"id":{"name":"VinylKnobOutputGet","path":"scripts/VinylKnobOutputGet/VinylKnobOutputGet.yy",},},
+    {"id":{"name":"__VinylMultiselectAdd","path":"scripts/__VinylMultiselectAdd/__VinylMultiselectAdd.yy",},},
     {"id":{"name":"VinylStopCallbackGet","path":"scripts/VinylStopCallbackGet/VinylStopCallbackGet.yy",},},
     {"id":{"name":"VinylSystemGetTopLevelVoiceCount","path":"scripts/VinylSystemGetTopLevelVoiceCount/VinylSystemGetTopLevelVoiceCount.yy",},},
     {"id":{"name":"sndSync1","path":"sounds/sndSync1/sndSync1.yy",},},

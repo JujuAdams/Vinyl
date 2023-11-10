@@ -63,6 +63,7 @@
     {"name":"VinylPlayFadeIn","order":2,"path":"scripts/VinylPlayFadeIn/VinylPlayFadeIn.yy",},
     {"name":"__VinylGlobalSettingSet","order":5,"path":"scripts/__VinylGlobalSettingSet/__VinylGlobalSettingSet.yy",},
     {"name":"VinylKnobOutputGet","order":5,"path":"scripts/VinylKnobOutputGet/VinylKnobOutputGet.yy",},
+    {"name":"__VinylMultiselectAdd","order":1,"path":"scripts/__VinylMultiselectAdd/__VinylMultiselectAdd.yy",},
     {"name":"VinylStopCallbackGet","order":8,"path":"scripts/VinylStopCallbackGet/VinylStopCallbackGet.yy",},
     {"name":"VinylSystemGetTopLevelVoiceCount","order":17,"path":"scripts/VinylSystemGetTopLevelVoiceCount/VinylSystemGetTopLevelVoiceCount.yy",},
     {"name":"sndSync1","order":7,"path":"sounds/sndSync1/sndSync1.yy",},
