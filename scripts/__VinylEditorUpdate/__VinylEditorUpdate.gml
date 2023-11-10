@@ -8,11 +8,11 @@ function __VinylEditorUpdate()
     {
         ImGui.__Update();
         
-        struct_foreach(_editor.__windowDict, function(_name, _childStruct)
+        struct_foreach(_editor.__windowStates, function(_name, _stateStruct)
         {
-            if (_childStruct.__open)
+            if (_stateStruct.__open)
             {
-                _childStruct.__function();
+                _stateStruct.__function(_stateStruct);
             }
         });
     }

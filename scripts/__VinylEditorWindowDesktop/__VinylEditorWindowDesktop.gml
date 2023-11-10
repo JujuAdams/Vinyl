@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VinylEditorWindowDesktop()
+function __VinylEditorWindowDesktop(_stateStruct)
 {
     static _editor = __VinylGlobalData().__editor;
     if (not VinylEditorIsShowing()) return;
@@ -73,12 +73,12 @@ function __VinylEditorWindowDesktop()
 
         if (ImGui.BeginMenu("Config"))
         {
-        	if (ImGui.MenuItem("Assets",        undefined, undefined, not __VinylEditorWindowGetOpen("__configAssets"))) __VinylEditorWindowSetOpen("__configAssets", true);
-        	if (ImGui.MenuItem("Patterns",      undefined, undefined, not __VinylEditorWindowGetOpen("__configAssets"))) __VinylEditorWindowSetOpen("__configAssets", true);
-        	if (ImGui.MenuItem("Labels",        undefined, undefined, not __VinylEditorWindowGetOpen("__configAssets"))) __VinylEditorWindowSetOpen("__configAssets", true);
-        	if (ImGui.MenuItem("Stacks",        undefined, undefined, not __VinylEditorWindowGetOpen("__configAssets"))) __VinylEditorWindowSetOpen("__configAssets", true);
-        	if (ImGui.MenuItem("Knobs",         undefined, undefined, not __VinylEditorWindowGetOpen("__configAssets"))) __VinylEditorWindowSetOpen("__configAssets", true);
-        	if (ImGui.MenuItem("Effect Chains", undefined, undefined, not __VinylEditorWindowGetOpen("__configAssets"))) __VinylEditorWindowSetOpen("__configAssets", true);
+        	if (ImGui.MenuItem("Assets",        undefined, undefined, not __VinylEditorWindowGetOpen("__configAssets"      ))) __VinylEditorWindowSetOpen("__configAssets",       true);
+        	if (ImGui.MenuItem("Patterns",      undefined, undefined, not __VinylEditorWindowGetOpen("__configPatterns"    ))) __VinylEditorWindowSetOpen("__configPatterns",     true);
+        	if (ImGui.MenuItem("Labels",        undefined, undefined, not __VinylEditorWindowGetOpen("__configLabels"      ))) __VinylEditorWindowSetOpen("__configLabels",       true);
+        	if (ImGui.MenuItem("Stacks",        undefined, undefined, not __VinylEditorWindowGetOpen("__configStacks"      ))) __VinylEditorWindowSetOpen("__configStacks",       true);
+        	if (ImGui.MenuItem("Knobs",         undefined, undefined, not __VinylEditorWindowGetOpen("__configKnobs"       ))) __VinylEditorWindowSetOpen("__configKnobs",        true);
+        	if (ImGui.MenuItem("Effect Chains", undefined, undefined, not __VinylEditorWindowGetOpen("__configEffectChains"))) __VinylEditorWindowSetOpen("__configEffectChains", true);
         	ImGui.EndMenu();
         }
 

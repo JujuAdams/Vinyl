@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VinylEditorWindowNowPlaying(_stateStruct)
+function __VinylEditorWindowConfigLabels(_stateStruct)
 {
     static _editor = __VinylGlobalData().__editor;
     if (not VinylEditorIsShowing()) return;
@@ -8,8 +8,8 @@ function __VinylEditorWindowNowPlaying(_stateStruct)
     ImGui.SetNextWindowSize(room_width/2, room_height/2, ImGuiCond.Once);
     ImGui.SetNextWindowPos(room_width/4, room_height/4, ImGuiCond.Once);
 	
-    var ret = ImGui.Begin("Now Playing", __VinylEditorWindowGetOpen("__nowPlaying"), undefined, ImGuiReturnMask.Both);
-    __VinylEditorWindowSetOpen("__nowPlaying", (ret & ImGuiReturnMask.Pointer));
+    var ret = ImGui.Begin("Labels", __VinylEditorWindowGetOpen("__configLabels"), undefined, ImGuiReturnMask.Both);
+    __VinylEditorWindowSetOpen("__configLabels", (ret & ImGuiReturnMask.Pointer));
     
     ImGui.End();
 }

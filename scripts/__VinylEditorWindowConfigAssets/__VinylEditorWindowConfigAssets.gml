@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VinylEditorWindowConfigAssets()
+function __VinylEditorWindowConfigAssets(_stateStruct)
 {
     static _editor = __VinylGlobalData().__editor;
     if (not VinylEditorIsShowing()) return;

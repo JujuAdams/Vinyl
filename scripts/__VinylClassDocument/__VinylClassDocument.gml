@@ -27,7 +27,15 @@ function __VinylClassDocument(_path) constructor
         
         __data = {
             settings: {},
+            assetRules: [],
+            patterns: {},
+            labels: {},
+            stacks: {},
+            knobs: {},
+            effectChains: {},
         };
+        
+        __assetsCompiled = {};
     }
     
     static __Save = function(_immediate = false)
