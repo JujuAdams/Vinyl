@@ -30,9 +30,6 @@ function __VinylEditorInit()
                 __function: __VinylEditorWindowConfigAssets,
                 __open: false,
                 __collapsed: false,
-                __multiselect: false,
-                __selectedDict: {},
-                __lastSelected: undefined,
                 __popupData: {},
             },
             
@@ -40,50 +37,40 @@ function __VinylEditorInit()
                 __function: __VinylEditorWindowConfigPatterns,
                 __open: false,
                 __collapsed: false,
-                __multiselect: false,
-                __selectedDict: {},
-                __lastSelected: undefined,
                 __popupData: {},
+                __quickDelete: false,
             },
             
             __configLabels: {
                 __function: __VinylEditorWindowConfigLabels,
                 __open: false,
                 __collapsed: false,
-                __multiselect: false,
-                __selectedDict: {},
-                __lastSelected: undefined,
                 __popupData: {},
+                __quickDelete: false,
             },
             
             __configStacks: {
                 __function: __VinylEditorWindowConfigStacks,
                 __open: false,
                 __collapsed: false,
-                __multiselect: false,
-                __selectedDict: {},
-                __lastSelected: undefined,
                 __popupData: {},
+                __quickDelete: false,
             },
             
             __configKnobs: {
                 __function: __VinylEditorWindowConfigKnobs,
                 __open: false,
                 __collapsed: false,
-                __multiselect: false,
-                __selectedDict: {},
-                __lastSelected: undefined,
                 __popupData: {},
+                __quickDelete: false,
             },
             
             __configEffectChains: {
                 __function: __VinylEditorWindowConfigEffectChains,
                 __open: false,
                 __collapsed: false,
-                __multiselect: false,
-                __selectedDict: {},
-                __lastSelected: undefined,
                 __popupData: {},
+                __quickDelete: false,
             },
             
             __nowPlaying: {
@@ -96,9 +83,6 @@ function __VinylEditorInit()
                 __function: __VinylEditorWindowSnapshots,
                 __open: false,
                 __collapsed: false,
-                __multiselect: false,
-                __selectedDict: {},
-                __lastSelected: undefined,
             },
         }
         

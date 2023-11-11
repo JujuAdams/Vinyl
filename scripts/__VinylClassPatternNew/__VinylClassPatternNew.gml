@@ -3,8 +3,15 @@ function __VinylClassPatternNew() constructor
     type          = "Basic";
     assets        = [];
     assetsWithTag = [];
-    gain          = 1;
+    
+    gainOption       = "Inherit";
+    gainKnob         = __VINYL_ASSET_NULL;
+    gainKnobOverride = false;
+    gain             = [1, 1];
+    
+    pitchOption   = "Inherit";
     pitch         = 1;
+    
     transpose     = 0;
     loop          = false;
     stack         = "";

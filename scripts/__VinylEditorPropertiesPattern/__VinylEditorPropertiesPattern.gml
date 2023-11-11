@@ -17,7 +17,7 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
     static _columnTree   = 0;
     static _columnDelete = 1;
     static _columnValue  = 2;
-    static _columnKnob   = 3;
+    static _columnOption = 3;
     
     var _deleted = false;
     
@@ -131,7 +131,7 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
         //Root patterns display their type in text when closed too
         if (not _isChild)
         {
-            ImGui.TableSetColumnIndex(_columnKnob);
+            ImGui.TableSetColumnIndex(_columnOption);
             ImGui.Text(_targetType);
         }
     }
@@ -140,7 +140,7 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
     {
         //If we're 1) a root pattern and we're open or 2) we're a child pattern, then show a pattern type combo box
         
-        ImGui.TableSetColumnIndex(_columnKnob);
+        ImGui.TableSetColumnIndex(_columnOption);
         if (ImGui.BeginCombo("##Type Combo " + _id, _targetType, ImGuiComboFlags.None))
         {
             var _i = 0;
@@ -300,11 +300,7 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
             
             if (_propertiesOpen)
             {
-                ImGui.TableNextRow();
-                ImGui.TableSetColumnIndex(_columnTree);
-                ImGui.Text("Gain");
-                ImGui.TableSetColumnIndex(_columnValue);
-                _dataStruct.gain = ImGui.SliderFloat("##Gain " + _id, _dataStruct.gain, 0, 2);
+                __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct);
             
                 ImGui.TableNextRow();
                 ImGui.TableSetColumnIndex(_columnTree);
