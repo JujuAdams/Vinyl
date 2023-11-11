@@ -19,6 +19,8 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
     static _columnValue  = 2;
     static _columnKnob   = 3;
     
+    var _deleted = false;
+    
     //Cache our type and asset array
     var _targetType  = _dataStruct.type;
     var _assetsArray = _dataStruct.assets;
@@ -64,7 +66,13 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
     {
         if (_isChild)
         {
-            
+            array_delete(_parentAssetArray, _parentAssetArrayPos, 1);
+            _deleted = true;
+        }
+        else
+        {
+            variable_struct_remove(__VinylDocument().__data.patterns, _name);
+            _deleted = true;
         }
     }
     
@@ -375,8 +383,11 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
                 repeat(array_length(_assetsArray))
                 {
                     var _child = _assetsArray[_i];
-                    __VinylEditorPropertiesPattern(_id + "/" + string(_i), _dataStruct, _i, _child.type + " " + string(_i+1), _child, _constructor);
-                    ++_i;
+                    
+                    if (__VinylEditorPropertiesPattern(_id + "/" + string(_i), _dataStruct, _i, _child.type + " " + string(_i+1), _child, _constructor))
+                    {
+                        ++_i;
+                    }
                 }
                 
                 ImGui.TreePop();
@@ -418,4 +429,6 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
         
         ImGui.TreePop();
     }
+    
+    return not _deleted;
 }
