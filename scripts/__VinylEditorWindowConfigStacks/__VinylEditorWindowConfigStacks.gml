@@ -30,54 +30,14 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
             
             if (ImGui.Button("Add"))
             {
-                __VinylMultiselectAdd(_stateStruct, _resourceDict, __VinylClassStackNew);
+                _selectedDict = __VinylMultiselectAdd(_stateStruct, _resourceDict, __VinylClassStackNew);
             }
             
             ImGui.SameLine(undefined, 120);
             ImGui.BeginDisabled(variable_struct_names_count(_selectedDict) <= 0);
                 if (ImGui.Button("Delete"))
                 {
-                    if ((variable_struct_names_count(_selectedDict) > 0) && (array_length(_resourceNameArray) > 0))
-                    {
-                        var _deleted = false;
-                        var _nextSelected = undefined;
-                        
-                        var _i = 0;
-                        repeat(array_length(_resourceNameArray))
-                        {
-                            var _name = _resourceNameArray[_i];
-                            if (variable_struct_exists(_selectedDict, _name))
-                            {
-                                if ((not _deleted) && (_nextSelected == undefined) && (_i > 0))
-                                {
-                                    _nextSelected = _resourceNameArray[_i-1];
-                                }
-                                
-                                _deleted = true;
-                                
-                                variable_struct_remove(_resourceDict, _name);
-                                array_delete(_resourceNameArray, _i, 1);
-                            }
-                            else
-                            {
-                                ++_i;
-                            }
-                        }
-                        
-                        _stateStruct.__selectedDict = {};
-                        _selectedDict = _stateStruct.__selectedDict;
-                        
-                        if (_nextSelected != undefined)
-                        {
-                            _selectedDict[$ _nextSelected] = true;
-                            _stateStruct.__lastSelected = _nextSelected;
-                        }
-                        else if (array_length(_resourceNameArray) > 0)
-                        {
-                            _selectedDict[$ _resourceNameArray[0]] = true;
-                            _stateStruct.__lastSelected = _resourceNameArray[0];
-                        }
-                    }
+                    _selectedDict = __VinylMultiselectDelete(_stateStruct, _resourceDict, _resourceNameArray);
                 }
             ImGui.EndDisabled();
             
@@ -90,30 +50,18 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
                 
                 if (_stateStruct.__multiselect)
                 {
-                    var _state = _selectedDict[$ _name] ?? false;
+                    var _state = __VinylMultiselectIsSelected(_stateStruct, _name);
                     var _newState = ImGui.Checkbox(_name, _state);
                     if (_newState != _state)
                     {
-                        if (_newState)
-                        {
-                            _selectedDict[$ _name] = true;
-                            _stateStruct.__lastSelected = _name;
-                        }
-                        else
-                        {
-                            variable_struct_remove(_selectedDict, _name);
-                        }
+                        _selectedDict = __VinylMultiselectSelect(_stateStruct, _name, _state);
                     }
                 }
                 else
                 {
-                    if (ImGui.RadioButton(_name, _selectedDict[$ _name] ?? false))
+                    if (ImGui.RadioButton(_name, __VinylMultiselectIsSelected(_stateStruct, _name)))
                     {
-                        _stateStruct.__selectedDict = {};
-                        _selectedDict = _stateStruct.__selectedDict;
-                        
-                        _selectedDict[$ _name] = true;
-                        _stateStruct.__lastSelected = _name;
+                        _selectedDict = __VinylMultiselectSelectExclusive(_stateStruct, _name);
                     }
                 }
                 
@@ -131,18 +79,7 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
                 _stateStruct.__multiselect = _newMultiselect;
                 if (not _newMultiselect)
                 {
-                    _stateStruct.__selectedDict = {};
-                    _selectedDict = _stateStruct.__selectedDict;
-                    
-                    var _lastSelected = _stateStruct.__lastSelected;
-                    if ((_lastSelected != undefined) && variable_struct_exists(_resourceDict, _lastSelected))
-                    {
-                        _selectedDict[$ _lastSelected] = true;
-                    }
-                    else
-                    {
-                        _stateStruct.__lastSelected = undefined;
-                    }
+                    _selectedDict = __VinylMultiselectSelectLast(_stateStruct, _resourceDict);
                 }
             }
             
@@ -151,23 +88,14 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
                 
                 if (ImGui.Button("All"))
                 {
-                    _stateStruct.__selectedDict = {};
-                    _selectedDict = _stateStruct.__selectedDict;
-                    
-                    var _i = 0;
-                    repeat(array_length(_resourceNameArray))
-                    {
-                        _selectedDict[$ _resourceNameArray[_i]] = true;
-                        ++_i;
-                    }
+                    _selectedDict = __VinylMultiselectSelectAll(_stateStruct, _resourceNameArray);
                 }
                 
                 ImGui.SameLine();
                 
                 if (ImGui.Button("None"))
                 {
-                    _stateStruct.__selectedDict = {};
-                    _stateStruct.__lastSelected = undefined;
+                    _selectedDict = __VinylMultiselectSelectNone(_stateStruct);
                 }
                 
             ImGui.EndDisabled();
@@ -197,7 +125,7 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
                     var _newName = ImGui.InputText("##Resource Name", _selectedName);
                     if (ImGui.IsItemDeactivatedAfterEdit() && (_newName != _selectedName))
                     {
-                        if (variable_struct_exists(_resourceDict, _newName))
+                        if (__VinylMultiselectExists(_resourceDict, _newName))
                         {
                             _nameConflictPopup = true;
                             _stateStruct.__popupData = {
@@ -206,14 +134,7 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
                         }
                         else
                         {
-                            variable_struct_remove(_resourceDict, _selectedName);
-                            _resourceDict[$ _newName] = _resourceData;
-                            
-                            _stateStruct.__selectedDict = {};
-                            _selectedDict = _stateStruct.__selectedDict;
-                            
-                            _selectedDict[$ _newName] = true;
-                            _stateStruct.__lastSelected = _newName;
+                            _selectedDict = __VinylMultiselectRename(_stateStruct, _resourceDict, _selectedName, _newName);
                         }
                     }
                     
@@ -246,18 +167,8 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
                     ImGui.Text("Cannot modify multiple stacks");
                 break;
             }
-    
-            if (_nameConflictPopup) ImGui.OpenPopup("Name Conflict");
-            ImGui.SetNextWindowPos(window_get_width()/2, window_get_height()/2, ImGuiCond.Appearing, 0.5, 0.5);
-            if (ImGui.BeginPopupModal("Name Conflict", undefined, ImGuiWindowFlags.NoResize))
-            {
-                ImGui.Text("\"" + string(_stateStruct.__popupData.__name) + "\" already exists.");
-                
-                ImGui.Separator();
-                
-                if (ImGui.Button("Got it!")) ImGui.CloseCurrentPopup();
-                ImGui.EndPopup();
-            }
+            
+            __VinylEditorSharedNameConflictPopup(_nameConflictPopup, _stateStruct.__popupData[$ "__name"]);
             
         ImGui.EndChild();
     }
