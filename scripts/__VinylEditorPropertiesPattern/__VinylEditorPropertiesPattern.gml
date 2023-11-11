@@ -301,59 +301,13 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
             if (_propertiesOpen)
             {
                 __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct);
-            
-                ImGui.TableNextRow();
-                ImGui.TableSetColumnIndex(_columnTree);
-                ImGui.Text("Pitch");
-                ImGui.TableSetColumnIndex(_columnValue);
-                _dataStruct.pitch = ImGui.SliderFloat("##Pitch " + _id, _dataStruct.pitch, 0.5, 2);
-            
-                ImGui.TableNextRow();
-                ImGui.TableSetColumnIndex(_columnTree);
-                ImGui.Text("Transpose");
-                ImGui.TableSetColumnIndex(_columnValue);
-                _dataStruct.transpose = ImGui.SliderInt("##Transpose " + _id, _dataStruct.transpose, -24, 24);
-            
-                ImGui.TableNextRow();
-                ImGui.TableSetColumnIndex(_columnTree);
-                ImGui.Text("Loop");
-                ImGui.TableSetColumnIndex(_columnValue);
-                _dataStruct.loop = ImGui.Checkbox("##Loop " + _id, _dataStruct.loop);
-            
-                ImGui.TableNextRow();
-                ImGui.TableSetColumnIndex(_columnTree);
-                ImGui.Text("Stack");
-                ImGui.TableSetColumnIndex(_columnValue);
-                _dataStruct.stack = ImGui.InputText("##Stack " + _id, _dataStruct.stack);
-            
-                ImGui.TableNextRow();
-                ImGui.TableSetColumnIndex(_columnTree);
-                ImGui.Text("Stack Priority");
-                ImGui.TableSetColumnIndex(_columnValue);
-                _dataStruct.stackPriority = ImGui.InputInt("##Stack Priority " + _id, _dataStruct.stackPriority);
-            
-                ImGui.TableNextRow();
-                ImGui.TableSetColumnIndex(_columnTree);
-                ImGui.Text("Effect Chain");
-                ImGui.TableSetColumnIndex(_columnValue);
-                _dataStruct.effectChain = ImGui.InputText("##Effect Chain " + _id, _dataStruct.effectChain);
-            
-                ImGui.TableNextRow();
-                ImGui.TableSetColumnIndex(_columnTree);
-                ImGui.Text("Label");
-                ImGui.TableSetColumnIndex(_columnValue);
-            
-                var _labelString = "";
-                if (ImGui.BeginCombo("##Label " + _id, _labelString, ImGuiComboFlags.None))
-                {
-                    ImGui.EndCombo();
-                }
-            
-                ImGui.TableNextRow();
-                ImGui.TableSetColumnIndex(_columnTree);
-                ImGui.Text("Persistent");
-                ImGui.TableSetColumnIndex(_columnValue);
-                _dataStruct.persistent = ImGui.Checkbox("##Persistent " + _id, _dataStruct.persistent);
+                __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct);
+                __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct);
+                __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct);
+                __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct);
+                __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct);
+                __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct);
+                __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct);
                 
                 ImGui.TreePop();
             }

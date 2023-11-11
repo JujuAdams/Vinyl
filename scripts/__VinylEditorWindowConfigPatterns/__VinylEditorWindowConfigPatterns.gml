@@ -40,7 +40,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
                 ImGui.TableSetupColumn(_resourceTypeName, ImGuiTableColumnFlags.WidthStretch, 1);
                 ImGui.TableSetupColumn("Delete", ImGuiTableColumnFlags.WidthFixed, 70);
                 ImGui.TableSetupColumn("Value", ImGuiTableColumnFlags.WidthStretch, 1);
-                ImGui.TableSetupColumn("Knob", ImGuiTableColumnFlags.WidthFixed, 150);
+                ImGui.TableSetupColumn("Option", ImGuiTableColumnFlags.WidthFixed, 150);
                 
                 //Populate the table with lots of nodes
                 var _i = 0;

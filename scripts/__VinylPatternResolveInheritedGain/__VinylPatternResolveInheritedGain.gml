@@ -1,8 +1,11 @@
 // Feather disable all
 
+/// @param dataStruct
+/// @param parentStruct
+
 function __VinylPatternResolveInheritedGain(_dataStruct, _parentStruct)
 {
-    if (_dataStruct.gainOption != "Inherit")
+    if (_dataStruct.gainOption != "Unset")
     {
         return {
             __option:       _dataStruct.gainOption,
@@ -19,7 +22,7 @@ function __VinylPatternResolveInheritedGain(_dataStruct, _parentStruct)
     else
     {
         return {
-            __option:       "Value",
+            __option:       "Unset",
             __knob:         __VINYL_ASSET_NULL,
             __knobOverride: false,
             __value:        [1, 1],

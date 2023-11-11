@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct)
+function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct)
 {
     static _optionArray = ["Unset", "Multiply", "Randomize", "Knob"];
     static _columnTree   = 0;
@@ -11,10 +11,10 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct)
     //TODO
     var _knobArray = ["spookiness", "health factor"];
     
-    var _originalOption = _dataStruct.gainOption;
+    var _originalOption = _dataStruct.pitchOption;
     var _inheriting = (_originalOption == "Unset");
     
-    var _resolution = __VinylPatternResolveInheritedGain(_dataStruct, _parentStruct);
+    var _resolution = __VinylPatternResolveInheritedPitch(_dataStruct, _parentStruct);
     var _option       = _resolution.__option;
     var _knob         = _resolution.__knob;
     var _knobOverride = _resolution.__knobOverride;
@@ -22,14 +22,14 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct)
     
     ImGui.TableNextRow();
     ImGui.TableSetColumnIndex(_columnTree);
-    ImGui.Text("Gain");
+    ImGui.Text("Pitch");
     
     ImGui.TableSetColumnIndex(_columnValue);
     ImGui.BeginDisabled(_inheriting);
         switch(_option)
         {
             case "Multiply":
-                var _newValue = ImGui.SliderFloat("##Gain " + _id, _value[0], 0, 2);
+                var _newValue = ImGui.SliderFloat("##Pitch " + _id, _value[0], 0, 2);
                 
                 if (not _inheriting)
                 {
@@ -40,7 +40,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct)
             
             case "Randomize":
                 var _newValue = variable_clone(_value);
-                ImGui.SliderFloat2("##Gain " + _id, _newValue, 0, 2);
+                ImGui.SliderFloat2("##Pitch " + _id, _newValue, 0, 2);
                 
                 if ((not _inheriting) && (not array_equals(_value, _newValue)))
                 {
@@ -59,17 +59,17 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct)
             break;
             
             case "Knob":
-                if (ImGui.BeginCombo("##Gain Knob Combo " + _id, _knob, ImGuiComboFlags.None))
+                if (ImGui.BeginCombo("##Pitch Knob Combo " + _id, _knob, ImGuiComboFlags.None))
                 {
                     var _i = 0;
                     repeat(array_length(_knobArray))
                     {
                         var _knobName = _knobArray[_i];
-                        if (ImGui.Selectable(_knobName + "##Gain Option " + _id, (_knob == _knobName)))
+                        if (ImGui.Selectable(_knobName + "##Pitch Option " + _id, (_knob == _knobName)))
                         {
                             if (not _inheriting)
                             {
-                                _dataStruct.gainKnob = _knobName;
+                                _dataStruct.pitchKnob = _knobName;
                             }
                         }
                         
@@ -83,15 +83,15 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct)
     ImGui.EndDisabled();
     
     ImGui.TableSetColumnIndex(_columnOption);
-    if (ImGui.BeginCombo("##Gain Option " + _id, _originalOption, ImGuiComboFlags.None))
+    if (ImGui.BeginCombo("##Pitch Option " + _id, _originalOption, ImGuiComboFlags.None))
     {
         var _i = 0;
         repeat(array_length(_optionArray))
         {
             var _optionName = _optionArray[_i];
-            if (ImGui.Selectable(_optionName + "##Gain Option " + _id, (_originalOption == _optionName)))
+            if (ImGui.Selectable(_optionName + "##Pitch Option " + _id, (_originalOption == _optionName)))
             {
-                _dataStruct.gainOption = _optionName;
+                _dataStruct.pitchOption = _optionName;
                 
                 //Set the min/max values to be identical when setting non-randomized mode
                 if (_optionName == "Multiply")
@@ -115,7 +115,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct)
         ImGui.TableSetColumnIndex(_columnValue);
         ImGui.BeginDisabled(not _knobOverride || _inheriting);
             var _newValue = variable_clone(_value);
-            ImGui.SliderFloat2("##Gain " + _id, _newValue, 0, 2);
+            ImGui.SliderFloat2("##Pitch " + _id, _newValue, 0, 2);
             
             if ((not _inheriting) && (not array_equals(_value, _newValue)))
             {
@@ -139,7 +139,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct)
             
             if (not _inheriting)
             {
-                _dataStruct.gainKnobOverride = _newOverride;
+                _dataStruct.pitchKnobOverride = _newOverride;
             }
         ImGui.EndDisabled();
     }
