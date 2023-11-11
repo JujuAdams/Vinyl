@@ -317,7 +317,7 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
                 //For pattern types that are expected to have children, show those nodes
                 ImGui.TableNextRow();
                 ImGui.TableSetColumnIndex(_columnTree);
-                ImGui.Text("Assets");
+                ImGui.Text("Children");
                 
                 ImGui.TreePush();
                 

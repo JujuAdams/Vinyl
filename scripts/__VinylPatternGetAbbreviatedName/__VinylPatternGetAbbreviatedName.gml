@@ -8,7 +8,7 @@ function __VinylLabelsGetAbbreviatedName(_array, _maxCharacters = 40)
     if (not is_array(_array)) return "???";
     
     var _length = array_length(_array);
-    if (_length <= 0) return "";
+    if (_length <= 0) return __VINYL_ASSET_NULL;
     
     var _string = "";
     var _i = 0;
