@@ -4,10 +4,12 @@
 /// @param width
 /// @param height
 /// @param stateStruct
+/// @param resourceName
+/// @param constructor
 /// @param resourceDict
 /// @param resourceNameArray
 
-function __VinylEditorSharedSelector(_id, _width, _height, _stateStruct, _resourceDict, _resourceNameArray)
+function __VinylEditorSharedSelector(_id, _width, _height, _stateStruct, _resourceName, _constructor, _resourceDict, _resourceNameArray)
 {
     var _selectedDict = _stateStruct.__selectedDict;
     
@@ -15,7 +17,7 @@ function __VinylEditorSharedSelector(_id, _width, _height, _stateStruct, _resour
         
         if (ImGui.Button("Add"))
         {
-            _selectedDict = __VinylMultiselectAdd(_stateStruct, _resourceDict, __VinylClassStackNew);
+            _selectedDict = __VinylMultiselectAdd(_stateStruct, _resourceDict, _resourceName, _constructor);
         }
         
         ImGui.SameLine(undefined, 120);

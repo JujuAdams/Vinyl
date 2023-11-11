@@ -38,7 +38,7 @@ function __VinylClassDocument(_path) constructor
         __assetsCompiled = {};
     }
     
-    static __Write = function(_struct, _name, _value)
+    static __Write = function(_struct, _name, _newValue)
     {
         if (not __VinylGetEditorEnabled()) return;
         if (not variable_struct_exists(_struct, _name))
@@ -47,10 +47,22 @@ function __VinylClassDocument(_path) constructor
             return;
         }
         
-        if (_struct[$ _name] != _value)
+        var _oldValue = _struct[$ _name];
+        if (is_array(_oldValue))
         {
-            _struct[$ _name] = _value;
-            __Save();
+            if (not array_equals(_oldValue, _newValue))
+            {
+                _struct[$ _name] = _newValue;
+                __Save();
+            }
+        }
+        else
+        {
+            if (_oldValue != _newValue)
+            {
+                _struct[$ _name] = _newValue;
+                __Save();
+            }
         }
     }
     

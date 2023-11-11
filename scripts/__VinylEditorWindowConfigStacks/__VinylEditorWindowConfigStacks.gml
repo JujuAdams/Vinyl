@@ -22,7 +22,7 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
 		var _width  = ImGui.GetContentRegionAvailX();
 		var _height = ImGui.GetContentRegionAvailY();
         
-        var _selectedDict = __VinylEditorSharedSelector("Left Panel", 0.3*_width, _height, _stateStruct, _resourceDict, _resourceNameArray);
+        var _selectedDict = __VinylEditorSharedSelector("Left Panel", 0.3*_width, _height, _stateStruct, "Stack", __VinylClassStackNew, _resourceDict, _resourceNameArray);
         
         ImGui.SameLine();
         
@@ -98,4 +98,11 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
     }
     
     ImGui.End();
+}
+
+function __VinylClassStackNew() constructor
+{
+    duckedGain = 0;
+    duckRate = VINYL_DEFAULT_DUCK_GAIN_RATE;
+    pauseWhenDucked = true;
 }
