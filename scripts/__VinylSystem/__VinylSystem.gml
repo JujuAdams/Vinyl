@@ -13,6 +13,8 @@
 
 #macro __VINYL_RETURN_SELF_TO_POOL  if (__pool != undefined) { __pool.__Return(self) }
 
+#macro __VINYL_ASSET_NULL  "<None>"
+
 enum __VINYL_ASSET_TYPE {
     __UNKNOWN,
     __WAD,

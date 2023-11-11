@@ -41,7 +41,7 @@ function __VinylEditorSharedSelector(_id, _width, _height, _stateStruct, _resour
                 var _newState = ImGui.Checkbox(_name, _state);
                 if (_newState != _state)
                 {
-                    _selectedDict = __VinylMultiselectSelect(_stateStruct, _name, _state);
+                    _selectedDict = __VinylMultiselectSelect(_stateStruct, _name, _newState);
                 }
             }
             else

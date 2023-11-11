@@ -99,10 +99,3 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
     
     ImGui.End();
 }
-
-function __VinylClassStackNew() constructor
-{
-    duckedGain = 0;
-    duckRate = VINYL_DEFAULT_DUCK_GAIN_RATE;
-    pauseWhenDucked = true;
-}
