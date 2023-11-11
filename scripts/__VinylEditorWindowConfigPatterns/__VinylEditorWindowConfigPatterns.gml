@@ -34,14 +34,6 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
                 _selectedDict = __VinylMultiselectAdd(_stateStruct, _resourceDict, _resourceTypeName, _resourceConstructor);
             }
             
-            ImGui.SameLine(undefined, _width - 120);
-            ImGui.BeginDisabled(variable_struct_names_count(_selectedDict) <= 0);
-                if (ImGui.Button("Delete"))
-                {
-                    
-                }
-            ImGui.EndDisabled();
-            
             if (ImGui.BeginTable(_resourceTypeName + " Table", 4, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY, undefined, _height - 50))
             {
                 ImGui.TableSetupColumn(_resourceTypeName, ImGuiTableColumnFlags.WidthStretch);
@@ -53,7 +45,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
                 repeat(array_length(_resourceNameArray))
                 {
                     var _name = _resourceNameArray[_i];
-                    __VinylEditorPropertiesPattern(_name, false, _name, _resourceDict[$ _name], _resourceConstructor);
+                    __VinylEditorPropertiesPattern(_name, undefined, undefined, _name, _resourceDict[$ _name], _resourceConstructor);
                     ++_i;
                 }
                 

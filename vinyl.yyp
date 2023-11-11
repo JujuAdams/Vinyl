@@ -78,6 +78,7 @@
     {"id":{"name":"VinylGlobalTransposeGet","path":"scripts/VinylGlobalTransposeGet/VinylGlobalTransposeGet.yy",},},
     {"id":{"name":"VinylStopAllNonPersistent","path":"scripts/VinylStopAllNonPersistent/VinylStopAllNonPersistent.yy",},},
     {"id":{"name":"__VinylGlobalSettingsGetPath","path":"scripts/__VinylGlobalSettingsGetPath/__VinylGlobalSettingsGetPath.yy",},},
+    {"id":{"name":"__VinylPatternGetAbbreviatedName","path":"scripts/__VinylPatternGetAbbreviatedName/__VinylPatternGetAbbreviatedName.yy",},},
     {"id":{"name":"VinylTypeGet","path":"scripts/VinylTypeGet/VinylTypeGet.yy",},},
     {"id":{"name":"VinylExists","path":"scripts/VinylExists/VinylExists.yy",},},
     {"id":{"name":"UITextInline","path":"scripts/UITextInline/UITextInline.yy",},},
