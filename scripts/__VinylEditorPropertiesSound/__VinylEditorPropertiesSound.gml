@@ -13,18 +13,18 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
         if (ImGui.BeginTable("Table", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY, undefined, 280))
         {
             //Set up our columns with fixed widths so we get a nice pretty layout
-            ImGui.TableSetupColumn("Name", ImGuiTableColumnFlags.WidthFixed, 100);
-            ImGui.TableSetupColumn("Value", ImGuiTableColumnFlags.WidthStretch, 1);
+            ImGui.TableSetupColumn("Name",   ImGuiTableColumnFlags.WidthFixed, 100);
             ImGui.TableSetupColumn("Option", ImGuiTableColumnFlags.WidthFixed, 150);
+            ImGui.TableSetupColumn("Value",  ImGuiTableColumnFlags.WidthStretch, 1);
             
-            __VinylEditorPropWidgetGain(_soundName, _soundData, _defaultData, 0, 1, 2);
-            __VinylEditorPropWidgetPitch(_soundName, _soundData, _defaultData, 0, 1, 2);
-            __VinylEditorPropWidgetLoop(_soundName, _soundData, _defaultData, 0, 1, 2);
-            __VinylEditorPropWidgetLabel(_soundName, _soundData, _defaultData, 0, 1, 2);
-            __VinylEditorPropWidgetStack(_soundName, _soundData, _defaultData, 0, 1, 2);
-            __VinylEditorPropWidgetEffectChain(_soundName, _soundData, _defaultData, 0, 1, 2);
-            __VinylEditorPropWidgetPersistent(_soundName, _soundData, _defaultData, 0, 1, 2);
-            __VinylEditorPropWidgetTranspose(_soundName, _soundData, _defaultData, 0, 1, 2);
+            __VinylEditorPropWidgetGain(_soundName, _soundData, _defaultData,        0, 2, 1);
+            __VinylEditorPropWidgetPitch(_soundName, _soundData, _defaultData,       0, 2, 1);
+            __VinylEditorPropWidgetLoop(_soundName, _soundData, _defaultData,        0, 2, 1);
+            __VinylEditorPropWidgetLabel(_soundName, _soundData, _defaultData,       0, 2, 1);
+            __VinylEditorPropWidgetStack(_soundName, _soundData, _defaultData,       0, 2, 1);
+            __VinylEditorPropWidgetEffectChain(_soundName, _soundData, _defaultData, 0, 2, 1);
+            __VinylEditorPropWidgetPersistent(_soundName, _soundData, _defaultData,  0, 2, 1);
+            __VinylEditorPropWidgetTranspose(_soundName, _soundData, _defaultData,   0, 2, 1);
             
             //TODO - Loop Points + BPM
             
