@@ -341,11 +341,11 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
                 __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, 0, 2, 3);
                 __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, 0, 2, 3);
                 __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, 0, 2, 3);
-                __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, 0, 2, 3);
+                __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, 0, 2, 3);
                 __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, 0, 2, 3);
                 __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, 0, 2, 3);
-                __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, 0, 2, 3);
                 __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct, 0, 2, 3);
+                __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, 0, 2, 3);
                 
                 ImGui.TreePop();
             }

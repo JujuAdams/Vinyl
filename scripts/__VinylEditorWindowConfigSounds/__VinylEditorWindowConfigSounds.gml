@@ -155,13 +155,10 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         
         if (_selectionHandler.__GetSelectedCount() == 1)
         {
-            ImGui.BeginDisabled(not _modified);
-                ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                    
-                    var _displayName = _modified? _lastSelected : "Default";
-                    __VinylEditorPropertiesSound(_displayName, _modifiedSoundDict[$ _displayName]);
-                ImGui.EndChild();
-            ImGui.EndDisabled();
+            ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
+                var _displayName = _modified? _lastSelected : "Default";
+                __VinylEditorPropertiesSound(_displayName, _modifiedSoundDict[$ _displayName], _modified);
+            ImGui.EndChild();
         }
     ImGui.EndChild();
 }
