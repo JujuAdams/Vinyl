@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylEditorWindowConfigKnobs",
+  "name": "__VinylEditorWindowConfigAssets__OLD",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

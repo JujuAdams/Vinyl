@@ -69,18 +69,11 @@ function __VinylEditorWindowDesktop(_stateStruct)
             ImGui.BeginDisabled(__VinylEditorWindowGetOpen("__project"));
                 if (ImGui.Button("Project")) __VinylEditorWindowSetOpen("__project", true);
             ImGui.EndDisabled();
-
-            if (ImGui.BeginMenu("Config"))
-            {
-            	if (ImGui.MenuItem("Assets",        undefined, undefined, not __VinylEditorWindowGetOpen("__configAssets"      ))) __VinylEditorWindowSetOpen("__configAssets",       true);
-            	if (ImGui.MenuItem("Patterns",      undefined, undefined, not __VinylEditorWindowGetOpen("__configPatterns"    ))) __VinylEditorWindowSetOpen("__configPatterns",     true);
-            	if (ImGui.MenuItem("Labels",        undefined, undefined, not __VinylEditorWindowGetOpen("__configLabels"      ))) __VinylEditorWindowSetOpen("__configLabels",       true);
-            	if (ImGui.MenuItem("Stacks",        undefined, undefined, not __VinylEditorWindowGetOpen("__configStacks"      ))) __VinylEditorWindowSetOpen("__configStacks",       true);
-            	if (ImGui.MenuItem("Knobs",         undefined, undefined, not __VinylEditorWindowGetOpen("__configKnobs"       ))) __VinylEditorWindowSetOpen("__configKnobs",        true);
-            	if (ImGui.MenuItem("Effect Chains", undefined, undefined, not __VinylEditorWindowGetOpen("__configEffectChains"))) __VinylEditorWindowSetOpen("__configEffectChains", true);
-            	ImGui.EndMenu();
-            }
-
+            
+            ImGui.BeginDisabled(__VinylEditorWindowGetOpen("__config"));
+                if (ImGui.Button("Config")) __VinylEditorWindowSetOpen("__config", true);
+            ImGui.EndDisabled();
+            
             ImGui.SameLine(undefined, 40);
 
             ImGui.BeginDisabled(__VinylEditorWindowGetOpen("__nowPlaying"));

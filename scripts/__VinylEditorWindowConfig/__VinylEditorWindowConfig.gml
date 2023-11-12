@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VinylEditorWindowConfigPatterns(_stateStruct)
+function __VinylEditorWindowConfig(_stateStruct)
 {
     static _editor = __VinylGlobalData().__editor;
     if (not VinylEditorIsShowing()) return;
@@ -8,8 +8,8 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
     ImGui.SetNextWindowSize(0.7*room_width, 0.8*room_height, ImGuiCond.Once);
     ImGui.SetNextWindowPos(0.15*room_width, 0.1*room_height, ImGuiCond.Once);
 	
-    var ret = ImGui.Begin("Patterns", __VinylEditorWindowGetOpen("__configPatterns"), undefined, ImGuiReturnMask.Both);
-    __VinylEditorWindowSetOpen("__configPatterns", (ret & ImGuiReturnMask.Pointer));
+    var ret = ImGui.Begin("Config", __VinylEditorWindowGetOpen("__config"), undefined, ImGuiReturnMask.Both);
+    __VinylEditorWindowSetOpen("__config", (ret & ImGuiReturnMask.Pointer));
     
     if (ret & ImGuiReturnMask.Return)
     {
@@ -27,6 +27,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
                 
             if (ImGui.BeginTabItem("Patterns"))
             {
+                
                 var _resourceTypeName = "Pattern";
                 var _resourceConstructor = __VinylClassPatternNew;
                 var _resourceDict = __VinylDocument().__data.patterns;
@@ -35,7 +36,10 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
                 array_sort(_resourceNameArray, true);
         
         		var _height = ImGui.GetContentRegionAvailY();
-        
+                
+                //Bit of aesthetic spacing
+                ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 5);
+                
                 if (ImGui.Button("Add"))
                 {
                     __VinylEditorSharedAdd(_resourceDict, _resourceTypeName, _resourceConstructor);
@@ -44,8 +48,11 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
                 ImGui.SameLine(undefined, 40);
                 _stateStruct.__quickDelete = ImGui.Checkbox("Quick Delete", _stateStruct.__quickDelete);
                 
+                //Little more aesthetic spacing
+                ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 5);
+                
                 //Now do the actual table
-                if (ImGui.BeginTable("Table", 4, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY, undefined, _height - 23))
+                if (ImGui.BeginTable("Table", 4, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY, undefined, _height - 33))
                 {
                     //Set up our columns with fixed widths so we get a nice pretty layout
                     ImGui.TableSetupColumn(_resourceTypeName, ImGuiTableColumnFlags.WidthStretch, 1);

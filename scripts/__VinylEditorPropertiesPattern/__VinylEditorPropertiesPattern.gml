@@ -52,7 +52,7 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
     {
         //Special appearance for assets since they are the leaf nodes for patterns
         var _open = false;
-        ImGui.TreeNodeEx(_name + "##" + _id, ImGuiTreeNodeFlags.Leaf | ImGuiTreeNodeFlags.NoTreePushOnOpen);
+        ImGui.Text(_name);
     }
     else
     {
@@ -73,6 +73,15 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
         {
             variable_struct_remove(__VinylDocument().__data.patterns, _name);
             _deleted = true;
+        }
+    }
+    
+    if (not _isChild)
+    {
+        ImGui.SameLine();
+        if (ImGui.Button("Rename##Rename " + _id))
+        {
+            //TODO
         }
     }
     
@@ -318,16 +327,15 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
                 ImGui.TableNextRow();
                 ImGui.TableSetColumnIndex(_columnTree);
                 ImGui.Text("Children");
-                
-                ImGui.TreePush();
-                
-                ImGui.TableSetColumnIndex(_columnDelete);
-                if (ImGui.Button("+##Add Child " + _id))
+                ImGui.SameLine();
+                if (ImGui.SmallButton("+##Add Child " + _id))
                 {
                     var _child = new _constructor();
                     _child.type = "Asset";
                     array_push(_dataStruct.assets, _child);
                 }
+                
+                ImGui.TreePush();
                 
                 var _i = 0;
                 repeat(array_length(_assetsArray))

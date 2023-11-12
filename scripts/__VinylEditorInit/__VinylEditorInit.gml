@@ -26,47 +26,8 @@ function __VinylEditorInit()
                 __collapsed: false,
             },
             
-            __configAssets: {
-                __function: __VinylEditorWindowConfigAssets,
-                __open: false,
-                __collapsed: false,
-                __popupData: {},
-            },
-            
-            __configPatterns: {
-                __function: __VinylEditorWindowConfigPatterns,
-                __open: false,
-                __collapsed: false,
-                __popupData: {},
-                __quickDelete: false,
-            },
-            
-            __configLabels: {
-                __function: __VinylEditorWindowConfigLabels,
-                __open: false,
-                __collapsed: false,
-                __popupData: {},
-                __quickDelete: false,
-            },
-            
-            __configStacks: {
-                __function: __VinylEditorWindowConfigStacks,
-                __open: false,
-                __collapsed: false,
-                __popupData: {},
-                __quickDelete: false,
-            },
-            
-            __configKnobs: {
-                __function: __VinylEditorWindowConfigKnobs,
-                __open: false,
-                __collapsed: false,
-                __popupData: {},
-                __quickDelete: false,
-            },
-            
-            __configEffectChains: {
-                __function: __VinylEditorWindowConfigEffectChains,
+            __config: {
+                __function: __VinylEditorWindowConfig,
                 __open: false,
                 __collapsed: false,
                 __popupData: {},
