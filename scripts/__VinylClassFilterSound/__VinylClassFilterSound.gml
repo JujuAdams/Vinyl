@@ -2,6 +2,8 @@
 
 function __VinylClassFilterSound() constructor
 {
+    __invert = false;
+    
     __nameMatch    = "";
     __useNameMatch = false;
     
@@ -11,6 +13,6 @@ function __VinylClassFilterSound() constructor
     __audioGroupDict = {};
     __useAudioGroup  = false;
     
-    __attributes   = [false, false, false, false];
-    __useAttribute = false;
+    __attributesArray = [false, false, false, false];
+    __useAttribute    = false;
 }

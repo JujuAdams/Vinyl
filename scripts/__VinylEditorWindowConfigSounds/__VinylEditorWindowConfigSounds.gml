@@ -17,8 +17,6 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
     var _seeSelected   = _selectionHandler.__GetSeeSelected();
     var _seeUnselected = _selectionHandler.__GetSeeUnselected();
     
-    var _filter = new __VinylClassFilterSound("sndBleep*", undefined, undefined, undefined, undefined);
-    
     var _modifiedSoundDict = __VinylDocument().__data.sounds;
     
     ImGui.BeginChild("Left Pane", 0.3*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());

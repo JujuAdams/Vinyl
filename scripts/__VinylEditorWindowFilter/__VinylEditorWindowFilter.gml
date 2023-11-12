@@ -28,6 +28,12 @@ function __VinylEditorWindowFilter(_stateStruct)
                 
                 ImGui.TableNextRow();
                 ImGui.TableSetColumnIndex(0);
+                ImGui.Text("Invert");
+                ImGui.TableSetColumnIndex(1);
+                _filter.__invert = ImGui.Checkbox("##Filter Invert Checkbox", _filter.__invert);
+                
+                ImGui.TableNextRow();
+                ImGui.TableSetColumnIndex(0);
                 ImGui.Text("Match Name");
                 ImGui.TableSetColumnIndex(1);
                 _filter.__useNameMatch = ImGui.Checkbox("##Filter Name Match Checkbox", _filter.__useNameMatch);
@@ -103,7 +109,7 @@ function __VinylEditorWindowFilter(_stateStruct)
                 _filter.__useAttribute = ImGui.Checkbox("##Attribute Checkbox", _filter.__useAttribute);
                 ImGui.TableSetColumnIndex(2);
                 ImGui.BeginDisabled(not _filter.__useAttribute);
-                    var _attributesArray = _filter.__attributes;
+                    var _attributesArray = _filter.__attributesArray;
                     _attributesArray[0] = ImGui.Checkbox("WAV##Attribute 0 Checkbox",   _attributesArray[0]);
                     _attributesArray[1] = ImGui.Checkbox("OGG - Decompress during playback##Attribute 1 Checkbox",   _attributesArray[1]);
                     _attributesArray[2] = ImGui.Checkbox("OGG - Decompress when loaded and store in RAM##Attribute 2 Checkbox", _attributesArray[2]);
