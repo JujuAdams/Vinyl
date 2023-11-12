@@ -158,7 +158,12 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
                 var _audioGroup = _audioGroupArray[_i];
                 if (ImGui.Selectable(_audioGroup, _projectSound.__audioGroup == _audioGroup))
                 {
-                    _projectSound.__SetAudioGroup(_audioGroup);
+                    _selectionHandler.__ForEachSelected(method({
+                        __audioGroup: _audioGroup,
+                    }, function(_name, _struct)
+                    {
+                        _struct.__SetAudioGroup(__audioGroup);
+                    }));
                 }
                 
                 ++_i;
@@ -188,7 +193,12 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
         ImGui.TableSetColumnIndex(0);
         if (ImGui.RadioButton("WAV", (_projectSound.__attributes == 0)))
         {
-            _projectSound.__SetAttributes(0);
+            _selectionHandler.__ForEachSelected(method({
+                __attributes: 0,
+            }, function(_name, _struct)
+            {
+                _struct.__SetAttributes(__attributes);
+            }));
         }
         
         if (_projectSound.__compiledValues)
@@ -203,7 +213,12 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
         ImGui.TableSetColumnIndex(0);
         if (ImGui.RadioButton("OGG - Decompress during playback", (_projectSound.__attributes == 1)))
         {
-            _projectSound.__SetAttributes(1);
+            _selectionHandler.__ForEachSelected(method({
+                __attributes: 1,
+            }, function(_name, _struct)
+            {
+                _struct.__SetAttributes(__attributes);
+            }));
         }
         
         if (_projectSound.__compiledValues)
@@ -218,7 +233,12 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
         ImGui.TableSetColumnIndex(0);
         if (ImGui.RadioButton("OGG - Decompress when loaded and store in RAM", (_projectSound.__attributes == 2)))
         {
-            _projectSound.__SetAttributes(2);
+            _selectionHandler.__ForEachSelected(method({
+                __attributes: 2,
+            }, function(_name, _struct)
+            {
+                _struct.__SetAttributes(__attributes);
+            }));
         }
         
         if (_projectSound.__compiledValues)
@@ -233,7 +253,12 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
         ImGui.TableSetColumnIndex(0);
         if (ImGui.RadioButton("OGG - Stream from disk (exports .ogg files)", (_projectSound.__attributes == 3)))
         {
-            _projectSound.__SetAttributes(3);
+            _selectionHandler.__ForEachSelected(method({
+                __attributes: 3,
+            }, function(_name, _struct)
+            {
+                _struct.__SetAttributes(__attributes);
+            }));
         }
         
         if (_projectSound.__compiledValues)

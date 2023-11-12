@@ -49,11 +49,6 @@ function __VinylSystemReadProject(_document, _projectData, _firstUpdate)
         var _soundName = _newSoundArray[_i];
         if (variable_struct_exists(_oldSoundDictionary, _soundName))
         {
-            if (_soundName == "sndCat")
-            {
-                show_debug_message("!");
-            }
-            
             _oldSoundDictionary[$ _soundName].__CheckYYFile(false);
         }
         else
