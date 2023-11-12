@@ -10,7 +10,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
     
     ImGui.BeginDisabled(not _modified);
         //Now do the actual table
-        if (ImGui.BeginTable("Table", 4, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY, undefined, 280))
+        if (ImGui.BeginTable("Vinyl Properties", 4, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY, undefined, 280))
         {
             //Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("Name",     ImGuiTableColumnFlags.WidthFixed, 100);
@@ -36,23 +36,35 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
     
     ImGui.NewLine();
     
-    var _width = ImGui.GetContentRegionAvailX();
-    ImGui.BeginChild("GameMaker Native Properties", _width, 130, true);
+    if (ImGui.BeginTable("GameMaker Native Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY, undefined, 280))
+    {
+        ImGui.TableSetupColumn("Vinyl", ImGuiTableColumnFlags.WidthStretch, 3);
+        ImGui.TableSetupColumn("Project", ImGuiTableColumnFlags.WidthStretch, 3);
+        ImGui.TableHeadersRow();
+        
+        
+        
+        
+        ImGui.EndTable();
+    }
     
-        ImGui.TextUnformatted("Audiogroup");
-        ImGui.SameLine();
-        if (ImGui.BeginCombo("##Audiogroup", "Default", ImGuiComboFlags.None))
-        {
-            ImGui.Selectable("Default", true);
-            ImGui.Selectable("agBaddies", false);
-            ImGui.Selectable("agFX", false);
-            ImGui.EndCombo();
-        }
-        
-        ImGui.RadioButton("WAV", true);
-        ImGui.RadioButton("OGG - Decompress during playback", false);
-        ImGui.RadioButton("OGG - Decompress when loaded and store in RAM", false);
-        ImGui.RadioButton("OGG - Stream from disk (exports .ogg files in game directory)", false);
-        
-    ImGui.EndChild();
+    //var _width = ImGui.GetContentRegionAvailX();
+    //ImGui.BeginChild("GameMaker Native Properties", _width, 130, true);
+    //
+    //    ImGui.TextUnformatted("Audiogroup");
+    //    ImGui.SameLine();
+    //    if (ImGui.BeginCombo("##Audiogroup", "Default", ImGuiComboFlags.None))
+    //    {
+    //        ImGui.Selectable("Default", true);
+    //        ImGui.Selectable("agBaddies", false);
+    //        ImGui.Selectable("agFX", false);
+    //        ImGui.EndCombo();
+    //    }
+    //    
+    //    ImGui.RadioButton("WAV", true);
+    //    ImGui.RadioButton("OGG - Decompress during playback", false);
+    //    ImGui.RadioButton("OGG - Decompress when loaded and store in RAM", false);
+    //    ImGui.RadioButton("OGG - Stream from disk (exports .ogg files in game directory)", false);
+    //    
+    //ImGui.EndChild();
 }

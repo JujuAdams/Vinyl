@@ -81,6 +81,26 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
                     
                     ImGui.EndCombo();
                 }
+                
+                ImGui.BeginDisabled(not _knobOverride || _inheriting);
+                    var _newValue = variable_clone(_value);
+                    ImGui.SliderFloat2("##Pitch " + _id, _newValue, 0, 2);
+                    
+                    if ((not _inheriting) && (not array_equals(_value, _newValue)))
+                    {
+                        if (_newValue[0] < _newValue[1])
+                        {
+                            _value[0] = _newValue[0];
+                            _value[1] = _newValue[1];
+                        }
+                        else
+                        {
+                            //If the two values have inverted, correct that
+                            _value[0] = _newValue[1];
+                            _value[1] = _newValue[0];
+                        }
+                    }
+                ImGui.EndDisabled();
             break;
         }
     ImGui.EndDisabled();
@@ -112,30 +132,6 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
     if (_option == "Knob")
     {
         //TODO - Collect knob output range
-        
-        ImGui.TableNextRow();
-        
-        ImGui.TableSetColumnIndex(_columnValue);
-        ImGui.BeginDisabled(not _knobOverride || _inheriting);
-            var _newValue = variable_clone(_value);
-            ImGui.SliderFloat2("##Pitch " + _id, _newValue, 0, 2);
-            
-            if ((not _inheriting) && (not array_equals(_value, _newValue)))
-            {
-                if (_newValue[0] < _newValue[1])
-                {
-                    _value[0] = _newValue[0];
-                    _value[1] = _newValue[1];
-                }
-                else
-                {
-                    //If the two values have inverted, correct that
-                    _value[0] = _newValue[1];
-                    _value[1] = _newValue[0];
-                }
-            }
-        ImGui.EndDisabled();
-        
         ImGui.BeginDisabled(_inheriting);
             ImGui.TableSetColumnIndex(_columnOption);
             var _newOverride = ImGui.Checkbox("Override Range##" + _id, _knobOverride);

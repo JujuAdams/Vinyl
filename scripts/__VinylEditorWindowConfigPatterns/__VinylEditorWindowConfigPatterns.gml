@@ -26,7 +26,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
     ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 5);
     
     //Now do the actual table
-    if (ImGui.BeginTable("Table", 4, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY, undefined, ImGui.GetContentRegionAvailY()))
+    if (ImGui.BeginTable("Table", 4, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, ImGui.GetContentRegionAvailY()))
     {
         //Set up our columns with fixed widths so we get a nice pretty layout
         ImGui.TableSetupColumn(_resourceTypeName, ImGuiTableColumnFlags.WidthStretch, 1);

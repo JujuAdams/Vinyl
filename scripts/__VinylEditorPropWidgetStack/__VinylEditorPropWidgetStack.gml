@@ -25,6 +25,12 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
     ImGui.TableSetColumnIndex(_columnName);
     ImGui.Text("Stack");
     
+    if (_option == "Override")
+    {
+        ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 5);
+        ImGui.Text("Priority");
+    }
+    
     ImGui.TableSetColumnIndex(_columnValue);
     ImGui.BeginDisabled(_inheriting);
         switch(_option)
@@ -49,6 +55,13 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
                     
                     ImGui.EndCombo();
                 }
+                
+                ImGui.TableSetColumnIndex(_columnValue);
+                var _newValue = ImGui.InputInt("##Stack Priority " + _id, _priority);
+                if (not _inheriting)
+                {
+                    _dataStruct.__stackPriority = _newValue;
+                }
             break;
         }
     ImGui.EndDisabled();
@@ -69,19 +82,5 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
         }
         
         ImGui.EndCombo();
-    }
-    
-    if (_option == "Override")
-    {
-        ImGui.TableNextRow();
-        ImGui.TableSetColumnIndex(_columnName);
-        ImGui.Text("Stack Priority");
-        
-        ImGui.TableSetColumnIndex(_columnValue);
-        var _newValue = ImGui.InputInt("##Stack Priority " + _id, _priority);
-        if (not _inheriting)
-        {
-            _dataStruct.__stackPriority = _newValue;
-        }
     }
 }

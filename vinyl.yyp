@@ -45,7 +45,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stacks","folderPath":"folders/Vinyl/Stacks.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stopping Audio","folderPath":"folders/Vinyl/Stopping Audio.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Transposition","folderPath":"folders/Vinyl/Transposition.yy",},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Resolvers","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Getters & Setters/Resolvers.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Resolvers","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Resolvers.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Classes","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Classes.yy",},
   ],
   "IncludedFiles": [
