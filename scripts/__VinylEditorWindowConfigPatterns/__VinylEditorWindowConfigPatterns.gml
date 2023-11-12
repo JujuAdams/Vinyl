@@ -31,8 +31,8 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
         //Set up our columns with fixed widths so we get a nice pretty layout
         ImGui.TableSetupColumn(_resourceTypeName, ImGuiTableColumnFlags.WidthStretch, 1);
         ImGui.TableSetupColumn("Delete", ImGuiTableColumnFlags.WidthFixed, 70);
-        ImGui.TableSetupColumn("Value", ImGuiTableColumnFlags.WidthStretch, 1);
         ImGui.TableSetupColumn("Option", ImGuiTableColumnFlags.WidthFixed, 150);
+        ImGui.TableSetupColumn("Value", ImGuiTableColumnFlags.WidthStretch, 1);
         
         //Populate the table with lots of nodes
         var _i = 0;

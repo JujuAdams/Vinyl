@@ -17,8 +17,8 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
     
     static _columnTree   = 0;
     static _columnDelete = 1;
-    static _columnValue  = 2;
-    static _columnOption = 3;
+    static _columnOption = 2;
+    static _columnValue  = 3;
     
     var _makePopup = false;
     var _deleted = false;
@@ -51,22 +51,27 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
     ImGui.TableNextRow();
     ImGui.TableSetColumnIndex(_columnTree);
     
-    var _displayName = _name;
-    if ((_popupData.__target == _dataStruct) && ((current_time mod 300) < 150))
+    var _flashOff = ((_popupData.__target == _dataStruct) && ((current_time mod 300) < 150));
+    if (_flashOff)
     {
-        _displayName = "";
+        ImGui.PushStyleColor(ImGuiCol.Text, c_white, 0);
     }
     
     if (_targetType == "Asset")
     {
         //Special appearance for assets since they are the leaf nodes for patterns
         var _open = false;
-        ImGui.Text(_displayName);
+        ImGui.Text(_name);
     }
     else
     {
         //Other patterns have more stuff going on so we want to be able to fold them
-        var _open = ImGui.TreeNode(_displayName + "##" + _id);
+        var _open = ImGui.TreeNode(_name + "##" + _id);
+    }
+    
+    if (_flashOff)
+    {
+        ImGui.PopStyleColor();
     }
     
     //Add the delete [-] button to the second column so we can delete ourselves :(
@@ -138,40 +143,19 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
         ImGui.EndDisabled();
     }
     
-    //If we're not a child then allow renaming if the node is open
-    if (_open && (not _isChild))
+    //Display a brief overview of the assets that the pattern is using
+    //We don't do this for Asset-type patterns as that'd conflict with the asset assignment combo box
+    if (_targetType != "Asset")
     {
         ImGui.TableSetColumnIndex(_columnValue);
-        var _newName = ImGui.InputText("##Name " + _id, _name);
-        if (ImGui.IsItemDeactivatedAfterEdit() && (_newName != _name))
-        {
-            if (false)
-            {
-                //TODO - Build name pop-up
-            }
-            else
-            {
-                __VinylTrace("Renamed \"", _name, "\" to \"", _newName, "\"");
-            }
-        }
+        ImGui.Text(__VinylPatternGetAbbreviatedName(_dataStruct));
     }
     
-    if (not _open)
+    //Root patterns display their type in text when closed too
+    if ((not _isChild) && (not _open))
     {
-        //When closed, display a brief overview of the assets that the pattern is using
-        //We don't do this for Asset-type patterns as that'd conflict with the asset assignment combo box
-        if (_targetType != "Asset")
-        {
-            ImGui.TableSetColumnIndex(_columnValue);
-            ImGui.Text(__VinylPatternGetAbbreviatedName(_dataStruct));
-        }
-        
-        //Root patterns display their type in text when closed too
-        if (not _isChild)
-        {
-            ImGui.TableSetColumnIndex(_columnOption);
-            ImGui.Text(_targetType);
-        }
+        ImGui.TableSetColumnIndex(_columnOption);
+        ImGui.Text(_targetType);
     }
     
     if (_open || _isChild)
@@ -338,14 +322,14 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
             
             if (_propertiesOpen)
             {
-                __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, 0, 2, 3);
-                __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, 0, 2, 3);
-                __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, 0, 2, 3);
-                __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, 0, 2, 3);
-                __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, 0, 2, 3);
-                __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, 0, 2, 3);
-                __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct, 0, 2, 3);
-                __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, 0, 2, 3);
+                __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct,        _columnTree, _columnValue, _columnOption);
+                __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct,       _columnTree, _columnValue, _columnOption);
+                __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct,        _columnTree, _columnValue, _columnOption);
+                __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct,       _columnTree, _columnValue, _columnOption);
+                __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct,       _columnTree, _columnValue, _columnOption);
+                __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, _columnTree, _columnValue, _columnOption);
+                __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct,  _columnTree, _columnValue, _columnOption);
+                __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct,   _columnTree, _columnValue, _columnOption);
                 
                 ImGui.TreePop();
             }
