@@ -26,6 +26,7 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
     //Cache our type and asset array
     var _targetType  = _dataStruct.type;
     var _assetsArray = _dataStruct.assets;
+    var _popupData   = _stateStruct.__popupData;
     
     //We're a child if we have a valid parent
     if (_parentStruct == undefined)
@@ -50,31 +51,50 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
     ImGui.TableNextRow();
     ImGui.TableSetColumnIndex(_columnTree);
     
+    var _displayName = _name;
+    if ((_popupData.__target == _dataStruct) && ((current_time mod 300) < 150))
+    {
+        _displayName = "";
+    }
+    
     if (_targetType == "Asset")
     {
         //Special appearance for assets since they are the leaf nodes for patterns
         var _open = false;
-        ImGui.Text(_name);
+        ImGui.Text(_displayName);
     }
     else
     {
         //Other patterns have more stuff going on so we want to be able to fold them
-        var _open = ImGui.TreeNode(_name + "##" + _id);
+        var _open = ImGui.TreeNode(_displayName + "##" + _id);
     }
     
     //Add the delete [-] button to the second column so we can delete ourselves :(
     ImGui.TableSetColumnIndex(_columnDelete);
     if (ImGui.Button("-##Delete " + _id))
     {
-        if (_isChild)
+        if (_stateStruct.__quickDelete)
         {
-            array_delete(_parentAssetArray, _parentAssetArrayPos, 1);
-            _deleted = true;
+            if (_isChild)
+            {
+                array_delete(_parentAssetArray, _parentAssetArrayPos, 1);
+                _deleted = true;
+            }
+            else
+            {
+                variable_struct_remove(__VinylDocument().__data.patterns, _name);
+                _deleted = true;
+            }
         }
         else
         {
-            variable_struct_remove(__VinylDocument().__data.patterns, _name);
-            _deleted = true;
+            _makePopup = true;
+            
+            with(_stateStruct.__popupData)
+            {
+                __type   = "Delete";
+                __target = _dataStruct;
+            }
         }
     }
     
@@ -87,6 +107,8 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
             
             with(_stateStruct.__popupData)
             {
+                __type     = "Rename";
+                __target   = _dataStruct;
                 __tempName = _name;
             }
         }
@@ -395,38 +417,81 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
         ImGui.TreePop();
     }
     
-    if (not _isChild)
+    if (_stateStruct.__popupData.__target == _dataStruct)
     {
         if (_makePopup)
         {
-            ImGui.OpenPopup("Rename");
+            ImGui.OpenPopup("Popup");
         }
         
         ImGui.SetNextWindowPos(window_get_width() / 2, window_get_height () / 2, ImGuiCond.Appearing, 0.5, 0.5);
         
-        if (ImGui.BeginPopupModal("Rename", undefined, ImGuiWindowFlags.NoResize))
+        if (ImGui.BeginPopupModal("Popup", undefined, ImGuiWindowFlags.NoResize))
         {
-            ImGui.Text("Please enter a new name for \"" + _name + "\"");
-            
-            ImGui.Separator();
-            
-            _stateStruct.__popupData.__tempName = ImGui.InputText("##Rename Field", _stateStruct.__popupData.__tempName);
-            
-            if (ImGui.Button("Accept"))
+            switch(_stateStruct.__popupData.__type)
             {
-                if (_stateStruct.__popupData.__tempName != _name)
-                {
-                    var _rootStruct = __VinylDocument().__data.patterns;
-                    variable_struct_remove(_rootStruct, _name);
-                    _rootStruct[$ _stateStruct.__popupData.__tempName] = _dataStruct;
-                }
+                case "Rename":
+                    ImGui.Text("Please enter a new name for \"" + _name + "\"");
+                    
+                    ImGui.Separator();
+                    
+                    _stateStruct.__popupData.__tempName = ImGui.InputText("##Rename Field", _stateStruct.__popupData.__tempName);
+                    
+                    if (ImGui.Button("Rename"))
+                    {
+                        if (_stateStruct.__popupData.__tempName != _name)
+                        {
+                            var _rootStruct = __VinylDocument().__data.patterns;
+                            variable_struct_remove(_rootStruct, _name);
+                            _rootStruct[$ _stateStruct.__popupData.__tempName] = _dataStruct;
+                        }
+                        
+                        _stateStruct.__popupData.__target = undefined;
+                        ImGui.CloseCurrentPopup();
+                    }
+                    
+                    ImGui.SameLine(undefined, 40);
+                    if (ImGui.Button("Cancel"))
+                    {
+                        _stateStruct.__popupData.__target = undefined;
+                        ImGui.CloseCurrentPopup();
+                    }
+                    
+                    ImGui.EndPopup();	
+                break;
                 
-                ImGui.CloseCurrentPopup();
+                case "Delete":
+                    ImGui.Text("Are you sure you want to delete \"" + _name + "\"?\n\nThis cannot be undone!");
+                    
+                    ImGui.Separator();
+                    
+                    if (ImGui.Button("Delete"))
+                    {
+                        if (_isChild)
+                        {
+                            array_delete(_parentAssetArray, _parentAssetArrayPos, 1);
+                            _deleted = true;
+                        }
+                        else
+                        {
+                            variable_struct_remove(__VinylDocument().__data.patterns, _name);
+                            _deleted = true;
+                        }
+                        
+                        _stateStruct.__popupData.__target = undefined;
+                        ImGui.CloseCurrentPopup();
+                    }
+                    
+                    ImGui.SameLine(undefined, 40);
+                    if (ImGui.Button("Keep"))
+                    {
+                        _stateStruct.__popupData.__target = undefined;
+                        ImGui.CloseCurrentPopup();
+                    }
+                    
+                    ImGui.EndPopup();
+                break;
             }
-            
-            ImGui.SameLine(undefined, 40);
-            if (ImGui.Button("Cancel")) ImGui.CloseCurrentPopup();
-            ImGui.EndPopup();	
         }
     }
             

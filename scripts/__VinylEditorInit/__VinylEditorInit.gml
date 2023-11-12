@@ -30,7 +30,11 @@ function __VinylEditorInit()
                 __function: __VinylEditorWindowConfig,
                 __open: false,
                 __collapsed: false,
-                __popupData: {},
+                __popupData: {
+                    __type:     undefined,
+                    __target:   undefined,
+                    __tempName: undefined,
+                },
                 __quickDelete: false,
             },
             
