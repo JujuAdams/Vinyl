@@ -37,7 +37,9 @@ function __VinylClassDocument(_path) constructor
         
         __data = {
             settings: {},
-            sounds: {},
+            sounds: {
+                "Default": new __VinylClassSoundNew(),
+            },
             patterns: {},
             labels: {},
             stacks: {},

@@ -206,6 +206,7 @@
     {"id":{"name":"VinylGainTargetSet","path":"scripts/VinylGainTargetSet/VinylGainTargetSet.yy",},},
     {"id":{"name":"VinylEditorShow","path":"scripts/VinylEditorShow/VinylEditorShow.yy",},},
     {"id":{"name":"__VinylConfig","path":"notes/__VinylConfig/__VinylConfig.yy",},},
+    {"id":{"name":"__VinylEditorPropertiesSound","path":"scripts/__VinylEditorPropertiesSound/__VinylEditorPropertiesSound.yy",},},
     {"id":{"name":"VinylEmitterPositionGet","path":"scripts/VinylEmitterPositionGet/VinylEmitterPositionGet.yy",},},
     {"id":{"name":"__VinylPlaySimple","path":"scripts/__VinylPlaySimple/__VinylPlaySimple.yy",},},
     {"id":{"name":"VinylPositionGet","path":"scripts/VinylPositionGet/VinylPositionGet.yy",},},

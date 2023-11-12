@@ -338,14 +338,14 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
             
             if (_propertiesOpen)
             {
-                __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct);
-                __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct);
-                __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct);
-                __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct);
-                __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct);
-                __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct);
-                __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct);
-                __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct);
+                __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, 0, 2, 3);
+                __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, 0, 2, 3);
+                __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, 0, 2, 3);
+                __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, 0, 2, 3);
+                __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, 0, 2, 3);
+                __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, 0, 2, 3);
+                __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, 0, 2, 3);
+                __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct, 0, 2, 3);
                 
                 ImGui.TreePop();
             }
