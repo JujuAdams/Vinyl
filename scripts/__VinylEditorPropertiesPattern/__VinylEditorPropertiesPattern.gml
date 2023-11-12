@@ -324,7 +324,7 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
             {
                 __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct,        _columnTree, _columnValue, _columnOption);
                 __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct,       _columnTree, _columnValue, _columnOption);
-                __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct,        _columnTree, _columnValue, _columnOption);
+                __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct,        _columnTree, _columnValue, _columnOption, false);
                 __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct,       _columnTree, _columnValue, _columnOption);
                 __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct,       _columnTree, _columnValue, _columnOption);
                 __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, _columnTree, _columnValue, _columnOption);

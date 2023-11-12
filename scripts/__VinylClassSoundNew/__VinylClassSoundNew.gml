@@ -13,10 +13,16 @@ function __VinylClassSoundNew() constructor
     loopOption = "Unset";
     loop       = false;
     
+    loopPointsOption = "Unset";
+    loopPoints       = [0, 0];
+    
     transposeOption       = "Unset";
     transposeKnob         = __VINYL_ASSET_NULL;
     transposeKnobOverride = false;
     transpose             = [0, 0];
+    
+    bpmOption = "Unset";
+    bpm       = 120;
     
     stackOption   = "Unset";
     stack         = __VINYL_ASSET_NULL;

@@ -6,8 +6,9 @@
 /// @param columnName
 /// @param columnValue
 /// @param columnOption
+/// @param showLoopPoints
 
-function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
+function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption, _showLoopPoints)
 {
     static _optionArray = ["Unset", "Override"];
     
@@ -15,8 +16,8 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
     var _inheriting = (_originalOption == "Unset");
     
     var _resolution = __VinylPatternResolveInheritedLoop(_dataStruct, _parentStruct);
-    var _option = _resolution.__option;
-    var _value  = _resolution.__value;
+    var _loopOption = _resolution.__option;
+    var _loop       = _resolution.__value;
     
     ImGui.TableNextRow();
     ImGui.TableSetColumnIndex(_columnName);
@@ -24,10 +25,10 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
     
     ImGui.TableSetColumnIndex(_columnValue);
     ImGui.BeginDisabled(_inheriting);
-        switch(_option)
+        switch(_loopOption)
         {
             case "Override":
-                var _newValue = ImGui.Checkbox("##Loop " + _id, _value);
+                var _newValue = ImGui.Checkbox("##Loop " + _id, _loop);
                 
                 if (not _inheriting)
                 {
@@ -53,5 +54,63 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
         }
         
         ImGui.EndCombo();
+    }
+    
+    if (_showLoopPoints && _loop)
+    {
+        var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.loopPointsOption;
+        var _inheriting = (_originalOption == "Unset");
+        
+        var _resolution = __VinylPatternResolveInheritedLoopPoints(_dataStruct, _parentStruct);
+        var _loopPointsOption = _resolution.__option;
+        var _loopPoints       = _resolution.__value;
+        
+        ImGui.TableNextRow();
+        ImGui.TableSetColumnIndex(_columnName);
+        ImGui.Text("Loop Points");
+        
+        ImGui.TableSetColumnIndex(_columnValue);
+        ImGui.BeginDisabled(_inheriting);
+            switch(_loopPointsOption)
+            {
+                case "Override":
+                    var _newValue = variable_clone(_loopPoints);
+                    ImGui.InputFloat2("##Loop Points " + _id, _newValue, 0, 2);
+                    
+                    if ((not _inheriting) && (not array_equals(_loopPoints, _newValue)))
+                    {
+                        if (_newValue[0] < _newValue[1])
+                        {
+                            _loopPoints[0] = _newValue[0];
+                            _loopPoints[1] = _newValue[1];
+                        }
+                        else
+                        {
+                            //If the two values have inverted, correct that
+                            _loopPoints[0] = _newValue[1];
+                            _loopPoints[1] = _newValue[0];
+                        }
+                    }
+                break;
+            }
+        ImGui.EndDisabled();
+    
+        ImGui.TableSetColumnIndex(_columnOption);
+        if (ImGui.BeginCombo("##Loop Points Option " + _id, _originalOption, ImGuiComboFlags.None))
+        {
+            var _i = 0;
+            repeat(array_length(_optionArray))
+            {
+                var _optionName = _optionArray[_i];
+                if (ImGui.Selectable(_optionName + "##Loop Points Option " + _id, (_originalOption == _optionName)))
+                {
+                    _dataStruct.loopPointsOption = _optionName;
+                }
+                        
+                ++_i;
+            }
+            
+            ImGui.EndCombo();
+        }
     }
 }
