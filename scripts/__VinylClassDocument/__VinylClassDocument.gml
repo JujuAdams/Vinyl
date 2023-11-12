@@ -10,13 +10,12 @@ function __VinylClassDocument(_path) constructor
     
     __projectLoaded          = false;
     __projectPath            = GM_project_filename;
-    __projectFileHash        = undefined;
     __projectSoundDictionary = {};
     __projectSoundArray      = [];
     __projectSoundHashDict   = {};
     __projectAudioGroupArray = [];
     
-    __ProjectLoad(__projectPath);
+    __ProjectLoad();
     __Load(__documentPath);
     
     
@@ -201,33 +200,27 @@ function __VinylClassDocument(_path) constructor
     
     
     
-    static __ProjectLoad = function(_projectPath)
+    static __ProjectLoad = function()
     {
         if ((not __VinylGetLiveUpdateEnabled()) || (not __VinylGetRunningFromIDE())) return;
         
-        var _firstUpdate = (__projectFileHash == undefined);
-        
-        if (!file_exists(_projectPath))
+        if (!file_exists(__projectPath))
         {
-            __VinylError("Could not find \"", _projectPath, "\"\n- Turn on the \"Disable file system sandbox\" game option for this platform");
+            __VinylError("Could not find \"", __projectPath, "\"\n- Turn on the \"Disable file system sandbox\" game option for this platform");
             return;
         }
-        
-        var _foundHash = md5_file(_projectPath);
-        if (_foundHash == __projectFileHash) return;
-        __projectFileHash = _foundHash;
         
         var _anyChanges = undefined;
         var _t = get_timer();
         
         try
         {
-            var _buffer = buffer_load(_projectPath);
+            var _buffer = buffer_load(__projectPath);
             if (buffer_get_size(_buffer) <= 0) throw "File is empty";
             
             var _string = buffer_read(_buffer, buffer_string);
             var _data = json_parse(_string);
-            _anyChanges = __VinylSystemReadProject(self, _data, _firstUpdate);
+            _anyChanges = __VinylSystemReadProject(self, _data, not __projectLoaded);
             
             __VinylTrace("Loaded project file in ", (get_timer() - _t)/1000, "ms");
             __projectLoaded = true;
@@ -246,15 +239,15 @@ function __VinylClassDocument(_path) constructor
             var _trimmedMessage = string_replace(_error.message, "Vinyl:\n", "");
             _trimmedMessage = string_copy(_trimmedMessage, 1, string_length(_trimmedMessage)-2);
             
-            if (_firstUpdate)
+            if (__projectLoaded)
             {
-                __VinylError("There was an error whilst reading \"", _projectPath, "\"\n \n", _trimmedMessage);
+                _trimmedMessage = string_replace_all(_trimmedMessage, "\n", "\n       ");
+                __VinylTrace("There was an error whilst reading \"", __projectPath, "\"");
+                __VinylTrace(_trimmedMessage);
             }
             else
             {
-                _trimmedMessage = string_replace_all(_trimmedMessage, "\n", "\n       ");
-                __VinylTrace("There was an error whilst reading \"", _projectPath, "\"");
-                __VinylTrace(_trimmedMessage);
+                __VinylError("There was an error whilst reading \"", __projectPath, "\"\n \n", _trimmedMessage);
             }
         }
         finally

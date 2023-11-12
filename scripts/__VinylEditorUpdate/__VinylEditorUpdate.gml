@@ -4,6 +4,17 @@ function __VinylEditorUpdate()
 {
     static _editor = __VinylGlobalData().__editor;
     
+    static _inFocus = window_has_focus();
+    if (_inFocus != window_has_focus())
+    {
+        _inFocus = window_has_focus();
+        if (_inFocus)
+        {
+            __VinylDocument().__ProjectLoad();
+            __VinylEditorSetStatusText("Reloaded \"", __VinylDocument().__projectPath, "\"");
+        }
+    }
+    
     if (VinylEditorIsShowing())
     {
         ImGui.__Update();
