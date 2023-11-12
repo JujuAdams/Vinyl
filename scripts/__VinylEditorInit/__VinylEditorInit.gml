@@ -7,6 +7,9 @@ function __VinylEditorInit()
     {
         __showing = false;
         
+        __statusText        = undefined;
+        __statusTextLastSet = -infinity;
+        
         __windowStates = {
             __desktop: {
                 __function: __VinylEditorWindowDesktop,

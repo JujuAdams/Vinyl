@@ -17,6 +17,12 @@ function __VinylEditorUpdate()
         });
     }
     
+    //Reset the status bar after 5 seconds
+    if (current_time > _editor.__statusTextLastSet + 5000)
+    {
+        _editor.__statusText = undefined;
+    }
+    
     __VinylGlobalSettingsSaveNow();
     __VinylDocument().__SaveNow();
 }

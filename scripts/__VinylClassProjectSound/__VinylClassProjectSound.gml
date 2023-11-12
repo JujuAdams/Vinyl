@@ -191,6 +191,8 @@ function __VinylClassProjectSound(_type, _name, _yyPath, _absolutePath) construc
         buffer_delete(_buffer);
         
         __audioGroup = _newAudioGroup;
+        
+        __VinylEditorSetStatusText("Saved \"", __yyPath, "\"");
     }
     
     static __SetAttributes = function(_newAttributes)
@@ -218,6 +220,8 @@ function __VinylClassProjectSound(_type, _name, _yyPath, _absolutePath) construc
         buffer_delete(_buffer);
         
         __attributes = _newAttributes;
+        
+        __VinylEditorSetStatusText("Saved \"", __yyPath, "\"");
     }
     
     static __CheckYYFile = function(_firstUpdate)

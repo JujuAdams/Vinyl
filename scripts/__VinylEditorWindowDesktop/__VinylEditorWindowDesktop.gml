@@ -92,7 +92,16 @@ function __VinylEditorWindowDesktop(_stateStruct)
         ImGui.SetNextWindowPos(0, room_height - 30);
         ImGui.SetNextWindowSize(room_width, 30, ImGuiCond.Always);
         ImGui.Begin("Status Bar", true, ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize);
-        ImGui.Text("Waiting" + floor((current_time mod 799) / 200)*".");
+        
+        if (_editor.__statusText == undefined)
+        {
+            ImGui.Text("Waiting" + floor((current_time mod 799) / 200)*".");
+        }
+        else
+        {
+            ImGui.Text(_editor.__statusText);
+        }
+        
         ImGui.End();
     }
 }
