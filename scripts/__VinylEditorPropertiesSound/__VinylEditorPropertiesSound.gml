@@ -10,12 +10,13 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
     
     ImGui.BeginDisabled(not _modified);
         //Now do the actual table
-        if (ImGui.BeginTable("Table", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY, undefined, 280))
+        if (ImGui.BeginTable("Table", 4, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY, undefined, 280))
         {
             //Set up our columns with fixed widths so we get a nice pretty layout
-            ImGui.TableSetupColumn("Name",   ImGuiTableColumnFlags.WidthFixed, 100);
-            ImGui.TableSetupColumn("Option", ImGuiTableColumnFlags.WidthFixed, 150);
-            ImGui.TableSetupColumn("Value",  ImGuiTableColumnFlags.WidthStretch, 1);
+            ImGui.TableSetupColumn("Name",     ImGuiTableColumnFlags.WidthFixed, 100);
+            ImGui.TableSetupColumn("Option",   ImGuiTableColumnFlags.WidthFixed, 125);
+            ImGui.TableSetupColumn("Value",    ImGuiTableColumnFlags.WidthStretch, 1);
+            ImGui.TableSetupColumn("All Same", ImGuiTableColumnFlags.WidthFixed, 30);
             
             __VinylEditorPropWidgetGain(       _soundName, _soundData, _defaultData, 0, 2, 1);
             __VinylEditorPropWidgetPitch(      _soundName, _soundData, _defaultData, 0, 2, 1);
