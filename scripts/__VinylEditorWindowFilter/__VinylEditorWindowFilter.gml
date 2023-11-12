@@ -70,7 +70,7 @@ function __VinylEditorWindowFilter(_stateStruct)
                     
                     var _nameArray = variable_struct_get_names(_audioGroupDict);
                     array_sort(_nameArray, true);
-                    var _string = string(_nameArray);
+                    var _string = __VinylLabelsGetAbbreviatedName(_nameArray, infinity);
                     
                     if (ImGui.BeginCombo("##Audio Group Combobox", _string, ImGuiComboFlags.None))
                     {
