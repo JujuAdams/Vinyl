@@ -75,7 +75,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
             {
                 case "Override":
                     var _newValue = variable_clone(_loopPoints);
-                    ImGui.InputFloat2("##Loop Points " + _id, _newValue, 0, 2);
+                    ImGui.InputFloat2("seconds##Loop Points " + _id, _newValue, 0, 2);
                     
                     if ((not _inheriting) && (not array_equals(_loopPoints, _newValue)))
                     {

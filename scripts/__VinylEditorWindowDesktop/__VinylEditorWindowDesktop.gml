@@ -64,7 +64,7 @@ function __VinylEditorWindowDesktop(_stateStruct)
             }
 
             ImGui.PushStyleColor(ImGuiCol.Button, c_white, 0);
-            ImGui.SameLine(undefined, 40);
+            ImGui.SameLine(undefined, 50);
 
             ImGui.BeginDisabled(__VinylEditorWindowGetOpen("__project"));
                 if (ImGui.Button("Project")) __VinylEditorWindowSetOpen("__project", true);
@@ -74,7 +74,7 @@ function __VinylEditorWindowDesktop(_stateStruct)
                 if (ImGui.Button("Config")) __VinylEditorWindowSetOpen("__config", true);
             ImGui.EndDisabled();
             
-            ImGui.SameLine(undefined, 40);
+            ImGui.SameLine(undefined, 50);
 
             ImGui.BeginDisabled(__VinylEditorWindowGetOpen("__nowPlaying"));
                 if (ImGui.Button("Now Playing")) __VinylEditorWindowSetOpen("__nowPlaying", true);

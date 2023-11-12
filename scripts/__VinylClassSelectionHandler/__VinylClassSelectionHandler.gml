@@ -28,12 +28,6 @@ function __VinylClassSelectionHandler() constructor
         return __lastSelected;
     }
     
-    static __GetLastSelected = function()
-    {
-        if (__lastSelected == undefined) return undefined;
-        return __sourceStructWeakRef.ref[$ __lastSelected];
-    }
-    
     static __GetMultiselect = function()
     {
         return __multiselect;
@@ -93,6 +87,7 @@ function __VinylClassSelectionHandler() constructor
             ++_i;
         }
         
+        //Guarantee __lastSelected
         if ((__lastSelected == undefined) || (not variable_struct_exists(__selectedDict, __lastSelected)))
         {
             __lastSelected = (_length > 0)? _nameArray[_length-1] : undefined;

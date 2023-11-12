@@ -135,140 +135,143 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
     
     ImGui.NewLine();
     
-    //Now do the actual table
-    if (ImGui.BeginTable("GameMaker Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 140))
+    if (_soundName != "Default")
     {
-        var _projectSound = __VinylDocument().__projectSoundDictionary[$ _soundName];
-        
-        //Set up our columns with fixed widths so we get a nice pretty layout
-        ImGui.TableSetupColumn("GameMaker Project", ImGuiTableColumnFlags.WidthStretch, 5);
-        ImGui.TableSetupColumn("Compiled", ImGuiTableColumnFlags.WidthStretch, 2);
-        ImGui.TableHeadersRow();
-        
-        ImGui.TableNextRow();
-        ImGui.TableSetColumnIndex(0);
-        ImGui.Text("Audio Group");
-        ImGui.SameLine();
-        if (ImGui.BeginCombo("##Audio Group", _projectSound.__audioGroup, ImGuiComboFlags.None))
+        //Now do the actual table
+        if (ImGui.BeginTable("GameMaker Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 140))
         {
-            var _audioGroupArray = __VinylDocument().__ProjectGetAudioGroupArray();
-            var _i = 0;
-            repeat(array_length(_audioGroupArray))
+            var _projectSound = __VinylDocument().__projectSoundDictionary[$ _soundName];
+            
+            //Set up our columns with fixed widths so we get a nice pretty layout
+            ImGui.TableSetupColumn("GameMaker Project", ImGuiTableColumnFlags.WidthStretch, 5);
+            ImGui.TableSetupColumn("Compiled", ImGuiTableColumnFlags.WidthStretch, 2);
+            ImGui.TableHeadersRow();
+            
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+            ImGui.Text("Audio Group");
+            ImGui.SameLine();
+            if (ImGui.BeginCombo("##Audio Group", _projectSound.__audioGroup, ImGuiComboFlags.None))
             {
-                var _audioGroup = _audioGroupArray[_i];
-                if (ImGui.Selectable(_audioGroup, _projectSound.__audioGroup == _audioGroup))
+                var _audioGroupArray = __VinylDocument().__ProjectGetAudioGroupArray();
+                var _i = 0;
+                repeat(array_length(_audioGroupArray))
                 {
-                    _selectionHandler.__ForEachSelected(method({
-                        __audioGroup: _audioGroup,
-                    }, function(_name, _struct)
+                    var _audioGroup = _audioGroupArray[_i];
+                    if (ImGui.Selectable(_audioGroup, _projectSound.__audioGroup == _audioGroup))
                     {
-                        _struct.__SetAudioGroup(__audioGroup);
-                    }));
+                        _selectionHandler.__ForEachSelected(method({
+                            __audioGroup: _audioGroup,
+                        }, function(_name, _struct)
+                        {
+                            _struct.__SetAudioGroup(__audioGroup);
+                        }));
+                    }
+                    
+                    ++_i;
                 }
                 
-                ++_i;
+                ImGui.EndCombo();
             }
             
-            ImGui.EndCombo();
-        }
-        
-        ImGui.TableSetColumnIndex(1);
-        if (_projectSound.__compiledValues)
-        {
-            if (_projectSound.__compiledAttributes != 3)
+            ImGui.TableSetColumnIndex(1);
+            if (_projectSound.__compiledValues)
             {
-                ImGui.Text(_projectSound.__compiledAudioGroup);
+                if (_projectSound.__compiledAttributes != 3)
+                {
+                    ImGui.Text(_projectSound.__compiledAudioGroup);
+                }
+                else
+                {
+                    ImGui.Text("N/A");
+                }
             }
             else
             {
-                ImGui.Text("N/A");
+                ImGui.Text("Added after compile");
             }
-        }
-        else
-        {
-            ImGui.Text("Added after compile");
-        }
-        
-        ImGui.TableNextRow();
-        ImGui.TableSetColumnIndex(0);
-        if (ImGui.RadioButton("WAV", (_projectSound.__attributes == 0)))
-        {
-            _selectionHandler.__ForEachSelected(method({
-                __attributes: 0,
-            }, function(_name, _struct)
+            
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+            if (ImGui.RadioButton("WAV", (_projectSound.__attributes == 0)))
             {
-                _struct.__SetAttributes(__attributes);
-            }));
-        }
-        
-        if (_projectSound.__compiledValues)
-        {
-            ImGui.BeginDisabled(true);
-                ImGui.TableSetColumnIndex(1);
-                ImGui.RadioButton("", (_projectSound.__compiledAttributes == 0));
-            ImGui.EndDisabled();
-        }
-        
-        ImGui.TableNextRow();
-        ImGui.TableSetColumnIndex(0);
-        if (ImGui.RadioButton("OGG - Decompress during playback", (_projectSound.__attributes == 1)))
-        {
-            _selectionHandler.__ForEachSelected(method({
-                __attributes: 1,
-            }, function(_name, _struct)
+                _selectionHandler.__ForEachSelected(method({
+                    __attributes: 0,
+                }, function(_name, _struct)
+                {
+                    _struct.__SetAttributes(__attributes);
+                }));
+            }
+            
+            if (_projectSound.__compiledValues)
             {
-                _struct.__SetAttributes(__attributes);
-            }));
-        }
-        
-        if (_projectSound.__compiledValues)
-        {
-            ImGui.BeginDisabled(true);
-                ImGui.TableSetColumnIndex(1);
-                ImGui.RadioButton("", (_projectSound.__compiledAttributes == 1));
-            ImGui.EndDisabled();
-        }
-        
-        ImGui.TableNextRow();
-        ImGui.TableSetColumnIndex(0);
-        if (ImGui.RadioButton("OGG - Decompress when loaded and store in RAM", (_projectSound.__attributes == 2)))
-        {
-            _selectionHandler.__ForEachSelected(method({
-                __attributes: 2,
-            }, function(_name, _struct)
+                ImGui.BeginDisabled(true);
+                    ImGui.TableSetColumnIndex(1);
+                    ImGui.RadioButton("", (_projectSound.__compiledAttributes == 0));
+                ImGui.EndDisabled();
+            }
+            
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+            if (ImGui.RadioButton("OGG - Decompress during playback", (_projectSound.__attributes == 1)))
             {
-                _struct.__SetAttributes(__attributes);
-            }));
-        }
-        
-        if (_projectSound.__compiledValues)
-        {
-            ImGui.BeginDisabled(true);
-                ImGui.TableSetColumnIndex(1);
-                ImGui.RadioButton("", (_projectSound.__compiledAttributes == 2));
-            ImGui.EndDisabled();
-        }
-        
-        ImGui.TableNextRow();
-        ImGui.TableSetColumnIndex(0);
-        if (ImGui.RadioButton("OGG - Stream from disk (exports .ogg files)", (_projectSound.__attributes == 3)))
-        {
-            _selectionHandler.__ForEachSelected(method({
-                __attributes: 3,
-            }, function(_name, _struct)
+                _selectionHandler.__ForEachSelected(method({
+                    __attributes: 1,
+                }, function(_name, _struct)
+                {
+                    _struct.__SetAttributes(__attributes);
+                }));
+            }
+            
+            if (_projectSound.__compiledValues)
             {
-                _struct.__SetAttributes(__attributes);
-            }));
-        }
+                ImGui.BeginDisabled(true);
+                    ImGui.TableSetColumnIndex(1);
+                    ImGui.RadioButton("", (_projectSound.__compiledAttributes == 1));
+                ImGui.EndDisabled();
+            }
         
-        if (_projectSound.__compiledValues)
-        {
-            ImGui.BeginDisabled(true);
-                ImGui.TableSetColumnIndex(1);
-                ImGui.RadioButton("", (_projectSound.__compiledAttributes == 3));
-            ImGui.EndDisabled();
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+            if (ImGui.RadioButton("OGG - Decompress when loaded and store in RAM", (_projectSound.__attributes == 2)))
+            {
+                _selectionHandler.__ForEachSelected(method({
+                    __attributes: 2,
+                }, function(_name, _struct)
+                {
+                    _struct.__SetAttributes(__attributes);
+                }));
+            }
+            
+            if (_projectSound.__compiledValues)
+            {
+                ImGui.BeginDisabled(true);
+                    ImGui.TableSetColumnIndex(1);
+                    ImGui.RadioButton("", (_projectSound.__compiledAttributes == 2));
+                ImGui.EndDisabled();
+            }
+            
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+            if (ImGui.RadioButton("OGG - Stream from disk (exports .ogg files)", (_projectSound.__attributes == 3)))
+            {
+                _selectionHandler.__ForEachSelected(method({
+                    __attributes: 3,
+                }, function(_name, _struct)
+                {
+                    _struct.__SetAttributes(__attributes);
+                }));
+            }
+            
+            if (_projectSound.__compiledValues)
+            {
+                ImGui.BeginDisabled(true);
+                    ImGui.TableSetColumnIndex(1);
+                    ImGui.RadioButton("", (_projectSound.__compiledAttributes == 3));
+                ImGui.EndDisabled();
+            }
+            
+            ImGui.EndTable();
         }
-        
-        ImGui.EndTable();
     }
 }

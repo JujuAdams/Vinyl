@@ -50,6 +50,12 @@ function __VinylEditorInit()
                 },
             },
             
+            __filter: {
+                __function: __VinylEditorWindowFilter,
+                __open: false,
+                __collapsed: false,
+            },
+            
             __nowPlaying: {
                 __function: __VinylEditorWindowNowPlaying,
                 __open: false,

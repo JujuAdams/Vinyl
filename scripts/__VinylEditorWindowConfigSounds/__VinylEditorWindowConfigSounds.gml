@@ -17,6 +17,8 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
     var _seeSelected   = _selectionHandler.__GetSeeSelected();
     var _seeUnselected = _selectionHandler.__GetSeeUnselected();
     
+    var _filter = new __VinylClassFilterSound("sndBleep*", undefined, undefined, undefined, undefined);
+    
     var _modifiedSoundDict = __VinylDocument().__data.sounds;
     
     ImGui.BeginChild("Left Pane", 0.3*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
@@ -25,7 +27,11 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         ImGui.SameLine();
         _tabState.__useFilter = ImGui.Checkbox("##Filter", _useFilter);
         ImGui.SameLine();
-        ImGui.Button("Edit...");
+        if (ImGui.Button("Edit..."))
+        {
+            __VinylEditorWindowSetOpen("__filter", true);
+        }
+        
         _tabState.__seeModified = ImGui.Checkbox("See modified", _seeModified);
         ImGui.SameLine(undefined, 20);
         _tabState.__seeUnmodified = ImGui.Checkbox("See unmodified", _seeUnmodified);
@@ -34,7 +40,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         if (ImGui.BeginTable("Table", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.ScrollY, ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50))
         {
             //Set up our columns with fixed widths so we get a nice pretty layout
-            ImGui.TableSetupColumn("Editted", ImGuiTableColumnFlags.WidthFixed, 20);
+            ImGui.TableSetupColumn("Edited", ImGuiTableColumnFlags.WidthFixed, 20);
             ImGui.TableSetupColumn("Sounds", ImGuiTableColumnFlags.WidthStretch, 1);
             
             var _funcBuildSelectable = function(_soundName, _modifiedSoundDict, _selectionHandler)
