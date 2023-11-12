@@ -68,6 +68,12 @@ function __VinylEditorInit()
                 __open: false,
                 __collapsed: false,
             },
+            
+            __soundTest: {
+                __function: __VinylEditorWindowSoundTest,
+                __open: false,
+                __collapsed: false,
+            },
         }
         
         __globalSettings = {};

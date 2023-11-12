@@ -293,6 +293,7 @@
     {"id":{"name":"VinylLiveUpdateSet","path":"scripts/VinylLiveUpdateSet/VinylLiveUpdateSet.yy",},},
     {"id":{"name":"VinylQueuePush","path":"scripts/VinylQueuePush/VinylQueuePush.yy",},},
     {"id":{"name":"__VinylMultiselectSelectLast","path":"scripts/__VinylMultiselectSelectLast/__VinylMultiselectSelectLast.yy",},},
+    {"id":{"name":"__VinylEditorWindowSoundTest","path":"scripts/__VinylEditorWindowSoundTest/__VinylEditorWindowSoundTest.yy",},},
     {"id":{"name":"sndCat","path":"sounds/sndCat/sndCat.yy",},},
     {"id":{"name":"__VinylValidateStruct","path":"scripts/__VinylValidateStruct/__VinylValidateStruct.yy",},},
     {"id":{"name":"__VinylBufferReadConfigJSON","path":"scripts/__VinylBufferReadConfigJSON/__VinylBufferReadConfigJSON.yy",},},

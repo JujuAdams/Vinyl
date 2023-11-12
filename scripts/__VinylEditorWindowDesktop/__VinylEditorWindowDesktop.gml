@@ -74,6 +74,10 @@ function __VinylEditorWindowDesktop(_stateStruct)
                 if (ImGui.Button("Config")) __VinylEditorWindowSetOpen("__config", true);
             ImGui.EndDisabled();
             
+            ImGui.BeginDisabled(__VinylEditorWindowGetOpen("__soundTest"));
+                if (ImGui.Button("Sound Test")) __VinylEditorWindowSetOpen("__soundTest", true);
+            ImGui.EndDisabled();
+            
             ImGui.SameLine(undefined, 50);
 
             ImGui.BeginDisabled(__VinylEditorWindowGetOpen("__nowPlaying"));
