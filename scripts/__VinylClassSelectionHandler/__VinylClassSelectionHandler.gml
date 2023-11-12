@@ -85,11 +85,17 @@ function __VinylClassSelectionHandler() constructor
     static __SelectAll = function()
     {
         var _nameArray = variable_struct_get_names(__sourceStructWeakRef.ref);
+        var _length = array_length(_nameArray);
         var _i = 0;
-        repeat(array_length(_nameArray))
+        repeat(_length)
         {
             __selectedDict[$ _nameArray[_i]] = true;
             ++_i;
+        }
+        
+        if ((__lastSelected == undefined) || (not variable_struct_exists(__selectedDict, __lastSelected)))
+        {
+            __lastSelected = (_length > 0)? _nameArray[_length-1] : undefined;
         }
     }
     
