@@ -8,7 +8,10 @@ function __VinylEditorWindowConfig(_stateStruct)
     ImGui.SetNextWindowSize(0.7*room_width, 0.8*room_height, ImGuiCond.Once);
     ImGui.SetNextWindowPos(0.15*room_width, 0.1*room_height, ImGuiCond.Once);
 	
-    var ret = ImGui.Begin("Config", __VinylEditorWindowGetOpen("__config"), undefined, ImGuiReturnMask.Both);
+    //Allow the filter window to stay on top
+    var _flags = __VinylEditorWindowGetOpen("__filter")? ImGuiWindowFlags.NoBringToFrontOnFocus : ImGuiWindowFlags.None;
+    
+    var ret = ImGui.Begin("Config", __VinylEditorWindowGetOpen("__config"), _flags, ImGuiReturnMask.Both);
     __VinylEditorWindowSetOpen("__config", (ret & ImGuiReturnMask.Pointer));
     
     if (ret & ImGuiReturnMask.Return)
