@@ -76,7 +76,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                 
                 if (((_modified && _seeModified) || ((not _modified) && _seeUnmodified)) && ((not _multiselect) || (_selected && _seeSelected) || ((not _selected) && _seeUnselected)))
                 {
-                    if ((not _useFilter) || __VinylFilterApply(_filter, _projectSoundDictionary[$ _soundName].__soundID))
+                    if ((not _useFilter) || __VinylFilterApply(_filter, _projectSoundDictionary[$ _soundName]))
                     {
                         _funcBuildSelectable(_soundName, _modifiedSoundDict, _selectionHandler);
                     }

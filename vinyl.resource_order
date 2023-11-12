@@ -251,6 +251,7 @@
     {"name":"__VinylEditorWindowProject","order":2,"path":"scripts/__VinylEditorWindowProject/__VinylEditorWindowProject.yy",},
     {"name":"__VinylEditorWindowNowPlaying","order":8,"path":"scripts/__VinylEditorWindowNowPlaying/__VinylEditorWindowNowPlaying.yy",},
     {"name":"__VinylClassProjectSound","order":4,"path":"scripts/__VinylClassProjectSound/__VinylClassProjectSound.yy",},
+    {"name":"__VinylClassFilterSound","order":1,"path":"scripts/__VinylClassFilterSound/__VinylClassFilterSound.yy",},
     {"name":"acTest","order":4,"path":"animcurves/acTest/acTest.yy",},
     {"name":"__VinylPatternResolveInheritedLabel","order":11,"path":"scripts/__VinylPatternResolveInheritedLabel/__VinylPatternResolveInheritedLabel.yy",},
     {"name":"VinylMultiGainSet","order":1,"path":"scripts/VinylMultiGainSet/VinylMultiGainSet.yy",},

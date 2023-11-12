@@ -307,6 +307,7 @@
     {"id":{"name":"__VinylClassProjectSound","path":"scripts/__VinylClassProjectSound/__VinylClassProjectSound.yy",},},
     {"id":{"name":"__VinylEditorWindowSetOpen","path":"scripts/__VinylEditorWindowSetOpen/__VinylEditorWindowSetOpen.yy",},},
     {"id":{"name":"__VinylClassDocument","path":"scripts/__VinylClassDocument/__VinylClassDocument.yy",},},
+    {"id":{"name":"__VinylClassFilterSound","path":"scripts/__VinylClassFilterSound/__VinylClassFilterSound.yy",},},
     {"id":{"name":"acTest","path":"animcurves/acTest/acTest.yy",},},
     {"id":{"name":"__VinylPatternResolveInheritedLabel","path":"scripts/__VinylPatternResolveInheritedLabel/__VinylPatternResolveInheritedLabel.yy",},},
     {"id":{"name":"VinylMultiGainSet","path":"scripts/VinylMultiGainSet/VinylMultiGainSet.yy",},},
