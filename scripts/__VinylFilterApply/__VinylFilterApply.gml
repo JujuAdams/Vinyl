@@ -6,7 +6,7 @@ function __VinylFilterApply(_filter, _data)
     
     with(_filter)
     {
-        if (__stringMatch != undefined)
+        if (__useNameMatch)
         {
             var _soundName = _data.__name;
             var _subArray = string_split(__stringMatch, "*", true);
@@ -24,20 +24,20 @@ function __VinylFilterApply(_filter, _data)
             }
         }
         
-        if ((__lengthMin != undefined) && (__lengthMax != undefined))
+        if (__useLength)
         {
             var _length = audio_sound_length(_data.__soundID);
             if ((_length < __lengthMin) || (_length > __lengthMax)) return false;
         }
         
-        if (__audioGroup != undefined)
+        if (__useAudioGroup)
         {
-            if (_data.__audioGroup != __audioGroup) return false;
+            if (not variable_struct_exists(__audioGroupDict, _data.__audioGroup)) return false;
         }
         
-        if (__attribute != undefined)
+        if (__useAttribute)
         {
-            if (_data.__attribute != __attribute) return false;
+            if (not __attributes[_data.__attribute]) return false;
         }
         
         return true;

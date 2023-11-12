@@ -40,7 +40,7 @@ function __VinylEditorInit()
                 },
                 __tabSounds: {
                     __selectionHandler: new __VinylClassSelectionHandler(),
-                    __filter:           undefined,
+                    __filter:           new __VinylClassFilterSound(),
                     __useFilter:        false,
                     __seeModified:      true,
                     __seeUnmodified:    true,
@@ -54,6 +54,7 @@ function __VinylEditorInit()
                 __function: __VinylEditorWindowFilter,
                 __open: false,
                 __collapsed: false,
+                __target: undefined,
             },
             
             __nowPlaying: {

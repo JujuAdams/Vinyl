@@ -1,16 +1,16 @@
 // Feather disable all
 
-/// @param stringMatch
-/// @param minLength
-/// @param maxLength
-/// @param audioGroup
-/// @param attribute
-
-function __VinylClassFilterSound(_stringMatch, _lengthMin, _lengthMax, _audioGroup, _attribute) constructor
+function __VinylClassFilterSound() constructor
 {
-    __stringMatch = _stringMatch;
-    __lengthMin   = _lengthMin;
-    __lengthMax   = _lengthMax;
-    __audioGroup  = _audioGroup;
-    __attribute   = _attribute;
+    __nameMatch    = "";
+    __useNameMatch = false;
+    
+    __length    = [0, 999];
+    __useLength = false;
+    
+    __audioGroupDict = {};
+    __useAudioGroup  = false;
+    
+    __attributes   = [false, false, false, false];
+    __useAttribute = false;
 }
