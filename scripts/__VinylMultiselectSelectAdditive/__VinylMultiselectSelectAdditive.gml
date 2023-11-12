@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VinylMultiselectSelect(_stateStruct, _name, _state)
+function __VinylMultiselectSelectAdditive(_stateStruct, _name, _state)
 {
     var _selectedDict = _stateStruct.__selectedDict;
     

@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylUpdateProject",
+  "name": "__VinylSystemReadProject__OLD",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

@@ -15,7 +15,7 @@
 
 #macro __VINYL_ASSET_NULL  "<None>"
 
-enum __VINYL_ASSET_TYPE {
+enum __VINYL_SOUND_TYPE {
     __UNKNOWN,
     __WAD,
     __EXTERNAL_WAV,

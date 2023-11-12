@@ -6,6 +6,16 @@ function __VinylClassDocument(_path) constructor
 {
     __documentPath = _path;
     
+    __projectDirectory = filename_dir(__documentPath) + "/";
+    
+    __projectLoaded          = false;
+    __projectPath            = GM_project_filename;
+    __projectFileHash        = undefined;
+    __projectSoundDictionary = {};
+    __projectSoundArray      = [];
+    __projectSoundHashDict   = {};
+    
+    __ProjectLoad(__projectPath);
     __Load(__documentPath);
     
     
@@ -185,4 +195,85 @@ function __VinylClassDocument(_path) constructor
     }
     
     #endregion
+    
+    
+    
+    static __ProjectLoad = function(_projectPath)
+    {
+        if ((not __VinylGetLiveUpdateEnabled()) || (not __VinylGetRunningFromIDE())) return;
+        
+        var _firstUpdate = (__projectFileHash == undefined);
+        
+        if (!file_exists(_projectPath))
+        {
+            __VinylError("Could not find \"", _projectPath, "\"\n- Turn on the \"Disable file system sandbox\" game option for this platform");
+            return;
+        }
+        
+        var _foundHash = md5_file(_projectPath);
+        if (_foundHash == __projectFileHash) return;
+        __projectFileHash = _foundHash;
+        
+        var _anyChanges = undefined;
+        var _t = get_timer();
+        
+        try
+        {
+            var _buffer = buffer_load(_projectPath);
+            if (buffer_get_size(_buffer) <= 0) throw "File is empty";
+            
+            var _string = buffer_read(_buffer, buffer_string);
+            var _data = json_parse(_string);
+            _anyChanges = __VinylSystemReadProject(self, _data, _firstUpdate);
+            
+            __VinylTrace("Loaded project file in ", (get_timer() - _t)/1000, "ms");
+            __projectLoaded = true;
+        }
+        catch(_error)
+        {
+            show_debug_message("");
+            __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            __VinylTrace(_error.longMessage);
+            __VinylTrace(_error.stacktrace);
+            __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            show_debug_message("");
+            
+            var _trimmedMessage = string_replace(_error.message, "Vinyl:\n", "");
+            _trimmedMessage = string_copy(_trimmedMessage, 1, string_length(_trimmedMessage)-2);
+            
+            if (_firstUpdate)
+            {
+                __VinylError("There was an error whilst reading \"", _projectPath, "\"\n \n", _trimmedMessage);
+            }
+            else
+            {
+                _trimmedMessage = string_replace_all(_trimmedMessage, "\n", "\n       ");
+                __VinylTrace("There was an error whilst reading \"", _projectPath, "\"");
+                __VinylTrace(_trimmedMessage);
+            }
+        }
+        finally
+        {
+            buffer_delete(_buffer);
+        }
+        
+        return _anyChanges;
+    }
+    
+    static __ProjectGetLoaded = function()
+    {
+        return __projectLoaded;
+    }
+    
+    static __ProjectGetSoundDictionary = function()
+    {
+        return __projectSoundDictionary;
+    }
+    
+    static __ProjectGetSoundArray = function()
+    {
+        return __projectSoundArray;
+    }
 }

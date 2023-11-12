@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VinylUpdateProject()
+function __VinylUpdateProject__OLD()
 {
     static _globalData     = __VinylGlobalData();
     static _projectFileHash = undefined;

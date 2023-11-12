@@ -4,12 +4,13 @@
 /// @param name
 /// @param [absolutePath]
 
-function __VinylClassAsset(_type, _name, _absolutePath = undefined) constructor
+function __VinylClassProjectSound(_type, _name, _absolutePath = undefined) constructor
 {
     __type         = _type;
     __name         = _name;
     __absolutePath = _absolutePath;
     
+    __soundID = undefined;
     __Load();
     
     static __Load = function()
