@@ -65,7 +65,7 @@ function __VinylEditorWindowConfig(_stateStruct)
                     repeat(array_length(_resourceNameArray))
                     {
                         var _name = _resourceNameArray[_i];
-                        __VinylEditorPropertiesPattern(_name, undefined, undefined, _name, _resourceDict[$ _name], _resourceConstructor);
+                        __VinylEditorPropertiesPattern(_stateStruct, _name, undefined, undefined, _name, _resourceDict[$ _name], _resourceConstructor);
                         ++_i;
                     }
                     

@@ -1,5 +1,6 @@
 // Feather disable all
 
+/// @param stateStruct
 /// @param id
 /// @param parentStruct
 /// @param parentAssetArrayPos
@@ -7,7 +8,7 @@
 /// @param dataStruct
 /// @param constructor
 
-function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos, _name, _dataStruct, _constructor)
+function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _parentAssetArrayPos, _name, _dataStruct, _constructor)
 {
     static _rootTypeArray  = ["Basic", "Shuffle", "Queue", "Multi"];
     static _childTypeArray = ["Asset", "Basic", "Shuffle", "Queue", "Multi"];
@@ -19,6 +20,7 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
     static _columnValue  = 2;
     static _columnOption = 3;
     
+    var _makePopup = false;
     var _deleted = false;
     
     //Cache our type and asset array
@@ -81,7 +83,12 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
         ImGui.SameLine();
         if (ImGui.Button("Rename##Rename " + _id))
         {
-            //TODO
+            _makePopup = true;
+            
+            with(_stateStruct.__popupData)
+            {
+                __tempName = _name;
+            }
         }
     }
     
@@ -342,7 +349,7 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
                 {
                     var _child = _assetsArray[_i];
                     
-                    if (__VinylEditorPropertiesPattern(_id + "/" + string(_i), _dataStruct, _i, _child.type + " " + string(_i+1), _child, _constructor))
+                    if (__VinylEditorPropertiesPattern(_stateStruct, _id + "/" + string(_i), _dataStruct, _i, _child.type + " " + string(_i+1), _child, _constructor))
                     {
                         ++_i;
                     }
@@ -388,5 +395,40 @@ function __VinylEditorPropertiesPattern(_id, _parentStruct, _parentAssetArrayPos
         ImGui.TreePop();
     }
     
+    if (not _isChild)
+    {
+        if (_makePopup)
+        {
+            ImGui.OpenPopup("Rename");
+        }
+        
+        ImGui.SetNextWindowPos(window_get_width() / 2, window_get_height () / 2, ImGuiCond.Appearing, 0.5, 0.5);
+        
+        if (ImGui.BeginPopupModal("Rename", undefined, ImGuiWindowFlags.NoResize))
+        {
+            ImGui.Text("Please enter a new name for \"" + _name + "\"");
+            
+            ImGui.Separator();
+            
+            _stateStruct.__popupData.__tempName = ImGui.InputText("##Rename Field", _stateStruct.__popupData.__tempName);
+            
+            if (ImGui.Button("Accept"))
+            {
+                if (_stateStruct.__popupData.__tempName != _name)
+                {
+                    var _rootStruct = __VinylDocument().__data.patterns;
+                    variable_struct_remove(_rootStruct, _name);
+                    _rootStruct[$ _stateStruct.__popupData.__tempName] = _dataStruct;
+                }
+                
+                ImGui.CloseCurrentPopup();
+            }
+            
+            ImGui.SameLine(undefined, 40);
+            if (ImGui.Button("Cancel")) ImGui.CloseCurrentPopup();
+            ImGui.EndPopup();	
+        }
+    }
+            
     return not _deleted;
 }
