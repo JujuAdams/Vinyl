@@ -11,7 +11,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
 {
     static _optionArray = ["Unset", "Override"];
     
-    var _originalOption = _dataStruct.loopOption;
+    var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.loopOption;
     var _inheriting = (_originalOption == "Unset");
     
     var _resolution = __VinylPatternResolveInheritedLoop(_dataStruct, _parentStruct);

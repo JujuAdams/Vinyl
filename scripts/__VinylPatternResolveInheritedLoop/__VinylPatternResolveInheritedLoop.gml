@@ -5,7 +5,7 @@
 
 function __VinylPatternResolveInheritedLoop(_dataStruct, _parentStruct)
 {
-    if (_dataStruct.loopOption != "Unset")
+    if (is_struct(_dataStruct) && (_dataStruct.loopOption != "Unset"))
     {
         return {
             __option: _dataStruct.loopOption,

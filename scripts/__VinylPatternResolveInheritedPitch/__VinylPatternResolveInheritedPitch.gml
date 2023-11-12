@@ -5,7 +5,7 @@
 
 function __VinylPatternResolveInheritedPitch(_dataStruct, _parentStruct)
 {
-    if (_dataStruct.pitchOption != "Unset")
+    if (is_struct(_dataStruct) && (_dataStruct.pitchOption != "Unset"))
     {
         return {
             __option:       _dataStruct.pitchOption,

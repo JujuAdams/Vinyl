@@ -13,7 +13,7 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
     
     var _stackArray = ["Music"];
     
-    var _originalOption = _dataStruct.stackOption;
+    var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.stackOption;
     var _inheriting = (_originalOption == "Unset");
     
     var _resolution = __VinylPatternResolveInheritedStack(_dataStruct, _parentStruct);

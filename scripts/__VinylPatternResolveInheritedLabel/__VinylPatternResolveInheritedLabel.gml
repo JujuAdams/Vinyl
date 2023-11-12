@@ -5,11 +5,10 @@
 
 function __VinylPatternResolveInheritedLabel(_dataStruct, _parentStruct, _inheritedArray)
 {
-    if (not is_struct(_dataStruct)) return;
-    
-    switch(_dataStruct.labelsOption)
+    switch(is_struct(_dataStruct)? _dataStruct.labelsOption : "Unset")
     {
         case "Unset":
+            if (_parentStruct == undefined) return;
             __VinylPatternResolveInheritedLabel(_parentStruct, undefined, _inheritedArray);
         break;
         

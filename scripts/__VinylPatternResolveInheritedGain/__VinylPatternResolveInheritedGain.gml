@@ -5,7 +5,7 @@
 
 function __VinylPatternResolveInheritedGain(_dataStruct, _parentStruct)
 {
-    if (_dataStruct.gainOption != "Unset")
+    if (is_struct(_dataStruct) && (_dataStruct.gainOption != "Unset"))
     {
         return {
             __option:       _dataStruct.gainOption,

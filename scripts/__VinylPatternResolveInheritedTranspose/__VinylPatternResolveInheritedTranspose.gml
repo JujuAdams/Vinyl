@@ -5,7 +5,7 @@
 
 function __VinylPatternResolveInheritedTranspose(_dataStruct, _parentStruct)
 {
-    if (_dataStruct.transposeOption != "Unset")
+    if (is_struct(_dataStruct) && (_dataStruct.transposeOption != "Unset"))
     {
         return {
             __option:       _dataStruct.transposeOption,

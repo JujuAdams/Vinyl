@@ -14,7 +14,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
     //TODO
     var _knobArray = ["spookiness", "health factor"];
     
-    var _originalOption = _dataStruct.pitchOption;
+    var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.pitchOption;
     var _inheriting = (_originalOption == "Unset");
     
     var _resolution = __VinylPatternResolveInheritedPitch(_dataStruct, _parentStruct);

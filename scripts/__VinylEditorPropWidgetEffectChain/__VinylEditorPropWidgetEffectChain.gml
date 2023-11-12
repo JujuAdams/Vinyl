@@ -13,7 +13,7 @@ function __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, _co
     
     var _effectChainArray = ["Reverb"];
     
-    var _originalOption = _dataStruct.effectChainOption;
+    var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.effectChainOption;
     var _inheriting = (_originalOption == "Unset");
     
     var _resolution = __VinylPatternResolveInheritedEffectChain(_dataStruct, _parentStruct);

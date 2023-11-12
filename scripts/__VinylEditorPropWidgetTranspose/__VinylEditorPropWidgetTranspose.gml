@@ -14,7 +14,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
     //TODO
     var _knobArray = ["spookiness", "health factor"];
     
-    var _originalOption = _dataStruct.transposeOption;
+    var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.transposeOption;
     var _inheriting = (_originalOption == "Unset");
     
     var _resolution = __VinylPatternResolveInheritedTranspose(_dataStruct, _parentStruct);

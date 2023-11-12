@@ -14,7 +14,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
     //TODO
     var _knobArray = ["spookiness", "health factor"];
     
-    var _originalOption = _dataStruct.gainOption;
+    var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.gainOption;
     var _inheriting = (_originalOption == "Unset");
     
     var _resolution = __VinylPatternResolveInheritedGain(_dataStruct, _parentStruct);

@@ -11,7 +11,7 @@ function __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct, _col
 {
     static _optionArray = ["Unset", "Override"];
     
-    var _originalOption = _dataStruct.persistentOption;
+    var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.persistentOption;
     var _inheriting = (_originalOption == "Unset");
     
     var _resolution = __VinylPatternResolveInheritedPersistent(_dataStruct, _parentStruct);

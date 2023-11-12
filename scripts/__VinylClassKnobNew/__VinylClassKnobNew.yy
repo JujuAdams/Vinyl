@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Windows",
-    "path": "folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows.yy",
+    "name": "Classes",
+    "path": "folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Classes.yy",
   },
 }

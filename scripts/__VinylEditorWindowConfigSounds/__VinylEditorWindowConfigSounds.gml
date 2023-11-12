@@ -100,7 +100,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         var _modified      = variable_struct_exists(_modifiedSoundDict, _lastSelected);
         
         //Bit of aesthetic spacing
-        ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 10);
+        ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 20);
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
         
         ImGui.BeginDisabled(_selectedCount != 1);
@@ -156,8 +156,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         if (_selectionHandler.__GetSelectedCount() == 1)
         {
             ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                var _displayName = _modified? _lastSelected : "Default";
-                __VinylEditorPropertiesSound(_displayName, _modifiedSoundDict[$ _displayName], _modified);
+                __VinylEditorPropertiesSound(_lastSelected, _modifiedSoundDict[$ _lastSelected], _modified, _modifiedSoundDict.Default);
             ImGui.EndChild();
         }
     ImGui.EndChild();

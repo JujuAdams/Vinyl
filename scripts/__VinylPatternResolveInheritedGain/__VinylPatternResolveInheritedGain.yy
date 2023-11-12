@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "VIPs only in the green room",
-    "path": "folders/Vinyl/(Internals)/VIPs only in the green room.yy",
+    "name": "Resolvers",
+    "path": "folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Getters & Setters/Resolvers.yy",
   },
 }
