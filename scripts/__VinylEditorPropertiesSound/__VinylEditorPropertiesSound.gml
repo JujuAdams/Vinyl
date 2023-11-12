@@ -11,6 +11,13 @@ function __VinylEditorPropertiesSound(_soundName, _soundData)
         ImGui.TableSetupColumn("Option", ImGuiTableColumnFlags.WidthFixed, 150);
         
         __VinylEditorPropWidgetGain(_soundName, _soundData, undefined, 0, 1, 2);
+        __VinylEditorPropWidgetPitch(_soundName, _soundData, undefined, 0, 1, 2);
+        __VinylEditorPropWidgetLoop(_soundName, _soundData, undefined, 0, 1, 2);
+        __VinylEditorPropWidgetTranspose(_soundName, _soundData, undefined, 0, 1, 2);
+        __VinylEditorPropWidgetStack(_soundName, _soundData, undefined, 0, 1, 2);
+        __VinylEditorPropWidgetEffectChain(_soundName, _soundData, undefined, 0, 1, 2);
+        __VinylEditorPropWidgetPersistent(_soundName, _soundData, undefined, 0, 1, 2);
+        __VinylEditorPropWidgetLabel(_soundName, _soundData, undefined, 0, 1, 2);
         
         ImGui.EndTable();
     }

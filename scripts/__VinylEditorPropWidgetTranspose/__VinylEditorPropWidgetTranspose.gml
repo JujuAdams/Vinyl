@@ -1,12 +1,15 @@
 // Feather disable all
 
-function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct)
+/// @param UiID
+/// @param dataStruct
+/// @param parentStruct
+/// @param columnName
+/// @param columnValue
+/// @param columnOption
+
+function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
 {
     static _optionArray = ["Unset", "Override", "Knob"];
-    static _columnTree   = 0;
-    static _columnDelete = 1;
-    static _columnValue  = 2;
-    static _columnOption = 3;
     
     //TODO
     var _knobArray = ["spookiness", "health factor"];
@@ -21,7 +24,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct)
     var _value        = _resolution.__value;
     
     ImGui.TableNextRow();
-    ImGui.TableSetColumnIndex(_columnTree);
+    ImGui.TableSetColumnIndex(_columnName);
     ImGui.Text("Transpose");
     
     ImGui.TableSetColumnIndex(_columnValue);

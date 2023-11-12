@@ -1,12 +1,15 @@
 // Feather disable all
 
-function __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct)
+/// @param UiID
+/// @param dataStruct
+/// @param parentStruct
+/// @param columnName
+/// @param columnValue
+/// @param columnOption
+
+function __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
 {
     static _optionArray = ["Unset", "Add", "Override"];
-    static _columnTree   = 0;
-    static _columnDelete = 1;
-    static _columnValue  = 2;
-    static _columnOption = 3;
     
     //TODO
     var _labelArray = ["A", "B", "C"];
@@ -19,7 +22,7 @@ function __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct)
     array_sort(_inheritedArray, true);
     
     ImGui.TableNextRow();
-    ImGui.TableSetColumnIndex(_columnTree);
+    ImGui.TableSetColumnIndex(_columnName);
     ImGui.Text("Label");
     
     ImGui.TableSetColumnIndex(_columnValue);

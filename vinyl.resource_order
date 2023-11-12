@@ -12,6 +12,7 @@
     {"name":"Document","order":6,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Document.yy",},
     {"name":"Global Settings","order":4,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Global Settings.yy",},
     {"name":"Windows","order":3,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows.yy",},
+    {"name":"Filter","order":24,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Filter.yy",},
     {"name":"Getters & Setters","order":14,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Getters & Setters.yy",},
     {"name":"Property Widgets","order":23,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Property Widgets.yy",},
     {"name":"Assets","order":18,"path":"folders/Vinyl/Assets.yy",},
@@ -31,7 +32,6 @@
     {"name":"Stacks","order":15,"path":"folders/Vinyl/Stacks.yy",},
     {"name":"Stopping Audio","order":4,"path":"folders/Vinyl/Stopping Audio.yy",},
     {"name":"Transposition","order":11,"path":"folders/Vinyl/Transposition.yy",},
-    {"name":"Filter","order":24,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Filter.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"__VinylClassEffectChain","order":2,"path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},

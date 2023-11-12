@@ -1,12 +1,15 @@
 // Feather disable all
 
-function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct)
+/// @param UiID
+/// @param dataStruct
+/// @param parentStruct
+/// @param columnName
+/// @param columnValue
+/// @param columnOption
+
+function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
 {
     static _optionArray = ["Unset", "Override"];
-    static _columnTree   = 0;
-    static _columnDelete = 1;
-    static _columnValue  = 2;
-    static _columnOption = 3;
     
     var _stackArray = ["Music"];
     
@@ -19,7 +22,7 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct)
     var _priority = _resolution.__priority;
     
     ImGui.TableNextRow();
-    ImGui.TableSetColumnIndex(_columnTree);
+    ImGui.TableSetColumnIndex(_columnName);
     ImGui.Text("Stack");
     
     ImGui.TableSetColumnIndex(_columnValue);
@@ -71,7 +74,7 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct)
     if (_option == "Override")
     {
         ImGui.TableNextRow();
-        ImGui.TableSetColumnIndex(_columnTree);
+        ImGui.TableSetColumnIndex(_columnName);
         ImGui.Text("Stack Priority");
         
         ImGui.TableSetColumnIndex(_columnValue);
