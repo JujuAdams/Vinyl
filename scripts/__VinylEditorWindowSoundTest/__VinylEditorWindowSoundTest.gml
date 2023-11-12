@@ -5,8 +5,7 @@ function __VinylEditorWindowSoundTest(_stateStruct)
     static _editor = __VinylGlobalData().__editor;
     if (not VinylEditorIsShowing()) return;
     
-    var _projectSoundArray      = __VinylDocument().__ProjectGetSoundArray();
-    var _projectSoundDictionary = __VinylDocument().__ProjectGetSoundDictionary();
+    var _projectSoundArray = __VinylDocument().__ProjectGetSoundArray();
     
     ImGui.SetNextWindowSize(0.4*room_width, 0.6*room_height, ImGuiCond.Once);
     ImGui.SetNextWindowPos(0.3*room_width, 0.2*room_height, ImGuiCond.Once);

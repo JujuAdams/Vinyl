@@ -8,7 +8,7 @@
 /// resource-constrained situations, you may want to consider using VinylPlaySimple() for some
 /// of your audio
 /// 
-/// @param sound
+/// @param sound/pattern
 /// @param [loop]
 /// @param [gain=1]
 /// @param [pitch=1]

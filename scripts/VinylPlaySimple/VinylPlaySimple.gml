@@ -8,7 +8,7 @@
 /// VinylPlaySimple() cannot be used to play Queue or Multi patterns, and simple audio will not be
 /// set to loop by Vinyl regardless of configuration settings
 /// 
-/// @param sound
+/// @param sound/pattern
 /// @param [gain=1]
 /// @param [pitch=1]
 
