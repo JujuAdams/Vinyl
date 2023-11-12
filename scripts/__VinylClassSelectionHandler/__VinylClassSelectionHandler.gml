@@ -78,7 +78,11 @@ function __VinylClassSelectionHandler() constructor
     
     static __SelectAll = function()
     {
-        var _nameArray = variable_struct_get_names(__sourceStructWeakRef.ref);
+        __SelectArray(variable_struct_get_names(__sourceStructWeakRef.ref));
+    }
+    
+    static __SelectArray = function(_nameArray)
+    {
         var _length = array_length(_nameArray);
         var _i = 0;
         repeat(_length)
@@ -264,7 +268,7 @@ function __VinylClassSelectionHandler() constructor
         __SelectNone();
     }
     
-    static __BuildUI = function()
+    static __BuildUI = function(_visibleArray)
     {
         ImGui.Text("Multiselect");
         ImGui.SameLine();
@@ -284,7 +288,7 @@ function __VinylClassSelectionHandler() constructor
             ImGui.SameLine();
             if (ImGui.Button("All"))
             {
-                __SelectAll();
+                __SelectArray(_visibleArray);
             }
             
             ImGui.SameLine();

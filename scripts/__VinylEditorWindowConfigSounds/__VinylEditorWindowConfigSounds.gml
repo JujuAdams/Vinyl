@@ -69,6 +69,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
             _funcBuildSelectable("Default", _modifiedSoundDict, _selectionHandler);
             ImGui.Separator();
             
+            var _visibleArray = [];
             var _i = 0;
             repeat(array_length(_projectSoundArray))
             {
@@ -83,6 +84,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                     if ((not _useFilter) || __VinylFilterApply(_filter, _projectSoundDictionary[$ _soundName]))
                     {
                         _funcBuildSelectable(_soundName, _modifiedSoundDict, _selectionHandler);
+                        array_push(_visibleArray, _soundName);
                     }
                 }
                 
@@ -92,7 +94,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
             ImGui.EndTable();
         }
         
-        _selectionHandler.__BuildUI();
+        _selectionHandler.__BuildUI(_visibleArray);
         
     ImGui.EndChild();
     
