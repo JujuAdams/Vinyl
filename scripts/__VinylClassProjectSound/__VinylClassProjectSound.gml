@@ -2,15 +2,26 @@
 
 /// @param type
 /// @param name
-/// @param [absolutePath]
+/// @param yyPath
+/// @param absolutePath
 
-function __VinylClassProjectSound(_type, _name, _absolutePath = undefined) constructor
+function __VinylClassProjectSound(_type, _name, _yyPath, _absolutePath) constructor
 {
     __type         = _type;
     __name         = _name;
+    __yyPath       = _yyPath;
     __absolutePath = _absolutePath;
     
     __soundID = undefined;
+    
+    __compiledValues     = undefined;
+    __compiledAudioGroup = undefined;
+    __compiledAttributes = undefined;
+    __audioGroup         = undefined;
+    __attributes         = undefined;
+    
+    __yyHash = undefined;
+    
     __Load();
     
     static __Load = function()
@@ -143,6 +154,97 @@ function __VinylClassProjectSound(_type, _name, _absolutePath = undefined) const
         else
         {
             __VinylTrace("Sound ID for \"", __name, "\" remains <", __soundID, ">");
+        }
+    }
+    
+    static __SetAudioGroup = function(_newAudioGroup)
+    {
+        if (__audioGroup == _newAudioGroup) return;
+        
+        var _buffer = buffer_load(__yyPath);
+        var _fileString = buffer_read(_buffer, buffer_text);
+        buffer_delete(_buffer);
+        
+        var _searchString1 = "\"name\": \"" + __audioGroup + "\"";
+        var _searchString2 = "\"path\": \"audiogroups/" + __audioGroup + "\"";
+        
+        var _pos = string_pos(_searchString1, _fileString);
+        if (_pos < 0)
+        {
+            __VinylTrace("Warning! Could not find audio group \"", __audioGroup, "\" in \"", __yyPath, "\" (first check)");
+            return;
+        }
+        
+        var _pos = string_pos(_searchString2, _fileString);
+        if (_pos < 0)
+        {
+            __VinylTrace("Warning! Could not find audio group \"", __audioGroup, "\" in \"", __yyPath, "\" (second check)");
+            return;
+        }
+        
+        _fileString = string_replace(_fileString, _searchString1, "\"name\": \"" + _newAudioGroup + "\"");
+        _fileString = string_replace(_fileString, _searchString2, "\"path\": \"audiogroups/" + _newAudioGroup + "\"");
+        
+        var _buffer = buffer_create(string_byte_length(_fileString), buffer_fixed, 1);
+        buffer_write(_buffer, buffer_text, _fileString);
+        buffer_save(_buffer, __yyPath);
+        buffer_delete(_buffer);
+        
+        __audioGroup = _newAudioGroup;
+    }
+    
+    static __SetAttributes = function(_newAttributes)
+    {
+        if (__attributes == _newAttributes) return;
+        
+        var _buffer = buffer_load(__yyPath);
+        var _fileString = buffer_read(_buffer, buffer_text);
+        buffer_delete(_buffer);
+        
+        var _searchString = "\"compression\": " + string(__attributes);
+        
+        var _pos = string_pos(_searchString, _fileString);
+        if (_pos < 0)
+        {
+            __VinylTrace("Warning! Could not find attribute ", __attributes, " in \"", __yyPath, "\"");
+            return;
+        }
+        
+        _fileString = string_replace(_fileString, _searchString, "\"compression\": " + string(_newAttributes));
+        
+        var _buffer = buffer_create(string_byte_length(_fileString), buffer_fixed, 1);
+        buffer_write(_buffer, buffer_text, _fileString);
+        buffer_save(_buffer, __yyPath);
+        buffer_delete(_buffer);
+        
+        __attributes = _newAttributes;
+    }
+    
+    static __CheckYYFile = function(_firstUpdate)
+    {
+        var _hash = md5_file(__yyPath);
+        if (_hash != __yyHash)
+        {
+            __yyHash = _hash;
+            
+            var _buffer = buffer_load(__yyPath);
+            var _string = buffer_read(_buffer, buffer_text);
+            buffer_delete(_buffer);
+            var _soundJSON = json_parse(_string);
+            
+            __audioGroup = _soundJSON.audioGroupId.name;
+            __attributes = _soundJSON.compression;
+            
+            if (__compiledValues == undefined)
+            {
+                __compiledValues = _firstUpdate;
+                
+                if (__compiledValues)
+                {
+                    __compiledAudioGroup = __audioGroup;
+                    __compiledAttributes = __attributes;
+                }
+            }
         }
     }
 }

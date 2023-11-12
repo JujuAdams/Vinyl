@@ -14,6 +14,7 @@ function __VinylClassDocument(_path) constructor
     __projectSoundDictionary = {};
     __projectSoundArray      = [];
     __projectSoundHashDict   = {};
+    __projectAudioGroupArray = [];
     
     __ProjectLoad(__projectPath);
     __Load(__documentPath);
@@ -277,5 +278,10 @@ function __VinylClassDocument(_path) constructor
     static __ProjectGetSoundArray = function()
     {
         return __projectSoundArray;
+    }
+    
+    static __ProjectGetAudioGroupArray = function()
+    {
+        return __projectAudioGroupArray;
     }
 }

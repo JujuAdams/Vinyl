@@ -135,23 +135,115 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
     
     ImGui.NewLine();
     
-    var _width = ImGui.GetContentRegionAvailX();
-    ImGui.BeginChild("GameMaker Native Properties", _width, 130, true);
-    
-        ImGui.TextUnformatted("Audiogroup");
+    //Now do the actual table
+    if (ImGui.BeginTable("GameMaker Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 140))
+    {
+        var _projectSound = __VinylDocument().__projectSoundDictionary[$ _soundName];
+        
+        //Set up our columns with fixed widths so we get a nice pretty layout
+        ImGui.TableSetupColumn("GameMaker Project", ImGuiTableColumnFlags.WidthStretch, 5);
+        ImGui.TableSetupColumn("Compiled", ImGuiTableColumnFlags.WidthStretch, 2);
+        ImGui.TableHeadersRow();
+        
+        ImGui.TableNextRow();
+        ImGui.TableSetColumnIndex(0);
+        ImGui.Text("Audio Group");
         ImGui.SameLine();
-        if (ImGui.BeginCombo("##Audiogroup", "Default", ImGuiComboFlags.None))
+        if (ImGui.BeginCombo("##Audio Group", _projectSound.__audioGroup, ImGuiComboFlags.None))
         {
-            ImGui.Selectable("Default", true);
-            ImGui.Selectable("agBaddies", false);
-            ImGui.Selectable("agFX", false);
+            var _audioGroupArray = __VinylDocument().__ProjectGetAudioGroupArray();
+            var _i = 0;
+            repeat(array_length(_audioGroupArray))
+            {
+                var _audioGroup = _audioGroupArray[_i];
+                if (ImGui.Selectable(_audioGroup, _projectSound.__audioGroup == _audioGroup))
+                {
+                    _projectSound.__SetAudioGroup(_audioGroup);
+                }
+                
+                ++_i;
+            }
+            
             ImGui.EndCombo();
         }
         
-        ImGui.RadioButton("WAV", true);
-        ImGui.RadioButton("OGG - Decompress during playback", false);
-        ImGui.RadioButton("OGG - Decompress when loaded and store in RAM", false);
-        ImGui.RadioButton("OGG - Stream from disk (exports .ogg files in game directory)", false);
+        ImGui.TableSetColumnIndex(1);
+        if (_projectSound.__compiledValues)
+        {
+            if (_projectSound.__compiledAttributes != 3)
+            {
+                ImGui.Text(_projectSound.__compiledAudioGroup);
+            }
+            else
+            {
+                ImGui.Text("N/A");
+            }
+        }
+        else
+        {
+            ImGui.Text("Added after compile");
+        }
         
-    ImGui.EndChild();
+        ImGui.TableNextRow();
+        ImGui.TableSetColumnIndex(0);
+        if (ImGui.RadioButton("WAV", (_projectSound.__attributes == 0)))
+        {
+            _projectSound.__SetAttributes(0);
+        }
+        
+        if (_projectSound.__compiledValues)
+        {
+            ImGui.BeginDisabled(true);
+                ImGui.TableSetColumnIndex(1);
+                ImGui.RadioButton("", (_projectSound.__compiledAttributes == 0));
+            ImGui.EndDisabled();
+        }
+        
+        ImGui.TableNextRow();
+        ImGui.TableSetColumnIndex(0);
+        if (ImGui.RadioButton("OGG - Decompress during playback", (_projectSound.__attributes == 1)))
+        {
+            _projectSound.__SetAttributes(1);
+        }
+        
+        if (_projectSound.__compiledValues)
+        {
+            ImGui.BeginDisabled(true);
+                ImGui.TableSetColumnIndex(1);
+                ImGui.RadioButton("", (_projectSound.__compiledAttributes == 1));
+            ImGui.EndDisabled();
+        }
+        
+        ImGui.TableNextRow();
+        ImGui.TableSetColumnIndex(0);
+        if (ImGui.RadioButton("OGG - Decompress when loaded and store in RAM", (_projectSound.__attributes == 2)))
+        {
+            _projectSound.__SetAttributes(2);
+        }
+        
+        if (_projectSound.__compiledValues)
+        {
+            ImGui.BeginDisabled(true);
+                ImGui.TableSetColumnIndex(1);
+                ImGui.RadioButton("", (_projectSound.__compiledAttributes == 2));
+            ImGui.EndDisabled();
+        }
+        
+        ImGui.TableNextRow();
+        ImGui.TableSetColumnIndex(0);
+        if (ImGui.RadioButton("OGG - Stream from disk (exports .ogg files)", (_projectSound.__attributes == 3)))
+        {
+            _projectSound.__SetAttributes(3);
+        }
+        
+        if (_projectSound.__compiledValues)
+        {
+            ImGui.BeginDisabled(true);
+                ImGui.TableSetColumnIndex(1);
+                ImGui.RadioButton("", (_projectSound.__compiledAttributes == 3));
+            ImGui.EndDisabled();
+        }
+        
+        ImGui.EndTable();
+    }
 }

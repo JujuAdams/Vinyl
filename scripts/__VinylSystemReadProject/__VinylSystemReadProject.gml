@@ -6,11 +6,21 @@ function __VinylSystemReadProject(_document, _projectData, _firstUpdate)
     var _oldSoundDictionary = _document.__projectSoundDictionary;
     var _oldSoundArray      = _document.__projectSoundArray;
     var _oldSoundHashDict   = _document.__projectSoundHashDict;
+    var _audioGroupArray    = _document.__projectAudioGroupArray;
     
     var _anyChanges = false;
     
     var _newSoundDict  = {};
     var _newSoundArray = [];
+    
+    //Find audio groups
+    var _audioGroupsArray = _projectData.AudioGroups;
+    var _i = 0;
+    repeat(array_length(_audioGroupsArray))
+    {
+        array_push(_audioGroupArray, _audioGroupsArray[_i].name);
+        ++_i;
+    }
     
     //Iterate over the project and discover all sounds
     var _resourcesArray = _projectData.resources;
@@ -60,14 +70,15 @@ function __VinylSystemReadProject(_document, _projectData, _firstUpdate)
                 }
             }
             
+            var _yyPath = filename_change_ext(_absolutePath, ".yy");
+            
             //Get the hash of the file
             var _hash = md5_file(_absolutePath);
-            
             if (_firstUpdate && (asset_get_type(_soundName) == asset_sound))
             {
                 //Special case for first update
                 __VinylTrace("Project: Sound \"", _soundName, "\" has been discovered on boot");
-                var _newSoundData = new __VinylClassProjectSound(__VINYL_SOUND_TYPE.__WAD, _soundName);
+                var _newSoundData = new __VinylClassProjectSound(__VINYL_SOUND_TYPE.__WAD, _soundName, _yyPath, _absolutePath);
                 
                 //Track this new sound
                 _oldSoundDictionary[$ _soundName] = _newSoundData;
@@ -86,12 +97,14 @@ function __VinylSystemReadProject(_document, _projectData, _firstUpdate)
                     
                     //Re-add the sound under a new name
                     _oldSoundDictionary[$ _soundName] = _oldSoundData;
+                    
+                    _newSoundData = _oldSoundData;
                 }
                 else
                 {
                     __VinylTrace("Project: Sound \"", _soundName, "\" has been added");
                     
-                    var _newSoundData = new __VinylClassProjectSound(_type, _soundName, _absolutePath);
+                    var _newSoundData = new __VinylClassProjectSound(_type, _soundName, _yyPath, _absolutePath);
                     
                     //Track this new sound
                     _oldSoundDictionary[$ _soundName] = _newSoundData;
@@ -99,6 +112,8 @@ function __VinylSystemReadProject(_document, _projectData, _firstUpdate)
                     _oldSoundHashDict[$ _hash] = _newSoundData;
                 }
             }
+            
+            _newSoundData.__CheckYYFile(_firstUpdate);
         }
         
         ++_i;
