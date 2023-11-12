@@ -35,7 +35,19 @@ function __VinylEditorInit()
                     __target:   undefined,
                     __tempName: undefined,
                 },
-                __quickDelete: false,
+                __tabSounds: {
+                    __selectedDict:  {},
+                    __filter:        undefined,
+                    __useFilter:     false,
+                    __seeModified:   true,
+                    __seeUnmodified: true,
+                    __multiselect:   false,
+                    __seeSelected:   true,
+                    __seeUnselected: true,
+                },
+                __tabPatterns: {
+                    __quickDelete: false,
+                },
             },
             
             __nowPlaying: {

@@ -73,7 +73,7 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
     ImGui.TableSetColumnIndex(_columnDelete);
     if (ImGui.Button("-##Delete " + _id))
     {
-        if (_stateStruct.__quickDelete)
+        if (_stateStruct.__tabPatterns.__quickDelete)
         {
             if (_isChild)
             {

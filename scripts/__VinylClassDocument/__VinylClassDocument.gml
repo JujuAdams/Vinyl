@@ -27,7 +27,7 @@ function __VinylClassDocument(_path) constructor
         
         __data = {
             settings: {},
-            assetRules: [],
+            sounds: {},
             patterns: {},
             labels: {},
             stacks: {},
