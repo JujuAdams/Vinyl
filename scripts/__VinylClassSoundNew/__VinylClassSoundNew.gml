@@ -10,19 +10,13 @@ function __VinylClassSoundNew() constructor
     pitchKnobOverride = false;
     pitch             = [1, 1];
     
-    loopOption = "Unset";
-    loop       = false;
-    
+    loopOption       = "Unset";
+    loop             = false;
     loopPointsOption = "Unset";
     loopPoints       = [0, 0];
     
-    transposeOption       = "Unset";
-    transposeKnob         = __VINYL_ASSET_NULL;
-    transposeKnobOverride = false;
-    transpose             = [0, 0];
-    
-    bpmOption = "Unset";
-    bpm       = 120;
+    labelsOption = "Unset";
+    labels       = [];
     
     stackOption   = "Unset";
     stack         = __VINYL_ASSET_NULL;
@@ -31,15 +25,14 @@ function __VinylClassSoundNew() constructor
     effectChainOption = "Unset";
     effectChain       = __VINYL_ASSET_NULL;
     
-    labelsOption = "Unset";
-    labels       = [];
-    
     persistentOption = "Unset";
     persistent       = false;
     
-    queueBehavior = "Play Once"; //Play Once, Replay Whole Queue, Replay Last Asset
+    bpmOption = "Unset";
+    bpm       = 120;
     
-    multiSync           = VINYL_DEFAULT_MULTI_SYNC;
-    multiBlend          = 0;
-    multiBlendCurveName = "";
+    transposeOption       = "Unset";
+    transposeKnob         = __VINYL_ASSET_NULL;
+    transposeKnobOverride = false;
+    transpose             = [0, 0];
 }

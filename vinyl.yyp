@@ -47,6 +47,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Transposition","folderPath":"folders/Vinyl/Transposition.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Resolvers","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Resolvers.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Classes","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Classes.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Apply","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Apply.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"vinyl_license.txt","CopyToMask":-1,"filePath":"datafiles",},
@@ -147,6 +148,7 @@
     {"id":{"name":"__VinylConvertPatternNameToConstructor","path":"scripts/__VinylConvertPatternNameToConstructor/__VinylConvertPatternNameToConstructor.yy",},},
     {"id":{"name":"VinylEmitterExists","path":"scripts/VinylEmitterExists/VinylEmitterExists.yy",},},
     {"id":{"name":"__VinylUpdateProject__OLD","path":"scripts/__VinylUpdateProject__OLD/__VinylUpdateProject__OLD.yy",},},
+    {"id":{"name":"__VinylEditorApply","path":"scripts/__VinylEditorApply/__VinylEditorApply.yy",},},
     {"id":{"name":"VinylPause","path":"scripts/VinylPause/VinylPause.yy",},},
     {"id":{"name":"VinylEmitterPolygon","path":"scripts/VinylEmitterPolygon/VinylEmitterPolygon.yy",},},
     {"id":{"name":"VinylStop","path":"scripts/VinylStop/VinylStop.yy",},},
@@ -255,6 +257,7 @@
     {"id":{"name":"sndBleep0","path":"sounds/sndBleep0/sndBleep0.yy",},},
     {"id":{"name":"__VinylEditorPropWidgetPitch","path":"scripts/__VinylEditorPropWidgetPitch/__VinylEditorPropWidgetPitch.yy",},},
     {"id":{"name":"__VinylConfigDebug","path":"scripts/__VinylConfigDebug/__VinylConfigDebug.yy",},},
+    {"id":{"name":"__VinylEditorApplyAll","path":"scripts/__VinylEditorApplyAll/__VinylEditorApplyAll.yy",},},
     {"id":{"name":"__VinylClassSoundNew","path":"scripts/__VinylClassSoundNew/__VinylClassSoundNew.yy",},},
     {"id":{"name":"__VinylEditorWindowDesktop","path":"scripts/__VinylEditorWindowDesktop/__VinylEditorWindowDesktop.yy",},},
     {"id":{"name":"VinylPitchTargetSet","path":"scripts/VinylPitchTargetSet/VinylPitchTargetSet.yy",},},

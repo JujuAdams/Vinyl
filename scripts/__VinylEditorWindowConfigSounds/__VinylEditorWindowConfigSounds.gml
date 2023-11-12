@@ -103,24 +103,20 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 20);
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
         
-        ImGui.BeginDisabled(_selectedCount != 1);
-            if (_lastSelected == undefined)
-            {
-                if (ImGui.Button("Modify"))
-                {
-                    
-                }
-                
-                ImGui.SameLine();
-            }
-            else if (_modified)
+        if (_selectedCount == 0)
+        {
+            ImGui.BeginDisabled(true);
+            ImGui.Button("Modify");
+            ImGui.EndDisabled();
+        }
+        else if (_selectedCount == 1)
+        {
+            if (_modified)
             {
                 if (ImGui.Button("Revert"))
                 {
                     variable_struct_remove(_modifiedSoundDict, _lastSelected);
                 }
-                
-                ImGui.SameLine();
             }
             else
             {
@@ -128,10 +124,39 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                 {
                     _modifiedSoundDict[$ _lastSelected] = new __VinylClassSoundNew();
                 }
-                
-                ImGui.SameLine();
             }
-        ImGui.EndDisabled();
+        }
+        else
+        {
+            if (_modified)
+            {
+                if (ImGui.Button("Revert All"))
+                {
+                    _selectionHandler.__ForEachSelected(method({
+                        __modifiedSoundDict: _modifiedSoundDict,
+                        __lastSelected: _lastSelected,
+                    }, function(_name)
+                    {
+                        variable_struct_remove(__modifiedSoundDict, __lastSelected);
+                    }));
+                }
+            }
+            else
+            {
+                if (ImGui.Button("Modify All"))
+                {
+                    _selectionHandler.__ForEachSelected(method({
+                        __modifiedSoundDict: _modifiedSoundDict,
+                    }, function(_name)
+                    {
+                        if (not variable_struct_exists(__modifiedSoundDict, _name))
+                        {
+                            __modifiedSoundDict[$ _name] = new __VinylClassSoundNew();
+                        }
+                    }));
+                }
+            }
+        }
         
         ImGui.SameLine(undefined, 40);
         
@@ -139,24 +164,20 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         {
             ImGui.Text("Please select a sound from the menu on the left");
         }
-        else if (_selectedCount == 1) 
+        else
         {
             var _displayText = _selectionHandler.__GetLastSelectedName();
             if (not _modified) _displayText += " (displaying \"Default\" properties)";
             ImGui.Text(_displayText);
         }
-        else //(_selectedCount > 1)
-        {
-            ImGui.Text("Modifying multiple sounds at once is not currently supported");
-        }
         
         //Little more aesthetic spacing
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
         
-        if (_selectionHandler.__GetSelectedCount() == 1)
+        if (_selectionHandler.__GetSelectedCount() > 0)
         {
             ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                __VinylEditorPropertiesSound(_lastSelected, _modifiedSoundDict[$ _lastSelected], _modified, _modifiedSoundDict.Default);
+                __VinylEditorPropertiesSound(_lastSelected, _modifiedSoundDict[$ _lastSelected], _modified, _modifiedSoundDict.Default, _selectionHandler, _modifiedSoundDict);
             ImGui.EndChild();
         }
     ImGui.EndChild();

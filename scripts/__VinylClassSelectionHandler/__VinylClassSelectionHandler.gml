@@ -124,7 +124,8 @@ function __VinylClassSelectionHandler() constructor
         var _i = 0
         repeat(array_length(_nameArray))
         {
-            _method(_sourceStruct[$ _nameArray]);
+            var _name = _nameArray[_i];
+            _method(_name, _sourceStruct[$ _name]);
             ++_i;
         }
     }
