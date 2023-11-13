@@ -6,14 +6,14 @@ function __VinylPatternTypeGetMultiAsset(_patternType)
 {
     switch(_patternType)
     {
-        case "Asset":
-        case "Basic":
+        case __VINYL_PATTERN_TYPE_SOUND:
+        case __VINYL_PATTERN_TYPE_BASIC:
             return false;
         break;
         
-        case "Shuffle":
-        case "Queue":
-        case "Multi":
+        case __VINYL_PATTERN_TYPE_SHUFFLE:
+        case __VINYL_PATTERN_TYPE_QUEUE:
+        case __VINYL_PATTERN_TYPE_MULTI:
             return true;
         break;
         

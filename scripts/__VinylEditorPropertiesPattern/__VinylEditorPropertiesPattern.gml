@@ -28,6 +28,8 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
     static _columnOption = 2;
     static _columnValue  = 3;
     
+    var _targetType = _dataStruct.type;
+    
     var _makePopup = false;
     var _deleted = false;
     
@@ -35,6 +37,12 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
     var _targetType  = _dataStruct.type;
     var _assetsArray = _dataStruct.assets;
     var _popupData   = _stateStruct.__popupData;
+    
+    //Don't show fallback or sound patterns
+    if ((_parentStruct != undefined) && ((_targetType == __VINYL_PATTERN_TYPE_FALLBACK) || (_targetType == __VINYL_PATTERN_TYPE_SOUND)))
+    {
+        return;
+    }
     
     //We're a child if we have a valid parent
     if (_parentStruct == undefined)
@@ -65,7 +73,7 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
         ImGui.PushStyleColor(ImGuiCol.Text, c_white, 0);
     }
     
-    if (_targetType == "Asset")
+    if (_targetType == __VINYL_PATTERN_TYPE_SOUND)
     {
         //Special appearance for assets since they are the leaf nodes for patterns
         var _open = false;
@@ -153,7 +161,7 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
     
     //Display a brief overview of the assets that the pattern is using
     //We don't do this for Asset-type patterns as that'd conflict with the asset assignment combo box
-    if (_targetType != "Asset")
+    if (_targetType != __VINYL_PATTERN_TYPE_SOUND)
     {
         ImGui.TableSetColumnIndex(_columnValue);
         ImGui.Text(__VinylPatternGetAbbreviatedName(_dataStruct));
@@ -215,7 +223,7 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
     }
     
     //Asset-type patterns (which can only be child patterns) can adjust their asset without manipulating the tree node
-    if (_isChild && (_targetType == "Asset"))
+    if (_isChild && (_targetType == __VINYL_PATTERN_TYPE_SOUND))
     {
         ImGui.TableSetColumnIndex(_columnValue);
         var _asset = (array_length(_assetsArray) > 0)? _assetsArray[0] : "";
@@ -249,12 +257,12 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
         //Special properties for particular pattern types
         switch(_targetType)
         {
-            case "Asset":
-            case "Basic":
-            case "Shuffle":
+            case __VINYL_PATTERN_TYPE_SOUND:
+            case __VINYL_PATTERN_TYPE_BASIC:
+            case __VINYL_PATTERN_TYPE_SHUFFLE:
             break;
             
-            case "Queue":
+            case __VINYL_PATTERN_TYPE_QUEUE:
                 ImGui.TableNextRow();
                 ImGui.TableSetColumnIndex(_columnTree);
                 ImGui.Text("Behavior");
@@ -278,7 +286,7 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
                 }
             break;
             
-            case "Multi":
+            case __VINYL_PATTERN_TYPE_MULTI:
                 ImGui.TableNextRow();
                 ImGui.TableSetColumnIndex(_columnTree);
                 ImGui.Text("Sync");
@@ -320,7 +328,7 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
         
         //Generic properties for all patterns
         //Asset-type patterns are strictly simple links so we don't need to display all this crap for that type of pattern
-        if (_targetType != "Asset")
+        if (_targetType != __VINYL_PATTERN_TYPE_SOUND)
         {
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(_columnTree);
@@ -351,7 +359,7 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
                 if (ImGui.SmallButton("+##Add Child " + _id))
                 {
                     var _child = new _constructor();
-                    _child.type = "Asset";
+                    _child.type = __VINYL_PATTERN_TYPE_SOUND;
                     array_push(_dataStruct.assets, _child);
                 }
                 
@@ -375,17 +383,17 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
                 //Show an asset selection combo box for Basic-type patterns
                 ImGui.TableNextRow();
                 ImGui.TableSetColumnIndex(_columnTree);
-                ImGui.Text("Asset");
+                ImGui.Text("Sound");
                 ImGui.TableSetColumnIndex(_columnValue);
                 
                 var _asset = (array_length(_assetsArray) > 0)? _assetsArray[0] : "";
-                if (ImGui.BeginCombo("##Asset " + _id, _asset, ImGuiComboFlags.None))
+                if (ImGui.BeginCombo("##Sound " + _id, _asset, ImGuiComboFlags.None))
                 {
                     var _i = 0;
                     repeat(array_length(_globalAssetArray))
                     {
                         var _globalAssetName = _globalAssetArray[_i];
-                        if (ImGui.Selectable(_globalAssetName + "##Asset Combo " + _id, (_asset == _globalAssetName)))
+                        if (ImGui.Selectable(_globalAssetName + "##Sound Combo " + _id, (_asset == _globalAssetName)))
                         {
                             if (_globalAssetName == __VINYL_ASSET_NULL)
                             {

@@ -135,7 +135,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
     
     ImGui.NewLine();
     
-    if (_soundName != "Default")
+    if (_soundName != __VINYL_FALLBACK_NAME)
     {
         //Now do the actual table
         if (ImGui.BeginTable("GameMaker Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 140))

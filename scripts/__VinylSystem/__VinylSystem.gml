@@ -33,7 +33,7 @@
 
 #macro __VINYL_QUEUE_PLAY_ONCE    "Play Once"
 #macro __VINYL_QUEUE_REPEAT_ALL   "Replay Whole Queue"
-#macro __VINYL_QUEUE_REPEAT_LAST  "Replay Last Asset"
+#macro __VINYL_QUEUE_REPEAT_LAST  "Replay Last Child"
 
 enum __VINYL_SOUND_TYPE {
     __UNKNOWN,

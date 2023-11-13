@@ -17,7 +17,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
     var _seeSelected   = _selectionHandler.__GetSeeSelected();
     var _seeUnselected = _selectionHandler.__GetSeeUnselected();
     
-    var _modifiedSoundDict = __VinylDocument().__data.sounds;
+    var _modifiedSoundDict = __VinylDocument().__patternDict;
     
     ImGui.BeginChild("Left Pane", 0.3*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
         
@@ -66,7 +66,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                 }
             }
             
-            _funcBuildSelectable("Default", _modifiedSoundDict, _selectionHandler);
+            _funcBuildSelectable(__VINYL_FALLBACK_NAME, _modifiedSoundDict, _selectionHandler);
             ImGui.Separator();
             
             var _visibleArray = [];
@@ -173,7 +173,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         else
         {
             var _displayText = _selectionHandler.__GetLastSelectedName();
-            if (not _modified) _displayText += " (displaying \"Default\" properties)";
+            if (not _modified) _displayText += " (displaying \"" + __VINYL_FALLBACK_NAME + "\" properties)";
             ImGui.Text(_displayText);
         }
         
@@ -183,7 +183,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         if (_selectionHandler.__GetSelectedCount() > 0)
         {
             ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                __VinylEditorPropertiesSound(_lastSelected, _modifiedSoundDict[$ _lastSelected], _modified, _modifiedSoundDict.Default, _selectionHandler, _modifiedSoundDict);
+                __VinylEditorPropertiesSound(_lastSelected, _modifiedSoundDict[$ _lastSelected], _modified, _modifiedSoundDict[$ __VINYL_FALLBACK_NAME], _selectionHandler, _modifiedSoundDict);
             ImGui.EndChild();
         }
     ImGui.EndChild();

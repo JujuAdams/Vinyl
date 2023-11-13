@@ -13,7 +13,7 @@ function __VinylPatternGetAbbreviatedName(_patternStruct, _maxCharacters = 40, _
         var _length = array_length(assets);
         if (_length <= 0) return __VINYL_ASSET_NULL;
         
-        if ((type == "Asset") || (type == "Basic"))
+        if ((type == __VINYL_PATTERN_TYPE_SOUND) || (type == __VINYL_PATTERN_TYPE_BASIC))
         {
             _bracketWrap = false;
         }
