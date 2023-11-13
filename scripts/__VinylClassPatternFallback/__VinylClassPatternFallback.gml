@@ -15,19 +15,14 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     static __Serialize = function(_struct)
     {
         __SerializeShared(_struct);
-        
-        //Force the name and child state
-        _struct.__name  = __VINYL_FALLBACK_NAME;
-        _struct.__child = false;
     }
     
     static __Deserialize = function(_struct, _child)
     {
-        __DeserializeShared(_struct, _child);
+        __DeserializeShared(_struct, false);
         
-        //Force the name and child state
-        __name  = __VINYL_FALLBACK_NAME;
-        __child = false;
+        //Force the name
+        __name = __VINYL_FALLBACK_NAME;
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)

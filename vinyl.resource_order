@@ -156,6 +156,7 @@
     {"name":"VinylStackMaxVoiceGet","order":4,"path":"scripts/VinylStackMaxVoiceGet/VinylStackMaxVoiceGet.yy",},
     {"name":"__VinylPatternResolveInheritedEffectChain","order":9,"path":"scripts/__VinylPatternResolveInheritedEffectChain/__VinylPatternResolveInheritedEffectChain.yy",},
     {"name":"__VinylAnimCurveEnsure","order":9,"path":"scripts/__VinylAnimCurveEnsure/__VinylAnimCurveEnsure.yy",},
+    {"name":"__VinylClassPatternSoundRef","order":7,"path":"scripts/__VinylClassPatternSoundRef/__VinylClassPatternSoundRef.yy",},
     {"name":"__VinylClassVoiceMulti","order":5,"path":"scripts/__VinylClassVoiceMulti/__VinylClassVoiceMulti.yy",},
     {"name":"__VinylClassEmitter","order":5,"path":"scripts/__VinylClassEmitter/__VinylClassEmitter.yy",},
     {"name":"VinylGainTargetSet","order":2,"path":"scripts/VinylGainTargetSet/VinylGainTargetSet.yy",},
