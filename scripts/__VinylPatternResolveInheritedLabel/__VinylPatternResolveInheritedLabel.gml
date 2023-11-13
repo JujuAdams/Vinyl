@@ -5,14 +5,14 @@
 
 function __VinylPatternResolveInheritedLabel(_dataStruct, _parentStruct, _inheritedArray)
 {
-    switch(is_struct(_dataStruct)? _dataStruct.labelsOption : "Unset")
+    switch(is_struct(_dataStruct)? _dataStruct.labelsOption : __VINYL_OPTION_UNSET)
     {
-        case "Unset":
+        case __VINYL_OPTION_UNSET:
             if (_parentStruct == undefined) return;
             __VinylPatternResolveInheritedLabel(_parentStruct, undefined, _inheritedArray);
         break;
         
-        case "Add":
+        case __VINYL_OPTION_ADD:
             __VinylPatternResolveInheritedLabel(_parentStruct, undefined, _inheritedArray);
             
             var _labelArray = _dataStruct.labels;
@@ -30,7 +30,7 @@ function __VinylPatternResolveInheritedLabel(_dataStruct, _parentStruct, _inheri
             }
         break;
         
-        case "Override":
+        case __VINYL_OPTION_OVERRIDE:
             array_resize(_inheritedArray, 0);
             
             var _labelArray = _dataStruct.labels;

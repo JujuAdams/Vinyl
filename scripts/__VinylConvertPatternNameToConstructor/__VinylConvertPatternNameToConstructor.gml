@@ -1,38 +1,32 @@
 // Feather disable all
-/// @param patternName
-/// @param [string=basic]
 
-function __VinylConvertPatternNameToConstructor(_patternName, _string = "basic")
+/// @param typeString
+/// @param patternName
+
+function __VinylConvertPatternNameToConstructor(_type, _patternName)
 {
-    if (_string == "asset")
+    if (_type == __VINYL_PATTERN_TYPE_SOUND)
     {
-        return __VinylClassPatternAsset;
+        return __VinylClassPatternSound;
     }
-    else if (_string == "basic")
+    else if (_type == __VINYL_PATTERN_TYPE_BASIC)
     {
         return __VinylClassPatternBasic;
     }
-    else if (_string == "shuffle")
+    else if (_type == __VINYL_PATTERN_TYPE_SHUFFLE)
     {
         return __VinylClassPatternShuffle;
     }
-    else if (_string == "queue")
+    else if (_type == __VINYL_PATTERN_TYPE_QUEUE)
     {
         return __VinylClassPatternQueue;
     }
-    else if (_string == "multi")
+    else if (_type == __VINYL_PATTERN_TYPE_MULTI)
     {
         return __VinylClassPatternMulti;
     }
     else
     {
-        if (_patternName == undefined)
-        {
-            __VinylError("Pattern type \"", _string, "\" not recognised");
-        }
-        else
-        {
-            __VinylError("Pattern type \"", _string, "\" for pattern \"", _patternName, "\" not recognised");
-        }
+        __VinylError("Pattern type \"", _type, "\" for pattern \"", _patternName, "\" not recognised");
     }
 }

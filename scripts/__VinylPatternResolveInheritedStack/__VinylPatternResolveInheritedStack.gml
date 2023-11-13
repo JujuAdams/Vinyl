@@ -5,7 +5,7 @@
 
 function __VinylPatternResolveInheritedStack(_dataStruct, _parentStruct)
 {
-    if (is_struct(_dataStruct) && (_dataStruct.stackOption != "Unset"))
+    if (is_struct(_dataStruct) && (_dataStruct.stackOption != __VINYL_OPTION_UNSET))
     {
         return {
             __option:   _dataStruct.stackOption,
@@ -21,7 +21,7 @@ function __VinylPatternResolveInheritedStack(_dataStruct, _parentStruct)
     else
     {
         return {
-            __option:   "Unset",
+            __option:   __VINYL_OPTION_UNSET,
             __value:    __VINYL_ASSET_NULL,
             __priority: 0,
         };

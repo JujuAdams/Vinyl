@@ -10,10 +10,10 @@
 
 function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption, _showLoopPoints)
 {
-    static _optionArray = ["Unset", "Override"];
+    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_OVERRIDE];
     
-    var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.loopOption;
-    var _inheriting = (_originalOption == "Unset");
+    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.loopOption;
+    var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
     
     var _resolution = __VinylPatternResolveInheritedLoop(_dataStruct, _parentStruct);
     var _loopOption = _resolution.__option;
@@ -27,7 +27,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
     ImGui.BeginDisabled(_inheriting);
         switch(_loopOption)
         {
-            case "Override":
+            case __VINYL_OPTION_OVERRIDE:
                 var _newValue = ImGui.Checkbox("##Loop " + _id, _loop);
                 
                 if (not _inheriting)
@@ -58,8 +58,8 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
     
     if (_showLoopPoints && _loop)
     {
-        var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.loopPointsOption;
-        var _inheriting = (_originalOption == "Unset");
+        var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.loopPointsOption;
+        var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
         
         var _resolution = __VinylPatternResolveInheritedLoopPoints(_dataStruct, _parentStruct);
         var _loopPointsOption = _resolution.__option;
@@ -73,7 +73,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
         ImGui.BeginDisabled(_inheriting);
             switch(_loopPointsOption)
             {
-                case "Override":
+                case __VINYL_OPTION_OVERRIDE:
                     var _newValue = variable_clone(_loopPoints);
                     ImGui.InputFloat2("seconds##Loop Points " + _id, _newValue, 0, 2);
                     

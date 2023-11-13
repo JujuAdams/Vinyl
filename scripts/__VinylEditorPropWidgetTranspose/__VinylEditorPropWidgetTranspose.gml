@@ -9,13 +9,13 @@
 
 function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
 {
-    static _optionArray = ["Unset", "Override", "Knob"];
+    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_OVERRIDE, __VINYL_OPTION_KNOB];
     
     //TODO
     var _knobArray = ["spookiness", "health factor"];
     
-    var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.transposeOption;
-    var _inheriting = (_originalOption == "Unset");
+    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.transposeOption;
+    var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
     
     var _resolution = __VinylPatternResolveInheritedTranspose(_dataStruct, _parentStruct);
     var _option       = _resolution.__option;
@@ -31,7 +31,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
     ImGui.BeginDisabled(_inheriting);
         switch(_option)
         {
-            case "Override":
+            case __VINYL_OPTION_OVERRIDE:
                 var _newValue = ImGui.SliderInt("##Transpose " + _id, _value[0], -24, 24);
                 
                 if (not _inheriting)
@@ -41,7 +41,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
                 }
             break;
             
-            case "Knob":
+            case __VINYL_OPTION_KNOB:
                 if (ImGui.BeginCombo("##Transpose Knob Combo " + _id, _knob, ImGuiComboFlags.None))
                 {
                     var _i = 0;
@@ -103,7 +103,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
         ImGui.EndCombo();
     }
     
-    if (_option == "Knob")
+    if (_option == __VINYL_OPTION_KNOB)
     {
         //TODO - Collect knob output range
         ImGui.BeginDisabled(_inheriting);

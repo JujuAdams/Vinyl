@@ -15,8 +15,16 @@ function __VinylClassDocument(_path) constructor
     __projectSoundHashDict   = {};
     __projectAudioGroupArray = [];
     
+    __Reset();
     __ProjectLoad();
     __Load(__documentPath);
+    
+    //Ensure the fallback pattern exists
+    if (not variable_struct_exists(__patternDict, __VINYL_FALLBACK_NAME))
+    {
+        var _fallback = new __VinylClassPatternFallback();
+        _fallback.__Store(self);
+    }
     
     
     
@@ -35,17 +43,20 @@ function __VinylClassDocument(_path) constructor
     {
         __dirty = false;
         
-        __data = {
-            settings: {},
-            sounds: {
-                "Default": new __VinylClassSoundNew(),
-            },
-            patterns: {},
-            labels: {},
-            stacks: {},
-            knobs: {},
-            effectChains: {},
-        };
+        __patternDict      = {};
+        __patternArray     = [];
+        __labelDict        = {};
+        __labelArray       = [];
+        __effectChainDict  = {};
+        __effectChainArray = [];
+        __knobDict         = {};
+        __knobArray        = [];
+        __stackDict        = {};
+        __stackArray       = [];
+        __animCurveDict    = {};
+        __animCurveArray   = [];
+        
+        __settings = {};
         
         __assetsCompiled = {};
     }
@@ -91,7 +102,16 @@ function __VinylClassDocument(_path) constructor
         
         __dirty = false;
         
-        var _string = json_stringify(__data, VINYL_EDITOR_DOCUMENT_SAVE_PRETTY);
+        var _outputJSON = {};
+        
+        _outputJSON.patterns     = __VinylSerializePatternArray(__patternArray    );
+        _outputJSON.labels       = __VinylSerializePatternArray(__labelArray      );
+        _outputJSON.effectChains = __VinylSerializePatternArray(__effectChainArray);
+        _outputJSON.knobs        = __VinylSerializePatternArray(__knobArray       );
+        _outputJSON.stacks       = __VinylSerializePatternArray(__stackArray      );
+        _outputJSON.settings     = variable_clone(__settings);
+        
+        var _string = json_stringify(_outputJSON, VINYL_EDITOR_DOCUMENT_SAVE_PRETTY);
         var _buffer = buffer_create(string_byte_length(_string), buffer_fixed, 1);
         buffer_write(_buffer, buffer_text, _string);
         buffer_save(_buffer, __documentPath);
@@ -100,7 +120,11 @@ function __VinylClassDocument(_path) constructor
     
     static __Load = function()
     {
-        if (file_exists(__documentPath))
+        if (not file_exists(__documentPath))
+        {
+            __VinylTrace("Warning! Couldn't find \"", __documentPath, "\"");
+        }
+        else
         {
             try
             {
@@ -110,11 +134,12 @@ function __VinylClassDocument(_path) constructor
                 
                 if (string_length(_string) <= 0) throw "File is empty";
                 
+                //Figure out whether this is encoded as base64 or in plaintext JSON
                 var _firstHundred = string_copy(_string, 1, 200);
                 if ((string_pos("{", _firstHundred) > 0) || (string_pos("[", _firstHundred) > 0))
                 {
                     __VinylTrace("Reading document \"", __documentPath, "\" in plaintext");
-                    __data = json_parse(_string);
+                    var _inputJSON = json_parse(_string);
                 }
                 else
                 {
@@ -124,21 +149,51 @@ function __VinylClassDocument(_path) constructor
                     _string = buffer_read(_buffer, buffer_text);
                     buffer_delete(_buffer);
                     
-                    __data = json_parse(_string);
+                    var _inputJSON = json_parse(_string);
                 }
                 
-                __dirty = false;
+                //Wipe everything before we get stuck in
+                __Reset();
+                
+                //Unpack patterns first using some special logic
+                __VinylDeserializePatternArray(_inputJSON.patterns, false, self);
+                
+                //Then unpack everything else
+                var _ruleArray = [
+                    { __fieldName: "labels",       __constructor: __VinylClassLabel,       },
+                    { __fieldName: "effectChains", __constructor: __VinylClassEffectChain, },
+                    { __fieldName: "knobs",        __constructor: __VinylClassKnob,        },
+                    { __fieldName: "stacks",       __constructor: __VinylClassStack,       },
+                ];
+                
+                var _i = 0;
+                repeat(array_length(_ruleArray))
+                {
+                    var _rule = _ruleArray[_i];
+                    var _constructor = _rule.__constructor;
+                    
+                    var _array = _inputJSON[$ _rule.__fieldName];
+                    var _j = 0;
+                    repeat(array_length(_array))
+                    {
+                        var _input = _array[_i];
+                        
+                        var _new = new _constructor();
+                        _new.Deserialize(_input);
+                        _new.__Store(self);
+                        
+                        ++_j;
+                    }
+                }
+                
+                //Don't forget the settings
+                __settings = variable_clone(_inputJSON.settings);
             }
             catch(_error)
             {
-                __VinylTrace("Warning! Failed to parse \"", __documentPath, "\", document will be restored to defaults");
-                __Reset();
+                __VinylTrace("Warning! Failed to parse \"", __documentPath, "\"");
+                return;
             }
-        }
-        else
-        {
-            __VinylTrace("Warning! Couldn't find \"", __documentPath, "\", document will be restored to defaults");
-            __Reset();
         }
         
         __SettingsEnsureDefaults();
@@ -166,13 +221,13 @@ function __VinylClassDocument(_path) constructor
             }
         }
         
-        _funcEnsure(__data.settings, "autogenerateMacros", __VinylGlobalSettingGet("defaultAutogenerateMacros"));
-        _funcEnsure(__data.settings, "macroScriptName", __VinylGlobalSettingGet("defaultMacroScriptName"));
+        _funcEnsure(__settings, "autogenerateMacros", __VinylGlobalSettingGet("defaultAutogenerateMacros"));
+        _funcEnsure(__settings, "macroScriptName", __VinylGlobalSettingGet("defaultMacroScriptName"));
     }
     
     static __SettingSet = function(_settingName, _value)
     {
-        var _settings = __data.settings;
+        var _settings = __settings;
         if (not variable_struct_exists(_settings, _settingName))
         {
             __VinylError("Document setting \"", _settingName, "\" not recognised");
@@ -187,7 +242,7 @@ function __VinylClassDocument(_path) constructor
     
     static __SettingGet = function(_settingName)
     {
-        var _settings = __data.settings;
+        var _settings = __settings;
         if (not variable_struct_exists(_settings, _settingName))
         {
             __VinylError("Document setting \"", _settingName, "\" not recognised");

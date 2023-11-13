@@ -69,7 +69,7 @@ function __VinylTick()
     }
     
     //Update our pools. This ensures structs in the return array get shifted over into the active array
-    static _poolAsset      = _globalData.__poolAsset;
+    static _poolAsset      = _globalData.__poolSound;
     static _poolBasic      = _globalData.__poolBasic;
     static _poolQueue      = _globalData.__poolQueue;
     static _poolMulti      = _globalData.__poolMulti;

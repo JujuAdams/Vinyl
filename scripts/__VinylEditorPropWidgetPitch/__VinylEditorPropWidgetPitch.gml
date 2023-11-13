@@ -9,13 +9,13 @@
 
 function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
 {
-    static _optionArray = ["Unset", "Multiply", "Randomize", "Knob"];
+    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_MULTIPLY, __VINYL_OPTION_RANDOMIZE, __VINYL_OPTION_KNOB];
     
     //TODO
     var _knobArray = ["spookiness", "health factor"];
     
-    var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.pitchOption;
-    var _inheriting = (_originalOption == "Unset");
+    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.pitchOption;
+    var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
     
     var _resolution = __VinylPatternResolveInheritedPitch(_dataStruct, _parentStruct);
     var _option       = _resolution.__option;
@@ -31,7 +31,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
     ImGui.BeginDisabled(_inheriting);
         switch(_option)
         {
-            case "Multiply":
+            case __VINYL_OPTION_MULTIPLY:
                 var _newValue = ImGui.SliderFloat("##Pitch " + _id, _value[0], 0, 2);
                 
                 if (not _inheriting)
@@ -41,7 +41,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
                 }
             break;
             
-            case "Randomize":
+            case __VINYL_OPTION_RANDOMIZE:
                 var _newValue = variable_clone(_value);
                 ImGui.SliderFloat2("##Pitch " + _id, _newValue, 0, 2);
                 
@@ -61,7 +61,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
                 }
             break;
             
-            case "Knob":
+            case __VINYL_OPTION_KNOB:
                 if (ImGui.BeginCombo("##Pitch Knob Combo " + _id, _knob, ImGuiComboFlags.None))
                 {
                     var _i = 0;
@@ -117,7 +117,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
                 _dataStruct.pitchOption = _optionName;
                 
                 //Set the min/max values to be identical when setting non-randomized mode
-                if (_optionName == "Multiply")
+                if (_optionName == __VINYL_OPTION_MULTIPLY)
                 {
                     _value[1] = _value[0];
                 }
@@ -129,7 +129,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
         ImGui.EndCombo();
     }
     
-    if (_option == "Knob")
+    if (_option == __VINYL_OPTION_KNOB)
     {
         //TODO - Collect knob output range
         ImGui.BeginDisabled(_inheriting);

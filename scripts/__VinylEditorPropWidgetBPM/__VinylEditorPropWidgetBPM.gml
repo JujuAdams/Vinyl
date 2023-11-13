@@ -9,10 +9,10 @@
 
 function __VinylEditorPropWidgetBPM(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
 {
-    static _optionArray = ["Unset", "Override"];
+    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_OVERRIDE];
     
-    var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.bpmOption;
-    var _inheriting = (_originalOption == "Unset");
+    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.bpmOption;
+    var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
     
     var _resolution = __VinylPatternResolveInheritedBPM(_dataStruct, _parentStruct);
     var _option     = _resolution.__option;
@@ -26,7 +26,7 @@ function __VinylEditorPropWidgetBPM(_id, _dataStruct, _parentStruct, _columnName
     ImGui.BeginDisabled(_inheriting);
         switch(_option)
         {
-            case "Override":
+            case __VINYL_OPTION_OVERRIDE:
                 var _newValue = ImGui.InputInt("##BPM " + _id, _value);
                 
                 if (not _inheriting)

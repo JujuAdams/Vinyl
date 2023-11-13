@@ -1,77 +1,54 @@
 // Feather disable all
-/// @param name
-/// @param adHoc
-/// @param child
 
-function __VinylClassPatternShuffle(_name, _adHoc, _child) : __VinylClassPatternCommon() constructor
+function __VinylClassPatternShuffle() : __VinylClassPatternCommon() constructor
 {
-    static __patternType = "shuffle";
+    static __patternType = __VINYL_PATTERN_TYPE_SHUFFLE;
     static __pool = __VinylGlobalData().__poolBasic; //No need for a dedicated shuffle voice
     
-    __name  = _name;
-    __adHoc = _adHoc;
-    __child = _child;
+    //Specific variables for sound patterns
+    __currentIndex  = 0;
+    __childrenArray = [];
     
     static toString = function()
     {
         return "<shuffle " + string(__name) + ">";
     }
     
-    static __Initialize = function(_patternData = {})
+    static __Serialize = function(_struct)
     {
-        if (!is_struct(_patternData)) __VinylError("Error in ", self, "\nPattern data must be a struct");
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_patternData, ["type", "asset", "assets", "assetsWithTag", "gain", "pitch", "transpose", "loop", "stack", "stack priority", "persistent", "effect chain", "label", "labels"]);
+        //TODO - Compress on save
         
-        //Set the gain/pitch state from the provided struct
-        var _assetArray      = _patternData[$ "assets"        ] ?? (_patternData[$ "asset"] ?? []);
-        var _tagArray        = _patternData[$ "assetsWithTag" ];
-        var _gain            = _patternData[$ "gain"          ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-        var _pitch           = _patternData[$ "pitch"         ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
-        var _transpose       = _patternData[$ "transpose"     ];
-        var _loop            = _patternData[$ "loop"          ];
-        var _persistent      = _patternData[$ "persistent"    ];
-        var _stack           = _patternData[$ "stack"         ];
-        var _stackPriority   = _patternData[$ "stack priority"] ?? 0;
-        var _effectChainName = _patternData[$ "effect chain"  ] ?? _patternData[$ "effect"];
-        var _labelNameArray  = _patternData[$ "label"         ] ?? _patternData[$ "labels"];
+        __SerializeShared(_struct);
+        _struct.childrenArray = __VinylSerializePatternArray(__childrenArray);
+    }
         
-        if (VINYL_CONFIG_DECIBEL_GAIN) _gain = __VinylGainToAmplitude(_gain);
-        if (VINYL_CONFIG_PERCENTAGE_PITCH) _pitch /= 100;
+    static __Deserialize = function(_struct, _child)
+    {
+        //TODO - Decompress on load
         
-        __InitializeAssetArray(_assetArray, _tagArray);
-        __InitializeGain(_gain);
-        __InitializePitch(_pitch);
-        __InitializeTranspose(_transpose);
-        __InitializeLoop(_loop);
-        __InitializePersistent(_persistent);
-        __InitializeStack(_stack, _stackPriority);
-        __InitializeEffectChain(_effectChainName);
-        __InitializeLabelArray(_labelNameArray);
-        
-        //Set up tracking for shuffle pattern
-        __currentIndex = 0;
+        __DeserializeShared(_struct, _child);
+        __childrenArray = __VinylDeserializePatternArray(_struct.childrenArray, true, undefined);
         
         //Initialize the currently-playing array with a random sample from the overall pattern array
-        __VinylArrayShuffle(__assetArray);
-        
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gainLo, " -> ", __gainHi, ", pitch=", __pitchLo, " -> ", __pitchHi, ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
+        __currentIndex = 0;
+        array_shuffle(__childrenArray);
     }
     
     static __PopPattern = function()
     {
-        var _pattern = __assetArray[__currentIndex];
+        var _pattern = __childrenArray[__currentIndex];
         
         ++__currentIndex;
-        if (__currentIndex >= array_length(__assetArray))
+        if (__currentIndex >= array_length(__childrenArray))
         {
             //Reshuffle
-            __VinylArrayShuffle(__assetArray);
+            array_shuffle(__childrenArray);
             
             //Ensure we don't play the same sound twice in a row
-            if (__assetArray[0] == _pattern)
+            if (__childrenArray[0] == _pattern)
             {
-                array_delete(__assetArray, 0, 1);
-                array_insert(__assetArray, ceil(array_length(__assetArray)/2), _pattern);
+                array_delete(__childrenArray, 0, 1);
+                array_insert(__childrenArray, ceil(array_length(__childrenArray)/2), _pattern);
             }
             
             __currentIndex = 0;

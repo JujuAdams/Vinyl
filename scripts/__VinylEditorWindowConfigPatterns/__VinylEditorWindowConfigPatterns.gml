@@ -5,7 +5,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
     var _tabState = _stateStruct.__tabPatterns;
     
     var _resourceTypeName = "Pattern";
-    var _resourceConstructor = __VinylClassPatternNew;
+    var _resourceConstructor = __VinylClassPatternBasic;
     var _resourceDict = __VinylDocument().__data.patterns;
     
     var _resourceNameArray = variable_struct_get_names(_resourceDict);
@@ -14,7 +14,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
     //Bit of aesthetic spacing
     ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 5);
     
-    if (ImGui.Button("Add"))
+    if (ImGui.Button(__VINYL_OPTION_ADD))
     {
         __VinylEditorSharedAdd(_resourceDict, _resourceTypeName, _resourceConstructor);
     }

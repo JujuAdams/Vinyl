@@ -9,12 +9,12 @@
 
 function __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
 {
-    static _optionArray = ["Unset", "Add", "Override"];
+    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_ADD, __VINYL_OPTION_OVERRIDE];
     
     //TODO
     var _labelArray = ["A", "B", "C"];
     
-    var _option        = (_dataStruct == undefined)? "Unset" : _dataStruct.labelsOption;
+    var _option        = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.labelsOption;
     var _originalArray = (_dataStruct == undefined)? [] : _dataStruct.labels;
     
     var _inheritedArray = [];
@@ -29,12 +29,12 @@ function __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, _columnNa
     var _string = __VinylLabelsGetAbbreviatedName(_inheritedArray);
     switch(_option)
     {
-        case "Unset":
+        case __VINYL_OPTION_UNSET:
             ImGui.Text(_string);
         break;
         
-        case "Add":
-        case "Override":
+        case __VINYL_OPTION_ADD:
+        case __VINYL_OPTION_OVERRIDE:
             if (ImGui.BeginCombo("##Label Option " + _id, _string, ImGuiComboFlags.None))
             {
                 var _i = 0;

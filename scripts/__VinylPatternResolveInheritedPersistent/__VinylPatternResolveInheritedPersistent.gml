@@ -5,7 +5,7 @@
 
 function __VinylPatternResolveInheritedPersistent(_dataStruct, _parentStruct)
 {
-    if (is_struct(_dataStruct) && (_dataStruct.persistentOption != "Unset"))
+    if (is_struct(_dataStruct) && (_dataStruct.persistentOption != __VINYL_OPTION_UNSET))
     {
         return {
             __option: _dataStruct.persistentOption,
@@ -20,7 +20,7 @@ function __VinylPatternResolveInheritedPersistent(_dataStruct, _parentStruct)
     else
     {
         return {
-            __option: "Unset",
+            __option: __VINYL_OPTION_UNSET,
             __value:  __VINYL_ASSET_NULL,
         };
     }

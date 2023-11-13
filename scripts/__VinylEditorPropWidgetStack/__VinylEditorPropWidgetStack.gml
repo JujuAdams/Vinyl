@@ -9,12 +9,12 @@
 
 function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
 {
-    static _optionArray = ["Unset", "Override"];
+    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_OVERRIDE];
     
     var _stackArray = ["Music"];
     
-    var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.stackOption;
-    var _inheriting = (_originalOption == "Unset");
+    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.stackOption;
+    var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
     
     var _resolution = __VinylPatternResolveInheritedStack(_dataStruct, _parentStruct);
     var _option   = _resolution.__option;
@@ -25,7 +25,7 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
     ImGui.TableSetColumnIndex(_columnName);
     ImGui.Text("Stack");
     
-    if (_option == "Override")
+    if (_option == __VINYL_OPTION_OVERRIDE)
     {
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 5);
         ImGui.Text("Priority");
@@ -35,7 +35,7 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
     ImGui.BeginDisabled(_inheriting);
         switch(_option)
         {
-            case "Override":
+            case __VINYL_OPTION_OVERRIDE:
                 if (ImGui.BeginCombo("##Stack " + _id, _value, ImGuiComboFlags.None))
                 {
                     var _i = 0;

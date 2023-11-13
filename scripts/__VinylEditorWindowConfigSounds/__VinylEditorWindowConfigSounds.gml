@@ -7,7 +7,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
     
     var _tabState = _stateStruct.__tabSounds;
     var _selectionHandler = _tabState.__selectionHandler;
-    _selectionHandler.__Bind(_projectSoundDictionary, __VinylClassSoundNew, undefined);
+    _selectionHandler.__Bind(_projectSoundDictionary, __VinylClassPatternSound, undefined);
     
     var _filter        = _tabState.__filter;
     var _useFilter     = _tabState.__useFilter;
@@ -128,7 +128,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
             {
                 if (ImGui.Button("Modify"))
                 {
-                    _modifiedSoundDict[$ _lastSelected] = new __VinylClassSoundNew();
+                    _modifiedSoundDict[$ _lastSelected] = new __VinylClassPatternSound();
                 }
             }
         }
@@ -157,7 +157,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                     {
                         if (not variable_struct_exists(__modifiedSoundDict, _name))
                         {
-                            __modifiedSoundDict[$ _name] = new __VinylClassSoundNew();
+                            __modifiedSoundDict[$ _name] = new __VinylClassPatternSound();
                         }
                     }));
                 }

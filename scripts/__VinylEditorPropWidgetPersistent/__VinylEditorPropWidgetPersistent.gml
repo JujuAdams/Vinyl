@@ -9,10 +9,10 @@
 
 function __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
 {
-    static _optionArray = ["Unset", "Override"];
+    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_OVERRIDE];
     
-    var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.persistentOption;
-    var _inheriting = (_originalOption == "Unset");
+    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.persistentOption;
+    var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
     
     var _resolution = __VinylPatternResolveInheritedPersistent(_dataStruct, _parentStruct);
     var _option = _resolution.__option;
@@ -26,7 +26,7 @@ function __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct, _col
     ImGui.BeginDisabled(_inheriting);
         switch(_option)
         {
-            case "Override":
+            case __VINYL_OPTION_OVERRIDE:
                 var _newValue = ImGui.Checkbox("##Persistent " + _id, _value);
                 
                 if (not _inheriting)

@@ -3,10 +3,164 @@ function __VinylClassPatternCommon()
 {
     static __effectChainDict = __VinylGlobalData().__effectChainDict;
     
-    static __Store = function()
+    __Reset();
+    
+    static __Reset = function()
     {
-        var _patternDict  = __VinylGlobalData().__patternDict;
-        var _patternArray = __VinylGlobalData().__patternArray;
+        __name                  = undefined;
+        __child                 = false;
+        
+        __gainOption            = __VINYL_OPTION_UNSET;
+        __gain                  = [1, 1];
+        __gainKnob              = __VINYL_ASSET_NULL;
+        __gainKnobOverride      = false;
+        
+        __pitchOption           = __VINYL_OPTION_UNSET;
+        __pitch                 = [1, 1];
+        __pitchKnob             = __VINYL_ASSET_NULL;
+        __pitchKnobOverride     = false;
+        
+        __loopOption            = __VINYL_OPTION_UNSET;
+        __loop                  = false;
+        
+        __labelsOption          = __VINYL_OPTION_UNSET;
+        __labelsArray           = [];
+        
+        __stackOption           = __VINYL_OPTION_UNSET;
+        __stackName             = __VINYL_ASSET_NULL;
+        __stackPriority         = undefined;
+        
+        __effectChainOption     = __VINYL_OPTION_UNSET;
+        __effectChainName       = __VINYL_ASSET_NULL;
+        
+        __persistentOption      = __VINYL_OPTION_UNSET;
+        __persistent            = undefined;
+        
+        __transposeOption       = __VINYL_OPTION_UNSET;
+        __transpose             = [0, 0];
+        __transposeKnob         = __VINYL_ASSET_NULL;
+        __transposeKnobOverride = false;
+    }
+    
+    static __SerializeShared = function(_struct)
+    {
+        _struct.type                  = __patternType;
+        _struct.name                  = __name;
+        
+        _struct.gainOption            = __gainOption;
+        _struct.gainKnob              = __gainKnob;
+        _struct.gainKnobOverride      = __gainKnobOverride;
+        _struct.gain                  = variable_clone(__gain);
+        
+        _struct.pitchOption           = __pitchOption;
+        _struct.pitchKnob             = __pitchKnob;
+        _struct.pitchKnobOverride     = __pitchKnobOverride;
+        _struct.pitch                 = variable_clone(__pitch);
+        
+        _struct.loopOption            = __loopOption;
+        _struct.loop                  = __loop;
+        
+        _struct.labelsOption          = __labelsOption;
+        _struct.labels                = variable_clone(__labelsArray);
+        
+        _struct.stackOption           = __stackOption;
+        _struct.stack                 = __stackName;
+        _struct.stackPriority         = __stackPriority;
+        
+        _struct.effectChainOption     = __effectChainOption;
+        _struct.effectChain           = __effectChainName;
+        
+        _struct.persistentOption      = __persistentOption;
+        _struct.persistent            = __persistent;
+        
+        _struct.transposeOption       = __transposeOption;
+        _struct.transposeKnob         = __transposeKnob;
+        _struct.transposeKnobOverride = __transposeKnobOverride;
+        _struct.transpose             = variable_clone(__transpose);
+    }
+    
+    static __DeserializeShared = function(_struct, _child)
+    {
+        //TODO - Decompress on load
+        
+        __child                 = _child;
+        __name                  = _struct.name;
+        
+        __gainOption            = _struct.gainOption;
+        __gainKnob              = _struct.gainKnob;
+        __gainKnobOverride      = _struct.gainKnobOverride;
+        __gain                  = variable_clone(_struct.gain);
+        
+        __pitchOption           = _struct.pitchOption;
+        __pitchKnob             = _struct.pitchKnob;
+        __pitchKnobOverride     = _struct.pitchKnobOverride;
+        __pitch                 = variable_clone(_struct.pitch);
+        
+        __loopOption            = _struct.loopOption;
+        __loop                  = _struct.loop;
+        
+        __labelsOption          = _struct.labelsOption;
+        __labelsArray           = variable_clone(_struct.labels);
+        
+        __stackOption           = _struct.stackOption;
+        __stackName             = _struct.stack;
+        __stackPriority         = _struct.stackPriority;
+        
+        __effectChainOption     = _struct.effectChainOption;
+        __effectChainName       = _struct.effectChain;
+        
+        __persistentOption      = _struct.persistentOption;
+        __persistent            = _struct.persistent;
+        
+        __transposeOption       = _struct.transposeOption;
+        __transposeKnob         = _struct.transposeKnob;
+        __transposeKnobOverride = _struct.transposeKnobOverride;
+        __transpose             = variable_clone(_struct.transpose);
+    }
+    
+    static __CopyTo = function(_new)
+    {
+        _new.__Reset();
+        
+        _new.__name                  = __name;
+        _new.__child                 = __child;
+        
+        _new.__gainOption            = __gainOption;
+        _new.__gainKnob              = __gainKnob;
+        _new.__gainKnobOverride      = __gainKnobOverride;
+        _new.__gain                  = variable_clone(__gain);
+        
+        _new.__pitchOption           = __pitchOption;
+        _new.__pitchKnob             = __pitchKnob;
+        _new.__pitchKnobOverride     = __pitchKnobOverride;
+        _new.__pitch                 = variable_clone(__pitch);
+        
+        _new.__loopOption            = __loopOption;
+        _new.__loop                  = __loop;
+        
+        _new.__labelsOption          = __labelsOption;
+        _new.__labels                = variable_clone(__labels);
+        
+        _new.__stackOption           = __stackOption;
+        _new.__stack                 = __stack;
+        _new.__stackPriority         = __stackPriority;
+        
+        _new.__effectChainOption     = __effectChainOption;
+        _new.__effectChain           = __effectChain;
+        
+        _new.__persistentOption      = __persistentOption;
+        _new.__persistent            = __persistent;
+        
+        _new.__transposeOption       = __transposeOption;
+        _new.__transposeKnob         = __transposeKnob;
+        _new.__transposeKnobOverride = __transposeKnobOverride;
+        _new.__transpose             = variable_clone(__transpose);
+    }
+    
+    static __Store = function(_document)
+    {
+        var _patternDict  = _document.__patternDict;
+        var _patternArray = _document.__patternArray;
         
         _patternDict[$ __name] = self;
         array_push(_patternArray, self);
@@ -45,14 +199,14 @@ function __VinylClassPatternCommon()
     
     static __GainSet = function(_gain)
     {
-        __gainLo = _gain;
-        __gainHi = _gain;
+        __gain[0] = _gain;
+        __gain[1] = _gain;
     }
     
     static __PitchSet = function(_pitch)
     {
-        __pitchLo = _pitch;
-        __pitchHi = _pitch;
+        __pitch[0] = _pitch;
+        __pitch[1] = _pitch;
     }
     
     static __LoopGet = function()
@@ -164,191 +318,49 @@ function __VinylClassPatternCommon()
     
     static __InitializeGain = function(_gain)
     {
-        var _knobValue = __VinylParseKnob(_gain, "gain", true, self);
-        _gain = _knobValue ?? _gain;
-        
-        if (is_numeric(_gain) && (_gain >= 0))
-        {
-            __gainLo = _gain;
-            __gainHi = _gain;
-        }
-        else if (is_array(_gain))
-        {
-            if (array_length(_gain) != 2) __VinylError("Error in ", self, "\n\"gain\" property array must have exactly two elements (length=", array_length(_gain), ")");
-            
-            __gainLo = _gain[0];
-            __gainHi = _gain[1];
-            
-            if (__gainLo > __gainHi)
-            {
-                __VinylTrace("Warning! Error in ", self, " \"gain\" property. Low gain (", __gainLo, ") is greater than high gain (", __gainHi, ")");
-                var _temp = __gainLo;
-                __gainLo = __gainHi;
-                __gainHi = _temp;
-            }
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\n\"gain\" property must be a number greater than zero, a two-element array, or a knob");
-        }
+        //__gain[0] = 1;
+        //__gain[1] = 1;
     }
     
     static __InitializePitch = function(_pitch)
     {
-        var _knobValue = __VinylParseKnob(_pitch, "pitch", true, self);
-        _pitch = _knobValue ?? _pitch;
-        
-        if (is_numeric(_pitch) && (_pitch >= 0))
-        {
-            __pitchLo = _pitch;
-            __pitchHi = _pitch;
-        }
-        else if (is_array(_pitch))
-        {
-            if (array_length(_pitch) != 2) __VinylError("Error in ", self, "\n\"pitch\" property array must have exactly two elements (length=", array_length(_pitch), ")");
-            
-            __pitchLo = _pitch[0];
-            __pitchHi = _pitch[1];
-            
-            if (__pitchLo > __pitchHi)
-            {
-                __VinylTrace("Warning! Error in ", self, " \"pitch\" property. Low pitch (", __pitchLo, ") is greater than high pitch (", __pitchHi, ")");
-                var _temp = __pitchLo;
-                __pitchLo = __pitchHi;
-                __pitchHi = _temp;
-            }
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\n\"pitch\" property must be a number greater than zero, a two-element array, or a knob");
-        }
+        //__pitch[0] = 1;
+        //__pitch[1] = 1;
     }
     
     static __InitializeTranspose = function(_transpose)
     {
-        var _knobValue = __VinylParseKnob(_transpose, "transpose", false, self);
-        __transpose = _knobValue ?? _transpose;
-        if (!is_numeric(__transpose) && !is_undefined(__transpose)) __VinylError("Error in ", self, "\n\"transpose\" property must be a number or a knob");
+        //__transpose = undefined;
     }
     
     static __InitializeLoop = function(_loop)
     {
-        __loop = _loop;
-        if (!is_bool(__loop) && !is_undefined(__loop))__VinylError("Error in ", self, "\n\"loop\" property must be either <true> or <false>");
+        //__loop = undefined;
     }
     
     static __InitializePersistent = function(_persistent)
     {
-        __persistent = _persistent;
-        if (!is_bool(__persistent) && !is_undefined(__persistent))__VinylError("Error in ", self, "\n\"persistent\" property must be either <true> or <false>");
+        //__persistent = undefined;
     }
     
     static __InitializeStack = function(_stack, _stackPriority)
     {
-        static _stackDict = __VinylGlobalData().__stackDict;
-        
-        if (is_undefined(_stack))
-        {
-            __stackName = _stack;
-        }
-        else if (is_string(_stack))
-        {
-            if (variable_struct_exists(_stackDict, _stack))
-            {
-                __stackName = _stack;
-            }
-            else
-            {
-                __VinylError("Error in ", self, "\nStack \"", _stack, "\" not found in config file");
-            }
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\n\"stack\" property must be a string");
-        }
-        
-        if (is_numeric(_stackPriority))
-        {
-            __stackPriority = _stackPriority;
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\n\"stack priority\" property must be a number");
-        }
+        //__stackName     = undefined;
+        //__stackPriority = undefined;
     }
     
     static __InitializeEffectChain = function(_effectChainName)
     {
-        if (is_string(_effectChainName) || is_undefined(_effectChainName))
-        {
-            __effectChainName = _effectChainName;
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\n\"effect chain\" property must be a name (as a string)");
-        }
+        //__effectChainName = undefined;
     }
     
     static __InitializeLoopPoints = function(_loopPoints)
     {
-        if (is_array(_loopPoints))
-        {
-             if (array_length(_loopPoints) != 2) __VinylError("Error in audio asset ", self, "\nLoop point array must have exactly two elements (length=", array_length(_loopPoints), ")");
-             if (!is_numeric(_loopPoints[0])) __VinylError("Error in ", self, "\nLoop point array elements must be numbers (index 0 datatype=", typeof(_loopPoints[0]), ")");
-             if (!is_numeric(_loopPoints[1])) __VinylError("Error in ", self, "\nLoop point array elements must be numbers (index 1 datatype=", typeof(_loopPoints[1]), ")");
-            
-             __loopPoints = _loopPoints;
-        }
-        else if (is_undefined(_loopPoints))
-        {
-            __loopPoints = _loopPoints;
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\nLoop points must be a two-element array");
-        }
+        //_loopPoints = undefined; //Otherwise must be a 2-element array
     }
     
     static __InitializeLabelArray = function(_labelNameArray)
     {
-        var _labelDict = __VinylGlobalData().__labelDict;
-        
-        __labelArray = [];
-        
-        //Process label string to extract each label name
-        if (is_string(_labelNameArray)) _labelNameArray = [_labelNameArray];
-        
-        if (is_array(_labelNameArray))
-        {
-            var _i = 0;
-            repeat(array_length(_labelNameArray))
-            {
-                var _labelName =_labelNameArray[_i];
-                
-                var _labelData = _labelDict[$ _labelName];
-                if (_labelData == undefined)
-                {
-                    if (VINYL_LAZY_LABEL_DEFINITION)
-                    {
-                        __VinylTrace("Warning! Creating new label \"", _labelName, "\" because it is missing (", self, ")");
-                        
-                        var _labelData = new __VinylClassLabel(_labelName, undefined, false);
-                        _labelData.__Initialize();
-                        _labelData.__Store();
-                        _labelData.__LabelArrayAppend(__labelArray);
-                    }
-                    else
-                    {
-                        __VinylTrace("Warning! Label \"", _labelName, "\" could not be found (", self, ")");
-                    }
-                }
-                else
-                {
-                    _labelData.__LabelArrayAppend(__labelArray);
-                }
-                
-                ++_i;
-            }
-        }
+        //__labelArray = [];
     }
 }

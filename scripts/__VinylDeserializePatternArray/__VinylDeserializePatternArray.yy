@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylSystemReadProject__OLD",
+  "name": "__VinylDeserializePatternArray",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

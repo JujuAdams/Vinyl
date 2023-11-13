@@ -15,7 +15,7 @@ function __VinylEditorSharedSelector(_id, _width, _height, _stateStruct, _resour
     
     ImGui.BeginChild(_id, _width, _height);
         
-        if (ImGui.Button("Add"))
+        if (ImGui.Button(__VINYL_OPTION_ADD))
         {
             _selectedDict = __VinylMultiselectAdd(_stateStruct, _resourceDict, _resourceName, _constructor);
         }

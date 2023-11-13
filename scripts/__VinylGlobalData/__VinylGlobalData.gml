@@ -21,7 +21,7 @@ function __VinylGlobalData()
         
         __transpose: 0,
         
-        __poolAsset:      new __VinylClassPool(91000000, __VinylClassVoiceAsset),
+        __poolSound:      new __VinylClassPool(91000000, __VinylClassVoiceSound),
         __poolBasic:      new __VinylClassPool(92000000, __VinylClassVoiceBasic),
         __poolQueue:      new __VinylClassPool(93000000, __VinylClassVoiceQueue),
         __poolMulti:      new __VinylClassPool(94000000, __VinylClassVoiceMulti),

@@ -177,10 +177,10 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating definition for ", self, ", gain=", __gainOutput*__configGainLo, " -> ", __gainOutput*__configGainHi, ", pitch=", __pitchOutput*__configPitchLo, " -> ", __pitchOutput*__configPitchHi);
     }
     
-    static __Store = function()
+    static __Store = function(_document)
     {
-        var _labelDict  = __VinylGlobalData().__labelDict;
-        var _labelArray = __VinylGlobalData().__labelArray;
+        var _labelDict  = _document.__labelDict;
+        var _labelArray = _document.__labelArray;
         
         _labelDict[$ __name] = self;
         array_push(_labelArray, self);

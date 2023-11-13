@@ -777,14 +777,14 @@ function __VinylClassVoiceCommon() constructor
         __loopOutput = (__loopLocal ?? __loopConfig) ?? false;
         
         __gainLocal          += clamp(__gainTarget - __gainLocal, -_deltaTimeFactor*__gainRate, _deltaTimeFactor*__gainRate);
-        __gainPattern         = lerp(__pattern.__gainLo, __pattern.__gainHi, __gainRandomParam);
+        __gainPattern         = lerp(__pattern.__gain[0], __pattern.__gain[1], __gainRandomParam);
         __gainParent          = (__parentVoice == undefined)? 1 : __parentVoice.__gainOutputNoLabels;
         __gainDuck           += clamp(__gainDuckTarget - __gainDuck, -_deltaTimeFactor*__gainDuckRate, _deltaTimeFactor*__gainDuckRate);
         __gainOutputNoLabels  = __gainLocal*__gainPattern*__gainParent*__gainDuck;
         __gainOutput          = __gainOutputNoLabels*__gainLabels;
         
         __pitchLocal          += clamp(__pitchTarget - __pitchLocal, -_deltaTimeFactor*__pitchRate, _deltaTimeFactor*__pitchRate);
-        __pitchPattern         = lerp(__pattern.__pitchLo, __pattern.__pitchHi, __pitchRandomParam);
+        __pitchPattern         = lerp(__pattern.__pitch[0], __pattern.__pitch[1], __pitchRandomParam);
         __pitchParent          = (__parentVoice == undefined)? 1 : __parentVoice.__pitchOutputNoLabels;
         __pitchOutputNoLabels  = __pitchLocal*__pitchPattern*__pitchParent;
         __pitchOutput          = __pitchOutputNoLabels*__pitchLabels;

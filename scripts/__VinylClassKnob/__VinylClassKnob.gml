@@ -97,10 +97,10 @@ function __VinylClassKnob(_name) constructor
         __OutputRefresh();
     }
     
-    static __Store = function()
+    static __Store = function(_document)
     {
-        var _knobDict  = __VinylGlobalData().__knobDict;
-        var _knobArray = __VinylGlobalData().__knobArray;
+        var _knobDict  = _document.__knobDict;
+        var _knobArray = _document.__knobArray;
         
         _knobDict[$ __name] = self;
         array_push(_knobArray, self);

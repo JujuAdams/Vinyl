@@ -22,7 +22,7 @@ function __VinylEditorWindowConfigKnobs(_stateStruct)
 		var _width  = ImGui.GetContentRegionAvailX();
 		var _height = ImGui.GetContentRegionAvailY();
         
-        var _selectedDict = __VinylEditorSharedSelector("Left Panel", 0.3*_width, _height, _stateStruct, "Knob", __VinylClassKnobNew, _resourceDict, _resourceNameArray);
+        var _selectedDict = __VinylEditorSharedSelector("Left Panel", 0.3*_width, _height, _stateStruct, __VINYL_OPTION_KNOB, __VinylClassKnobNew, _resourceDict, _resourceNameArray);
         
         ImGui.SameLine();
         

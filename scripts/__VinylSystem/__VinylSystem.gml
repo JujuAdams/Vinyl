@@ -15,6 +15,26 @@
 
 #macro __VINYL_ASSET_NULL  "<None>"
 
+#macro __VINYL_OPTION_UNSET      "Unset"
+#macro __VINYL_OPTION_MULTIPLY   "Multiply"
+#macro __VINYL_OPTION_RANDOMIZE  "Randomize"
+#macro __VINYL_OPTION_KNOB       "Knob"
+#macro __VINYL_OPTION_OVERRIDE   "Override"
+#macro __VINYL_OPTION_ADD        "Add"
+
+#macro __VINYL_FALLBACK_NAME  "Fallback"
+
+#macro __VINYL_PATTERN_TYPE_FALLBACK  "Fallback"
+#macro __VINYL_PATTERN_TYPE_SOUND     "Sound"
+#macro __VINYL_PATTERN_TYPE_BASIC     "Basic"
+#macro __VINYL_PATTERN_TYPE_SHUFFLE   "Shuffle"
+#macro __VINYL_PATTERN_TYPE_QUEUE     "Queue"
+#macro __VINYL_PATTERN_TYPE_MULTI     "Multi"
+
+#macro __VINYL_QUEUE_PLAY_ONCE    "Play Once"
+#macro __VINYL_QUEUE_REPEAT_ALL   "Replay Whole Queue"
+#macro __VINYL_QUEUE_REPEAT_LAST  "Replay Last Asset"
+
 enum __VINYL_SOUND_TYPE {
     __UNKNOWN,
     __WAD,
@@ -36,9 +56,9 @@ function __VinylInitialize()
     __VinylValidateMacros();
     
     var _globalData = __VinylGlobalData();
-    if (VINYL_DEBUG_LEVEL > 0) global.__vinylGlobalData = _globalData;
+    if (VINYL_DEBUG_LEVEL > 0) global.vinyl = _globalData;
     
-    _globalData.__poolAsset.__Populate(VINYL_POOL_START_SIZE);
+    _globalData.__poolSound.__Populate(VINYL_POOL_START_SIZE);
     _globalData.__poolBasic.__Populate(VINYL_POOL_START_SIZE);
     _globalData.__poolQueue.__Populate(VINYL_POOL_START_SIZE);
     _globalData.__poolMulti.__Populate(VINYL_POOL_START_SIZE);
@@ -64,9 +84,6 @@ function __VinylInitialize()
     
     _globalData.__document = new __VinylClassDocument(__VinylGetDocumentPath());
     
-    //__VinylUpdateProject();
-    //__VinylUpdateData();
-    //
     //time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylTick, [], -1));
 }
 

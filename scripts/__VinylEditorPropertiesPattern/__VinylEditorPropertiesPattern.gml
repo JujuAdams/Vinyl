@@ -10,10 +10,18 @@
 
 function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _parentAssetArrayPos, _name, _dataStruct, _constructor)
 {
-    static _rootTypeArray  = ["Basic", "Shuffle", "Queue", "Multi"];
-    static _childTypeArray = ["Asset", "Basic", "Shuffle", "Queue", "Multi"];
+    static _rootTypeArray  = [__VINYL_PATTERN_TYPE_BASIC,
+                              __VINYL_PATTERN_TYPE_SHUFFLE,
+                              __VINYL_PATTERN_TYPE_QUEUE,
+                              __VINYL_PATTERN_TYPE_MULTI];
     
-    static _queueBehaviorArray = ["Play Once", "Repeat Whole Queue", "Repeat Last Asset"];
+    static _childTypeArray = [__VINYL_PATTERN_TYPE_SOUND,
+                              __VINYL_PATTERN_TYPE_BASIC,
+                              __VINYL_PATTERN_TYPE_SHUFFLE,
+                              __VINYL_PATTERN_TYPE_QUEUE,
+                              __VINYL_PATTERN_TYPE_MULTI];
+    
+    static _queueBehaviorArray = [__VINYL_QUEUE_PLAY_ONCE, __VINYL_QUEUE_REPEAT_ALL, __VINYL_QUEUE_REPEAT_LAST];
     
     static _columnTree   = 0;
     static _columnDelete = 1;
@@ -180,9 +188,8 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
                             {
                                 //Converting from e.g. Asset to Shuffle, convert our string asset reference to a pattern
                                 var _oldAsset = _assetsArray[0];
-                                var _newAsset = new __VinylClassPatternNew();
-                                _newAsset.type = "Asset";
-                                _newAsset.assets[0] = _oldAsset;
+                                var _newAsset = new __VinylClassPatternSound();
+                                _newAsset.__sound = _oldAsset;
                                 _assetsArray[0] = _newAsset;
                             }
                         }
@@ -191,7 +198,7 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
                             if (__VinylPatternTypeGetMultiAsset(_targetType))
                             {
                                 //Converting from e.g. Multi to Basic, remove all assets
-                                array_resize(_assetsArray, 0);
+                                __VinylError("TODO");
                             }
                         }
                     }

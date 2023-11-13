@@ -9,12 +9,12 @@
 
 function __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
 {
-    static _optionArray = ["Unset", "Override"];
+    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_OVERRIDE];
     
     var _effectChainArray = ["Reverb"];
     
-    var _originalOption = (_dataStruct == undefined)? "Unset" : _dataStruct.effectChainOption;
-    var _inheriting = (_originalOption == "Unset");
+    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.effectChainOption;
+    var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
     
     var _resolution = __VinylPatternResolveInheritedEffectChain(_dataStruct, _parentStruct);
     var _option   = _resolution.__option;
@@ -28,7 +28,7 @@ function __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, _co
     ImGui.BeginDisabled(_inheriting);
         switch(_option)
         {
-            case "Override":
+            case __VINYL_OPTION_OVERRIDE:
                 if (ImGui.BeginCombo("##Effect Chain " + _id, _value, ImGuiComboFlags.None))
                 {
                     var _i = 0;
