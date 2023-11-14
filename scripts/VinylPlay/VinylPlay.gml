@@ -26,6 +26,7 @@ function VinylPlay(_sound, _loop = undefined, _gain = 1, _pitch = 1, _pan)
         if (_sound < 0)
         {
             __VinylTrace("Warning! Sound \"", _soundName, "\" (", _inSound, ") does not have an updated asset");
+            _sound = __vinylFallback;
         }
     }
     

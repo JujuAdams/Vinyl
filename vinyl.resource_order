@@ -26,6 +26,7 @@
   ],
   "ResourceOrderSettings": [
     {"name":"__VinylClassEffectChain","order":2,"path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},
+    {"name":"__vinylFallback","order":9,"path":"sounds/__vinylFallback/__vinylFallback.yy",},
     {"name":"sndBonk","order":3,"path":"sounds/sndBonk/sndBonk.yy",},
     {"name":"VinylSystemReadConfig","order":8,"path":"scripts/VinylSystemReadConfig/VinylSystemReadConfig.yy",},
     {"name":"UIButton","order":4,"path":"scripts/UIButton/UIButton.yy",},

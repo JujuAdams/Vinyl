@@ -48,6 +48,7 @@
   },
   "resources": [
     {"id":{"name":"__VinylClassEffectChain","path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},},
+    {"id":{"name":"__vinylFallback","path":"sounds/__vinylFallback/__vinylFallback.yy",},},
     {"id":{"name":"sndBonk","path":"sounds/sndBonk/sndBonk.yy",},},
     {"id":{"name":"__VinylClassPatternCommon","path":"scripts/__VinylClassPatternCommon/__VinylClassPatternCommon.yy",},},
     {"id":{"name":"VinylSystemReadConfig","path":"scripts/VinylSystemReadConfig/VinylSystemReadConfig.yy",},},

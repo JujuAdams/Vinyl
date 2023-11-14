@@ -55,10 +55,11 @@ function __VinylSystemReadProject(_projectData, _firstUpdate)
                 
                 if (not file_exists(_absolutePath))
                 {
+                    _type = __VINYL_ASSET_TYPE.__UNKNOWN;
                     __VinylTrace("Project: Warning! Could not find source audio file for \"", _assetName, "\"");
                     
-                    ++_i;
-                    continue;
+                    //Restore the original path for hashing
+                    _absolutePath = _projectDirectory + _newSoundDict[$ _assetName];
                 }
             }
             

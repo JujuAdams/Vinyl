@@ -16,6 +16,10 @@ function __VinylClassAsset(_type, _name, _absolutePath = undefined) constructor
     {
         switch(__type)
         {
+            case __VINYL_ASSET_TYPE.__UNKNOWN:
+                __soundID = __vinylFallback;
+            break;
+            
             case __VINYL_ASSET_TYPE.__WAD:
                 __soundID = asset_get_index(__name);
             break;
@@ -93,6 +97,11 @@ function __VinylClassAsset(_type, _name, _absolutePath = undefined) constructor
         
         switch(__type)
         {
+            case __VINYL_ASSET_TYPE.__UNKNOWN:
+            case __VINYL_ASSET_TYPE.__WAD:
+                //Do nothing!
+            break;
+            
             case __VINYL_ASSET_TYPE.__EXTERNAL_WAV:
                 audio_free_buffer_sound(__soundID);
                 
@@ -133,7 +142,7 @@ function __VinylClassAsset(_type, _name, _absolutePath = undefined) constructor
         __name         = _newName;
         __absolutePath = _newAbsolutePath;
         
-        if ((_oldType == __VINYL_ASSET_TYPE.__WAD) || (_newType == __VINYL_ASSET_TYPE.__EXTERNAL_OGG))
+        if ((_oldType == __VINYL_ASSET_TYPE.__UNKNOWN) || (_oldType == __VINYL_ASSET_TYPE.__WAD) || (_newType == __VINYL_ASSET_TYPE.__EXTERNAL_OGG))
         {
             //If we weren't using an external file before, reload
             //Also, if the new type is an audio stream then reload too
