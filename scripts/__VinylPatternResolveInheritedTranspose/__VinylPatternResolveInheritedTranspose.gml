@@ -5,13 +5,13 @@
 
 function __VinylPatternResolveInheritedTranspose(_dataStruct, _parentStruct)
 {
-    if (is_struct(_dataStruct) && (_dataStruct.transposeOption != __VINYL_OPTION_UNSET))
+    if (is_struct(_dataStruct) && (_dataStruct.__transposeOption != __VINYL_OPTION_UNSET))
     {
         return {
-            __option:       _dataStruct.transposeOption,
-            __knob:         _dataStruct.transposeKnob,
-            __knobOverride: _dataStruct.transposeKnobOverride,
-            __value:        _dataStruct.transpose,
+            __option:       _dataStruct.__transposeOption,
+            __knob:         _dataStruct.__transposeKnob,
+            __knobOverride: _dataStruct.__transposeKnobOverride,
+            __value:        _dataStruct.__transpose,
         };
     }
     

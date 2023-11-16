@@ -5,13 +5,13 @@
 
 function __VinylPatternResolveInheritedGain(_dataStruct, _parentStruct)
 {
-    if (is_struct(_dataStruct) && (_dataStruct.gainOption != __VINYL_OPTION_UNSET))
+    if (is_struct(_dataStruct) && (_dataStruct.__gainOption != __VINYL_OPTION_UNSET))
     {
         return {
-            __option:       _dataStruct.gainOption,
-            __knob:         _dataStruct.gainKnob,
-            __knobOverride: _dataStruct.gainKnobOverride,
-            __value:        _dataStruct.gain,
+            __option:       _dataStruct.__gainOption,
+            __knob:         _dataStruct.__gainKnob,
+            __knobOverride: _dataStruct.__gainKnobOverride,
+            __value:        _dataStruct.__gain,
         };
     }
     

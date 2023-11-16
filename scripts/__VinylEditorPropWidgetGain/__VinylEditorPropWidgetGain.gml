@@ -14,7 +14,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
     //TODO
     var _knobArray = ["spookiness", "health factor"];
     
-    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.gainOption;
+    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__gainOption;
     var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
     
     var _resolution = __VinylPatternResolveInheritedGain(_dataStruct, _parentStruct);
@@ -72,7 +72,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
                         {
                             if (not _inheriting)
                             {
-                                _dataStruct.gainKnob = _knobName;
+                                _dataStruct.__gainKnob = _knobName;
                             }
                         }
                         
@@ -114,7 +114,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
             var _optionName = _optionArray[_i];
             if (ImGui.Selectable(_optionName + "##Gain Option " + _id, (_originalOption == _optionName)))
             {
-                _dataStruct.gainOption = _optionName;
+                _dataStruct.__gainOption = _optionName;
                 
                 //Set the min/max values to be identical when setting non-randomized mode
                 if (_optionName == __VINYL_OPTION_MULTIPLY)
@@ -137,7 +137,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
             
             if (not _inheriting)
             {
-                _dataStruct.gainKnobOverride = _newOverride;
+                _dataStruct.__gainKnobOverride = _newOverride;
             }
         ImGui.EndDisabled();
     }

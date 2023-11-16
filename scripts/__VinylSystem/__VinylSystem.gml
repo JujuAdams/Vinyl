@@ -16,6 +16,7 @@
 #macro __VINYL_ASSET_NULL  "<None>"
 
 #macro __VINYL_OPTION_UNSET      "Unset"
+#macro __VINYL_OPTION_SET        "Set"
 #macro __VINYL_OPTION_MULTIPLY   "Multiply"
 #macro __VINYL_OPTION_RANDOMIZE  "Randomize"
 #macro __VINYL_OPTION_KNOB       "Knob"

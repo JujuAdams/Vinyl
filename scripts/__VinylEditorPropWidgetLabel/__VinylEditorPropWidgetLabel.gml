@@ -14,8 +14,8 @@ function __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, _columnNa
     //TODO
     var _labelArray = ["A", "B", "C"];
     
-    var _option        = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.labelsOption;
-    var _originalArray = (_dataStruct == undefined)? [] : _dataStruct.labels;
+    var _option        = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__labelsOption;
+    var _originalArray = (_dataStruct == undefined)? [] : _dataStruct.__labelsArray;
     
     var _inheritedArray = [];
     __VinylPatternResolveInheritedLabel(_dataStruct, _parentStruct, _inheritedArray);
@@ -78,7 +78,7 @@ function __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, _columnNa
             var _optionName = _optionArray[_i];
             if (ImGui.Selectable(_optionName + "##Label Option " + _id, (_option == _optionName)))
             {
-                _dataStruct.labelsOption = _optionName;
+                _dataStruct.__labelsOption = _optionName;
             }
             
             ++_i;

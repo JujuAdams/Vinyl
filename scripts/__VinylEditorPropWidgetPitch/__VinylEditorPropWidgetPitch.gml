@@ -14,7 +14,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
     //TODO
     var _knobArray = ["spookiness", "health factor"];
     
-    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.pitchOption;
+    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__pitchOption;
     var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
     
     var _resolution = __VinylPatternResolveInheritedPitch(_dataStruct, _parentStruct);
@@ -72,7 +72,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
                         {
                             if (not _inheriting)
                             {
-                                _dataStruct.pitchKnob = _knobName;
+                                _dataStruct.__pitchKnob = _knobName;
                             }
                         }
                         
@@ -114,7 +114,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
             var _optionName = _optionArray[_i];
             if (ImGui.Selectable(_optionName + "##Pitch Option " + _id, (_originalOption == _optionName)))
             {
-                _dataStruct.pitchOption = _optionName;
+                _dataStruct.__pitchOption = _optionName;
                 
                 //Set the min/max values to be identical when setting non-randomized mode
                 if (_optionName == __VINYL_OPTION_MULTIPLY)
@@ -138,7 +138,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
             
             if (not _inheriting)
             {
-                _dataStruct.pitchKnobOverride = _newOverride;
+                _dataStruct.__pitchKnobOverride = _newOverride;
             }
         ImGui.EndDisabled();
     }

@@ -11,7 +11,7 @@ function __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct, _col
 {
     static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_OVERRIDE];
     
-    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.persistentOption;
+    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__persistentOption;
     var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
     
     var _resolution = __VinylPatternResolveInheritedPersistent(_dataStruct, _parentStruct);
@@ -31,7 +31,7 @@ function __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct, _col
                 
                 if (not _inheriting)
                 {
-                    _dataStruct.persistent = _newValue;
+                    _dataStruct.__persistent = _newValue;
                 }
             break;
         }
@@ -52,7 +52,7 @@ function __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct, _col
                 var _optionName = _optionArray[_i];
                 if (ImGui.Selectable(_optionName + "##Persistent Option " + _id, (_originalOption == _optionName)))
                 {
-                    _dataStruct.persistentOption = _optionName;
+                    _dataStruct.__persistentOption = _optionName;
                 }
                         
                 ++_i;

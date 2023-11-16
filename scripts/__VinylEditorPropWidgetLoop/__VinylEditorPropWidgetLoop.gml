@@ -12,7 +12,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
 {
     static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_OVERRIDE];
     
-    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.loopOption;
+    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__loopOption;
     var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
     
     var _resolution = __VinylPatternResolveInheritedLoop(_dataStruct, _parentStruct);
@@ -32,7 +32,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
                 
                 if (not _inheriting)
                 {
-                    _dataStruct.loop = _newValue;
+                    _dataStruct.__loop = _newValue;
                 }
             break;
         }
@@ -47,7 +47,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
             var _optionName = _optionArray[_i];
             if (ImGui.Selectable(_optionName + "##Loop Option " + _id, (_originalOption == _optionName)))
             {
-                _dataStruct.loopOption = _optionName;
+                _dataStruct.__loopOption = _optionName;
             }
                         
             ++_i;
@@ -58,7 +58,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
     
     if (_showLoopPoints && _loop)
     {
-        var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.loopPointsOption;
+        var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__loopPointsOption;
         var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
         
         var _resolution = __VinylPatternResolveInheritedLoopPoints(_dataStruct, _parentStruct);
@@ -104,7 +104,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
                 var _optionName = _optionArray[_i];
                 if (ImGui.Selectable(_optionName + "##Loop Points Option " + _id, (_originalOption == _optionName)))
                 {
-                    _dataStruct.loopPointsOption = _optionName;
+                    _dataStruct.__loopPointsOption = _optionName;
                 }
                         
                 ++_i;

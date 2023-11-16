@@ -5,13 +5,13 @@
 
 function __VinylPatternResolveInheritedPitch(_dataStruct, _parentStruct)
 {
-    if (is_struct(_dataStruct) && (_dataStruct.pitchOption != __VINYL_OPTION_UNSET))
+    if (is_struct(_dataStruct) && (_dataStruct.__pitchOption != __VINYL_OPTION_UNSET))
     {
         return {
-            __option:       _dataStruct.pitchOption,
-            __knob:         _dataStruct.pitchKnob,
-            __knobOverride: _dataStruct.pitchKnobOverride,
-            __value:        _dataStruct.pitch,
+            __option:       _dataStruct.__pitchOption,
+            __knob:         _dataStruct.__pitchKnob,
+            __knobOverride: _dataStruct.__pitchKnobOverride,
+            __value:        _dataStruct.__pitch,
         };
     }
     

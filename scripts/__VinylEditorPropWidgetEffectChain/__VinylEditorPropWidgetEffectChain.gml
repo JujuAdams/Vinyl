@@ -13,7 +13,7 @@ function __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, _co
     
     var _effectChainArray = ["Reverb"];
     
-    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.effectChainOption;
+    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__effectChainOption;
     var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
     
     var _resolution = __VinylPatternResolveInheritedEffectChain(_dataStruct, _parentStruct);
@@ -39,7 +39,7 @@ function __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, _co
                         {
                             if (not _inheriting)
                             {
-                                _dataStruct.effectChain = _effectChainName;
+                                _dataStruct.__effectChainName = _effectChainName;
                             }
                         }
                         
@@ -61,7 +61,7 @@ function __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, _co
             var _optionName = _optionArray[_i];
             if (ImGui.Selectable(_optionName + "##Effect Chain Option " + _id, (_originalOption == _optionName)))
             {
-                _dataStruct.effectChainOption = _optionName;
+                _dataStruct.__effectChainOption = _optionName;
             }
                         
             ++_i;

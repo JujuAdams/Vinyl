@@ -14,7 +14,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
     //TODO
     var _knobArray = ["spookiness", "health factor"];
     
-    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.transposeOption;
+    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__transposeOption;
     var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
     
     var _resolution = __VinylPatternResolveInheritedTranspose(_dataStruct, _parentStruct);
@@ -52,7 +52,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
                         {
                             if (not _inheriting)
                             {
-                                _dataStruct.transposeKnob = _knobName;
+                                _dataStruct.__transposeKnob = _knobName;
                             }
                         }
                         
@@ -94,7 +94,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
             var _optionName = _optionArray[_i];
             if (ImGui.Selectable(_optionName + "##Transpose Option " + _id, (_originalOption == _optionName)))
             {
-                _dataStruct.transposeOption = _optionName;
+                _dataStruct.__transposeOption = _optionName;
             }
                         
             ++_i;
@@ -112,7 +112,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
             
             if (not _inheriting)
             {
-                _dataStruct.transposeKnobOverride = _newOverride;
+                _dataStruct.__transposeKnobOverride = _newOverride;
             }
         ImGui.EndDisabled();
     }

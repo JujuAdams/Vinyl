@@ -5,11 +5,11 @@
 
 function __VinylPatternResolveInheritedPersistent(_dataStruct, _parentStruct)
 {
-    if (is_struct(_dataStruct) && (_dataStruct.persistentOption != __VINYL_OPTION_UNSET))
+    if (is_struct(_dataStruct) && (_dataStruct.__persistentOption != __VINYL_OPTION_UNSET))
     {
         return {
-            __option: _dataStruct.persistentOption,
-            __value:  _dataStruct.persistent,
+            __option: _dataStruct.__persistentOption,
+            __value:  _dataStruct.__persistent,
         };
     }
     

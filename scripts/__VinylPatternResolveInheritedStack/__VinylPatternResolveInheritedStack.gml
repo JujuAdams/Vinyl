@@ -5,12 +5,12 @@
 
 function __VinylPatternResolveInheritedStack(_dataStruct, _parentStruct)
 {
-    if (is_struct(_dataStruct) && (_dataStruct.stackOption != __VINYL_OPTION_UNSET))
+    if (is_struct(_dataStruct) && (_dataStruct.__stackOption != __VINYL_OPTION_UNSET))
     {
         return {
-            __option:   _dataStruct.stackOption,
-            __value:    _dataStruct.stack,
-            __priority: _dataStruct.stackPriority,
+            __option:   _dataStruct.__stackOption,
+            __value:    _dataStruct.__stack,
+            __priority: _dataStruct.__stackPriority,
         };
     }
     

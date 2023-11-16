@@ -5,11 +5,11 @@
 
 function __VinylPatternResolveInheritedLoopPoints(_dataStruct, _parentStruct)
 {
-    if (is_struct(_dataStruct) && (_dataStruct.loopOption != __VINYL_OPTION_UNSET))
+    if (is_struct(_dataStruct) && (_dataStruct.__loopOption != __VINYL_OPTION_UNSET))
     {
         return {
-            __option: _dataStruct.loopOption,
-            __value:  _dataStruct.loopPoints,
+            __option: _dataStruct.__loopOption,
+            __value:  _dataStruct.__loopPoints,
         };
     }
     

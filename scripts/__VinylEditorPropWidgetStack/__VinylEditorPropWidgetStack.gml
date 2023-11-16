@@ -13,7 +13,7 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
     
     var _stackArray = ["Music"];
     
-    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.stackOption;
+    var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__stackOption;
     var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
     
     var _resolution = __VinylPatternResolveInheritedStack(_dataStruct, _parentStruct);
@@ -46,7 +46,7 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
                         {
                             if (not _inheriting)
                             {
-                                _dataStruct.stack = _stackName;
+                                _dataStruct.__stack = _stackName;
                             }
                         }
                         
@@ -75,7 +75,7 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
             var _optionName = _optionArray[_i];
             if (ImGui.Selectable(_optionName + "##Stack Option " + _id, (_originalOption == _optionName)))
             {
-                _dataStruct.stackOption = _optionName;
+                _dataStruct.__stackOption = _optionName;
             }
                         
             ++_i;

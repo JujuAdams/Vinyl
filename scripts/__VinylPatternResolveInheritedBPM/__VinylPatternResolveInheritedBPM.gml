@@ -5,11 +5,11 @@
 
 function __VinylPatternResolveInheritedBPM(_dataStruct, _parentStruct)
 {
-    if (is_struct(_dataStruct) && (_dataStruct.bpmOption != __VINYL_OPTION_UNSET))
+    if (is_struct(_dataStruct) && (_dataStruct.__bpmOption != __VINYL_OPTION_UNSET))
     {
         return {
-            __option: _dataStruct.bpmOption,
-            __value:  _dataStruct.bpm,
+            __option: _dataStruct.__bpmOption,
+            __value:  _dataStruct.__bpm,
         };
     }
     

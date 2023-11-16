@@ -139,14 +139,14 @@ function __VinylClassPatternCommon()
         _new.__loop                  = __loop;
         
         _new.__labelsOption          = __labelsOption;
-        _new.__labels                = variable_clone(__labels);
+        _new.__labelsArray           = variable_clone(__labelsArray);
         
         _new.__stackOption           = __stackOption;
-        _new.__stack                 = __stack;
+        _new.__stackName             = __stackName;
         _new.__stackPriority         = __stackPriority;
         
         _new.__effectChainOption     = __effectChainOption;
-        _new.__effectChain           = __effectChain;
+        _new.__effectChainName       = __effectChainName;
         
         _new.__persistentOption      = __persistentOption;
         _new.__persistent            = __persistent;

@@ -5,11 +5,11 @@
 
 function __VinylPatternResolveInheritedEffectChain(_dataStruct, _parentStruct)
 {
-    if (is_struct(_dataStruct) && (_dataStruct.effectChainOption != __VINYL_OPTION_UNSET))
+    if (is_struct(_dataStruct) && (_dataStruct.__effectChainOption != __VINYL_OPTION_UNSET))
     {
         return {
-            __option: _dataStruct.effectChainOption,
-            __value:  _dataStruct.effectChain,
+            __option: _dataStruct.__effectChainOption,
+            __value:  _dataStruct.__effectChainName,
         };
     }
     
