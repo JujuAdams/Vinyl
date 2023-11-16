@@ -1,12 +1,16 @@
 // Feather disable all
 
-function __VinylClassPatternSound() : __VinylClassPatternCommon() constructor
+/// @param name
+
+function __VinylClassPatternSound(_name) : __VinylClassPatternCommon() constructor
 {
     static __patternType = __VINYL_PATTERN_TYPE_SOUND;
     static __pool = __VinylGlobalData().__poolSound;
     
+    __name = _name;
+    
     //Specific variables for sound patterns
-    __sound            = undefined;
+    __sound            = asset_get_index(__name);
     __loopPointsOption = __VINYL_OPTION_UNSET;
     __loopPoints       = undefined;
     __bpmOption        = __VINYL_OPTION_UNSET;
@@ -48,7 +52,7 @@ function __VinylClassPatternSound() : __VinylClassPatternCommon() constructor
         
         __DeserializeShared(_struct, _child);
         
-        __sound            = asset_get_index(_struct.__sound);
+        __sound            = asset_get_index(_struct.sound);
         __loopPointsOption = _struct.loopPointsOption;
         __loopPoints       = variable_clone(_struct.loopPoints);
         __bpmOption        = _struct.bpmOption;

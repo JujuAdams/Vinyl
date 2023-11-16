@@ -194,11 +194,7 @@ function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _paren
                         {
                             if (not __VinylPatternTypeGetMultiAsset(_targetType))
                             {
-                                //Converting from e.g. Asset to Shuffle, convert our string asset reference to a pattern
-                                var _oldAsset = _assetsArray[0];
-                                var _newAsset = new __VinylClassPatternSound();
-                                _newAsset.__sound = _oldAsset;
-                                _assetsArray[0] = _newAsset;
+                                __VinylError("TODO");
                             }
                         }
                         else

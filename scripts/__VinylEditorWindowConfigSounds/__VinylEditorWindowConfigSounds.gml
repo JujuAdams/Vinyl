@@ -157,7 +157,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
             {
                 if (ImGui.Button("Modify"))
                 {
-                    _modifiedSoundDict[$ _lastSelected] = new __VinylClassPatternSound();
+                    _modifiedSoundDict[$ _lastSelected] = new __VinylClassPatternSound(_lastSelected);
                 }
             }
         }
@@ -189,7 +189,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                     {
                         if (not variable_struct_exists(__modifiedSoundDict, _name))
                         {
-                            __modifiedSoundDict[$ _name] = new __VinylClassPatternSound();
+                            __modifiedSoundDict[$ _name] = new __VinylClassPatternSound(_name);
                         }
                     }));
                 }

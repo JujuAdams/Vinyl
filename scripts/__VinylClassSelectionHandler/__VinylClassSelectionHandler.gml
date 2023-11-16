@@ -135,7 +135,7 @@ function __VinylClassSelectionHandler() constructor
         }
     }
     
-    static __Add = function(_name)
+    static __Add = function()
     {
         var _sourceStruct = __sourceStructWeakRef.ref;
         
@@ -147,8 +147,9 @@ function __VinylClassSelectionHandler() constructor
             _newName = __resourceTypeName + " " + string(_index);
         }
         
-        _sourceStruct[$ _newName] = new __constructor();
+        _sourceStruct[$ _newName] = new __constructor(_newName);
         __Select(_newName, true);
+        return _new;
     }
     
     static __Delete = function()

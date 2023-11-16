@@ -7,7 +7,14 @@ function __VinylPatternGet(_key)
     
     var _patternDict = __VinylDocument().__patternDict;
     
+    //TODO - Optimise this lmao
+    if (is_numeric(_key))
+    {
+        _key = audio_get_name(_key);
+    }
+    
     var _pattern = _patternDict[$ _key];
+    
     if (_pattern == undefined)
     {
         _pattern = _patternDict[$ __VINYL_FALLBACK_NAME];
