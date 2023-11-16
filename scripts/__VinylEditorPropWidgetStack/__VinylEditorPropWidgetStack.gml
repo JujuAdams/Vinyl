@@ -36,6 +36,7 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
         switch(_option)
         {
             case __VINYL_OPTION_SET:
+                ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                 if (ImGui.BeginCombo("##Stack " + _id, _value, ImGuiComboFlags.None))
                 {
                     var _i = 0;
@@ -67,6 +68,7 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
     ImGui.EndDisabled();
     
     ImGui.TableSetColumnIndex(_columnOption);
+    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnOption));
     if (ImGui.BeginCombo("##Stack Option " + _id, _originalOption, ImGuiComboFlags.None))
     {
         var _i = 0;

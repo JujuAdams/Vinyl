@@ -35,6 +35,7 @@ function __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, _columnNa
         
         case __VINYL_OPTION_ADD:
         case __VINYL_OPTION_OVERRIDE:
+            ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
             if (ImGui.BeginCombo("##Label Option " + _id, _string, ImGuiComboFlags.None))
             {
                 var _i = 0;
@@ -70,6 +71,7 @@ function __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, _columnNa
     }
     
     ImGui.TableSetColumnIndex(_columnOption);
+    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnOption));
     if (ImGui.BeginCombo("##Label Option Combo " + _id, _option, ImGuiComboFlags.None))
     {
         var _i = 0;

@@ -32,6 +32,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
         switch(_option)
         {
             case __VINYL_OPTION_SET:
+                ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                 var _newValue = ImGui.SliderInt("##Transpose " + _id, _value[0], -24, 24);
                 
                 if (not _inheriting)
@@ -42,6 +43,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
             break;
             
             case __VINYL_OPTION_KNOB:
+                ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                 if (ImGui.BeginCombo("##Transpose Knob Combo " + _id, _knob, ImGuiComboFlags.None))
                 {
                     var _i = 0;
@@ -64,6 +66,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
                 
                 ImGui.BeginDisabled(not _knobOverride || _inheriting);
                     var _newValue = variable_clone(_value);
+                    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                     ImGui.SliderInt2("##Transpose " + _id, _newValue, -24, 24);
                     
                     if ((not _inheriting) && (not array_equals(_value, _newValue)))
@@ -86,6 +89,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
     ImGui.EndDisabled();
     
     ImGui.TableSetColumnIndex(_columnOption);
+    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnOption));
     if (ImGui.BeginCombo("##Transpose Option " + _id, _originalOption, ImGuiComboFlags.None))
     {
         var _i = 0;
@@ -108,7 +112,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
         //TODO - Collect knob output range
         ImGui.BeginDisabled(_inheriting);
             ImGui.TableSetColumnIndex(_columnOption);
-            var _newOverride = ImGui.Checkbox("Override Range##" + _id, _knobOverride);
+            var _newOverride = ImGui.Checkbox("Override Range##Transpose Override Checkbox " + _id, _knobOverride);
             
             if (not _inheriting)
             {

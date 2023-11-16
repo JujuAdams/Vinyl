@@ -39,6 +39,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
     ImGui.EndDisabled();
     
     ImGui.TableSetColumnIndex(_columnOption);
+    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnOption));
     if (ImGui.BeginCombo("##Loop Option " + _id, _originalOption, ImGuiComboFlags.None))
     {
         var _i = 0;
@@ -96,6 +97,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
         ImGui.EndDisabled();
     
         ImGui.TableSetColumnIndex(_columnOption);
+        ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnOption));
         if (ImGui.BeginCombo("##Loop Points Option " + _id, _originalOption, ImGuiComboFlags.None))
         {
             var _i = 0;

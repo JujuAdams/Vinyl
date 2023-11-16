@@ -27,6 +27,7 @@ function __VinylEditorPropWidgetBPM(_id, _dataStruct, _parentStruct, _columnName
         switch(_option)
         {
             case __VINYL_OPTION_SET:
+                ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                 var _newValue = ImGui.InputInt("##BPM " + _id, _value);
                 
                 if (not _inheriting)
@@ -38,6 +39,7 @@ function __VinylEditorPropWidgetBPM(_id, _dataStruct, _parentStruct, _columnName
     ImGui.EndDisabled();
     
     ImGui.TableSetColumnIndex(_columnOption);
+    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnOption));
     if (ImGui.BeginCombo("##BPM Option " + _id, _originalOption, ImGuiComboFlags.None))
     {
         var _i = 0;

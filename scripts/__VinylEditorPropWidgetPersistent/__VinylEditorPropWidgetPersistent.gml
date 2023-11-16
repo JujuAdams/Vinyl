@@ -44,6 +44,7 @@ function __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct, _col
     }
     else
     {
+        ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnOption));
         if (ImGui.BeginCombo("##Persistent Option " + _id, _originalOption, ImGuiComboFlags.None))
         {
             var _i = 0;

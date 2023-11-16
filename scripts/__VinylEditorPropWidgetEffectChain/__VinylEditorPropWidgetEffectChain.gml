@@ -29,6 +29,7 @@ function __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, _co
         switch(_option)
         {
             case __VINYL_OPTION_SET:
+                ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                 if (ImGui.BeginCombo("##Effect Chain " + _id, _value, ImGuiComboFlags.None))
                 {
                     var _i = 0;
@@ -53,6 +54,7 @@ function __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, _co
     ImGui.EndDisabled();
     
     ImGui.TableSetColumnIndex(_columnOption);
+    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnOption));
     if (ImGui.BeginCombo("##Effect Chain Option " + _id, _originalOption, ImGuiComboFlags.None))
     {
         var _i = 0;

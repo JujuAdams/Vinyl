@@ -32,6 +32,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
         switch(_option)
         {
             case __VINYL_OPTION_MULTIPLY:
+                ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                 var _newValue = ImGui.SliderFloat("##Pitch " + _id, _value[0], 0, 2);
                 
                 if (not _inheriting)
@@ -43,6 +44,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
             
             case __VINYL_OPTION_RANDOMIZE:
                 var _newValue = variable_clone(_value);
+                ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                 ImGui.SliderFloat2("##Pitch " + _id, _newValue, 0, 2);
                 
                 if ((not _inheriting) && (not array_equals(_value, _newValue)))
@@ -62,6 +64,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
             break;
             
             case __VINYL_OPTION_KNOB:
+                ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                 if (ImGui.BeginCombo("##Pitch Knob Combo " + _id, _knob, ImGuiComboFlags.None))
                 {
                     var _i = 0;
@@ -84,6 +87,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
                 
                 ImGui.BeginDisabled(not _knobOverride || _inheriting);
                     var _newValue = variable_clone(_value);
+                    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                     ImGui.SliderFloat2("##Pitch " + _id, _newValue, 0, 2);
                     
                     if ((not _inheriting) && (not array_equals(_value, _newValue)))
@@ -106,6 +110,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
     ImGui.EndDisabled();
     
     ImGui.TableSetColumnIndex(_columnOption);
+    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnOption));
     if (ImGui.BeginCombo("##Pitch Option " + _id, _originalOption, ImGuiComboFlags.None))
     {
         var _i = 0;
@@ -134,7 +139,7 @@ function __VinylEditorPropWidgetPitch(_id, _dataStruct, _parentStruct, _columnNa
         //TODO - Collect knob output range
         ImGui.BeginDisabled(_inheriting);
             ImGui.TableSetColumnIndex(_columnOption);
-            var _newOverride = ImGui.Checkbox("Override Range##" + _id, _knobOverride);
+            var _newOverride = ImGui.Checkbox("Override Range##Pitch Override Checkbox " + _id, _knobOverride);
             
             if (not _inheriting)
             {

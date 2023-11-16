@@ -32,6 +32,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
         switch(_option)
         {
             case __VINYL_OPTION_MULTIPLY:
+                ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                 var _newValue = ImGui.SliderFloat("##Gain " + _id, _value[0], 0, 2);
                 
                 if (not _inheriting)
@@ -43,6 +44,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
             
             case __VINYL_OPTION_RANDOMIZE:
                 var _newValue = variable_clone(_value);
+                ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                 ImGui.SliderFloat2("##Gain " + _id, _newValue, 0, 2);
                 
                 if ((not _inheriting) && (not array_equals(_value, _newValue)))
@@ -62,6 +64,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
             break;
             
             case __VINYL_OPTION_KNOB:
+                ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                 if (ImGui.BeginCombo("##Gain Knob Combo " + _id, _knob, ImGuiComboFlags.None))
                 {
                     var _i = 0;
@@ -84,6 +87,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
                 
                 ImGui.BeginDisabled(not _knobOverride || _inheriting);
                     var _newValue = variable_clone(_value);
+                    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                     ImGui.SliderFloat2("##Gain " + _id, _newValue, 0, 2);
                     
                     if ((not _inheriting) && (not array_equals(_value, _newValue)))
@@ -106,6 +110,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
     ImGui.EndDisabled();
     
     ImGui.TableSetColumnIndex(_columnOption);
+    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnOption));
     if (ImGui.BeginCombo("##Gain Option " + _id, _originalOption, ImGuiComboFlags.None))
     {
         var _i = 0;
@@ -133,7 +138,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
     {
         ImGui.BeginDisabled(_inheriting);
             ImGui.TableSetColumnIndex(_columnOption);
-            var _newOverride = ImGui.Checkbox("Override Range##" + _id, _knobOverride);
+            var _newOverride = ImGui.Checkbox("Override Range##Gain Override Checkbox " + _id, _knobOverride);
             
             if (not _inheriting)
             {
