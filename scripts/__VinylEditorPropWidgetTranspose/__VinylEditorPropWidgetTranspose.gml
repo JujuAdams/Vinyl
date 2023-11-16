@@ -9,7 +9,7 @@
 
 function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
 {
-    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_OVERRIDE, __VINYL_OPTION_KNOB];
+    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_SET, __VINYL_OPTION_KNOB];
     
     //TODO
     var _knobArray = ["spookiness", "health factor"];
@@ -31,7 +31,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
     ImGui.BeginDisabled(_inheriting);
         switch(_option)
         {
-            case __VINYL_OPTION_OVERRIDE:
+            case __VINYL_OPTION_SET:
                 var _newValue = ImGui.SliderInt("##Transpose " + _id, _value[0], -24, 24);
                 
                 if (not _inheriting)

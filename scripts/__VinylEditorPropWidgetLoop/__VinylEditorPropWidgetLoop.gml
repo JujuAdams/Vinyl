@@ -10,7 +10,7 @@
 
 function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption, _showLoopPoints)
 {
-    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_OVERRIDE];
+    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_SET];
     
     var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__loopOption;
     var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
@@ -27,7 +27,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
     ImGui.BeginDisabled(_inheriting);
         switch(_loopOption)
         {
-            case __VINYL_OPTION_OVERRIDE:
+            case __VINYL_OPTION_SET:
                 var _newValue = ImGui.Checkbox("##Loop " + _id, _loop);
                 
                 if (not _inheriting)
@@ -73,7 +73,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
         ImGui.BeginDisabled(_inheriting);
             switch(_loopPointsOption)
             {
-                case __VINYL_OPTION_OVERRIDE:
+                case __VINYL_OPTION_SET:
                     var _newValue = variable_clone(_loopPoints);
                     ImGui.InputFloat2("seconds##Loop Points " + _id, _newValue, 0, 2);
                     

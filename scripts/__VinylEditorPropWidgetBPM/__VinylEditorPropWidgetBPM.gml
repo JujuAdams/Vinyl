@@ -9,7 +9,7 @@
 
 function __VinylEditorPropWidgetBPM(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
 {
-    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_OVERRIDE];
+    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_SET];
     
     var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__bpmOption;
     var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
@@ -26,7 +26,7 @@ function __VinylEditorPropWidgetBPM(_id, _dataStruct, _parentStruct, _columnName
     ImGui.BeginDisabled(_inheriting);
         switch(_option)
         {
-            case __VINYL_OPTION_OVERRIDE:
+            case __VINYL_OPTION_SET:
                 var _newValue = ImGui.InputInt("##BPM " + _id, _value);
                 
                 if (not _inheriting)

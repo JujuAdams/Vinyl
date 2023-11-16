@@ -9,7 +9,7 @@
 
 function __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
 {
-    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_OVERRIDE];
+    static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_SET];
     
     var _effectChainArray = ["Reverb"];
     
@@ -28,7 +28,7 @@ function __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, _co
     ImGui.BeginDisabled(_inheriting);
         switch(_option)
         {
-            case __VINYL_OPTION_OVERRIDE:
+            case __VINYL_OPTION_SET:
                 if (ImGui.BeginCombo("##Effect Chain " + _id, _value, ImGuiComboFlags.None))
                 {
                     var _i = 0;
