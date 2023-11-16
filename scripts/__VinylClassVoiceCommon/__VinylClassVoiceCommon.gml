@@ -715,7 +715,7 @@ function __VinylClassVoiceCommon() constructor
                 ++_i;
             }
             
-            if (_stackName != undefined)
+            if (_stackName != __VINYL_ASSET_NULL)
             {
                 var _stack = __stackDict[$ _stackName];
                 if (_stack != undefined)
@@ -789,22 +789,22 @@ function __VinylClassVoiceCommon() constructor
         __pitchOutputNoLabels  = __pitchLocal*__pitchPattern*__pitchParent;
         __pitchOutput          = __pitchOutputNoLabels*__pitchLabels;
         
-        __transposePattern = __pattern.__transpose;
-        __transposeParent  = (__parentVoice == undefined)? undefined : __parentVoice.__transposeOutputNoLabels;
-        
-        if ((__transposeLocal != undefined) || (__transposePattern != undefined) || (__transposeParent != undefined))
-        {
-            __transposeOutputNoLabels = (__transposeLocal ?? 0) + (__transposePattern ?? 0) + (__transposeParent ?? 0);
-        }
-        else
-        {
-            __transposeOutputNoLabels = undefined;
-        }
-        
-        if ((__transposeOutputNoLabels != undefined) || (__transposeLabels != undefined))
-        {
-            __pitchOutput *= __VinylSemitoneToPitch((__transposeOutputNoLabels ?? 0) + (__transposeLabels ?? 0) + __globalData.__transpose);
-        }
+        //__transposePattern = __pattern.__transpose;
+        //__transposeParent  = (__parentVoice == undefined)? undefined : __parentVoice.__transposeOutputNoLabels;
+        //
+        //if ((__transposeLocal != undefined) || (__transposePattern != undefined) || (__transposeParent != undefined))
+        //{
+        //    __transposeOutputNoLabels = (__transposeLocal ?? 0) + (__transposePattern ?? 0) + (__transposeParent ?? 0);
+        //}
+        //else
+        //{
+        //    __transposeOutputNoLabels = undefined;
+        //}
+        //
+        //if ((__transposeOutputNoLabels != undefined) || (__transposeLabels != undefined))
+        //{
+        //    __pitchOutput *= __VinylSemitoneToPitch((__transposeOutputNoLabels ?? 0) + (__transposeLabels ?? 0) + __globalData.__transpose);
+        //}
         
         if (__usingPanEmitter && (__vinylEmitter != undefined)) __vinylEmitter.__UpdatePosition();
     }

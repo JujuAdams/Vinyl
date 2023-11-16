@@ -13,15 +13,15 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
     
     //For easier reading, all the widgets are handled by parsing this array!
     static _displayWidgetArray = [
-        { __name: "Gain",         __function: __VinylEditorPropWidgetGain,        __apply: ["gainOption", "gainKnob", "gainKnobOverride", "gain"], },
-        { __name: "Pitch",        __function: __VinylEditorPropWidgetPitch,       __apply: ["pitchOption", "pitchKnob", "pitchKnobOverride", "pitch"], },
-        { __name: "Loop",         __function: __VinylEditorPropWidgetLoop,        __apply: ["loopOption", "loop", "loopPointsOption", "loopPoints"], },
-        { __name: "Labels",       __function: __VinylEditorPropWidgetLabel,       __apply: ["labelsOption", "labels"], },
-        { __name: "Stack",        __function: __VinylEditorPropWidgetStack,       __apply: ["stackOption", "stack", "stackPriority"], },
-        { __name: "Effect Chain", __function: __VinylEditorPropWidgetEffectChain, __apply: ["effectChainOption", "effectChain"], },
-        { __name: "Persistent",   __function: __VinylEditorPropWidgetPersistent,  __apply: ["persistentOption", "persistent"], },
-        { __name: "BPM",          __function: __VinylEditorPropWidgetBPM,         __apply: ["bpmOption", "bpm"], },
-        { __name: "Transpose",    __function: __VinylEditorPropWidgetTranspose,   __apply: ["transposeOption", "transposeKnob", "transposeKnobOverride", "transpose"], },
+        { __name: "Gain",         __function: __VinylEditorPropWidgetGain,        __apply: ["__gainOption", "__gainKnob", "__gainKnobOverride", "__gain"], },
+        { __name: "Pitch",        __function: __VinylEditorPropWidgetPitch,       __apply: ["__pitchOption", "__pitchKnob", "__pitchKnobOverride", "__pitch"], },
+        { __name: "Loop",         __function: __VinylEditorPropWidgetLoop,        __apply: ["__loopOption", "__loop", "__loopPointsOption", "__loopPoints"], },
+        { __name: "Labels",       __function: __VinylEditorPropWidgetLabel,       __apply: ["__labelsOption", "__labels"], },
+        { __name: "Stack",        __function: __VinylEditorPropWidgetStack,       __apply: ["__stackOption", "__stack", "__stackPriority"], },
+        { __name: "Effect Chain", __function: __VinylEditorPropWidgetEffectChain, __apply: ["__effectChainOption", "__effectChain"], },
+        { __name: "Persistent",   __function: __VinylEditorPropWidgetPersistent,  __apply: ["__persistentOption", "__persistent"], },
+        { __name: "BPM",          __function: __VinylEditorPropWidgetBPM,         __apply: ["__bpmOption", "__bpm"], },
+        { __name: "Transpose",    __function: __VinylEditorPropWidgetTranspose,   __apply: ["__transposeOption", "__transposeKnob", "__transposeKnobOverride", "__transpose"], },
     ];
     
     ImGui.BeginDisabled(not _modified);

@@ -4,8 +4,12 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     static __patternType = __VINYL_PATTERN_TYPE_FALLBACK;
     static __pool = __VinylGlobalData().__poolSound;
     
-    static __name  = __VINYL_FALLBACK_NAME;
-    static __child = false;
+    __name = __VINYL_FALLBACK_NAME;
+    
+    __loopPointsOption = __VINYL_OPTION_UNSET;
+    __loopPoints       = undefined;
+    __bpmOption        = __VINYL_OPTION_UNSET;
+    __bpm              = VINYL_DEFAULT_BPM;
     
     static toString = function()
     {

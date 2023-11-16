@@ -15,7 +15,7 @@ function __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, _columnNa
     var _labelArray = ["A", "B", "C"];
     
     var _option        = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__labelsOption;
-    var _originalArray = (_dataStruct == undefined)? [] : _dataStruct.__labelsArray;
+    var _originalArray = (_dataStruct == undefined)? [] : _dataStruct.__labelArray;
     
     var _inheritedArray = [];
     __VinylPatternResolveInheritedLabel(_dataStruct, _parentStruct, _inheritedArray);

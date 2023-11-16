@@ -16,19 +16,6 @@
 
 function VinylPlay(_sound, _loop = undefined, _gain = 1, _pitch = 1, _pan)
 {
-    static _checkForRemapping = __VinylGetLiveUpdateEnabled();
-    if (_checkForRemapping && is_numeric(_sound))
-    {
-        var _inSound = _sound;
-        var _soundName = audio_get_name(_sound);
-        _sound = VinylAssetGetIndex(_soundName);
-        
-        if (_sound < 0)
-        {
-            __VinylTrace("Warning! Sound \"", _soundName, "\" (", _inSound, ") does not have an updated asset");
-        }
-    }
-    
     var _voice = __VinylPatternGet(_sound).__Play(_sound, undefined, undefined, _sound, _loop, _gain, _pitch, _pan);
     return _voice.__id;
 }

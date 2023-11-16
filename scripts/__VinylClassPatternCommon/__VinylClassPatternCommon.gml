@@ -24,7 +24,7 @@ function __VinylClassPatternCommon()
         __loop                  = false;
         
         __labelsOption          = __VINYL_OPTION_UNSET;
-        __labelsArray           = [];
+        __labelArray            = [];
         
         __stackOption           = __VINYL_OPTION_UNSET;
         __stackName             = __VINYL_ASSET_NULL;
@@ -61,7 +61,7 @@ function __VinylClassPatternCommon()
         _struct.loop                  = __loop;
         
         _struct.labelsOption          = __labelsOption;
-        _struct.labels                = variable_clone(__labelsArray);
+        _struct.labels                = variable_clone(__labelArray);
         
         _struct.stackOption           = __stackOption;
         _struct.stack                 = __stackName;
@@ -100,7 +100,7 @@ function __VinylClassPatternCommon()
         __loop                  = _struct.loop;
         
         __labelsOption          = _struct.labelsOption;
-        __labelsArray           = variable_clone(_struct.labels);
+        __labelArray           = variable_clone(_struct.labels);
         
         __stackOption           = _struct.stackOption;
         __stackName             = _struct.stack;
@@ -139,7 +139,7 @@ function __VinylClassPatternCommon()
         _new.__loop                  = __loop;
         
         _new.__labelsOption          = __labelsOption;
-        _new.__labelsArray           = variable_clone(__labelsArray);
+        _new.__labelArray            = variable_clone(__labelArray);
         
         _new.__stackOption           = __stackOption;
         _new.__stackName             = __stackName;
@@ -168,16 +168,16 @@ function __VinylClassPatternCommon()
     
     static __Migrate = function()
     {
-        if (__effectChainName == undefined)
+        if (__effectChainName == __VINYL_ASSET_NULL)
         {
             var _j = 0;
             repeat(array_length(__labelArray))
             {
                 var _labelStruct = __labelArray[_j];
                 
-                if (_labelStruct.__effectChainName != undefined)
+                if (_labelStruct.__effectChainName != __VINYL_ASSET_NULL)
                 {
-                    if (__effectChainName == undefined)
+                    if (__effectChainName == __VINYL_ASSET_NULL)
                     {
                         __effectChainName = _labelStruct.__effectChainName;
                     }
@@ -190,7 +190,7 @@ function __VinylClassPatternCommon()
                 ++_j;
             }
         
-            if ((__effectChainName != undefined) && !variable_struct_exists(__effectChainDict, __effectChainName))
+            if ((__effectChainName != __VINYL_ASSET_NULL) && !variable_struct_exists(__effectChainDict, __effectChainName))
             {
                 __VinylError("Effect chain \"", __effectChainName, "\" for ", self, " doesn't exist");
             }

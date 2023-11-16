@@ -134,7 +134,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 20);
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
         
-        if (_selectedCount == 0)
+        if ((_selectedCount == 0) || (_lastSelected == __VINYL_FALLBACK_NAME))
         {
             //Nothing's here! Disable the "modify" checkbox
             ImGui.BeginDisabled(true);

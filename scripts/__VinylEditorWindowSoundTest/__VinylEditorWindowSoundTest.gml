@@ -30,9 +30,9 @@ function __VinylEditorWindowSoundTest(_stateStruct)
                         repeat(array_length(_projectSoundArray))
                         {
                             var _name = _projectSoundArray[_i];
-                            if (ImGui.ArrowButton("##", ImGuiDir.Right))
+                            if (ImGui.ArrowButton("##Play " + _name, ImGuiDir.Right))
                             {
-                                VinylPlay(_name);
+                                VinylPlaySimple(asset_get_index(_name));
                             }
                             ImGui.SameLine();
                             ImGui.Text(_name);
@@ -56,7 +56,7 @@ function __VinylEditorWindowSoundTest(_stateStruct)
                         var _name = _resourceNameArray[_i];
                         if (ImGui.ArrowButton("##", ImGuiDir.Right))
                         {
-                            VinylPlay(_name);
+                            VinylPlaySimple(asset_get_index(_name));
                         }
                         ImGui.SameLine();
                         ImGui.Text(_name);

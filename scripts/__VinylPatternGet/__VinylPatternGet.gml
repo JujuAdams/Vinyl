@@ -3,9 +3,15 @@
 
 function __VinylPatternGet(_key)
 {
-    static _globalData = __VinylGlobalData();
     if (_key == undefined) return undefined;
     
-    var _patternDict = _globalData.__patternDict; //Don't use a static here because this struct can be recreated
-    return _patternDict[$ _key] ?? _patternDict.fallback;
+    var _patternDict = __VinylDocument().__patternDict;
+    
+    var _pattern = _patternDict[$ _key];
+    if (_pattern == undefined)
+    {
+        _pattern = _patternDict[$ __VINYL_FALLBACK_NAME];
+    }
+    
+    return _pattern;
 }

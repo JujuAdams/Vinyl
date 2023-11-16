@@ -15,7 +15,7 @@ function __VinylPatternResolveInheritedLabel(_dataStruct, _parentStruct, _inheri
         case __VINYL_OPTION_ADD:
             __VinylPatternResolveInheritedLabel(_parentStruct, undefined, _inheritedArray);
             
-            var _labelArray = _dataStruct.__labelsArray;
+            var _labelArray = _dataStruct.__labelArray;
             var _i = 0;
             repeat(array_length(_labelArray))
             {
@@ -33,7 +33,7 @@ function __VinylPatternResolveInheritedLabel(_dataStruct, _parentStruct, _inheri
         case __VINYL_OPTION_OVERRIDE:
             array_resize(_inheritedArray, 0);
             
-            var _labelArray = _dataStruct.__labelsArray;
+            var _labelArray = _dataStruct.__labelArray;
             array_copy(_inheritedArray, 0, _labelArray, 0, array_length(_labelArray));
         break;
     }
