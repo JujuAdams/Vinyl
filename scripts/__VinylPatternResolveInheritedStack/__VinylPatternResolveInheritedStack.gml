@@ -9,7 +9,7 @@ function __VinylPatternResolveInheritedStack(_dataStruct, _parentStruct)
     {
         return {
             __option:   _dataStruct.__stackOption,
-            __value:    _dataStruct.__stack,
+            __value:    _dataStruct.__stackName,
             __priority: _dataStruct.__stackPriority,
         };
     }

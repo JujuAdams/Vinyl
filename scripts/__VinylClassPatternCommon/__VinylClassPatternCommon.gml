@@ -28,7 +28,7 @@ function __VinylClassPatternCommon()
         
         __stackOption           = __VINYL_OPTION_UNSET;
         __stackName             = __VINYL_ASSET_NULL;
-        __stackPriority         = undefined;
+        __stackPriority         = 0;
         
         __effectChainOption     = __VINYL_OPTION_UNSET;
         __effectChainName       = __VINYL_ASSET_NULL;

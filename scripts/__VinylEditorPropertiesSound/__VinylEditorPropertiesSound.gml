@@ -17,7 +17,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
         { __name: "Pitch",        __function: __VinylEditorPropWidgetPitch,       __apply: ["__pitchOption", "__pitchKnob", "__pitchKnobOverride", "__pitch"], },
         { __name: "Loop",         __function: __VinylEditorPropWidgetLoop,        __apply: ["__loopOption", "__loop", "__loopPointsOption", "__loopPoints"], },
         { __name: "Labels",       __function: __VinylEditorPropWidgetLabel,       __apply: ["__labelsOption", "__labels"], },
-        { __name: "Stack",        __function: __VinylEditorPropWidgetStack,       __apply: ["__stackOption", "__stack", "__stackPriority"], },
+        { __name: "Stack",        __function: __VinylEditorPropWidgetStack,       __apply: ["__stackOption", "__stackName", "__stackPriority"], },
         { __name: "Effect Chain", __function: __VinylEditorPropWidgetEffectChain, __apply: ["__effectChainOption", "__effectChain"], },
         { __name: "Persistent",   __function: __VinylEditorPropWidgetPersistent,  __apply: ["__persistentOption", "__persistent"], },
         { __name: "BPM",          __function: __VinylEditorPropWidgetBPM,         __apply: ["__bpmOption", "__bpm"], },

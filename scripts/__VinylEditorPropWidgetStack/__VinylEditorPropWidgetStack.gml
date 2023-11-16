@@ -47,7 +47,7 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
                         {
                             if (not _inheriting)
                             {
-                                _dataStruct.__stack = _stackName;
+                                _dataStruct.__stackName = _stackName;
                             }
                         }
                         
