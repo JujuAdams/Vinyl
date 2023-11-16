@@ -4,13 +4,28 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
 {
     var _showApply = (_modified && (_selectionHandler.__GetSelectedCount() > 1));
     
+    //Fallback handling
     if (not _modified)
     {
         _soundData = _defaultData;
         _defaultData = undefined;
     }
     
+    //For easier reading, all the widgets are handled by parsing this array!
+    static _displayWidgetArray = [
+        //{ __name: "Gain",         __function: __VinylEditorPropWidgetGain,        __apply: ["gainOption", "gainKnob", "gainKnobOverride", "gain"], },
+        //{ __name: "Pitch",        __function: __VinylEditorPropWidgetPitch,       __apply: ["pitchOption", "pitchKnob", "pitchKnobOverride", "pitch"], },
+        //{ __name: "Loop",         __function: __VinylEditorPropWidgetLoop,        __apply: ["loopOption", "loop", "loopPointsOption", "loopPoints"], },
+        //{ __name: "Labels",       __function: __VinylEditorPropWidgetLabel,       __apply: ["labelsOption", "labels"], },
+        //{ __name: "Stack",        __function: __VinylEditorPropWidgetStack,       __apply: ["stackOption", "stack", "stackPriority"], },
+        //{ __name: "Effect Chain", __function: __VinylEditorPropWidgetEffectChain, __apply: ["effectChainOption", "effectChain"], },
+        //{ __name: "Persistent",   __function: __VinylEditorPropWidgetPersistent,  __apply: ["persistentOption", "persistent"], },
+        //{ __name: "BPM",          __function: __VinylEditorPropWidgetBPM,         __apply: ["bpmOption", "bpm"], },
+        //{ __name: "Transpose",    __function: __VinylEditorPropWidgetTranspose,   __apply: ["transposeOption", "transposeKnob", "transposeKnobOverride", "transpose"], },
+    ];
+    
     ImGui.BeginDisabled(not _modified);
+        
         //Now do the actual table
         if (ImGui.BeginTable("Vinyl Properties", 4, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 280))
         {
@@ -20,105 +35,26 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
             ImGui.TableSetupColumn("Value",  ImGuiTableColumnFlags.WidthStretch, 1);
             ImGui.TableSetupColumn("Apply",  ImGuiTableColumnFlags.WidthFixed, 80);
             
-            __VinylEditorPropWidgetGain(_soundName, _soundData, _defaultData, 0, 2, 1);
-            
-            if (_showApply)
+            //Make aaaall the widgets
+            var _i = 0;
+            repeat(array_length(_displayWidgetArray))
             {
-                ImGui.TableSetColumnIndex(3);
-                if (ImGui.Button("Apply##Gain"))
+                var _displayWidget = _displayWidgetArray[_i];
+                
+                _displayWidget.__function();
+                if (_showApply)
                 {
-                    __VinylEditorApply(_soundData, _selectionHandler, _modifiedSoundDict, ["gainOption", "gainKnob", "gainKnobOverride", "gain"]);
+                    ImGui.TableSetColumnIndex(3);
+                    if (ImGui.Button("Apply##" + _displayWidget.__name))
+                    {
+                        __VinylEditorApply(_soundData, _selectionHandler, _modifiedSoundDict, _displayWidget.__apply);
+                    }
                 }
+                
+                ++_i;
             }
             
-            __VinylEditorPropWidgetPitch(_soundName, _soundData, _defaultData, 0, 2, 1);
-            
-            if (_showApply)
-            {
-                ImGui.TableSetColumnIndex(3);
-                if (ImGui.Button("Apply##Pitch"))
-                {
-                    __VinylEditorApply(_soundData, _selectionHandler, _modifiedSoundDict, ["pitchOption", "pitchKnob", "pitchKnobOverride", "pitch"]);
-                }
-            }
-            
-            __VinylEditorPropWidgetLoop(_soundName, _soundData, _defaultData, 0, 2, 1, true);
-            
-            if (_showApply)
-            {
-                ImGui.TableSetColumnIndex(3);
-                if (ImGui.Button("Apply##Loop"))
-                {
-                    __VinylEditorApply(_soundData, _selectionHandler, _modifiedSoundDict, ["loopOption", "loop", "loopPointsOption", "loopPoints"]);
-                }
-            }
-            
-            __VinylEditorPropWidgetLabel(_soundName, _soundData, _defaultData, 0, 2, 1);
-            
-            if (_showApply)
-            {
-                ImGui.TableSetColumnIndex(3);
-                if (ImGui.Button("Apply##Labels"))
-                {
-                    __VinylEditorApply(_soundData, _selectionHandler, _modifiedSoundDict, ["labelsOption", "labels"]);
-                }
-            }
-            
-            __VinylEditorPropWidgetStack(_soundName, _soundData, _defaultData, 0, 2, 1);
-            
-            if (_showApply)
-            {
-                ImGui.TableSetColumnIndex(3);
-                if (ImGui.Button("Apply##Stack"))
-                {
-                    __VinylEditorApply(_soundData, _selectionHandler, _modifiedSoundDict, ["stackOption", "stack", "stackPriority"]);
-                }
-            }
-            
-            __VinylEditorPropWidgetEffectChain(_soundName, _soundData, _defaultData, 0, 2, 1);
-            
-            if (_showApply)
-            {
-                ImGui.TableSetColumnIndex(3);
-                if (ImGui.Button("Apply##Effect Chain"))
-                {
-                    __VinylEditorApply(_soundData, _selectionHandler, _modifiedSoundDict, ["effectChainOption", "effectChain"]);
-                }
-            }
-            
-            __VinylEditorPropWidgetPersistent(_soundName, _soundData, _defaultData, 0, 2, 1);
-            
-            if (_showApply)
-            {
-                ImGui.TableSetColumnIndex(3);
-                if (ImGui.Button("Apply##Persistent"))
-                {
-                    __VinylEditorApply(_soundData, _selectionHandler, _modifiedSoundDict, ["persistentOption", "persistent"]);
-                }
-            }
-            
-            __VinylEditorPropWidgetBPM(_soundName, _soundData, _defaultData, 0, 2, 1);
-            
-            if (_showApply)
-            {
-                ImGui.TableSetColumnIndex(3);
-                if (ImGui.Button("Apply##BPM"))
-                {
-                    __VinylEditorApply(_soundData, _selectionHandler, _modifiedSoundDict, ["bpmOption", "bpm"]);
-                }
-            }
-            
-            __VinylEditorPropWidgetTranspose(_soundName, _soundData, _defaultData, 0, 2, 1);
-            
-            if (_showApply)
-            {
-                ImGui.TableSetColumnIndex(3);
-                if (ImGui.Button("Apply##Transpose"))
-                {
-                    __VinylEditorApply(_soundData, _selectionHandler, _modifiedSoundDict, ["transposeOption", "transposeKnob", "transposeKnobOverride", "transpose"]);
-                }
-            }
-            
+            //Top it off with an extra Apply All button if we're in multi-selection mode
             if (_showApply)
             {
                 ImGui.TableNextRow();
@@ -131,13 +67,14 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
             
             ImGui.EndTable();
         }
+        
     ImGui.EndDisabled();
     
     ImGui.NewLine();
     
+    //All the GameMaker properties
     if (_soundName != __VINYL_FALLBACK_NAME)
     {
-        //Now do the actual table
         if (ImGui.BeginTable("GameMaker Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 140))
         {
             var _projectSound = __VinylDocument().__projectSoundDictionary[$ _soundName];
@@ -147,6 +84,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
             ImGui.TableSetupColumn("Compiled", ImGuiTableColumnFlags.WidthStretch, 2);
             ImGui.TableHeadersRow();
             
+            //Audio group drop-down
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
             ImGui.Text("Audio Group");
@@ -174,6 +112,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
                 ImGui.EndCombo();
             }
             
+            //Audio group that we extracted from the project file(s)
             ImGui.TableSetColumnIndex(1);
             if (_projectSound.__compiledValues)
             {
@@ -191,6 +130,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
                 ImGui.Text("Added after compile");
             }
             
+            //WAV compression option
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
             if (ImGui.RadioButton("WAV", (_projectSound.__attributes == 0)))
@@ -211,6 +151,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
                 ImGui.EndDisabled();
             }
             
+            //OGG variant 1 compression option
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
             if (ImGui.RadioButton("OGG - Decompress during playback", (_projectSound.__attributes == 1)))
@@ -231,6 +172,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
                 ImGui.EndDisabled();
             }
         
+            //OGG variant 2 compression option
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
             if (ImGui.RadioButton("OGG - Decompress when loaded and store in RAM", (_projectSound.__attributes == 2)))
@@ -251,6 +193,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
                 ImGui.EndDisabled();
             }
             
+            //OGG variant 3 compression option
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
             if (ImGui.RadioButton("OGG - Stream from disk (exports .ogg files)", (_projectSound.__attributes == 3)))
@@ -271,6 +214,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
                 ImGui.EndDisabled();
             }
             
+            //We're done!
             ImGui.EndTable();
         }
     }
