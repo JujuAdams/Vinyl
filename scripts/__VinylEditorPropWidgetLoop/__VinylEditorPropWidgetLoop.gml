@@ -6,9 +6,8 @@
 /// @param columnName
 /// @param columnValue
 /// @param columnOption
-/// @param showLoopPoints
 
-function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption, _showLoopPoints)
+function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
 {
     static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_SET];
     
@@ -32,7 +31,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
                 
                 if (not _inheriting)
                 {
-                    _dataStruct.__loop = _newValue;
+                    __VinylDocument().__Write(_dataStruct, "__loop", _newValue);
                 }
             break;
         }
@@ -48,7 +47,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
             var _optionName = _optionArray[_i];
             if (ImGui.Selectable(_optionName + "##Loop Option " + _id, (_originalOption == _optionName)))
             {
-                _dataStruct.__loopOption = _optionName;
+                __VinylDocument().__Write(_dataStruct, "__loopOption", _optionName);
             }
                         
             ++_i;
@@ -57,7 +56,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
         ImGui.EndCombo();
     }
     
-    if (_showLoopPoints && _loop)
+    if (is_instanceof(_dataStruct, __VinylClassPatternSound) && _loop)
     {
         var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__loopPointsOption;
         var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
@@ -78,19 +77,17 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
                     var _newValue = variable_clone(_loopPoints);
                     ImGui.InputFloat2("seconds##Loop Points " + _id, _newValue, 0, 2);
                     
-                    if ((not _inheriting) && (not array_equals(_loopPoints, _newValue)))
+                    if (not _inheriting)
                     {
-                        if (_newValue[0] < _newValue[1])
+                        //If the two values have inverted then swap 'em over
+                        if (_newValue[0] > _newValue[1])
                         {
-                            _loopPoints[0] = _newValue[0];
-                            _loopPoints[1] = _newValue[1];
+                            var _temp = _newValue[0];
+                            _newValue[0] = _newValue[1];
+                            _newValue[1] = _temp;
                         }
-                        else
-                        {
-                            //If the two values have inverted, correct that
-                            _loopPoints[0] = _newValue[1];
-                            _loopPoints[1] = _newValue[0];
-                        }
+                        
+                        __VinylDocument().__Write(_dataStruct, "__loopPoints", _newValue);
                     }
                 break;
             }
@@ -106,7 +103,7 @@ function __VinylEditorPropWidgetLoop(_id, _dataStruct, _parentStruct, _columnNam
                 var _optionName = _optionArray[_i];
                 if (ImGui.Selectable(_optionName + "##Loop Points Option " + _id, (_originalOption == _optionName)))
                 {
-                    _dataStruct.__loopPointsOption = _optionName;
+                    __VinylDocument().__Write(_dataStruct, "__loopPointsOption", _optionName);
                 }
                         
                 ++_i;

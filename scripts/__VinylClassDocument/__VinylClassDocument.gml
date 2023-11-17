@@ -41,7 +41,8 @@ function __VinylClassDocument(_path) constructor
     
     static __Reset = function()
     {
-        __dirty = false;
+        __dirty     = false;
+        __dirtyTime = -infinity;
         
         __patternDict      = {};
         __patternArray     = [];
@@ -91,8 +92,21 @@ function __VinylClassDocument(_path) constructor
     
     static __Save = function(_immediate = false)
     {
-        __dirty = true;
+        if (not __dirty)
+        {
+            __dirty     = true;
+            __dirtyTime = current_time;
+        }
+        
         if (_immediate) __SaveNow();
+    }
+    
+    static __SaveIfNecessary = function()
+    {
+        if (not __dirty) return;
+        if (current_time - __dirtyTime < 5000) return;
+        
+        __SaveNow();
     }
     
     static __SaveNow = function()
@@ -100,7 +114,8 @@ function __VinylClassDocument(_path) constructor
         if (not __VinylGetEditorEnabled()) return;
         if (not __dirty) return;
         
-        __dirty = false;
+        __dirty     = false;
+        __dirtyTime = -infinity;
         
         var _outputJSON = {};
         

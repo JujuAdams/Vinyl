@@ -35,5 +35,5 @@ function __VinylEditorUpdate()
     }
     
     __VinylGlobalSettingsSaveNow();
-    __VinylDocument().__SaveNow();
+    __VinylDocument().__SaveIfNecessary();
 }

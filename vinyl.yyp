@@ -78,6 +78,7 @@
     {"id":{"name":"__VinylClassPatternMulti","path":"scripts/__VinylClassPatternMulti/__VinylClassPatternMulti.yy",},},
     {"id":{"name":"sndBleep1","path":"sounds/sndBleep1/sndBleep1.yy",},},
     {"id":{"name":"__VinylDocument","path":"scripts/__VinylDocument/__VinylDocument.yy",},},
+    {"id":{"name":"vinyl_controller_object","path":"objects/vinyl_controller_object/vinyl_controller_object.yy",},},
     {"id":{"name":"VinylGlobalTransposeGet","path":"scripts/VinylGlobalTransposeGet/VinylGlobalTransposeGet.yy",},},
     {"id":{"name":"VinylStopAllNonPersistent","path":"scripts/VinylStopAllNonPersistent/VinylStopAllNonPersistent.yy",},},
     {"id":{"name":"__VinylGlobalSettingsGetPath","path":"scripts/__VinylGlobalSettingsGetPath/__VinylGlobalSettingsGetPath.yy",},},

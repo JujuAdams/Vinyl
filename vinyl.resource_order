@@ -53,6 +53,7 @@
     {"name":"__VinylClassPatternMulti","order":6,"path":"scripts/__VinylClassPatternMulti/__VinylClassPatternMulti.yy",},
     {"name":"sndBleep1","order":11,"path":"sounds/sndBleep1/sndBleep1.yy",},
     {"name":"__VinylDocument","order":20,"path":"scripts/__VinylDocument/__VinylDocument.yy",},
+    {"name":"vinyl_controller_object","order":27,"path":"objects/vinyl_controller_object/vinyl_controller_object.yy",},
     {"name":"VinylGlobalTransposeGet","order":1,"path":"scripts/VinylGlobalTransposeGet/VinylGlobalTransposeGet.yy",},
     {"name":"VinylStopAllNonPersistent","order":2,"path":"scripts/VinylStopAllNonPersistent/VinylStopAllNonPersistent.yy",},
     {"name":"__VinylGlobalSettingsGetPath","order":4,"path":"scripts/__VinylGlobalSettingsGetPath/__VinylGlobalSettingsGetPath.yy",},

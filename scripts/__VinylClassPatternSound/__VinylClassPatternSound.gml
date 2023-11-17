@@ -12,7 +12,7 @@ function __VinylClassPatternSound(_name) : __VinylClassPatternCommon() construct
     //Specific variables for sound patterns
     __sound            = asset_get_index(__name);
     __loopPointsOption = __VINYL_OPTION_UNSET;
-    __loopPoints       = undefined;
+    __loopPoints       = [0, 0];
     __bpmOption        = __VINYL_OPTION_UNSET;
     __bpm              = VINYL_DEFAULT_BPM;
     

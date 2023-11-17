@@ -1,0 +1,1 @@
+__VinylDocument().__SaveNow();

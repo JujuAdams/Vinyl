@@ -7,7 +7,7 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     __name = __VINYL_FALLBACK_NAME;
     
     __loopPointsOption = __VINYL_OPTION_UNSET;
-    __loopPoints       = undefined;
+    __loopPoints       = [0, 0];
     __bpmOption        = __VINYL_OPTION_UNSET;
     __bpm              = VINYL_DEFAULT_BPM;
     
