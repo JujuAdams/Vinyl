@@ -37,8 +37,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
                 
                 if (not _inheriting)
                 {
-                    _value[0] = _newValue;
-                    _value[1] = _newValue;
+                    __VinylDocument().__Write(_dataStruct, "__transpose", [_newValue, _newValue]);
                 }
             break;
             
@@ -54,7 +53,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
                         {
                             if (not _inheriting)
                             {
-                                _dataStruct.__transposeKnob = _knobName;
+                                __VinylDocument().__Write(_dataStruct, "__transposeKnob", _knobName);
                             }
                         }
                         
@@ -71,17 +70,15 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
                     
                     if ((not _inheriting) && (not array_equals(_value, _newValue)))
                     {
-                        if (_newValue[0] < _newValue[1])
+                        //If the two values have inverted then swap 'em over
+                        if (_newValue[0] > _newValue[1])
                         {
-                            _value[0] = _newValue[0];
-                            _value[1] = _newValue[1];
+                            var _temp = _newValue[0];
+                            _newValue[0] = _newValue[1];
+                            _newValue[1] = _temp;
                         }
-                        else
-                        {
-                            //If the two values have inverted, correct that
-                            _value[0] = _newValue[1];
-                            _value[1] = _newValue[0];
-                        }
+                        
+                        __VinylDocument().__Write(_dataStruct, "__transpose", _newValue);
                     }
                 ImGui.EndDisabled();
             break;
@@ -98,7 +95,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
             var _optionName = _optionArray[_i];
             if (ImGui.Selectable(_optionName + "##Transpose Option " + _id, (_originalOption == _optionName)))
             {
-                _dataStruct.__transposeOption = _optionName;
+                __VinylDocument().__Write(_dataStruct, "__transposeOption", _optionName);
             }
                         
             ++_i;
@@ -116,7 +113,7 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
             
             if (not _inheriting)
             {
-                _dataStruct.__transposeKnobOverride = _newOverride;
+                __VinylDocument().__Write(_dataStruct, "__transposeKnobOverride", _newOverride);
             }
         ImGui.EndDisabled();
     }

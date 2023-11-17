@@ -32,7 +32,7 @@ function __VinylEditorPropWidgetBPM(_id, _dataStruct, _parentStruct, _columnName
                 
                 if (not _inheriting)
                 {
-                    _dataStruct.__bpm = _newValue;
+                    __VinylDocument().__Write(_dataStruct, "__bpm", _newValue);
                 }
             break;
         }
@@ -48,7 +48,7 @@ function __VinylEditorPropWidgetBPM(_id, _dataStruct, _parentStruct, _columnName
             var _optionName = _optionArray[_i];
             if (ImGui.Selectable(_optionName + "##BPM Option " + _id, (_originalOption == _optionName)))
             {
-                _dataStruct.__bpmOption = _optionName;
+                __VinylDocument().__Write(_dataStruct, "__bpmOption", _optionName);
             }
                         
             ++_i;

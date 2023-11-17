@@ -38,6 +38,8 @@ function __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, _columnNa
             ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
             if (ImGui.BeginCombo("##Label Option " + _id, _string, ImGuiComboFlags.None))
             {
+                var _newArray = variable_clone(_inheritedArray);
+                
                 var _i = 0;
                 repeat(array_length(_labelArray))
                 {
@@ -54,16 +56,18 @@ function __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, _columnNa
                     {
                         if (_newValue)
                         {
-                            array_push(_originalArray, _labelName);
+                            array_push(_newArray, _labelName);
                         }
                         else
                         {
-                            array_delete(_originalArray, __VinylArrayFindIndex(_originalArray, _labelName), 1);
+                            array_delete(_newArray, __VinylArrayFindIndex(_newArray, _labelName), 1);
                         }
                     }
                     
                     ++_i;
                 }
+                
+                __VinylDocument().__Write(_dataStruct, "__labelArray", _newArray);
                 
                 ImGui.EndCombo();
             }
@@ -80,7 +84,7 @@ function __VinylEditorPropWidgetLabel(_id, _dataStruct, _parentStruct, _columnNa
             var _optionName = _optionArray[_i];
             if (ImGui.Selectable(_optionName + "##Label Option " + _id, (_option == _optionName)))
             {
-                _dataStruct.__labelsOption = _optionName;
+                __VinylDocument().__Write(_dataStruct, "__labelsOption", _optionName);
             }
             
             ++_i;

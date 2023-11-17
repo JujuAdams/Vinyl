@@ -31,14 +31,14 @@ function __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct, _col
                 
                 if (not _inheriting)
                 {
-                    _dataStruct.__persistent = _newValue;
+                    __VinylDocument().__Write(_dataStruct, "__persistent", _newValue);
                 }
             break;
         }
     ImGui.EndDisabled();
     
     ImGui.TableSetColumnIndex(_columnOption);
-    if (_inheriting && is_struct(_parentStruct))
+    if (_inheriting && is_struct(_parentStruct) && (not is_instanceof(_dataStruct, __VinylClassPatternSound)))
     {
         ImGui.Text(_option);
     }
@@ -53,7 +53,7 @@ function __VinylEditorPropWidgetPersistent(_id, _dataStruct, _parentStruct, _col
                 var _optionName = _optionArray[_i];
                 if (ImGui.Selectable(_optionName + "##Persistent Option " + _id, (_originalOption == _optionName)))
                 {
-                    _dataStruct.__persistentOption = _optionName;
+                    __VinylDocument().__Write(_dataStruct, "__persistentOption", _optionName);
                 }
                         
                 ++_i;

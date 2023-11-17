@@ -47,7 +47,7 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
                         {
                             if (not _inheriting)
                             {
-                                _dataStruct.__stackName = _stackName;
+                                __VinylDocument().__Write(_dataStruct, "__stackName", _stackName);
                             }
                         }
                         
@@ -61,7 +61,7 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
                 var _newValue = ImGui.InputInt("##Stack Priority " + _id, _priority);
                 if (not _inheriting)
                 {
-                    _dataStruct.__stackPriority = _newValue;
+                    __VinylDocument().__Write(_dataStruct, "__stackPriority", _newValue);
                 }
             break;
         }
@@ -77,7 +77,7 @@ function __VinylEditorPropWidgetStack(_id, _dataStruct, _parentStruct, _columnNa
             var _optionName = _optionArray[_i];
             if (ImGui.Selectable(_optionName + "##Stack Option " + _id, (_originalOption == _optionName)))
             {
-                _dataStruct.__stackOption = _optionName;
+                __VinylDocument().__Write(_dataStruct, "__stackOption", _optionName);
             }
                         
             ++_i;

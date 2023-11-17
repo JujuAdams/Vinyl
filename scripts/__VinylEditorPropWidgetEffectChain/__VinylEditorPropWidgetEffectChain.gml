@@ -40,7 +40,7 @@ function __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, _co
                         {
                             if (not _inheriting)
                             {
-                                _dataStruct.__effectChainName = _effectChainName;
+                                __VinylDocument().__Write(_dataStruct, "__effectChainName", _effectChainName);
                             }
                         }
                         
@@ -63,7 +63,7 @@ function __VinylEditorPropWidgetEffectChain(_id, _dataStruct, _parentStruct, _co
             var _optionName = _optionArray[_i];
             if (ImGui.Selectable(_optionName + "##Effect Chain Option " + _id, (_originalOption == _optionName)))
             {
-                _dataStruct.__effectChainOption = _optionName;
+                __VinylDocument().__Write(_dataStruct, "__effectChainOption", _optionName);
             }
                         
             ++_i;
