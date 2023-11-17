@@ -56,7 +56,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
                         _newValue[1] = _temp;
                     }
                     
-                    __VinylDocument().__Write(_dataStruct, "__gain", [_newValue, _newValue]);
+                    __VinylDocument().__Write(_dataStruct, "__gain", _newValue);
                 }
             break;
             

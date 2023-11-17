@@ -29,7 +29,7 @@ function __VinylEditorUpdate()
     }
     
     //Reset the status bar after 5 seconds
-    if (current_time > _editor.__statusTextLastSet + 5000)
+    if (current_time > _editor.__statusTextLastSet + 500)
     {
         _editor.__statusText = undefined;
     }
