@@ -10,9 +10,6 @@ function __VinylGlobalData()
         
         __liveUpdate: (VINYL_LIVE_UPDATE_PERIOD > 0),
         __updateCallback: undefined,
-        __projectSoundDictionary: {},
-        __projectSoundArray:      [],
-        __projectSoundHashDict:   {},
         
         __listenerX: 0,
         __listenerY: 0,

@@ -29,7 +29,6 @@ function __VinylClassPatternSound(_name) : __VinylClassPatternCommon() construct
         var _patternArray = _document.__patternArray;
         
         _patternDict[$ __name] = self;
-        if (VINYL_ALLOW_ASSET_REFERENCE_BY_STRING) _patternDict[$ audio_get_name(__asset)] = self;
         array_push(_patternArray, self);
     }
     
@@ -57,20 +56,6 @@ function __VinylClassPatternSound(_name) : __VinylClassPatternCommon() construct
         __loopPoints       = variable_clone(_struct.loopPoints);
         __bpmOption        = _struct.bpmOption;
         __bpm              = _struct.bpm;
-    }
-    
-    static __Serialize = function(_struct)
-    {
-        __SerializeShared(_struct);
-        
-        _struct.sound = audio_get_name(__sound);
-    }
-    
-    static __Deserialize = function(_struct, _child)
-    {
-        __DeserializeShared(_struct, _child);
-        
-        __sound = asset_get_index(_struct.__sound);
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)

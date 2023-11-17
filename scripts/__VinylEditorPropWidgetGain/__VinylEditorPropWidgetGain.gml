@@ -37,8 +37,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
                 
                 if (not _inheriting)
                 {
-                    _value[0] = _newValue;
-                    _value[1] = _newValue;
+                    __VinylDocument().__Write(_dataStruct, "__gain", [_newValue, _newValue]);
                 }
             break;
             
@@ -47,19 +46,17 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
                 ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                 ImGui.SliderFloat2("##Gain " + _id, _newValue, 0, 2);
                 
-                if ((not _inheriting) && (not array_equals(_value, _newValue)))
+                if (not _inheriting)
                 {
-                    if (_newValue[0] < _newValue[1])
+                    //If the two values have inverted then swap 'em over
+                    if (_newValue[0] > _newValue[1])
                     {
-                        _value[0] = _newValue[0];
-                        _value[1] = _newValue[1];
+                        var _temp = _newValue[0];
+                        _newValue[0] = _newValue[1];
+                        _newValue[1] = _temp;
                     }
-                    else
-                    {
-                        //If the two values have inverted, correct that
-                        _value[0] = _newValue[1];
-                        _value[1] = _newValue[0];
-                    }
+                    
+                    __VinylDocument().__Write(_dataStruct, "__gain", [_newValue, _newValue]);
                 }
             break;
             
@@ -75,7 +72,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
                         {
                             if (not _inheriting)
                             {
-                                _dataStruct.__gainKnob = _knobName;
+                                __VinylDocument().__Write(_dataStruct, "__gainKnob", _knobName);
                             }
                         }
                         
@@ -92,17 +89,15 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
                     
                     if ((not _inheriting) && (not array_equals(_value, _newValue)))
                     {
-                        if (_newValue[0] < _newValue[1])
+                        //If the two values have inverted then swap 'em over
+                        if (_newValue[0] > _newValue[1])
                         {
-                            _value[0] = _newValue[0];
-                            _value[1] = _newValue[1];
+                            var _temp = _newValue[0];
+                            _newValue[0] = _newValue[1];
+                            _newValue[1] = _temp;
                         }
-                        else
-                        {
-                            //If the two values have inverted, correct that
-                            _value[0] = _newValue[1];
-                            _value[1] = _newValue[0];
-                        }
+                        
+                        __VinylDocument().__Write(_dataStruct, "__gain", _newValue);
                     }
                 ImGui.EndDisabled();
             break;
@@ -119,12 +114,12 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
             var _optionName = _optionArray[_i];
             if (ImGui.Selectable(_optionName + "##Gain Option " + _id, (_originalOption == _optionName)))
             {
-                _dataStruct.__gainOption = _optionName;
+                __VinylDocument().__Write(_dataStruct, "__gainOption", _optionName);
                 
                 //Set the min/max values to be identical when setting non-randomized mode
                 if (_optionName == __VINYL_OPTION_MULTIPLY)
                 {
-                    _value[1] = _value[0];
+                    __VinylDocument().__Write(_dataStruct, "__gain", [_value[0], _value[0]]);
                 }
             }
                         
@@ -142,7 +137,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
             
             if (not _inheriting)
             {
-                _dataStruct.__gainKnobOverride = _newOverride;
+                __VinylDocument().__Write(_dataStruct, "__gainKnobOverride", _newOverride);
             }
         ImGui.EndDisabled();
     }

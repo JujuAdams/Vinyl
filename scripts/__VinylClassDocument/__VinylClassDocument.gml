@@ -116,6 +116,8 @@ function __VinylClassDocument(_path) constructor
         buffer_write(_buffer, buffer_text, _string);
         buffer_save(_buffer, __documentPath);
         buffer_delete(_buffer);
+        
+        __VinylEditorSetStatusText("Saved \"", __documentPath, "\"");
     }
     
     static __Load = function()
@@ -179,7 +181,7 @@ function __VinylClassDocument(_path) constructor
                         var _input = _array[_i];
                         
                         var _new = new _constructor();
-                        _new.Deserialize(_input);
+                        _new.__Deserialize(_input);
                         _new.__Store(self);
                         
                         ++_j;
@@ -191,6 +193,7 @@ function __VinylClassDocument(_path) constructor
             }
             catch(_error)
             {
+                show_debug_message(_error);
                 __VinylTrace("Warning! Failed to parse \"", __documentPath, "\"");
                 return;
             }

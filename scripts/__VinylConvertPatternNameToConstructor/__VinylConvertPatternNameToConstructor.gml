@@ -5,9 +5,17 @@
 
 function __VinylConvertPatternNameToConstructor(_type, _patternName)
 {
-    if (_type == __VINYL_PATTERN_TYPE_SOUND)
+    if (_type == __VINYL_PATTERN_TYPE_FALLBACK)
+    {
+        return __VinylClassPatternFallback;
+    }
+    else if (_type == __VINYL_PATTERN_TYPE_SOUND)
     {
         return __VinylClassPatternSound;
+    }
+    else if (_type == __VINYL_PATTERN_TYPE_SOUND_REF)
+    {
+        return __VinylClassPatternSoundRef;
     }
     else if (_type == __VINYL_PATTERN_TYPE_BASIC)
     {

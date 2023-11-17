@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaultData, _selectionHandler, _modifiedSoundDict)
+function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaultData, _selectionHandler, _patternDict)
 {
     var _showApply = (_modified && (_selectionHandler.__GetSelectedCount() > 1));
     
@@ -47,7 +47,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
                     ImGui.TableSetColumnIndex(3);
                     if (ImGui.Button("Apply##" + _displayWidget.__name))
                     {
-                        __VinylEditorApply(_soundData, _selectionHandler, _modifiedSoundDict, _displayWidget.__apply);
+                        __VinylEditorApply(_soundData, _selectionHandler, _patternDict, _displayWidget.__apply);
                     }
                 }
                 
@@ -61,7 +61,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
                 ImGui.TableSetColumnIndex(3);
                 if (ImGui.Button("Apply All"))
                 {
-                    __VinylEditorApplyAll(_soundData, _selectionHandler, _modifiedSoundDict);
+                    __VinylEditorApplyAll(_soundData, _selectionHandler, _patternDict);
                 }
             }
             

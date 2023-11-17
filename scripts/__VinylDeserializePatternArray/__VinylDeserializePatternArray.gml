@@ -13,7 +13,7 @@ function __VinylDeserializePatternArray(_inputArray, _child, _document)
         var _constructor = __VinylConvertPatternNameToConstructor(_input.type, _input.name);
         
         var _new = new _constructor();
-        _new.Deserialize(_input, _child);
+        _new.__Deserialize(_input, _child);
         
         if (_document != undefined)
         {

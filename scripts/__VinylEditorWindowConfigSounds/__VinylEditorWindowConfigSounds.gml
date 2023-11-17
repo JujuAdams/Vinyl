@@ -2,8 +2,10 @@
 
 function __VinylEditorWindowConfigSounds(_stateStruct)
 {
-    var _projectSoundArray      = __VinylDocument().__ProjectGetSoundArray();
-    var _projectSoundDictionary = __VinylDocument().__ProjectGetSoundDictionary();
+    var _document = __VinylDocument();
+    
+    var _projectSoundArray      = _document.__ProjectGetSoundArray();
+    var _projectSoundDictionary = _document.__ProjectGetSoundDictionary();
     
     var _tabState = _stateStruct.__tabSounds;
     
@@ -21,7 +23,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
     var _seeUnselected = _selectionHandler.__GetSeeUnselected();
     
     //The dictionary of 
-    var _modifiedSoundDict = __VinylDocument().__patternDict;
+    var _patternDict = __VinylDocument().__patternDict;
     
     ImGui.BeginChild("Left Pane", 0.3*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
         
@@ -48,9 +50,9 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
             ImGui.TableSetupColumn("Sounds", ImGuiTableColumnFlags.WidthStretch, 1);
             
             //DRY - Used for both the fallback sound config and standard sound configs
-            var _funcBuildSelectable = function(_soundName, _modifiedSoundDict, _selectionHandler)
+            var _funcBuildSelectable = function(_soundName, _patternDict, _selectionHandler)
             {
-                var _modData = _modifiedSoundDict[$ _soundName];
+                var _modData = _patternDict[$ _soundName];
                 var _modified = is_struct(_modData);
                 var _selected = _selectionHandler.__IsSelected(_soundName);
                 
@@ -76,7 +78,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
             }
             
             //Force the fallback sound config to always be visible at the top of the list of sounds
-            _funcBuildSelectable(__VINYL_FALLBACK_NAME, _modifiedSoundDict, _selectionHandler);
+            _funcBuildSelectable(__VINYL_FALLBACK_NAME, _patternDict, _selectionHandler);
             ImGui.Separator();
             
             //Keep an array of all visible sounds. We use this later for the "select all" button
@@ -89,7 +91,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                 var _soundName = _projectSoundArray[_i];
                 
                 //Pull a sound pattern from storage (if it exists)
-                var _modData = _modifiedSoundDict[$ _soundName];
+                var _modData = _patternDict[$ _soundName];
                 
                 var _modified = is_struct(_modData);
                 var _selected = _selectionHandler.__IsSelected(_soundName);
@@ -99,7 +101,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                 {
                     if ((not _useFilter) || __VinylFilterApply(_filter, _projectSoundDictionary[$ _soundName])) //General filter
                     {
-                        _funcBuildSelectable(_soundName, _modifiedSoundDict, _selectionHandler);
+                        _funcBuildSelectable(_soundName, _patternDict, _selectionHandler);
                         
                         //Push the name of this visible sound to our array
                         array_push(_visibleArray, _soundName);
@@ -128,7 +130,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         //Collect some basic facts about the current selection(s)
         var _selectedCount = _selectionHandler.__GetSelectedCount();
         var _lastSelected  = _selectionHandler.__lastSelected;
-        var _modified      = variable_struct_exists(_modifiedSoundDict, _lastSelected);
+        var _modified      = variable_struct_exists(_patternDict, _lastSelected);
         
         //Bit of aesthetic spacing
         ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 20);
@@ -150,14 +152,14 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
             {
                 if (ImGui.Button("Revert"))
                 {
-                    variable_struct_remove(_modifiedSoundDict, _lastSelected);
+                    _patternDict[$ _lastSelected].__Discard(_document);
                 }
             }
             else
             {
                 if (ImGui.Button("Modify"))
                 {
-                    _modifiedSoundDict[$ _lastSelected] = new __VinylClassPatternSound(_lastSelected);
+                    (new __VinylClassPatternSound(_lastSelected)).__Store(_document);
                 }
             }
         }
@@ -171,11 +173,15 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                 if (ImGui.Button("Revert All"))
                 {
                     _selectionHandler.__ForEachSelected(method({
-                        __modifiedSoundDict: _modifiedSoundDict,
-                        __lastSelected: _lastSelected,
+                        __document: _document,
+                        __patternDict: _patternDict,
                     }, function(_name)
                     {
-                        variable_struct_remove(__modifiedSoundDict, __lastSelected);
+                        var _pattern = __patternDict[$ _name];
+                        if (_pattern != undefined)
+                        {
+                            _pattern.__Discard(__document);
+                        }
                     }));
                 }
             }
@@ -184,12 +190,13 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                 if (ImGui.Button("Modify All"))
                 {
                     _selectionHandler.__ForEachSelected(method({
-                        __modifiedSoundDict: _modifiedSoundDict,
+                        __document: _document,
+                        __patternDict: _patternDict,
                     }, function(_name)
                     {
-                        if (not variable_struct_exists(__modifiedSoundDict, _name))
+                        if (not variable_struct_exists(__patternDict, _name))
                         {
-                            __modifiedSoundDict[$ _name] = new __VinylClassPatternSound(_name);
+                            (new __VinylClassPatternSound(_name)).__Store(__document);
                         }
                     }));
                 }
@@ -219,7 +226,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         if (_selectionHandler.__GetSelectedCount() > 0)
         {
             ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                __VinylEditorPropertiesSound(_lastSelected, _modifiedSoundDict[$ _lastSelected], _modified, _modifiedSoundDict[$ __VINYL_FALLBACK_NAME], _selectionHandler, _modifiedSoundDict);
+                __VinylEditorPropertiesSound(_lastSelected, _patternDict[$ _lastSelected], _modified, _patternDict[$ __VINYL_FALLBACK_NAME], _selectionHandler, _patternDict);
             ImGui.EndChild();
         }
     ImGui.EndChild();
