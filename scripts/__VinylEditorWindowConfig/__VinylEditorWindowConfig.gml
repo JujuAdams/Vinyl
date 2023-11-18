@@ -54,6 +54,7 @@ function __VinylEditorWindowConfig(_stateStruct)
             if (ImGui.BeginTabItem("Knobs"))
             {
                 _editor.__windowStates.__filter.__target = undefined;
+                __VinylEditorWindowConfigKnobs(_stateStruct);
                 ImGui.EndTabItem();
             }
             

@@ -49,8 +49,11 @@ function __VinylEditorInit()
                     __selectionHandler: new __VinylClassSelectionHandler(),
                     __filter:           new __VinylClassFilterLabel(),
                     __useFilter:        false,
-                    __seeModified:      true,
-                    __seeUnmodified:    true,
+                },
+                __tabKnobs: {
+                    __selectionHandler: new __VinylClassSelectionHandler(),
+                    __filter:           new __VinylClassFilterLabel(),
+                    __useFilter:        false,
                 },
                 __tabPatterns: {
                     __quickDelete: false,

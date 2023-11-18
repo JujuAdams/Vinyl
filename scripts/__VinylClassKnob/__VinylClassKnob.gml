@@ -1,9 +1,8 @@
 // Feather disable all
-/// @param name
 
-function __VinylClassKnob(_name) constructor
+function __VinylClassKnob() constructor
 {
-    __name = _name;
+    __name = undefined;
     
     __valueDefault = 0;
     __valueReset   = true;
@@ -18,6 +17,22 @@ function __VinylClassKnob(_name) constructor
     __rangeOutputHi = 1;
     
     __targetArray = [];
+    
+    __inputRange   = [0, 1];
+    __outputRange  = [0, 1];
+    __defaultValue = 1;
+    
+    
+    
+    static __Store = function(_document)
+    {
+        _document.__knobDict[$ __name] = self;
+    }
+    
+    static __Discard = function(_document)
+    {
+        variable_struct_remove(_document.__knobDict, __name);
+    }
     
     
     
@@ -95,15 +110,6 @@ function __VinylClassKnob(_name) constructor
         if (!__rangeFree) __valueDefault = clamp(__valueDefault, __rangeOutputLo, __rangeOutputHi);
         
         __OutputRefresh();
-    }
-    
-    static __Store = function(_document)
-    {
-        var _knobDict  = _document.__knobDict;
-        var _knobArray = _document.__knobArray;
-        
-        _knobDict[$ __name] = self;
-        array_push(_knobArray, self);
     }
     
     static __RestoreOldValue = function(_oldKnobDict)

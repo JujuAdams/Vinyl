@@ -1,79 +1,26 @@
 // Feather disable all
 
-function __VinylEditorWindowConfigLabels(_stateStruct)
+function __VinylEditorWindowConfigKnobs(_stateStruct)
 {
     var _document = __VinylDocument();
     
-    var _contentDict = _document.__labelAllDict;
+    var _contentDict = _document.__knobDict;
     
     var _contentNameArray = variable_struct_get_names(_contentDict);
     array_sort(_contentNameArray, true);
     
-    var _tabState = _stateStruct.__tabLabels;
+    var _tabState = _stateStruct.__tabKnobs;
     
     //Use the selection handler for this tab and ensure its binding to the project's sound dictionary
     //This dictionary will be used to track item selection
     var _selectionHandler = _tabState.__selectionHandler;
     _selectionHandler.__Bind(_contentDict, __VinylClassLabel, undefined);
     
-    var _filter    = _tabState.__filter;
-    var _useFilter = _tabState.__useFilter;
-    
-    var _func = function(_func, _visibleArray, _target, _selectionHandler, _filter, _useFilter, _root)
-    {
-        var _name = _target.__name;
-        
-        var _multiselect   = _selectionHandler.__GetMultiselect();
-        var _seeSelected   = _selectionHandler.__GetSeeSelected();
-        var _seeUnselected = _selectionHandler.__GetSeeUnselected();
-        
-        var _selected = _selectionHandler.__IsSelected(_name);
-        
-        if ((not _root) || (not is_struct(_target.__parent)))
-        {
-            if ((not _multiselect) || (_selected && _seeSelected) || ((not _selected) && _seeUnselected)) //Selected check
-            {
-                if ((not _useFilter) || __VinylFilterApply(_filter, _target)) //General filter
-                {
-                    var _selected = _selectionHandler.__IsSelected(_name);
-                    var _childArray = _target.__childArray;
-                        
-                    var _flags = ImGuiTreeNodeFlags.OpenOnArrow;
-                    
-                    if (_selectionHandler.__IsSelected(_name))
-                    {
-                        _flags |= ImGuiTreeNodeFlags.Selected;
-                    }
-                    
-                    if (array_length(_childArray) <= 0)
-                    {
-                        _flags |= ImGuiTreeNodeFlags.Bullet;
-                    }
-                    
-                    var _open = ImGui.TreeNodeEx(_name + "##Select " + _name, _flags);
-                    if ((not ImGui.IsItemToggledOpen()) && ImGui.IsItemClicked())
-                    {
-                        _selectionHandler.__SelectToggle(_name);
-                    }
-                    
-                    if (_open)
-                    {
-                        var _i = 0;
-                        repeat(array_length(_childArray))
-                        {
-                            _func(_func, _visibleArray, _childArray[_i], _selectionHandler, _filter, _useFilter, false);
-                            ++_i;
-                        }
-                        
-                        ImGui.TreePop();
-                    }
-                    
-                    //Push the name of this visible sound to our array
-                    array_push(_visibleArray, _name);
-                }
-            }
-        }
-    }
+    var _multiselect   = _selectionHandler.__GetMultiselect();
+    var _seeSelected   = _selectionHandler.__GetSeeSelected();
+    var _seeUnselected = _selectionHandler.__GetSeeUnselected();
+    var _filter        = _tabState.__filter;
+    var _useFilter     = _tabState.__useFilter;
     
     ImGui.BeginChild("Left Pane", 0.3*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
         
@@ -87,12 +34,12 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
             __VinylEditorWindowSetOpen("__filter", true);
         }
         
-        if (ImGui.Button("New Label"))
+        if (ImGui.Button("New Knob"))
         {
-            _document.__NewLabel();
+            _document.__NewKnob();
         }
         
-        ImGui.BeginChild("Label View", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50, true);
+        ImGui.BeginChild("Knob View", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50, true);
             
             //Keep an array of all visible sounds. We use this later for the "select all" button
             var _visibleArray = [];
@@ -102,7 +49,25 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
             repeat(array_length(_contentNameArray))
             {
                 var _target = _contentDict[$ _contentNameArray[_i]];
-                _func(_func, _visibleArray, _target, _selectionHandler, _filter, _useFilter, true);
+                
+                var _name = _target.__name;
+                
+                var _selected = _selectionHandler.__IsSelected(_name);
+                
+                if ((not _multiselect) || (_selected && _seeSelected) || ((not _selected) && _seeUnselected)) //Selected check
+                {
+                    if ((not _useFilter) || __VinylFilterApply(_filter, _target)) //General filter
+                    {
+                        if (ImGui.Selectable(_name + "##Select " + _name, _selectionHandler.__IsSelected(_name)))
+                        {
+                            _selectionHandler.__SelectToggle(_name);
+                        }
+                        
+                        //Push the name of this visible sound to our array
+                        array_push(_visibleArray, _name);
+                    }
+                }
+        
                 ++_i;
             }
             
@@ -133,7 +98,7 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
         if (_selectedCount == 0)
         {
             //Add some helpful text to guide users if nothing's selected
-            ImGui.Text("Please select a knob from the menu on the left");
+            ImGui.Text("Please select a label from the menu on the left");
         }
         else
         {
@@ -149,16 +114,9 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
             
             ImGui.SameLine(undefined, 20);
             
-            if (ImGui.Button("Add Child"))
-            {
-                _document.__NewLabel(_contentDict[$ _lastSelected]);
-            }
-            
-            ImGui.SameLine(undefined, 20);
-            
             if (ImGui.Button("Delete"))
             {
-                _contentDict[$ _lastSelected].__Discard();
+                _contentDict[$ _lastSelected].__Discard(_document);
                 _selectionHandler.__Select(_lastSelected, false);
             }
         }
@@ -170,7 +128,7 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
         if (_selectionHandler.__GetSelectedCount() > 0)
         {
             ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                __VinylEditorPropertiesLabel(_contentDict, _lastSelected, _selectionHandler);
+                __VinylEditorPropertiesKnob(_contentDict, _lastSelected, _selectionHandler);
             ImGui.EndChild();
         }
     ImGui.EndChild();
