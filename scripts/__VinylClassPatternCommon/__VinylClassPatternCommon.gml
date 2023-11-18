@@ -197,6 +197,44 @@ function __VinylClassPatternCommon()
         }
     }
     
+    static __BuildPropertyUI = function(_selectionHandler)
+    {
+        //For easier reading, all the widgets are handled by parsing this array!
+        static _displayWidgetArray = [
+            { __name: "Gain",         __function: __VinylEditorPropWidgetGain,        },
+            { __name: "Pitch",        __function: __VinylEditorPropWidgetPitch,       },
+            { __name: "Loop",         __function: __VinylEditorPropWidgetLoop,        },
+            { __name: "Stack",        __function: __VinylEditorPropWidgetStack,       },
+            { __name: "Effect Chain", __function: __VinylEditorPropWidgetEffectChain, },
+            { __name: "Persistent",   __function: __VinylEditorPropWidgetPersistent,  },
+            { __name: "Transpose",    __function: __VinylEditorPropWidgetTranspose,   },
+        ];
+        
+        //Now do the actual table
+        if (ImGui.BeginTable("Vinyl Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 280))
+        {
+            //Set up our columns with fixed widths so we get a nice pretty layout
+            ImGui.TableSetupColumn("Name",   ImGuiTableColumnFlags.WidthFixed, 100);
+            ImGui.TableSetupColumn("Option", ImGuiTableColumnFlags.WidthFixed, 125);
+            ImGui.TableSetupColumn("Value",  ImGuiTableColumnFlags.WidthStretch, 1);
+            
+            //Make aaaall the widgets
+            var _i = 0;
+            repeat(array_length(_displayWidgetArray))
+            {
+                var _displayWidget = _displayWidgetArray[_i];
+                _displayWidget.__function(__name, self, __parent, 0, 2, 1);
+                ++_i;
+            }
+            
+            ImGui.EndTable();
+        }
+    }
+    
+    
+    
+    
+    
     static __GainSet = function(_gain)
     {
         __gain[0] = _gain;

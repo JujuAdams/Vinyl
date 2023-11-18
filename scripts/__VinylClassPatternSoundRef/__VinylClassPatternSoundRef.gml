@@ -8,6 +8,7 @@ function __VinylClassPatternSoundRef() constructor
     
     __parent = undefined;
     __sound = undefined;
+    __soundTempName = "";
     
     static toString = function()
     {
@@ -54,5 +55,67 @@ function __VinylClassPatternSoundRef() constructor
     static __PlaySimple = function(_sound, _gain = 1, _pitch = 1, _effectChainName = __effectChainName)
     {
         __VinylError("TODO");
+    }
+    
+    static __BuildPropertyUI = function(_selectionHandler)
+    {
+        //Now do the actual table
+        if (ImGui.BeginTable("Vinyl Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 280))
+        {
+            //Set up our columns with fixed widths so we get a nice pretty layout
+            ImGui.TableSetupColumn("Name",  ImGuiTableColumnFlags.WidthFixed,   100);
+            ImGui.TableSetupColumn("Value", ImGuiTableColumnFlags.WidthStretch,   1);
+            
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+            ImGui.Text("Sound");
+            ImGui.TableSetColumnIndex(1);
+            
+            var _textOld       = (__sound == undefined)? __VINYL_ASSET_NULL : audio_get_name(__sound);
+            var _textNew       = _textOld;
+            var _textInput     = ImGui.InputText("##Sound Text Field", _textOld, ImGuiInputTextFlags.EnterReturnsTrue);
+            var _textEdited    = ImGui.IsItemDeactivatedAfterEdit();
+            var _textActive    = ImGui.IsItemActive();
+            var _textActivated = ImGui.IsItemActivated();
+            
+            if (_textActivated)
+            {
+                ImGui.OpenPopup("##Sound Text Pop-up");
+            }
+            
+            ImGui.SetNextWindowPos(ImGui.GetItemRectMinX(), ImGui.GetItemRectMaxY());
+            ImGui.SetNextWindowSize(ImGui.GetItemRectMaxX() - ImGui.GetItemRectMinX(), 120);
+            if (ImGui.BeginPopup("##Sound Text Pop-up", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.ChildWindow))
+            {
+                var _autocomplete = ["cat", "dog", "rabbits", "turtles"];
+                
+                var _i = 0;
+                repeat(array_length(_autocomplete))
+                {
+                    if (ImGui.Selectable(_autocomplete[_i]))
+                    {
+                        _textNew = _autocomplete[_i];
+                    }
+                    
+                    ++_i;
+                }
+                
+                if (_textEdited || ((not _textActive) && (not ImGui.IsWindowFocused())))
+                {
+                    if (_textEdited) _textNew = _textInput;
+                    ImGui.CloseCurrentPopup();
+                }
+                
+                ImGui.EndPopup();
+            }
+            
+            if (_textNew != _textOld)
+            {
+                var _sound = asset_get_index(_textNew);
+                if (audio_exists(_sound)) __sound = _sound;
+            }
+            
+            ImGui.EndTable();
+        }
     }
 }

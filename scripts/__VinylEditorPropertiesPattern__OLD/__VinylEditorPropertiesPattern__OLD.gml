@@ -8,7 +8,7 @@
 /// @param dataStruct
 /// @param constructor
 
-function __VinylEditorPropertiesPattern(_stateStruct, _id, _parentStruct, _parentAssetArrayPos, _name, _dataStruct, _constructor)
+function __VinylEditorPropertiesPattern__OLD(_stateStruct, _id, _parentStruct, _parentAssetArrayPos, _name, _dataStruct, _constructor)
 {
     static _rootTypeArray  = [__VINYL_PATTERN_TYPE_BASIC,
                               __VINYL_PATTERN_TYPE_SHUFFLE,

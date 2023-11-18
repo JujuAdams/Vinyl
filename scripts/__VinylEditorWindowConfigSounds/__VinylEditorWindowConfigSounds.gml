@@ -120,6 +120,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
     ImGui.EndChild();
     
     
+    
     //Ok! Now we do the right-hand properties pane
     
     

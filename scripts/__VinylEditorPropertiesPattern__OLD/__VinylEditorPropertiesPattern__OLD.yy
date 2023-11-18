@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylEditorPropertiesPattern",
+  "name": "__VinylEditorPropertiesPattern__OLD",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

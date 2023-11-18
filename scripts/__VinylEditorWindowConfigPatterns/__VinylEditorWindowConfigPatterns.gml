@@ -126,14 +126,15 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
     ImGui.BeginChild("Right Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
         
         //Collect some basic facts about the current selection(s)
-        var _selectedCount = _selectionHandler.__GetSelectedCount();
-        var _lastSelected  = _selectionHandler.__lastSelected;
+        var _selectedCount  = _selectionHandler.__GetSelectedCount();
+        var _lastSelected   = _selectionHandler.__lastSelected;
+        var _selectedStruct = _contentDict[$ _lastSelected];
         
         //Bit of aesthetic spacing
         ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 20);
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
         
-        if (_selectedCount == 0)
+        if ((_selectedCount == 0) || (not is_struct(_selectedStruct)))
         {
             //Add some helpful text to guide users if nothing's selected
             ImGui.Text("Please select a pattern from the menu on the left");
@@ -154,14 +155,14 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             
             if (ImGui.Button("Add Child"))
             {
-                _document.__NewLabel(_contentDict[$ _lastSelected]);
+                _document.__NewLabel(_selectedStruct);
             }
             
             ImGui.SameLine(undefined, 20);
             
             if (ImGui.Button("Delete"))
             {
-                _contentDict[$ _lastSelected].__Discard();
+                _selectedStruct.__Discard();
                 _selectionHandler.__Select(_lastSelected, false);
             }
         }
@@ -170,10 +171,10 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
         
         //Here's where we jump to a different function to draw the actual properties
-        if (_selectionHandler.__GetSelectedCount() > 0)
+        if ((_selectedCount > 0) && is_struct(_selectedStruct))
         {
             ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                //__VinylEditorPropertiesPattern(_contentDict, _lastSelected, _selectionHandler);
+                _contentDict[$ _lastSelected].__BuildPropertyUI(_selectionHandler);
             ImGui.EndChild();
         }
     ImGui.EndChild();
