@@ -6,6 +6,7 @@ function __VinylClassPatternSoundRef() constructor
     
     static __child = true;
     
+    __parent = undefined;
     __sound = undefined;
     
     static toString = function()
@@ -22,6 +23,27 @@ function __VinylClassPatternSoundRef() constructor
     static __Deserialize = function(_struct, _child__UNUSED)
     {
         __sound = asset_get_index(_struct.name);
+    }
+    
+    static __Store = function(_document)
+    {
+        _document.__patternDict[$ __name] = self;
+    }
+    
+    static __Discard = function(_document)
+    {
+        if (is_struct(__parent))
+        {
+            var _index = __VinylArrayFindIndex(__parent.__childArray, self);
+            if (_index != undefined)
+            {
+                array_delete(__parent.__childArray, _index, 1);
+            }
+        }
+        else
+        {
+            variable_struct_remove(_document.__patternDict, __name);
+        }
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)

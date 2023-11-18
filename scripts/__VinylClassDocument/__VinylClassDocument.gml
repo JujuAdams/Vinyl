@@ -282,10 +282,34 @@ function __VinylClassDocument(_path) constructor
         }
         
         var _new = new __VinylClassLabel();
-        _new.__name   = _newName;
-        _new.__parent = _parent;
+        _new.__name = _newName;
         _new.__Store(self);
         _new.__ChangeParent(_parent);
+        
+        return _new;
+    }
+    
+    static __NewPattern = function(_parent = undefined)
+    {
+        if (is_struct(_parent))
+        {
+            var _new = new __VinylClassPatternSoundRef();
+            array_push(_parent.__childArray, _new);
+        }
+        else
+        {
+            var _index = 1;
+            var _newName = "Unnamed Label " + string(_index);
+            while(variable_struct_exists(__patternDict, _newName))
+            {
+                ++_index;
+                _newName = "Unnamed Label " + string(_index);
+            }
+            
+            var _new = new __VinylClassPatternSoundRef();
+            _new.__name = _newName;
+            _new.__Store(self);
+        }
         
         return _new;
     }
