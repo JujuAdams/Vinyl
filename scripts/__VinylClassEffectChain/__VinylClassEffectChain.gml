@@ -1,15 +1,14 @@
 // Feather disable all
-/// @param name
 
-function __VinylClassEffectChain(_name) constructor
+function __VinylClassEffectChain() constructor
 {
     static __globalData = __VinylGlobalData();
     
     
     
-    __name = _name;
+    __name = undefined;
     
-    if (_name == "main")
+    if (__name == "main")
     {
         __bus     = audio_bus_main;
         __emitter = undefined;
@@ -26,6 +25,18 @@ function __VinylClassEffectChain(_name) constructor
         audio_emitter_falloff(__emitter, 1000, 1001, 1);
         audio_emitter_bus(__emitter, __bus);
         audio_falloff_set_model(__VINYL_FALLOFF_MODEL);
+    }
+    
+    
+    
+    static __Store = function(_document)
+    {
+        _document.__effectChainDict[$ __name] = self;
+    }
+    
+    static __Discard = function(_document)
+    {
+        variable_struct_remove(_document.__effectChainDict, __name);
     }
     
     

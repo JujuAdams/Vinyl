@@ -55,6 +55,11 @@ function __VinylEditorInit()
                     __filter:           new __VinylClassFilterLabel(),
                     __useFilter:        false,
                 },
+                __tabEffectChains: {
+                    __selectionHandler: new __VinylClassSelectionHandler(),
+                    __filter:           new __VinylClassFilterLabel(),
+                    __useFilter:        false,
+                },
                 __tabKnobs: {
                     __selectionHandler: new __VinylClassSelectionHandler(),
                     __filter:           new __VinylClassFilterLabel(),

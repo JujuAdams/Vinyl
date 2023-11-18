@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylEditorWindowConfigStacks__OLD",
+  "name": "__VinylEditorPropertiesEffectChain",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

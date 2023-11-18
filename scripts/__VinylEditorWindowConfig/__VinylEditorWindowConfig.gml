@@ -49,6 +49,7 @@ function __VinylEditorWindowConfig(_stateStruct)
             if (ImGui.BeginTabItem("Effect Chains"))
             {
                 _editor.__windowStates.__filter.__target = undefined;
+                __VinylEditorWindowConfigEffectChains(_stateStruct);
                 ImGui.EndTabItem();
             }
             

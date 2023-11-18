@@ -307,6 +307,23 @@ function __VinylClassDocument(_path) constructor
         return _new;
     }
     
+    static __NewEffectChain = function()
+    {
+        var _index = 1;
+        var _newName = "Unnamed Effect Chain " + string(_index);
+        while(variable_struct_exists(__effectChainDict, _newName))
+        {
+            ++_index;
+            _newName = "Unnamed Effect Chain " + string(_index);
+        }
+        
+        var _new = new __VinylClassEffectChain();
+        _new.__name = _newName;
+        _new.__Store(self);
+        
+        return _new;
+    }
+    
     static __NewKnob = function()
     {
         var _index = 1;
