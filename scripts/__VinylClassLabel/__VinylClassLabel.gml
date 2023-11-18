@@ -1,17 +1,160 @@
 // Feather disable all
-/// @param name
-/// @param parent
-/// @param adHoc
 
-function __VinylClassLabel(_name, _parent, _adHoc) constructor
+function __VinylClassLabel() constructor
 {
     static __idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
     
-    __name   = _name;
-    __parent = _parent;
-    __adHoc  = _adHoc;
+    __Reset();
     
+    static __Reset = function()
+    {
+        __name                  = undefined;
+        __isChild               = false;
+        __parent                = __VINYL_ASSET_NULL;
+        __childArray            = [];
+        
+        __gainOption            = __VINYL_OPTION_UNSET;
+        __gain                  = [1, 1];
+        __gainKnob              = __VINYL_ASSET_NULL;
+        __gainKnobOverride      = false;
+        
+        __pitchOption           = __VINYL_OPTION_UNSET;
+        __pitch                 = [1, 1];
+        __pitchKnob             = __VINYL_ASSET_NULL;
+        __pitchKnobOverride     = false;
+        
+        __loopOption            = __VINYL_OPTION_UNSET;
+        __loop                  = false;
+        
+        __stackOption           = __VINYL_OPTION_UNSET;
+        __stackName             = __VINYL_ASSET_NULL;
+        __stackPriority         = 0;
+        
+        __effectChainOption     = __VINYL_OPTION_UNSET;
+        __effectChainName       = __VINYL_ASSET_NULL;
+        
+        __persistentOption      = __VINYL_OPTION_UNSET;
+        __persistent            = undefined;
+        
+        __transposeOption       = __VINYL_OPTION_UNSET;
+        __transpose             = [0, 0];
+        __transposeKnob         = __VINYL_ASSET_NULL;
+        __transposeKnobOverride = false;
+    }
     
+    static __SerializeShared = function(_struct)
+    {
+        //TODO - Compress on save
+        
+        _struct.name                  = __name;
+        _struct.isChild               = __isChild;
+        _struct.parent                = __parent;
+        _struct.childArray            = __childArray;
+        
+        _struct.gainOption            = __gainOption;
+        _struct.gainKnob              = __gainKnob;
+        _struct.gainKnobOverride      = __gainKnobOverride;
+        _struct.gain                  = variable_clone(__gain);
+        
+        _struct.pitchOption           = __pitchOption;
+        _struct.pitchKnob             = __pitchKnob;
+        _struct.pitchKnobOverride     = __pitchKnobOverride;
+        _struct.pitch                 = variable_clone(__pitch);
+        
+        _struct.loopOption            = __loopOption;
+        _struct.loop                  = __loop;
+        
+        _struct.stackOption           = __stackOption;
+        _struct.stack                 = __stackName;
+        _struct.stackPriority         = __stackPriority;
+        
+        _struct.effectChainOption     = __effectChainOption;
+        _struct.effectChain           = __effectChainName;
+        
+        _struct.persistentOption      = __persistentOption;
+        _struct.persistent            = __persistent;
+        
+        _struct.transposeOption       = __transposeOption;
+        _struct.transposeKnob         = __transposeKnob;
+        _struct.transposeKnobOverride = __transposeKnobOverride;
+        _struct.transpose             = variable_clone(__transpose);
+    }
+    
+    static __DeserializeShared = function(_struct)
+    {
+        //TODO - Decompress on load
+        
+        __name                  = _struct.name;
+        __isChild               = _struct.isChild;
+        __parent                = _struct.parent;
+        __childArray            = variable_clone(_struct.childArray);
+        
+        __gainOption            = _struct.gainOption;
+        __gainKnob              = _struct.gainKnob;
+        __gainKnobOverride      = _struct.gainKnobOverride;
+        __gain                  = variable_clone(_struct.gain);
+        
+        __pitchOption           = _struct.pitchOption;
+        __pitchKnob             = _struct.pitchKnob;
+        __pitchKnobOverride     = _struct.pitchKnobOverride;
+        __pitch                 = variable_clone(_struct.pitch);
+        
+        __loopOption            = _struct.loopOption;
+        __loop                  = _struct.loop;
+        
+        __stackOption           = _struct.stackOption;
+        __stackName             = _struct.stack;
+        __stackPriority         = _struct.stackPriority;
+        
+        __effectChainOption     = _struct.effectChainOption;
+        __effectChainName       = _struct.effectChain;
+        
+        __persistentOption      = _struct.persistentOption;
+        __persistent            = _struct.persistent;
+        
+        __transposeOption       = _struct.transposeOption;
+        __transposeKnob         = _struct.transposeKnob;
+        __transposeKnobOverride = _struct.transposeKnobOverride;
+        __transpose             = variable_clone(_struct.transpose);
+    }
+    
+    static __CopyTo = function(_new)
+    {
+        _new.__Reset();
+        
+        _new.__name                  = __name;
+        _new.__isChild               = __isChild;
+        _new.__parent                = __parent;
+        _new.__childArray            = variable_clone(__childArray);
+        
+        _new.__gainOption            = __gainOption;
+        _new.__gainKnob              = __gainKnob;
+        _new.__gainKnobOverride      = __gainKnobOverride;
+        _new.__gain                  = variable_clone(__gain);
+        
+        _new.__pitchOption           = __pitchOption;
+        _new.__pitchKnob             = __pitchKnob;
+        _new.__pitchKnobOverride     = __pitchKnobOverride;
+        _new.__pitch                 = variable_clone(__pitch);
+        
+        _new.__loopOption            = __loopOption;
+        _new.__loop                  = __loop;
+        
+        _new.__stackOption           = __stackOption;
+        _new.__stackName             = __stackName;
+        _new.__stackPriority         = __stackPriority;
+        
+        _new.__effectChainOption     = __effectChainOption;
+        _new.__effectChainName       = __effectChainName;
+        
+        _new.__persistentOption      = __persistentOption;
+        _new.__persistent            = __persistent;
+        
+        _new.__transposeOption       = __transposeOption;
+        _new.__transposeKnob         = __transposeKnob;
+        _new.__transposeKnobOverride = __transposeKnobOverride;
+        _new.__transpose             = variable_clone(__transpose);
+    }
     
     static toString = function()
     {

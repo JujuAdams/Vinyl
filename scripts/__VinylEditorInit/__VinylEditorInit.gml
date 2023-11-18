@@ -45,6 +45,13 @@ function __VinylEditorInit()
                     __seeModified:      true,
                     __seeUnmodified:    true,
                 },
+                __tabLabels: {
+                    __selectionHandler: new __VinylClassSelectionHandler(),
+                    __filter:           new __VinylClassFilterLabel(),
+                    __useFilter:        false,
+                    __seeModified:      true,
+                    __seeUnmodified:    true,
+                },
                 __tabPatterns: {
                     __quickDelete: false,
                 },

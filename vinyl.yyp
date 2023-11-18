@@ -57,6 +57,7 @@
     "IDEVersion": "2023.8.2.108",
   },
   "resources": [
+    {"id":{"name":"__VinylEditorWindowConfigLabels","path":"scripts/__VinylEditorWindowConfigLabels/__VinylEditorWindowConfigLabels.yy",},},
     {"id":{"name":"__VinylClassEffectChain","path":"scripts/__VinylClassEffectChain/__VinylClassEffectChain.yy",},},
     {"id":{"name":"sndBonk","path":"sounds/sndBonk/sndBonk.yy",},},
     {"id":{"name":"__VinylLabelsGetAbbreviatedName","path":"scripts/__VinylLabelsGetAbbreviatedName/__VinylLabelsGetAbbreviatedName.yy",},},
@@ -146,6 +147,7 @@
     {"id":{"name":"VinylStop","path":"scripts/VinylStop/VinylStop.yy",},},
     {"id":{"name":"VinylStackGet","path":"scripts/VinylStackGet/VinylStackGet.yy",},},
     {"id":{"name":"VinylUpdateCallbackGet","path":"scripts/VinylUpdateCallbackGet/VinylUpdateCallbackGet.yy",},},
+    {"id":{"name":"__VinylClassFilterLabel","path":"scripts/__VinylClassFilterLabel/__VinylClassFilterLabel.yy",},},
     {"id":{"name":"__VinylPatternTypeGetMultiAsset","path":"scripts/__VinylPatternTypeGetMultiAsset/__VinylPatternTypeGetMultiAsset.yy",},},
     {"id":{"name":"VinylLoopSet","path":"scripts/VinylLoopSet/VinylLoopSet.yy",},},
     {"id":{"name":"__VinylGlobalData","path":"scripts/__VinylGlobalData/__VinylGlobalData.yy",},},
@@ -295,6 +297,7 @@
     {"id":{"name":"__VinylClassFilterSound","path":"scripts/__VinylClassFilterSound/__VinylClassFilterSound.yy",},},
     {"id":{"name":"acTest","path":"animcurves/acTest/acTest.yy",},},
     {"id":{"name":"__VinylPatternResolveInheritedLabel","path":"scripts/__VinylPatternResolveInheritedLabel/__VinylPatternResolveInheritedLabel.yy",},},
+    {"id":{"name":"__VinylEditorPropertiesLabel","path":"scripts/__VinylEditorPropertiesLabel/__VinylEditorPropertiesLabel.yy",},},
     {"id":{"name":"VinylMultiGainSet","path":"scripts/VinylMultiGainSet/VinylMultiGainSet.yy",},},
     {"id":{"name":"VinylOutputPitchGet","path":"scripts/VinylOutputPitchGet/VinylOutputPitchGet.yy",},},
     {"id":{"name":"__VinylClassKnobTarget","path":"scripts/__VinylClassKnobTarget/__VinylClassKnobTarget.yy",},},

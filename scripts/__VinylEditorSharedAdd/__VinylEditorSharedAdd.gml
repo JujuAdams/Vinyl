@@ -15,4 +15,5 @@ function __VinylEditorSharedAdd(_resourceDict, _resourceTypeName, _constructor)
     }
     
     _resourceDict[$ _newName] = new _constructor();
+    return _newName;
 }

@@ -28,6 +28,7 @@ function __VinylEditorWindowConfig(_stateStruct)
             if (ImGui.BeginTabItem("Labels"))
             {
                 _editor.__windowStates.__filter.__target = undefined;
+                __VinylEditorWindowConfigLabels(_stateStruct);
                 ImGui.EndTabItem();
             }
                 
