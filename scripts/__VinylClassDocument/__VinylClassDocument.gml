@@ -52,7 +52,6 @@ function __VinylClassDocument(_path) constructor
         __effectChainArray = [];
         __knobDict         = {};
         __stackDict        = {};
-        __stackArray       = [];
         __animCurveDict    = {};
         __animCurveArray   = [];
         
@@ -287,6 +286,23 @@ function __VinylClassDocument(_path) constructor
         _new.__parent = _parent;
         _new.__Store(self);
         _new.__ChangeParent(_parent);
+        
+        return _new;
+    }
+    
+    static __NewStack = function()
+    {
+        var _index = 1;
+        var _newName = "Unnamed Stack " + string(_index);
+        while(variable_struct_exists(__stackDict, _newName))
+        {
+            ++_index;
+            _newName = "Unnamed Stack " + string(_index);
+        }
+        
+        var _new = new __VinylClassStack();
+        _new.__name = _newName;
+        _new.__Store(self);
         
         return _new;
     }

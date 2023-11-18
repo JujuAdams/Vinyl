@@ -42,6 +42,7 @@ function __VinylEditorWindowConfig(_stateStruct)
             if (ImGui.BeginTabItem("Stacks"))
             {
                 _editor.__windowStates.__filter.__target = undefined;
+                __VinylEditorWindowConfigStacks(_stateStruct);
                 ImGui.EndTabItem();
             }
             

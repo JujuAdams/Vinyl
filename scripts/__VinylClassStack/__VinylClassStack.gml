@@ -1,17 +1,22 @@
 // Feather disable all
-/// @param name
 
-function __VinylClassStack(_name) constructor
+function __VinylClassStack() constructor
 {
     static __globalData = __VinylGlobalData();
     
     
     
-    __name = _name;
+    __name = undefined;
     
-    __duckedGain  = 0;
-    __duckRate    = VINYL_DEFAULT_DUCK_GAIN_RATE;
-    __duckPauseOnFade   = true;
+    __duckedGain = 0;
+    __duckRate = VINYL_DEFAULT_DUCK_GAIN_RATE;
+    __pauseWhenDucked = true;
+    
+    
+    
+    __duckedGain      = 0;
+    __duckRate        = VINYL_DEFAULT_DUCK_GAIN_RATE;
+    __duckPauseOnFade = true;
     
     __maxPriority   = -infinity;
     __voiceArray = [];
@@ -23,6 +28,18 @@ function __VinylClassStack(_name) constructor
     {
         return "<stack " + string(__name) + ">";
     }
+    
+    static __Store = function(_document)
+    {
+        _document.__stackDict[$ __name] = self;
+    }
+    
+    static __Discard = function(_document)
+    {
+        variable_struct_remove(_document.__stackDict, __name);
+    }
+    
+    
     
     static __Update = function(_stackData = {})
     {
