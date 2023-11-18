@@ -46,8 +46,8 @@ function __VinylClassDocument(_path) constructor
         
         __patternDict      = {};
         __patternArray     = [];
-        __labelDict        = {};
-        __labelArray       = [];
+        __labelAllDict     = {};
+        __labelRootDict    = {};
         __effectChainDict  = {};
         __effectChainArray = [];
         __knobDict         = {};
@@ -270,6 +270,27 @@ function __VinylClassDocument(_path) constructor
     }
     
     #endregion
+    
+    
+    
+    static __NewLabel = function(_parent = undefined)
+    {
+        var _index = 1;
+        var _newName = "Unnamed Label " + string(_index);
+        while(variable_struct_exists(__labelAllDict, _newName))
+        {
+            ++_index;
+            _newName = "Unnamed Label " + string(_index);
+        }
+        
+        var _new = new __VinylClassLabel();
+        _new.__name   = _newName;
+        _new.__parent = _parent;
+        _new.__Store(self);
+        _new.__ChangeParent(_parent);
+        
+        return _new;
+    }
     
     
     

@@ -1,10 +1,10 @@
 // Feather disable all
 
-/// @param resourceDict
+/// @param document
 /// @param resourceTypeName
 /// @param constructor
 
-function __VinylEditorSharedAdd(_resourceDict, _resourceTypeName, _constructor)
+function __VinylEditorSharedAdd(_document, _resourceTypeName, _constructor)
 {
     var _index = 1;
     var _newName = _resourceTypeName + " " + string(_index);

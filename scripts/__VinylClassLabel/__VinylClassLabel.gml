@@ -9,8 +9,7 @@ function __VinylClassLabel() constructor
     static __Reset = function()
     {
         __name                  = undefined;
-        __isChild               = false;
-        __parent                = __VINYL_ASSET_NULL;
+        __parent                = undefined;
         __childArray            = [];
         
         __gainOption            = __VINYL_OPTION_UNSET;
@@ -42,14 +41,12 @@ function __VinylClassLabel() constructor
         __transposeKnobOverride = false;
     }
     
-    static __SerializeShared = function(_struct)
+    static __Serialize = function(_struct)
     {
         //TODO - Compress on save
         
         _struct.name                  = __name;
-        _struct.isChild               = __isChild;
-        _struct.parent                = __parent;
-        _struct.childArray            = __childArray;
+        _struct.childArray            = variable_clone(__childArray);
         
         _struct.gainOption            = __gainOption;
         _struct.gainKnob              = __gainKnob;
@@ -80,13 +77,11 @@ function __VinylClassLabel() constructor
         _struct.transpose             = variable_clone(__transpose);
     }
     
-    static __DeserializeShared = function(_struct)
+    static __Deserialize = function(_struct)
     {
         //TODO - Decompress on load
         
         __name                  = _struct.name;
-        __isChild               = _struct.isChild;
-        __parent                = _struct.parent;
         __childArray            = variable_clone(_struct.childArray);
         
         __gainOption            = _struct.gainOption;
@@ -118,48 +113,54 @@ function __VinylClassLabel() constructor
         __transpose             = variable_clone(_struct.transpose);
     }
     
-    static __CopyTo = function(_new)
-    {
-        _new.__Reset();
-        
-        _new.__name                  = __name;
-        _new.__isChild               = __isChild;
-        _new.__parent                = __parent;
-        _new.__childArray            = variable_clone(__childArray);
-        
-        _new.__gainOption            = __gainOption;
-        _new.__gainKnob              = __gainKnob;
-        _new.__gainKnobOverride      = __gainKnobOverride;
-        _new.__gain                  = variable_clone(__gain);
-        
-        _new.__pitchOption           = __pitchOption;
-        _new.__pitchKnob             = __pitchKnob;
-        _new.__pitchKnobOverride     = __pitchKnobOverride;
-        _new.__pitch                 = variable_clone(__pitch);
-        
-        _new.__loopOption            = __loopOption;
-        _new.__loop                  = __loop;
-        
-        _new.__stackOption           = __stackOption;
-        _new.__stackName             = __stackName;
-        _new.__stackPriority         = __stackPriority;
-        
-        _new.__effectChainOption     = __effectChainOption;
-        _new.__effectChainName       = __effectChainName;
-        
-        _new.__persistentOption      = __persistentOption;
-        _new.__persistent            = __persistent;
-        
-        _new.__transposeOption       = __transposeOption;
-        _new.__transposeKnob         = __transposeKnob;
-        _new.__transposeKnobOverride = __transposeKnobOverride;
-        _new.__transpose             = variable_clone(__transpose);
-    }
-    
     static toString = function()
     {
         return "<label " + __name + ">";
     }
+    
+    static __Store = function(_document)
+    {
+        _document.__labelAllDict[$ __name] = self;
+        
+        if (not is_struct(__parent))
+        {
+            _document.__labelRootDict[$ __name] = self;
+        }
+    }
+    
+    static __Discard = function(_document)
+    {
+        variable_struct_remove(_document.__labelAllDict,  __name);
+        variable_struct_remove(_document.__labelRootDict, __name);
+        
+        var _i = 0;
+        repeat(array_length(__childArray))
+        {
+            __childArray[_i].__ChangeParent(__parent);
+            ++_i;
+        }
+    }
+    
+    static __ChangeParent = function(_parent)
+    {
+        if (is_struct(__parent))
+        {
+            var _index = __VinylArrayFindIndex(__parent.__childArray, self);
+            if (_index != undefined)
+            {
+                array_delete(__parent.__childArray, _index, 1);
+            }
+        }
+        
+        __parent = _parent;
+        
+        if (is_struct(_parent))
+        {
+            array_push(_parent.__childArray, self);
+        }
+    }
+    
+    
     
     #region Initialize
     
@@ -318,15 +319,6 @@ function __VinylClassLabel() constructor
         __pitchOutput = __pitchLocal;
         
         if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating definition for ", self, ", gain=", __gainOutput*__configGainLo, " -> ", __gainOutput*__configGainHi, ", pitch=", __pitchOutput*__configPitchLo, " -> ", __pitchOutput*__configPitchHi);
-    }
-    
-    static __Store = function(_document)
-    {
-        var _labelDict  = _document.__labelDict;
-        var _labelArray = _document.__labelArray;
-        
-        _labelDict[$ __name] = self;
-        array_push(_labelArray, self);
     }
     
     #endregion

@@ -4,7 +4,7 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
 {
     var _document = __VinylDocument();
     
-    var _contentDict = _document.__labelDict;
+    var _contentDict = _document.__labelAllDict;
     
     var _contentNameArray = variable_struct_get_names(_contentDict);
     array_sort(_contentNameArray, true);
@@ -19,28 +19,28 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
     var _filter    = _tabState.__filter;
     var _useFilter = _tabState.__useFilter;
     
-    var _func = function(_func, _visibleArray, _contentDict, _contentName, _selectionHandler, _filter, _useFilter, _root)
+    var _func = function(_func, _visibleArray, _target, _selectionHandler, _filter, _useFilter, _root)
     {
-        var _target = _contentDict[$ _contentName];
+        var _name = _target.__name;
         
         var _multiselect   = _selectionHandler.__GetMultiselect();
         var _seeSelected   = _selectionHandler.__GetSeeSelected();
         var _seeUnselected = _selectionHandler.__GetSeeUnselected();
         
-        var _selected = _selectionHandler.__IsSelected(_contentName);
+        var _selected = _selectionHandler.__IsSelected(_name);
         
-        if ((not _root) || (not _target.__isChild))
+        if ((not _root) || (not is_struct(_target.__parent)))
         {
             if ((not _multiselect) || (_selected && _seeSelected) || ((not _selected) && _seeUnselected)) //Selected check
             {
                 if ((not _useFilter) || __VinylFilterApply(_filter, _target)) //General filter
                 {
-                    var _selected = _selectionHandler.__IsSelected(_contentName);
+                    var _selected = _selectionHandler.__IsSelected(_name);
                     var _childArray = _target.__childArray;
                         
                     var _flags = ImGuiTreeNodeFlags.OpenOnArrow;
                     
-                    if (_selectionHandler.__IsSelected(_contentName))
+                    if (_selectionHandler.__IsSelected(_name))
                     {
                         _flags |= ImGuiTreeNodeFlags.Selected;
                     }
@@ -50,10 +50,10 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
                         _flags |= ImGuiTreeNodeFlags.Bullet;
                     }
                     
-                    var _open = ImGui.TreeNodeEx(_contentName + "##Select " + _contentName, _flags);
+                    var _open = ImGui.TreeNodeEx(_name + "##Select " + _name, _flags);
                     if ((not ImGui.IsItemToggledOpen()) && ImGui.IsItemClicked())
                     {
-                        _selectionHandler.__SelectToggle(_contentName);
+                        _selectionHandler.__SelectToggle(_name);
                     }
                     
                     if (_open)
@@ -61,7 +61,7 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
                         var _i = 0;
                         repeat(array_length(_childArray))
                         {
-                            _func(_func, _visibleArray, _contentDict, _childArray[_i], _selectionHandler, _filter, _useFilter, false);
+                            _func(_func, _visibleArray, _childArray[_i], _selectionHandler, _filter, _useFilter, false);
                             ++_i;
                         }
                         
@@ -69,7 +69,7 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
                     }
                     
                     //Push the name of this visible sound to our array
-                    array_push(_visibleArray, _contentName);
+                    array_push(_visibleArray, _name);
                 }
             }
         }
@@ -89,7 +89,7 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
         
         if (ImGui.Button("New Label"))
         {
-            __VinylEditorSharedAdd(_contentDict, "Label", __VinylClassLabel);
+            _document.__NewLabel();
         }
         
         ImGui.BeginChild("Label View", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50, true);
@@ -101,7 +101,8 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
             var _i = 0;
             repeat(array_length(_contentNameArray))
             {
-                _func(_func, _visibleArray, _contentDict, _contentNameArray[_i], _selectionHandler, _filter, _useFilter, true);
+                var _target = _contentDict[$ _contentNameArray[_i]];
+                _func(_func, _visibleArray, _target, _selectionHandler, _filter, _useFilter, true);
                 ++_i;
             }
             
@@ -141,23 +142,23 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
             
             ImGui.SameLine(200);
             
-            if (ImGui.Button("Add Child"))
+            if (ImGui.Button("Rename"))
             {
-                var _parent = _contentDict[$ _lastSelected];
-                var _name = __VinylEditorSharedAdd(_contentDict, "Label", __VinylClassLabel);
-                
-                array_push(_parent.__childArray, _name);
-                
-                var _child = _contentDict[$ _name];
-                _child.__isChild = true;
-                _child.__parent = _lastSelected;
+                //TODO
             }
             
-            ImGui.SameLine(undefined, 30);
+            ImGui.SameLine(undefined, 20);
+            
+            if (ImGui.Button("Add Child"))
+            {
+                _document.__NewLabel(_contentDict[$ _lastSelected]);
+            }
+            
+            ImGui.SameLine(undefined, 20);
             
             if (ImGui.Button("Delete"))
             {
-                
+                _contentDict[$ _lastSelected].__Discard();
             }
         }
         
