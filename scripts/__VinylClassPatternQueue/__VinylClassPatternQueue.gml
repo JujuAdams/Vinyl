@@ -20,7 +20,7 @@ function __VinylClassPatternQueue() : __VinylClassPatternCommon() constructor
         __SerializeShared(_struct);
         
         _struct.behavior      = __behavior;
-        _struct.childrenArray = __VinylSerializePatternArray(__childrenArray);
+        _struct.childrenArray = __VinylSerializeArray(__childrenArray, self);
     }
         
     static __Deserialize = function(_struct, _child)
@@ -30,7 +30,7 @@ function __VinylClassPatternQueue() : __VinylClassPatternCommon() constructor
         __DeserializeShared(_struct, _child);
         
         __behavior      = _struct.behavior;
-        __childrenArray = __VinylDeserializePatternArray(_struct.childrenArray, true, undefined);
+        __childrenArray = __VinylDeserializePatternArray(_struct.childrenArray, undefined, self);
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)

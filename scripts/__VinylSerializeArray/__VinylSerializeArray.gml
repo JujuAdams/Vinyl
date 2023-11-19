@@ -1,6 +1,9 @@
 // Feather disable all
 
-function __VinylSerializePatternArray(_inputArray)
+/// @param array
+/// @param parent
+
+function __VinylSerializeArray(_inputArray, _parent)
 {
     var _outputArray = [];
     
@@ -8,7 +11,7 @@ function __VinylSerializePatternArray(_inputArray)
     repeat(array_length(_inputArray))
     {
         var _struct = {};
-        _inputArray[_i].__Serialize(_struct);
+        _inputArray[_i].__Serialize(_struct, _parent);
         array_push(_outputArray, _struct);
         ++_i;
     }

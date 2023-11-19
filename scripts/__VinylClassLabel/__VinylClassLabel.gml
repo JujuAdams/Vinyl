@@ -90,12 +90,14 @@ function __VinylClassLabel() constructor
         _struct.transpose             = variable_clone(__transpose);
     }
     
-    static __Deserialize = function(_struct)
+    static __Deserialize = function(_struct, _parent)
     {
         //TODO - Decompress on load
         
+        __ChangeParent(_parent);
+        
         __name                  = _struct.name;
-        __childArray            = variable_clone(_struct.childArray);
+        __childArray            = __VinylDeserializeArray(_struct.childArray, self);
         
         __gainOption            = _struct.gainOption;
         __gainKnob              = _struct.gainKnob;

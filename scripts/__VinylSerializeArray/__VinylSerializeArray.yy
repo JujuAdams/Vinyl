@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylSerializePatternArray",
+  "name": "__VinylSerializeArray",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

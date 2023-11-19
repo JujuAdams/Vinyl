@@ -44,8 +44,8 @@ function __VinylClassDocument(_path) constructor
         __dirty     = false;
         __dirtyTime = -infinity;
         
+        __soundDict        = {};
         __patternDict      = {};
-        __patternArray     = [];
         __labelAllDict     = {};
         __labelRootDict    = {};
         __effectChainDict  = {};
@@ -117,11 +117,12 @@ function __VinylClassDocument(_path) constructor
         
         var _outputJSON = {};
         
-        _outputJSON.patterns     = __VinylSerializePatternArray(__patternArray    );
-        _outputJSON.labels       = __VinylSerializePatternArray(__labelArray      );
-        _outputJSON.effectChains = __VinylSerializePatternArray(__effectChainArray);
-        _outputJSON.knobs        = __VinylSerializePatternArray(__knobArray       );
-        _outputJSON.stacks       = __VinylSerializePatternArray(__stackArray      );
+        _outputJSON.sounds       = __VinylSerializeArray(__VinylConvertDictToArray(__soundDict      ), undefined);
+        _outputJSON.patterns     = __VinylSerializeArray(__VinylConvertDictToArray(__patternDict    ), undefined);
+        _outputJSON.labels       = __VinylSerializeArray(__VinylConvertDictToArray(__labelDict      ), undefined);
+        _outputJSON.effectChains = __VinylSerializeArray(__VinylConvertDictToArray(__effectChainDict), undefined);
+        _outputJSON.knobs        = __VinylSerializeArray(__VinylConvertDictToArray(__knobDict       ), undefined);
+        _outputJSON.stacks       = __VinylSerializeArray(__VinylConvertDictToArray(__stackDict      ), undefined);
         _outputJSON.settings     = variable_clone(__settings);
         
         var _string = json_stringify(_outputJSON, VINYL_EDITOR_DOCUMENT_SAVE_PRETTY);
@@ -170,36 +171,12 @@ function __VinylClassDocument(_path) constructor
                 //Wipe everything before we get stuck in
                 __Reset();
                 
-                //Unpack patterns first using some special logic
-                __VinylDeserializePatternArray(_inputJSON.patterns, false, self);
-                
-                //Then unpack everything else
-                var _ruleArray = [
-                    { __fieldName: "labels",       __constructor: __VinylClassLabel,       },
-                    { __fieldName: "effectChains", __constructor: __VinylClassEffectChain, },
-                    { __fieldName: "knobs",        __constructor: __VinylClassKnob,        },
-                    { __fieldName: "stacks",       __constructor: __VinylClassStack,       },
-                ];
-                
-                var _i = 0;
-                repeat(array_length(_ruleArray))
-                {
-                    var _rule = _ruleArray[_i];
-                    var _constructor = _rule.__constructor;
-                    
-                    var _array = _inputJSON[$ _rule.__fieldName];
-                    var _j = 0;
-                    repeat(array_length(_array))
-                    {
-                        var _input = _array[_i];
-                        
-                        var _new = new _constructor();
-                        _new.__Deserialize(_input);
-                        _new.__Store(self);
-                        
-                        ++_j;
-                    }
-                }
+                __VinylDeserializeArray(_inputJSON.knobs,        __VinylClassKnob,         self, undefined);
+                __VinylDeserializeArray(_inputJSON.effectChains, __VinylClassEffectChain,  self, undefined);
+                __VinylDeserializeArray(_inputJSON.stacks,       __VinylClassStack,        self, undefined);
+                __VinylDeserializeArray(_inputJSON.labels,       __VinylClassLabel,        self, undefined);
+                __VinylDeserializeArray(_inputJSON.sounds,       __VinylClassPatternSound, self, undefined);
+                __VinylDeserializePatternArray(_inputJSON.patterns, self, undefined);
                 
                 //Don't forget the settings
                 __settings = variable_clone(_inputJSON.settings);

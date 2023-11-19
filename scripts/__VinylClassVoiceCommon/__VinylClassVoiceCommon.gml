@@ -60,7 +60,7 @@ function __VinylClassVoiceCommon() constructor
         __gainDuck        = 1;
         __gainDuckTarget  = 1;
         __gainDuckRate    = VINYL_DEFAULT_DUCK_GAIN_RATE;
-        __duckPauseOnFade = false;
+        __pauseWhenDucked = false;
         __duckStopOnFade  = false;
         
         __transposeLocal          = undefined;
@@ -173,7 +173,7 @@ function __VinylClassVoiceCommon() constructor
     {
         __gainDuckTarget  = _targetGain;
         __gainDuckRate    = _rate;
-        __duckPauseOnFade = _pauseOnDuck;
+        __pauseWhenDucked = _pauseOnDuck;
         __duckStopOnFade  = _stopOnDuck;
     }
     
@@ -823,7 +823,7 @@ function __VinylClassVoiceCommon() constructor
                 __Stop();
                 return false;
             }
-            else if (__duckPauseOnFade)
+            else if (__pauseWhenDucked)
             {
                 __PauseDuck();
             }

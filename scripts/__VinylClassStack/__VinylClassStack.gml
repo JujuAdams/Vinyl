@@ -8,25 +8,43 @@ function __VinylClassStack() constructor
     
     __name = undefined;
     
-    __duckedGain = 0;
-    __duckRate = VINYL_DEFAULT_DUCK_GAIN_RATE;
-    __pauseWhenDucked = true;
-    
-    
-    
-    __duckedGain      = 0;
-    __duckRate        = VINYL_DEFAULT_DUCK_GAIN_RATE;
-    __duckPauseOnFade = true;
-    
     __maxPriority   = -infinity;
-    __voiceArray = [];
+    __voiceArray    = [];
     __priorityArray = [];
     
     
     
-    static toString = function()
+    __Reset();
+    
+    static __Reset = function()
     {
-        return "<stack " + string(__name) + ">";
+        __name = undefined;
+        
+        __duckedGain      = 0;
+        __duckRate        = VINYL_DEFAULT_DUCK_GAIN_RATE;
+        __pauseWhenDucked = true;
+    }
+    
+    static __Serialize = function(_struct)
+    {
+        //TODO - Compress on save
+        
+        _struct.name = __name;
+        
+        _struct.duckedGain      = __duckedGain;
+        _struct.duckRate        = __duckRate;
+        _struct.pauseWhenDucked = __pauseWhenDucked;
+    }
+    
+    static __Deserialize = function(_struct, _parent)
+    {
+        //TODO - Decompress on load
+        
+        __name = _struct.name;
+        
+        __duckedGain      = _struct.duckedGain;
+        __duckRate        = _struct.duckRate;
+        __pauseWhenDucked = _struct.pauseWhenDucked;
     }
     
     static __Store = function(_document)
@@ -41,6 +59,13 @@ function __VinylClassStack() constructor
     
     
     
+    static toString = function()
+    {
+        return "<stack " + string(__name) + ">";
+    }
+    
+    
+    
     static __Update = function(_stackData = {})
     {
         if (!is_struct(_stackData)) __VinylError("Error in ", self, "\nStack data must be a struct");
@@ -48,12 +73,12 @@ function __VinylClassStack() constructor
         
         __duckedGain = _stackData[$ "ducked gain"] ?? 0;
         __duckRate   = _stackData[$ "rate"       ] ?? VINYL_DEFAULT_DUCK_GAIN_RATE;
-        __duckPauseOnFade  = _stackData[$ "pause"      ] ?? true;
+        __pauseWhenDucked  = _stackData[$ "pause"      ] ?? true;
         
         if (!is_numeric(__duckedGain) || (__duckedGain < 0) || (__duckedGain > 1)) __VinylError("Error in ", self, "\n\"ducked gain\" must be a number between 0 and 1 (inclusive)");
         if (!is_numeric(__duckRate) || (__duckRate <= 0)) __VinylError("Error in ", self, "\n\"rate\" must be a number greater than 0");
-        if (!is_bool(__duckPauseOnFade)) __VinylError("Error in ", self, "\n\"pause\" must be either <true> or <false>");
-        if (__duckPauseOnFade && (__duckedGain > 0)) __VinylError("Error in ", self, "\n\"pause\" cannot be <true> is \"ducked gain\" is greater than 0");
+        if (!is_bool(__pauseWhenDucked)) __VinylError("Error in ", self, "\n\"pause\" must be either <true> or <false>");
+        if (__pauseWhenDucked && (__duckedGain > 0)) __VinylError("Error in ", self, "\n\"pause\" cannot be <true> is \"ducked gain\" is greater than 0");
         
         __maxPriority = -infinity;
         array_resize(__voiceArray, 0);
@@ -82,7 +107,7 @@ function __VinylClassStack() constructor
             if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pushing ", _voice, " to stack \"", __name, "\" with lower priorty (", _priority, ") versus max (", __maxPriority, ")");
             
             //We should duck down straight away since we're at a lower priority
-            _voice.__GainDuckSet(__duckedGain, _onInstantiate? infinity : __duckRate, __duckPauseOnFade, false);
+            _voice.__GainDuckSet(__duckedGain, _onInstantiate? infinity : __duckRate, __pauseWhenDucked, false);
             
             //Try to find an existing voice to replace
             var _i = 0;
@@ -93,7 +118,7 @@ function __VinylClassStack() constructor
                     if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__voiceArray[_i], " on stack \"", __name, "\" shares priorty ", _priority, ", replacing it");
                     
                     //We found an existing voice with the same priority - fade out the existing voice and replace with ourselves
-                    __voiceArray[_i].__GainDuckSet(0, __duckRate, __duckPauseOnFade, false);
+                    __voiceArray[_i].__GainDuckSet(0, __duckRate, __pauseWhenDucked, false);
                     __voiceArray[@ _i] = _voice;
                     return;
                 }
@@ -122,7 +147,7 @@ function __VinylClassStack() constructor
                     if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(__voiceArray[_i], " on stack \"", __name, "\" has lesser priorty (", _existingPriority, ") than incoming (", _priority, ")");
                     
                     //We found an existing voice with a lower priority - duck the existing voice
-                    __voiceArray[_i].__GainDuckSet(__duckedGain, __duckRate, __duckPauseOnFade, false);
+                    __voiceArray[_i].__GainDuckSet(__duckedGain, __duckRate, __pauseWhenDucked, false);
                 }
                 else if (_existingPriority == _priority)
                 {

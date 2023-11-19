@@ -19,15 +19,15 @@ function __VinylClassPatternShuffle() : __VinylClassPatternCommon() constructor
         //TODO - Compress on save
         
         __SerializeShared(_struct);
-        _struct.childrenArray = __VinylSerializePatternArray(__childrenArray);
+        _struct.childrenArray = __VinylSerializeArray(__childrenArray, self);
     }
         
-    static __Deserialize = function(_struct, _child)
+    static __Deserialize = function(_struct, _parent)
     {
         //TODO - Decompress on load
         
-        __DeserializeShared(_struct, _child);
-        __childrenArray = __VinylDeserializePatternArray(_struct.childrenArray, true, undefined);
+        __DeserializeShared(_struct, _parent);
+        __childrenArray = __VinylDeserializePatternArray(_struct.childrenArray, undefined, self);
         
         //Initialize the currently-playing array with a random sample from the overall pattern array
         __currentIndex = 0;

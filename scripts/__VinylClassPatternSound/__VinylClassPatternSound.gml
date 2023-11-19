@@ -21,17 +21,6 @@ function __VinylClassPatternSound(_name) : __VinylClassPatternCommon() construct
         return "<sound " + string(__sound) + " " + audio_get_name(__sound) + ">";
     }
     
-    static __Store = function(_document)
-    {
-        //Special case to add assets by name as well as by index (if VINYL_ALLOW_ASSET_REFERENCE_BY_STRING is <true>)
-        
-        var _patternDict  = _document.__patternDict;
-        var _patternArray = _document.__patternArray;
-        
-        _patternDict[$ __name] = self;
-        array_push(_patternArray, self);
-    }
-    
     static __Serialize = function(_struct)
     {
         //TODO - Compress on save
@@ -45,11 +34,11 @@ function __VinylClassPatternSound(_name) : __VinylClassPatternCommon() construct
         _struct.bpm              = __bpm;
     }
     
-    static __Deserialize = function(_struct, _child)
+    static __Deserialize = function(_struct, _parent)
     {
         //TODO - Decompress on load
         
-        __DeserializeShared(_struct, _child);
+        __DeserializeShared(_struct, _parent);
         
         __sound            = asset_get_index(_struct.sound);
         __loopPointsOption = _struct.loopPointsOption;

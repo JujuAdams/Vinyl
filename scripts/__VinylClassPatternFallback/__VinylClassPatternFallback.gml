@@ -21,9 +21,9 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         __SerializeShared(_struct);
     }
     
-    static __Deserialize = function(_struct, _child)
+    static __Deserialize = function(_struct, _parent)
     {
-        __DeserializeShared(_struct, false);
+        __DeserializeShared(_struct, _parent);
         
         //Force the name
         __name = __VINYL_FALLBACK_NAME;

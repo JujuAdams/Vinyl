@@ -8,7 +8,7 @@ function __VinylClassPatternCommon()
     static __Reset = function()
     {
         __name                  = undefined;
-        __child                 = false;
+        __parent                = undefined;
         
         __gainOption            = __VINYL_OPTION_UNSET;
         __gain                  = [1, 1];
@@ -79,12 +79,12 @@ function __VinylClassPatternCommon()
         _struct.transpose             = variable_clone(__transpose);
     }
     
-    static __DeserializeShared = function(_struct, _child)
+    static __DeserializeShared = function(_struct, _parent)
     {
         //TODO - Decompress on load
         
-        __child                 = _child;
         __name                  = _struct.name;
+        __parent                = _parent;
         
         __gainOption            = _struct.gainOption;
         __gainKnob              = _struct.gainKnob;
@@ -123,7 +123,7 @@ function __VinylClassPatternCommon()
         _new.__Reset();
         
         _new.__name                  = __name;
-        _new.__child                 = __child;
+        _new.__parent                = __parent;
         
         _new.__gainOption            = __gainOption;
         _new.__gainKnob              = __gainKnob;
@@ -159,11 +159,12 @@ function __VinylClassPatternCommon()
     
     static __Store = function(_document)
     {
-        var _patternDict  = _document.__patternDict;
-        var _patternArray = _document.__patternArray;
-        
-        _patternDict[$ __name] = self;
-        array_push(_patternArray, self);
+        _document.__patternDict[$ __name] = self;
+    }
+    
+    static __Discard = function(_document)
+    {
+        variable_struct_remove(_document.__patternDict, __name);
     }
     
     static __Migrate = function()
@@ -344,5 +345,27 @@ function __VinylClassPatternCommon()
         }
         
         if (array_length(_assetArray) <= 0) __VinylError("Error in ", self, "\n", __patternType, "-type patterns must have at least one asset");
+    }
+    
+    static __BuildPropertyUI = function(_selectionHandler)
+    {
+        //Now do the actual table
+        if (ImGui.BeginTable("Vinyl Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 280))
+        {
+            //Set up our columns with fixed widths so we get a nice pretty layout
+            ImGui.TableSetupColumn("Name",   ImGuiTableColumnFlags.WidthFixed, 100);
+            ImGui.TableSetupColumn("Option", ImGuiTableColumnFlags.WidthFixed, 125);
+            ImGui.TableSetupColumn("Value",  ImGuiTableColumnFlags.WidthStretch, 1);
+            
+            __VinylEditorPropWidgetGain(       "Gain",         self, __parent, 0, 2, 1);
+            __VinylEditorPropWidgetPitch(      "Pitch",        self, __parent, 0, 2, 1);
+            __VinylEditorPropWidgetLoop(       "Loop",         self, __parent, 0, 2, 1);
+            __VinylEditorPropWidgetStack(      "Stack",        self, __parent, 0, 2, 1);
+            __VinylEditorPropWidgetEffectChain("Effect Chain", self, __parent, 0, 2, 1);
+            __VinylEditorPropWidgetPersistent( "Persistent",   self, __parent, 0, 2, 1);
+            __VinylEditorPropWidgetTranspose(  "Transpose",    self, __parent, 0, 2, 1);
+            
+            ImGui.EndTable();
+        }
     }
 }

@@ -12,12 +12,43 @@ function __VinylClassKnob() constructor
     
     __targetArray = [];
     
-    __unlimited    = true;
-    __inputRange   = [0, 1];
-    __outputRange  = [0, 1];
-    __defaultValue = 1;
     
     
+    __Reset();
+    
+    static __Reset = function()
+    {
+        __name = undefined;
+        
+        __unlimited    = true;
+        __inputRange   = [0, 1];
+        __outputRange  = [0, 1];
+        __defaultValue = 1;
+    }
+    
+    static __Serialize = function(_struct)
+    {
+        //TODO - Compress on save
+        
+        _struct.name = __name;
+        
+        _struct.unlimited    = __unlimited;
+        _struct.inputRange   = variable_clone(__inputRange);
+        _struct.outputRange  = variable_clone(__outputRange);
+        _struct.defaultValue = __defaultValue;
+    }
+    
+    static __Deserialize = function(_struct, _parent)
+    {
+        //TODO - Decompress on load
+        
+        __name = _struct.name;
+        
+        __unlimited    = _struct.unlimited;
+        __inputRange   = variable_clone(_struct.inputRange);
+        __outputRange  = variable_clone(_struct.outputRange);
+        __defaultValue = _struct.defaultValue;
+    }
     
     static __Store = function(_document)
     {

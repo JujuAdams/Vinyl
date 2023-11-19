@@ -32,19 +32,19 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
         _struct.sync           = __sync;
         _struct.blend          = __blend;
         _struct.blendCurveName = __blendCurveName;
-        _struct.childrenArray  = __VinylSerializePatternArray(__childrenArray);
+        _struct.childrenArray  = __VinylSerializeArray(__childrenArray, self);
     }
         
-    static __Deserialize = function(_struct, _child)
+    static __Deserialize = function(_struct, _parent)
     {
         //TODO - Decompress on load
         
-        __DeserializeShared(_struct, _child);
+        __DeserializeShared(_struct, _parent);
         
         __sync           = _struct.sync;
         __blend          = _struct.blend;
         __blendCurveName = _struct.blendCurveName;
-        __childrenArray  = __VinylDeserializePatternArray(_struct.childrenArray, true, undefined);
+        __childrenArray  = __VinylDeserializePatternArray(_struct.childrenArray, undefined, self);
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)

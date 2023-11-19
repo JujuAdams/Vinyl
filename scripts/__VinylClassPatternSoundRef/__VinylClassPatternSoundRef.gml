@@ -21,7 +21,7 @@ function __VinylClassPatternSoundRef() constructor
         _struct.name = audio_get_name(__sound);
     }
     
-    static __Deserialize = function(_struct, _child__UNUSED)
+    static __Deserialize = function(_struct, _parent)
     {
         __sound = asset_get_index(_struct.name);
     }
