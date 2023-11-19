@@ -27,7 +27,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
     ImGui.BeginDisabled(not _modified);
         
         //Now do the actual table
-        if (ImGui.BeginTable("Vinyl Properties", 4, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 280))
+        if (ImGui.BeginTable("Vinyl Properties", 4, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 296))
         {
             //Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("Name",   ImGuiTableColumnFlags.WidthFixed, 100);
