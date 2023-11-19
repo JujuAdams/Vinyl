@@ -76,12 +76,46 @@ function __VinylEditorWindowSoundTest(_stateStruct)
         
         ImGui.BeginChild("Right Pane", ImGui.GetContentRegionAvailX(), undefined, true);
             
-            ImGui.Text("Knob 1");
-            ImGui.SliderFloat("##", 0.5);
-            ImGui.NewLine();
-            ImGui.Text("Knob 2");
-            ImGui.SliderFloat("##", 0.5);
-            ImGui.NewLine();
+            var _knobDict = __VinylDocument().__knobDict;
+            var _knobNameArray = variable_struct_get_names(_knobDict);
+            array_sort(_knobNameArray, true);
+            
+            var _i = 0;
+            repeat(array_length(_knobNameArray))
+            {
+                var _knobName = _knobNameArray[_i];
+                var _knob = _knobDict[$ _knobName];
+                
+                if (_knob.__unlimited)
+                {
+                    ImGui.Text(_knobName);
+                    ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
+                    
+                    var _newValue = ImGui.InputFloat("##Knob Input " + _knobName, _knob.__valueInput, undefined, undefined, "%.2f");
+                    if (_newValue != _knob.__valueInput)
+                    {
+                        _knob.__Set(_newValue);
+                    }
+                    
+                    ImGui.NewLine();
+                }
+                else
+                {
+                    ImGui.Text(_knobName);
+                    ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
+                    
+                    var _newValue = ImGui.SliderFloat("##Knob Slider " + _knobName, _knob.__valueInput, _knob.__inputRange[0], _knob.__inputRange[1], "%.2f");
+                    if (_newValue != _knob.__valueInput)
+                    {
+                        _knob.__Set(_newValue);
+                    }
+                    ImGui.Text("= " + string_format(_knob.__valueOutput, 0, 2));
+                    
+                    ImGui.NewLine();
+                }
+                
+                ++_i;
+            }
             
         ImGui.EndChild();
     }
