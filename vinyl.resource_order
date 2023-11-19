@@ -222,7 +222,6 @@
     {"name":"__VinylClassPatternSound","order":2,"path":"scripts/__VinylClassPatternSound/__VinylClassPatternSound.yy",},
     {"name":"__VinylPatternResolveInheritedTranspose","order":7,"path":"scripts/__VinylPatternResolveInheritedTranspose/__VinylPatternResolveInheritedTranspose.yy",},
     {"name":"oTest","order":6,"path":"objects/oTest/oTest.yy",},
-    {"name":"__VinylEditorPropertiesKnob","order":27,"path":"scripts/__VinylEditorPropertiesKnob/__VinylEditorPropertiesKnob.yy",},
     {"name":"__VinylRandom","order":13,"path":"scripts/__VinylRandom/__VinylRandom.yy",},
     {"name":"__VinylClassVoiceQueue","order":4,"path":"scripts/__VinylClassVoiceQueue/__VinylClassVoiceQueue.yy",},
     {"name":"UIButtonInline","order":5,"path":"scripts/UIButtonInline/UIButtonInline.yy",},

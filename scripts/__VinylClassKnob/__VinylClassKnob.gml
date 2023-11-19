@@ -10,14 +10,9 @@ function __VinylClassKnob() constructor
     __valueInput   = 0;
     __valueOutput  = 0;
     
-    __rangeFree     = true;
-    __rangeInputLo  = 0;
-    __rangeInputHi  = 1;
-    __rangeOutputLo = 0;
-    __rangeOutputHi = 1;
-    
     __targetArray = [];
     
+    __unlimited    = true;
     __inputRange   = [0, 1];
     __outputRange  = [0, 1];
     __defaultValue = 1;
@@ -39,83 +34,6 @@ function __VinylClassKnob() constructor
     static toString = function()
     {
         return "<knob " + __name + ">";
-    }
-    
-    static __Initialize = function(_knobData = {})
-    {
-        if (!is_struct(_knobData) && !is_numeric(_knobData)) __VinylError("Error in ", self, "\nKnob data must be a number or a struct");
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES && is_struct(_knobData)) __VinylValidateStruct(_knobData, ["default", "input range", "output range"]);
-        
-        var _rangeInputSet  = false;
-        var _rangeOutputSet = false;
-        
-        if (is_numeric(_knobData))
-        {
-            __valueDefault = _knobData;
-        }
-        else if (is_struct(_knobData))
-        {
-            var _inputRangeArray = _knobData[$ "input range"];
-            if (is_array(_inputRangeArray))
-            {
-                if (array_length(_inputRangeArray) != 2) __VinylError("Error in ", self, "\n\"input range\" property array must have exactly two elements");
-                if (!is_numeric(_inputRangeArray[0])) __VinylError("Error in ", self, "\n\"input range\" property array elements must be numbers (index 0 datatype=", typeof(_inputRangeArray[0]), ")");
-                if (!is_numeric(_inputRangeArray[1])) __VinylError("Error in ", self, "\n\"input range\" property array elements must be numbers (index 1 datatype=", typeof(_inputRangeArray[1]), ")");
-                if (_inputRangeArray[0] == _inputRangeArray[1]) __VinylError("Error in ", self, "\n\"input range\" property array elements must be different numbers");
-                
-                _rangeInputSet = true;
-                __rangeInputLo = _inputRangeArray[0];
-                __rangeInputHi = _inputRangeArray[1];
-            }
-            else if (!is_undefined(_inputRangeArray))
-            {
-                __VinylError("Error in ", self, "\"\n\"input range\" property must be a two-element array");
-            }
-            
-            var _outputRangeArray = _knobData[$ "output range"];
-            if (is_array(_outputRangeArray))
-            {
-                if (array_length(_outputRangeArray) != 2) __VinylError("Error in ", self, "\n\"output range\" property array must have exactly two elements");
-                if (!is_numeric(_outputRangeArray[0])) __VinylError("Error in ", self, "\n\"output range\" property array elements must be numbers (index 0 datatype=", typeof(_outputRangeArray[0]), ")");
-                if (!is_numeric(_outputRangeArray[1])) __VinylError("Error in ", self, "\n\"output range\" property array elements must be numbers (index 1 datatype=", typeof(_outputRangeArray[1]), ")");
-                if (_outputRangeArray[0] == _outputRangeArray[1]) __VinylError("Error in ", self, "\n\"output range\" property array elements must be different numbers");
-                
-                _rangeOutputSet = true;
-                __rangeOutputLo = _outputRangeArray[0];
-                __rangeOutputHi = _outputRangeArray[1];
-            }
-            else if (!is_undefined(_outputRangeArray))
-            {
-                __VinylError("Error in ", self, "\"\n\"output range\" property must be a two-element array");
-            }
-            
-            if (!variable_struct_exists(_knobData, "default"))
-            {
-                __VinylError("Error in ", self, "\"\nKnobs must contain a \"default\" property");
-            }
-            
-            __valueDefault = _knobData[$ "default"];
-            
-            if (!is_numeric(__valueDefault))
-            {
-                __VinylError("Error in ", self, "\"\n\"default\" property must be a number");
-            }
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\"\nKnob must be a number or a struct");
-        }
-        
-        __rangeFree = (!_rangeInputSet && !_rangeOutputSet);
-        if (!__rangeFree) __valueDefault = clamp(__valueDefault, __rangeOutputLo, __rangeOutputHi);
-        
-        __OutputRefresh();
-    }
-    
-    static __RestoreOldValue = function(_oldKnobDict)
-    {
-        var _oldKnob = _oldKnobDict[$ __name];
-        if (_oldKnob != undefined) __Set(_oldKnob.__InputGet());
     }
     
     static __TargetCreate = function(_scope, _property, _rangeLo, _rangeHi)
@@ -172,23 +90,23 @@ function __VinylClassKnob() constructor
             __valueOutput = __valueDefault;
             
             //Remap default value to input
-            __valueParam  = clamp((__valueOutput - __rangeOutputLo) / (__rangeOutputHi - __rangeOutputLo), 0, 1);
-            __valueInput  = __rangeFree? __valueOutput : lerp(__rangeInputLo, __rangeInputHi, __valueParam);
+            __valueParam  = clamp((__valueOutput - __outputRange[0]) / (__outputRange[1] - __outputRange[0]), 0, 1);
+            __valueInput  = __unlimited? __valueOutput : lerp(__inputRange[0], __inputRange[1], __valueParam);
             __valueTarget = __valueInput;
             __valueRate   = infinity;
         }
         else
         {
-            __valueParam = clamp((__valueInput - __rangeInputLo) / (__rangeInputHi - __rangeInputLo), 0, 1);
+            __valueParam = clamp((__valueInput - __inputRange[0]) / (__inputRange[1] - __inputRange[0]), 0, 1);
             
-            if (__rangeFree)
+            if (__unlimited)
             {
                 __valueOutput = __valueInput;
             }
             else
             {
                 //Remap input value to output
-                __valueOutput = lerp(__rangeOutputLo, __rangeOutputHi, __valueParam);
+                __valueOutput = lerp(__outputRange[0], __outputRange[1], __valueParam);
             }
         }
         
@@ -215,6 +133,82 @@ function __VinylClassKnob() constructor
                 __valueInput += clamp(__valueTarget - __valueInput, -_deltaTimeFactor*__valueRate, _deltaTimeFactor*__valueRate);
                 __OutputRefresh();
             }
+        }
+    }
+    
+    static __BuildPropertyUI = function(_selectionHandler)
+    {
+        //Now do the actual table
+        if (ImGui.BeginTable("Vinyl Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 280))
+        {
+            //Set up our columns with fixed widths so we get a nice pretty layout
+            ImGui.TableSetupColumn("Name",   ImGuiTableColumnFlags.WidthFixed, 100);
+            ImGui.TableSetupColumn("Value",  ImGuiTableColumnFlags.WidthStretch, 1);
+            
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+            ImGui.Text("Unlimited");
+            ImGui.TableSetColumnIndex(1);
+            __VinylDocument().__Write(self, "__unlimited", ImGui.Checkbox("##Unlimited", __unlimited));
+            
+            ImGui.BeginDisabled(__unlimited);
+                
+                ImGui.TableNextRow();
+                ImGui.TableSetColumnIndex(0);
+                ImGui.Text("Input Range");
+                ImGui.TableSetColumnIndex(1);
+                
+                var _array = variable_clone(__inputRange);
+                ImGui.SetNextItemWidth(ImGui.GetColumnWidth(1));
+                ImGui.InputFloat2("##Input Range", _array);
+                if (ImGui.IsItemDeactivatedAfterEdit())
+                {
+                    if (_array[0] > _array[1])
+                    {
+                        var _temp = _array[1];
+                        _array[1] = _array[0];
+                        _array[0] = _temp;
+                    }
+                    
+                    __VinylDocument().__Write(self, "__inputRange", _array);
+                }
+                
+                ImGui.TableNextRow();
+                ImGui.TableSetColumnIndex(0);
+                ImGui.Text("Output Range");
+                ImGui.TableSetColumnIndex(1);
+                
+                var _array = variable_clone(__outputRange);
+                ImGui.SetNextItemWidth(ImGui.GetColumnWidth(1));
+                ImGui.InputFloat2("##Output Range", _array);
+                if (ImGui.IsItemDeactivatedAfterEdit())
+                {
+                    if (_array[0] > _array[1])
+                    {
+                        var _temp = _array[1];
+                        _array[1] = _array[0];
+                        _array[0] = _temp;
+                    }
+                    
+                    __VinylDocument().__Write(self, "__outputRange", _array);
+                    __VinylDocument().__Write(self, "__defaultValue", clamp(__defaultValue, __outputRange[0], __outputRange[1]));
+                }
+                
+            ImGui.EndDisabled();
+            
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+            ImGui.Text("Default Value");
+            ImGui.TableSetColumnIndex(1);
+            
+            ImGui.SetNextItemWidth(ImGui.GetColumnWidth(1));
+            var _newValue = ImGui.InputFloat("##Default Value", __defaultValue);
+            if (ImGui.IsItemDeactivatedAfterEdit())
+            {
+                __VinylDocument().__Write(self, "__defaultValue", clamp(_newValue, __outputRange[0], __outputRange[1]));
+            }
+            
+            ImGui.EndTable();
         }
     }
 }

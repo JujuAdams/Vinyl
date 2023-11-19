@@ -128,7 +128,7 @@ function __VinylEditorWindowConfigKnobs(_stateStruct)
         if (_selectionHandler.__GetSelectedCount() > 0)
         {
             ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                __VinylEditorPropertiesKnob(_contentDict, _lastSelected, _selectionHandler);
+                _contentDict[$ _lastSelected].__BuildPropertyUI(_selectionHandler);
             ImGui.EndChild();
         }
     ImGui.EndChild();

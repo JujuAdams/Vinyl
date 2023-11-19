@@ -4,6 +4,19 @@ function __VinylClassLabel() constructor
 {
     static __idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
     
+    __gainLocal  = 1;
+    __pitchLocal = 1;
+    
+    __gainTarget  = __gainLocal;
+    __gainRate    = VINYL_DEFAULT_GAIN_RATE;
+    __pitchTarget = __pitchLocal;
+    __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
+    
+    __gainOutput  = __gainLocal;
+    __pitchOutput = __pitchLocal;
+    
+    __topLevelArray = [];
+    
     __Reset();
     
     static __Reset = function()
@@ -161,167 +174,6 @@ function __VinylClassLabel() constructor
     }
     
     
-    
-    #region Initialize
-    
-    static __Initialize = function(_labelData = {})
-    {
-        if (!is_struct(_labelData)) __VinylError("Error in ", self, "\nLabel data must be a struct");
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_labelData, ["gain", "pitch", "transpose", "loop", "tag", "effect chain", "stack", "stack priority", "children"]);
-        
-        static _stackDict = __VinylGlobalData().__stackDict;
-        
-        //Unpack the definition data
-        var _gain            = _labelData[$ "gain"          ] ?? (VINYL_CONFIG_DECIBEL_GAIN? 0 : 1);
-        var _pitch           = _labelData[$ "pitch"         ] ?? (VINYL_CONFIG_PERCENTAGE_PITCH? 100 : 1);
-        var _transpose       = _labelData[$ "transpose"     ];
-        var _loop            = _labelData[$ "loop"          ] ?? undefined;
-        var _persistent      = _labelData[$ "persistent"    ];
-        var _stack           = _labelData[$ "stack"         ];
-        var _stackPriority   = _labelData[$ "stack priority"] ?? 0;
-        var _tagArray        = _labelData[$ "tag"           ] ?? _labelData[$ "tags"];
-        var _effectChainName = _labelData[$ "effect chain"  ];
-        
-        //Sort out the gain
-        var _knobGain = __VinylParseKnob(_gain, "gain", true, self);
-        __configGainKnob = (_knobGain != undefined);
-        _gain            = _knobGain ?? _gain;
-        
-        if (is_numeric(_gain) && (_gain > 0))
-        {
-            __configGainLo = _gain;
-            __configGainHi = _gain;
-        }
-        else if (is_array(_gain))
-        {
-            if (array_length(_gain) != 2) __VinylError("Error in ", self, "\n\"gain\" property array must have exactly two elements (length=", array_length(_gain), ")");
-            
-            __configGainLo = _gain[0];
-            __configGainHi = _gain[1];
-            
-            if (__configGainLo > __configGainHi)
-            {
-                __VinylTrace("Warning! Error in ", self, " \"gain\" property. Low gain (", __configGainLo, ") is greater than high gain (", __configGainHi, ")");
-                var _temp = __configGainLo;
-                __configGainLo = __configGainHi;
-                __configGainHi = _temp;
-            }
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\n\"gain\" property must be either a number greater than zero, a two-element array, or a knob");
-        }
-        
-        if (VINYL_CONFIG_DECIBEL_GAIN)
-        {
-            __configGainLo = __VinylGainToAmplitude(__configGainLo);
-            __configGainHi = __VinylGainToAmplitude(__configGainHi);
-        }
-        
-        //Sort out the pitch
-        var _knobPitch = __VinylParseKnob(_pitch, "pitch", true, self);
-        __configPitchKnob = (_knobPitch != undefined);
-        _pitch            = _knobPitch ?? _pitch;
-        
-        if (is_numeric(_pitch) && (_pitch > 0))
-        {
-            __configPitchLo = _pitch;
-            __configPitchHi = _pitch;
-        }
-        else if (is_array(_pitch))
-        {
-            if (array_length(_pitch) != 2) __VinylError("Error in ", self, "\n\"pitch\" property array must have exactly two elements (length=", array_length(_pitch), ")");
-            
-            __configPitchLo = _pitch[0];
-            __configPitchHi = _pitch[1];
-            
-            if (__configPitchLo > __configPitchHi)
-            {
-                __VinylTrace("Warning! Error in ", self, " \"pitch\" property. Low pitch (", __configPitchLo, ") is greater than high pitch (", __configPitchHi, ")");
-                var _temp = __configPitchLo;
-                __configPitchLo = __configPitchHi;
-                __configPitchHi = _temp;
-            }
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\n\"pitch\" property must be either a number greater than zero, a two-element array, or a knob");
-        }
-        
-        if (VINYL_CONFIG_PERCENTAGE_PITCH)
-        {
-            __configPitchLo /= 100;
-            __configPitchHi /= 100;
-        }
-        
-        //Sort out the transposition
-        var _knobTranspose = __VinylParseKnob(_transpose, "transpose", false, self);
-        __configTranspose = _knobTranspose ?? _transpose;
-        if (!is_numeric(__configTranspose) && !is_undefined(__configTranspose)) __VinylError("Error in ", self, "\n\"transpose\" property must be a number or a knob");
-        
-        //Sort out the stack
-        if (is_undefined(_stack))
-        {
-            __stackName = _stack;
-        }
-        else if (is_string(_stack))
-        {
-            if (variable_struct_exists(_stackDict, _stack))
-            {
-                __stackName = _stack;
-            }
-            else
-            {
-                __VinylError("Error in ", self, "\nStack \"", _stack, "\" not found in config file");
-            }
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\n\"stack\" property must be a string");
-        }
-        
-        if (is_numeric(_stackPriority))
-        {
-            __stackPriority = _stackPriority;
-        }
-        else
-        {
-            __VinylError("Error in ", self, "\n\"stack priority\" property must be a number");
-        }
-        
-        //Sort out the loop state
-        __configLoop = _loop;
-        if (!is_bool(__configLoop) && !is_undefined(__configLoop)) __VinylError("Error in ", self, "\n\"loop\" property must be a boolean (<true> or <false>)");
-        
-        //Sort out the persistent state
-        __configPersistent = _persistent;
-        if (!is_bool(__configPersistent) && !is_undefined(__configPersistent)) __VinylError("Error in ", self, "\n\"persistent\" property must be a boolean (<true> or <false>)");
-        
-        //Convert the tag array into an array if necessary
-        if (is_string(_tagArray)) _tagArray = [_tagArray];
-        __tagArray = _tagArray;
-        
-        //Sort out the effect chain name
-        __effectChainName = _effectChainName ?? ((__parent != undefined)? __parent.__effectChainName : undefined);
-        
-        //Set remainder of the state
-        __topLevelArray = [];
-        
-        __gainLocal  = 1;
-        __pitchLocal = 1;
-        
-        __gainTarget  = __gainLocal;
-        __gainRate    = VINYL_DEFAULT_GAIN_RATE;
-        __pitchTarget = __pitchLocal;
-        __pitchRate   = VINYL_DEFAULT_PITCH_RATE;
-        
-        __gainOutput  = __gainLocal;
-        __pitchOutput = __pitchLocal;
-        
-        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Creating definition for ", self, ", gain=", __gainOutput*__configGainLo, " -> ", __gainOutput*__configGainHi, ", pitch=", __pitchOutput*__configPitchLo, " -> ", __pitchOutput*__configPitchHi);
-    }
-    
-    #endregion
     
     
     
@@ -569,25 +421,6 @@ function __VinylClassLabel() constructor
     #endregion
     
     
-    
-    static __CopyOldState = function(_oldLabel)
-    {
-        __gainLocal  = _oldLabel.__gainLocal;
-        __pitchLocal = _oldLabel.__pitchLocal;
-        
-        __gainTarget  = _oldLabel.__gainTarget;
-        __gainRate    = _oldLabel.__gainRate;
-        __pitchTarget = _oldLabel.__pitchTarget;
-        __pitchRate   = _oldLabel.__pitchRate;
-        
-        if (VINYL_DEBUG_READ_CONFIG)
-        {
-            __VinylTrace("Copying state to ", self, ":");
-            __VinylTrace("    gain in=", __gainLocal, "/out=", __gainOutput, ", pitch in=", __pitchLocal, "/out=", __pitchOutput);
-            __VinylTrace("    gain target=", __gainTarget, ", rate=", __gainRate, "/s");
-            __VinylTrace("    pitch target=", __pitchTarget, ", rate=", __pitchRate, "/s");
-        }
-    }
     
     static __VoiceAdd = function(_id)
     {
