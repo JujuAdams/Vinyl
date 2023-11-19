@@ -73,7 +73,7 @@ function __VinylClassPatternSoundRef() constructor
             
             var _textOld       = (__sound == undefined)? __VINYL_ASSET_NULL : audio_get_name(__sound);
             var _textNew       = _textOld;
-            var _textInput     = ImGui.InputText("##Sound Text Field", _textOld, ImGuiInputTextFlags.EnterReturnsTrue);
+            var _textInput     = ImGui.InputText("##Sound Text Field", __soundTempName, ImGuiInputTextFlags.EnterReturnsTrue);
             var _textEdited    = ImGui.IsItemDeactivatedAfterEdit();
             var _textActive    = ImGui.IsItemActive();
             var _textActivated = ImGui.IsItemActivated();
@@ -84,10 +84,19 @@ function __VinylClassPatternSoundRef() constructor
             }
             
             ImGui.SetNextWindowPos(ImGui.GetItemRectMinX(), ImGui.GetItemRectMaxY());
-            ImGui.SetNextWindowSize(ImGui.GetItemRectMaxX() - ImGui.GetItemRectMinX(), 120);
+            ImGui.SetNextWindowSize(ImGui.GetItemRectMaxX() - ImGui.GetItemRectMinX(), 186);
             if (ImGui.BeginPopup("##Sound Text Pop-up", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.ChildWindow))
             {
-                var _autocomplete = ["cat", "dog", "rabbits", "turtles"];
+                static _levenshtein = undefined;
+                if (_levenshtein == undefined)
+                {
+                    _levenshtein = new __VinylClassLevenshtein();
+                    _levenshtein.SetLexiconArray(__VinylDocument().__projectSoundArray);
+                }
+                
+                _levenshtein.SetString(_textInput);
+                _levenshtein.Process();
+                var _autocomplete = _levenshtein.GetWordArray();
                 
                 var _i = 0;
                 repeat(array_length(_autocomplete))
@@ -112,7 +121,15 @@ function __VinylClassPatternSoundRef() constructor
             if (_textNew != _textOld)
             {
                 var _sound = asset_get_index(_textNew);
-                if (audio_exists(_sound)) __sound = _sound;
+                if (audio_exists(_sound))
+                {
+                    __sound = _sound;
+                    __soundTempName = _textNew;
+                }
+            }
+            else
+            {
+                __soundTempName = _textInput;
             }
             
             ImGui.EndTable();

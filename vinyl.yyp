@@ -90,6 +90,7 @@
     {"id":{"name":"VinylEmitterPoint","path":"scripts/VinylEmitterPoint/VinylEmitterPoint.yy",},},
     {"id":{"name":"VinylKnobGet","path":"scripts/VinylKnobGet/VinylKnobGet.yy",},},
     {"id":{"name":"VinylEditorIsShowing","path":"scripts/VinylEditorIsShowing/VinylEditorIsShowing.yy",},},
+    {"id":{"name":"__VinylClassLevenshtein","path":"scripts/__VinylClassLevenshtein/__VinylClassLevenshtein.yy",},},
     {"id":{"name":"__VinylEditorPropWidgetTranspose","path":"scripts/__VinylEditorPropWidgetTranspose/__VinylEditorPropWidgetTranspose.yy",},},
     {"id":{"name":"shdImGui","path":"shaders/shdImGui/shdImGui.yy",},},
     {"id":{"name":"__VinylUtility","path":"scripts/__VinylUtility/__VinylUtility.yy",},},
