@@ -1,6 +1,6 @@
 #macro VINYL_EDITOR_ENABLED  true
 
-#macro VINYL_EDITOR_DOCUMENT_SAVE_PRETTY  false
+#macro VINYL_EDITOR_DOCUMENT_SAVE_PRETTY  true
 
 // Feather disable all
 //Maximum output gain for audio voices. Must be greater than or equal to zero

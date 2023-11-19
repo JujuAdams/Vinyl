@@ -119,7 +119,7 @@ function __VinylClassDocument(_path) constructor
         
         _outputJSON.sounds       = __VinylSerializeArray(__VinylConvertDictToArray(__soundDict      ), undefined);
         _outputJSON.patterns     = __VinylSerializeArray(__VinylConvertDictToArray(__patternDict    ), undefined);
-        _outputJSON.labels       = __VinylSerializeArray(__VinylConvertDictToArray(__labelDict      ), undefined);
+        _outputJSON.labels       = __VinylSerializeArray(__VinylConvertDictToArray(__labelRootDict  ), undefined);
         _outputJSON.effectChains = __VinylSerializeArray(__VinylConvertDictToArray(__effectChainDict), undefined);
         _outputJSON.knobs        = __VinylSerializeArray(__VinylConvertDictToArray(__knobDict       ), undefined);
         _outputJSON.stacks       = __VinylSerializeArray(__VinylConvertDictToArray(__stackDict      ), undefined);
