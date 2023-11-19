@@ -11,8 +11,9 @@ function __VinylEditorPropWidgetTranspose(_id, _dataStruct, _parentStruct, _colu
 {
     static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_SET, __VINYL_OPTION_KNOB];
     
-    //TODO
-    var _knobArray = ["spookiness", "health factor"];
+    //TODO - Optimise this
+    var _knobArray = variable_struct_get_names(__VinylDocument().__knobDict);
+    array_sort(_knobArray, true);
     
     var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__transposeOption;
     var _inheriting = (_originalOption == __VINYL_OPTION_UNSET);
