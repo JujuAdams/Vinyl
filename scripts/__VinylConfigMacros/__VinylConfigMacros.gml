@@ -54,17 +54,6 @@
 //carries a performance penalty when loading.
 #macro VINYL_CONFIG_VALIDATE_PROPERTIES  true
 
-//Controls how the config file (__VinylConfig) is read regarding gain values
-//Setting this macro to <true> will cause Vinyl to treat gain values as decibels (dbFS)
-//A decibel value of 0 will be translated to an unchanged gain i.e. a GM amplitude value of 1
-//Negative decibel values will be translated to an attenuation of audio amplitude
-#macro VINYL_CONFIG_DECIBEL_GAIN  false
-
-//Controls how the config file (__VinylConfig) is read regarding pitches
-//Setting this macro to <true> will cause Vinyl to treat pitch values as percentages
-//This means a value of 50 will be translated into 50%, or a halving of a sound's pitch
-#macro VINYL_CONFIG_PERCENTAGE_PITCH  false
-
 //Whether to allow VinylPlay() (and equivalent functions) to play audio assets by their asset name as a string
 #macro VINYL_ALLOW_ASSET_REFERENCE_BY_STRING  false
 
