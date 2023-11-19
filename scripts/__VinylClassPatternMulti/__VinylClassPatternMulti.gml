@@ -6,12 +6,16 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
     static __pool          = __VinylGlobalData().__poolMulti;
     static __animCurveDict = __VinylGlobalData().__animCurveDict;
     
+    
+    
     __sync             = VINYL_DEFAULT_MULTI_SYNC;
     __blend            = 0;
     __blendCurveName   = "";
     __blendFactorLocal = __blend;
     
     __childrenArray = [];
+    
+    
     
     static toString = function()
     {

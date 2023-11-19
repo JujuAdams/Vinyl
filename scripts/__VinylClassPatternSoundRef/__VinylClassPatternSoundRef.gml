@@ -6,8 +6,8 @@ function __VinylClassPatternSoundRef() constructor
     
     static __child = true;
     
-    __parent = undefined;
-    __sound = undefined;
+    __parent        = undefined;
+    __sound         = undefined;
     __soundTempName = "";
     
     static toString = function()

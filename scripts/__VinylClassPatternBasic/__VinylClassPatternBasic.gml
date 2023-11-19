@@ -5,8 +5,12 @@ function __VinylClassPatternBasic() : __VinylClassPatternCommon() constructor
     static __patternType = __VINYL_PATTERN_TYPE_BASIC;
     static __pool = __VinylGlobalData().__poolBasic;
     
+    
+    
     //Specific variables for basic patterns
     __sound = undefined;
+    
+    
     
     static toString = function()
     {

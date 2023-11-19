@@ -7,6 +7,8 @@ function __VinylClassPatternSound(_name) : __VinylClassPatternCommon() construct
     static __patternType = __VINYL_PATTERN_TYPE_SOUND;
     static __pool = __VinylGlobalData().__poolSound;
     
+    
+    
     __name = _name;
     
     //Specific variables for sound patterns
@@ -15,6 +17,8 @@ function __VinylClassPatternSound(_name) : __VinylClassPatternCommon() construct
     __loopPoints       = [0, 0];
     __bpmOption        = __VINYL_OPTION_UNSET;
     __bpm              = VINYL_DEFAULT_BPM;
+    
+    
     
     static toString = function()
     {

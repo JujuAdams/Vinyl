@@ -5,8 +5,13 @@ function __VinylClassPatternQueue() : __VinylClassPatternCommon() constructor
     static __patternType = __VINYL_PATTERN_TYPE_QUEUE;
     static __pool = __VinylGlobalData().__poolQueue;
     
-    __behavior      = __VINYL_QUEUE_PLAY_ONCE;
+    
+    
+    __behavior = __VINYL_QUEUE_PLAY_ONCE;
+    
     __childrenArray = [];
+    
+    
     
     static toString = function()
     {

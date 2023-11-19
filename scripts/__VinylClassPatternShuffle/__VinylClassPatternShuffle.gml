@@ -5,9 +5,14 @@ function __VinylClassPatternShuffle() : __VinylClassPatternCommon() constructor
     static __patternType = __VINYL_PATTERN_TYPE_SHUFFLE;
     static __pool = __VinylGlobalData().__poolBasic; //No need for a dedicated shuffle voice
     
+    
+    
     //Specific variables for sound patterns
-    __currentIndex  = 0;
+    __currentIndex = 0;
+    
     __childrenArray = [];
+    
+    
     
     static toString = function()
     {
