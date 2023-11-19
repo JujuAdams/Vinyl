@@ -136,11 +136,7 @@ function __VinylClassLabel() constructor
     static __Store = function(_document)
     {
         _document.__labelAllDict[$ __name] = self;
-        
-        if (not is_struct(__parent))
-        {
-            _document.__labelRootDict[$ __name] = self;
-        }
+        if (not is_struct(__parent)) _document.__labelRootDict[$ __name] = self;
     }
     
     static __Discard = function(_document)
@@ -154,6 +150,20 @@ function __VinylClassLabel() constructor
             __childArray[_i].__ChangeParent(__parent);
             ++_i;
         }
+    }
+    
+    static __Rename = function(_document, _newName)
+    {
+        var _allDict  = _document.__labelAllDict;
+        var _rootDict = _document.__labelAllDict;
+        
+        variable_struct_remove(_allDict,  __name);
+        variable_struct_remove(_rootDict, __name);
+        
+        __name = _newName;
+        
+        _document.__labelAllDict[$ __name] = self;
+        if (not is_struct(__parent)) _document.__labelRootDict[$ __name] = self;
     }
     
     static __ChangeParent = function(_parent)

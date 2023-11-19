@@ -1,21 +1,15 @@
 {
   "sounds":[
   ],
-  "patterns":[
+  "effectChains":[
+  ],
+  "knobs":[
+  ],
+  "labels":[
     {
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "labelsOption":"Unset",
-      "stackPriority":0.0,
-      "sound":"snd1KHz",
-      "bpm":120.0,
-      "gainKnob":"<None>",
-      "transposeOption":"Unset",
       "pitchKnob":"<None>",
-      "persistent":null,
       "loop":0.0,
       "stack":"<None>",
-      "bpmOption":"Unset",
       "gainOption":"Multiply",
       "persistentOption":"Unset",
       "pitchOption":"Unset",
@@ -24,38 +18,70 @@
         0.0
       ],
       "loopOption":"Unset",
+      "persistent":null,
       "stackOption":"Unset",
-      "loopPoints":[
-        0.0,
-        0.0
-      ],
-      "name":"snd1KHz",
+      "name":"Test",
       "effectChain":"<None>",
       "gain":[
-        0.71299999952316284,
-        0.71299999952316284
+        1.2050000429153442,
+        1.2050000429153442
       ],
-      "type":"Sound",
       "transposeKnobOverride":0.0,
       "pitch":[
         1.0,
         1.0
       ],
-      "labels":[
-      ],
-      "loopPointsOption":"Unset",
       "effectChainOption":"Unset",
-      "gainKnobOverride":0.0
-    },
-    {
+      "gainKnobOverride":0.0,
       "transposeKnob":"<None>",
       "pitchKnobOverride":0.0,
-      "labelsOption":"Unset",
+      "childArray":[
+      ],
       "stackPriority":0.0,
       "gainKnob":"<None>",
-      "transposeOption":"Unset",
+      "transposeOption":"Unset"
+    },
+    {
       "pitchKnob":"<None>",
+      "loop":0.0,
+      "stack":"<None>",
+      "gainOption":"Randomize",
+      "persistentOption":"Unset",
+      "pitchOption":"Unset",
+      "transpose":[
+        0.0,
+        0.0
+      ],
+      "loopOption":"Unset",
       "persistent":null,
+      "stackOption":"Unset",
+      "name":"Unnamed Label 1",
+      "effectChain":"<None>",
+      "gain":[
+        0.89999997615814209,
+        1.0
+      ],
+      "transposeKnobOverride":0.0,
+      "pitch":[
+        1.0,
+        1.0
+      ],
+      "effectChainOption":"Unset",
+      "gainKnobOverride":0.0,
+      "transposeKnob":"<None>",
+      "pitchKnobOverride":0.0,
+      "childArray":[
+      ],
+      "stackPriority":0.0,
+      "gainKnob":"<None>",
+      "transposeOption":"Unset"
+    }
+  ],
+  "stacks":[
+  ],
+  "patterns":[
+    {
+      "pitchKnob":"<None>",
       "loop":0.0,
       "stack":"<None>",
       "gainOption":"Unset",
@@ -66,6 +92,7 @@
         0.0
       ],
       "loopOption":"Unset",
+      "persistent":null,
       "stackOption":"Unset",
       "name":"Fallback",
       "effectChain":"<None>",
@@ -80,21 +107,65 @@
         1.0
       ],
       "labels":[
+        "A"
       ],
       "effectChainOption":"Unset",
-      "gainKnobOverride":0.0
+      "gainKnobOverride":0.0,
+      "transposeKnob":"<None>",
+      "pitchKnobOverride":0.0,
+      "labelsOption":"Add",
+      "stackPriority":0.0,
+      "gainKnob":"<None>",
+      "transposeOption":"Unset"
+    },
+    {
+      "pitchKnob":"<None>",
+      "loop":true,
+      "stack":"<None>",
+      "gainOption":"Knob",
+      "persistentOption":"Unset",
+      "loopPoints":[
+        0.0,
+        0.0
+      ],
+      "pitchOption":"Knob",
+      "transpose":[
+        0.0,
+        0.0
+      ],
+      "loopOption":"Set",
+      "persistent":null,
+      "stackOption":"Unset",
+      "name":"snd1KHz",
+      "effectChain":"<None>",
+      "loopPointsOption":"Unset",
+      "gain":[
+        0.71299999952316284,
+        0.71299999952316284
+      ],
+      "type":"Sound",
+      "transposeKnobOverride":0.0,
+      "pitch":[
+        1.0,
+        1.0
+      ],
+      "labels":[
+      ],
+      "effectChainOption":"Unset",
+      "gainKnobOverride":0.0,
+      "sound":"snd1KHz",
+      "transposeKnob":"<None>",
+      "bpm":120.0,
+      "pitchKnobOverride":0.0,
+      "labelsOption":"Unset",
+      "stackPriority":0.0,
+      "gainKnob":"<None>",
+      "transposeOption":"Knob",
+      "bpmOption":"Unset"
     }
-  ],
-  "effectChains":[
-  ],
-  "knobs":[
-  ],
-  "stacks":[
   ],
   "settings":{
     "autogenerateMacros":1.0,
     "macroScriptName":"__VinylGeneratedMacros"
-  },
-  "labels":[
-  ]
+  }
 }
