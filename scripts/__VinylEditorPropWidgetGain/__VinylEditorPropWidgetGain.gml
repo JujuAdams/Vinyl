@@ -12,7 +12,8 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
     static _optionArray = [__VINYL_OPTION_UNSET, __VINYL_OPTION_MULTIPLY, __VINYL_OPTION_RANDOMIZE, __VINYL_OPTION_KNOB];
     
     //TODO - Optimise this
-    var _knobArray = variable_struct_get_names(__VinylDocument().__knobDict);
+    var _knobDict = __VinylDocument().__knobDict;
+    var _knobArray = variable_struct_get_names(_knobDict);
     array_sort(_knobArray, true);
     
     var _originalOption = (_dataStruct == undefined)? __VINYL_OPTION_UNSET : _dataStruct.__gainOption;
@@ -83,7 +84,26 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
                     ImGui.EndCombo();
                 }
                 
-                ImGui.BeginDisabled(not _knobOverride || _inheriting);
+                if (not _knobOverride || _inheriting)
+                {
+                    var _knobData = _knobDict[$ _knob];
+                    
+                    ImGui.BeginDisabled(true);
+                        ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
+                        
+                        if (is_struct(_knobData))
+                        {
+                            ImGui.InputFloat2("##Gain " + _id, _knobData.__outputRange);
+                        }
+                        else
+                        {
+                            ImGui.InputFloat2("##Gain " + _id, [0, 1]);
+                        }
+                        
+                    ImGui.EndDisabled();
+                }
+                else
+                {
                     var _newValue = variable_clone(_value);
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(_columnValue));
                     ImGui.SliderFloat2("##Gain " + _id, _newValue, 0, 2);
@@ -100,7 +120,7 @@ function __VinylEditorPropWidgetGain(_id, _dataStruct, _parentStruct, _columnNam
                         
                         __VinylDocument().__Write(_dataStruct, "__gain", _newValue);
                     }
-                ImGui.EndDisabled();
+                }
             break;
         }
     ImGui.EndDisabled();
