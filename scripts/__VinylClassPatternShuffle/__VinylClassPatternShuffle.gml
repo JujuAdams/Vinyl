@@ -87,9 +87,9 @@ function __VinylClassPatternShuffle(_name, _adHoc, _child) : __VinylClassPattern
         return _voice;
     }
     
-    static __PlaySimple = function(_sound_UNUSED, _gain = 1, _pitch = 1, _effectChainName = __effectChainName)
+    static __PlaySimple = function(_sound_UNUSED, _gainLo, _gainHi, _pitchLo, _pitchHi, _effectChainName = __effectChainName)
     {
         var _pattern = __PopPattern();
-        return __VinylPatternGet(_pattern).__PlaySimple(_pattern, _gain, _pitch, _effectChainName); //TODO - Inherit properly
+        return __VinylPatternGet(_pattern).__PlaySimple(_pattern, _gainLo*__gainLo, _gainHi*__gainHi, _pitchLo*__pitchLo, _pitchHi*__pitchHi, _effectChainName);
     }
 }
