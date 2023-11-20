@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylClassPatternSoundRef",
+  "name": "__VinylClassPatternRefAssetTag",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

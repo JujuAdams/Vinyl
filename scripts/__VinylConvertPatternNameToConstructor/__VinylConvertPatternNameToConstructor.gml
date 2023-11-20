@@ -15,7 +15,7 @@ function __VinylConvertPatternNameToConstructor(_type, _patternName)
     }
     else if (_type == __VINYL_PATTERN_TYPE_SOUND_REF)
     {
-        return __VinylClassPatternSoundRef;
+        return __VinylClassPatternRefSound;
     }
     else if (_type == __VINYL_PATTERN_TYPE_BASIC)
     {

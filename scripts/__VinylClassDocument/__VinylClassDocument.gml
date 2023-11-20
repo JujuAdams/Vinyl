@@ -15,6 +15,8 @@ function __VinylClassDocument(_path) constructor
     __projectSoundHashDict   = {};
     __projectAudioGroupArray = [];
     
+    __subscriberDict = {};
+    
     __Reset();
     __ProjectLoad();
     __Load(__documentPath);
@@ -200,6 +202,49 @@ function __VinylClassDocument(_path) constructor
     
     
     
+    #region Pub/Sub
+    
+    static __Subscribe = function(_message, _scope, _method)
+    {
+        var _array = __subscriberDict[$ _message];
+        if (not is_array(_array))
+        {
+            _array = [];
+            __subscriberDict[$ _message] = _array;
+        }
+        
+        array_push(_array, weak_ref_create(_scope), weak_ref_create(_method));
+    }
+    
+    static __Publish = function(_message, _arg0, _arg1, _arg2, _arg3)
+    {
+        var _array = __subscriberDict[$ _message];
+        if (not is_array(_array)) return;
+        
+        var _i = 0;
+        repeat(array_length(_array) div 2)
+        {
+            var _scope  = _array[_i  ];
+            var _method = _array[_i+1];
+            
+            if (weak_ref_alive(_scope) && weak_ref_alive(_method))
+            {
+                with(_scope.ref)
+                {
+                    _method.ref(_arg0, _arg1, _arg2, _arg3);
+                }
+                
+                _i += 2;
+            }
+            else
+            {
+                array_delete(_array, _i, 2);
+            }
+        }
+    }
+    
+    #endregion
+    
     
     
     #region Settings
@@ -270,7 +315,7 @@ function __VinylClassDocument(_path) constructor
     {
         if (is_struct(_parent))
         {
-            var _new = new __VinylClassPatternSoundRef();
+            var _new = new __VinylClassPatternRefSound();
             array_push(_parent.__childArray, _new);
         }
         else
@@ -283,7 +328,7 @@ function __VinylClassDocument(_path) constructor
                 _newName = "Unnamed Label " + string(_index);
             }
             
-            var _new = new __VinylClassPatternSoundRef();
+            var _new = new __VinylClassPatternRefSound();
             _new.__name = _newName;
             _new.__Store(self);
         }
