@@ -7,7 +7,7 @@ function __VinylClassPatternRefSound() constructor
     static __child = true;
     
     __parent        = undefined;
-    __sound         = undefined;
+    __soundName     = undefined;
     __soundTempName = "";
     
     __VinylDocument().__Subscribe("project reload", self, __CheckSoundExists);
@@ -63,9 +63,9 @@ function __VinylClassPatternRefSound() constructor
     
     static __CheckSoundExists = function()
     {
-        if (not variable_struct_exists(__VinylDocument().__projectSoundDictionary, __sound))
+        if (not variable_struct_exists(__VinylDocument().__projectSoundDictionary, __soundName))
         {
-            __sound = audio_get_name(__VinylFallbackSound);
+            __soundName = audio_get_name(__VinylFallbackSound);
         }
     }
     
@@ -83,7 +83,7 @@ function __VinylClassPatternRefSound() constructor
             ImGui.Text("Reference");
             ImGui.TableSetColumnIndex(1);
             
-            var _textOld       = (__sound == undefined)? __VINYL_ASSET_NULL : audio_get_name(__sound);
+            var _textOld       = __soundName;
             var _textNew       = _textOld;
             var _textInput     = ImGui.InputText("##Sound Text Field", __soundTempName, ImGuiInputTextFlags.EnterReturnsTrue);
             var _textEdited    = ImGui.IsItemDeactivatedAfterEdit();
@@ -132,13 +132,9 @@ function __VinylClassPatternRefSound() constructor
             
             if (_textNew != _textOld)
             {
-                var _sound = asset_get_index(_textNew);
-                if (audio_exists(_sound))
-                {
-                    __sound = _sound;
-                    __soundTempName = _textNew;
-                    __CheckSoundExists();
-                }
+                __soundName     = _textNew;
+                __soundTempName = _textNew;
+                __CheckSoundExists();
             }
             else
             {

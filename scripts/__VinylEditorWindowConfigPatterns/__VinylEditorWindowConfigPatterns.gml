@@ -165,6 +165,49 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
                 _selectedStruct.__Discard();
                 _selectionHandler.__Select(_lastSelected, false);
             }
+            
+            ImGui.SameLine(undefined, 20);
+            
+            ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
+            if (ImGui.BeginCombo("##Pattern Type Combobox", "Type", ImGuiComboFlags.None))
+            {
+                if (ImGui.Selectable("Sound"))
+                {
+                    
+                }
+                
+                if (ImGui.Selectable("Name Match"))
+                {
+                    
+                }
+                
+                if (ImGui.Selectable("Asset Tag"))
+                {
+                    
+                }
+                
+                if (ImGui.Selectable("Basic"))
+                {
+                    
+                }
+                
+                if (ImGui.Selectable("Shuffle"))
+                {
+                    
+                }
+                
+                if (ImGui.Selectable("Multi"))
+                {
+                    
+                }
+                
+                if (ImGui.Selectable("Queue"))
+                {
+                    
+                }
+                
+                ImGui.EndCombo();
+            }
         }
         
         //Little more aesthetic spacing

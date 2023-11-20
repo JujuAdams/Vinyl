@@ -10,14 +10,14 @@
   "bitRate": 128,
   "compression": 0,
   "conversionMode": 0,
-  "duration": 0.0,
+  "duration": 0.586091,
   "parent": {
     "name": "VIPs only in the green room",
     "path": "folders/Vinyl/(Internals)/VIPs only in the green room.yy",
   },
   "preload": false,
   "sampleRate": 44100,
-  "soundFile": "__VinylFallbackSound",
+  "soundFile": "__VinylFallbackSound.wav",
   "type": 0,
   "volume": 1.0,
 }
