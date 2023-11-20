@@ -64,14 +64,6 @@
             label: sfx
         }
         
-        sndBleep6: {
-            loop: true
-        }
-        
-        sndBleep11: {
-            loop: true
-        }
-        
         [sndSync0, sndSync1, sndSync2,  sndSync3]: {
             bpm: 75
         }
