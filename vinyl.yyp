@@ -166,7 +166,7 @@
     {"id":{"name":"__VinylEditorSharedAdd","path":"scripts/__VinylEditorSharedAdd/__VinylEditorSharedAdd.yy",},},
     {"id":{"name":"VinylBPMGet","path":"scripts/VinylBPMGet/VinylBPMGet.yy",},},
     {"id":{"name":"__VinylPatternResolveInheritedGain","path":"scripts/__VinylPatternResolveInheritedGain/__VinylPatternResolveInheritedGain.yy",},},
-    {"id":{"name":"__VinylFindMatchingAudioAssets","path":"scripts/__VinylFindMatchingAudioAssets/__VinylFindMatchingAudioAssets.yy",},},
+    {"id":{"name":"__VinylFindMatchingSounds","path":"scripts/__VinylFindMatchingSounds/__VinylFindMatchingSounds.yy",},},
     {"id":{"name":"__VinylPatternResolveInheritedLoop","path":"scripts/__VinylPatternResolveInheritedLoop/__VinylPatternResolveInheritedLoop.yy",},},
     {"id":{"name":"VinylNativeInstanceGet","path":"scripts/VinylNativeInstanceGet/VinylNativeInstanceGet.yy",},},
     {"id":{"name":"VinylLabelVoicesGet","path":"scripts/VinylLabelVoicesGet/VinylLabelVoicesGet.yy",},},

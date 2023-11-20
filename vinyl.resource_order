@@ -131,7 +131,7 @@
     {"name":"VinylPatternGet","order":14,"path":"scripts/VinylPatternGet/VinylPatternGet.yy",},
     {"name":"__VinylEditorSharedAdd","order":17,"path":"scripts/__VinylEditorSharedAdd/__VinylEditorSharedAdd.yy",},
     {"name":"__VinylPatternResolveInheritedGain","order":3,"path":"scripts/__VinylPatternResolveInheritedGain/__VinylPatternResolveInheritedGain.yy",},
-    {"name":"__VinylFindMatchingAudioAssets","order":11,"path":"scripts/__VinylFindMatchingAudioAssets/__VinylFindMatchingAudioAssets.yy",},
+    {"name":"__VinylFindMatchingSounds","order":11,"path":"scripts/__VinylFindMatchingSounds/__VinylFindMatchingSounds.yy",},
     {"name":"__VinylPatternResolveInheritedLoop","order":5,"path":"scripts/__VinylPatternResolveInheritedLoop/__VinylPatternResolveInheritedLoop.yy",},
     {"name":"VinylNativeInstanceGet","order":3,"path":"scripts/VinylNativeInstanceGet/VinylNativeInstanceGet.yy",},
     {"name":"VinylLabelVoicesGet","order":5,"path":"scripts/VinylLabelVoicesGet/VinylLabelVoicesGet.yy",},

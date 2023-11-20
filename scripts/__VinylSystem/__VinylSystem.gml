@@ -23,6 +23,10 @@
 #macro __VINYL_OPTION_OVERRIDE   "Override"
 #macro __VINYL_OPTION_ADD        "Add"
 
+#macro __VINYL_REF_SIMPLE      "Sound Ref"
+#macro __VINYL_REF_NAME_MATCH  "Name Match"
+#macro __VINYL_REF_ASSET_TAG   "Asset Tag"
+
 #macro __VINYL_FALLBACK_NAME  "Fallback"
 
 #macro __VINYL_PATTERN_TYPE_FALLBACK   "Fallback"

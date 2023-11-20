@@ -1,20 +1,19 @@
 // Feather disable all
-/// @param searchString
-/// @param assetNameArray
 
-function __VinylFindMatchingAudioAssets(_searchString, _assetNameArray)
+/// @param searchString
+/// @param soundNameArray
+
+function __VinylFindMatchingSounds(_searchString, _soundNameArray)
 {
     static _result = [];
     array_resize(_result, 0);
     
-    var _test = [];
-    
     var _subArray = string_split(_searchString, "*", true);
     
     var _i = 0;
-    repeat(array_length(_assetNameArray))
+    repeat(array_length(_soundNameArray))
     {
-        var _assetName = _assetNameArray[_i];
+        var _soundName = _soundNameArray[_i];
         
         var _accepted = true;
         var _pos = 1;
@@ -23,7 +22,7 @@ function __VinylFindMatchingAudioAssets(_searchString, _assetNameArray)
         {
             var _substring = _subArray[_j];
             
-            _pos = string_pos_ext(_substring, _assetName, _pos);
+            _pos = string_pos_ext(_substring, _soundName, _pos);
             if (_pos <= 0)
             {
                 _accepted = false;
@@ -35,8 +34,7 @@ function __VinylFindMatchingAudioAssets(_searchString, _assetNameArray)
         
         if (_accepted)
         {
-            array_push(_result, _i);
-            array_push(_test, audio_get_name(_i));
+            array_push(_result, _soundName);
         }
         
         ++_i;

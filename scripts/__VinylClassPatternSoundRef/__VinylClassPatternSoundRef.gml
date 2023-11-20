@@ -8,6 +8,8 @@ function __VinylClassPatternSoundRef() constructor
     
     __parent        = undefined;
     __sound         = undefined;
+    __reference     = "";
+    __refType       = __VINYL_REF_SIMPLE;
     __soundTempName = "";
     
     static toString = function()
@@ -68,68 +70,156 @@ function __VinylClassPatternSoundRef() constructor
             
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Sound");
+            ImGui.Text("Ref Type");
             ImGui.TableSetColumnIndex(1);
             
-            var _textOld       = (__sound == undefined)? __VINYL_ASSET_NULL : audio_get_name(__sound);
-            var _textNew       = _textOld;
-            var _textInput     = ImGui.InputText("##Sound Text Field", __soundTempName, ImGuiInputTextFlags.EnterReturnsTrue);
-            var _textEdited    = ImGui.IsItemDeactivatedAfterEdit();
-            var _textActive    = ImGui.IsItemActive();
-            var _textActivated = ImGui.IsItemActivated();
-            
-            if (_textActivated)
+            if (ImGui.BeginCombo("##Reference Type Combobox", __refType, ImGuiComboFlags.None))
             {
-                ImGui.OpenPopup("##Sound Text Pop-up");
-            }
-            
-            ImGui.SetNextWindowPos(ImGui.GetItemRectMinX(), ImGui.GetItemRectMaxY());
-            ImGui.SetNextWindowSize(ImGui.GetItemRectMaxX() - ImGui.GetItemRectMinX(), 186);
-            if (ImGui.BeginPopup("##Sound Text Pop-up", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.ChildWindow))
-            {
-                static _levenshtein = undefined;
-                if (_levenshtein == undefined)
+                if (ImGui.Selectable(__VINYL_REF_SIMPLE, __refType == __VINYL_REF_SIMPLE))
                 {
-                    _levenshtein = new __VinylClassLevenshtein();
-                    _levenshtein.SetLexiconArray(__VinylDocument().__projectSoundArray);
+                    __refType = __VINYL_REF_SIMPLE;
                 }
                 
-                _levenshtein.SetString(_textInput);
-                _levenshtein.Process();
-                var _autocomplete = _levenshtein.GetWordArray();
-                
-                var _i = 0;
-                repeat(array_length(_autocomplete))
+                if (ImGui.Selectable(__VINYL_REF_NAME_MATCH, __refType == __VINYL_REF_NAME_MATCH))
                 {
-                    if (ImGui.Selectable(_autocomplete[_i]))
+                    __refType = __VINYL_REF_NAME_MATCH;
+                }
+                
+                if (ImGui.Selectable(__VINYL_REF_ASSET_TAG, __refType == __VINYL_REF_ASSET_TAG))
+                {
+                    __refType = __VINYL_REF_ASSET_TAG;
+                }
+                
+                ImGui.EndCombo();
+            }
+            
+            switch(__refType)
+            {
+                case __VINYL_REF_SIMPLE:
+                    ImGui.TableNextRow();
+                    ImGui.TableSetColumnIndex(0);
+                    ImGui.Text("Reference");
+                    ImGui.TableSetColumnIndex(1);
+                    
+                    var _textOld       = (__sound == undefined)? __VINYL_ASSET_NULL : audio_get_name(__sound);
+                    var _textNew       = _textOld;
+                    var _textInput     = ImGui.InputText("##Sound Text Field", __soundTempName, ImGuiInputTextFlags.EnterReturnsTrue);
+                    var _textEdited    = ImGui.IsItemDeactivatedAfterEdit();
+                    var _textActive    = ImGui.IsItemActive();
+                    var _textActivated = ImGui.IsItemActivated();
+                    
+                    if (_textActivated)
                     {
-                        _textNew = _autocomplete[_i];
+                        ImGui.OpenPopup("##Sound Text Pop-up");
                     }
                     
-                    ++_i;
-                }
+                    ImGui.SetNextWindowPos(ImGui.GetItemRectMinX(), ImGui.GetItemRectMaxY());
+                    ImGui.SetNextWindowSize(ImGui.GetItemRectMaxX() - ImGui.GetItemRectMinX(), 186);
+                    if (ImGui.BeginPopup("##Sound Text Pop-up", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.ChildWindow))
+                    {
+                        static _levenshtein = undefined;
+                        if (_levenshtein == undefined)
+                        {
+                            _levenshtein = new __VinylClassLevenshtein();
+                            _levenshtein.SetLexiconArray(__VinylDocument().__projectSoundArray);
+                        }
+                        
+                        _levenshtein.SetString(_textInput);
+                        _levenshtein.Process();
+                        var _autocomplete = _levenshtein.GetWordArray();
+                        
+                        var _i = 0;
+                        repeat(array_length(_autocomplete))
+                        {
+                            if (ImGui.Selectable(_autocomplete[_i]))
+                            {
+                                _textNew = _autocomplete[_i];
+                            }
+                            
+                            ++_i;
+                        }
+                        
+                        if (_textEdited || ((not _textActive) && (not ImGui.IsWindowFocused())))
+                        {
+                            if (_textEdited) _textNew = _textInput;
+                            ImGui.CloseCurrentPopup();
+                        }
+                        
+                        ImGui.EndPopup();
+                    }
+                    
+                    if (_textNew != _textOld)
+                    {
+                        var _sound = asset_get_index(_textNew);
+                        if (audio_exists(_sound))
+                        {
+                            __sound = _sound;
+                            __soundTempName = _textNew;
+                        }
+                    }
+                    else
+                    {
+                        __soundTempName = _textInput;
+                    }
+                break;
                 
-                if (_textEdited || ((not _textActive) && (not ImGui.IsWindowFocused())))
-                {
-                    if (_textEdited) _textNew = _textInput;
-                    ImGui.CloseCurrentPopup();
-                }
+                case __VINYL_REF_NAME_MATCH:
+                    ImGui.TableNextRow();
+                    ImGui.TableSetColumnIndex(0);
+                    ImGui.Text("Reference");
+                    ImGui.TableSetColumnIndex(1);
+                    __reference = ImGui.InputText("##Sound Ref Name Match Input", __reference);
+                    
+                    ImGui.TableNextRow();
+                    ImGui.TableSetColumnIndex(0);
+                    ImGui.Text("Sounds");
+                    ImGui.TableSetColumnIndex(1);
+                    ImGui.BeginChild();
+                    
+                    if (__reference == "")
+                    {
+                        ImGui.Text("No sounds found");
+                    }
+                    else
+                    {
+                        var _soundArray = __VinylFindMatchingSounds(__reference, __VinylDocument().__projectSoundArray);
+                        var _i = 0;
+                        repeat(array_length(_soundArray))
+                        {
+                            ImGui.Text(_soundArray[_i]);
+                            ++_i;
+                        }
+                    }
+                    
+                    ImGui.EndChild();
+                break;
                 
-                ImGui.EndPopup();
-            }
+                case __VINYL_REF_ASSET_TAG:
+                    ImGui.TableNextRow();
+                    ImGui.TableSetColumnIndex(0);
+                    ImGui.Text("Reference");
+                    ImGui.TableSetColumnIndex(1);
             
-            if (_textNew != _textOld)
-            {
-                var _sound = asset_get_index(_textNew);
-                if (audio_exists(_sound))
-                {
-                    __sound = _sound;
-                    __soundTempName = _textNew;
-                }
-            }
-            else
-            {
-                __soundTempName = _textInput;
+                    if (ImGui.BeginCombo("##Sound Ref Asset Tag Input", __reference, ImGuiComboFlags.None))
+                    {
+                        if (ImGui.Selectable("A", __reference == "A"))
+                        {
+                            __reference = "A";
+                        }
+                        
+                        if (ImGui.Selectable("B", __reference == "B"))
+                        {
+                            __reference = "B";
+                        }
+                        
+                        if (ImGui.Selectable("C", __reference == "C"))
+                        {
+                            __reference = "C";
+                        }
+                        
+                        ImGui.EndCombo();
+                    }
+                break;
             }
             
             ImGui.EndTable();

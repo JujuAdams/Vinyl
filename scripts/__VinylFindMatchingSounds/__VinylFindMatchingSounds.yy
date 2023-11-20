@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylFindMatchingAudioAssets",
+  "name": "__VinylFindMatchingSounds",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
