@@ -67,7 +67,7 @@ function __VinylClassPatternQueue(_name, _adHoc, _child) : __VinylClassPatternCo
         return _voice;
     }
     
-    static __PlaySimple = function(_sound, _gain = 1, _pitch = 1, _effectChainName = __effectChainName)
+    static __PlaySimple = function()
     {
         __VinylError("Cannot use VinylPlaySimple() with a queue pattern");
     }

@@ -175,7 +175,12 @@ UIButtonInline("Space cat", function()
     VinylPlay("space cat", false, 1, 1, random_range(-1, 1));
 });
 
-UIButtonInline("Bleep shuffle", function()
+UIButtonInline("Bleep shuffle (standard)", function()
+{
+    VinylPlay("bleep shuffle");
+});
+
+UIButtonInline("Bleep shuffle (simple)", function()
 {
     VinylPlaySimple("bleep shuffle");
 });
