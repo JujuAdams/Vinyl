@@ -3,13 +3,11 @@
   ],
   "effectChains":[
   ],
-  "knobs":[
-  ],
-  "stacks":[
-  ],
   "labels":[
     {
       "pitchKnob":"<None>",
+      "childArray":[
+      ],
       "loop":0.0,
       "stack":"<None>",
       "gainOption":"Multiply",
@@ -33,8 +31,6 @@
         1.0,
         1.0
       ],
-      "childArray":[
-      ],
       "effectChainOption":"Unset",
       "gainKnobOverride":0.0,
       "transposeKnob":"<None>",
@@ -45,6 +41,8 @@
     },
     {
       "pitchKnob":"<None>",
+      "childArray":[
+      ],
       "loop":0.0,
       "stack":"<None>",
       "gainOption":"Randomize",
@@ -68,8 +66,6 @@
         1.0,
         1.0
       ],
-      "childArray":[
-      ],
       "effectChainOption":"Unset",
       "gainKnobOverride":0.0,
       "transposeKnob":"<None>",
@@ -79,39 +75,33 @@
       "transposeOption":"Unset"
     }
   ],
-  "settings":{
-    "autogenerateMacros":1.0,
-    "macroScriptName":"__VinylGeneratedMacros"
-  },
+  "knobs":[
+  ],
   "patterns":[
     {
       "pitchKnob":"<None>",
       "loop":1.0,
       "stack":"<None>",
       "gainOption":"Knob",
-      "loopPoints":[
-        0.0,
-        0.0
-      ],
       "persistentOption":"Unset",
       "pitchOption":"Knob",
+      "bpm":120.0,
       "transpose":[
         0.0,
         0.0
       ],
       "loopOption":"Set",
-      "sound":"snd1KHz",
       "persistent":null,
       "stackOption":"Unset",
-      "name":"snd1KHz",
-      "loopPointsOption":"Unset",
+      "name":"sndBleep1",
       "effectChain":"<None>",
       "gain":[
-        0.71299999952316284,
-        0.71299999952316284
+        1.0,
+        1.0
       ],
-      "type":"Sound",
+      "bpmOption":"Unset",
       "transposeKnobOverride":0.0,
+      "type":"Sound",
       "pitch":[
         1.0,
         1.0
@@ -120,14 +110,108 @@
       ],
       "effectChainOption":"Unset",
       "gainKnobOverride":0.0,
-      "bpm":120.0,
+      "loopPoints":[
+        0.0,
+        0.0
+      ],
       "transposeKnob":"<None>",
       "pitchKnobOverride":0.0,
       "labelsOption":"Unset",
+      "sound":"sndBleep1",
       "stackPriority":0.0,
       "gainKnob":"<None>",
-      "bpmOption":"Unset",
+      "loopPointsOption":"Unset",
       "transposeOption":"Knob"
+    },
+    {
+      "pitchKnob":"<None>",
+      "loop":1.0,
+      "stack":"<None>",
+      "gainOption":"Knob",
+      "persistentOption":"Unset",
+      "pitchOption":"Knob",
+      "bpm":120.0,
+      "transpose":[
+        0.0,
+        0.0
+      ],
+      "loopOption":"Set",
+      "persistent":null,
+      "stackOption":"Unset",
+      "name":"snd1KHz",
+      "effectChain":"<None>",
+      "gain":[
+        0.71299999952316284,
+        0.71299999952316284
+      ],
+      "bpmOption":"Unset",
+      "transposeKnobOverride":0.0,
+      "type":"Sound",
+      "pitch":[
+        1.0,
+        1.0
+      ],
+      "labels":[
+      ],
+      "effectChainOption":"Unset",
+      "gainKnobOverride":0.0,
+      "loopPoints":[
+        0.0,
+        0.0
+      ],
+      "transposeKnob":"<None>",
+      "pitchKnobOverride":0.0,
+      "labelsOption":"Unset",
+      "sound":"snd1KHz",
+      "stackPriority":0.0,
+      "gainKnob":"<None>",
+      "loopPointsOption":"Unset",
+      "transposeOption":"Knob"
+    },
+    {
+      "pitchKnob":"<None>",
+      "loop":0.0,
+      "stack":"<None>",
+      "gainOption":"Unset",
+      "persistentOption":"Unset",
+      "pitchOption":"Unset",
+      "bpm":120.0,
+      "transpose":[
+        0.0,
+        0.0
+      ],
+      "loopOption":"Unset",
+      "persistent":null,
+      "stackOption":"Unset",
+      "name":"sndBleep11",
+      "effectChain":"<None>",
+      "gain":[
+        1.0,
+        1.0
+      ],
+      "bpmOption":"Unset",
+      "transposeKnobOverride":0.0,
+      "type":"Sound",
+      "pitch":[
+        1.0,
+        1.0
+      ],
+      "labels":[
+      ],
+      "effectChainOption":"Unset",
+      "gainKnobOverride":0.0,
+      "loopPoints":[
+        0.0,
+        0.0
+      ],
+      "transposeKnob":"<None>",
+      "pitchKnobOverride":0.0,
+      "labelsOption":"Unset",
+      "sound":"sndBleep11",
+      "stackPriority":0.0,
+      "gainKnob":"<None>",
+      "loopPointsOption":"Unset",
+      "transposeOption":"Unset"
     },
     {
       "pitchKnob":"<None>",
@@ -169,32 +253,28 @@
     },
     {
       "pitchKnob":"<None>",
-      "loop":0.0,
+      "loop":false,
       "stack":"<None>",
       "gainOption":"Multiply",
-      "loopPoints":[
-        0.0,
-        0.0
-      ],
       "persistentOption":"Unset",
       "pitchOption":"Unset",
+      "bpm":120.0,
       "transpose":[
         0.0,
         0.0
       ],
       "loopOption":"Unset",
-      "sound":"sndBleep10",
       "persistent":null,
       "stackOption":"Unset",
       "name":"sndBleep10",
-      "loopPointsOption":"Unset",
       "effectChain":"<None>",
       "gain":[
         1.1579999923706055,
         1.1579999923706055
       ],
-      "type":"Sound",
+      "bpmOption":"Unset",
       "transposeKnobOverride":0.0,
+      "type":"Sound",
       "pitch":[
         1.0,
         1.0
@@ -203,59 +283,24 @@
       ],
       "effectChainOption":"Unset",
       "gainKnobOverride":0.0,
-      "bpm":120.0,
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "labelsOption":"Unset",
-      "stackPriority":0.0,
-      "gainKnob":"<None>",
-      "bpmOption":"Unset",
-      "transposeOption":"Unset"
-    },
-    {
-      "pitchKnob":"<None>",
-      "loop":true,
-      "stack":"<None>",
-      "gainOption":"Knob",
       "loopPoints":[
         0.0,
         0.0
       ],
-      "persistentOption":"Unset",
-      "pitchOption":"Knob",
-      "transpose":[
-        0.0,
-        0.0
-      ],
-      "loopOption":"Set",
-      "sound":"sndBleep1",
-      "persistent":null,
-      "stackOption":"Unset",
-      "name":"sndBleep1",
-      "loopPointsOption":"Unset",
-      "effectChain":"<None>",
-      "gain":[
-        1.0,
-        1.0
-      ],
-      "type":"Sound",
-      "transposeKnobOverride":false,
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "effectChainOption":"Unset",
-      "gainKnobOverride":false,
-      "bpm":120.0,
       "transposeKnob":"<None>",
-      "pitchKnobOverride":false,
+      "pitchKnobOverride":0.0,
       "labelsOption":"Unset",
+      "sound":"sndBleep10",
       "stackPriority":0.0,
       "gainKnob":"<None>",
-      "bpmOption":"Unset",
-      "transposeOption":"Knob"
+      "loopPointsOption":"Set",
+      "transposeOption":"Unset"
     }
-  ]
+  ],
+  "stacks":[
+  ],
+  "settings":{
+    "autogenerateMacros":1.0,
+    "macroScriptName":"__VinylGeneratedMacros"
+  }
 }

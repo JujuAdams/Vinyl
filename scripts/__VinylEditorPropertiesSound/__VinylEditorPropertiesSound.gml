@@ -15,7 +15,8 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
     static _displayWidgetArray = [
         { __name: "Gain",         __function: __VinylEditorPropWidgetGain,        __apply: ["__gainOption", "__gainKnob", "__gainKnobOverride", "__gain"], },
         { __name: "Pitch",        __function: __VinylEditorPropWidgetPitch,       __apply: ["__pitchOption", "__pitchKnob", "__pitchKnobOverride", "__pitch"], },
-        { __name: "Loop",         __function: __VinylEditorPropWidgetLoop,        __apply: ["__loopOption", "__loop", "__loopPointsOption", "__loopPoints"], },
+        { __name: "Loop",         __function: __VinylEditorPropWidgetLoop,        __apply: ["__loopOption", "__loop"], },
+        { __name: "Loop Points",  __function: __VinylEditorPropWidgetLoopPoints,  __apply: ["__loopPointsOption", "__loopPoints"], },
         { __name: "Labels",       __function: __VinylEditorPropWidgetLabel,       __apply: ["__labelsOption", "__labels"], },
         { __name: "Stack",        __function: __VinylEditorPropWidgetStack,       __apply: ["__stackOption", "__stackName", "__stackPriority"], },
         { __name: "Effect Chain", __function: __VinylEditorPropWidgetEffectChain, __apply: ["__effectChainOption", "__effectChain"], },

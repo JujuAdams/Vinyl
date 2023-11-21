@@ -215,6 +215,7 @@
     {"id":{"name":"VinylEmitterRectangle","path":"scripts/VinylEmitterRectangle/VinylEmitterRectangle.yy",},},
     {"id":{"name":"sndBleep3","path":"sounds/sndBleep3/sndBleep3.yy",},},
     {"id":{"name":"VinylFadeOutAll","path":"scripts/VinylFadeOutAll/VinylFadeOutAll.yy",},},
+    {"id":{"name":"__VinylEditorPropWidgetLoopPoints","path":"scripts/__VinylEditorPropWidgetLoopPoints/__VinylEditorPropWidgetLoopPoints.yy",},},
     {"id":{"name":"__VinylClassPatternBasic","path":"scripts/__VinylClassPatternBasic/__VinylClassPatternBasic.yy",},},
     {"id":{"name":"__VinylEditorWindowGetOpen","path":"scripts/__VinylEditorWindowGetOpen/__VinylEditorWindowGetOpen.yy",},},
     {"id":{"name":"__VinylEditorPropWidgetEffectChain","path":"scripts/__VinylEditorPropWidgetEffectChain/__VinylEditorPropWidgetEffectChain.yy",},},
