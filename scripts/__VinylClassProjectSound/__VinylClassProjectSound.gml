@@ -197,6 +197,26 @@ function __VinylClassProjectSound(_type, _name, _yyPath, _absolutePath) construc
         __VinylEditorSetStatusText("Saved \"", __yyPath, "\"");
     }
     
+    static __SetAssetTag = function(_assetTag, _state)
+    {
+        if (_state)
+        {
+            if (not array_contains(__assetTags, _assetTag))
+            {
+                array_push(__assetTags, _assetTag);
+                array_sort(__assetTags, true);
+            }
+        }
+        else
+        {
+            var _index = __VinylArrayFindIndex(__assetTags, _assetTag);
+            if (_index != undefined)
+            {
+                array_delete(__assetTags, _index, 1);
+            }
+        }
+    }
+    
     static __SetAttributes = function(_newAttributes)
     {
         if (__attributes == _newAttributes) return;
@@ -258,7 +278,7 @@ function __VinylClassProjectSound(_type, _name, _yyPath, _absolutePath) construc
                 if (__compiledValues)
                 {
                     __compiledAudioGroup = __audioGroup;
-                    __compiledAssetTags  = __assetTags;
+                    __compiledAssetTags  = variable_clone(__assetTags);
                     __compiledAttributes = __attributes;
                 }
             }

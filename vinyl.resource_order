@@ -104,6 +104,7 @@
     {"name":"VinylStackMaxPriorityGet","order":3,"path":"scripts/VinylStackMaxPriorityGet/VinylStackMaxPriorityGet.yy",},
     {"name":"__VinylEditorWindowConfigPatterns__OLD","order":7,"path":"scripts/__VinylEditorWindowConfigPatterns__OLD/__VinylEditorWindowConfigPatterns__OLD.yy",},
     {"name":"__VinylDebugLabelNames","order":17,"path":"scripts/__VinylDebugLabelNames/__VinylDebugLabelNames.yy",},
+    {"name":"__VinylAssetTagsGetAbbreviatedName","order":13,"path":"scripts/__VinylAssetTagsGetAbbreviatedName/__VinylAssetTagsGetAbbreviatedName.yy",},
     {"name":"__VinylClassAnimCurve","order":8,"path":"scripts/__VinylClassAnimCurve/__VinylClassAnimCurve.yy",},
     {"name":"sndBleep7","order":17,"path":"sounds/sndBleep7/sndBleep7.yy",},
     {"name":"VinylQueueBehaviorSet","order":1,"path":"scripts/VinylQueueBehaviorSet/VinylQueueBehaviorSet.yy",},

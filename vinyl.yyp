@@ -133,6 +133,7 @@
     {"id":{"name":"VinylStackMaxPriorityGet","path":"scripts/VinylStackMaxPriorityGet/VinylStackMaxPriorityGet.yy",},},
     {"id":{"name":"__VinylEditorWindowConfigPatterns__OLD","path":"scripts/__VinylEditorWindowConfigPatterns__OLD/__VinylEditorWindowConfigPatterns__OLD.yy",},},
     {"id":{"name":"__VinylDebugLabelNames","path":"scripts/__VinylDebugLabelNames/__VinylDebugLabelNames.yy",},},
+    {"id":{"name":"__VinylAssetTagsGetAbbreviatedName","path":"scripts/__VinylAssetTagsGetAbbreviatedName/__VinylAssetTagsGetAbbreviatedName.yy",},},
     {"id":{"name":"__VinylClassAnimCurve","path":"scripts/__VinylClassAnimCurve/__VinylClassAnimCurve.yy",},},
     {"id":{"name":"sndBleep7","path":"sounds/sndBleep7/sndBleep7.yy",},},
     {"id":{"name":"VinylQueueBehaviorSet","path":"scripts/VinylQueueBehaviorSet/VinylQueueBehaviorSet.yy",},},
