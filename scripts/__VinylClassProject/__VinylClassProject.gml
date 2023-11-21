@@ -178,7 +178,8 @@ function __VinylClassProject() constructor
             var _soundName = _newSoundArray[_i];
             if (variable_struct_exists(_oldSoundDictionary, _soundName))
             {
-                _oldSoundDictionary[$ _soundName].__CheckYYFile(false);
+                var _newSoundData = _oldSoundDictionary[$ _soundName];
+                _newSoundData.__CheckYYFile(false);
             }
             else
             {
@@ -247,28 +248,28 @@ function __VinylClassProject() constructor
                 }
                 
                 _newSoundData.__CheckYYFile(_firstUpdate);
+            }
+            
+            //Build asset tag lookups
+            var _soundAssetTagArray = _newSoundData.__assetTags;
+            var _j = 0;
+            repeat(array_length(_soundAssetTagArray))
+            {
+                var _assetTag = _soundAssetTagArray[_j];
                 
-                //Build asset tag lookups
-                var _soundAssetTagArray = _newSoundData.__assetTags;
-                var _j = 0;
-                repeat(array_length(_soundAssetTagArray))
+                var _soundArray = _assetTagDict[$ _assetTag];
+                if (not is_array(_soundArray))
                 {
-                    var _assetTag = _soundAssetTagArray[_j];
-                    
-                    var _soundArray = _assetTagDict[$ _assetTag];
-                    if (not is_array(_soundArray))
-                    {
-                        _soundArray = [_soundName];
-                        _assetTagDict[$ _assetTag] = _soundArray;
-                        array_push(_assetTagArray, _assetTag);
-                    }
-                    else
-                    {
-                        array_push(_soundArray, _soundName);
-                    }
-                    
-                    ++_j;
+                    _soundArray = [_soundName];
+                    _assetTagDict[$ _assetTag] = _soundArray;
+                    array_push(_assetTagArray, _assetTag);
                 }
+                else
+                {
+                    array_push(_soundArray, _soundName);
+                }
+                
+                ++_j;
             }
             
             ++_i;
