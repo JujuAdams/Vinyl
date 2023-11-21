@@ -104,6 +104,50 @@ function __VinylEditorWindowFilter(_stateStruct)
                 
                 ImGui.TableNextRow();
                 ImGui.TableSetColumnIndex(0);
+                ImGui.Text("Asset Tag");
+                ImGui.TableSetColumnIndex(1);
+                _filter.__useAssetTag = ImGui.Checkbox("##Asset Tag Checkbox", _filter.__useAssetTag);
+                ImGui.TableSetColumnIndex(2);
+                ImGui.BeginDisabled(not _filter.__useAssetTag);
+                    
+                    var _assetTagDict = _filter.__assetTagDict;
+                    
+                    var _nameArray = variable_struct_get_names(_assetTagDict);
+                    array_sort(_nameArray, true);
+                    var _string = __VinylAssetTagsGetAbbreviatedName(_nameArray, infinity);
+                    
+                    if (ImGui.BeginCombo("##Asset Tag Combobox", _string, ImGuiComboFlags.None))
+                    {
+                        var _assetTagArray = __VinylDocument().__GetProjectAssetTagArray();
+                        var _i = 0;
+                        repeat(array_length(_assetTagArray))
+                        {
+                            var _assetTag = _assetTagArray[_i];
+                            
+                            var _contains = variable_struct_exists(_assetTagDict, _assetTag);
+                            var _newContains = ImGui.Checkbox(_assetTag, _contains);
+                            
+                            if (_newContains != _contains)
+                            {
+                                if (_newContains)
+                                {
+                                    _assetTagDict[$ _assetTag] = true;
+                                }
+                                else
+                                {
+                                    variable_struct_remove(_assetTagDict, _assetTag);
+                                }
+                            }
+                            
+                            ++_i;
+                        }
+                    
+                        ImGui.EndCombo();
+                    }
+                ImGui.EndDisabled();
+                
+                ImGui.TableNextRow();
+                ImGui.TableSetColumnIndex(0);
                 ImGui.Text("Attribute");
                 ImGui.TableSetColumnIndex(1);
                 _filter.__useAttribute = ImGui.Checkbox("##Attribute Checkbox", _filter.__useAttribute);

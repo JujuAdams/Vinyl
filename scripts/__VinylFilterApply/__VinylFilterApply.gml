@@ -35,6 +35,26 @@ function __VinylFilterApply(_filter, _data)
             if (not variable_struct_exists(__audioGroupDict, _data.__audioGroup)) return __invert;
         }
         
+        if (__useAssetTag)
+        {
+            var _assetTagArray = _data.__assetTags;
+            
+            var _found = false;
+            var _i = 0;
+            repeat(array_length(_assetTagArray))
+            {
+                if (variable_struct_exists(__assetTagDict, _assetTagArray[_i]))
+                {
+                    _found = true;
+                    break;
+                }
+                
+                ++_i;
+            }
+            
+            if (not _found) return __invert;
+        }
+        
         if (__useAttribute)
         {
             if (not __attributesArray[_data.__attributes]) return __invert;

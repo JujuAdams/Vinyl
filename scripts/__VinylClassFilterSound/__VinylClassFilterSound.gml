@@ -13,6 +13,9 @@ function __VinylClassFilterSound() constructor
     __audioGroupDict = {};
     __useAudioGroup  = false;
     
+    __assetTagDict = {};
+    __useAssetTag  = false;
+    
     __attributesArray = [false, false, false, false];
     __useAttribute    = false;
 }
