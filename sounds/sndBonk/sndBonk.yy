@@ -18,9 +18,6 @@
   "preload": false,
   "sampleRate": 44100,
   "soundFile": "sndBonk.wav",
-  "tags": [
-    "test tag",
-  ],
   "type": 0,
   "volume": 1.0,
 }

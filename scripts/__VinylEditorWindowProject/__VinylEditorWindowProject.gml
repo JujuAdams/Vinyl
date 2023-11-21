@@ -127,13 +127,21 @@ function __VinylEditorWindowProject()
                 
                 ImGui.BeginChild("Project Audio Group View", 0.3*ImGui.GetContentRegionAvailX(), undefined, true);
                 
+                var _tabData  = _editor.__windowStates.__project.__tabAssetTags;
+                var _selected = _tabData.__selected;
+                
                 var _document = __VinylDocument();
                 var _array = _document.__GetProjectAssetTagArray();
                 
                 var _i = 0;
                 repeat(array_length(_array))
                 {
-                    ImGui.Selectable(_array[_i] + "##Project Asset Tag Selectable");
+                    var _assetTag = _array[_i];
+                    if (ImGui.Selectable(_assetTag + "##Project Asset Tag Selectable", (_selected == _assetTag)))
+                    {
+                        _tabData.__selected = _assetTag;
+                    }
+                    
                     ++_i;
                 }
                 
@@ -143,43 +151,24 @@ function __VinylEditorWindowProject()
                 
                 ImGui.BeginChild("Project Asset Tag Detail", ImGui.GetContentRegionAvailX(), undefined, true);
                 
-                repeat(10)
+                if (is_string(_selected))
                 {
-                    ImGui.Text("Audio Group");
-                }
-                
-                ImGui.EndChild();
-                
-                ImGui.EndTabItem();
-            }
-            
-            if (ImGui.BeginTabItem("Sounds"))
-            {
-                ImGui.TextWrapped("Below are the sounds discovered in the project. This information is provided for debugging purposes. You can edit playback settings for sounds via the Config window, accessible from the taskbar.", ImGui.GetContentRegionAvailX());
-                
-                ImGui.NewLine();
-                
-                ImGui.BeginChild("Project Sounds View", 0.3*ImGui.GetContentRegionAvailX(), undefined, true);
-                
-                var _document = __VinylDocument();
-                var _array = _document.__GetProjectSoundArray();
-                
-                var _i = 0;
-                repeat(array_length(_array))
-                {
-                    ImGui.Selectable(_array[_i] + "##Project Sounds Selectable");
-                    ++_i;
-                }
-                
-                ImGui.EndChild();
-                
-                ImGui.SameLine();
-                
-                ImGui.BeginChild("Project Sounds Detail", ImGui.GetContentRegionAvailX(), undefined, true);
-                
-                repeat(10)
-                {
-                    ImGui.Text("Audio Group");
+                    var _assetTagDict = _document.__GetProjectAssetTagDict();
+                    var _array = _assetTagDict[$ _selected];
+                    
+                    if ((not is_array(_array)) || (array_length(_array) <= 0))
+                    {
+                        ImGui.Text("No sounds with asset tag \"" + _selected + "\"");
+                    }
+                    else
+                    {
+                        var _i = 0;
+                        repeat(array_length(_array))
+                        {
+                            ImGui.Text(_array[_i]);
+                            ++_i;
+                        }
+                    }
                 }
                 
                 ImGui.EndChild();
