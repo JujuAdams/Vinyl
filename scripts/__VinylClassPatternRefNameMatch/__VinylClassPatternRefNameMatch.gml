@@ -64,7 +64,7 @@ function __VinylClassPatternRefNameMatch() constructor
     
     static __UpdateSounds = function()
     {
-        __soundsArray = variable_clone(__VinylFindMatchingSounds(__reference, __VinylDocument().__projectSoundArray));
+        __soundsArray = variable_clone(__VinylFindMatchingSounds(__reference, __VinylDocument().__GetProjectSoundArray()));
     }
     
     static __BuildPropertyUI = function(_selectionHandler)

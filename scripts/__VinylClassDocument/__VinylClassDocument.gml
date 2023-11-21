@@ -6,19 +6,16 @@ function __VinylClassDocument(_path) constructor
 {
     __documentPath = _path;
     
-    __projectDirectory = filename_dir(__documentPath) + "/";
-    
-    __projectLoaded          = false;
-    __projectPath            = GM_project_filename;
-    __projectSoundDictionary = {};
-    __projectSoundArray      = [];
-    __projectSoundHashDict   = {};
-    __projectAudioGroupArray = [];
-    
     __subscriberDict = {};
     
+    
+    
     __Reset();
+    
+    __project = new __VinylClassProject();
+    __project.__SetPath(GM_project_filename);
     __ProjectLoad();
+    
     __Load(__documentPath);
     
     //Ensure the fallback pattern exists
@@ -195,6 +192,11 @@ function __VinylClassDocument(_path) constructor
         __MacroScriptEnsure();
     }
     
+    static __ProjectLoad = function()
+    {
+        __project.__Load();
+    }
+    
     static __MacroScriptEnsure = function()
     {
         //TODO
@@ -293,6 +295,47 @@ function __VinylClassDocument(_path) constructor
     
     
     
+    #region Getters
+    
+    static __GetProjectPath = function()
+    {
+        return __project.__GetPath();
+    }
+    
+    static __GetProjectLoaded = function()
+    {
+        return __project.__GetLoaded();
+    }
+    
+    static __GetProjectSoundDictionary = function()
+    {
+        return __project.__GetSoundDictionary();
+    }
+    
+    static __GetProjectSoundArray = function()
+    {
+        return __project.__GetSoundArray();
+    }
+    
+    static __GetProjectAudioGroupArray = function()
+    {
+        return __project.__GetAudioGroupArray();
+    }
+    
+    static __GetProjectAssetTagDict = function()
+    {
+        return __project.__GetAssetTagDict();
+    }
+    
+    static __GetProjectAssetTagArray = function()
+    {
+        return __project.__GetAssetTagArray();
+    }
+    
+    #endregion
+    
+    
+    
     static __NewLabel = function(_parent = undefined)
     {
         var _index = 1;
@@ -385,85 +428,5 @@ function __VinylClassDocument(_path) constructor
         _new.__Store(self);
         
         return _new;
-    }
-    
-    
-    
-    static __ProjectLoad = function()
-    {
-        if ((not __VinylGetLiveUpdateEnabled()) || (not __VinylGetRunningFromIDE())) return;
-        
-        if (!file_exists(__projectPath))
-        {
-            __VinylError("Could not find \"", __projectPath, "\"\n- Turn on the \"Disable file system sandbox\" game option for this platform");
-            return;
-        }
-        
-        var _anyChanges = undefined;
-        var _t = get_timer();
-        
-        try
-        {
-            var _buffer = buffer_load(__projectPath);
-            if (buffer_get_size(_buffer) <= 0) throw "File is empty";
-            
-            var _string = buffer_read(_buffer, buffer_string);
-            var _data = json_parse(_string);
-            _anyChanges = __VinylSystemReadProject(self, _data, not __projectLoaded);
-            
-            __VinylTrace("Loaded project file in ", (get_timer() - _t)/1000, "ms");
-            __projectLoaded = true;
-        }
-        catch(_error)
-        {
-            show_debug_message("");
-            __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            __VinylTrace(_error.longMessage);
-            __VinylTrace(_error.stacktrace);
-            __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            __VinylTrace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            show_debug_message("");
-            
-            var _trimmedMessage = string_replace(_error.message, "Vinyl:\n", "");
-            _trimmedMessage = string_copy(_trimmedMessage, 1, string_length(_trimmedMessage)-2);
-            
-            if (__projectLoaded)
-            {
-                _trimmedMessage = string_replace_all(_trimmedMessage, "\n", "\n       ");
-                __VinylTrace("There was an error whilst reading \"", __projectPath, "\"");
-                __VinylTrace(_trimmedMessage);
-            }
-            else
-            {
-                __VinylError("There was an error whilst reading \"", __projectPath, "\"\n \n", _trimmedMessage);
-            }
-        }
-        finally
-        {
-            buffer_delete(_buffer);
-        }
-        
-        return _anyChanges;
-    }
-    
-    static __ProjectGetLoaded = function()
-    {
-        return __projectLoaded;
-    }
-    
-    static __ProjectGetSoundDictionary = function()
-    {
-        return __projectSoundDictionary;
-    }
-    
-    static __ProjectGetSoundArray = function()
-    {
-        return __projectSoundArray;
-    }
-    
-    static __ProjectGetAudioGroupArray = function()
-    {
-        return __projectAudioGroupArray;
     }
 }

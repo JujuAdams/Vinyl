@@ -11,7 +11,7 @@ function __VinylEditorUpdate()
         if (_inFocus)
         {
             __VinylDocument().__ProjectLoad();
-            __VinylEditorSetStatusText("Reloaded \"", __VinylDocument().__projectPath, "\"");
+            __VinylEditorSetStatusText("Reloaded \"", __VinylDocument().__GetProjectPath(), "\"");
         }
     }
     

@@ -74,7 +74,7 @@ function __VinylEditorWindowFilter(_stateStruct)
                     
                     if (ImGui.BeginCombo("##Audio Group Combobox", _string, ImGuiComboFlags.None))
                     {
-                        var _audioGroupArray = __VinylDocument().__ProjectGetAudioGroupArray();
+                        var _audioGroupArray = __VinylDocument().__GetProjectAudioGroupArray();
                         var _i = 0;
                         repeat(array_length(_audioGroupArray))
                         {

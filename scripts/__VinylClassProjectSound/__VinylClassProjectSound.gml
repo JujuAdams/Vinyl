@@ -16,8 +16,10 @@ function __VinylClassProjectSound(_type, _name, _yyPath, _absolutePath) construc
     
     __compiledValues     = undefined;
     __compiledAudioGroup = undefined;
+    __compiledAssetTags  = undefined;
     __compiledAttributes = undefined;
     __audioGroup         = undefined;
+    __assetTags          = [];
     __attributes         = undefined;
     
     __yyHash = undefined;
@@ -239,6 +241,16 @@ function __VinylClassProjectSound(_type, _name, _yyPath, _absolutePath) construc
             __audioGroup = _soundJSON.audioGroupId.name;
             __attributes = _soundJSON.compression;
             
+            var _foundTagsArray = _soundJSON[$ "tags"];
+            if (is_array(_foundTagsArray))
+            {
+                __assetTags = variable_clone(_foundTagsArray);
+            }
+            else
+            {
+                __assetTags = [];
+            }
+            
             if (__compiledValues == undefined)
             {
                 __compiledValues = _firstUpdate;
@@ -246,6 +258,7 @@ function __VinylClassProjectSound(_type, _name, _yyPath, _absolutePath) construc
                 if (__compiledValues)
                 {
                     __compiledAudioGroup = __audioGroup;
+                    __compiledAssetTags  = __assetTags;
                     __compiledAttributes = __attributes;
                 }
             }

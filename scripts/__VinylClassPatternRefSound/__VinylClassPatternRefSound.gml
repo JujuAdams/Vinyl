@@ -63,7 +63,7 @@ function __VinylClassPatternRefSound() constructor
     
     static __CheckSoundExists = function()
     {
-        if (not variable_struct_exists(__VinylDocument().__projectSoundDictionary, __soundName))
+        if (not variable_struct_exists(__VinylDocument().__GetProjectSoundDictionary(), __soundName))
         {
             __soundName = audio_get_name(__VinylFallbackSound);
         }
@@ -103,7 +103,7 @@ function __VinylClassPatternRefSound() constructor
                 if (_levenshtein == undefined)
                 {
                     _levenshtein = new __VinylClassLevenshtein();
-                    _levenshtein.SetLexiconArray(__VinylDocument().__projectSoundArray);
+                    _levenshtein.SetLexiconArray(__VinylDocument().__GetProjectSoundArray());
                 }
                 
                 _levenshtein.SetString(_textInput);

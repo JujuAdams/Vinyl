@@ -77,7 +77,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
     {
         if (ImGui.BeginTable("GameMaker Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 140))
         {
-            var _projectSound = __VinylDocument().__projectSoundDictionary[$ _soundName];
+            var _projectSound = __VinylDocument().__GetProjectSoundDictionary()[$ _soundName];
             
             //Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("GameMaker Project", ImGuiTableColumnFlags.WidthStretch, 5);
@@ -91,7 +91,7 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
             ImGui.SameLine();
             if (ImGui.BeginCombo("##Audio Group", _projectSound.__audioGroup, ImGuiComboFlags.None))
             {
-                var _audioGroupArray = __VinylDocument().__ProjectGetAudioGroupArray();
+                var _audioGroupArray = __VinylDocument().__GetProjectAudioGroupArray();
                 var _i = 0;
                 repeat(array_length(_audioGroupArray))
                 {

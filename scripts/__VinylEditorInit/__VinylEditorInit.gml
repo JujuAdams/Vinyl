@@ -27,6 +27,14 @@ function __VinylEditorInit()
                 __function: __VinylEditorWindowProject,
                 __open: false,
                 __collapsed: false,
+                __tabGeneral: {
+                },
+                __tabSounds: {
+                },
+                __tabAssetTags: {
+                },
+                __tabAudioGroups: {
+                },
             },
             
             __config: {

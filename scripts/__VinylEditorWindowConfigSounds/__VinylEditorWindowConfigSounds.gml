@@ -4,8 +4,8 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
 {
     var _document = __VinylDocument();
     
-    var _projectSoundArray      = _document.__ProjectGetSoundArray();
-    var _projectSoundDictionary = _document.__ProjectGetSoundDictionary();
+    var _projectSoundArray      = _document.__GetProjectSoundArray();
+    var _projectSoundDictionary = _document.__GetProjectSoundDictionary();
     
     var _tabState = _stateStruct.__tabSounds;
     

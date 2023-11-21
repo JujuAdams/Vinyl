@@ -64,7 +64,7 @@ function __VinylClassPatternRefAssetTag() constructor
     
     static __UpdateSounds = function()
     {
-        var _soundArray = variable_struct_exists(__VinylDocument().__projectAssetTagDict, __assetTag);
+        var _soundArray = variable_struct_exists(__VinylDocument().__GetProjectAssetTagDict(), __assetTag);
         if (not is_array(_soundArray))
         {
             __assetTag    = "";
