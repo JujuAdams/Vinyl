@@ -12,6 +12,7 @@ function __VinylClassProject() constructor
     __soundHashDict   = {};
     
     __audioGroupArray = [];
+    __audioGroupDict  = {};
     
     __assetTagArray = [];
     __assetTagDict  = {};
@@ -107,6 +108,11 @@ function __VinylClassProject() constructor
         return __audioGroupArray;
     }
     
+    static __GetAudioGroupDict = function()
+    {
+        return __audioGroupDict;
+    }
+    
     static __GetAssetTagArray = function()
     {
         return __assetTagArray;
@@ -127,13 +133,15 @@ function __VinylClassProject() constructor
         var _oldSoundHashDict   = __soundHashDict;
         var _audioGroupArray    = __audioGroupArray;
         var _assetTagArray      = __assetTagArray;
-        var _assetTagDict       = __assetTagDict;
         
         array_resize(__audioGroupArray, 0);
         array_resize(__assetTagArray, 0);
         
-        _assetTagDict = {};
+        var _assetTagDict = {};
         __assetTagDict = _assetTagDict;
+        
+        var _audioGroupDict = {};
+        __audioGroupDict = _audioGroupDict;
         
         var _anyChanges = false;
         
@@ -248,6 +256,22 @@ function __VinylClassProject() constructor
                 }
                 
                 _newSoundData.__CheckYYFile(_firstUpdate);
+            }
+            
+            //Build audio group lookup
+            var _audioGroup = _newSoundData.__audioGroup
+            if (_audioGroup != undefined)
+            {
+                var _soundArray = _audioGroupDict[$ _audioGroup];
+                if (not is_array(_soundArray))
+                {
+                    _soundArray = [_soundName];
+                    _audioGroupDict[$ _audioGroup] = _soundArray;
+                }
+                else
+                {
+                    array_push(_soundArray, _soundName);
+                }
             }
             
             //Build asset tag lookups

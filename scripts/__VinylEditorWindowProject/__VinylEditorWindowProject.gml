@@ -72,13 +72,19 @@ function __VinylEditorWindowProject()
                 
                 ImGui.BeginChild("Project Audio Group View", 0.3*ImGui.GetContentRegionAvailX(), undefined, true);
                 
-                var _document = __VinylDocument();
-                var _array = _document.__GetProjectAudioGroupArray();
+                var _tabData  = _editor.__windowStates.__project.__tabAudioGroups;
+                var _selected = _tabData.__selected;
                 
+                var _array = _document.__GetProjectAudioGroupArray();
                 var _i = 0;
                 repeat(array_length(_array))
                 {
-                    ImGui.Selectable(_array[_i] + "##Project Audio Group Selectable");
+                    var _audioGroup = _array[_i];
+                    if (ImGui.Selectable(_audioGroup + "##Project Audio Group Selectable", (_selected == _audioGroup)))
+                    {
+                        _tabData.__selected = _audioGroup;
+                    }
+                    
                     ++_i;
                 }
                 
@@ -88,9 +94,24 @@ function __VinylEditorWindowProject()
                 
                 ImGui.BeginChild("Project Audio Group Detail", ImGui.GetContentRegionAvailX(), undefined, true);
                 
-                repeat(10)
+                if (is_string(_selected))
                 {
-                    ImGui.Text("Audio Group");
+                    var _audioGroupDict = _document.__GetProjectAudioGroupDict();
+                    var _array = _audioGroupDict[$ _selected];
+                    
+                    if ((not is_array(_array)) || (array_length(_array) <= 0))
+                    {
+                        ImGui.Text("No sounds in audio group \"" + _selected + "\"");
+                    }
+                    else
+                    {
+                        var _i = 0;
+                        repeat(array_length(_array))
+                        {
+                            ImGui.Text(_array[_i]);
+                            ++_i;
+                        }
+                    }
                 }
                 
                 ImGui.EndChild();

@@ -322,6 +322,11 @@ function __VinylClassDocument(_path) constructor
         return __project.__GetAudioGroupArray();
     }
     
+    static __GetProjectAudioGroupDict = function()
+    {
+        return __project.__GetAudioGroupDict();
+    }
+    
     static __GetProjectAssetTagDict = function()
     {
         return __project.__GetAssetTagDict();

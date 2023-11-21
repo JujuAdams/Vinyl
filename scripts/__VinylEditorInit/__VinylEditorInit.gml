@@ -29,11 +29,14 @@ function __VinylEditorInit()
                 __collapsed: false,
                 __tabGeneral: {
                 },
-                __tabSounds: {
+                __tabAudioGroups: {
+                    __selected: undefined,
                 },
                 __tabAssetTags: {
+                    __selected: undefined,
                 },
-                __tabAudioGroups: {
+                __tabSounds: {
+                    __selected: undefined,
                 },
             },
             
