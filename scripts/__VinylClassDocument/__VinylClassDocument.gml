@@ -376,7 +376,7 @@ function __VinylClassDocument(_path) constructor
                 _newName = "Unnamed Label " + string(_index);
             }
             
-            var _new = new __VinylClassPatternRefSound();
+            var _new = new __VinylClassPatternBasic();
             _new.__name = _newName;
             _new.__Store(self);
         }

@@ -155,7 +155,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             
             if (ImGui.Button("Add Child"))
             {
-                _document.__NewLabel(_selectedStruct);
+                _document.__NewPattern(_selectedStruct);
             }
             
             ImGui.SameLine(undefined, 20);
@@ -168,42 +168,23 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             
             ImGui.SameLine(undefined, 20);
             
+            static _rootPatterns  = [__VinylClassPatternBasic, __VinylClassPatternShuffle, __VinylClassPatternQueue, __VinylClassPatternMulti];
+            static _childPatterns = [__VinylClassPatternRefSound, __VinylClassPatternRefNameMatch, __VinylClassPatternRefAssetTag, __VinylClassPatternBasic, __VinylClassPatternShuffle, __VinylClassPatternQueue, __VinylClassPatternMulti];
+            
             ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
-            if (ImGui.BeginCombo("##Pattern Type Combobox", "Type", ImGuiComboFlags.None))
+            if (ImGui.BeginCombo("##Pattern Type Combobox", __VinylPatternToName(instanceof(_selectedStruct)), ImGuiComboFlags.None))
             {
-                if (ImGui.Selectable("Sound"))
+                var _patternArray = (_selectedStruct.__parent == undefined)? _rootPatterns : _childPatterns;
+                var _i = 0;
+                repeat(array_length(_patternArray))
                 {
+                    var _pattern = _patternArray[_i];
+                    if (ImGui.Selectable(__VinylPatternToName(_pattern)))
+                    {
+                        __VinylPatternChange(_selectedStruct, _pattern);
+                    }
                     
-                }
-                
-                if (ImGui.Selectable("Name Match"))
-                {
-                    
-                }
-                
-                if (ImGui.Selectable("Asset Tag"))
-                {
-                    
-                }
-                
-                if (ImGui.Selectable("Basic"))
-                {
-                    
-                }
-                
-                if (ImGui.Selectable("Shuffle"))
-                {
-                    
-                }
-                
-                if (ImGui.Selectable("Multi"))
-                {
-                    
-                }
-                
-                if (ImGui.Selectable("Queue"))
-                {
-                    
+                    ++_i;
                 }
                 
                 ImGui.EndCombo();
