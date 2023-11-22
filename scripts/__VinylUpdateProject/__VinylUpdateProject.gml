@@ -46,7 +46,6 @@ function __VinylUpdateProject()
         show_debug_message("");
         
         var _trimmedMessage = string_replace(_error.message, "Vinyl:\n", "");
-        _trimmedMessage = string_copy(_trimmedMessage, 1, string_length(_trimmedMessage)-2);
         
         if (_firstUpdate)
         {
