@@ -225,22 +225,8 @@ function VinylSystemReadConfig(_configData)
                 variable_struct_remove(_inputAssetDict, _assetName);
                 array_delete(_assetNameArray, _i, 1);
                 
-                //Build an array of all audio asset names on demand
-                if (!is_array(_audioAssetArray))
-                {
-                    _audioAssetArray = [];
-                    
-                    var _j = 0;
-                    repeat(1000000)
-                    {
-                        if (not audio_exists(_j)) break;
-                        array_push(_audioAssetArray, audio_get_name(_j));
-                        ++_j;
-                    }
-                }
-                
                 //Find all matching assets for the search string
-                var _array = __VinylFindMatchingAudioAssets(_assetName, _audioAssetArray);
+                var _array = __VinylFindMatchingAudioAssets(_assetName);
                 
                 if (array_length(_array) <= 0)
                 {
@@ -464,6 +450,9 @@ function VinylSystemReadConfig(_configData)
     {
         _knob.__OutputRefresh();
     });
+    
+    //Dump this memory, we don't need it any more
+    __VinylCompiledSoundArrayClear();
     
     //Workaround for problems setting effects on the main audio effect bus in 2023.1
     gc_collect();

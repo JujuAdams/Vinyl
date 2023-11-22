@@ -11,6 +11,8 @@ function __VinylGlobalData()
         __projectSoundArray:    [],
         __projectSoundHashDict: {},
         
+        __compiledSoundArray: [],
+        
         __listenerX: 0,
         __listenerY: 0,
         
