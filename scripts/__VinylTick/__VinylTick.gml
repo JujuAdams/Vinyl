@@ -4,7 +4,18 @@ function __VinylTick()
     static _globalData = __VinylGlobalData();
     
     ++_globalData.__frame;
-    var _deltaTimeFactor = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
+    
+    var _usPerFrame = game_get_speed(gamespeed_microseconds);
+    if (delta_time > 10*_usPerFrame)
+    {
+        //Game hung, revert to fixed step size
+        var _deltaTimeFactor = _usPerFrame / 1000000;
+    }
+    else
+    {
+        //Game running within generous acceptable parameters, delta time as normal
+        var _deltaTimeFactor = (clamp(delta_time, _usPerFrame/3, 3*_usPerFrame) / 1000000);
+    }
     
     //Update knobs
     var _knobArray = _globalData.__knobArray; //Don't use a static here because this struct can be recreated
