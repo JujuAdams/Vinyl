@@ -185,6 +185,11 @@ UIButtonInline("Bleep shuffle (simple)", function()
     VinylPlaySimple("bleep shuffle");
 });
 
+UIButtonInline("Bleep wildcard shuffle", function()
+{
+    VinylPlaySimple("bleep wildcard shuffle");
+});
+
 UINewline();
 
 UIButtonInline("Music sync test", function()

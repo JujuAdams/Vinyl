@@ -75,7 +75,7 @@ function __VinylClassPatternCommon()
     
     static __InitializeAssetArray = function(_assetArray, _tagArray)
     {
-        __assetArray = _assetArray;
+        __assetArray = is_array(_assetArray)? _assetArray : [_assetArray];
         
         //Convert any basic patterns into audio asset indexes
         var _i = 0;
@@ -94,23 +94,40 @@ function __VinylClassPatternCommon()
             {
                 if (is_string(_asset))
                 {
-                    if (VinylLiveUpdateGet())
+                    if (string_pos("*", _asset) > 0)
                     {
-                        if (not VinylAssetExists(_asset)) __VinylError("Error in ", self, " for \"assets\" property\nAsset \"", _asset, "\" not recognised");
-                        _asset = VinylAssetGetIndex(_asset);
+                        //Remove this from the asset array itself
+                        array_delete(__assetArray, _i, 1);
+                        --_i;
+                        
+                        //Unpack the wildcard string into an array then add that to the asset array
+                        var _array = __VinylFindMatchingAudioAssets(_asset);
+                        array_copy(__assetArray, array_length(__assetArray), _array, 0, array_length(_array));
                     }
                     else
                     {
-                        if (asset_get_index(_asset) < 0) __VinylError("Error in ", self, " for \"assets\" property\nAsset \"", _asset, "\" not found in the project");
-                        if (asset_get_type(_asset) != asset_sound) __VinylError("Error in ", self, " for \"assets\" property\nAsset \"", _asset, "\" not a sound asset");
-                        _asset = asset_get_index(_asset);
+                        if (VinylLiveUpdateGet())
+                        {
+                            if (not VinylAssetExists(_asset)) __VinylError("Error in ", self, " for \"assets\" property\nAsset \"", _asset, "\" not recognised");
+                            _asset = VinylAssetGetIndex(_asset);
+                        }
+                        else
+                        {
+                            if (asset_get_index(_asset) < 0) __VinylError("Error in ", self, " for \"assets\" property\nAsset \"", _asset, "\" not found in the project");
+                            if (asset_get_type(_asset) != asset_sound) __VinylError("Error in ", self, " for \"assets\" property\nAsset \"", _asset, "\" not a sound asset");
+                            _asset = asset_get_index(_asset);
+                        }
+                        
+                        __assetArray[@ _i] = _asset;
                     }
                 }
-                
-                if (!is_numeric(_asset)) __VinylError("Error in ", self, " for \"assets\" property\nAssets should be specified as an audio asset index or audio asset name (datatype=", typeof(_asset), ")");
-                if (!audio_exists(_asset)) __VinylError("Error in ", self, " for \"assets\" property\nAudio asset with index ", _asset, " not found");
-                
-                __assetArray[@ _i] = _asset;
+                else
+                {
+                    if (!is_numeric(_asset)) __VinylError("Error in ", self, " for \"assets\" property\nAssets should be specified as an audio asset index or audio asset name (datatype=", typeof(_asset), ")");
+                    if (!audio_exists(_asset)) __VinylError("Error in ", self, " for \"assets\" property\nAudio asset with index ", _asset, " not found");
+                    
+                    __assetArray[@ _i] = _asset;
+                }
             }
             
             ++_i;
