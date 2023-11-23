@@ -1,18 +1,27 @@
 // Feather disable all
 
+//Force instantiation of statics for use with __VinylPatternChange()
+new __VinylClassPatternShuffle();
+
 function __VinylClassPatternShuffle() : __VinylClassPatternCommon() constructor
 {
     static __patternType = __VINYL_PATTERN_TYPE_SHUFFLE;
     static __pool = __VinylGlobalData().__poolBasic; //No need for a dedicated shuffle voice
     
+    __ResetShared();
+    __Reset();
     
+    static __Reset = function()
+    {
+        __currentIndex  = 0;
+        __childArray = [];
+    }
     
-    //Specific variables for sound patterns
-    __currentIndex = 0;
-    
-    __childrenArray = [];
-    
-    
+    static __Unset = function()
+    {
+        variable_struct_remove(self, "__currentIndex");
+        variable_struct_remove(self, "__childArray");
+    }
     
     static toString = function()
     {
@@ -24,7 +33,7 @@ function __VinylClassPatternShuffle() : __VinylClassPatternCommon() constructor
         //TODO - Compress on save
         
         __SerializeShared(_struct);
-        _struct.childrenArray = __VinylSerializeArray(__childrenArray, self);
+        _struct.childrenArray = __VinylSerializeArray(__childArray, self);
     }
         
     static __Deserialize = function(_struct, _parent)
@@ -32,28 +41,28 @@ function __VinylClassPatternShuffle() : __VinylClassPatternCommon() constructor
         //TODO - Decompress on load
         
         __DeserializeShared(_struct, _parent);
-        __childrenArray = __VinylDeserializePatternArray(_struct.childrenArray, undefined, self);
+        __childArray = __VinylDeserializePatternArray(_struct.childrenArray, undefined, self);
         
         //Initialize the currently-playing array with a random sample from the overall pattern array
         __currentIndex = 0;
-        array_shuffle(__childrenArray);
+        array_shuffle(__childArray);
     }
     
     static __PopPattern = function()
     {
-        var _pattern = __childrenArray[__currentIndex];
+        var _pattern = __childArray[__currentIndex];
         
         ++__currentIndex;
-        if (__currentIndex >= array_length(__childrenArray))
+        if (__currentIndex >= array_length(__childArray))
         {
             //Reshuffle
-            array_shuffle(__childrenArray);
+            array_shuffle(__childArray);
             
             //Ensure we don't play the same sound twice in a row
-            if (__childrenArray[0] == _pattern)
+            if (__childArray[0] == _pattern)
             {
-                array_delete(__childrenArray, 0, 1);
-                array_insert(__childrenArray, ceil(array_length(__childrenArray)/2), _pattern);
+                array_delete(__childArray, 0, 1);
+                array_insert(__childArray, ceil(array_length(__childArray)/2), _pattern);
             }
             
             __currentIndex = 0;
@@ -73,5 +82,11 @@ function __VinylClassPatternShuffle() : __VinylClassPatternCommon() constructor
     {
         var _pattern = __PopPattern();
         return __VinylPatternGet(_pattern).__PlaySimple(_pattern, _gain, _pitch, _effectChainName); //TODO - Inherit properly
+    }
+    
+    static __BuildPropertyUI = function(_selectionHandler)
+    {
+        __SharedWidgets(_selectionHandler);
+        __SharedWidgetsChildren(_selectionHandler);
     }
 }

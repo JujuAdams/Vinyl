@@ -1,54 +1,51 @@
 // Feather disable all
 
+//Force instantiation of statics for use with __VinylPatternChange()
+new __VinylClassPatternRefSound();
+
 function __VinylClassPatternRefSound() constructor
 {
-    static __patternType = __VINYL_PATTERN_TYPE_SOUND_REF;
+    static __patternType = __VINYL_PATTERN_TYPE_REF_SOUND;
     
-    static __child = true;
+    __document = undefined;
+    __parent   = undefined;
     
-    __parent        = undefined;
-    __soundName     = undefined;
-    __soundTempName = "";
-    
-    __VinylDocument().__Subscribe("project reload", self, __CheckSoundExists);
+    __setSubscription = false;
     
     
+    
+    __Reset();
+    
+    static __Reset = function()
+    {
+        __soundName     = "";
+        __soundTempName = "";
+        
+        __EnsureSubscription();
+    }
+    
+    static __Unset = function()
+    {
+        variable_struct_remove(self, "__soundName");
+        variable_struct_remove(self, "__soundTempName");
+        
+        if (__document != undefined)
+        {
+            __document.__Unsubscribe("project reload", self);
+        }
+    }
+    
+    static __EnsureSubscription = function()
+    {
+        if (__setSubscription || (__document == undefined)) return;
+        __setSubscription = true;
+        
+        __document.__Subscribe("project reload", self, __CheckSoundExists);
+    }
     
     static toString = function()
     {
-        return "<sound ref " + string(__sound) + " " + audio_get_name(__sound) + ">";
-    }
-    
-    static __Serialize = function(_struct)
-    {
-        _struct.type = __VINYL_PATTERN_TYPE_SOUND_REF;
-        _struct.name = audio_get_name(__sound);
-    }
-    
-    static __Deserialize = function(_struct, _parent)
-    {
-        __sound = asset_get_index(_struct.name);
-    }
-    
-    static __Store = function(_document)
-    {
-        _document.__patternDict[$ __name] = self;
-    }
-    
-    static __Discard = function(_document)
-    {
-        if (is_struct(__parent))
-        {
-            var _index = __VinylArrayFindIndex(__parent.__childArray, self);
-            if (_index != undefined)
-            {
-                array_delete(__parent.__childArray, _index, 1);
-            }
-        }
-        else
-        {
-            variable_struct_remove(_document.__patternDict, __name);
-        }
+        return "<sound ref " + string(__soundName) + ">";
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
@@ -59,6 +56,38 @@ function __VinylClassPatternRefSound() constructor
     static __PlaySimple = function(_sound, _gain = 1, _pitch = 1, _effectChainName = __effectChainName)
     {
         __VinylError("TODO");
+    }
+    
+    static __Store = function(_document, _parent)
+    {
+        __document = _document;
+        __parent   = _parent;
+        
+        if (_parent != undefined)
+        {
+            array_push(_parent.__childArray, self);
+        }
+        
+        __EnsureSubscription();
+    }
+    
+    static __Discard = function()
+    {
+        var _index = __VinylArrayFindIndex(__parent.__childArray, self);
+        if (_index != undefined) array_delete(__parent.__childArray, _index, 1);
+    }
+    
+    static __Serialize = function(_struct)
+    {
+        _struct.type  = __patternType;
+        _struct.sound = __soundName;
+        
+        __CheckSoundExists();
+    }
+    
+    static __Deserialize = function(_struct, _parent)
+    {
+        __soundName = asset_get_index(_struct.sound);
     }
     
     static __CheckSoundExists = function()
@@ -103,7 +132,7 @@ function __VinylClassPatternRefSound() constructor
                 if (_levenshtein == undefined)
                 {
                     _levenshtein = new __VinylClassLevenshtein();
-                    _levenshtein.SetLexiconArray(__VinylDocument().__GetProjectSoundArray());
+                    _levenshtein.SetLexiconArray(__document.__GetProjectSoundArray());
                 }
                 
                 _levenshtein.SetString(_textInput);

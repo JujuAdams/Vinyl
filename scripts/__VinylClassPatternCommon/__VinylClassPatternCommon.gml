@@ -1,15 +1,21 @@
 // Feather disable all
-function __VinylClassPatternCommon()
+
+/// @param document
+/// @param parent
+
+function __VinylClassPatternCommon(_document, _parent)
 {
     static __effectChainDict = __VinylGlobalData().__effectChainDict;
     
-    __Reset();
+    __document = _document;
+    __parent   = _parent;
     
-    static __Reset = function()
+    __name = undefined;
+    
+    
+    
+    static __ResetShared = function()
     {
-        __name                  = undefined;
-        __parent                = undefined;
-        
         __gainOption            = __VINYL_OPTION_UNSET;
         __gain                  = [1, 1];
         __gainKnob              = __VINYL_ASSET_NULL;
@@ -157,14 +163,33 @@ function __VinylClassPatternCommon()
         _new.__transpose             = variable_clone(__transpose);
     }
     
-    static __Store = function(_document)
+    static __Store = function(_document, _parent)
     {
+        __document = _document;
+        __parent   = _parent;
+        
         _document.__patternDict[$ __name] = self;
+        
+        if (_parent != undefined)
+        {
+            array_push(_parent.__childArray, self);
+        }
     }
     
-    static __Discard = function(_document)
+    static __Discard = function()
     {
-        variable_struct_remove(_document.__patternDict, __name);
+        if (is_struct(__parent))
+        {
+            var _index = __VinylArrayFindIndex(__parent.__childArray, self);
+            if (_index != undefined)
+            {
+                array_delete(__parent.__childArray, _index, 1);
+            }
+        }
+        else
+        {
+            variable_struct_remove(__document.__patternDict, __name);
+        }
     }
     
     static __Migrate = function()
@@ -347,10 +372,9 @@ function __VinylClassPatternCommon()
         if (array_length(_assetArray) <= 0) __VinylError("Error in ", self, "\n", __patternType, "-type patterns must have at least one asset");
     }
     
-    static __BuildPropertyUI = function(_selectionHandler)
+    static __SharedWidgets = function(_selectionHandler)
     {
-        //Now do the actual table
-        if (ImGui.BeginTable("Vinyl Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 280))
+        if (ImGui.BeginTable("Vinyl Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 260))
         {
             //Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("Name",   ImGuiTableColumnFlags.WidthFixed, 100);
@@ -364,6 +388,66 @@ function __VinylClassPatternCommon()
             __VinylEditorPropWidgetEffectChain("Effect Chain", self, __parent, 0, 2, 1);
             __VinylEditorPropWidgetPersistent( "Persistent",   self, __parent, 0, 2, 1);
             __VinylEditorPropWidgetTranspose(  "Transpose",    self, __parent, 0, 2, 1);
+            
+            ImGui.EndTable();
+        }
+    }
+    
+    static __SharedWidgetsChildren = function(_selectionHandler)
+    {
+        ImGui.NewLine();
+        if (ImGui.Button("Add Child"))
+        {
+            __document.__NewPattern(self);
+        }
+        
+        if (ImGui.BeginTable("Vinyl Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, ImGui.GetContentRegionAvailY()))
+        {
+            //Set up our columns with fixed widths so we get a nice pretty layout
+            ImGui.TableSetupColumn("Buttons", ImGuiTableColumnFlags.WidthFixed, 100);
+            ImGui.TableSetupColumn("Value", ImGuiTableColumnFlags.WidthStretch, 1);
+            
+            var _array = __childArray;
+            var _size = array_length(_array);
+            var _i = 0;
+            repeat(_size)
+            {
+                var _child = _array[_i];
+                var _name = string(_child);
+                
+                ImGui.TableNextRow();
+                ImGui.TableSetColumnIndex(0);
+                
+                ImGui.BeginDisabled(_i >= _size-1);
+                    if (ImGui.ArrowButton("Order Down " + _name, ImGuiDir.Down))
+                    {
+                        var _temp = _array[_i+1];
+                        _array[_i+1] = _child;
+                        _array[_i] = _temp;
+                    }
+                ImGui.EndDisabled();
+                
+                ImGui.SameLine();
+                ImGui.BeginDisabled(_i <= 0);
+                    if (ImGui.ArrowButton("Order Up " + _name, ImGuiDir.Up))
+                    {
+                        var _temp = _array[_i-1];
+                        _array[_i-1] = _child;
+                        _array[_i] = _temp;
+                    }
+                ImGui.EndDisabled();
+                
+                ImGui.SameLine();
+                if (ImGui.Button("-##Delete " + _name))
+                {
+                    
+                }
+                
+                ImGui.TableSetColumnIndex(1);
+                ImGui.Selectable(_name);
+                
+                ++_i;
+            }
             
             ImGui.EndTable();
         }

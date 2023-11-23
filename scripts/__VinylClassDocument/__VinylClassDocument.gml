@@ -218,6 +218,25 @@ function __VinylClassDocument(_path) constructor
         array_push(_array, weak_ref_create(_scope), weak_ref_create(_method));
     }
     
+    static __Unsubscribe = function(_message, _scope)
+    {
+        var _array = __subscriberDict[$ _message];
+        if (not is_array(_array)) return;
+        
+        var _i = 0;
+        repeat(array_length(_array))
+        {
+            if (_array[_i].ref == _scope)
+            {
+                array_delete(_array, _i, 2);
+            }
+            else
+            {
+                _i += 2;
+            }
+        }
+    }
+    
     static __Publish = function(_message, _arg0, _arg1, _arg2, _arg3)
     {
         var _array = __subscriberDict[$ _message];
@@ -341,6 +360,18 @@ function __VinylClassDocument(_path) constructor
     
     
     
+    static __NewSound = function(_soundName)
+    {
+        var _new = new __VinylClassPatternSound();
+        _new.__name  = _soundName;
+        _new.__sound = asset_get_index(_soundName);
+        _new.__Store(self, undefined);
+        
+        __Save();
+        
+        return _new;
+    }
+    
     static __NewLabel = function(_parent = undefined)
     {
         var _index = 1;
@@ -356,6 +387,8 @@ function __VinylClassDocument(_path) constructor
         _new.__Store(self);
         _new.__ChangeParent(_parent);
         
+        __Save();
+        
         return _new;
     }
     
@@ -364,7 +397,7 @@ function __VinylClassDocument(_path) constructor
         if (is_struct(_parent))
         {
             var _new = new __VinylClassPatternRefSound();
-            array_push(_parent.__childArray, _new);
+            _new.__name = string(ptr(floor(__VinylRandom(0x7FFFFFFFFFFFFFFF))));
         }
         else
         {
@@ -378,8 +411,10 @@ function __VinylClassDocument(_path) constructor
             
             var _new = new __VinylClassPatternBasic();
             _new.__name = _newName;
-            _new.__Store(self);
         }
+        
+        _new.__Store(self, _parent);
+        __Save();
         
         return _new;
     }
@@ -398,6 +433,8 @@ function __VinylClassDocument(_path) constructor
         _new.__name = _newName;
         _new.__Store(self);
         
+        __Save();
+        
         return _new;
     }
     
@@ -415,6 +452,8 @@ function __VinylClassDocument(_path) constructor
         _new.__name = _newName;
         _new.__Store(self);
         
+        __Save();
+        
         return _new;
     }
     
@@ -431,6 +470,8 @@ function __VinylClassDocument(_path) constructor
         var _new = new __VinylClassKnob();
         _new.__name = _newName;
         _new.__Store(self);
+        
+        __Save();
         
         return _new;
     }

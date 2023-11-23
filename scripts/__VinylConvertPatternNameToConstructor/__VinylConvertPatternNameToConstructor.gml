@@ -13,7 +13,7 @@ function __VinylConvertPatternNameToConstructor(_type, _patternName)
     {
         return __VinylClassPatternSound;
     }
-    else if (_type == __VINYL_PATTERN_TYPE_SOUND_REF)
+    else if (_type == __VINYL_PATTERN_TYPE_REF_SOUND)
     {
         return __VinylClassPatternRefSound;
     }

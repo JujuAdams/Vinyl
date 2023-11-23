@@ -15,7 +15,7 @@ function __VinylEditorPropertiesPattern__OLD(_stateStruct, _id, _parentStruct, _
                               __VINYL_PATTERN_TYPE_QUEUE,
                               __VINYL_PATTERN_TYPE_MULTI];
     
-    static _childTypeArray = [__VINYL_PATTERN_TYPE_SOUND_REF,
+    static _childTypeArray = [__VINYL_PATTERN_TYPE_REF_SOUND,
                               __VINYL_PATTERN_TYPE_BASIC,
                               __VINYL_PATTERN_TYPE_SHUFFLE,
                               __VINYL_PATTERN_TYPE_QUEUE,

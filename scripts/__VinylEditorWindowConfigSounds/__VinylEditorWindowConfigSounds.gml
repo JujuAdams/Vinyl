@@ -22,7 +22,6 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
     var _seeSelected   = _selectionHandler.__GetSeeSelected();
     var _seeUnselected = _selectionHandler.__GetSeeUnselected();
     
-    //The dictionary of 
     var _patternDict = __VinylDocument().__patternDict;
     
     ImGui.BeginChild("Left Pane", 0.3*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
@@ -153,14 +152,14 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
             {
                 if (ImGui.Button("Revert"))
                 {
-                    _patternDict[$ _lastSelected].__Discard(_document);
+                    _patternDict[$ _lastSelected].__Discard();
                 }
             }
             else
             {
                 if (ImGui.Button("Modify"))
                 {
-                    (new __VinylClassPatternSound(_lastSelected)).__Store(_document);
+                    _document.__NewSound(_lastSelected);
                 }
             }
         }
@@ -195,10 +194,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                         __patternDict: _patternDict,
                     }, function(_name)
                     {
-                        if (not variable_struct_exists(__patternDict, _name))
-                        {
-                            (new __VinylClassPatternSound(_name)).__Store(__document);
-                        }
+                        __document.__NewSound(_name);
                     }));
                 }
             }

@@ -1,20 +1,29 @@
 // Feather disable all
 
+//Force instantiation of statics for use with __VinylPatternChange()
+new __VinylClassPatternBasic();
+
 function __VinylClassPatternBasic() : __VinylClassPatternCommon() constructor
 {
     static __patternType = __VINYL_PATTERN_TYPE_BASIC;
     static __pool = __VinylGlobalData().__poolBasic;
     
-    
-    
-    //Specific variables for basic patterns
-    __sound = undefined;
-    
-    
+    __ResetShared();
+    __Reset();
     
     static toString = function()
     {
         return (__sound == undefined)? "<basic ???>" : "<basic " + audio_get_name(__sound) + ">";
+    }
+    
+    static __Reset = function()
+    {
+        __sound = undefined;
+    }
+    
+    static __Unset = function()
+    {
+        variable_struct_remove(self, "__sound");
     }
     
     static __Serialize = function(_struct)
@@ -41,5 +50,10 @@ function __VinylClassPatternBasic() : __VinylClassPatternCommon() constructor
     static __PlaySimple = function(_sound_UNUSED, _gain = 1, _pitch = 1, _effectChainName = __effectChainName)
     {
         return __VinylPatternGet(__sound).__PlaySimple(__sound, _gain*0.5*(__gain[0] + __gain[1]), _pitch*0.5*(__pitch[0] + __pitch[1]), _effectChainName); //TODO - Inherit properly
+    }
+    
+    static __BuildPropertyUI = function(_selectionHandler)
+    {
+        __SharedWidgets(_selectionHandler);
     }
 }

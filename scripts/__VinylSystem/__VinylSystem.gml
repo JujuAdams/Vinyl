@@ -29,13 +29,15 @@
 
 #macro __VINYL_FALLBACK_NAME  "Fallback"
 
-#macro __VINYL_PATTERN_TYPE_FALLBACK   "Fallback"
-#macro __VINYL_PATTERN_TYPE_SOUND      "Sound"
-#macro __VINYL_PATTERN_TYPE_SOUND_REF  "Sound Ref"
-#macro __VINYL_PATTERN_TYPE_BASIC      "Basic"
-#macro __VINYL_PATTERN_TYPE_SHUFFLE    "Shuffle"
-#macro __VINYL_PATTERN_TYPE_QUEUE      "Queue"
-#macro __VINYL_PATTERN_TYPE_MULTI      "Multi"
+#macro __VINYL_PATTERN_TYPE_FALLBACK        "Fallback"
+#macro __VINYL_PATTERN_TYPE_SOUND           "Sound"
+#macro __VINYL_PATTERN_TYPE_REF_SOUND       "Sound Ref"
+#macro __VINYL_PATTERN_TYPE_REF_NAME_MATCH  "Name Match"
+#macro __VINYL_PATTERN_TYPE_REF_ASSET_TAG   "Asset Tag"
+#macro __VINYL_PATTERN_TYPE_BASIC           "Basic"
+#macro __VINYL_PATTERN_TYPE_SHUFFLE         "Shuffle"
+#macro __VINYL_PATTERN_TYPE_QUEUE           "Queue"
+#macro __VINYL_PATTERN_TYPE_MULTI           "Multi"
 
 #macro __VINYL_QUEUE_PLAY_ONCE    "Play Once"
 #macro __VINYL_QUEUE_REPEAT_ALL   "Replay Whole Queue"

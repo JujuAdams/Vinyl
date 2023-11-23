@@ -1,55 +1,83 @@
 // Feather disable all
 
+//Force instantiation of statics for use with __VinylPatternChange()
+new __VinylClassPatternRefAssetTag();
+
 function __VinylClassPatternRefAssetTag() constructor
 {
-    static __patternType = __VINYL_PATTERN_TYPE_SOUND_REF;
+    static __patternType = __VINYL_PATTERN_TYPE_REF_ASSET_TAG;
     
-    static __child = true;
+    __document = undefined;
+    __parent   = undefined;
     
-    __parent = undefined;
-    
-    __assetTag    = "";
-    __soundsArray = [];
-    
-    __VinylDocument().__Subscribe("project reload", self, __UpdateSounds);
+    __setSubscription = false;
     
     
+    
+    __Reset();
+    
+    static __Reset = function()
+    {
+        __assetTag    = "";
+        __soundsArray = [];
+        
+        __EnsureSubscription();
+    }
+    
+    static __Unset = function()
+    {
+        variable_struct_remove(self, "__assetTag");
+        variable_struct_remove(self, "__soundsArray");
+        
+        if (__document != undefined)
+        {
+            __document.__Unsubscribe("project reload", self);
+        }
+    }
+    
+    static __EnsureSubscription = function()
+    {
+        if (__setSubscription || (__document == undefined)) return;
+        __setSubscription = true;
+        
+        __document.__Subscribe("project reload", self, __UpdateSounds);
+    }
     
     static toString = function()
     {
-        return "<sound ref " + string(__sound) + " " + audio_get_name(__sound) + ">";
+        return "<asset tag " + string(__assetTag) + ">";
     }
     
     static __Serialize = function(_struct)
     {
-        _struct.type = __VINYL_PATTERN_TYPE_SOUND_REF;
-        _struct.name = audio_get_name(__sound);
+        _struct.type     = __patternType;
+        _struct.assetTag = __assetTag;
     }
     
     static __Deserialize = function(_struct, _parent)
     {
-        __sound = asset_get_index(_struct.name);
+        __assetTag = _struct.assetTag;
+        
+        __UpdateSounds();
     }
     
-    static __Store = function(_document)
+    static __Store = function(_document, _parent)
     {
-        _document.__patternDict[$ __name] = self;
+        __document = _document;
+        __parent   = _parent;
+        
+        if (_parent != undefined)
+        {
+            array_push(_parent.__childArray, self);
+        }
+        
+        __EnsureSubscription();
     }
     
-    static __Discard = function(_document)
+    static __Discard = function()
     {
-        if (is_struct(__parent))
-        {
-            var _index = __VinylArrayFindIndex(__parent.__childArray, self);
-            if (_index != undefined)
-            {
-                array_delete(__parent.__childArray, _index, 1);
-            }
-        }
-        else
-        {
-            variable_struct_remove(_document.__patternDict, __name);
-        }
+        var _index = __VinylArrayFindIndex(__parent.__childArray, self);
+        if (_index != undefined) array_delete(__parent.__childArray, _index, 1);
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
@@ -64,11 +92,10 @@ function __VinylClassPatternRefAssetTag() constructor
     
     static __UpdateSounds = function()
     {
-        var _soundArray = variable_struct_exists(__VinylDocument().__GetProjectAssetTagDict(), __assetTag);
+        var _soundArray = variable_struct_exists(__document.__GetProjectAssetTagDict(), __assetTag);
         if (not is_array(_soundArray))
         {
-            __assetTag    = "";
-            __soundsArray = [];
+            __Reset();
         }
         else
         {

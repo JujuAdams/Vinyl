@@ -1,21 +1,36 @@
 // Feather disable all
 
+//Force instantiation of statics for use with __VinylPatternChange()
+new __VinylClassPatternMulti();
+
 function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
 {
     static __patternType   = __VINYL_PATTERN_TYPE_MULTI;
     static __pool          = __VinylGlobalData().__poolMulti;
     static __animCurveDict = __VinylGlobalData().__animCurveDict;
     
+    __ResetShared();
+    __Reset();
     
+    static __Reset = function()
+    {
+        __sync             = VINYL_DEFAULT_MULTI_SYNC;
+        __blend            = 0;
+        __blendCurveName   = "";
+        __blendFactorLocal = __blend;
+        
+        __childArray = [];
+    }
     
-    __sync             = VINYL_DEFAULT_MULTI_SYNC;
-    __blend            = 0;
-    __blendCurveName   = "";
-    __blendFactorLocal = __blend;
-    
-    __childrenArray = [];
-    
-    
+    static __Unset = function()
+    {
+        variable_struct_remove(self, "__sync");
+        variable_struct_remove(self, "__blend");
+        variable_struct_remove(self, "__blendCurveName");
+        variable_struct_remove(self, "__blendFactorLocal");
+        
+        variable_struct_remove(self, "__childArray");
+    }
     
     static toString = function()
     {
@@ -36,7 +51,7 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
         _struct.sync           = __sync;
         _struct.blend          = __blend;
         _struct.blendCurveName = __blendCurveName;
-        _struct.childrenArray  = __VinylSerializeArray(__childrenArray, self);
+        _struct.childrenArray  = __VinylSerializeArray(__childArray, self);
     }
         
     static __Deserialize = function(_struct, _parent)
@@ -48,7 +63,7 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
         __sync           = _struct.sync;
         __blend          = _struct.blend;
         __blendCurveName = _struct.blendCurveName;
-        __childrenArray  = __VinylDeserializePatternArray(_struct.childrenArray, undefined, self);
+        __childArray  = __VinylDeserializePatternArray(_struct.childrenArray, undefined, self);
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
@@ -61,6 +76,12 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
     static __PlaySimple = function(_sound, _gain = 1, _pitch = 1, _effectChainName = __effectChainName)
     {
         __VinylError("Cannot use VinylPlaySimple() with a multi pattern");
+    }
+    
+    static __BuildPropertyUI = function(_selectionHandler)
+    {
+        __SharedWidgets(_selectionHandler);
+        __SharedWidgetsChildren(_selectionHandler);
     }
     
     //static __Initialize = function()

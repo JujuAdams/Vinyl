@@ -1,28 +1,34 @@
 // Feather disable all
 
-/// @param name
-
-function __VinylClassPatternSound(_name) : __VinylClassPatternCommon() constructor
+function __VinylClassPatternSound() : __VinylClassPatternCommon() constructor
 {
     static __patternType = __VINYL_PATTERN_TYPE_SOUND;
     static __pool = __VinylGlobalData().__poolSound;
     
-    
-    
-    __name = _name;
-    
-    //Specific variables for sound patterns
-    __sound            = asset_get_index(__name);
-    __loopPointsOption = __VINYL_OPTION_UNSET;
-    __loopPoints       = [0, 0];
-    __bpmOption        = __VINYL_OPTION_UNSET;
-    __bpm              = VINYL_DEFAULT_BPM;
-    
-    
+    __ResetShared();
+    __Reset();
     
     static toString = function()
     {
         return "<sound " + string(__sound) + " " + audio_get_name(__sound) + ">";
+    }
+    
+    static __Reset = function()
+    {
+        __sound            = undefined;
+        __loopPointsOption = __VINYL_OPTION_UNSET;
+        __loopPoints       = [0, 0];
+        __bpmOption        = __VINYL_OPTION_UNSET;
+        __bpm              = VINYL_DEFAULT_BPM;
+    }
+    
+    static __Unset = function()
+    {
+        variable_struct_remove(self, "__sound");
+        variable_struct_remove(self, "__loopPointsOption");
+        variable_struct_remove(self, "__loopPoints");
+        variable_struct_remove(self, "__bpmOption");
+        variable_struct_remove(self, "__bpm");
     }
     
     static __Serialize = function(_struct)
@@ -61,5 +67,10 @@ function __VinylClassPatternSound(_name) : __VinylClassPatternCommon() construct
     static __PlaySimple = function(_sound_UNUSED, _gain = 1, _pitch = 1, _effectChainName = __effectChainName)
     {
         return __VinylPlaySimple(__sound, _gain*__gain[0], _gain*__gain[1], _pitch*__pitch[0], _pitch*__pitch[1], __labelArray, _effectChainName);
+    }
+    
+    static __BuildPropertyUI = function(_selectionHandler)
+    {
+        __SharedWidgets(_selectionHandler);
     }
 }

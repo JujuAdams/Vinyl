@@ -1,55 +1,83 @@
 // Feather disable all
 
+//Force instantiation of statics for use with __VinylPatternChange()
+new __VinylClassPatternRefNameMatch();
+
 function __VinylClassPatternRefNameMatch() constructor
 {
-    static __patternType = __VINYL_PATTERN_TYPE_SOUND_REF;
+    static __patternType = __VINYL_PATTERN_TYPE_REF_NAME_MATCH;
     
-    static __child = true;
+    __document = undefined;
+    __parent   = undefined;
     
-    __parent    = undefined;
-    
-    __reference   = "";
-    __soundsArray = [];
-    
-    __VinylDocument().__Subscribe("project reload", self, __UpdateSounds);
+    __setSubscription = false;
     
     
+    
+    __Reset();
+    
+    static __Reset = function()
+    {
+        __searchString = "";
+        __soundsArray  = [];
+        
+        __EnsureSubscription();
+    }
+    
+    static __Unset = function()
+    {
+        variable_struct_remove(self, "__searchString");
+        variable_struct_remove(self, "__soundsArray");
+        
+        if (__document != undefined)
+        {
+            __document.__Unsubscribe("project reload", self);
+        }
+    }
+    
+    static __EnsureSubscription = function()
+    {
+        if (__setSubscription || (__document == undefined)) return;
+        __setSubscription = true;
+        
+        __document.__Subscribe("project reload", self, __UpdateSounds);
+    }
     
     static toString = function()
     {
-        return "<sound ref " + string(__sound) + " " + audio_get_name(__sound) + ">";
+        return "<name match " + string(__searchString) + ">";
     }
     
     static __Serialize = function(_struct)
     {
-        _struct.type = __VINYL_PATTERN_TYPE_SOUND_REF;
-        _struct.name = audio_get_name(__sound);
+        _struct.type         = __patternType;
+        _struct.searchString = __searchString;
     }
     
     static __Deserialize = function(_struct, _parent)
     {
-        __sound = asset_get_index(_struct.name);
+        __searchString = asset_get_index(_struct.searchString);
+        
+        __UpdateSounds();
     }
     
-    static __Store = function(_document)
+    static __Store = function(_document, _parent)
     {
-        _document.__patternDict[$ __name] = self;
+        __document = _document;
+        __parent   = _parent;
+        
+        if (_parent != undefined)
+        {
+            array_push(_parent.__childArray, self);
+        }
+        
+        __EnsureSubscription();
     }
     
-    static __Discard = function(_document)
+    static __Discard = function()
     {
-        if (is_struct(__parent))
-        {
-            var _index = __VinylArrayFindIndex(__parent.__childArray, self);
-            if (_index != undefined)
-            {
-                array_delete(__parent.__childArray, _index, 1);
-            }
-        }
-        else
-        {
-            variable_struct_remove(_document.__patternDict, __name);
-        }
+        var _index = __VinylArrayFindIndex(__parent.__childArray, self);
+        if (_index != undefined) array_delete(__parent.__childArray, _index, 1);
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
@@ -64,7 +92,7 @@ function __VinylClassPatternRefNameMatch() constructor
     
     static __UpdateSounds = function()
     {
-        __soundsArray = variable_clone(__VinylFindMatchingSounds(__reference, __VinylDocument().__GetProjectSoundArray()));
+        __soundsArray = variable_clone(__VinylFindMatchingSounds(__searchString, __document.__GetProjectSoundArray()));
     }
     
     static __BuildPropertyUI = function(_selectionHandler)
@@ -81,9 +109,9 @@ function __VinylClassPatternRefNameMatch() constructor
             ImGui.Text("Reference");
             ImGui.TableSetColumnIndex(1);
             
-            var _oldValue = __reference;
-            __reference = ImGui.InputText("##Sound Ref Name Match Input", __reference);
-            if (_oldValue != __reference) __UpdateSounds();
+            var _oldValue = __searchString;
+            __searchString = ImGui.InputText("##Sound Ref Name Match Input", __searchString);
+            if (_oldValue != __searchString) __UpdateSounds();
             
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
