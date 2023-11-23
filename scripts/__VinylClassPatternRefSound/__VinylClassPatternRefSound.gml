@@ -92,9 +92,9 @@ function __VinylClassPatternRefSound() constructor
     
     static __CheckSoundExists = function()
     {
-        if (not variable_struct_exists(__VinylDocument().__GetProjectSoundDictionary(), __soundName))
+        if (not variable_struct_exists(__document.__GetProjectSoundDictionary(), __soundName))
         {
-            __soundName = audio_get_name(__VinylFallbackSound);
+            __soundName = audio_get_name(VinylFallbackSound);
         }
     }
     

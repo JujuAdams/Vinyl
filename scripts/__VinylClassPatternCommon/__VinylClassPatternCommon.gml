@@ -404,8 +404,9 @@ function __VinylClassPatternCommon(_document, _parent)
         if (ImGui.BeginTable("Vinyl Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, ImGui.GetContentRegionAvailY()))
         {
             //Set up our columns with fixed widths so we get a nice pretty layout
-            ImGui.TableSetupColumn("Buttons", ImGuiTableColumnFlags.WidthFixed, 100);
+            ImGui.TableSetupColumn("Buttons", ImGuiTableColumnFlags.WidthFixed, 44);
             ImGui.TableSetupColumn("Value", ImGuiTableColumnFlags.WidthStretch, 1);
+            ImGui.TableSetupColumn("Delete", ImGuiTableColumnFlags.WidthFixed, 50);
             
             var _array = __childArray;
             var _size = array_length(_array);
@@ -413,7 +414,7 @@ function __VinylClassPatternCommon(_document, _parent)
             repeat(_size)
             {
                 var _child = _array[_i];
-                var _name = string(_child);
+                var _name = _child.__name;
                 
                 ImGui.TableNextRow();
                 ImGui.TableSetColumnIndex(0);
@@ -437,14 +438,14 @@ function __VinylClassPatternCommon(_document, _parent)
                     }
                 ImGui.EndDisabled();
                 
-                ImGui.SameLine();
-                if (ImGui.Button("-##Delete " + _name))
+                ImGui.TableSetColumnIndex(1);
+                ImGui.Selectable(_name);
+                
+                ImGui.TableSetColumnIndex(2);
+                if (ImGui.Button("Delete##Delete " + _name))
                 {
                     
                 }
-                
-                ImGui.TableSetColumnIndex(1);
-                ImGui.Selectable(_name);
                 
                 ++_i;
             }

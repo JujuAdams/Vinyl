@@ -249,7 +249,7 @@
     {"name":"__VinylClassProjectSound","order":2,"path":"scripts/__VinylClassProjectSound/__VinylClassProjectSound.yy",},
     {"name":"__VinylClassFilterSound","order":1,"path":"scripts/__VinylClassFilterSound/__VinylClassFilterSound.yy",},
     {"name":"__VinylDeserializeArray","order":24,"path":"scripts/__VinylDeserializeArray/__VinylDeserializeArray.yy",},
-    {"name":"__VinylFallbackSound","order":1,"path":"sounds/__VinylFallbackSound/__VinylFallbackSound.yy",},
+    {"name":"VinylFallbackSound","order":1,"path":"sounds/VinylFallbackSound/VinylFallbackSound.yy",},
     {"name":"acTest","order":4,"path":"animcurves/acTest/acTest.yy",},
     {"name":"__VinylPatternResolveInheritedLabel","order":11,"path":"scripts/__VinylPatternResolveInheritedLabel/__VinylPatternResolveInheritedLabel.yy",},
     {"name":"__VinylEditorPropertiesLabel","order":24,"path":"scripts/__VinylEditorPropertiesLabel/__VinylEditorPropertiesLabel.yy",},

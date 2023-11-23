@@ -144,18 +144,11 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             //Change the display text depending on what the user is actually seeing
             ImGui.Text(_selectionHandler.__GetLastSelectedName());
             
-            ImGui.SameLine(200);
+            ImGui.SameLine(300);
             
             if (ImGui.Button("Rename"))
             {
                 //TODO
-            }
-            
-            ImGui.SameLine(undefined, 20);
-            
-            if (ImGui.Button("Add Child"))
-            {
-                _document.__NewPattern(_selectedStruct);
             }
             
             ImGui.SameLine(undefined, 20);
