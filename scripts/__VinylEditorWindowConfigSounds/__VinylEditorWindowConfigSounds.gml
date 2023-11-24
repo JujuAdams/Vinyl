@@ -12,7 +12,6 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
     //Use the selection handler for this tab and ensure its binding to the project's sound dictionary
     //This dictionary will be used to track item selection
     var _selectionHandler = _tabState.__selectionHandler;
-    _selectionHandler.__Bind(_projectSoundDictionary, __VinylClassPatternSound, undefined);
     
     var _filter        = _tabState.__filter;
     var _useFilter     = _tabState.__useFilter;
@@ -173,14 +172,13 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                 if (ImGui.Button("Revert All"))
                 {
                     _selectionHandler.__ForEachSelected(method({
-                        __document: _document,
                         __patternDict: _patternDict,
                     }, function(_name)
                     {
                         var _pattern = __patternDict[$ _name];
                         if (_pattern != undefined)
                         {
-                            _pattern.__Discard(__document);
+                            _pattern.__Discard();
                         }
                     }));
                 }
@@ -191,7 +189,6 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                 {
                     _selectionHandler.__ForEachSelected(method({
                         __document: _document,
-                        __patternDict: _patternDict,
                     }, function(_name)
                     {
                         __document.__NewSound(_name);

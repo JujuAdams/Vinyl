@@ -15,7 +15,6 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
     //Use the selection handler for this tab and ensure its binding to the project's sound dictionary
     //This dictionary will be used to track item selection
     var _selectionHandler = _tabState.__selectionHandler;
-    _selectionHandler.__Bind(_contentDict, __VinylClassLabel, undefined);
     
     var _filter    = _tabState.__filter;
     var _useFilter = _tabState.__useFilter;
@@ -215,7 +214,7 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
                     {
                         if (_stateStruct.__popupData.__tempName != _stateStruct.__popupData.__target.__name)
                         {
-                            _stateStruct.__popupData.__target.__Rename(_document, _stateStruct.__popupData.__tempName);
+                            _stateStruct.__popupData.__target.__Rename(_stateStruct.__popupData.__tempName);
                             _selectionHandler.__Select(_lastSelected, false);
                             _selectionHandler.__Select(_stateStruct.__popupData.__tempName, true);
                         }

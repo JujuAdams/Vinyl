@@ -4,8 +4,7 @@ function __VinylClassStack() constructor
 {
     static __globalData = __VinylGlobalData();
     
-    
-    
+    __destroyed = false;
     __name = undefined;
     
     __maxPriority   = -infinity;
@@ -54,6 +53,8 @@ function __VinylClassStack() constructor
     
     static __Discard = function(_document)
     {
+        __destroyed = true;
+        
         variable_struct_remove(_document.__stackDict, __name);
     }
     

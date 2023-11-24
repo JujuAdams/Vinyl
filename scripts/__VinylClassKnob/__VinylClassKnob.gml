@@ -2,6 +2,8 @@
 
 function __VinylClassKnob() constructor
 {
+    __destroyed = false;
+    
     __name = undefined;
     
     __valueDefault = 0;
@@ -57,6 +59,8 @@ function __VinylClassKnob() constructor
     
     static __Discard = function(_document)
     {
+        __destroyed = true;
+        
         variable_struct_remove(_document.__knobDict, __name);
     }
     

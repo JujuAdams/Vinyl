@@ -11,6 +11,7 @@ function __VinylClassPatternRefSound() constructor
     __parent   = undefined;
     
     __setSubscription = false;
+    __destroyed = false;
     
     
     
@@ -73,6 +74,8 @@ function __VinylClassPatternRefSound() constructor
     
     static __Discard = function()
     {
+        __destroyed = true;
+        
         var _index = __VinylArrayFindIndex(__parent.__childArray, self);
         if (_index != undefined) array_delete(__parent.__childArray, _index, 1);
     }

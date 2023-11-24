@@ -4,6 +4,8 @@ function __VinylClassLabel() constructor
 {
     static __idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
     
+    __destroyed = false;
+    
     __gainLocal  = 1;
     __pitchLocal = 1;
     
@@ -141,6 +143,8 @@ function __VinylClassLabel() constructor
     
     static __Discard = function(_document)
     {
+        __destroyed = true;
+        
         variable_struct_remove(_document.__labelAllDict,  __name);
         variable_struct_remove(_document.__labelRootDict, __name);
         
@@ -152,18 +156,18 @@ function __VinylClassLabel() constructor
         }
     }
     
-    static __Rename = function(_document, _newName)
+    static __Rename = function(_newName)
     {
-        var _allDict  = _document.__labelAllDict;
-        var _rootDict = _document.__labelAllDict;
+        var _allDict  = __document.__labelAllDict;
+        var _rootDict = __document.__labelAllDict;
         
         variable_struct_remove(_allDict,  __name);
         variable_struct_remove(_rootDict, __name);
         
         __name = _newName;
         
-        _document.__labelAllDict[$ __name] = self;
-        if (not is_struct(__parent)) _document.__labelRootDict[$ __name] = self;
+        __document.__labelAllDict[$ __name] = self;
+        if (not is_struct(__parent)) __document.__labelRootDict[$ __name] = self;
     }
     
     static __ChangeParent = function(_parent)

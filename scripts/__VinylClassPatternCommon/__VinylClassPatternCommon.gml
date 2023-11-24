@@ -11,6 +11,7 @@ function __VinylClassPatternCommon(_document, _parent)
     __parent   = _parent;
     
     __name = undefined;
+    __destroyed = false;
     
     
     
@@ -178,6 +179,8 @@ function __VinylClassPatternCommon(_document, _parent)
     
     static __Discard = function()
     {
+        __destroyed = true;
+        
         if (is_struct(__parent))
         {
             var _index = __VinylArrayFindIndex(__parent.__childArray, self);
@@ -190,6 +193,24 @@ function __VinylClassPatternCommon(_document, _parent)
         {
             variable_struct_remove(__document.__patternDict, __name);
         }
+    }
+    
+    static __Rename = function(_newName)
+    {
+        var _patternDict = __document.__patternDict;
+        if (variable_struct_exists(_patternDict, _newName))
+        {
+            __VinylTrace("Pattern named \"", _newName, "\" already exists");
+            return;
+        }
+        
+        if ((__parent == undefined) && variable_struct_exists(_patternDict, __name))
+        {
+            variable_struct_remove(_patternDict, __name);
+            _patternDict[$ _newName] = self;
+        }
+        
+        __name = _newName;
     }
     
     static __Migrate = function()
