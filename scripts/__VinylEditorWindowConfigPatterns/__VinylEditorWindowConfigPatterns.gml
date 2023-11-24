@@ -30,12 +30,10 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             var _seeUnselected = _selectionHandler.__GetSeeUnselected();
             
             var _selected = _selectionHandler.__IsSelected(_name);
-            
             if ((not _multiselect) || (_selected && _seeSelected) || ((not _selected) && _seeUnselected)) //Selected check
             {
                 if ((not _useFilter) || __VinylFilterApply(_filter, _target)) //General filter
                 {
-                    var _selected = _selectionHandler.__IsSelected(_name);
                     var _childArray = _target[$ "__childArray"];
                     
                     var _flags = ImGuiTreeNodeFlags.OpenOnArrow | ImGuiTreeNodeFlags.DefaultOpen;
