@@ -38,7 +38,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
                     var _selected = _selectionHandler.__IsSelected(_name);
                     var _childArray = _target[$ "__childArray"];
                     
-                    var _flags = ImGuiTreeNodeFlags.OpenOnArrow;
+                    var _flags = ImGuiTreeNodeFlags.OpenOnArrow | ImGuiTreeNodeFlags.DefaultOpen;
                     
                     if (_selectionHandler.__IsSelected(_name))
                     {
@@ -145,6 +145,13 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             ImGui.Text(_selectionHandler.__GetLastSelectedName());
             
             ImGui.SameLine(300);
+            
+            if (ImGui.Button("Play Once"))
+            {
+                //TODO
+            }
+            
+            ImGui.SameLine(undefined, 20);
             
             if (ImGui.Button("Rename"))
             {

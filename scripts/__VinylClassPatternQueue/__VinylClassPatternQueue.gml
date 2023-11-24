@@ -62,7 +62,8 @@ function __VinylClassPatternQueue() : __VinylClassPatternCommon() constructor
     
     static __BuildPropertyUI = function(_selectionHandler)
     {
-        __SharedWidgets(_selectionHandler);
         __SharedWidgetsChildren(_selectionHandler);
+        ImGui.NewLine();
+        __SharedWidgets(_selectionHandler);
     }
 }

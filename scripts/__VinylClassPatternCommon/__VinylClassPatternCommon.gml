@@ -374,7 +374,7 @@ function __VinylClassPatternCommon(_document, _parent)
     
     static __SharedWidgets = function(_selectionHandler)
     {
-        if (ImGui.BeginTable("Vinyl Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 260))
+        if (ImGui.BeginTable("Pattern Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 260))
         {
             //Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("Name",   ImGuiTableColumnFlags.WidthFixed, 100);
@@ -395,13 +395,12 @@ function __VinylClassPatternCommon(_document, _parent)
     
     static __SharedWidgetsChildren = function(_selectionHandler)
     {
-        ImGui.NewLine();
         if (ImGui.Button("Add Child"))
         {
             __document.__NewPattern(self);
         }
         
-        if (ImGui.BeginTable("Vinyl Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, ImGui.GetContentRegionAvailY()))
+        if (ImGui.BeginTable("Vinyl Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, ImGui.GetContentRegionAvailY() - 300))
         {
             //Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("Buttons", ImGuiTableColumnFlags.WidthFixed, 44);

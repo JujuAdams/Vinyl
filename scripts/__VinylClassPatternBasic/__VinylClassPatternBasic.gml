@@ -63,10 +63,7 @@ function __VinylClassPatternBasic() : __VinylClassPatternCommon() constructor
     
     static __BuildPropertyUI = function(_selectionHandler)
     {
-        __SharedWidgets(_selectionHandler);
-        
         ImGui.NewLine();
-        
         if (ImGui.BeginTable("Vinyl Properties", 2, ImGuiTableFlags.None, undefined, 24))
         {
             //Set up our columns with fixed widths so we get a nice pretty layout
@@ -75,7 +72,7 @@ function __VinylClassPatternBasic() : __VinylClassPatternCommon() constructor
             
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Reference");
+            ImGui.Text("Sound");
             ImGui.TableSetColumnIndex(1);
             
             var _textOld       = audio_get_name(__sound);
@@ -139,5 +136,8 @@ function __VinylClassPatternBasic() : __VinylClassPatternCommon() constructor
             
             ImGui.EndTable();
         }
+        
+        ImGui.NewLine();
+        __SharedWidgets(_selectionHandler);
     }
 }
