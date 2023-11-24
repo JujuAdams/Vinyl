@@ -224,7 +224,7 @@ function __VinylClassDocument(_path) constructor
         if (not is_array(_array)) return;
         
         var _i = 0;
-        repeat(array_length(_array))
+        repeat(array_length(_array) div 2)
         {
             if (_array[_i].ref == _scope)
             {

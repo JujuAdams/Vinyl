@@ -207,7 +207,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         else
         {
             //Change the display text depending on what the user is actually seeing
-            var _displayText = _selectionHandler.__GetLastSelectedName();
+            var _displayText = _selectionHandler.__GetLastSelected();
             if (not _modified) _displayText += " (displaying \"" + __VINYL_FALLBACK_NAME + "\" properties)";
             
             ImGui.Text(_displayText);
