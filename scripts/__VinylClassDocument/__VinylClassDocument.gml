@@ -402,11 +402,11 @@ function __VinylClassDocument(_path) constructor
         else
         {
             var _index = 1;
-            var _newName = "Unnamed Label " + string(_index);
+            var _newName = "Unnamed Pattern " + string(_index);
             while(variable_struct_exists(__patternDict, _newName))
             {
                 ++_index;
-                _newName = "Unnamed Label " + string(_index);
+                _newName = "Unnamed Pattern " + string(_index);
             }
             
             var _new = new __VinylClassPatternBasic();
