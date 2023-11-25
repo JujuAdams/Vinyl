@@ -9,7 +9,7 @@ function VinylKnobResetAll()
     var _i = 0;
     repeat(array_length(_knobArray))
     {
-        _knobArray[_i].__Reset();
+        _knobArray[_i].__ResetValue();
         ++_i;
     }
 }

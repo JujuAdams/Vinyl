@@ -106,7 +106,7 @@ function __VinylClassKnob() constructor
         return __valueOutput;
     }
     
-    static __Reset = function()
+    static __ResetValue = function()
     {
         __valueReset = true;
         __OutputRefresh();

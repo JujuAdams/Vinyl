@@ -14,5 +14,5 @@ function VinylKnobReset(_name)
         return;
     }
     
-    return _knob.__Reset();
+    return _knob.__ResetValue();
 }
