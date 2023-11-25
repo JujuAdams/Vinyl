@@ -13,8 +13,6 @@ function __VinylClassPatternRefNameMatch() constructor
     __parent   = undefined;
     __name     = "";
     
-    __setSubscription = false;
-    
     
     
     __Reset();
@@ -31,6 +29,8 @@ function __VinylClassPatternRefNameMatch() constructor
     
     static __Reset = function()
     {
+        __setSubscription = false;
+        
         __searchString = "";
         __soundsArray  = [];
         
@@ -39,13 +39,14 @@ function __VinylClassPatternRefNameMatch() constructor
     
     static __Unset = function()
     {
-        variable_struct_remove(self, "__searchString");
-        variable_struct_remove(self, "__soundsArray");
-        
         if (__document != undefined)
         {
             __document.__Unsubscribe("project reload", self);
         }
+        
+        variable_struct_remove(self, "__searchString");
+        variable_struct_remove(self, "__soundsArray");
+        variable_struct_remove(self, "__setSubscription");
     }
     
     static __IsChild = function()
@@ -174,7 +175,7 @@ function __VinylClassPatternRefNameMatch() constructor
             
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Reference");
+            ImGui.Text("Name Match");
             ImGui.TableSetColumnIndex(1);
             
             var _oldValue = __searchString;

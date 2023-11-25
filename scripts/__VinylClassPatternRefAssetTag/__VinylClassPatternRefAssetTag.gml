@@ -13,14 +13,14 @@ function __VinylClassPatternRefAssetTag() constructor
     __parent   = undefined;
     __name     = "";
     
-    __setSubscription = false;
-    
     
     
     __Reset();
     
     static __Reset = function()
     {
+        __setSubscription = false;
+        
         __assetTag    = "";
         __soundsArray = [];
         
@@ -39,13 +39,14 @@ function __VinylClassPatternRefAssetTag() constructor
     
     static __Unset = function()
     {
-        variable_struct_remove(self, "__assetTag");
-        variable_struct_remove(self, "__soundsArray");
-        
         if (__document != undefined)
         {
             __document.__Unsubscribe("project reload", self);
         }
+        
+        variable_struct_remove(self, "__assetTag");
+        variable_struct_remove(self, "__soundsArray");
+        variable_struct_remove(self, "__setSubscription");
     }
     
     static __IsChild = function()
@@ -159,10 +160,10 @@ function __VinylClassPatternRefAssetTag() constructor
     
     static __UpdateSounds = function()
     {
-        var _soundArray = variable_struct_exists(__document.__GetProjectAssetTagDict(), __assetTag);
+        var _soundArray = __document.__GetProjectAssetTagDict()[$ __assetTag];
         if (not is_array(_soundArray))
         {
-            __Reset();
+            __soundsArray = [];
         }
         else
         {
@@ -181,28 +182,50 @@ function __VinylClassPatternRefAssetTag() constructor
             
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Reference");
+            ImGui.Text("Asset Tag");
             ImGui.TableSetColumnIndex(1);
             
             if (ImGui.BeginCombo("##Sound Ref Asset Tag Input", __assetTag, ImGuiComboFlags.None))
             {
-                if (ImGui.Selectable("A", __assetTag == "A"))
+                var _assetTagArray = __VinylDocument().__GetProjectAssetTagArray();
+                var _i = 0;
+                repeat(array_length(_assetTagArray))
                 {
-                    __assetTag = "A";
-                }
-                
-                if (ImGui.Selectable("B", __assetTag == "B"))
-                {
-                    __assetTag = "B";
-                }
-                
-                if (ImGui.Selectable("C", __assetTag == "C"))
-                {
-                    __assetTag = "C";
+                    var _assetTag = _assetTagArray[_i];
+                    if (ImGui.Selectable(_assetTag + "##Asset Tag Checkbox", (__assetTag == _assetTag)))
+                    {
+                        if (__assetTag != _assetTag)
+                        {
+                            __document.__Write(self, "__assetTag", _assetTag);
+                            __UpdateSounds();
+                        }
+                    }
+                        
+                    ++_i;
                 }
                 
                 ImGui.EndCombo();
             }
+            
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+            ImGui.Text("Sounds");
+            ImGui.TableSetColumnIndex(1);
+            ImGui.BeginChild();
+                if (array_length(__soundsArray) <= 0)
+                {
+                    ImGui.Text("No sounds found");
+                }
+                else
+                {
+                    var _i = 0;
+                    repeat(array_length(__soundsArray))
+                    {
+                        ImGui.Text(__soundsArray[_i]);
+                        ++_i;
+                    }
+                }
+            ImGui.EndChild();
             
             ImGui.EndTable();
         }
