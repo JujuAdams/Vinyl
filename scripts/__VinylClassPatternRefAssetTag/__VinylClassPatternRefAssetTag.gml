@@ -44,7 +44,12 @@ function __VinylClassPatternRefAssetTag() constructor
     
     static __GetName = function()
     {
-        return string(__uuid);
+        if (__name != "")
+        {
+            return string(__name);
+        }
+        
+        return string(self);
     }
     
     static __EnsureSubscription = function()

@@ -19,7 +19,12 @@ function __VinylClassPatternCommon()
     
     static __GetName = function()
     {
-        return string(__name);
+        if (__name != "")
+        {
+            return string(__name);
+        }
+        
+        return string(self);
     }
     
     static __Rename = function(_name)
