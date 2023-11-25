@@ -1,12 +1,4 @@
 {
-  "effectChains":[
-  ],
-  "knobs":[
-  ],
-  "stacks":[
-  ],
-  "settings":{
-  },
   "patterns":[
     {
       "pitchKnob":"<None>",
@@ -47,51 +39,6 @@
     },
     {
       "pitchKnob":"<None>",
-      "loop":0.0,
-      "stack":"<None>",
-      "bpm":120.0,
-      "gainOption":"Multiply",
-      "persistentOption":"Unset",
-      "pitchOption":"Unset",
-      "transpose":[
-        0.0,
-        0.0
-      ],
-      "loopOption":"Unset",
-      "sound":"snd1KHz",
-      "persistent":null,
-      "stackOption":"Unset",
-      "bpmOption":"Unset",
-      "name":"snd1KHz",
-      "effectChain":"<None>",
-      "gain":[
-        1.0750000476837158,
-        1.0750000476837158
-      ],
-      "type":"Sound",
-      "transposeKnobOverride":0.0,
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "loopPoints":[
-        0.0,
-        0.0
-      ],
-      "effectChainOption":"Unset",
-      "gainKnobOverride":0.0,
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "labelsOption":"Unset",
-      "loopPointsOption":"Unset",
-      "stackPriority":0.0,
-      "gainKnob":"<None>",
-      "transposeOption":"Unset"
-    },
-    {
-      "pitchKnob":"<None>",
       "loop":false,
       "stack":"<None>",
       "gainOption":"Unset",
@@ -102,20 +49,37 @@
         0.0
       ],
       "loopOption":"Unset",
-      "sound":"VinylFallbackSound",
       "persistent":null,
       "stackOption":"Unset",
-      "name":"Unnamed Pattern 1",
+      "name":"Unnamed Label 1",
       "effectChain":"<None>",
       "gain":[
         1.0,
         1.0
       ],
-      "type":"Basic",
+      "type":"Shuffle",
       "transposeKnobOverride":false,
       "pitch":[
         1.0,
         1.0
+      ],
+      "childrenArray":[
+        {
+          "sound":"",
+          "type":"Sound Ref"
+        },
+        {
+          "sound":"",
+          "type":"Sound Ref"
+        },
+        {
+          "sound":"VinylFallbackSound",
+          "type":"Sound Ref"
+        },
+        {
+          "sound":"",
+          "type":"Sound Ref"
+        }
       ],
       "labels":[
       ],
@@ -132,5 +96,13 @@
   "labels":[
   ],
   "sounds":[
-  ]
+  ],
+  "effectChains":[
+  ],
+  "knobs":[
+  ],
+  "stacks":[
+  ],
+  "settings":{
+  }
 }

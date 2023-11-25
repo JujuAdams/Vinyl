@@ -102,7 +102,7 @@ function __VinylEditorWindowConfigEffectChains(_stateStruct)
         else
         {
             //Change the display text depending on what the user is actually seeing
-            ImGui.Text(_selectionHandler.__GetLastSelected());
+            ImGui.Text(_selectionHandler.__GetLastSelectedName());
             
             ImGui.SameLine(200);
             

@@ -22,11 +22,13 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
     {
         if ((not is_instanceof(_target, __VinylClassPatternFallback)) && (not is_instanceof(_target, __VinylClassPatternSound)))
         {
+            var _name = _target.__name;
+            
             var _multiselect   = _selectionHandler.__GetMultiselect();
             var _seeSelected   = _selectionHandler.__GetSeeSelected();
             var _seeUnselected = _selectionHandler.__GetSeeUnselected();
             
-            var _selected = _selectionHandler.__IsSelected(_target);
+            var _selected = _selectionHandler.__IsSelected(_name);
             if ((not _multiselect) || (_selected && _seeSelected) || ((not _selected) && _seeUnselected)) //Selected check
             {
                 if ((not _useFilter) || __VinylFilterApply(_filter, _target)) //General filter
@@ -35,7 +37,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
                     
                     var _flags = ImGuiTreeNodeFlags.OpenOnArrow | ImGuiTreeNodeFlags.DefaultOpen;
                     
-                    if (_selectionHandler.__IsSelected(_target))
+                    if (_selectionHandler.__IsSelected(_name))
                     {
                         _flags |= ImGuiTreeNodeFlags.Selected;
                     }
@@ -45,10 +47,10 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
                         _flags |= ImGuiTreeNodeFlags.Bullet;
                     }
                     
-                    var _open = ImGui.TreeNodeEx(_target.__name + "##Select " + _target.__name, _flags);
+                    var _open = ImGui.TreeNodeEx(_name + "##Select " + _name, _flags);
                     if ((not ImGui.IsItemToggledOpen()) && ImGui.IsItemClicked())
                     {
-                        _selectionHandler.__SelectToggle(_target);
+                        _selectionHandler.__SelectToggle(_name);
                     }
                     
                     if (_open)
@@ -67,7 +69,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
                     }
                     
                     //Push the name of this visible sound to our array
-                    array_push(_visibleArray, _target);
+                    array_push(_visibleArray, _name);
                 }
             }
         }
@@ -121,14 +123,15 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
     ImGui.BeginChild("Right Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
         
         //Collect some basic facts about the current selection(s)
-        var _selectedCount = _selectionHandler.__GetSelectedCount();
-        var _lastSelected  = _selectionHandler.__GetLastSelected();
+        var _selectedCount  = _selectionHandler.__GetSelectedCount();
+        var _lastSelected   = _selectionHandler.__lastSelected;
+        var _selectedStruct = _contentDict[$ _lastSelected];
         
         //Bit of aesthetic spacing
         ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 20);
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
         
-        if ((_selectedCount == 0) || (not is_struct(_lastSelected)))
+        if ((_selectedCount == 0) || (not is_struct(_selectedStruct)))
         {
             //Add some helpful text to guide users if nothing's selected
             ImGui.Text("Please select a pattern from the menu on the left");
@@ -136,7 +139,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
         else
         {
             //Change the display text depending on what the user is actually seeing
-            ImGui.Text(_selectionHandler.__GetLastSelected());
+            ImGui.Text(_selectionHandler.__GetLastSelectedName());
             
             ImGui.SameLine(300);
             
@@ -156,7 +159,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             
             if (ImGui.Button("Delete"))
             {
-                _lastSelected.__Discard();
+                _selectedStruct.__Discard();
                 _selectionHandler.__Select(_lastSelected, false);
             }
             
@@ -166,16 +169,16 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             static _childPatterns = [__VinylClassPatternRefSound, __VinylClassPatternRefNameMatch, __VinylClassPatternRefAssetTag, __VinylClassPatternBasic, __VinylClassPatternShuffle, __VinylClassPatternQueue, __VinylClassPatternMulti];
             
             ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
-            if (ImGui.BeginCombo("##Pattern Type Combobox", __VinylPatternToName(instanceof(_lastSelected)), ImGuiComboFlags.None))
+            if (ImGui.BeginCombo("##Pattern Type Combobox", __VinylPatternToName(instanceof(_selectedStruct)), ImGuiComboFlags.None))
             {
-                var _patternArray = (_lastSelected.__parent == undefined)? _rootPatterns : _childPatterns;
+                var _patternArray = (_selectedStruct.__parent == undefined)? _rootPatterns : _childPatterns;
                 var _i = 0;
                 repeat(array_length(_patternArray))
                 {
                     var _pattern = _patternArray[_i];
                     if (ImGui.Selectable(__VinylPatternToName(_pattern)))
                     {
-                        __VinylPatternChange(_lastSelected, _pattern);
+                        __VinylPatternChange(_selectedStruct, _pattern);
                     }
                     
                     ++_i;
@@ -189,10 +192,10 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
         
         //Here's where we jump to a different function to draw the actual properties
-        if ((_selectedCount > 0) && is_struct(_lastSelected))
+        if ((_selectedCount > 0) && is_struct(_selectedStruct))
         {
             ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                _lastSelected.__BuildPropertyUI(_selectionHandler);
+                _contentDict[$ _lastSelected].__BuildPropertyUI(_selectionHandler);
             ImGui.EndChild();
         }
     ImGui.EndChild();

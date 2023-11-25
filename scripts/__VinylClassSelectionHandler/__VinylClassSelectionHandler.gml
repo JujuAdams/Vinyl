@@ -19,7 +19,7 @@ function __VinylClassSelectionHandler() constructor
         return array_length(__selectedArray);
     }
     
-    static __GetLastSelected = function()
+    static __GetLastSelectedName = function()
     {
         return __lastSelected;
     }

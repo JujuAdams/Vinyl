@@ -95,24 +95,22 @@ function __VinylClassPatternRefAssetTag() constructor
     
     static __UpdateSounds = function()
     {
-        var _soundArray = __document.__GetProjectAssetTagDict()[$ __assetTag];
-        if (is_array(_soundArray))
+        var _soundArray = variable_struct_exists(__document.__GetProjectAssetTagDict(), __assetTag);
+        if (not is_array(_soundArray))
         {
-            __soundsArray = _soundArray;
+            __Reset();
         }
         else
         {
-            __Reset();
+            __soundsArray = _soundArray;
         }
     }
     
     static __BuildPropertyUI = function(_selectionHandler)
     {
         //Now do the actual table
-        if (ImGui.BeginTable("Vinyl Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY, undefined, 280))
+        if (ImGui.BeginTable("Vinyl Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 280))
         {
-            var _assetTagArray = __document.__GetProjectAssetTagArray();
-            
             //Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("Name",  ImGuiTableColumnFlags.WidthFixed,   100);
             ImGui.TableSetupColumn("Value", ImGuiTableColumnFlags.WidthStretch,   1);
@@ -124,44 +122,23 @@ function __VinylClassPatternRefAssetTag() constructor
             
             if (ImGui.BeginCombo("##Sound Ref Asset Tag Input", __assetTag, ImGuiComboFlags.None))
             {
-                var _i = 0;
-                repeat(array_length(_assetTagArray))
+                if (ImGui.Selectable("A", __assetTag == "A"))
                 {
-                    var _assetTag = _assetTagArray[_i];
-                    if (ImGui.Selectable(_assetTag + "##Asset Tag Combo Box", (__assetTag == _assetTag)))
-                    {
-                        if (_assetTag != __assetTag)
-                        {
-                            __document.__Write(self, "__assetTag", _assetTag);
-                            __UpdateSounds();
-                        }
-                    }
-                    
-                    ++_i;
+                    __assetTag = "A";
+                }
+                
+                if (ImGui.Selectable("B", __assetTag == "B"))
+                {
+                    __assetTag = "B";
+                }
+                
+                if (ImGui.Selectable("C", __assetTag == "C"))
+                {
+                    __assetTag = "C";
                 }
                 
                 ImGui.EndCombo();
             }
-            
-            ImGui.TableNextRow();
-            ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Sounds");
-            ImGui.TableSetColumnIndex(1);
-            ImGui.BeginChild();
-                if (array_length(__soundsArray) <= 0)
-                {
-                    ImGui.Text("No sounds found");
-                }
-                else
-                {
-                    var _i = 0;
-                    repeat(array_length(__soundsArray))
-                    {
-                        ImGui.Text(__soundsArray[_i]);
-                        ++_i;
-                    }
-                }
-            ImGui.EndChild();
             
             ImGui.EndTable();
         }
