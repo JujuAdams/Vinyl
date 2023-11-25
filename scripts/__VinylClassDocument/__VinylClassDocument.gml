@@ -43,7 +43,6 @@ function __VinylClassDocument(_path) constructor
         __dirty     = false;
         __dirtyTime = -infinity;
         
-        __soundDict        = {};
         __patternDict      = {};
         __labelAllDict     = {};
         __labelRootDict    = {};
@@ -116,12 +115,11 @@ function __VinylClassDocument(_path) constructor
         
         var _outputJSON = {};
         
-        _outputJSON.sounds       = __VinylSerializeArray(__VinylConvertDictToArray(__soundDict      ), undefined);
-        _outputJSON.patterns     = __VinylSerializeArray(__VinylConvertDictToArray(__patternDict    ), undefined);
-        _outputJSON.labels       = __VinylSerializeArray(__VinylConvertDictToArray(__labelRootDict  ), undefined);
-        _outputJSON.effectChains = __VinylSerializeArray(__VinylConvertDictToArray(__effectChainDict), undefined);
-        _outputJSON.knobs        = __VinylSerializeArray(__VinylConvertDictToArray(__knobDict       ), undefined);
-        _outputJSON.stacks       = __VinylSerializeArray(__VinylConvertDictToArray(__stackDict      ), undefined);
+        _outputJSON.patterns     = __VinylSerializeArray(__VinylConvertDictToArray(__patternDict    ));
+        _outputJSON.labels       = __VinylSerializeArray(__VinylConvertDictToArray(__labelRootDict  ));
+        _outputJSON.effectChains = __VinylSerializeArray(__VinylConvertDictToArray(__effectChainDict));
+        _outputJSON.knobs        = __VinylSerializeArray(__VinylConvertDictToArray(__knobDict       ));
+        _outputJSON.stacks       = __VinylSerializeArray(__VinylConvertDictToArray(__stackDict      ));
         _outputJSON.settings     = variable_clone(__settings);
         
         var _string = json_stringify(_outputJSON, VINYL_EDITOR_DOCUMENT_SAVE_PRETTY);

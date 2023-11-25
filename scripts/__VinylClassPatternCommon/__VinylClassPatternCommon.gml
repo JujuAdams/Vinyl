@@ -121,7 +121,10 @@ function __VinylClassPatternCommon()
     static __SerializeShared = function(_struct)
     {
         _struct.type                  = __patternType;
+        
         _struct.name                  = __name;
+        _struct.uuid                  = __uuid;
+        _struct.parent                = __parent;
         
         _struct.gainOption            = __gainOption;
         _struct.gainKnob              = __gainKnob;
@@ -155,12 +158,13 @@ function __VinylClassPatternCommon()
         _struct.transpose             = variable_clone(__transpose);
     }
     
-    static __DeserializeShared = function(_struct, _parent)
+    static __DeserializeShared = function(_struct)
     {
         //TODO - Decompress on load
         
-        __name                  = _struct.name;
-        __parent                = _parent;
+        __name                  = _struct.name
+        __uuid                  = _struct.uuid;
+        __parent                = _struct.parent;
         
         __gainOption            = _struct.gainOption;
         __gainKnob              = _struct.gainKnob;

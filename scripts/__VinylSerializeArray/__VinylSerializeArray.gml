@@ -3,7 +3,7 @@
 /// @param array
 /// @param parent
 
-function __VinylSerializeArray(_inputArray, _parent)
+function __VinylSerializeArray(_inputArray)
 {
     var _outputArray = [];
     
@@ -11,7 +11,7 @@ function __VinylSerializeArray(_inputArray, _parent)
     repeat(array_length(_inputArray))
     {
         var _struct = {};
-        _inputArray[_i].__Serialize(_struct, _parent);
+        _inputArray[_i].__Serialize(_struct);
         array_push(_outputArray, _struct);
         ++_i;
     }
