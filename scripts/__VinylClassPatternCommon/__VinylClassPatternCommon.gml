@@ -448,7 +448,8 @@ function __VinylClassPatternCommon()
                 ImGui.TableSetColumnIndex(2);
                 if (ImGui.Button("Delete##Delete " + _childUUID))
                 {
-                    
+                    _child.__Discard();
+                    --_i;
                 }
                 
                 ++_i;
