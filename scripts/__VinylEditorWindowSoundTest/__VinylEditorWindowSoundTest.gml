@@ -5,7 +5,8 @@ function __VinylEditorWindowSoundTest(_stateStruct)
     static _editor = __VinylGlobalData().__editor;
     if (not VinylEditorIsShowing()) return;
     
-    var _projectSoundArray = __VinylDocument().__GetProjectSoundArray();
+    var _document = __VinylDocument();
+    var _projectSoundArray = _document.__GetProjectSoundArray();
     
     ImGui.SetNextWindowSize(0.4*room_width, 0.6*room_height, ImGuiCond.Once);
     ImGui.SetNextWindowPos(0.3*room_width, 0.2*room_height, ImGuiCond.Once);
@@ -46,20 +47,24 @@ function __VinylEditorWindowSoundTest(_stateStruct)
                 
                 if (ImGui.BeginTabItem("Patterns"))
                 {
-                    var _resourceDict = __VinylDocument().__data.patterns;
+                    var _resourceDict = _document.__patternDict;
                     var _resourceNameArray = variable_struct_get_names(_resourceDict);
                     array_sort(_resourceNameArray, true);
                     
                     var _i = 0;
                     repeat(array_length(_resourceNameArray))
                     {
-                        var _name = _resourceNameArray[_i];
-                        if (ImGui.ArrowButton("##", ImGuiDir.Right))
+                        var _uuid = _resourceNameArray[_i];
+                        var _pattern = _document.__GetPattern(_uuid);
+                        if ((not _pattern.__IsChild()) && ((not is_instanceof(_pattern, __VinylClassPatternFallback)) && (not is_instanceof(_pattern, __VinylClassPatternSound))))
                         {
-                            VinylPlaySimple(asset_get_index(_name));
+                            if (ImGui.ArrowButton("##", ImGuiDir.Right))
+                            {
+                                VinylPlaySimple(_uuid);
+                            }
+                            ImGui.SameLine();
+                            ImGui.Text(_uuid);
                         }
-                        ImGui.SameLine();
-                        ImGui.Text(_name);
                         
                         ++_i;
                     }
