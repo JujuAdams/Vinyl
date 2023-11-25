@@ -2,8 +2,6 @@
 
 function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaultData, _selectionHandler, _patternDict)
 {
-    var _showApply = (_modified && (_selectionHandler.__GetSelectedCount() > 1));
-    
     //Fallback handling
     if (not _modified)
     {
@@ -11,64 +9,8 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
         _defaultData = undefined;
     }
     
-    //For easier reading, all the widgets are handled by parsing this array!
-    static _displayWidgetArray = [
-        { __name: "Gain",         __function: __VinylEditorPropWidgetGain,        __apply: ["__gainOption", "__gainKnob", "__gainKnobOverride", "__gain"], },
-        { __name: "Pitch",        __function: __VinylEditorPropWidgetPitch,       __apply: ["__pitchOption", "__pitchKnob", "__pitchKnobOverride", "__pitch"], },
-        { __name: "Loop",         __function: __VinylEditorPropWidgetLoop,        __apply: ["__loopOption", "__loop"], },
-        { __name: "Loop Points",  __function: __VinylEditorPropWidgetLoopPoints,  __apply: ["__loopPointsOption", "__loopPoints"], },
-        { __name: "Labels",       __function: __VinylEditorPropWidgetLabel,       __apply: ["__labelsOption", "__labels"], },
-        { __name: "Stack",        __function: __VinylEditorPropWidgetStack,       __apply: ["__stackOption", "__stackName", "__stackPriority"], },
-        { __name: "Effect Chain", __function: __VinylEditorPropWidgetEffectChain, __apply: ["__effectChainOption", "__effectChain"], },
-        { __name: "Persistent",   __function: __VinylEditorPropWidgetPersistent,  __apply: ["__persistentOption", "__persistent"], },
-        { __name: "BPM",          __function: __VinylEditorPropWidgetBPM,         __apply: ["__bpmOption", "__bpm"], },
-        { __name: "Transpose",    __function: __VinylEditorPropWidgetTranspose,   __apply: ["__transposeOption", "__transposeKnob", "__transposeKnobOverride", "__transpose"], },
-    ];
-    
     ImGui.BeginDisabled(not _modified);
-        
-        //Now do the actual table
-        if (ImGui.BeginTable("Vinyl Properties", 4, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 310))
-        {
-            //Set up our columns with fixed widths so we get a nice pretty layout
-            ImGui.TableSetupColumn("Name",   ImGuiTableColumnFlags.WidthFixed, 100);
-            ImGui.TableSetupColumn("Option", ImGuiTableColumnFlags.WidthFixed, 125);
-            ImGui.TableSetupColumn("Value",  ImGuiTableColumnFlags.WidthStretch, 1);
-            ImGui.TableSetupColumn("Apply",  ImGuiTableColumnFlags.WidthFixed, 80);
-            
-            //Make aaaall the widgets
-            var _i = 0;
-            repeat(array_length(_displayWidgetArray))
-            {
-                var _displayWidget = _displayWidgetArray[_i];
-                _displayWidget.__function(_soundName, _soundData, _defaultData, 0, 2, 1);
-                
-                if (_showApply)
-                {
-                    ImGui.TableSetColumnIndex(3);
-                    if (ImGui.Button("Apply##" + _displayWidget.__name))
-                    {
-                        __VinylEditorApply(_soundData, _selectionHandler, _patternDict, _displayWidget.__apply);
-                    }
-                }
-                
-                ++_i;
-            }
-            
-            //Top it off with an extra Apply All button if we're in multi-selection mode
-            if (_showApply)
-            {
-                ImGui.TableNextRow();
-                ImGui.TableSetColumnIndex(3);
-                if (ImGui.Button("Apply All"))
-                {
-                    __VinylEditorApplyAll(_soundData, _selectionHandler, _patternDict);
-                }
-            }
-            
-            ImGui.EndTable();
-        }
-        
+        _soundData.__BuildPropertyUI(_selectionHandler);
     ImGui.EndDisabled();
     
     ImGui.NewLine();

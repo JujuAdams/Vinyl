@@ -81,7 +81,7 @@ function __VinylClassPatternSound() : __VinylClassPatternCommon() constructor
         return __VinylPlaySimple(__sound, _gain*__gain[0], _gain*__gain[1], _pitch*__pitch[0], _pitch*__pitch[1], __labelArray, _effectChainName);
     }
     
-    static __SharedWidgets = function(_selectionHandler)
+    static __BuildPropertyUI = function(_selectionHandler)
     {
         if (ImGui.BeginTable("Pattern Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 260))
         {

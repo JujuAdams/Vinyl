@@ -63,11 +63,6 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     
     static __BuildPropertyUI = function(_selectionHandler)
     {
-        __SharedWidgets(_selectionHandler);
-    }
-    
-    static __SharedWidgets = function(_selectionHandler)
-    {
         if (ImGui.BeginTable("Pattern Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 260))
         {
             //Set up our columns with fixed widths so we get a nice pretty layout

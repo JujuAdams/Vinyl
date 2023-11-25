@@ -222,10 +222,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         if (_selectionHandler.__GetSelectedCount() > 0)
         {
             ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                //__VinylEditorPropertiesSound(_lastSelected, _patternDict[$ _lastSelected], _modified, _patternDict[$ __VINYL_FALLBACK_NAME], _selectionHandler, _patternDict);
-                
-                _patternDict[$ _lastSelected].__BuildPropertyUI(_selectionHandler);
-                
+                __VinylEditorPropertiesSound(_lastSelected, _patternDict[$ _lastSelected], _modified, _patternDict[$ __VINYL_FALLBACK_NAME], _selectionHandler, _patternDict);
             ImGui.EndChild();
         }
     ImGui.EndChild();
