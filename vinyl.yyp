@@ -20,6 +20,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Classes","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Config Resources","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Config Resources.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Patterns","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Patterns.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Common","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Patterns/Common.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Voices","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Voices.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Editor","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Classes","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Classes.yy",},
@@ -46,7 +47,6 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stacks","folderPath":"folders/Vinyl/Stacks.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stopping Audio","folderPath":"folders/Vinyl/Stopping Audio.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Transposition","folderPath":"folders/Vinyl/Transposition.yy",},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Common","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Patterns/Common.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"vinyl_license.txt","CopyToMask":-1,"filePath":"datafiles",},

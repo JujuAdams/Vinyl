@@ -148,14 +148,14 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             
             ImGui.SameLine(300);
             
-            if (ImGui.Button("Play Once"))
-            {
-                //TODO
-            }
-            
-            ImGui.SameLine(undefined, 20);
-            
             ImGui.BeginDisabled(_selectedCount > 1);
+                if (ImGui.Button("Play Once"))
+                {
+                    //TODO
+                }
+                
+                ImGui.SameLine(undefined, 20);
+                
                 if (ImGui.Button("Rename"))
                 {
                     _makePopup = true;
@@ -185,24 +185,26 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             static _rootPatterns  = [__VinylClassPatternBasic, __VinylClassPatternShuffle, __VinylClassPatternQueue, __VinylClassPatternMulti];
             static _childPatterns = [__VinylClassPatternBasic, __VinylClassPatternShuffle, __VinylClassPatternQueue, __VinylClassPatternMulti, __VinylClassPatternRefNameMatch, __VinylClassPatternRefAssetTag];
             
-            ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
-            if (ImGui.BeginCombo("##Pattern Type Combobox", __VinylPatternToName(instanceof(_selectedStruct)), ImGuiComboFlags.None))
-            {
-                var _patternArray = _selectedStruct.__IsChild()? _childPatterns : _rootPatterns;
-                var _i = 0;
-                repeat(array_length(_patternArray))
+            ImGui.BeginDisabled(_selectedCount > 1);
+                ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
+                if (ImGui.BeginCombo("##Pattern Type Combobox", __VinylPatternToName(instanceof(_selectedStruct)), ImGuiComboFlags.None))
                 {
-                    var _pattern = _patternArray[_i];
-                    if (ImGui.Selectable(__VinylPatternToName(_pattern)))
+                    var _patternArray = _selectedStruct.__IsChild()? _childPatterns : _rootPatterns;
+                    var _i = 0;
+                    repeat(array_length(_patternArray))
                     {
-                        __VinylPatternChange(_selectedStruct, _pattern);
+                        var _pattern = _patternArray[_i];
+                        if (ImGui.Selectable(__VinylPatternToName(_pattern)))
+                        {
+                            __VinylPatternChange(_selectedStruct, _pattern);
+                        }
+                        
+                        ++_i;
                     }
                     
-                    ++_i;
+                    ImGui.EndCombo();
                 }
-                
-                ImGui.EndCombo();
-            }
+            ImGui.EndDisabled(_selectedCount);
         }
         
         //Little more aesthetic spacing
