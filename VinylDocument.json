@@ -1,18 +1,26 @@
 {
   "patterns":[
     {
+      "gainKnobOverride":false,
+      "transposeKnob":"<None>",
+      "pitchKnobOverride":false,
+      "labelsOption":"Unset",
+      "stackPriority":0.0,
+      "gainKnob":"<None>",
+      "transposeOption":"Unset",
       "pitchKnob":"<None>",
-      "loop":0.0,
+      "persistent":null,
+      "loop":false,
       "stack":"<None>",
       "gainOption":"Unset",
       "persistentOption":"Unset",
+      "type":"Fallback",
       "pitchOption":"Unset",
       "transpose":[
         0.0,
         0.0
       ],
       "loopOption":"Unset",
-      "persistent":null,
       "stackOption":"Unset",
       "name":"Fallback",
       "effectChain":"<None>",
@@ -20,77 +28,58 @@
         1.0,
         1.0
       ],
-      "type":"Fallback",
-      "transposeKnobOverride":0.0,
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "effectChainOption":"Unset",
-      "gainKnobOverride":0.0,
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "labelsOption":"Unset",
-      "stackPriority":0.0,
-      "gainKnob":"<None>",
-      "transposeOption":"Unset"
-    },
-    {
-      "pitchKnob":"<None>",
-      "loop":false,
-      "stack":"<None>",
-      "gainOption":"Unset",
-      "persistentOption":"Unset",
-      "pitchOption":"Unset",
-      "transpose":[
-        0.0,
-        0.0
-      ],
-      "loopOption":"Unset",
-      "persistent":null,
-      "stackOption":"Unset",
-      "name":"Unnamed Label 1",
-      "effectChain":"<None>",
-      "gain":[
-        1.0,
-        1.0
-      ],
-      "type":"Shuffle",
       "transposeKnobOverride":false,
       "pitch":[
         1.0,
         1.0
       ],
-      "childrenArray":[
-        {
-          "sound":"",
-          "type":"Sound Ref"
-        },
-        {
-          "sound":"",
-          "type":"Sound Ref"
-        },
-        {
-          "sound":"VinylFallbackSound",
-          "type":"Sound Ref"
-        },
-        {
-          "sound":"",
-          "type":"Sound Ref"
-        }
-      ],
       "labels":[
       ],
-      "effectChainOption":"Unset",
+      "effectChainOption":"Unset"
+    },
+    {
       "gainKnobOverride":false,
       "transposeKnob":"<None>",
       "pitchKnobOverride":false,
       "labelsOption":"Unset",
       "stackPriority":0.0,
       "gainKnob":"<None>",
-      "transposeOption":"Unset"
+      "transposeOption":"Unset",
+      "pitchKnob":"<None>",
+      "persistent":null,
+      "loop":false,
+      "stack":"<None>",
+      "gainOption":"Unset",
+      "persistentOption":"Unset",
+      "type":"Shuffle",
+      "pitchOption":"Unset",
+      "transpose":[
+        0.0,
+        0.0
+      ],
+      "loopOption":"Unset",
+      "stackOption":"Unset",
+      "name":"Unnamed Pattern 1",
+      "effectChain":"<None>",
+      "gain":[
+        1.0,
+        1.0
+      ],
+      "transposeKnobOverride":false,
+      "pitch":[
+        1.0,
+        1.0
+      ],
+      "childrenArray":[
+        "3D84708306BB8C00"
+      ],
+      "labels":[
+      ],
+      "effectChainOption":"Unset"
+    },
+    {
+      "searchString":"",
+      "type":"Name Match"
     }
   ],
   "labels":[
@@ -104,5 +93,7 @@
   "stacks":[
   ],
   "settings":{
+    "autogenerateMacros":1.0,
+    "macroScriptName":"__VinylGeneratedMacros"
   }
 }

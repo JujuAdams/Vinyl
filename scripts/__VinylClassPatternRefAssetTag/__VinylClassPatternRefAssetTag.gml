@@ -7,8 +7,10 @@ function __VinylClassPatternRefAssetTag() constructor
 {
     static __patternType = __VINYL_PATTERN_TYPE_REF_ASSET_TAG;
     
+    __uuid     = string(ptr(__VinylRandom(0x7FFF_FFFF_FFFF_FFFF)));
     __document = undefined;
     __parent   = undefined;
+    __name     = "";
     
     __setSubscription = false;
     
@@ -33,6 +35,16 @@ function __VinylClassPatternRefAssetTag() constructor
         {
             __document.__Unsubscribe("project reload", self);
         }
+    }
+    
+    static __IsChild = function()
+    {
+        return (__parent != undefined);
+    }
+    
+    static __GetName = function()
+    {
+        return string(__uuid);
     }
     
     static __EnsureSubscription = function()
@@ -66,9 +78,11 @@ function __VinylClassPatternRefAssetTag() constructor
         __document = _document;
         __parent   = _parent;
         
+        _document.__patternDict[$ __uuid] = self;
+        
         if (_parent != undefined)
         {
-            array_push(_parent.__childArray, self);
+            array_push(_parent.__childArray, __uuid);
         }
         
         __EnsureSubscription();
@@ -76,7 +90,7 @@ function __VinylClassPatternRefAssetTag() constructor
     
     static __Discard = function()
     {
-        var _index = __VinylArrayFindIndex(__parent.__childArray, self);
+        var _index = __VinylArrayFindIndex(__parent.__childArray, __uuid);
         if (_index != undefined) array_delete(__parent.__childArray, _index, 1);
     }
     

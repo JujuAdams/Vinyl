@@ -224,7 +224,7 @@ function __VinylClassDocument(_path) constructor
         if (not is_array(_array)) return;
         
         var _i = 0;
-        repeat(array_length(_array))
+        repeat(array_length(_array) div 2)
         {
             if (_array[_i].ref == _scope)
             {
@@ -360,6 +360,13 @@ function __VinylClassDocument(_path) constructor
     
     
     
+    static __GetPattern = function(_uuid)
+    {
+        return __patternDict[$ _uuid];
+    }
+    
+    
+    
     static __NewSound = function(_soundName)
     {
         var _new = new __VinylClassPatternSound();
@@ -397,7 +404,6 @@ function __VinylClassDocument(_path) constructor
         if (is_struct(_parent))
         {
             var _new = new __VinylClassPatternRefSound();
-            _new.__name = string(ptr(floor(__VinylRandom(0x7FFFFFFFFFFFFFFF))));
         }
         else
         {

@@ -1,18 +1,37 @@
 // Feather disable all
 
-/// @param document
-/// @param parent
-
-function __VinylClassPatternCommon(_document, _parent)
+function __VinylClassPatternCommon()
 {
     static __effectChainDict = __VinylGlobalData().__effectChainDict;
     
-    __document = _document;
-    __parent   = _parent;
+    __uuid     = string(ptr(__VinylRandom(0x7FFF_FFFF_FFFF_FFFF)));
+    __document = undefined;
+    __parent   = undefined;
     
-    __name = undefined;
+    __name = "";
     
     
+    
+    static __IsChild = function()
+    {
+        return (__parent != undefined);
+    }
+    
+    static __GetName = function()
+    {
+        return string(__name);
+    }
+    
+    static __Rename = function(_name)
+    {
+        if (__uuid == __name)
+        {
+            __uuid = _name;
+            //TODO - Do other stuff here too
+        }
+        
+        __name = _name;
+    }
     
     static __ResetShared = function()
     {
@@ -124,55 +143,16 @@ function __VinylClassPatternCommon(_document, _parent)
         __transpose             = variable_clone(_struct.transpose);
     }
     
-    static __CopyTo = function(_new)
-    {
-        _new.__Reset();
-        
-        _new.__name                  = __name;
-        _new.__parent                = __parent;
-        
-        _new.__gainOption            = __gainOption;
-        _new.__gainKnob              = __gainKnob;
-        _new.__gainKnobOverride      = __gainKnobOverride;
-        _new.__gain                  = variable_clone(__gain);
-        
-        _new.__pitchOption           = __pitchOption;
-        _new.__pitchKnob             = __pitchKnob;
-        _new.__pitchKnobOverride     = __pitchKnobOverride;
-        _new.__pitch                 = variable_clone(__pitch);
-        
-        _new.__loopOption            = __loopOption;
-        _new.__loop                  = __loop;
-        
-        _new.__labelsOption          = __labelsOption;
-        _new.__labelArray            = variable_clone(__labelArray);
-        
-        _new.__stackOption           = __stackOption;
-        _new.__stackName             = __stackName;
-        _new.__stackPriority         = __stackPriority;
-        
-        _new.__effectChainOption     = __effectChainOption;
-        _new.__effectChainName       = __effectChainName;
-        
-        _new.__persistentOption      = __persistentOption;
-        _new.__persistent            = __persistent;
-        
-        _new.__transposeOption       = __transposeOption;
-        _new.__transposeKnob         = __transposeKnob;
-        _new.__transposeKnobOverride = __transposeKnobOverride;
-        _new.__transpose             = variable_clone(__transpose);
-    }
-    
     static __Store = function(_document, _parent)
     {
         __document = _document;
         __parent   = _parent;
         
-        _document.__patternDict[$ __name] = self;
+        _document.__patternDict[$ __uuid] = self;
         
         if (_parent != undefined)
         {
-            array_push(_parent.__childArray, self);
+            array_push(_parent.__childArray, __uuid);
         }
     }
     
@@ -180,15 +160,22 @@ function __VinylClassPatternCommon(_document, _parent)
     {
         if (is_struct(__parent))
         {
-            var _index = __VinylArrayFindIndex(__parent.__childArray, self);
-            if (_index != undefined)
-            {
-                array_delete(__parent.__childArray, _index, 1);
-            }
+            var _index = __VinylArrayFindIndex(__parent.__childArray, __uuid);
+            if (_index != undefined) array_delete(__parent.__childArray, _index, 1);
         }
         else
         {
-            variable_struct_remove(__document.__patternDict, __name);
+            variable_struct_remove(__document.__patternDict, __uuid);
+        }
+        
+        if (variable_struct_exists(self, "__childArray"))
+        {
+            var _i = array_length(__childArray)-1;
+            repeat(array_length(__childArray))
+            {
+                __childArray[_i].__Discard();
+                --_i;
+            }
         }
     }
     
@@ -412,36 +399,39 @@ function __VinylClassPatternCommon(_document, _parent)
             var _i = 0;
             repeat(_size)
             {
-                var _child = _array[_i];
-                var _name = _child.__name;
+                var _childUUID = _array[_i];
+                var _child = __document.__GetPattern(_childUUID);
                 
                 ImGui.TableNextRow();
                 ImGui.TableSetColumnIndex(0);
                 
                 ImGui.BeginDisabled(_i >= _size-1);
-                    if (ImGui.ArrowButton("Order Down " + _name, ImGuiDir.Down))
+                    if (ImGui.ArrowButton("Order Down " + _childUUID, ImGuiDir.Down))
                     {
                         var _temp = _array[_i+1];
-                        _array[_i+1] = _child;
+                        _array[_i+1] = _childUUID;
                         _array[_i] = _temp;
                     }
                 ImGui.EndDisabled();
                 
                 ImGui.SameLine();
                 ImGui.BeginDisabled(_i <= 0);
-                    if (ImGui.ArrowButton("Order Up " + _name, ImGuiDir.Up))
+                    if (ImGui.ArrowButton("Order Up " + _childUUID, ImGuiDir.Up))
                     {
                         var _temp = _array[_i-1];
-                        _array[_i-1] = _child;
+                        _array[_i-1] = _childUUID;
                         _array[_i] = _temp;
                     }
                 ImGui.EndDisabled();
                 
                 ImGui.TableSetColumnIndex(1);
-                ImGui.Selectable(_name);
+                if (ImGui.Selectable(_child.__GetName()))
+                {
+                    _selectionHandler.__SelectToggle(_childUUID);
+                }
                 
                 ImGui.TableSetColumnIndex(2);
-                if (ImGui.Button("Delete##Delete " + _name))
+                if (ImGui.Button("Delete##Delete " + _childUUID))
                 {
                     
                 }

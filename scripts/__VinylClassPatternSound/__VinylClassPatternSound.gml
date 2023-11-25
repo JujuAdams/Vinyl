@@ -5,7 +5,6 @@ function __VinylClassPatternSound() : __VinylClassPatternCommon() constructor
     static __patternType = __VINYL_PATTERN_TYPE_SOUND;
     static __pool = __VinylGlobalData().__poolSound;
     
-    __ResetShared();
     __Reset();
     
     static toString = function()
@@ -15,6 +14,8 @@ function __VinylClassPatternSound() : __VinylClassPatternCommon() constructor
     
     static __Reset = function()
     {
+        __ResetShared();
+        
         __sound            = undefined;
         __loopPointsOption = __VINYL_OPTION_UNSET;
         __loopPoints       = [0, 0];

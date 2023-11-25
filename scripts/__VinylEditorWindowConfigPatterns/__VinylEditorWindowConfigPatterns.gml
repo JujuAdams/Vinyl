@@ -19,59 +19,57 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
     var _filter    = _tabState.__filter;
     var _useFilter = _tabState.__useFilter;
     
-    var _func = function(_func, _visibleArray, _target, _selectionHandler, _filter, _useFilter)
+    var _func = function(_func, _visibleArray, _contentDict, _uuid, _selectionHandler, _filter, _useFilter)
     {
-        if ((not is_instanceof(_target, __VinylClassPatternFallback)) && (not is_instanceof(_target, __VinylClassPatternSound)))
+        var _target = _contentDict[$ _uuid];
+        
+        //TODO - Cache these values
+        var _multiselect   = _selectionHandler.__GetMultiselect();
+        var _seeSelected   = _selectionHandler.__GetSeeSelected();
+        var _seeUnselected = _selectionHandler.__GetSeeUnselected();
+        
+        var _selected = _selectionHandler.__IsSelected(_uuid);
+        if ((not _multiselect) || (_selected && _seeSelected) || ((not _selected) && _seeUnselected)) //Selected check
         {
-            var _name = _target.__name;
-            
-            var _multiselect   = _selectionHandler.__GetMultiselect();
-            var _seeSelected   = _selectionHandler.__GetSeeSelected();
-            var _seeUnselected = _selectionHandler.__GetSeeUnselected();
-            
-            var _selected = _selectionHandler.__IsSelected(_name);
-            if ((not _multiselect) || (_selected && _seeSelected) || ((not _selected) && _seeUnselected)) //Selected check
+            if ((not _useFilter) || __VinylFilterApply(_filter, _target)) //General filter
             {
-                if ((not _useFilter) || __VinylFilterApply(_filter, _target)) //General filter
+                var _childArray = _target[$ "__childArray"];
+                
+                var _flags = ImGuiTreeNodeFlags.OpenOnArrow | ImGuiTreeNodeFlags.DefaultOpen;
+                
+                if (_selectionHandler.__IsSelected(_uuid))
                 {
-                    var _childArray = _target[$ "__childArray"];
-                    
-                    var _flags = ImGuiTreeNodeFlags.OpenOnArrow | ImGuiTreeNodeFlags.DefaultOpen;
-                    
-                    if (_selectionHandler.__IsSelected(_name))
-                    {
-                        _flags |= ImGuiTreeNodeFlags.Selected;
-                    }
-                    
-                    if ((not is_array(_childArray)) || (array_length(_childArray) <= 0))
-                    {
-                        _flags |= ImGuiTreeNodeFlags.Bullet;
-                    }
-                    
-                    var _open = ImGui.TreeNodeEx(_name + "##Select " + _name, _flags);
-                    if ((not ImGui.IsItemToggledOpen()) && ImGui.IsItemClicked())
-                    {
-                        _selectionHandler.__SelectToggle(_name);
-                    }
-                    
-                    if (_open)
-                    {
-                        if (is_array(_childArray))
-                        {
-                            var _i = 0;
-                            repeat(array_length(_childArray))
-                            {
-                                _func(_func, _visibleArray, _childArray[_i], _selectionHandler, _filter, _useFilter);
-                                ++_i;
-                            }
-                        }
-                        
-                        ImGui.TreePop();
-                    }
-                    
-                    //Push the name of this visible sound to our array
-                    array_push(_visibleArray, _name);
+                    _flags |= ImGuiTreeNodeFlags.Selected;
                 }
+                
+                if ((not is_array(_childArray)) || (array_length(_childArray) <= 0))
+                {
+                    _flags |= ImGuiTreeNodeFlags.Bullet;
+                }
+                
+                var _open = ImGui.TreeNodeEx(_target.__GetName() + "##Select " + _uuid, _flags);
+                if ((not ImGui.IsItemToggledOpen()) && ImGui.IsItemClicked())
+                {
+                    _selectionHandler.__SelectToggle(_uuid);
+                }
+                
+                if (_open)
+                {
+                    if (is_array(_childArray))
+                    {
+                        var _i = 0;
+                        repeat(array_length(_childArray))
+                        {
+                            _func(_func, _visibleArray, _contentDict, _childArray[_i], _selectionHandler, _filter, _useFilter);
+                            ++_i;
+                        }
+                    }
+                    
+                    ImGui.TreePop();
+                }
+                
+                //Push the name of this visible sound to our array
+                array_push(_visibleArray, _uuid);
             }
         }
     }
@@ -102,8 +100,13 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             var _i = 0;
             repeat(array_length(_contentNameArray))
             {
-                var _target = _contentDict[$ _contentNameArray[_i]];
-                _func(_func, _visibleArray, _target, _selectionHandler, _filter, _useFilter);
+                var _uuid = _contentNameArray[_i];
+                var _target = _contentDict[$ _uuid];
+                if ((not _target.__IsChild()) && ((not is_instanceof(_target, __VinylClassPatternFallback)) && (not is_instanceof(_target, __VinylClassPatternSound))))
+                {
+                    _func(_func, _visibleArray, _contentDict, _uuid, _selectionHandler, _filter, _useFilter);
+                }
+                
                 ++_i;
             }
             

@@ -8,11 +8,10 @@ function __VinylClassPatternQueue() : __VinylClassPatternCommon() constructor
     static __patternType = __VINYL_PATTERN_TYPE_QUEUE;
     static __pool = __VinylGlobalData().__poolQueue;
     
-    __ResetShared();
-    __Reset();
-    
     static __Reset = function()
     {
+        __ResetShared();
+        
         __behavior = __VINYL_QUEUE_PLAY_ONCE;
         __childArray = [];
     }
@@ -35,7 +34,7 @@ function __VinylClassPatternQueue() : __VinylClassPatternCommon() constructor
         __SerializeShared(_struct);
         
         _struct.behavior      = __behavior;
-        _struct.childrenArray = __VinylSerializeArray(__childArray, self);
+        _struct.childrenArray = variable_clone(__childArray);
     }
         
     static __Deserialize = function(_struct, _child)
@@ -45,7 +44,7 @@ function __VinylClassPatternQueue() : __VinylClassPatternCommon() constructor
         __DeserializeShared(_struct, _child);
         
         __behavior      = _struct.behavior;
-        __childArray = __VinylDeserializePatternArray(_struct.childrenArray, undefined, self);
+        __childArray = variable_clone(_struct.childrenArray);
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)

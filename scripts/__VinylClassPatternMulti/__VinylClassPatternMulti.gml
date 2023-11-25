@@ -9,11 +9,12 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
     static __pool          = __VinylGlobalData().__poolMulti;
     static __animCurveDict = __VinylGlobalData().__animCurveDict;
     
-    __ResetShared();
     __Reset();
     
     static __Reset = function()
     {
+        __ResetShared();
+        
         __sync             = VINYL_DEFAULT_MULTI_SYNC;
         __blend            = 0;
         __blendCurveName   = "";
@@ -51,7 +52,7 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
         _struct.sync           = __sync;
         _struct.blend          = __blend;
         _struct.blendCurveName = __blendCurveName;
-        _struct.childrenArray  = __VinylSerializeArray(__childArray, self);
+        _struct.childrenArray  = variable_clone(__childArray);
     }
         
     static __Deserialize = function(_struct, _parent)
@@ -63,7 +64,7 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
         __sync           = _struct.sync;
         __blend          = _struct.blend;
         __blendCurveName = _struct.blendCurveName;
-        __childArray  = __VinylDeserializePatternArray(_struct.childrenArray, undefined, self);
+        __childArray  = variable_clone(_struct.childrenArray);
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
@@ -84,36 +85,4 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
         ImGui.NewLine();
         __SharedWidgets(_selectionHandler);
     }
-    
-    //static __Initialize = function()
-    //{
-    //    //Find a blend curve to track
-    //    __blendCurve = undefined;
-    //    if (is_string(_blendCurveName))
-    //    {
-    //        if ((asset_get_index(_blendCurveName) >= 0) && (asset_get_type(_blendCurveName) == asset_animationcurve))
-    //        {
-    //            __blendCurve = __VinylAnimCurveEnsure(_blendCurveName);
-    //        }
-    //        else
-    //        {
-    //            __VinylError("Error in ", self, "\n\Animation curve \"", _blendCurveName, "\" not recognised");
-    //        }
-    //    }
-    //    else if (_blendCurveName != undefined)
-    //    {
-    //        __VinylError("Error in ", self, "\n\"blend curve\" property must be the name of an animation curve as a string");
-    //    }
-    //    
-    //    //Set the blend state
-    //    var _knobBlend = __VinylParseKnob(_blend, "blend", false, self);
-    //    __blendFactorLocal = _knobBlend ?? _blend;
-    //    if (!is_numeric(__blendFactorLocal) && !is_undefined(__blendFactorLocal)) __VinylError("Error in ", self, "\n\"blend\" property must be a number or a knob");
-    //    
-    //    //Set the sync state
-    //    __sync = _sync;
-    //    if (!is_bool(__sync)) __VinylError("Error in pattern ", self, "\n\"sync\" must be a boolean (<true> or <false>)");
-    //    
-    //    if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Created ", self, ", gain=", __gain[0], " -> ", __gain[1], ", pitch=", __pitch[0], " -> ", __pitch[1], ", effect chain=", __effectChainName, ", label=", __VinylDebugLabelNames(__labelArray), ", persistent=", __persistent);
-    //}
 }

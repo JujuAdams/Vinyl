@@ -8,11 +8,12 @@ function __VinylClassPatternShuffle() : __VinylClassPatternCommon() constructor
     static __patternType = __VINYL_PATTERN_TYPE_SHUFFLE;
     static __pool = __VinylGlobalData().__poolBasic; //No need for a dedicated shuffle voice
     
-    __ResetShared();
     __Reset();
     
     static __Reset = function()
     {
+        __ResetShared();
+        
         __currentIndex  = 0;
         __childArray = [];
     }
@@ -33,7 +34,7 @@ function __VinylClassPatternShuffle() : __VinylClassPatternCommon() constructor
         //TODO - Compress on save
         
         __SerializeShared(_struct);
-        _struct.childrenArray = __VinylSerializeArray(__childArray, self);
+        _struct.childrenArray = variable_clone(__childArray);
     }
         
     static __Deserialize = function(_struct, _parent)
@@ -41,7 +42,7 @@ function __VinylClassPatternShuffle() : __VinylClassPatternCommon() constructor
         //TODO - Decompress on load
         
         __DeserializeShared(_struct, _parent);
-        __childArray = __VinylDeserializePatternArray(_struct.childrenArray, undefined, self);
+        __childArray = variable_clone(_struct.childrenArray);
         
         //Initialize the currently-playing array with a random sample from the overall pattern array
         __currentIndex = 0;

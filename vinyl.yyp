@@ -46,6 +46,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stacks","folderPath":"folders/Vinyl/Stacks.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stopping Audio","folderPath":"folders/Vinyl/Stopping Audio.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Transposition","folderPath":"folders/Vinyl/Transposition.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Common","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Classes/Patterns/Common.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"vinyl_license.txt","CopyToMask":-1,"filePath":"datafiles",},
