@@ -172,8 +172,7 @@ function __VinylClassDocument(_path) constructor
                 __VinylDeserializeArray(_inputJSON.effectChains, __VinylClassEffectChain,  self, undefined);
                 __VinylDeserializeArray(_inputJSON.stacks,       __VinylClassStack,        self, undefined);
                 __VinylDeserializeArray(_inputJSON.labels,       __VinylClassLabel,        self, undefined);
-                __VinylDeserializeArray(_inputJSON.sounds,       __VinylClassPatternSound, self, undefined);
-                __VinylDeserializePatternArray(_inputJSON.patterns, self, undefined);
+                __VinylDeserializePatternArray(_inputJSON.patterns, self);
                 
                 //Don't forget the settings
                 __settings = variable_clone(_inputJSON.settings);
@@ -370,7 +369,7 @@ function __VinylClassDocument(_path) constructor
         var _new = new __VinylClassPatternSound();
         _new.__name  = _soundName;
         _new.__sound = asset_get_index(_soundName);
-        _new.__Store(self, undefined);
+        _new.__Store(self);
         
         __Save();
         
@@ -397,11 +396,11 @@ function __VinylClassDocument(_path) constructor
         return _new;
     }
     
-    static __NewPattern = function(_parent = undefined)
+    static __NewPattern = function(_parentUUID = undefined)
     {
         var _new = new __VinylClassPatternBasic();
         
-        if (not is_struct(_parent))
+        if (_parentUUID == undefined)
         {
             var _index = 1;
             var _newName = "Unnamed Pattern " + string(_index);
@@ -415,7 +414,13 @@ function __VinylClassDocument(_path) constructor
             _new.__uuid = _newName;
         }
         
-        _new.__Store(self, _parent);
+        _new.__Store(self);
+        
+        if (_parentUUID != undefined)
+        {
+            _new.__ChangeParent(_parentUUID);
+        }
+        
         __Save();
         
         return _new;

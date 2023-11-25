@@ -63,7 +63,7 @@ function __VinylInitialize()
     __VinylValidateMacros();
     
     var _globalData = __VinylGlobalData();
-    if (VINYL_DEBUG_LEVEL > 0) global.vinyl = _globalData;
+    if (__VinylGetRunningFromIDE()) global.vinyl = _globalData;
     
     _globalData.__poolSound.__Populate(VINYL_POOL_START_SIZE);
     _globalData.__poolBasic.__Populate(VINYL_POOL_START_SIZE);

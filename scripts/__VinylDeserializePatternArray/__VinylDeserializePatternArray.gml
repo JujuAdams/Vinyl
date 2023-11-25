@@ -2,9 +2,8 @@
 
 /// @param array
 /// @param document
-/// @param parent
 
-function __VinylDeserializePatternArray(_inputArray, _document, _parent)
+function __VinylDeserializePatternArray(_inputArray, _document)
 {
     var _outputArray = [];    
     
@@ -15,7 +14,7 @@ function __VinylDeserializePatternArray(_inputArray, _document, _parent)
         var _constructor = __VinylConvertPatternNameToConstructor(_input.type, _input.name);
         
         var _new = new _constructor();
-        _new.__Deserialize(_input, _parent);
+        _new.__Deserialize(_input);
         
         if (_document != undefined)
         {

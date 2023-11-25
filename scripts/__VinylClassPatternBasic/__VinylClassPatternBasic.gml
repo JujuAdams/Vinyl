@@ -36,11 +36,11 @@ function __VinylClassPatternBasic() : __VinylClassPatternCommon() constructor
         _struct.sound = audio_get_name(__sound);
     }
     
-    static __Deserialize = function(_struct, _parent)
+    static __Deserialize = function(_struct)
     {
-        __DeserializeShared(_struct, _parent);
+        __DeserializeShared(_struct);
         
-        __sound = asset_get_index(_struct.__sound);
+        __sound = asset_get_index(_struct.sound);
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)

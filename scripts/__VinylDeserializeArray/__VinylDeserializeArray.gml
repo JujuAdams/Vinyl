@@ -15,7 +15,7 @@ function __VinylDeserializeArray(_inputArray, _constructor, _document, _parent)
         var _input = _inputArray[_i];
         
         var _new = new _constructor();
-        _new.__Deserialize(_input, _parent);
+        _new.__Deserialize(_input);
         
         if (_document != undefined)
         {

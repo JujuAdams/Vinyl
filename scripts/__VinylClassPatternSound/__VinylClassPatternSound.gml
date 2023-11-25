@@ -46,11 +46,11 @@ function __VinylClassPatternSound() : __VinylClassPatternCommon() constructor
         _struct.bpm              = __bpm;
     }
     
-    static __Deserialize = function(_struct, _parent)
+    static __Deserialize = function(_struct)
     {
         //TODO - Decompress on load
         
-        __DeserializeShared(_struct, _parent);
+        __DeserializeShared(_struct);
         
         __sound            = asset_get_index(_struct.sound);
         __loopPointsOption = _struct.loopPointsOption;

@@ -183,7 +183,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
             if (ImGui.BeginCombo("##Pattern Type Combobox", __VinylPatternToName(instanceof(_selectedStruct)), ImGuiComboFlags.None))
             {
-                var _patternArray = (_selectedStruct.__parent == undefined)? _rootPatterns : _childPatterns;
+                var _patternArray = _selectedStruct.__IsChild()? _childPatterns : _rootPatterns;
                 var _i = 0;
                 repeat(array_length(_patternArray))
                 {

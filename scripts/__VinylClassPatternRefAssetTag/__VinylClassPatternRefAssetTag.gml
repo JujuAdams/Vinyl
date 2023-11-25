@@ -90,23 +90,25 @@ function __VinylClassPatternRefAssetTag() constructor
     static __Serialize = function(_struct)
     {
         _struct.type     = __patternType;
+        _struct.parent   = __parent;
         _struct.assetTag = __assetTag;
     }
     
-    static __Deserialize = function(_struct, _parent)
+    static __Deserialize = function(_struct)
     {
         __assetTag = _struct.assetTag;
         
         __UpdateSounds();
     }
     
-    static __Store = function(_document, _parent)
+    static __Store = function(_document, _parentUUID)
     {
         __document = _document;
-        __parent   = _parent;
+        __parent   = _parentUUID;
         
         _document.__patternDict[$ __uuid] = self;
         
+        var _parent = __document.__GetPattern(_parentUUID);
         if (_parent != undefined)
         {
             array_push(_parent.__childArray, __uuid);
@@ -115,10 +117,34 @@ function __VinylClassPatternRefAssetTag() constructor
         __EnsureSubscription();
     }
     
+    static __ChangeParent = function(_parentUUID)
+    {
+        var _parent = __document.__GetPattern(__parent);
+        if (_parent != undefined)
+        {
+            var _index = __VinylArrayFindIndex(_parent.__childArray, self);
+            if (_index != undefined) array_delete(_parent.__childArray, _index, 1);
+        }
+        
+        __parent = _parentUUID;
+        
+        var _parent = __document.__GetPattern(__parent);
+        if (_parent != undefined)
+        {
+            array_push(_parent.__childArray, __uuid);
+        }
+    }
+    
     static __Discard = function()
     {
-        var _index = __VinylArrayFindIndex(__parent.__childArray, __uuid);
-        if (_index != undefined) array_delete(__parent.__childArray, _index, 1);
+        var _parent = __document.__GetPattern(__parent);
+        if (is_struct(_parent))
+        {
+            var _index = __VinylArrayFindIndex(_parent.__childArray, __uuid);
+            if (_index != undefined) array_delete(_parent.__childArray, _index, 1);
+        }
+        
+        variable_struct_remove(__document.__patternDict, __uuid);
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)

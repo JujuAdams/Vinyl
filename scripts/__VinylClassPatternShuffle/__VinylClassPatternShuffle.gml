@@ -38,11 +38,11 @@ function __VinylClassPatternShuffle() : __VinylClassPatternCommon() constructor
         _struct.childrenArray = variable_clone(__childArray);
     }
         
-    static __Deserialize = function(_struct, _parent)
+    static __Deserialize = function(_struct)
     {
         //TODO - Decompress on load
         
-        __DeserializeShared(_struct, _parent);
+        __DeserializeShared(_struct);
         __childArray = variable_clone(_struct.childrenArray);
         
         //Initialize the currently-playing array with a random sample from the overall pattern array

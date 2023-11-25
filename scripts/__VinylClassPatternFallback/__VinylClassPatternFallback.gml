@@ -9,6 +9,7 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     __Reset();
     
     __name = __VINYL_FALLBACK_NAME;
+    __uuid = __VINYL_FALLBACK_NAME;
     
     static toString = function()
     {
@@ -35,9 +36,9 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         __SerializeShared(_struct);
     }
     
-    static __Deserialize = function(_struct, _parent)
+    static __Deserialize = function(_struct)
     {
-        __DeserializeShared(_struct, _parent);
+        __DeserializeShared(_struct);
         
         //Force the name
         __name = __VINYL_FALLBACK_NAME;

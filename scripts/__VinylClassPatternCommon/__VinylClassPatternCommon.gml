@@ -37,24 +37,52 @@ function __VinylClassPatternCommon()
                 __VinylTrace("Warning! Cannot rename Vinyl pattern with UUID \"", __uuid, "\", new name \"", _name, "\" conflicts with existing pattern");
                 return;
             }
-            else
+            
+            variable_struct_remove(_patternDict, __uuid);
+            __uuid = _name;
+            _patternDict[$ __uuid] = self;
+            
+            //Update our children's parent reference
+            if (variable_struct_exists(self, "__childArray"))
             {
-                variable_struct_remove(_patternDict, __uuid);
-                __uuid = _name;
-                _patternDict[$ __uuid] = self;
+                var _i = 0;
+                repeat(array_length(__childArray))
+                {
+                    var _childUUID = __childArray[_i];
+                    
+                    var _child = __document.__GetPattern(_childUUID);
+                    if (_child != undefined)
+                    {
+                        _child.__parent = __uuid;
+                    }
+                    
+                    ++_i;
+                }
             }
         }
         
         __name = _name;
     }
     
-    static __Store = function(_document, _parent)
+    static __Store = function(_document, _parentUUID)
     {
         __document = _document;
-        __parent   = _parent;
         
         _document.__patternDict[$ __uuid] = self;
+    }
+    
+    static __ChangeParent = function(_parentUUID)
+    {
+        var _parent = __document.__GetPattern(__parent);
+        if (_parent != undefined)
+        {
+            var _index = __VinylArrayFindIndex(_parent.__childArray, self);
+            if (_index != undefined) array_delete(_parent.__childArray, _index, 1);
+        }
         
+        __parent = _parentUUID;
+        
+        var _parent = __document.__GetPattern(__parent);
         if (_parent != undefined)
         {
             array_push(_parent.__childArray, __uuid);
@@ -63,16 +91,6 @@ function __VinylClassPatternCommon()
     
     static __Discard = function()
     {
-        if (is_struct(__parent))
-        {
-            var _index = __VinylArrayFindIndex(__parent.__childArray, __uuid);
-            if (_index != undefined) array_delete(__parent.__childArray, _index, 1);
-        }
-        else
-        {
-            variable_struct_remove(__document.__patternDict, __uuid);
-        }
-        
         if (variable_struct_exists(self, "__childArray"))
         {
             var _i = array_length(__childArray)-1;
@@ -82,6 +100,15 @@ function __VinylClassPatternCommon()
                 --_i;
             }
         }
+        
+        var _parent = __document.__GetPattern(__parent);
+        if (is_struct(_parent))
+        {
+            var _index = __VinylArrayFindIndex(_parent.__childArray, __uuid);
+            if (_index != undefined) array_delete(_parent.__childArray, _index, 1);
+        }
+        
+        variable_struct_remove(__document.__patternDict, __uuid);
     }
     
     static __ResetShared = function()
@@ -121,10 +148,10 @@ function __VinylClassPatternCommon()
     static __SerializeShared = function(_struct)
     {
         _struct.type                  = __patternType;
-        
         _struct.name                  = __name;
-        _struct.uuid                  = __uuid;
         _struct.parent                = __parent;
+        
+        _struct.uuid                  = __uuid;
         
         _struct.gainOption            = __gainOption;
         _struct.gainKnob              = __gainKnob;
@@ -165,6 +192,8 @@ function __VinylClassPatternCommon()
         __name                  = _struct.name
         __uuid                  = _struct.uuid;
         __parent                = _struct.parent;
+        
+        if (is_ptr(__parent)) __parent = undefined; //Fix YYG's JSON decoding nonsense
         
         __gainOption            = _struct.gainOption;
         __gainKnob              = _struct.gainKnob;
@@ -387,13 +416,15 @@ function __VinylClassPatternCommon()
             ImGui.TableSetupColumn("Option", ImGuiTableColumnFlags.WidthFixed, 125);
             ImGui.TableSetupColumn("Value",  ImGuiTableColumnFlags.WidthStretch, 1);
             
-            __VinylEditorPropWidgetGain(       "Gain",         self, __parent, 0, 2, 1);
-            __VinylEditorPropWidgetPitch(      "Pitch",        self, __parent, 0, 2, 1);
-            __VinylEditorPropWidgetLoop(       "Loop",         self, __parent, 0, 2, 1);
-            __VinylEditorPropWidgetStack(      "Stack",        self, __parent, 0, 2, 1);
-            __VinylEditorPropWidgetEffectChain("Effect Chain", self, __parent, 0, 2, 1);
-            __VinylEditorPropWidgetPersistent( "Persistent",   self, __parent, 0, 2, 1);
-            __VinylEditorPropWidgetTranspose(  "Transpose",    self, __parent, 0, 2, 1);
+            var _parent = __document.__GetPattern(__parent);
+            
+            __VinylEditorPropWidgetGain(       "Gain",         self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetPitch(      "Pitch",        self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetLoop(       "Loop",         self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetStack(      "Stack",        self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetEffectChain("Effect Chain", self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetPersistent( "Persistent",   self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetTranspose(  "Transpose",    self, _parent, 0, 2, 1);
             
             ImGui.EndTable();
         }
@@ -403,7 +434,7 @@ function __VinylClassPatternCommon()
     {
         if (ImGui.Button("Add Child"))
         {
-            __document.__NewPattern(self);
+            __document.__NewPattern(__uuid);
         }
         
         if (ImGui.BeginTable("Vinyl Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, ImGui.GetContentRegionAvailY() - 300))

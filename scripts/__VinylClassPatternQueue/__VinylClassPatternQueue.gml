@@ -40,11 +40,11 @@ function __VinylClassPatternQueue() : __VinylClassPatternCommon() constructor
         _struct.childrenArray = variable_clone(__childArray);
     }
         
-    static __Deserialize = function(_struct, _child)
+    static __Deserialize = function(_struct)
     {
         //TODO - Decompress on load
         
-        __DeserializeShared(_struct, _child);
+        __DeserializeShared(_struct);
         
         __behavior      = _struct.behavior;
         __childArray = variable_clone(_struct.childrenArray);
