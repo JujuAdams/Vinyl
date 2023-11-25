@@ -10,6 +10,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
     array_sort(_contentNameArray, true);
     
     var _tabState = _stateStruct.__tabPatterns;
+    var _makePopup = false;
     
     //Use the selection handler for this tab and ensure its binding to the project's sound dictionary
     //This dictionary will be used to track item selection
@@ -156,7 +157,14 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             
             if (ImGui.Button("Rename"))
             {
-                //TODO
+                _makePopup = true;
+                
+                with(_stateStruct.__popupData)
+                {
+                    __type     = "Rename";
+                    __target   = _selectedStruct;
+                    __tempName = _selectedStruct.__name;
+                }
             }
             
             ImGui.SameLine(undefined, 20);
@@ -203,4 +211,76 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             ImGui.EndChild();
         }
     ImGui.EndChild();
+    
+    
+    
+    if (_stateStruct.__popupData.__target == _selectedStruct)
+    {
+        if (_makePopup)
+        {
+            ImGui.OpenPopup("Popup");
+        }
+        
+        ImGui.SetNextWindowPos(window_get_width() / 2, window_get_height () / 2, ImGuiCond.Appearing, 0.5, 0.5);
+        
+        if (ImGui.BeginPopupModal("Popup", undefined, ImGuiWindowFlags.NoResize))
+        {
+            var _popupData   = _stateStruct.__popupData;
+            var _popupTarget = _popupData.__target;
+            
+            switch(_stateStruct.__popupData.__type)
+            {
+                case "Rename":
+                    ImGui.Text("Please enter a new name for \"" + _popupTarget.__GetName() + "\"");
+                    
+                    ImGui.Separator();
+                    
+                    _popupData.__tempName = ImGui.InputText("##Rename Field", _popupData.__tempName);
+                    
+                    if (ImGui.Button("Rename"))
+                    {
+                        _selectionHandler.__Select(_popupTarget.__uuid, false);
+                        _popupTarget.__Rename(_popupData.__tempName);
+                        _selectionHandler.__Select(_popupTarget.__uuid, true);
+                        
+                        _popupData.__target = undefined;
+                        ImGui.CloseCurrentPopup();
+                    }
+                    
+                    ImGui.SameLine(undefined, 40);
+                    if (ImGui.Button("Cancel"))
+                    {
+                        _popupData.__target = undefined;
+                        ImGui.CloseCurrentPopup();
+                    }
+                    
+                    ImGui.EndPopup();	
+                break;
+                
+                case "Delete":
+                    //ImGui.Text("Are you sure you want to delete \"" + _stateStruct.__popupData.__target.__name + "\"?\n\nThis cannot be undone!");
+                    //
+                    //ImGui.Separator();
+                    //
+                    //if (ImGui.Button("Delete"))
+                    //{
+                    //    _selectedStruct.__Discard(_document);
+                    //    _selectionHandler.__Select(_lastSelected, false);
+                    //    
+                    //    _stateStruct.__popupData.__target = undefined;
+                    //    ImGui.CloseCurrentPopup();
+                    //}
+                    //
+                    //ImGui.SameLine(undefined, 40);
+                    //if (ImGui.Button("Keep"))
+                    //{
+                    //    _stateStruct.__popupData.__target = undefined;
+                    //    ImGui.CloseCurrentPopup();
+                    //}
+                    //
+                    //ImGui.EndPopup();
+                break;
+            }
+        }
+    }
 }

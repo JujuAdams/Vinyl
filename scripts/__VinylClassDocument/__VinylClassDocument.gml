@@ -414,6 +414,7 @@ function __VinylClassDocument(_path) constructor
             }
             
             _new.__name = _newName;
+            _new.__uuid = _newName;
         }
         
         _new.__Store(self, _parent);

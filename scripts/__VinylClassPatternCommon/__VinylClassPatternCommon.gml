@@ -31,11 +31,57 @@ function __VinylClassPatternCommon()
     {
         if (__uuid == __name)
         {
-            __uuid = _name;
-            //TODO - Do other stuff here too
+            var _patternDict = __document.__patternDict;
+            if (variable_struct_exists(_patternDict, _name))
+            {
+                __VinylTrace("Warning! Cannot rename Vinyl pattern with UUID \"", __uuid, "\", new name \"", _name, "\" conflicts with existing pattern");
+                return;
+            }
+            else
+            {
+                variable_struct_remove(_patternDict, __uuid);
+                __uuid = _name;
+                _patternDict[$ __uuid] = self;
+            }
         }
         
         __name = _name;
+    }
+    
+    static __Store = function(_document, _parent)
+    {
+        __document = _document;
+        __parent   = _parent;
+        
+        _document.__patternDict[$ __uuid] = self;
+        
+        if (_parent != undefined)
+        {
+            array_push(_parent.__childArray, __uuid);
+        }
+    }
+    
+    static __Discard = function()
+    {
+        if (is_struct(__parent))
+        {
+            var _index = __VinylArrayFindIndex(__parent.__childArray, __uuid);
+            if (_index != undefined) array_delete(__parent.__childArray, _index, 1);
+        }
+        else
+        {
+            variable_struct_remove(__document.__patternDict, __uuid);
+        }
+        
+        if (variable_struct_exists(self, "__childArray"))
+        {
+            var _i = array_length(__childArray)-1;
+            repeat(array_length(__childArray))
+            {
+                __childArray[_i].__Discard();
+                --_i;
+            }
+        }
     }
     
     static __ResetShared = function()
@@ -146,42 +192,6 @@ function __VinylClassPatternCommon()
         __transposeKnob         = _struct.transposeKnob;
         __transposeKnobOverride = _struct.transposeKnobOverride;
         __transpose             = variable_clone(_struct.transpose);
-    }
-    
-    static __Store = function(_document, _parent)
-    {
-        __document = _document;
-        __parent   = _parent;
-        
-        _document.__patternDict[$ __uuid] = self;
-        
-        if (_parent != undefined)
-        {
-            array_push(_parent.__childArray, __uuid);
-        }
-    }
-    
-    static __Discard = function()
-    {
-        if (is_struct(__parent))
-        {
-            var _index = __VinylArrayFindIndex(__parent.__childArray, __uuid);
-            if (_index != undefined) array_delete(__parent.__childArray, _index, 1);
-        }
-        else
-        {
-            variable_struct_remove(__document.__patternDict, __uuid);
-        }
-        
-        if (variable_struct_exists(self, "__childArray"))
-        {
-            var _i = array_length(__childArray)-1;
-            repeat(array_length(__childArray))
-            {
-                __childArray[_i].__Discard();
-                --_i;
-            }
-        }
     }
     
     static __Migrate = function()

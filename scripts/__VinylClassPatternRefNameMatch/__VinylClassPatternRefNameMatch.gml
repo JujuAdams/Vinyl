@@ -53,6 +53,27 @@ function __VinylClassPatternRefNameMatch() constructor
         return string(self);
     }
     
+    static __Rename = function(_name)
+    {
+        if (__uuid == __name)
+        {
+            var _patternDict = __document.__patternDict;
+            if (variable_struct_exists(_patternDict, _name))
+            {
+                __VinylTrace("Warning! Cannot rename Vinyl pattern with UUID \"", __uuid, "\", new name \"", _name, "\" conflicts with existing pattern");
+                return;
+            }
+            else
+            {
+                variable_struct_remove(_patternDict, __uuid);
+                __uuid = _name;
+                _patternDict[$ __uuid] = self;
+            }
+        }
+        
+        __name = _name;
+    }
+    
     static __EnsureSubscription = function()
     {
         if (__setSubscription || (__document == undefined)) return;
