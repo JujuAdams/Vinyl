@@ -16,6 +16,7 @@
     {"name":"Getters & Setters","order":18,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Getters & Setters.yy",},
     {"name":"Property Widgets","order":28,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Property Widgets.yy",},
     {"name":"Resolvers","order":19,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Resolvers.yy",},
+    {"name":"Name Resolving","order":24,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Name Resolving.yy",},
     {"name":"BPM","order":10,"path":"folders/Vinyl/BPM.yy",},
     {"name":"Editor","order":19,"path":"folders/Vinyl/Editor.yy",},
     {"name":"Gain","order":8,"path":"folders/Vinyl/Gain.yy",},
@@ -32,7 +33,6 @@
     {"name":"Stacks","order":15,"path":"folders/Vinyl/Stacks.yy",},
     {"name":"Stopping Audio","order":4,"path":"folders/Vinyl/Stopping Audio.yy",},
     {"name":"Transposition","order":11,"path":"folders/Vinyl/Transposition.yy",},
-    {"name":"Name Resolving","order":24,"path":"folders/Vinyl/(Internals)/VIPs only in the green room/Name Resolving.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"__VinylEditorWindowConfigLabels","order":5,"path":"scripts/__VinylEditorWindowConfigLabels/__VinylEditorWindowConfigLabels.yy",},

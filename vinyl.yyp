@@ -31,6 +31,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Getters & Setters","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Getters & Setters.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Property Widgets","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Property Widgets.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Resolvers","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Resolvers.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Name Resolving","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Name Resolving.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"BPM","folderPath":"folders/Vinyl/BPM.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Editor","folderPath":"folders/Vinyl/Editor.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Gain","folderPath":"folders/Vinyl/Gain.yy",},
@@ -47,7 +48,6 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stacks","folderPath":"folders/Vinyl/Stacks.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Stopping Audio","folderPath":"folders/Vinyl/Stopping Audio.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Transposition","folderPath":"folders/Vinyl/Transposition.yy",},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Name Resolving","folderPath":"folders/Vinyl/(Internals)/VIPs only in the green room/Name Resolving.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"vinyl_license.txt","CopyToMask":-1,"filePath":"datafiles",},
