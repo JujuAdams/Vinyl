@@ -4,6 +4,8 @@ function __VinylClassLabel() constructor
 {
     static __idToVoiceDict = __VinylGlobalData().__idToVoiceDict;
     
+    __document = undefined;
+    
     __gainLocal  = 1;
     __pitchLocal = 1;
     
@@ -59,6 +61,7 @@ function __VinylClassLabel() constructor
         //TODO - Compress on save
         
         _struct.name                  = __name;
+        _struct.parent                = __parent;
         _struct.childArray            = variable_clone(__childArray);
         
         _struct.gainOption            = __gainOption;
@@ -90,14 +93,13 @@ function __VinylClassLabel() constructor
         _struct.transpose             = variable_clone(__transpose);
     }
     
-    static __Deserialize = function(_struct, _parent)
+    static __Deserialize = function(_struct)
     {
         //TODO - Decompress on load
         
-        __ChangeParent(_parent);
-        
         __name                  = _struct.name;
-        __childArray            = __VinylDeserializeArray(_struct.childArray, self);
+        __parent                = _struct.parent;
+        __childArray            = variable_clone(_struct.childArray);
         
         __gainOption            = _struct.gainOption;
         __gainKnob              = _struct.gainKnob;
@@ -135,14 +137,14 @@ function __VinylClassLabel() constructor
     
     static __Store = function(_document)
     {
-        _document.__labelAllDict[$ __name] = self;
-        if (not is_struct(__parent)) _document.__labelRootDict[$ __name] = self;
+        __document = _document;
+        
+        __document.__labelDict[$ __name] = self;
     }
     
-    static __Discard = function(_document)
+    static __Discard = function()
     {
-        variable_struct_remove(_document.__labelAllDict,  __name);
-        variable_struct_remove(_document.__labelRootDict, __name);
+        variable_struct_remove(__document.__labelDict, __name);
         
         var _i = 0;
         repeat(array_length(__childArray))
@@ -152,36 +154,57 @@ function __VinylClassLabel() constructor
         }
     }
     
-    static __Rename = function(_document, _newName)
+    static __Rename = function(_newName)
     {
-        var _allDict  = _document.__labelAllDict;
-        var _rootDict = _document.__labelAllDict;
+        var _labelDict = __document.__labelDict;
         
-        variable_struct_remove(_allDict,  __name);
-        variable_struct_remove(_rootDict, __name);
-        
+        variable_struct_remove(_labelDict, __name);
         __name = _newName;
+        _labelDict[$ __name] = self;
         
-        _document.__labelAllDict[$ __name] = self;
-        if (not is_struct(__parent)) _document.__labelRootDict[$ __name] = self;
+        var _parent = __document.__GetLabel(__parent);
+        if (is_struct(_parent))
+        {
+            var _index = __VinylArrayFindIndex(_parent.__childArray, __name);
+            if (_index != undefined) _parent.__childArray[_index] = __name;
+        }
     }
     
     static __ChangeParent = function(_parent)
     {
-        if (is_struct(__parent))
+        var _parent = __document.__GetLabel(__parent);
+        if (is_struct(_parent))
         {
-            var _index = __VinylArrayFindIndex(__parent.__childArray, self);
-            if (_index != undefined)
-            {
-                array_delete(__parent.__childArray, _index, 1);
-            }
+            var _index = __VinylArrayFindIndex(_parent.__childArray, __name);
+            if (_index != undefined) array_delete(_parent.__childArray, _index, 1);
         }
         
         __parent = _parent;
         
-        if (is_struct(_parent))
+        var _parent = __document.__GetLabel(__parent);
+        if (is_struct(_parent)) array_push(_parent.__childArray, __name);
+    }
+    
+    static __BuildPropertyUI = function(_selectionHandler)
+    {
+        if (ImGui.BeginTable("Label Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 260))
         {
-            array_push(_parent.__childArray, self);
+            //Set up our columns with fixed widths so we get a nice pretty layout
+            ImGui.TableSetupColumn("Name",   ImGuiTableColumnFlags.WidthFixed, 100);
+            ImGui.TableSetupColumn("Option", ImGuiTableColumnFlags.WidthFixed, 125);
+            ImGui.TableSetupColumn("Value",  ImGuiTableColumnFlags.WidthStretch, 1);
+            
+            var _parent = __document.__GetLabel(__parent);
+            
+            __VinylEditorPropWidgetGain(       "Gain",         self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetPitch(      "Pitch",        self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetLoop(       "Loop",         self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetStack(      "Stack",        self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetEffectChain("Effect Chain", self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetPersistent( "Persistent",   self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetTranspose(  "Transpose",    self, _parent, 0, 2, 1);
+            
+            ImGui.EndTable();
         }
     }
     

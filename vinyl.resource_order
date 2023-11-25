@@ -251,7 +251,6 @@
     {"name":"VinylFallbackSound","order":1,"path":"sounds/VinylFallbackSound/VinylFallbackSound.yy",},
     {"name":"acTest","order":4,"path":"animcurves/acTest/acTest.yy",},
     {"name":"__VinylPatternResolveInheritedLabel","order":12,"path":"scripts/__VinylPatternResolveInheritedLabel/__VinylPatternResolveInheritedLabel.yy",},
-    {"name":"__VinylEditorPropertiesLabel","order":24,"path":"scripts/__VinylEditorPropertiesLabel/__VinylEditorPropertiesLabel.yy",},
     {"name":"VinylMultiGainSet","order":1,"path":"scripts/VinylMultiGainSet/VinylMultiGainSet.yy",},
     {"name":"__VinylClassPatternRefAssetTag","order":3,"path":"scripts/__VinylClassPatternRefAssetTag/__VinylClassPatternRefAssetTag.yy",},
     {"name":"VinylOutputPitchGet","order":4,"path":"scripts/VinylOutputPitchGet/VinylOutputPitchGet.yy",},

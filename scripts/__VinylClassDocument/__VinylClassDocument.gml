@@ -44,8 +44,7 @@ function __VinylClassDocument(_path) constructor
         __dirtyTime = -infinity;
         
         __patternDict      = {};
-        __labelAllDict     = {};
-        __labelRootDict    = {};
+        __labelDict        = {};
         __effectChainDict  = {};
         __effectChainArray = [];
         __knobDict         = {};
@@ -116,7 +115,7 @@ function __VinylClassDocument(_path) constructor
         var _outputJSON = {};
         
         _outputJSON.patterns     = __VinylSerializeArray(__VinylConvertDictToArray(__patternDict    ));
-        _outputJSON.labels       = __VinylSerializeArray(__VinylConvertDictToArray(__labelRootDict  ));
+        _outputJSON.labels       = __VinylSerializeArray(__VinylConvertDictToArray(__labelDict      ));
         _outputJSON.effectChains = __VinylSerializeArray(__VinylConvertDictToArray(__effectChainDict));
         _outputJSON.knobs        = __VinylSerializeArray(__VinylConvertDictToArray(__knobDict       ));
         _outputJSON.stacks       = __VinylSerializeArray(__VinylConvertDictToArray(__stackDict      ));
@@ -168,10 +167,10 @@ function __VinylClassDocument(_path) constructor
                 //Wipe everything before we get stuck in
                 __Reset();
                 
-                __VinylDeserializeArray(_inputJSON.knobs,        __VinylClassKnob,         self, undefined);
-                __VinylDeserializeArray(_inputJSON.effectChains, __VinylClassEffectChain,  self, undefined);
-                __VinylDeserializeArray(_inputJSON.stacks,       __VinylClassStack,        self, undefined);
-                __VinylDeserializeArray(_inputJSON.labels,       __VinylClassLabel,        self, undefined);
+                __VinylDeserializeArray(_inputJSON.knobs,        __VinylClassKnob,         self);
+                __VinylDeserializeArray(_inputJSON.effectChains, __VinylClassEffectChain,  self);
+                __VinylDeserializeArray(_inputJSON.stacks,       __VinylClassStack,        self);
+                __VinylDeserializeArray(_inputJSON.labels,       __VinylClassLabel,        self);
                 __VinylDeserializePatternArray(_inputJSON.patterns, self);
                 
                 //Don't forget the settings
@@ -380,7 +379,7 @@ function __VinylClassDocument(_path) constructor
     {
         var _index = 1;
         var _newName = "Unnamed Label " + string(_index);
-        while(variable_struct_exists(__labelAllDict, _newName))
+        while(variable_struct_exists(__labelDict, _newName))
         {
             ++_index;
             _newName = "Unnamed Label " + string(_index);

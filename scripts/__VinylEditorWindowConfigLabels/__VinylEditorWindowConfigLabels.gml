@@ -4,7 +4,7 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
 {
     var _document = __VinylDocument();
     
-    var _contentDict = _document.__labelAllDict;
+    var _contentDict = _document.__labelDict;
     
     var _contentNameArray = variable_struct_get_names(_contentDict);
     array_sort(_contentNameArray, true);
@@ -30,7 +30,7 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
         
         var _selected = _selectionHandler.__IsSelected(_name);
         
-        if ((not _root) || (not is_struct(_target.__parent)))
+        if ((not _root) || (_target.__parent == undefined))
         {
             if ((not _multiselect) || (_selected && _seeSelected) || ((not _selected) && _seeUnselected)) //Selected check
             {
@@ -39,7 +39,7 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
                     var _selected = _selectionHandler.__IsSelected(_name);
                     var _childArray = _target.__childArray;
                         
-                    var _flags = ImGuiTreeNodeFlags.OpenOnArrow;
+                    var _flags = ImGuiTreeNodeFlags.OpenOnArrow | ImGuiTreeNodeFlags.DefaultOpen;
                     
                     if (_selectionHandler.__IsSelected(_name))
                     {
@@ -183,7 +183,7 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
         if (_selectionHandler.__GetSelectedCount() > 0)
         {
             ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                __VinylEditorPropertiesLabel(_contentDict, _lastSelected, _selectionHandler);
+                _contentDict[$ _lastSelected].__BuildPropertyUI(_selectionHandler);
             ImGui.EndChild();
         }
     ImGui.EndChild();

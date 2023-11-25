@@ -3,9 +3,8 @@
 /// @param array
 /// @param constructor
 /// @param document
-/// @param parent
 
-function __VinylDeserializeArray(_inputArray, _constructor, _document, _parent)
+function __VinylDeserializeArray(_inputArray, _constructor, _document)
 {
     var _outputArray = [];    
     

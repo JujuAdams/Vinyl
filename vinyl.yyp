@@ -309,7 +309,6 @@
     {"id":{"name":"VinylFallbackSound","path":"sounds/VinylFallbackSound/VinylFallbackSound.yy",},},
     {"id":{"name":"acTest","path":"animcurves/acTest/acTest.yy",},},
     {"id":{"name":"__VinylPatternResolveInheritedLabel","path":"scripts/__VinylPatternResolveInheritedLabel/__VinylPatternResolveInheritedLabel.yy",},},
-    {"id":{"name":"__VinylEditorPropertiesLabel","path":"scripts/__VinylEditorPropertiesLabel/__VinylEditorPropertiesLabel.yy",},},
     {"id":{"name":"VinylMultiGainSet","path":"scripts/VinylMultiGainSet/VinylMultiGainSet.yy",},},
     {"id":{"name":"__VinylClassPatternRefAssetTag","path":"scripts/__VinylClassPatternRefAssetTag/__VinylClassPatternRefAssetTag.yy",},},
     {"id":{"name":"VinylOutputPitchGet","path":"scripts/VinylOutputPitchGet/VinylOutputPitchGet.yy",},},
