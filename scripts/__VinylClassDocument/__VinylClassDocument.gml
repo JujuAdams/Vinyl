@@ -19,7 +19,7 @@ function __VinylClassDocument(_path) constructor
     __Load(__documentPath);
     
     //Ensure the fallback pattern exists
-    if (not variable_struct_exists(__patternDict, __VINYL_FALLBACK_NAME))
+    if (not variable_struct_exists(__patternDict, __VINYL_SOUND_DEFAULT_UUID))
     {
         var _fallback = new __VinylClassPatternFallback();
         _fallback.__Store(self);

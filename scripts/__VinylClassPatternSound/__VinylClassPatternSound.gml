@@ -90,7 +90,7 @@ function __VinylClassPatternSound() : __VinylClassPatternCommon() constructor
             ImGui.TableSetupColumn("Option", ImGuiTableColumnFlags.WidthFixed, 125);
             ImGui.TableSetupColumn("Value",  ImGuiTableColumnFlags.WidthStretch, 1);
             
-            var _parent = __document.__GetPattern(__VINYL_FALLBACK_NAME);
+            var _parent = __document.__GetPattern(__VINYL_SOUND_DEFAULT_UUID);
             
             __VinylEditorPropWidgetGain(       "Gain",         self, _parent, 0, 2, 1);
             __VinylEditorPropWidgetPitch(      "Pitch",        self, _parent, 0, 2, 1);

@@ -77,7 +77,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
             }
             
             //Force the fallback sound config to always be visible at the top of the list of sounds
-            _funcBuildSelectable(__VINYL_FALLBACK_NAME, _patternDict, _selectionHandler);
+            _funcBuildSelectable(__VINYL_SOUND_DEFAULT_UUID, _patternDict, _selectionHandler);
             ImGui.Separator();
             
             //Keep an array of all visible sounds. We use this later for the "select all" button
@@ -135,7 +135,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         //Bit of aesthetic spacing
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
         
-        if ((_selectedCount == 0) || (_lastSelected == __VINYL_FALLBACK_NAME))
+        if ((_selectedCount == 0) || (_lastSelected == __VINYL_SOUND_DEFAULT_UUID))
         {
             //Nothing's here! Disable the "modify" checkbox
             ImGui.BeginDisabled(true);
@@ -210,7 +210,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         {
             //Change the display text depending on what the user is actually seeing
             var _displayText = _selectionHandler.__GetLastSelectedName();
-            if (not _modified) _displayText += " (displaying \"" + __VINYL_FALLBACK_NAME + "\" properties)";
+            if (not _modified) _displayText += " (displaying default sound properties)";
             
             ImGui.Text(_displayText);
         }
@@ -222,7 +222,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         if (_selectionHandler.__GetSelectedCount() > 0)
         {
             ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                __VinylEditorPropertiesSound(_lastSelected, _patternDict[$ _lastSelected], _modified, _patternDict[$ __VINYL_FALLBACK_NAME], _selectionHandler, _patternDict);
+                __VinylEditorPropertiesSound(_lastSelected, _patternDict[$ _lastSelected], _modified, _patternDict[$ __VINYL_SOUND_DEFAULT_UUID], _selectionHandler, _patternDict);
             ImGui.EndChild();
         }
     ImGui.EndChild();

@@ -2,14 +2,14 @@
 
 function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
 {
-    static __patternType = __VINYL_PATTERN_TYPE_FALLBACK;
+    static __patternType = __VINYL_PATTERN_TYPE_SOUND_DEFAULTS;
     static __pool = __VinylGlobalData().__poolSound;
     static __usesChildArray = false;
     
     __Reset();
     
-    __name = __VINYL_FALLBACK_NAME;
-    __uuid = __VINYL_FALLBACK_NAME;
+    __name = __VINYL_SOUND_DEFAULT_UUID;
+    __uuid = __VINYL_SOUND_DEFAULT_UUID;
     
     static toString = function()
     {
@@ -44,9 +44,6 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     static __Deserialize = function(_struct)
     {
         __DeserializeShared(_struct);
-        
-        //Force the name
-        __name = __VINYL_FALLBACK_NAME;
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)

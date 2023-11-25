@@ -3,7 +3,6 @@
 #macro __VINYL_DATE     "2023-11-09"
 
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.dat"
-
 #macro __VINYL_DOCUMENT_FILENAME  "VinylDocument.json"
 
 #macro __VINYL_USE_GAIN_CURVE  true
@@ -26,9 +25,9 @@
 #macro __VINYL_REF_NAME_MATCH  "Name Match"
 #macro __VINYL_REF_ASSET_TAG   "Asset Tag"
 
-#macro __VINYL_FALLBACK_NAME  "Fallback"
+#macro __VINYL_SOUND_DEFAULT_UUID  "Default Properties"
 
-#macro __VINYL_PATTERN_TYPE_FALLBACK        "Fallback"
+#macro __VINYL_PATTERN_TYPE_SOUND_DEFAULTS  "Sound Defaults"
 #macro __VINYL_PATTERN_TYPE_SOUND           "Sound"
 #macro __VINYL_PATTERN_TYPE_REF_NAME_MATCH  "Name Match"
 #macro __VINYL_PATTERN_TYPE_REF_ASSET_TAG   "Asset Tag"

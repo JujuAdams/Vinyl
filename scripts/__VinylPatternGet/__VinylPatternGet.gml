@@ -17,7 +17,7 @@ function __VinylPatternGet(_key)
     
     if (_pattern == undefined)
     {
-        _pattern = _patternDict[$ __VINYL_FALLBACK_NAME];
+        _pattern = _patternDict[$ __VINYL_SOUND_DEFAULT_UUID];
     }
     
     return _pattern;

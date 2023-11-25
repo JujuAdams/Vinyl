@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaultData, _selectionHandler, _patternDict)
+function __VinylEditorPropertiesSound(_soundUUID, _soundData, _modified, _defaultData, _selectionHandler, _patternDict)
 {
     //Fallback handling
     if (not _modified)
@@ -16,11 +16,11 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
     ImGui.NewLine();
     
     //All the GameMaker properties
-    if (_soundName != __VINYL_FALLBACK_NAME)
+    if (_soundUUID != __VINYL_SOUND_DEFAULT_UUID)
     {
         if (ImGui.BeginTable("GameMaker Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 160))
         {
-            var _projectSound = __VinylDocument().__GetProjectSoundDictionary()[$ _soundName];
+            var _projectSound = __VinylDocument().__GetProjectSoundDictionary()[$ _soundUUID];
             
             //Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("GameMaker Project", ImGuiTableColumnFlags.WidthStretch, 0.55);

@@ -5,7 +5,7 @@
 
 function __VinylConvertPatternNameToConstructor(_type, _patternName)
 {
-    if (_type == __VINYL_PATTERN_TYPE_FALLBACK)
+    if (_type == __VINYL_PATTERN_TYPE_SOUND_DEFAULTS)
     {
         return __VinylClassPatternFallback;
     }
