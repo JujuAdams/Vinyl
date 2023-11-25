@@ -155,24 +155,29 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             
             ImGui.SameLine(undefined, 20);
             
-            if (ImGui.Button("Rename"))
-            {
-                _makePopup = true;
-                
-                with(_stateStruct.__popupData)
+            ImGui.BeginDisabled(_selectedCount > 1);
+                if (ImGui.Button("Rename"))
                 {
-                    __type     = "Rename";
-                    __target   = _selectedStruct;
-                    __tempName = _selectedStruct.__name;
+                    _makePopup = true;
+                    
+                    with(_stateStruct.__popupData)
+                    {
+                        __type     = "Rename";
+                        __tempName = _selectedStruct.__name;
+                    }
                 }
-            }
+            ImGui.EndDisabled(_selectedCount);
             
             ImGui.SameLine(undefined, 20);
             
             if (ImGui.Button("Delete"))
             {
-                _selectedStruct.__Discard();
-                _selectionHandler.__Select(_lastSelected, false);
+                _makePopup = true;
+                
+                with(_stateStruct.__popupData)
+                {
+                    __type = "Delete";
+                }
             }
             
             ImGui.SameLine(undefined, 20);
@@ -214,24 +219,26 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
     
     
     
-    if (_stateStruct.__popupData.__target == _selectedStruct)
+    //if (_stateStruct.__popupData.__target == _selectedStruct)
     {
         if (_makePopup)
         {
             ImGui.OpenPopup("Popup");
         }
         
-        ImGui.SetNextWindowPos(window_get_width() / 2, window_get_height () / 2, ImGuiCond.Appearing, 0.5, 0.5);
+        var _windowWidth  = window_get_width();
+        var _windowHeight = window_get_height();
+        ImGui.SetNextWindowSize(0.3*_windowWidth, 0.15*_windowHeight, ImGuiCond.Appearing);
+        ImGui.SetNextWindowPos(0.5*_windowWidth, 0.5*_windowHeight, ImGuiCond.Appearing, 0.5, 0.5);
         
         if (ImGui.BeginPopupModal("Popup", undefined, ImGuiWindowFlags.NoResize))
         {
-            var _popupData   = _stateStruct.__popupData;
-            var _popupTarget = _popupData.__target;
+            var _popupData = _stateStruct.__popupData;
             
             switch(_stateStruct.__popupData.__type)
             {
                 case "Rename":
-                    ImGui.Text("Please enter a new name for \"" + _popupTarget.__GetName() + "\"");
+                    ImGui.Text("Please enter a new name for \"" + _selectedStruct.__GetName() + "\"");
                     
                     ImGui.Separator();
                     
@@ -239,18 +246,16 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
                     
                     if (ImGui.Button("Rename"))
                     {
-                        _selectionHandler.__Select(_popupTarget.__uuid, false);
-                        _popupTarget.__Rename(_popupData.__tempName);
-                        _selectionHandler.__Select(_popupTarget.__uuid, true);
+                        _selectionHandler.__Select(_selectedStruct.__uuid, false);
+                        _selectedStruct.__Rename(_popupData.__tempName);
+                        _selectionHandler.__Select(_selectedStruct.__uuid, true);
                         
-                        _popupData.__target = undefined;
                         ImGui.CloseCurrentPopup();
                     }
                     
                     ImGui.SameLine(undefined, 40);
                     if (ImGui.Button("Cancel"))
                     {
-                        _popupData.__target = undefined;
                         ImGui.CloseCurrentPopup();
                     }
                     
@@ -258,27 +263,41 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
                 break;
                 
                 case "Delete":
-                    //ImGui.Text("Are you sure you want to delete \"" + _stateStruct.__popupData.__target.__name + "\"?\n\nThis cannot be undone!");
-                    //
-                    //ImGui.Separator();
-                    //
-                    //if (ImGui.Button("Delete"))
-                    //{
-                    //    _selectedStruct.__Discard(_document);
-                    //    _selectionHandler.__Select(_lastSelected, false);
-                    //    
-                    //    _stateStruct.__popupData.__target = undefined;
-                    //    ImGui.CloseCurrentPopup();
-                    //}
-                    //
-                    //ImGui.SameLine(undefined, 40);
-                    //if (ImGui.Button("Keep"))
-                    //{
-                    //    _stateStruct.__popupData.__target = undefined;
-                    //    ImGui.CloseCurrentPopup();
-                    //}
-                    //
-                    //ImGui.EndPopup();
+                    if (_selectedCount > 1)
+                    {
+                        ImGui.Text("Are you sure you want to delete multiple patterns?\n\nThis cannot be undone!");
+                    }
+                    else
+                    {
+                        ImGui.Text("Are you sure you want to delete \"" + _selectedStruct.__GetName() + "\"?\n\nThis cannot be undone!");
+                    }
+                    
+                    ImGui.Separator();
+                    
+                    if (ImGui.Button("Delete"))
+                    {
+                        _selectionHandler.__ForEachSelected(method({
+                            __selectionHandler: _selectionHandler,
+                            __patternDict: _contentDict,
+                        }, function(_name)
+                        {
+                            var _selectedStruct = __patternDict[$ _name];
+                            if (_selectedStruct != undefined) _selectedStruct.__Discard();
+                            
+                            __selectionHandler.__Select(_name, false);
+                        }));
+                        
+                        
+                        ImGui.CloseCurrentPopup();
+                    }
+                    
+                    ImGui.SameLine(undefined, 40);
+                    if (ImGui.Button("Keep"))
+                    {
+                        ImGui.CloseCurrentPopup();
+                    }
+                    
+                    ImGui.EndPopup();
                 break;
             }
         }

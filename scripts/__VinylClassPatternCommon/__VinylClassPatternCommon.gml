@@ -96,7 +96,9 @@ function __VinylClassPatternCommon()
             var _i = array_length(__childArray)-1;
             repeat(array_length(__childArray))
             {
-                __childArray[_i].__Discard();
+                var _childUUID = __childArray[_i];
+                var _child = __document.__GetPattern(_childUUID);
+                if (_child != undefined) _child.__Discard();
                 --_i;
             }
         }
