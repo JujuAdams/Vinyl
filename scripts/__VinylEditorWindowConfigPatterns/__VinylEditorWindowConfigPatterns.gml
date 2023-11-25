@@ -14,6 +14,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
     //Use the selection handler for this tab and ensure its binding to the project's sound dictionary
     //This dictionary will be used to track item selection
     var _selectionHandler = _tabState.__selectionHandler;
+    _selectionHandler.__Bind(_contentDict, __VinylClassPatternRefSound, undefined);
     
     var _filter    = _tabState.__filter;
     var _useFilter = _tabState.__useFilter;

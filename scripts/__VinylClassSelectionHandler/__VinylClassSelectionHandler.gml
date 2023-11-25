@@ -6,17 +6,21 @@ function __VinylClassSelectionHandler() constructor
     __seeSelected   = true;
     __seeUnselected = true;
     
-    __selectedArray = [];
+    __selectedDict = {};
     __lastSelected = undefined;
     
-    static __IsSelected = function(_value)
+    __sourceStructWeakRef = undefined;
+    __constructor         = undefined;
+    __resourceTypeName    = undefined;
+    
+    static __IsSelected = function(_name)
     {
-        return array_contains(__selectedArray, _value);
+        return variable_struct_exists(__selectedDict, _name);
     }
     
     static __GetSelectedCount = function()
     {
-        return array_length(__selectedArray);
+        return variable_struct_names_count(__selectedDict);
     }
     
     static __GetLastSelectedName = function()
@@ -39,21 +43,21 @@ function __VinylClassSelectionHandler() constructor
         return __seeUnselected;
     }
     
-    static __SelectToggle = function(_value)
+    static __SelectToggle = function(_name)
     {
         if (__multiselect)
         {
-            __Select(_value, not __IsSelected(_value));
+            __Select(_name, not __IsSelected(_name));
         }
         else
         {
-            __Select(_value, true);
+            __Select(_name, true);
         }
     }
     
-    static __Select = function(_value, _state)
+    static __Select = function(_name, _state)
     {
-        if (_state == __IsSelected(_value)) return;
+        if (_state == __IsSelected(_name)) return;
         
         if (not __multiselect)
         {
@@ -62,46 +66,41 @@ function __VinylClassSelectionHandler() constructor
         
         if (_state)
         {
-            if (not array_contains(__selectedArray, _value))
-            {
-                array_push(__selectedArray, _value);
-            }
-            
-            __lastSelected = _value;
+            __selectedDict[$ _name] = true;
+            __lastSelected = _name;
         }
         else
         {
-            var _index = __VinylArrayFindIndex(__selectedArray, _value);
-            if (_index != undefined) array_delete(__selectedArray, _index, 1);
-            if (__lastSelected == _value) __lastSelected = undefined;
+            variable_struct_remove(__selectedDict, _name);
+            if (__lastSelected == _name) __lastSelected = undefined;
         }
     }
     
-    static __SelectArray = function(_valueArray)
+    static __SelectAll = function()
     {
-        var _length = array_length(_valueArray);
+        __SelectArray(variable_struct_get_names(__sourceStructWeakRef.ref));
+    }
+    
+    static __SelectArray = function(_nameArray)
+    {
+        var _length = array_length(_nameArray);
         var _i = 0;
         repeat(_length)
         {
-            var _value = _valueArray[_i];
-            if (not array_contains(__selectedArray, _value))
-            {
-                array_push(__selectedArray, _value);
-            }
-            
+            __selectedDict[$ _nameArray[_i]] = true;
             ++_i;
         }
         
         //Guarantee __lastSelected
-        if ((__lastSelected == undefined) || (not array_contains(__selectedArray, __lastSelected)))
+        if ((__lastSelected == undefined) || (not variable_struct_exists(__selectedDict, __lastSelected)))
         {
-            __lastSelected = (_length > 0)? _valueArray[_length-1] : undefined;
+            __lastSelected = (_length > 0)? _nameArray[_length-1] : undefined;
         }
     }
     
     static __SelectNone = function()
     {
-        array_resize(__selectedArray, 0);
+        __selectedDict = {};
         __lastSelected = undefined;
     }
     
@@ -109,10 +108,10 @@ function __VinylClassSelectionHandler() constructor
     {
         if (not __multiselect)
         {
-            array_resize(__selectedArray, 0);
+            __selectedDict = {};
         }
         
-        if ((__lastSelected != undefined) && ((not is_struct(__lastSelected)) || (not __lastSelected.__destroyed)))
+        if ((__lastSelected != undefined) && variable_struct_exists(__sourceStructWeakRef.ref, __lastSelected))
         {
             __Select(__lastSelected, true);
         }
@@ -124,21 +123,82 @@ function __VinylClassSelectionHandler() constructor
     
     static __ForEachSelected = function(_method)
     {
-        var _i = 0;
-        repeat(array_length(__selectedArray))
+        var _sourceStruct = __sourceStructWeakRef.ref;
+        
+        var _nameArray = variable_struct_get_names(__selectedDict);
+        var _i = 0
+        repeat(array_length(_nameArray))
         {
-            var _selected = __selectedArray[_i];
-            if (is_struct(_selected))
-            {
-                if (not _selected.__destroyed) _method(_selected);
-            }
-            else
-            {
-                _method(_selected);
-            }
-            
+            var _name = _nameArray[_i];
+            _method(_name, _sourceStruct[$ _name]);
             ++_i;
         }
+    }
+    
+    static __Rename = function(_oldName, _newName)
+    {
+        var _sourceStruct = __sourceStructWeakRef.ref;
+        if (variable_struct_exists(_sourceStruct, _oldName))
+        {
+            _sourceStruct[$ _newName] = _sourceStruct[$ _oldName];
+            variable_struct_remove(_sourceStruct, _oldName);
+            
+            if (variable_struct_exists(__selectedDict, _oldName))
+            {
+                variable_struct_remove(__selectedDict, _oldName);
+                __selectedDict[$ _newName] = true;
+            }
+            
+            if (__lastSelected == _oldName)
+            {
+                __lastSelected = _newName;
+            }
+        }
+        else
+        {
+            __Select(_oldName, false);
+            
+            if (__lastSelected == _oldName)
+            {
+                __lastSelected = undefined;
+            }
+        }
+    }
+    
+    static __Bind = function(_sourceStruct, _constructor, _resourceTypeName)
+    {
+        var _change = false;
+        
+        if (__sourceStructWeakRef == undefined)
+        {
+            _change = true;
+        }
+        else if (not weak_ref_alive(__sourceStructWeakRef))
+        {
+            _change = true;
+        }
+        else if (__sourceStructWeakRef.ref != _sourceStruct)
+        {
+            _change = true;
+        }
+        
+        if (__constructor != _constructor)
+        {
+            _change = true;
+        }
+        
+        if (__resourceTypeName != _resourceTypeName)
+        {
+            _change = true;
+        }
+        
+        if (not _change) return;
+        
+        __sourceStructWeakRef = weak_ref_create(_sourceStruct);
+        __constructor         = _constructor;
+        __resourceTypeName    = _resourceTypeName;
+        
+        __SelectNone();
     }
     
     static __BuildUI = function(_visibleArray)

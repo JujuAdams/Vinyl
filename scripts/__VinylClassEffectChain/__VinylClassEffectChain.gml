@@ -4,7 +4,8 @@ function __VinylClassEffectChain() constructor
 {
     static __globalData = __VinylGlobalData();
     
-    __destroyed = false;
+    
+    
     __name = undefined;
     
     if (__name == "main")
@@ -35,8 +36,6 @@ function __VinylClassEffectChain() constructor
     
     static __Discard = function(_document)
     {
-        __destroyed = true;
-        
         variable_struct_remove(_document.__effectChainDict, __name);
     }
     
