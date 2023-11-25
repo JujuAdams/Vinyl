@@ -131,98 +131,36 @@ function __VinylEditorPropertiesSound(_soundName, _soundData, _modified, _defaul
             
             
             
-            //WAV compression option
-            ImGui.TableNextRow();
-            ImGui.TableSetColumnIndex(0);
-            if (ImGui.RadioButton("WAV", (_projectSound.__attributes == 0)))
+            //Compression settings
+            static _compressionArray = ["WAV",
+                                        "OGG - Decompress during playback",
+                                        "OGG - Decompress when loaded and store in RAM",
+                                        "OGG - Stream from disk (exports .ogg files)"];
+            var _i = 0;
+            repeat(array_length(_compressionArray))
             {
-                _selectionHandler.__ForEachSelected(method({
-                    __attributes: 0,
-                }, function(_name, _struct)
+                ImGui.TableNextRow();
+                ImGui.TableSetColumnIndex(0);
+                if (ImGui.RadioButton("WAV", (_projectSound.__attributes == _i)))
                 {
-                    _struct.__SetAttributes(__attributes);
-                }));
-            }
-            
-            if (_projectSound.__compiledValues)
-            {
-                ImGui.BeginDisabled(true);
-                    ImGui.TableSetColumnIndex(1);
-                    ImGui.RadioButton("", (_projectSound.__compiledAttributes == 0));
-                ImGui.EndDisabled();
-            }
-            
-            
-            
-            //OGG variant 1 compression option
-            ImGui.TableNextRow();
-            ImGui.TableSetColumnIndex(0);
-            if (ImGui.RadioButton("OGG - Decompress during playback", (_projectSound.__attributes == 1)))
-            {
-                _selectionHandler.__ForEachSelected(method({
-                    __attributes: 1,
-                }, function(_name, _struct)
+                    _selectionHandler.__ForEachSelected(method({
+                        __attributes: _i,
+                    }, function(_name, _struct)
+                    {
+                        _struct.__SetAttributes(__attributes);
+                    }));
+                }
+                
+                if (_projectSound.__compiledValues)
                 {
-                    _struct.__SetAttributes(__attributes);
-                }));
+                    ImGui.BeginDisabled(true);
+                        ImGui.TableSetColumnIndex(1);
+                        ImGui.RadioButton("", (_projectSound.__compiledAttributes == _i));
+                    ImGui.EndDisabled();
+                }
+                
+                ++_i;
             }
-            
-            if (_projectSound.__compiledValues)
-            {
-                ImGui.BeginDisabled(true);
-                    ImGui.TableSetColumnIndex(1);
-                    ImGui.RadioButton("", (_projectSound.__compiledAttributes == 1));
-                ImGui.EndDisabled();
-            }
-            
-            
-            
-            //OGG variant 2 compression option
-            ImGui.TableNextRow();
-            ImGui.TableSetColumnIndex(0);
-            if (ImGui.RadioButton("OGG - Decompress when loaded and store in RAM", (_projectSound.__attributes == 2)))
-            {
-                _selectionHandler.__ForEachSelected(method({
-                    __attributes: 2,
-                }, function(_name, _struct)
-                {
-                    _struct.__SetAttributes(__attributes);
-                }));
-            }
-            
-            if (_projectSound.__compiledValues)
-            {
-                ImGui.BeginDisabled(true);
-                    ImGui.TableSetColumnIndex(1);
-                    ImGui.RadioButton("", (_projectSound.__compiledAttributes == 2));
-                ImGui.EndDisabled();
-            }
-            
-            
-            
-            //OGG variant 3 compression option
-            ImGui.TableNextRow();
-            ImGui.TableSetColumnIndex(0);
-            if (ImGui.RadioButton("OGG - Stream from disk (exports .ogg files)", (_projectSound.__attributes == 3)))
-            {
-                _selectionHandler.__ForEachSelected(method({
-                    __attributes: 3,
-                }, function(_name, _struct)
-                {
-                    _struct.__SetAttributes(__attributes);
-                }));
-            }
-            
-            if (_projectSound.__compiledValues)
-            {
-                ImGui.BeginDisabled(true);
-                    ImGui.TableSetColumnIndex(1);
-                    ImGui.RadioButton("", (_projectSound.__compiledAttributes == 3));
-                ImGui.EndDisabled();
-            }
-            
-            
-            
             //We're done!
             ImGui.EndTable();
         }
