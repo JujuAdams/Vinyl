@@ -4,7 +4,6 @@ function __VinylPatternToName(_constructor)
 {
     switch(_constructor)
     {
-        case __VinylClassPatternRefSound:     case "__VinylClassPatternRefSound":     return "Sound";      break;
         case __VinylClassPatternRefNameMatch: case "__VinylClassPatternRefNameMatch": return "Name Match"; break;
         case __VinylClassPatternRefAssetTag:  case "__VinylClassPatternRefAssetTag":  return "Asset Tag";  break;
         case __VinylClassPatternBasic:        case "__VinylClassPatternBasic":        return "Basic";      break;

@@ -401,11 +401,9 @@ function __VinylClassDocument(_path) constructor
     
     static __NewPattern = function(_parent = undefined)
     {
-        if (is_struct(_parent))
-        {
-            var _new = new __VinylClassPatternRefSound();
-        }
-        else
+        var _new = new __VinylClassPatternBasic();
+        
+        if (not is_struct(_parent))
         {
             var _index = 1;
             var _newName = "Unnamed Pattern " + string(_index);
@@ -415,7 +413,6 @@ function __VinylClassDocument(_path) constructor
                 _newName = "Unnamed Pattern " + string(_index);
             }
             
-            var _new = new __VinylClassPatternBasic();
             _new.__name = _newName;
         }
         

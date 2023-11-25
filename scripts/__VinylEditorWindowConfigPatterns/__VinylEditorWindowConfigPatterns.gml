@@ -14,7 +14,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
     //Use the selection handler for this tab and ensure its binding to the project's sound dictionary
     //This dictionary will be used to track item selection
     var _selectionHandler = _tabState.__selectionHandler;
-    _selectionHandler.__Bind(_contentDict, __VinylClassPatternRefSound, undefined);
+    _selectionHandler.__Bind(_contentDict, __VinylClassPatternBasic, undefined);
     
     var _filter    = _tabState.__filter;
     var _useFilter = _tabState.__useFilter;
@@ -170,7 +170,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             ImGui.SameLine(undefined, 20);
             
             static _rootPatterns  = [__VinylClassPatternBasic, __VinylClassPatternShuffle, __VinylClassPatternQueue, __VinylClassPatternMulti];
-            static _childPatterns = [__VinylClassPatternRefSound, __VinylClassPatternRefNameMatch, __VinylClassPatternRefAssetTag, __VinylClassPatternBasic, __VinylClassPatternShuffle, __VinylClassPatternQueue, __VinylClassPatternMulti];
+            static _childPatterns = [__VinylClassPatternBasic, __VinylClassPatternShuffle, __VinylClassPatternQueue, __VinylClassPatternMulti, __VinylClassPatternRefNameMatch, __VinylClassPatternRefAssetTag];
             
             ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
             if (ImGui.BeginCombo("##Pattern Type Combobox", __VinylPatternToName(instanceof(_selectedStruct)), ImGuiComboFlags.None))

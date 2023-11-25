@@ -31,7 +31,6 @@
 
 #macro __VINYL_PATTERN_TYPE_FALLBACK        "Fallback"
 #macro __VINYL_PATTERN_TYPE_SOUND           "Sound"
-#macro __VINYL_PATTERN_TYPE_REF_SOUND       "Sound Ref"
 #macro __VINYL_PATTERN_TYPE_REF_NAME_MATCH  "Name Match"
 #macro __VINYL_PATTERN_TYPE_REF_ASSET_TAG   "Asset Tag"
 #macro __VINYL_PATTERN_TYPE_BASIC           "Basic"
