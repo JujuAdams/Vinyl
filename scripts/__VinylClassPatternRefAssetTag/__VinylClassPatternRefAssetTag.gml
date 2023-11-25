@@ -27,6 +27,16 @@ function __VinylClassPatternRefAssetTag() constructor
         __EnsureSubscription();
     }
     
+    static __GetName = function(_maxCharacters)
+    {
+        if (__name != "")
+        {
+            return string(__name);
+        }
+        
+        return "Tag \"" + __assetTag + "\"";
+    }
+    
     static __Unset = function()
     {
         variable_struct_remove(self, "__assetTag");
@@ -41,16 +51,6 @@ function __VinylClassPatternRefAssetTag() constructor
     static __IsChild = function()
     {
         return (__parent != undefined);
-    }
-    
-    static __GetName = function()
-    {
-        if (__name != "")
-        {
-            return string(__name);
-        }
-        
-        return string(self);
     }
     
     static __Rename = function(_name)

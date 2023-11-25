@@ -1,64 +1,31 @@
 // Feather disable all
 
-/// @param patternStruct
+/// @param array
 /// @param [maxCharacters=40]
-/// @param [bracketWrap=false]
 
-function __VinylPatternGetAbbreviatedName(_patternStruct, _maxCharacters = 40, _bracketWrap = false)
+function __VinylLabelsGetAbbreviatedName(_array, _maxCharacters = 40)
 {
-    if (not is_struct(_patternStruct)) return "???";
+    if (not is_array(_array)) return "???";
     
-    with(_patternStruct)
+    var _length = array_length(_array);
+    if (_length <= 0) return __VINYL_ASSET_NULL;
+    
+    var _string = "";
+    var _i = 0;
+    repeat(_length)
     {
-        var _length = array_length(assets);
-        if (_length <= 0) return __VINYL_ASSET_NULL;
-        
-        if ((type == __VINYL_PATTERN_TYPE_SOUND) || (type == __VINYL_PATTERN_TYPE_BASIC))
+        var _child = _array[_i];
+        if (_i < _length-1)
         {
-            _bracketWrap = false;
-        }
-        
-        var _string = "";
-        var _i = 0;
-        repeat(_length)
-        {
-            var _child = assets[_i];
-            
-            if (is_struct(_child))
-            {
-                _child = __VinylPatternGetAbbreviatedName(_child, infinity, true);
-            }
-            
-            if (_child != "")
-            {
-                if (_i < _length-1)
-                {
-                    _string += _child + ", ";
-                }
-                else
-                {
-                    _string += _child;
-                }
-            }
-            
-            ++_i;
-        }
-        
-        var _testLength = _maxCharacters;
-        if (_bracketWrap) _testLength -= 2;
-        
-        if (string_length(_string) > _testLength)
-        {
-            _string = string_copy(_string, 1, _testLength-3) + "...";
-        }
-        
-        if (_bracketWrap)
-        {
-            return "[" + _string + "]";
+            _string += _child + ", ";
         }
         else
         {
-            return _string;
+            _string += _child;
         }
+        
+        ++_i;
     }
+    
+    return __VinylTrimString(_string, _maxCharacters);
 }

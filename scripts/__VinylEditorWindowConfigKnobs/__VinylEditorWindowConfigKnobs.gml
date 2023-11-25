@@ -92,7 +92,6 @@ function __VinylEditorWindowConfigKnobs(_stateStruct)
         var _lastSelected  = _selectionHandler.__lastSelected;
         
         //Bit of aesthetic spacing
-        ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 20);
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
         
         if (_selectedCount == 0)

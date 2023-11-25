@@ -133,7 +133,6 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
         var _selectedStruct = _contentDict[$ _lastSelected];
         
         //Bit of aesthetic spacing
-        ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 20);
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
         
         if ((_selectedCount == 0) || (not is_struct(_selectedStruct)))

@@ -17,14 +17,14 @@ function __VinylClassPatternCommon()
         return (__parent != undefined);
     }
     
-    static __GetName = function()
+    static __GetName = function(_maxCharacters = undefined)
     {
         if (__name != "")
         {
             return string(__name);
         }
         
-        return string(self);
+        return __VinylPatternGetAbbreviatedName(__document, __uuid, _maxCharacters);
     }
     
     static __Rename = function(_name)

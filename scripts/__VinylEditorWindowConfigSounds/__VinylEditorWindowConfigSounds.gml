@@ -133,7 +133,6 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
         var _modified      = variable_struct_exists(_patternDict, _lastSelected);
         
         //Bit of aesthetic spacing
-        ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 20);
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
         
         if ((_selectedCount == 0) || (_lastSelected == __VINYL_FALLBACK_NAME))

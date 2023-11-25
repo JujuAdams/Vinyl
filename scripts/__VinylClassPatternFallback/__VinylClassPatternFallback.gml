@@ -16,6 +16,11 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
         return "<fallback>";
     }
     
+    static __GetName = function(_maxCharacters)
+    {
+        return "<fallback>";
+    }
+    
     static __Reset = function()
     {
         __ResetShared();

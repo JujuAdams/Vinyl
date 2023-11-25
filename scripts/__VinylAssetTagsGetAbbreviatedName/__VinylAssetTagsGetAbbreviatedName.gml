@@ -27,10 +27,5 @@ function __VinylAssetTagsGetAbbreviatedName(_array, _maxCharacters = 40)
         ++_i;
     }
     
-    if (string_length(_string) > _maxCharacters)
-    {
-        _string = string_copy(_string, 1, _maxCharacters-3) + "...";
-    }
-    
-    return _string;
+    return __VinylTrimString(_string, _maxCharacters);
 }

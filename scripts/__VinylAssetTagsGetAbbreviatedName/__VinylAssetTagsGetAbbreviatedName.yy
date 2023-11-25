@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Resolvers",
-    "path": "folders/Vinyl/(Internals)/VIPs only in the green room/Editor/Windows/Resolvers.yy",
+    "name": "Name Resolving",
+    "path": "folders/Vinyl/(Internals)/VIPs only in the green room/Name Resolving.yy",
   },
 }

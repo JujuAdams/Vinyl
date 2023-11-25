@@ -13,6 +13,16 @@ function __VinylClassPatternSound() : __VinylClassPatternCommon() constructor
         return "<sound " + string(__sound) + " " + audio_get_name(__sound) + ">";
     }
     
+    static __GetName = function(_maxCharacters)
+    {
+        if (__name != "")
+        {
+            return string(__name);
+        }
+        
+        return audio_get_name(__sound);
+    }
+    
     static __Reset = function()
     {
         __ResetShared();

@@ -129,7 +129,6 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
     ImGui.BeginChild("Right Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
         
         //Bit of aesthetic spacing
-        ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 20);
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
         
         if (_selectedCount == 0)

@@ -1,36 +1,44 @@
 // Feather disable all
 
-/// @param array
+/// @param dictionary
+/// @param patternUUID
 /// @param [maxCharacters=40]
 
-function __VinylLabelsGetAbbreviatedName(_array, _maxCharacters = 40)
+function __VinylPatternGetAbbreviatedName(_document, _patternUUID, _maxCharacters = 40)
 {
-    if (not is_array(_array)) return "???";
+    var _patternStruct = _document.__GetPattern(_patternUUID);
+    if (not is_struct(_patternStruct)) return "???";
     
-    var _length = array_length(_array);
-    if (_length <= 0) return __VINYL_ASSET_NULL;
-    
-    var _string = "";
-    var _i = 0;
-    repeat(_length)
+    with(_patternStruct)
     {
-        var _child = _array[_i];
-        if (_i < _length-1)
+        var _length = array_length(__childArray);
+        if (_length <= 0) return __VINYL_ASSET_NULL;
+        
+        var _string = __patternType + " (";
+        var _i = 0;
+        repeat(_length)
         {
-            _string += _child + ", ";
-        }
-        else
-        {
-            _string += _child;
+            var _childUUID = __childArray[_i];
+            var _child = _document.__GetPattern(_childUUID);
+            
+            var _substring = (_child == undefined)? "" : _child.__GetName(infinity);
+            if (_substring != "")
+            {
+                if (_i < _length-1)
+                {
+                    _string += _substring + ", ";
+                }
+                else
+                {
+                    _string += _substring;
+                }
+            }
+            
+            ++_i;
         }
         
-        ++_i;
+        _string += ")";
+        
+        return __VinylTrimString(_string, _maxCharacters);
     }
-    
-    if (string_length(_string) > _maxCharacters)
-    {
-        _string = string_copy(_string, 1, _maxCharacters-3) + "...";
-    }
-    
-    return _string;
 }

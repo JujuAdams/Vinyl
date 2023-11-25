@@ -16,6 +16,16 @@ function __VinylClassPatternBasic() : __VinylClassPatternCommon() constructor
         return (__sound == undefined)? "<basic ???>" : "<basic " + audio_get_name(__sound) + ">";
     }
     
+    static __GetName = function(_maxCharacters)
+    {
+        if (__name != "")
+        {
+            return string(__name);
+        }
+        
+        return audio_get_name(__sound);
+    }
+    
     static __Reset = function()
     {
         __ResetShared();

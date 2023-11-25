@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylPatternGetAbbreviatedName",
+  "name": "__VinylTrimString",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

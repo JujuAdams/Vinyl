@@ -12,6 +12,11 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
     
     __Reset();
     
+    static toString = function()
+    {
+        return "<multi " + string(__name) + ">";
+    }
+    
     static __Reset = function(_oldStatic = undefined)
     {
         __ResetShared();
@@ -32,11 +37,6 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
         variable_struct_remove(self, "__blendFactorLocal");
         
         if (not _newStatic.__usesChildArray) variable_struct_remove(self, "__childArray");
-    }
-    
-    static toString = function()
-    {
-        return "<multi " + string(__name) + ">";
     }
     
     static __MultiBlendSet = function(_blend)

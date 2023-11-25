@@ -11,6 +11,11 @@ function __VinylClassPatternQueue() : __VinylClassPatternCommon() constructor
     
     __Reset();
     
+    static toString = function()
+    {
+        return "<queue " + string(__name) + ">";
+    }
+    
     static __Reset = function(_oldStatic = undefined)
     {
         __ResetShared();
@@ -23,11 +28,6 @@ function __VinylClassPatternQueue() : __VinylClassPatternCommon() constructor
     {
         variable_struct_remove(self, "__behavior");
         if (not _newStatic.__usesChildArray) variable_struct_remove(self, "__childArray");
-    }
-    
-    static toString = function()
-    {
-        return "<queue " + string(__name) + ">";
     }
     
     static __Serialize = function(_struct)

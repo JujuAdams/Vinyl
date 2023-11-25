@@ -19,6 +19,16 @@ function __VinylClassPatternRefNameMatch() constructor
     
     __Reset();
     
+    static __GetName = function(_maxCharacters)
+    {
+        if (__name != "")
+        {
+            return string(__name);
+        }
+        
+        return "Match \"" + __searchString + "\"";
+    }
+    
     static __Reset = function()
     {
         __searchString = "";
@@ -41,16 +51,6 @@ function __VinylClassPatternRefNameMatch() constructor
     static __IsChild = function()
     {
         return (__parent != undefined);
-    }
-    
-    static __GetName = function()
-    {
-        if (__name != "")
-        {
-            return string(__name);
-        }
-        
-        return string(self);
     }
     
     static __Rename = function(_name)
