@@ -11,7 +11,9 @@ function __VinylDeserializePatternArray(_inputArray, _document)
     repeat(array_length(_inputArray))
     {
         var _input = _inputArray[_i];
-        var _constructor = __VinylConvertPatternNameToConstructor(_input.type, _input.name);
+        __VinylTrace("Deserializing ", _input.uuid);
+        
+        var _constructor = __VinylConvertPatternNameToConstructor(_input.type, _input.uuid);
         
         var _new = new _constructor();
         _new.__Deserialize(_input);

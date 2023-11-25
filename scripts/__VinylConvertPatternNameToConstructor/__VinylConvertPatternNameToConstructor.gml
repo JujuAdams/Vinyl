@@ -29,8 +29,16 @@ function __VinylConvertPatternNameToConstructor(_type, _patternName)
     {
         return __VinylClassPatternMulti;
     }
+    else if (_type == __VINYL_PATTERN_TYPE_REF_NAME_MATCH)
+    {
+        return __VinylClassPatternRefNameMatch;
+    }
+    else if (_type == __VINYL_PATTERN_TYPE_REF_ASSET_TAG)
+    {
+        return __VinylClassPatternRefAssetTag;
+    }
     else
     {
-        __VinylError("Pattern type \"", _type, "\" for pattern \"", _patternName, "\" not recognised");
+        __VinylError("Pattern type \"", _type, "\" for pattern UUID \"", _patternName, "\" not recognised");
     }
 }

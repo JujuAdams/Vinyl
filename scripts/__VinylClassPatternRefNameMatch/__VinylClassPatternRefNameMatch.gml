@@ -92,29 +92,25 @@ function __VinylClassPatternRefNameMatch() constructor
     {
         _struct.type         = __patternType;
         _struct.parent       = __parent;
+        _struct.uuid         = __uuid;
         _struct.searchString = __searchString;
     }
     
     static __Deserialize = function(_struct)
     {
+        __uuid         = _struct.uuid;
+        __parent       = _struct.parent;
         __searchString = asset_get_index(_struct.searchString);
         
         __UpdateSounds();
     }
     
     
-    static __Store = function(_document, _parentUUID)
+    static __Store = function(_document)
     {
         __document = _document;
-        __parent   = _parentUUID;
         
         _document.__patternDict[$ __uuid] = self;
-        
-        var _parent = __document.__GetPattern(_parentUUID);
-        if (_parent != undefined)
-        {
-            array_push(_parent.__childArray, __uuid);
-        }
         
         __EnsureSubscription();
     }

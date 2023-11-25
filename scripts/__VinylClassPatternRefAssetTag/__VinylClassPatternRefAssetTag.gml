@@ -92,30 +92,27 @@ function __VinylClassPatternRefAssetTag() constructor
     {
         _struct.type     = __patternType;
         _struct.parent   = __parent;
+        _struct.uuid     = __uuid;
         _struct.assetTag = __assetTag;
     }
     
     static __Deserialize = function(_struct)
     {
+        __uuid     = _struct.uuid;
+        __parent   = _struct.parent;
         __assetTag = _struct.assetTag;
         
         __UpdateSounds();
     }
     
-    static __Store = function(_document, _parentUUID)
+    static __Store = function(_document)
     {
         __document = _document;
-        __parent   = _parentUUID;
         
         _document.__patternDict[$ __uuid] = self;
         
-        var _parent = __document.__GetPattern(_parentUUID);
-        if (_parent != undefined)
-        {
-            array_push(_parent.__childArray, __uuid);
-        }
-        
         __EnsureSubscription();
+        __UpdateSounds();
     }
     
     static __ChangeParent = function(_parentUUID)
@@ -160,6 +157,12 @@ function __VinylClassPatternRefAssetTag() constructor
     
     static __UpdateSounds = function()
     {
+        if (__document == undefined)
+        {
+            __soundsArray = [];
+            return;
+        }
+        
         var _soundArray = __document.__GetProjectAssetTagDict()[$ __assetTag];
         if (not is_array(_soundArray))
         {
