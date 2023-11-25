@@ -65,4 +65,27 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
     {
         __SharedWidgets(_selectionHandler);
     }
+    
+    static __SharedWidgets = function(_selectionHandler)
+    {
+        if (ImGui.BeginTable("Pattern Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 260))
+        {
+            //Set up our columns with fixed widths so we get a nice pretty layout
+            ImGui.TableSetupColumn("Name",   ImGuiTableColumnFlags.WidthFixed, 100);
+            ImGui.TableSetupColumn("Option", ImGuiTableColumnFlags.WidthFixed, 125);
+            ImGui.TableSetupColumn("Value",  ImGuiTableColumnFlags.WidthStretch, 1);
+            
+            __VinylEditorPropWidgetGain(       "Gain",         self, undefined, 0, 2, 1);
+            __VinylEditorPropWidgetPitch(      "Pitch",        self, undefined, 0, 2, 1);
+            __VinylEditorPropWidgetLoop(       "Loop",         self, undefined, 0, 2, 1);
+            __VinylEditorPropWidgetLoopPoints( "Loop Points",  self, undefined, 0, 2, 1);
+            __VinylEditorPropWidgetStack(      "Stack",        self, undefined, 0, 2, 1);
+            __VinylEditorPropWidgetEffectChain("Effect Chain", self, undefined, 0, 2, 1);
+            __VinylEditorPropWidgetPersistent( "Persistent",   self, undefined, 0, 2, 1);
+            __VinylEditorPropWidgetBPM(        "BPM",          self, undefined, 0, 2, 1);
+            __VinylEditorPropWidgetTranspose(  "Transpose",    self, undefined, 0, 2, 1);
+            
+            ImGui.EndTable();
+        }
+    }
 }

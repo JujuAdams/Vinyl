@@ -81,8 +81,28 @@ function __VinylClassPatternSound() : __VinylClassPatternCommon() constructor
         return __VinylPlaySimple(__sound, _gain*__gain[0], _gain*__gain[1], _pitch*__pitch[0], _pitch*__pitch[1], __labelArray, _effectChainName);
     }
     
-    static __BuildPropertyUI = function(_selectionHandler)
+    static __SharedWidgets = function(_selectionHandler)
     {
-        __SharedWidgets(_selectionHandler);
+        if (ImGui.BeginTable("Pattern Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 260))
+        {
+            //Set up our columns with fixed widths so we get a nice pretty layout
+            ImGui.TableSetupColumn("Name",   ImGuiTableColumnFlags.WidthFixed, 100);
+            ImGui.TableSetupColumn("Option", ImGuiTableColumnFlags.WidthFixed, 125);
+            ImGui.TableSetupColumn("Value",  ImGuiTableColumnFlags.WidthStretch, 1);
+            
+            var _parent = __document.__GetPattern(__VINYL_FALLBACK_NAME);
+            
+            __VinylEditorPropWidgetGain(       "Gain",         self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetPitch(      "Pitch",        self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetLoop(       "Loop",         self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetLoopPoints( "Loop Points",  self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetStack(      "Stack",        self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetEffectChain("Effect Chain", self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetPersistent( "Persistent",   self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetBPM(        "BPM",          self, _parent, 0, 2, 1);
+            __VinylEditorPropWidgetTranspose(  "Transpose",    self, _parent, 0, 2, 1);
+            
+            ImGui.EndTable();
+        }
     }
 }
