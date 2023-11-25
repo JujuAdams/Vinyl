@@ -289,6 +289,7 @@
     {"id":{"name":"VinylQueuePush","path":"scripts/VinylQueuePush/VinylQueuePush.yy",},},
     {"id":{"name":"__VinylEditorWindowSoundTest","path":"scripts/__VinylEditorWindowSoundTest/__VinylEditorWindowSoundTest.yy",},},
     {"id":{"name":"sndCat","path":"sounds/sndCat/sndCat.yy",},},
+    {"id":{"name":"__VinylPatternHasChildArray","path":"scripts/__VinylPatternHasChildArray/__VinylPatternHasChildArray.yy",},},
     {"id":{"name":"__VinylValidateStruct","path":"scripts/__VinylValidateStruct/__VinylValidateStruct.yy",},},
     {"id":{"name":"__VinylBufferReadConfigJSON","path":"scripts/__VinylBufferReadConfigJSON/__VinylBufferReadConfigJSON.yy",},},
     {"id":{"name":"__VinylClassVoiceSound","path":"scripts/__VinylClassVoiceSound/__VinylClassVoiceSound.yy",},},

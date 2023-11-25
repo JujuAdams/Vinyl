@@ -7,19 +7,22 @@ function __VinylClassPatternQueue() : __VinylClassPatternCommon() constructor
 {
     static __patternType = __VINYL_PATTERN_TYPE_QUEUE;
     static __pool = __VinylGlobalData().__poolQueue;
+    static __usesChildArray = true;
     
-    static __Reset = function()
+    __Reset();
+    
+    static __Reset = function(_oldStatic = undefined)
     {
         __ResetShared();
         
         __behavior = __VINYL_QUEUE_PLAY_ONCE;
-        __childArray = [];
+        if ((_oldStatic != undefined) && (not _oldStatic.__usesChildArray)) __childArray = [];
     }
     
-    static __Unset = function()
+    static __Unset = function(_newStatic = undefined)
     {
         variable_struct_remove(self, "__behavior");
-        variable_struct_remove(self, "__childArray");
+        if (not _newStatic.__usesChildArray) variable_struct_remove(self, "__childArray");
     }
     
     static toString = function()

@@ -5,13 +5,14 @@ new __VinylClassPatternMulti();
 
 function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
 {
-    static __patternType   = __VINYL_PATTERN_TYPE_MULTI;
-    static __pool          = __VinylGlobalData().__poolMulti;
-    static __animCurveDict = __VinylGlobalData().__animCurveDict;
+    static __patternType    = __VINYL_PATTERN_TYPE_MULTI;
+    static __pool           = __VinylGlobalData().__poolMulti;
+    static __usesChildArray = true;
+    static __animCurveDict  = __VinylGlobalData().__animCurveDict;
     
     __Reset();
     
-    static __Reset = function()
+    static __Reset = function(_oldStatic = undefined)
     {
         __ResetShared();
         
@@ -20,17 +21,17 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
         __blendCurveName   = "";
         __blendFactorLocal = __blend;
         
-        __childArray = [];
+        if ((_oldStatic != undefined) && (not _oldStatic.__usesChildArray)) __childArray = [];
     }
     
-    static __Unset = function()
+    static __Unset = function(_newStatic = undefined)
     {
         variable_struct_remove(self, "__sync");
         variable_struct_remove(self, "__blend");
         variable_struct_remove(self, "__blendCurveName");
         variable_struct_remove(self, "__blendFactorLocal");
         
-        variable_struct_remove(self, "__childArray");
+        if (not _newStatic.__usesChildArray) variable_struct_remove(self, "__childArray");
     }
     
     static toString = function()

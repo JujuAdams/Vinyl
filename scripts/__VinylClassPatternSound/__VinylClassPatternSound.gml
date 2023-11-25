@@ -4,6 +4,7 @@ function __VinylClassPatternSound() : __VinylClassPatternCommon() constructor
 {
     static __patternType = __VINYL_PATTERN_TYPE_SOUND;
     static __pool = __VinylGlobalData().__poolSound;
+    static __usesChildArray = false;
     
     __Reset();
     

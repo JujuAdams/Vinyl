@@ -5,7 +5,8 @@ new __VinylClassPatternRefAssetTag();
 
 function __VinylClassPatternRefAssetTag() constructor
 {
-    static __patternType = __VINYL_PATTERN_TYPE_REF_ASSET_TAG;
+    static __patternType    = __VINYL_PATTERN_TYPE_REF_ASSET_TAG;
+    static __usesChildArray = false;
     
     __uuid     = string(ptr(__VinylRandom(0x7FFF_FFFF_FFFF_FFFF)));
     __document = undefined;
@@ -125,7 +126,7 @@ function __VinylClassPatternRefAssetTag() constructor
     static __BuildPropertyUI = function(_selectionHandler)
     {
         //Now do the actual table
-        if (ImGui.BeginTable("Vinyl Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 280))
+        if (ImGui.BeginTable("Vinyl Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY, undefined, 280))
         {
             //Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("Name",  ImGuiTableColumnFlags.WidthFixed,   100);

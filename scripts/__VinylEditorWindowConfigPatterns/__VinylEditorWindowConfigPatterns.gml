@@ -143,7 +143,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
         else
         {
             //Change the display text depending on what the user is actually seeing
-            ImGui.Text(_selectionHandler.__GetLastSelectedName());
+            ImGui.Text(_selectedStruct.__GetName());
             
             ImGui.SameLine(300);
             

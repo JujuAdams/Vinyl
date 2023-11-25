@@ -7,21 +7,22 @@ function __VinylClassPatternShuffle() : __VinylClassPatternCommon() constructor
 {
     static __patternType = __VINYL_PATTERN_TYPE_SHUFFLE;
     static __pool = __VinylGlobalData().__poolBasic; //No need for a dedicated shuffle voice
+    static __usesChildArray = true;
     
     __Reset();
     
-    static __Reset = function()
+    static __Reset = function(_oldStatic = undefined)
     {
         __ResetShared();
         
-        __currentIndex  = 0;
-        __childArray = [];
+        __currentIndex = 0;
+        if ((_oldStatic != undefined) && (not _oldStatic.__usesChildArray)) __childArray = [];
     }
     
-    static __Unset = function()
+    static __Unset = function(_newStatic = undefined)
     {
         variable_struct_remove(self, "__currentIndex");
-        variable_struct_remove(self, "__childArray");
+        if (not _newStatic.__usesChildArray) variable_struct_remove(self, "__childArray");
     }
     
     static toString = function()

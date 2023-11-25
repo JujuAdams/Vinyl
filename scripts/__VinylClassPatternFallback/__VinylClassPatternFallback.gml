@@ -4,6 +4,7 @@ function __VinylClassPatternFallback() : __VinylClassPatternCommon() constructor
 {
     static __patternType = __VINYL_PATTERN_TYPE_FALLBACK;
     static __pool = __VinylGlobalData().__poolSound;
+    static __usesChildArray = false;
     
     __Reset();
     
