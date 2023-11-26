@@ -5,13 +5,36 @@
 function __VinylClassPool(_startingID, _constructor) constructor
 {
     __constructor = _constructor;
+    __startingID  = _startingID;
     __id          = int64(_startingID);
+    
+    __active      = 0;
     __poolArray   = [];
     __returnArray = [];
     
     static toString = function()
     {
         return "<pool " + string(script_get_name(__constructor)) + ">";
+    }
+    
+    static __GetSize = function()
+    {
+        return __active + array_length(__poolArray) + array_length(__returnArray);
+    }
+    
+    static __GetActiveCount = function()
+    {
+        return __active;
+    }
+    
+    static __GetPooledCount = function()
+    {
+        return array_length(__poolArray);
+    }
+    
+    static __GetReturningCount = function()
+    {
+        return array_length(__returnArray);
     }
     
     static __GetInactiveCount = function()
@@ -32,10 +55,12 @@ function __VinylClassPool(_startingID, _constructor) constructor
         _member.__PoolCallback();
         _member.__id   = undefined;
         array_push(__returnArray, _member);
+        --__active;
     }
     
     static __Depool = function()
     {
+        ++__active;
         ++__id;
         
         var _member = array_pop(__poolArray);

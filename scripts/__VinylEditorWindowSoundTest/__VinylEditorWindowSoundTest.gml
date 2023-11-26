@@ -33,7 +33,7 @@ function __VinylEditorWindowSoundTest(_stateStruct)
                             var _name = _projectSoundArray[_i];
                             if (ImGui.ArrowButton("##Play " + _name, ImGuiDir.Right))
                             {
-                                VinylPlaySimple(asset_get_index(_name));
+                                VinylPlay(asset_get_index(_name), false);
                             }
                             ImGui.SameLine();
                             ImGui.Text(_name);
