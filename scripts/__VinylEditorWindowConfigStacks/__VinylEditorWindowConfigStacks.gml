@@ -24,16 +24,6 @@ function __VinylEditorWindowConfigStacks(_stateStruct)
     
     ImGui.BeginChild("Left Pane", 0.3*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
         
-        //General filter checkbox and edit button
-        ImGui.Text("Filter");
-        ImGui.SameLine();
-        _tabState.__useFilter = ImGui.Checkbox("##Filter", _useFilter);
-        ImGui.SameLine();
-        if (ImGui.Button("Edit..."))
-        {
-            __VinylEditorWindowSetOpen("__filter", true);
-        }
-        
         if (ImGui.Button("New Stack"))
         {
             _document.__NewStack();

@@ -5,8 +5,8 @@ function __VinylEditorWindowFilter(_stateStruct)
     static _editor = __VinylGlobalData().__editor;
     if (not VinylEditorIsShowing()) return;
     
-    ImGui.SetNextWindowSize(0.4*room_width, 0.27*room_height, ImGuiCond.Once);
-    ImGui.SetNextWindowPos(0.25*room_width, 0.25*room_height, ImGuiCond.Once);
+    ImGui.SetNextWindowSize(0.4*room_width, 0.32*room_height, ImGuiCond.Once);
+    ImGui.SetNextWindowPos(0.3*room_width, 0.34*room_height, ImGuiCond.Once);
 	
     var ret = ImGui.Begin("Filter", __VinylEditorWindowGetOpen("__filter"), undefined, ImGuiReturnMask.Both);
     __VinylEditorWindowSetOpen("__filter", (ret & ImGuiReturnMask.Pointer));
