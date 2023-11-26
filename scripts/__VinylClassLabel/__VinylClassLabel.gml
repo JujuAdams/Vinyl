@@ -170,7 +170,7 @@ function __VinylClassLabel() constructor
         }
     }
     
-    static __ChangeParent = function(_parent)
+    static __ChangeParent = function(_parentUUID)
     {
         var _parent = __document.__GetLabel(__parent);
         if (is_struct(_parent))
@@ -179,7 +179,7 @@ function __VinylClassLabel() constructor
             if (_index != undefined) array_delete(_parent.__childArray, _index, 1);
         }
         
-        __parent = _parent;
+        __parent = _parentUUID;
         
         var _parent = __document.__GetLabel(__parent);
         if (is_struct(_parent)) array_push(_parent.__childArray, __name);
