@@ -101,6 +101,8 @@ function __VinylClassLabel() constructor
         __parent                = _struct.parent;
         __childArray            = variable_clone(_struct.childArray);
         
+        if (is_ptr(__parent)) __parent = undefined;
+        
         __gainOption            = _struct.gainOption;
         __gainKnob              = _struct.gainKnob;
         __gainKnobOverride      = _struct.gainKnobOverride;
