@@ -366,6 +366,11 @@ function __VinylClassDocument(_path) constructor
         return __patternDict[$ _uuid];
     }
     
+    static __GetLabel = function(_name)
+    {
+        return __labelDict[$ _name];
+    }
+    
     
     
     static __NewSound = function(_soundName)
@@ -380,7 +385,7 @@ function __VinylClassDocument(_path) constructor
         return _new;
     }
     
-    static __NewLabel = function(_parent = undefined)
+    static __NewLabel = function(_parentUUID = undefined)
     {
         var _index = 1;
         var _newName = "Unnamed Label " + string(_index);
@@ -393,7 +398,7 @@ function __VinylClassDocument(_path) constructor
         var _new = new __VinylClassLabel();
         _new.__name = _newName;
         _new.__Store(self);
-        _new.__ChangeParent(_parent);
+        _new.__ChangeParent(_parentUUID);
         
         __Save();
         

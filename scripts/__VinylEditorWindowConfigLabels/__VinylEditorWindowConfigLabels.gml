@@ -62,7 +62,13 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
                         var _i = 0;
                         repeat(array_length(_childArray))
                         {
-                            _func(_func, _visibleArray, _childArray[_i], _selectionHandler, _filter, _useFilter, false);
+                            var _childName = _childArray[_i];
+                            var _child = __VinylDocument().__GetLabel(_childName);
+                            if (_child != undefined)
+                            {
+                                _func(_func, _visibleArray, _child, _selectionHandler, _filter, _useFilter, false);
+                            }
+                            
                             ++_i;
                         }
                         
@@ -149,7 +155,7 @@ function __VinylEditorWindowConfigLabels(_stateStruct)
             
             if (ImGui.Button("Add Child"))
             {
-                _document.__NewLabel(_selectedStruct);
+                _document.__NewLabel(_lastSelected);
             }
             
             ImGui.SameLine(undefined, 20);

@@ -173,7 +173,7 @@ function __VinylClassLabel() constructor
     
     static __ChangeParent = function(_parentUUID)
     {
-        var _parent = __document.__GetLabel(__parent);
+        var _parent = __document.__GetLabel(_parentUUID);
         if (is_struct(_parent))
         {
             var _index = __VinylArrayFindIndex(_parent.__childArray, __name);
