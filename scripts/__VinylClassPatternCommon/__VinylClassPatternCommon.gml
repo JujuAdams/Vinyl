@@ -29,6 +29,8 @@ function __VinylClassPatternCommon()
     
     static __Rename = function(_name)
     {
+        if (_name == __name) return;
+        
         if (__uuid == __name)
         {
             var _patternDict = __document.__patternDict;
@@ -62,6 +64,7 @@ function __VinylClassPatternCommon()
         }
         
         __name = _name;
+        __document.__Save();
     }
     
     static __Store = function(_document, _parentUUID)
@@ -111,6 +114,7 @@ function __VinylClassPatternCommon()
         }
         
         variable_struct_remove(__document.__patternDict, __uuid);
+        __document.__Save();
     }
     
     static __ResetShared = function()
@@ -463,6 +467,7 @@ function __VinylClassPatternCommon()
                         var _temp = _array[_i+1];
                         _array[_i+1] = _childUUID;
                         _array[_i] = _temp;
+                        __document.__Save();
                     }
                 ImGui.EndDisabled();
                 
@@ -473,6 +478,7 @@ function __VinylClassPatternCommon()
                         var _temp = _array[_i-1];
                         _array[_i-1] = _childUUID;
                         _array[_i] = _temp;
+                        __document.__Save();
                     }
                 ImGui.EndDisabled();
                 

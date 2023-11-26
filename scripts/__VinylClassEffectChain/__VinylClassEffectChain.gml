@@ -37,6 +37,7 @@ function __VinylClassEffectChain() constructor
     static __Discard = function(_document)
     {
         variable_struct_remove(_document.__effectChainDict, __name);
+        __document.__Save();
     }
     
     

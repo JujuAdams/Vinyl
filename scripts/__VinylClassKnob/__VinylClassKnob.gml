@@ -58,6 +58,7 @@ function __VinylClassKnob() constructor
     static __Discard = function(_document)
     {
         variable_struct_remove(_document.__knobDict, __name);
+        __document.__Save();
     }
     
     

@@ -55,6 +55,7 @@ function __VinylClassStack() constructor
     static __Discard = function(_document)
     {
         variable_struct_remove(_document.__stackDict, __name);
+        __document.__Save();
     }
     
     

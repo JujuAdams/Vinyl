@@ -136,7 +136,7 @@ function __VinylClassPatternBasic() : __VinylClassPatternCommon() constructor
             
             if (_textNew != _textOld)
             {
-                __sound = asset_get_index(_textNew);
+                __document.__Write(self, "__sound", asset_get_index(_textNew));
                 __soundTempName = _textNew;
                 __CheckSoundExists();
             }

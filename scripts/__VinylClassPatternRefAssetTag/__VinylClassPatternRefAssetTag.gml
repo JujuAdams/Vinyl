@@ -56,6 +56,8 @@ function __VinylClassPatternRefAssetTag() constructor
     
     static __Rename = function(_name)
     {
+        if (_name == __name) return;
+        
         if (__uuid == __name)
         {
             var _patternDict = __document.__patternDict;
@@ -73,6 +75,7 @@ function __VinylClassPatternRefAssetTag() constructor
         }
         
         __name = _name;
+        __document.__Save();
     }
     
     static __EnsureSubscription = function()
@@ -143,6 +146,7 @@ function __VinylClassPatternRefAssetTag() constructor
         }
         
         variable_struct_remove(__document.__patternDict, __uuid);
+        __document.__Save();
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)

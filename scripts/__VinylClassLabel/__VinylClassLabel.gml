@@ -144,14 +144,15 @@ function __VinylClassLabel() constructor
     
     static __Discard = function()
     {
-        variable_struct_remove(__document.__labelDict, __name);
-        
         var _i = 0;
         repeat(array_length(__childArray))
         {
             __childArray[_i].__ChangeParent(__parent);
             ++_i;
         }
+        
+        variable_struct_remove(__document.__labelDict, __name);
+        __document.__Save();
     }
     
     static __Rename = function(_newName)
