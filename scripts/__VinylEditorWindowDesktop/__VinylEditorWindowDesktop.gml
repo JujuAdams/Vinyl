@@ -99,7 +99,14 @@ function __VinylEditorWindowDesktop(_stateStruct)
         
         if (_editor.__statusText == undefined)
         {
-            ImGui.Text("Waiting" + floor((current_time mod 799) / 200)*".");
+            if (__VinylDocument().__GetDirty())
+            {
+                ImGui.Text("Changes detected, waiting to save" + floor((current_time mod 799) / 200)*".");
+            }
+            else
+            {
+                ImGui.Text(floor((current_time mod 799) / 200)*".");
+            }
         }
         else
         {

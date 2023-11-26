@@ -104,6 +104,11 @@ function __VinylClassDocument(_path) constructor
         __SaveNow();
     }
     
+    static __GetDirty = function()
+    {
+        return __dirty;
+    }
+    
     static __SaveNow = function()
     {
         if (not __VinylGetEditorEnabled()) return;
