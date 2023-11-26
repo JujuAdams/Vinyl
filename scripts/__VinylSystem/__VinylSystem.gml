@@ -89,7 +89,7 @@ function __VinylInitialize()
     
     _globalData.__document = new __VinylClassDocument(__VinylGetDocumentPath());
     
-    //time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylTick, [], -1));
+    time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylTick, [], -1));
 }
 
 function __VinylTrace()
