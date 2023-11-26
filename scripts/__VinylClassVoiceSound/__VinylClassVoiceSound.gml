@@ -3,21 +3,21 @@ function __VinylClassVoiceSound() : __VinylClassVoiceCommon() constructor
 {
     __StateReset();
     
-    static __patternType = "asset";
+    static __patternType = "sound";
     
     static toString = function()
     {
         if (__pattern == undefined)
         {
-            return "<asset " + string(__id) + ">";
+            return "<sound " + string(__id) + ">";
         }
         else if (is_string(__sound) || is_undefined(__sound))
         {
-            return "<asset " + string(__id) + " " + __pattern.__name + ">";
+            return "<sound " + string(__id) + " " + __pattern.__name + ">";
         }
         else
         {
-            return "<asset " + string(__id) + " " + audio_get_name(__sound) + ">";
+            return "<sound " + string(__id) + " " + audio_get_name(__sound) + ">";
         }
     }
     

@@ -8,8 +8,8 @@ function __VinylEditorWindowNowPlaying(_stateStruct)
     static _editor = __VinylGlobalData().__editor;
     if (not VinylEditorIsShowing()) return;
     
-    ImGui.SetNextWindowSize(room_width/2, room_height/2, ImGuiCond.Once);
-    ImGui.SetNextWindowPos(room_width/4, room_height/4, ImGuiCond.Once);
+    ImGui.SetNextWindowSize(0.7*room_width, room_height/2, ImGuiCond.Once);
+    ImGui.SetNextWindowPos(0.15*room_width, room_height/4, ImGuiCond.Once);
 	
     var ret = ImGui.Begin("Now Playing", __VinylEditorWindowGetOpen("__nowPlaying"), undefined, ImGuiReturnMask.Both);
     __VinylEditorWindowSetOpen("__nowPlaying", (ret & ImGuiReturnMask.Pointer));
@@ -21,6 +21,49 @@ function __VinylEditorWindowNowPlaying(_stateStruct)
             if (ImGui.BeginTabItem("Voices"))
             {
                 ImGui.Text("Total playing: " + string(array_length(_topLevelArray)));
+                
+                if (ImGui.BeginTable("Voice Table", 8, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg))
+                {
+                    ImGui.TableSetupColumn("Name", ImGuiTableColumnFlags.WidthStretch, 2);
+                    ImGui.TableSetupColumn("Pattern", ImGuiTableColumnFlags.WidthStretch, 2);
+                    ImGui.TableSetupColumn("Loop", ImGuiTableColumnFlags.WidthFixed, 40);
+                    ImGui.TableSetupColumn("Gain", ImGuiTableColumnFlags.WidthFixed, 40);
+                    ImGui.TableSetupColumn("(Duck)", ImGuiTableColumnFlags.WidthFixed, 40);
+                    ImGui.TableSetupColumn("Pitch", ImGuiTableColumnFlags.WidthFixed, 40);
+                    ImGui.TableSetupColumn("(Transpose)", ImGuiTableColumnFlags.WidthFixed, 80);
+                    ImGui.TableSetupColumn("Fx Chain", ImGuiTableColumnFlags.WidthFixed, 100);
+                    
+                    ImGui.TableHeadersRow();
+                    
+                    var _i = 0;
+                    repeat(array_length(_topLevelArray))
+                    {
+                        var _voice = _topLevelArray[_i];
+                        
+                        ImGui.TableNextRow();
+                        ImGui.TableNextColumn();
+                        ImGui.Text(_voice);
+                        ImGui.TableNextColumn();
+                        ImGui.Text(_voice.__ParentTopLevelGet());
+                        ImGui.TableNextColumn();
+                        ImGui.Text(_voice.__LoopGet()? "true" : "false");
+                        ImGui.TableNextColumn();
+                        ImGui.Text(_voice.__GainOutputGet());
+                        ImGui.TableNextColumn();
+                        ImGui.Text(_voice.__gainDuck);
+                        ImGui.TableNextColumn();
+                        ImGui.Text(_voice.__PitchOutputGet());
+                        ImGui.TableNextColumn();
+                        ImGui.Text(_voice.__TransposeGet());
+                        ImGui.TableNextColumn();
+                        ImGui.Text(_voice.__effectChainName);
+                    
+                        ++_i;   
+                    }
+                    
+                    ImGui.EndTable();
+                }
+                
                 ImGui.EndTabItem();
             }
             
@@ -65,7 +108,6 @@ function __VinylEditorWindowNowPlaying(_stateStruct)
                 
                 if (ImGui.BeginTable("Pool Table", 6, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg))
                 {
-                    //Set up our columns with fixed widths so we get a nice pretty layout
                     ImGui.TableSetupColumn("Name");
                     ImGui.TableSetupColumn("Size");
                     ImGui.TableSetupColumn("Active");

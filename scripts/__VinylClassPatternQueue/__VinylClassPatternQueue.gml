@@ -46,14 +46,14 @@ function __VinylClassPatternQueue() : __VinylClassPatternCommon() constructor
         
         __DeserializeShared(_struct);
         
-        __behavior      = _struct.behavior;
+        __behavior   = _struct.behavior;
         __childArray = variable_clone(_struct.childrenArray);
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound_UNUSED, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
     {
         var _voice = __pool.__Depool();
-        _voice.__Instantiate(_patternTop, self, _parentVoice, _vinylEmitter, __assetArray, _loop, _gain, _pitch, _pan);
+        _voice.__Instantiate(_patternTop, self, _parentVoice, _vinylEmitter, __childArray, _loop, _gain, _pitch, _pan);
         return _voice;
     }
     

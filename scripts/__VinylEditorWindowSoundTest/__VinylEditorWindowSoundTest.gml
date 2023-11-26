@@ -60,7 +60,7 @@ function __VinylEditorWindowSoundTest(_stateStruct)
                         {
                             if (ImGui.ArrowButton("##", ImGuiDir.Right))
                             {
-                                VinylPlaySimple(_uuid);
+                                VinylPlay(_uuid);
                             }
                             ImGui.SameLine();
                             ImGui.Text(_uuid);
