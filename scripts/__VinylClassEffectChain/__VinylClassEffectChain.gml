@@ -138,7 +138,7 @@ function __VinylClassEffectChain() constructor
             
             if (ImGui.CollapsingHeader("Effect " + string(_i+1) + " - " + _effectName))
             {
-                if (ImGui.BeginCombo("##Effect Type Combobox", _effectName, ImGuiComboFlags.None))
+                if (ImGui.BeginCombo("##Effect Type Combobox " + string(_i), _effectName, ImGuiComboFlags.None))
                 {
                     static _effectTypeArray = [undefined,
                                                AudioEffectType.Bitcrusher,
@@ -157,7 +157,7 @@ function __VinylClassEffectChain() constructor
                     repeat(array_length(_effectTypeArray))
                     {
                         var _effectType = _effectTypeArray[_j];
-                        if (ImGui.Selectable(__VinylEffectToName(_effectType)))
+                        if (ImGui.Selectable(__VinylEffectToName(_effectType) + "##" + string(_i)))
                         {
                             _newEffect = _effectType;
                         }
