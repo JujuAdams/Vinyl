@@ -136,76 +136,78 @@ function __VinylClassEffectChain() constructor
             var _newEffect = _oldEffect;
             var _effectName = __VinylEffectToName(_oldEffect);
             
-            ImGui.CollapsingHeader("Effect " + string(_i+1) + " - " + _effectName);
-            if (ImGui.BeginCombo("##Effect Type Combobox", _effectName, ImGuiComboFlags.None))
+            if (ImGui.CollapsingHeader("Effect " + string(_i+1) + " - " + _effectName))
             {
-                static _effectTypeArray = [undefined,
-                                           AudioEffectType.Bitcrusher,
-                                           AudioEffectType.Delay,
-                                           AudioEffectType.Gain,
-                                           AudioEffectType.HPF2,
-                                           AudioEffectType.LPF2,
-                                           AudioEffectType.Reverb1,
-                                           AudioEffectType.Tremolo,
-                                           AudioEffectType.PeakEQ,
-                                           AudioEffectType.LoShelf,
-                                           AudioEffectType.HiShelf,
-                                           AudioEffectType.EQ];
-                
-                var _j = 0;
-                repeat(array_length(_effectTypeArray))
+                if (ImGui.BeginCombo("##Effect Type Combobox", _effectName, ImGuiComboFlags.None))
                 {
-                    var _effectType = _effectTypeArray[_j];
-                    if (ImGui.Selectable(__VinylEffectToName(_effectType)))
+                    static _effectTypeArray = [undefined,
+                                               AudioEffectType.Bitcrusher,
+                                               AudioEffectType.Delay,
+                                               AudioEffectType.Gain,
+                                               AudioEffectType.HPF2,
+                                               AudioEffectType.LPF2,
+                                               AudioEffectType.Reverb1,
+                                               AudioEffectType.Tremolo,
+                                               AudioEffectType.PeakEQ,
+                                               AudioEffectType.LoShelf,
+                                               AudioEffectType.HiShelf,
+                                               AudioEffectType.EQ];
+                    
+                    var _j = 0;
+                    repeat(array_length(_effectTypeArray))
                     {
-                        _newEffect = _effectType;
+                        var _effectType = _effectTypeArray[_j];
+                        if (ImGui.Selectable(__VinylEffectToName(_effectType)))
+                        {
+                            _newEffect = _effectType;
+                        }
+                        
+                        ++_j;
                     }
                     
-                    ++_j;
+                    ImGui.EndCombo();
                 }
                 
-                ImGui.EndCombo();
+                if (_oldEffect != _newEffect)
+                {
+                    
+                }
+                
+                switch(_effectStruct.type)
+                {
+                    case AudioEffectType.Bitcrusher:
+                    break;
+                    
+                    case AudioEffectType.Delay:
+                    break;
+                    
+                    case AudioEffectType.Gain:
+                    break;
+                    
+                    case AudioEffectType.HPF2:
+                    break;
+                    
+                    case AudioEffectType.LPF2:
+                    break;
+                    
+                    case AudioEffectType.Reverb1:
+                    break;
+                    
+                    case AudioEffectType.Tremolo:
+                    break;
+                    
+                    case AudioEffectType.LoShelf:
+                    break;
+                    
+                    case AudioEffectType.HiShelf:
+                    break;
+                    
+                    case AudioEffectType.EQ:
+                    break;
+                }
+                
+                ++_i;
             }
-            
-            if (_oldEffect != _newEffect)
-            {
-                
-            }
-            
-            switch(_effectStruct.type)
-            {
-                case AudioEffectType.Bitcrusher:
-                break;
-                
-                case AudioEffectType.Delay:
-                break;
-                
-                case AudioEffectType.Gain:
-                break;
-                
-                case AudioEffectType.HPF2:
-                break;
-                
-                case AudioEffectType.LPF2:
-                break;
-                
-                case AudioEffectType.Reverb1:
-                break;
-                
-                case AudioEffectType.Tremolo:
-                break;
-                
-                case AudioEffectType.LoShelf:
-                break;
-                
-                case AudioEffectType.HiShelf:
-                break;
-                
-                case AudioEffectType.EQ:
-                break;
-            }
-            
-            ++_i;
         }
     }
 }
