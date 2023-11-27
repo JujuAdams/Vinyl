@@ -119,6 +119,8 @@ function __VinylClassEffectChain() constructor
 
 function __VinylEffectChainSerialize(_effect)
 {
+    if (_effect == undefined) return undefined;
+    
     var _result = {
         type: __VinylEffectToName(_effect.type),
     };
