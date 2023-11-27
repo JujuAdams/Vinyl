@@ -40,6 +40,43 @@ function __VinylClassEffectChain() constructor
         __document.__Save();
     }
     
+    static __Serialize = function(_struct)
+    {
+        var _array = array_create(__VINYL_EFFECT_BUS_SIZE, undefined);
+        
+        _struct.name        = __name;
+        _struct.effectArray = _array;
+        
+        var _i = 0;
+        repeat(__VINYL_EFFECT_BUS_SIZE)
+        {
+            _array[_i] = __VinylEffectChainSerialize(__bus.effects[_i]);
+            ++_i;
+        }
+    }
+    
+    static __Deserialize = function(_struct)
+    {
+        __name = _struct.name;
+        
+        var _effectArray = _struct.effectArray;
+        
+        var _i = 0;
+        repeat(array_length(_effectArray))
+        {
+            var _effect = __VinylEffectChainDeserialize(_effectArray[_i], __bus.effects[_i]);
+            __bus.effects[_i] = _effect;
+            ++_i;
+        }
+        
+        //Finish out the rest of the effect chain with <undefined>
+        repeat(__VINYL_EFFECT_BUS_SIZE - _i)
+        {
+            __bus.effects[_i] = undefined;
+            ++_i;
+        }
+    }
+    
     
     
     static toString = function()
@@ -62,41 +99,6 @@ function __VinylClassEffectChain() constructor
         //Do nothing
     }
     
-    static __Update = function(_busEffectArray)
-    {
-        if (is_struct(_busEffectArray))
-        {
-            _busEffectArray = [_busEffectArray];
-        }
-        else if (!is_array(_busEffectArray))
-        {
-            __VinylError("Effect chain definition must be an array (typeof=",  typeof(_busEffectArray), ")");
-        }
-        
-        var _i = 0;
-        repeat(array_length(_busEffectArray))
-        {
-            var _effectData = _busEffectArray[_i];
-            if (!is_struct(_effectData)) __VinylError("Error in ", self, " effect index ", _i, "\nEffect data must be a struct");
-            
-            var _effect = __VinylEffectChainParse(_effectData, __bus.effects[_i], _i);
-            __bus.effects[_i] = _effect;
-            
-            if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Effect chain ", self, " effects[", _i, "] = ", json_stringify(_effect));
-            
-            ++_i;
-        }
-        
-        //Finish out the rest of the effect chain with <undefined>
-        repeat(8 - _i)
-        {
-            __bus.effects[_i] = undefined;
-            if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Effect chain ", self, " effects[", _i, "] = undefined");
-            
-            ++_i;
-        }
-    }
-    
     static __Destroy = function()
     {
         if (__emitter != undefined)
@@ -115,181 +117,96 @@ function __VinylClassEffectChain() constructor
 
 
 
-function __VinylEffectChainParse(_effectData, _existingEffect, _i)
+function __VinylEffectChainSerialize(_effect)
 {
-    var _effectType = string_lower(_effectData.type);
+    var _result = {
+        type: __VinylEffectToName(_effect.type),
+    };
     
-    var _gmType = undefined;
-    
-    //Determine which effect to use
-    if (_effectType == "bitcrusher")
-    {
-        _gmType = AudioEffectType.Bitcrusher;
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "gain", "factor", "resolution", "mix"]);
-    }
-    else if (_effectType == "delay")
-    {
-        _gmType = AudioEffectType.Delay;
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "time", "feedback", "mix"]);
-    }
-    else if (_effectType == "gain")
-    {
-        _gmType = AudioEffectType.Gain;
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "gain"]);
-    }
-    else if ((_effectType == "hpf") || (_effectType == "hpf2"))
-    {
-        _gmType = AudioEffectType.HPF2;
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "cutoff", "q"]);
-    }
-    else if ((_effectType == "lpf") || (_effectType == "lpf2"))
-    {
-        _gmType = AudioEffectType.LPF2;
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "cutoff", "q"]);
-    }
-    else if ((_effectType == "reverb") || (_effectType == "reverb1"))
-    {
-        _gmType = AudioEffectType.Reverb1;
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "size", "damp", "mix"]);
-    }
-    else if (_effectType == "tremolo")
-    {
-        _gmType = AudioEffectType.Tremolo;
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "rate", "intensity", "offset", "shape"]);
-    }
-    else if (_effectType == "peakeq")
-    {
-        _gmType = AudioEffectType.PeakEQ;
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "freq", "q", "gain"]);
-    }
-    else if (_effectType == "loshelf")
-    {
-        _gmType = AudioEffectType.LoShelf;
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "freq", "q", "gain"]);
-    }
-    else if (_effectType == "hishelf")
-    {
-        _gmType = AudioEffectType.HiShelf;
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "freq", "q", "gain"]);
-    }
-    else if (_effectType == "eq")
-    {
-        _gmType = AudioEffectType.EQ;
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "locut", "loshelf", "eq1", "eq2", "eq3", "eq4", "hishelf", "hicut"]);
-    }
-    else if (_effectType == "compressor")
-    {
-        _gmType = AudioEffectType.Compressor;
-        if (VINYL_CONFIG_VALIDATE_PROPERTIES) __VinylValidateStruct(_effectData, ["type", "bypass", "ingain", "threshold", "ratio", "attack", "release", "outgain"]);
-    }
-    else
-    {
-        __VinylError("Effect type \"", _effectType, "\" not recognised (", self, " index=", _i, ")");
-    }
-    
-    //If the old effect is of a different type, make a new one
-    if ((_existingEffect == undefined) || (_existingEffect.type != _gmType))
-    {
-        _existingEffect = audio_effect_create(_gmType);
-    }
-    
-    //Set values for the effect
-    var _effectDataNameArray = variable_struct_get_names(_effectData);
-    var _j = 0;
+    var _effectDataNameArray = variable_struct_get_names(_effect);
+    var _i = 0;
     repeat(array_length(_effectDataNameArray))
     {
-        var _effectDataField = _effectDataNameArray[_j];
-        if (_effectDataField != "type")
+        var _effectVar = _effectDataNameArray[_i];
+        if (_effectVar != "type")
         {
-            var _value = _effectData[$ _effectDataField];
+            var _value = _effect[$ _effectVar];
             
             //Special case for tremolo shape
-            switch(_effectDataField)
+            switch(_effectVar)
             {
                 case "shape":
-                    if (_value == "sine")
-                    {
-                        _existingEffect[$ _effectDataField] = AudioLFOType.Sine;
-                    }
-                    else if (_value == "square")
-                    {
-                        _existingEffect[$ _effectDataField] = AudioLFOType.Square;
-                    }
-                    else if (_value == "triangle")
-                    {
-                        _existingEffect[$ _effectDataField] = AudioLFOType.Triangle;
-                    }
-                    else if (_value == "sawtooth")
-                    {
-                        _existingEffect[$ _effectDataField] = AudioLFOType.Sawtooth;
-                    }
-                    else if (_value == "inverse sawtooth")
-                    {
-                        _existingEffect[$ _effectDataField] = AudioLFOType.InvSawtooth;
-                    }
-                    else
-                    {
-                        __VinylError("Tremolo effect shape type \"", _value, "\" not recognised");
-                    }
+                    _result[$ _effectVar] = __VinylNameToTremoloShape(_value);
                 break;
                 
                 case "locut":
-                    if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
-                    _value.type = "hpf2";
-                    __VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
-                break;
-                
                 case "loshelf":
-                    if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
-                    _value.type = "loshelf";
-                    __VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
-                break;
-                
                 case "eq1":
                 case "eq2":
                 case "eq3":
                 case "eq4":
-                    if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
-                    _value.type = "peakeq";
-                    __VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
-                break;
-                
                 case "hishelf":
-                    if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
-                    _value.type = "hishelf";
-                    __VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
-                break;
-                
                 case "hicut":
-                    if (!is_struct(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a struct");
-                    _value.type = "lpf2";
-                    __VinylEffectChainParse(_value, _existingEffect[$ _effectDataField], _i);
+                    _result[$ _effectVar] = __VinylEffectChainSerialize(_effect[$ _effectVar]);
                 break;
                 
                 default:
-                    var _knobValue = __VinylParseKnob(_value, _effectDataField, false, _existingEffect);
-                    _value = _knobValue ?? _value;
-                    if (!is_numeric(_value)) __VinylError("Error in ", self, " effect index ", _i, "\n\"", _effectDataField, "\" property must be a number");
-                    _existingEffect[$ _effectDataField] = _value;
+                    _result[$ _effectVar] = _value;
                 break;
             }
         }
         
-        ++_j;
+        ++_i;
     }
     
-    //Fix up GameMaker's wonky default settings by bypassing anything that's not explicitly mentioned in the input struct
-    if (_gmType == AudioEffectType.EQ)
+    return _result;
+}
+
+function __VinylEffectChainDeserialize(_readStruct, _existingEffect)
+{
+    var _effect = __VinylEffectToName(_readStruct.type);
+    
+    //If the old effect is of a different type, make a new one
+    if ((_existingEffect == undefined) || (_existingEffect.type != _effect))
     {
-        var _dataFieldArray = ["locut", "loshelf", "eq1", "eq2", "eq3", "eq4", "hishelf", "hicut"];
-        var _j = 0;
-        repeat(array_length(_dataFieldArray))
+        _existingEffect = audio_effect_create(_effect);
+    }
+    
+    //Set values for the effect
+    var _effectDataNameArray = variable_struct_get_names(_readStruct);
+    var _i = 0;
+    repeat(array_length(_effectDataNameArray))
+    {
+        var _effectVar = _effectDataNameArray[_i];
+        if (_effectVar != "type")
         {
-            var _effectDataField = _dataFieldArray[_j];
-            var _value = _effectData[$ _effectDataField];
-            _existingEffect[$ _effectDataField].bypass = is_struct(_value)? (_value[$ "bypass"] ?? false) : true;
-            ++_j;
+            var _value = _readStruct[$ _effectVar];
+            
+            //Special case for tremolo shape
+            switch(_effectVar)
+            {
+                case "shape":
+                    _existingEffect[$ _effectVar] = __VinylNameToTremoloShape(_value);
+                break;
+                
+                case "locut":
+                case "loshelf":
+                case "eq1":
+                case "eq2":
+                case "eq3":
+                case "eq4":
+                case "hishelf":
+                case "hicut":
+                    __VinylEffectChainDeserialize(_value, _existingEffect[$ _effectVar]);
+                break;
+                
+                default:
+                    _existingEffect[$ _effectVar] = _value;
+                break;
+            }
         }
+        
+        ++_i;
     }
     
     return _existingEffect;

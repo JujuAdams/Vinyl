@@ -5,6 +5,7 @@
 #macro __VINYL_DATA_BUNDLE_FILENAME  "vinyl.dat"
 #macro __VINYL_DOCUMENT_FILENAME  "VinylDocument.json"
 
+#macro __VINYL_EFFECT_BUS_SIZE  8
 #macro __VINYL_USE_GAIN_CURVE  true
 
 #macro __VINYL_FALLOFF_MODEL  audio_falloff_exponent_distance_scaled

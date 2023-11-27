@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylClassEffectChain",
+  "name": "__VinylNameToEffect",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
