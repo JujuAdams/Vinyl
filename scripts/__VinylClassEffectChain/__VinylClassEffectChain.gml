@@ -116,62 +116,55 @@ function __VinylClassEffectChain() constructor
     
     static __BuildPropertyUI = function()
     {
+        var _funcCombobox = function(_oldEffect, _i)
+        {
+            var _newEffect = _oldEffect;
+            
+            if (ImGui.BeginCombo("##Effect Type Combobox " + string(_i), __VinylEffectToName(_oldEffect), ImGuiComboFlags.None))
+            {
+                static _effectTypeArray = [undefined,
+                                            AudioEffectType.Bitcrusher,
+                                            AudioEffectType.Delay,
+                                            AudioEffectType.Gain,
+                                            AudioEffectType.HPF2,
+                                            AudioEffectType.LPF2,
+                                            AudioEffectType.Reverb1,
+                                            AudioEffectType.Tremolo,
+                                            AudioEffectType.PeakEQ,
+                                            AudioEffectType.LoShelf,
+                                            AudioEffectType.HiShelf,
+                                            AudioEffectType.EQ];
+                    
+                var _j = 0;
+                repeat(array_length(_effectTypeArray))
+                {
+                    var _effectType = _effectTypeArray[_j];
+                    if (ImGui.Selectable(__VinylEffectToName(_effectType) + "##" + string(_i)))
+                    {
+                        _newEffect = _effectType;
+                    }
+                        
+                    ++_j;
+                }
+                    
+                ImGui.EndCombo();
+            }
+                
+            if (_oldEffect != _newEffect)
+            {
+                    
+            }
+        }
+        
         var _i = 0;
         repeat(__VINYL_EFFECT_BUS_SIZE)
         {
             var _effectStruct = __bus.effects[_i];
-            if (_effectStruct == undefined)
-            {
-                ImGui.CollapsingHeader("Effect " + string(_i+1) + " - None");
-                if (ImGui.BeginCombo("##Effect Type Combobox", "None", ImGuiComboFlags.None))
-                {
-                    ImGui.EndCombo();
-                }
-                
-                ++_i;
-                continue;
-            }
             
-            var _oldEffect = _effectStruct.type;
-            var _newEffect = _oldEffect;
-            var _effectName = __VinylEffectToName(_oldEffect);
-            
+            var _effectName = __VinylEffectToName((_effectStruct == undefined)? undefined : _effectStruct.type);
             if (ImGui.CollapsingHeader("Effect " + string(_i+1) + " - " + _effectName))
             {
-                if (ImGui.BeginCombo("##Effect Type Combobox " + string(_i), _effectName, ImGuiComboFlags.None))
-                {
-                    static _effectTypeArray = [undefined,
-                                               AudioEffectType.Bitcrusher,
-                                               AudioEffectType.Delay,
-                                               AudioEffectType.Gain,
-                                               AudioEffectType.HPF2,
-                                               AudioEffectType.LPF2,
-                                               AudioEffectType.Reverb1,
-                                               AudioEffectType.Tremolo,
-                                               AudioEffectType.PeakEQ,
-                                               AudioEffectType.LoShelf,
-                                               AudioEffectType.HiShelf,
-                                               AudioEffectType.EQ];
-                    
-                    var _j = 0;
-                    repeat(array_length(_effectTypeArray))
-                    {
-                        var _effectType = _effectTypeArray[_j];
-                        if (ImGui.Selectable(__VinylEffectToName(_effectType) + "##" + string(_i)))
-                        {
-                            _newEffect = _effectType;
-                        }
-                        
-                        ++_j;
-                    }
-                    
-                    ImGui.EndCombo();
-                }
-                
-                if (_oldEffect != _newEffect)
-                {
-                    
-                }
+                _funcCombobox((_effectStruct == undefined)? undefined : _effectStruct.type, _i);
                 
                 switch(_effectStruct.type)
                 {
