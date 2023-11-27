@@ -141,7 +141,7 @@ function __VinylEditorPropertiesSound(_soundUUID, _soundData, _modified, _defaul
             {
                 ImGui.TableNextRow();
                 ImGui.TableSetColumnIndex(0);
-                if (ImGui.RadioButton("WAV", (_projectSound.__attributes == _i)))
+                if (ImGui.RadioButton(_compressionArray[_i], (_projectSound.__attributes == _i)))
                 {
                     _selectionHandler.__ForEachSelected(method({
                         __attributes: _i,

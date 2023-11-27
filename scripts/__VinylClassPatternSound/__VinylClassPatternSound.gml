@@ -15,11 +15,6 @@ function __VinylClassPatternSound() : __VinylClassPatternCommon() constructor
     
     static __GetName = function(_maxCharacters)
     {
-        if (__name != "")
-        {
-            return string(__name);
-        }
-        
         return audio_get_name(__sound);
     }
     

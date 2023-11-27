@@ -376,7 +376,7 @@ function __VinylClassDocument(_path) constructor
     static __NewSound = function(_soundName)
     {
         var _new = new __VinylClassPatternSound();
-        _new.__name  = _soundName;
+        _new.__uuid  = _soundName;
         _new.__sound = asset_get_index(_soundName);
         _new.__Store(self);
         
