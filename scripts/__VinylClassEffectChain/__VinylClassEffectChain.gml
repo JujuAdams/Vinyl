@@ -166,7 +166,7 @@ function __VinylClassEffectChain() constructor
             {
                 _funcCombobox((_effectStruct == undefined)? undefined : _effectStruct.type, _i);
                 
-                switch(_effectStruct.type)
+                switch((_effectStruct == undefined)? undefined : _effectStruct.type)
                 {
                     case AudioEffectType.Bitcrusher:
                     break;
