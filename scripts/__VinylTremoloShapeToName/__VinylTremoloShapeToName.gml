@@ -8,14 +8,14 @@ function __VinylTremoloShapeToName(_tremolo)
     if (_lookup == undefined)
     {
         _lookup = {};
-        _lookup[$ AudioLFOType.Sine       ] = "Sine";
-        _lookup[$ AudioLFOType.Square     ] = "Square";
-        _lookup[$ AudioLFOType.Triangle   ] = "Triangle";
-        _lookup[$ AudioLFOType.Sawtooth   ] = "Sawtooth";
-        _lookup[$ AudioLFOType.InvSawtooth] = "InvSawtooth";
+        _lookup[$ string(AudioLFOType.Sine       )] = "Sine";
+        _lookup[$ string(AudioLFOType.Square     )] = "Square";
+        _lookup[$ string(AudioLFOType.Triangle   )] = "Triangle";
+        _lookup[$ string(AudioLFOType.Sawtooth   )] = "Sawtooth";
+        _lookup[$ string(AudioLFOType.InvSawtooth)] = "InvSawtooth";
     }
     
-    var _name = _lookup[$ _tremolo];
+    var _name = _lookup[$ string(_tremolo)];
     if (_name == undefined) __VinylError("Tremolo type \"", _tremolo, "\" not recognised");
     return _name;
 }

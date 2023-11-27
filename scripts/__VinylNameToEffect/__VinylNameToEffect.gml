@@ -5,6 +5,7 @@
 function __VinylNameToEffect(_name)
 {
     static _lookup = {
+        None:       undefined,
         Bitcrusher: AudioEffectType.Bitcrusher,
         Delay:      AudioEffectType.Delay,
         Gain:       AudioEffectType.Gain,
@@ -18,7 +19,10 @@ function __VinylNameToEffect(_name)
         EQ:         AudioEffectType.EQ,
     };
     
-    var _effect = _lookup[$ _name];
-    if (_effect == undefined) __VinylError("Effect name \"", _name, "\" not recognised");
-    return _effect;
+    if (not variable_struct_exists(_lookup, _name))
+    {
+        __VinylError("Effect name \"", _name, "\" not recognised");
+    }
+    
+    return _lookup[$ _name];
 }

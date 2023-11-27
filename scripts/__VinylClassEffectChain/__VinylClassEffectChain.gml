@@ -113,6 +113,101 @@ function __VinylClassEffectChain() constructor
         //Keep this emitter right underneath the listener
         if (__emitter != undefined) audio_emitter_position(__emitter, __globalData.__listenerX, __globalData.__listenerY, 0);
     }
+    
+    static __BuildPropertyUI = function()
+    {
+        var _i = 0;
+        repeat(__VINYL_EFFECT_BUS_SIZE)
+        {
+            var _effectStruct = __bus.effects[_i];
+            if (_effectStruct == undefined)
+            {
+                ImGui.CollapsingHeader("Effect " + string(_i+1) + " - None");
+                if (ImGui.BeginCombo("##Effect Type Combobox", "None", ImGuiComboFlags.None))
+                {
+                    ImGui.EndCombo();
+                }
+                
+                ++_i;
+                continue;
+            }
+            
+            var _oldEffect = _effectStruct.type;
+            var _newEffect = _oldEffect;
+            var _effectName = __VinylEffectToName(_oldEffect);
+            
+            ImGui.CollapsingHeader("Effect " + string(_i+1) + " - " + _effectName);
+            if (ImGui.BeginCombo("##Effect Type Combobox", _effectName, ImGuiComboFlags.None))
+            {
+                static _effectTypeArray = [undefined,
+                                           AudioEffectType.Bitcrusher,
+                                           AudioEffectType.Delay,
+                                           AudioEffectType.Gain,
+                                           AudioEffectType.HPF2,
+                                           AudioEffectType.LPF2,
+                                           AudioEffectType.Reverb1,
+                                           AudioEffectType.Tremolo,
+                                           AudioEffectType.PeakEQ,
+                                           AudioEffectType.LoShelf,
+                                           AudioEffectType.HiShelf,
+                                           AudioEffectType.EQ];
+                
+                var _j = 0;
+                repeat(array_length(_effectTypeArray))
+                {
+                    var _effectType = _effectTypeArray[_j];
+                    if (ImGui.Selectable(__VinylEffectToName(_effectType)))
+                    {
+                        _newEffect = _effectType;
+                    }
+                    
+                    ++_j;
+                }
+                
+                ImGui.EndCombo();
+            }
+            
+            if (_oldEffect != _newEffect)
+            {
+                
+            }
+            
+            switch(_effectStruct.type)
+            {
+                case AudioEffectType.Bitcrusher:
+                break;
+                
+                case AudioEffectType.Delay:
+                break;
+                
+                case AudioEffectType.Gain:
+                break;
+                
+                case AudioEffectType.HPF2:
+                break;
+                
+                case AudioEffectType.LPF2:
+                break;
+                
+                case AudioEffectType.Reverb1:
+                break;
+                
+                case AudioEffectType.Tremolo:
+                break;
+                
+                case AudioEffectType.LoShelf:
+                break;
+                
+                case AudioEffectType.HiShelf:
+                break;
+                
+                case AudioEffectType.EQ:
+                break;
+            }
+            
+            ++_i;
+        }
+    }
 }
 
 

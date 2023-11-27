@@ -117,7 +117,7 @@ function __VinylEditorWindowConfigEffectChains(_stateStruct)
         if (_selectionHandler.__GetSelectedCount() > 0)
         {
             ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                __VinylEditorPropertiesEffectChain(_contentDict, _lastSelected, _selectionHandler);
+                _contentDict[$ _lastSelected].__BuildPropertyUI();
             ImGui.EndChild();
         }
     ImGui.EndChild();
