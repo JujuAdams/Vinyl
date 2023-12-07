@@ -17,13 +17,15 @@ function __VinylPlaySimple(_sound, _gainLo, _gainHi, _pitchLo, _pitchHi, _labelA
     var _randomPitchParam = __VinylRandom(1);
     var _pitch = lerp(_pitchLo, _pitchHi, _randomPitchParam);
     
+    array_resize(_labelArray, array_unique_ext(_labelArray));
+    
     var _i = 0;
     repeat(array_length(_labelArray))
     {
         var _label = _labelArray[_i];
         
-        var _gainPitch = lerp(_label.__configGainLo, _label.__configGainHi, _randomGainParam);
-        _gain *= _gainPitch*_label.__gainOutput;
+        var _labelGain = lerp(_label.__configGainLo, _label.__configGainHi, _randomGainParam);
+        _gain *= _labelGain*_label.__gainOutput;
         var _labelPitch = lerp(_label.__configPitchLo, _label.__configPitchHi, _randomPitchParam);
         _pitch *= _labelPitch*_label.__pitchOutput;
         

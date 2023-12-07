@@ -213,6 +213,7 @@
     {"id":{"name":"VinylPitchSet","path":"scripts/VinylPitchSet/VinylPitchSet.yy",},},
     {"id":{"name":"VinylLiveUpdateSet","path":"scripts/VinylLiveUpdateSet/VinylLiveUpdateSet.yy",},},
     {"id":{"name":"VinylQueuePush","path":"scripts/VinylQueuePush/VinylQueuePush.yy",},},
+    {"id":{"name":"__VinylAppendArray","path":"scripts/__VinylAppendArray/__VinylAppendArray.yy",},},
     {"id":{"name":"sndCat","path":"sounds/sndCat/sndCat.yy",},},
     {"id":{"name":"__VinylValidateStruct","path":"scripts/__VinylValidateStruct/__VinylValidateStruct.yy",},},
     {"id":{"name":"__VinylBufferReadConfigJSON","path":"scripts/__VinylBufferReadConfigJSON/__VinylBufferReadConfigJSON.yy",},},
