@@ -27,5 +27,9 @@ function VinylPlaySimple(_sound, _gain = 1, _pitch = 1)
         }
     }
     
-    return __VinylPatternGet(_sound).__PlaySimple(_sound, _gain, _gain, _pitch, _pitch, undefined);
+    static _labelArray = [];
+    var _result = __VinylPatternGet(_sound).__PlaySimple(_sound, _gain, _gain, _pitch, _pitch, _labelArray, undefined);
+    array_resize(_labelArray, 0);
+    
+    return _result;
 }
