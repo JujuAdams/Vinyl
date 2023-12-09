@@ -11,7 +11,7 @@ function VinylGlobalTransposeSet(_semitone)
     static _globalData  = __VinylGlobalData();
     if (_semitone != _globalData.__transpose)
     {
-        __VinylTrace("Setting transpose to ", _semitone, " semitones");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Setting transpose to ", _semitone, " semitones");
         _globalData.__transpose = _semitone;
     }
 }

@@ -41,7 +41,7 @@ function __VinylClassPool(_startingID, _constructor) constructor
         var _member = array_pop(__poolArray);
         if (_member == undefined)
         {
-            __VinylTrace(self, " empty, creating new member (returning=", array_length(__returnArray), ")");
+            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " empty, creating new member (returning=", array_length(__returnArray), ")");
             _member = new __constructor();
         }
         

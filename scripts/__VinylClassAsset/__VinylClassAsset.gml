@@ -47,7 +47,7 @@ function __VinylClassAsset(_type, _name, _absolutePath = undefined) constructor
                 var _subchunk2_id    = buffer_read(__buffer, buffer_u32);
                 var _subchunk2_size  = buffer_read(__buffer, buffer_u32);
     
-                __VinylTrace("Making sound ID for .wav file \"", __absolutePath, "\" (chunk format=", _chunk_format, ", format=", _audio_format, ", channels=", _channels, ", sample rate=", _sample_rate, ", bitrate=", _byte_rate, ", bitdepth=", _bits_per_sample, ", size=", _subchunk2_size, ")");
+                if (VINYL_DEBUG_READ_ASSETS || (VINYL_DEBUG_LEVEL >= 2)) __VinylTrace("Making sound ID for .wav file \"", __absolutePath, "\" (chunk format=", _chunk_format, ", format=", _audio_format, ", channels=", _channels, ", sample rate=", _sample_rate, ", bitrate=", _byte_rate, ", bitdepth=", _bits_per_sample, ", size=", _subchunk2_size, ")");
     
                 if (_chunk_format != 0x45564157) //WAVE, or 1163280727 in decimal‬
                 {
@@ -83,7 +83,7 @@ function __VinylClassAsset(_type, _name, _absolutePath = undefined) constructor
             break;
         }
         
-        __VinylTrace("Loaded \"", __name, "\" type ", __type, " as sound ID <", __soundID, "> (path=", __absolutePath, ")");
+        if (VINYL_DEBUG_READ_ASSETS || (VINYL_DEBUG_LEVEL >= 2)) __VinylTrace("Loaded \"", __name, "\" type ", __type, " as sound ID <", __soundID, "> (path=", __absolutePath, ")");
     }
     
     static __Unload = function()
@@ -93,7 +93,7 @@ function __VinylClassAsset(_type, _name, _absolutePath = undefined) constructor
         
         __Stop();
         
-        __VinylTrace("Unloading \"", __name, "\" type ", __type, " sound ID <", __soundID, "> (path=", __absolutePath, ")");
+        if (VINYL_DEBUG_READ_ASSETS || (VINYL_DEBUG_LEVEL >= 2)) __VinylTrace("Unloading \"", __name, "\" type ", __type, " sound ID <", __soundID, "> (path=", __absolutePath, ")");
         
         switch(__type)
         {
@@ -121,13 +121,13 @@ function __VinylClassAsset(_type, _name, _absolutePath = undefined) constructor
     {
         if (__soundID == undefined) return;
         
-        __VinylTrace("Stopping \"", __name, "\" sound ID <", __soundID, "> (path=", __absolutePath, ")");
+        if (VINYL_DEBUG_READ_ASSETS || (VINYL_DEBUG_LEVEL >= 2)) __VinylTrace("Stopping \"", __name, "\" sound ID <", __soundID, "> (path=", __absolutePath, ")");
         audio_stop_sound(__soundID);
     }
     
     static __Change = function(_newType, _newName, _newAbsolutePath)
     {
-        __VinylTrace("Renaming \"", __name, "\" type ", __type, " (path=", __absolutePath, ") to \"", _newName, "\" type ", _newType, " (path=", _newAbsolutePath, ")");
+        if (VINYL_DEBUG_READ_ASSETS || (VINYL_DEBUG_LEVEL >= 2)) __VinylTrace("Renaming \"", __name, "\" type ", __type, " (path=", __absolutePath, ") to \"", _newName, "\" type ", _newType, " (path=", _newAbsolutePath, ")");
         
         __Stop();
         
@@ -150,7 +150,7 @@ function __VinylClassAsset(_type, _name, _absolutePath = undefined) constructor
         }
         else
         {
-            __VinylTrace("Sound ID for \"", __name, "\" remains <", __soundID, ">");
+            if (VINYL_DEBUG_READ_ASSETS || (VINYL_DEBUG_LEVEL >= 2)) __VinylTrace("Sound ID for \"", __name, "\" remains <", __soundID, ">");
         }
     }
 }

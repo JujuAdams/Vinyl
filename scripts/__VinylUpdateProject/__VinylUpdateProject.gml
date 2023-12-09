@@ -32,7 +32,7 @@ function __VinylUpdateProject()
         var _data = json_parse(_string);
         _anyChanges = __VinylSystemReadProject(_data, _firstUpdate);
         
-        __VinylTrace("Loaded project file in ", (get_timer() - _t)/1000, "ms");
+        if (VINYL_DEBUG_READ_ASSETS || (VINYL_DEBUG_LEVEL >= 1)) __VinylTrace("Loaded project file in ", (get_timer() - _t)/1000, "ms");
     }
     catch(_error)
     {

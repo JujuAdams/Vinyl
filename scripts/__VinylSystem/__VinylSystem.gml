@@ -29,6 +29,45 @@ function __VinylInitialize()
     
     __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
     
+    if (VINYL_DEBUG_LEVEL >= 2)
+    {
+        __VinylTrace("Debug level is ", VINYL_DEBUG_LEVEL, ". Set VINYL_DEBUG_LEVEL to 0 or 1 to see less information");
+    }
+    else if (VINYL_DEBUG_LEVEL >= 1)
+    {
+        __VinylTrace("Debug level is ", VINYL_DEBUG_LEVEL, ". Set VINYL_DEBUG_LEVEL to 0 to see less information, or 2 to see more information");
+    }
+    else
+    {
+        __VinylTrace("Debug level is ", VINYL_DEBUG_LEVEL, ". Set VINYL_DEBUG_LEVEL to 1 or 2 to see more information");
+    }
+    
+    if (VINYL_DEBUG_LEVEL >= 1)
+    {
+        if (VINYL_DEBUG_READ_CONFIG)
+        {
+            __VinylTrace("Config file debug turned on");
+        }
+        else
+        {
+            __VinylTrace("Config file debug turned off. Set VINYL_DEBUG_READ_CONFIG to <true> to see more information");
+        }
+        
+        if (GM_build_type == "run")
+        {
+            if (VINYL_DEBUG_READ_ASSETS)
+            {
+                __VinylTrace("Live asset debug turned on");
+            }
+            else
+            {
+                __VinylTrace("Live asset debug turned off. Set VINYL_DEBUG_READ_ASSETS to <true> to see more information");
+            }
+        }
+    }
+    
+    
+    
     __VinylValidateMacros();
     
     var _globalData = __VinylGlobalData();

@@ -13,7 +13,7 @@ function VinylLiveUpdateSet(_state)
     
     if (_state != _globalData.__liveUpdate)
     {
-        __VinylTrace(_state? "Turned live update on" : "Turned live update off");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(_state? "Turned live update on" : "Turned live update off");
         _globalData.__liveUpdate = _state;
     }
 }

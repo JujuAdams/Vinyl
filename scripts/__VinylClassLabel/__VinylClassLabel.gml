@@ -194,14 +194,11 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __GainSet = function(_gain, _force = false)
     {
-        if (VINYL_DEBUG_LEVEL >= 1)
-        {
-            __VinylTrace(self, " gain=", _gain);
-        }
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " gain=", _gain);
         
         if (!_force && __configGainKnob)
         {
-            __VinylTrace(self, " gain is attached to a knob, cannot change gain manually");
+            __VinylTrace("Warning! ", self, " gain is attached to a knob, cannot change gain manually");
             return;
         }
         
@@ -249,10 +246,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __PitchSet = function(_pitch, _force = false)
     {
-        if (VINYL_DEBUG_LEVEL >= 1)
-        {
-            __VinylTrace(self, " pitch=", _pitch);
-        }
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " pitch=", _pitch);
         
         if (!_force && __configPitchKnob)
         {
@@ -271,10 +265,7 @@ function __VinylClassLabel(_name, _parent, _adHoc) constructor
     
     static __PitchTargetSet = function(_targetPitch, _rate)
     {
-        if (VINYL_DEBUG_LEVEL >= 1)
-        {
-            __VinylTrace(self, " pitch target=", _targetPitch, ", rate=", _rate, "/s");
-        }
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(self, " pitch target=", _targetPitch, ", rate=", _rate, "/s");
         
         if (__configPitchKnob)
         {

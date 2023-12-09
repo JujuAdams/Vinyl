@@ -25,7 +25,7 @@ function __VinylSystemReadProject(_projectData, _firstUpdate)
         if (string_copy(_path, 1, 6) == "sounds")
         {
             var _assetName = filename_change_ext(filename_name(_path), "");
-            __VinylTrace("Project: Saw asset \"", _assetName, "\" in project file");
+            if (VINYL_DEBUG_READ_ASSETS) __VinylTrace("Project: Saw asset \"", _assetName, "\" in project file");
             
             array_push(_newSoundArray, _assetName);
             _newSoundDict[$ _assetName] = _path;
@@ -69,7 +69,7 @@ function __VinylSystemReadProject(_projectData, _firstUpdate)
             if (_firstUpdate && (asset_get_type(_assetName) == asset_sound))
             {
                 //Special case for first update
-                __VinylTrace("Project: Asset \"", _assetName, "\" has been discovered on boot");
+                if (VINYL_DEBUG_READ_ASSETS) __VinylTrace("Project: Asset \"", _assetName, "\" has been discovered on boot");
                 var _newAsset = new __VinylClassAsset(__VINYL_ASSET_TYPE.__WAD, _assetName);
                 
                 //Track this new asset
@@ -92,7 +92,7 @@ function __VinylSystemReadProject(_projectData, _firstUpdate)
                 }
                 else
                 {
-                    __VinylTrace("Project: Asset \"", _assetName, "\" has been added");
+                    if (VINYL_DEBUG_READ_ASSETS || (VINYL_DEBUG_LEVEL >= 1)) __VinylTrace("Project: Asset \"", _assetName, "\" has been added");
                     
                     var _newAsset = new __VinylClassAsset(_type, _assetName, _absolutePath);
                     
@@ -119,7 +119,7 @@ function __VinylSystemReadProject(_projectData, _firstUpdate)
             var _oldSound = _oldSoundDict[$ _oldSoundName];
             if (is_struct(_oldSound) && (_oldSound.__name == _oldSoundName))
             {
-                __VinylTrace("Project: Asset \"", _oldSoundName, "\" has been removed");
+                if (VINYL_DEBUG_READ_ASSETS || (VINYL_DEBUG_LEVEL >= 1)) __VinylTrace("Project: Asset \"", _oldSoundName, "\" has been removed");
                 
                 //Untrack the old asset
                 variable_struct_remove(_oldSoundDict, _oldSoundName);

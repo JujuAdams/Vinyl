@@ -85,23 +85,23 @@ function __VinylUpdateData(_forceReload)
         var _firstHundred = string_copy(_string, 1, 200);
         if ((string_pos(" ", _firstHundred) > 0) || (string_pos("\n", _firstHundred) > 0))
         {
-            __VinylTrace("Reading config in plaintext");
+            if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Reading config in plaintext");
             var _data = __VinylBufferReadConfigJSON(_buffer, 0);
         }
         else
         {
-            __VinylTrace("Reading config in base64");
+            if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Reading config in base64");
             buffer_delete(_buffer);
             _buffer = buffer_base64_decode(_string);
             var _data = __VinylBufferReadConfigJSON(_buffer, 0);
         }
         
         _success = true;
-        __VinylTrace("Loaded data in ", (get_timer() - _t)/1000, "ms");
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Loaded config in ", (get_timer() - _t)/1000, "ms");
         
         var _t = get_timer();
         VinylSystemReadConfig(_data);
-        __VinylTrace("Read data in ", (get_timer() - _t)/1000, "ms");
+        if (VINYL_DEBUG_READ_CONFIG) __VinylTrace("Read config in ", (get_timer() - _t)/1000, "ms");
     }
     catch(_error)
     {

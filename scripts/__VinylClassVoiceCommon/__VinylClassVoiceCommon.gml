@@ -123,7 +123,7 @@ function __VinylClassVoiceCommon() constructor
     {
         if (__shutdown)
         {
-            __VinylTrace("Cannot set gain for ", self, ", it is set to shut down");
+            __VinylTrace("Warning! Cannot set gain for ", self, ", it is set to shut down");
             return;
         }
         
@@ -145,7 +145,7 @@ function __VinylClassVoiceCommon() constructor
     {
         if (__shutdown)
         {
-            __VinylTrace("Cannot set gain target for ", self, ", it is set to shut down");
+            __VinylTrace("Warning! Cannot set gain target for ", self, ", it is set to shut down");
             return;
         }
         

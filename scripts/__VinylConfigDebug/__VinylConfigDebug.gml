@@ -9,4 +9,7 @@
 #macro VINYL_DEBUG_SHOW_FRAMES  false
 
 //Whether to output extra debug information when reading configuration data
-#macro VINYL_DEBUG_READ_CONFIG  true
+#macro VINYL_DEBUG_READ_CONFIG  false
+
+//Whether to output extra debug information when reading project asset data
+#macro VINYL_DEBUG_READ_ASSETS  false

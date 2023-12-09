@@ -17,6 +17,6 @@ function VinylSystemGainSet(_gain)
         var _amplitude = VINYL_MAX_GAIN*_gain;
         audio_master_gain(_amplitude);
         
-        __VinylTrace("Set system gain to ", _gain, " (VINYL_MAX_GAIN=", VINYL_MAX_GAIN, ", resultant gain=", _amplitude, ")");
+        if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Set system gain to ", _gain, " (VINYL_MAX_GAIN=", VINYL_MAX_GAIN, ", resultant gain=", _amplitude, ")");
     }
 }
