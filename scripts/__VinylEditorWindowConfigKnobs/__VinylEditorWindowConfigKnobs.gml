@@ -87,7 +87,7 @@ function __VinylEditorWindowConfigKnobs(_stateStruct)
         if (_selectedCount == 0)
         {
             //Add some helpful text to guide users if nothing's selected
-            ImGui.Text("Please select a label from the menu on the left");
+            ImGui.Text("Please select a knob from the menu on the left");
         }
         else
         {

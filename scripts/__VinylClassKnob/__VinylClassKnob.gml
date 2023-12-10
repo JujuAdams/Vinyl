@@ -20,7 +20,7 @@ function __VinylClassKnob() constructor
     {
         __name = undefined;
         
-        __unlimited    = true;
+        __unlimited    = false;
         __inputRange   = [0, 1];
         __outputRange  = [0, 1];
         __defaultValue = 1;

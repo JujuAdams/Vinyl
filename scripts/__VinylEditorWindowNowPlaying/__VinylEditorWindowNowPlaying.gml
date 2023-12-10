@@ -20,6 +20,20 @@ function __VinylEditorWindowNowPlaying(_stateStruct)
         {
             if (ImGui.BeginTabItem("Voices"))
             {
+                if (ImGui.Button("Stop All"))
+                {
+                    VinylStopAll();
+                }
+                
+                ImGui.SameLine(undefined, 20);
+                
+                if (ImGui.Button("Stop All Non-Persistent"))
+                {
+                    VinylStopAllNonPersistent();
+                }
+                
+                ImGui.SameLine(undefined, 20);
+                
                 ImGui.Text("Total playing: " + string(array_length(_topLevelArray)));
                 
                 if (ImGui.BeginTable("Voice Table", 8, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg))

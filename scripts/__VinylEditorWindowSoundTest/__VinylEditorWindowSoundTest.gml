@@ -49,24 +49,32 @@ function __VinylEditorWindowSoundTest(_stateStruct)
                 {
                     var _resourceDict = _document.__patternDict;
                     var _resourceNameArray = variable_struct_get_names(_resourceDict);
-                    array_sort(_resourceNameArray, true);
                     
-                    var _i = 0;
-                    repeat(array_length(_resourceNameArray))
+                    if (array_length(_resourceNameArray) <= 0)
                     {
-                        var _uuid = _resourceNameArray[_i];
-                        var _pattern = _document.__GetPattern(_uuid);
-                        if ((not _pattern.__IsChild()) && ((not is_instanceof(_pattern, __VinylClassPatternFallback)) && (not is_instanceof(_pattern, __VinylClassPatternSound))))
-                        {
-                            if (ImGui.ArrowButton("##", ImGuiDir.Right))
-                            {
-                                VinylPlay(_uuid);
-                            }
-                            ImGui.SameLine();
-                            ImGui.Text(_uuid);
-                        }
+                        ImGui.Text("No patterns found");
+                    }
+                    else
+                    {
+                        array_sort(_resourceNameArray, true);
                         
-                        ++_i;
+                        var _i = 0;
+                        repeat(array_length(_resourceNameArray))
+                        {
+                            var _uuid = _resourceNameArray[_i];
+                            var _pattern = _document.__GetPattern(_uuid);
+                            if ((not _pattern.__IsChild()) && ((not is_instanceof(_pattern, __VinylClassPatternFallback)) && (not is_instanceof(_pattern, __VinylClassPatternSound))))
+                            {
+                                if (ImGui.ArrowButton("##", ImGuiDir.Right))
+                                {
+                                    VinylPlay(_uuid);
+                                }
+                                ImGui.SameLine();
+                                ImGui.Text(_uuid);
+                            }
+                        
+                            ++_i;
+                        }
                     }
                     
                     ImGui.EndTabItem();
@@ -83,43 +91,50 @@ function __VinylEditorWindowSoundTest(_stateStruct)
             
             var _knobDict = __VinylDocument().__knobDict;
             var _knobNameArray = variable_struct_get_names(_knobDict);
-            array_sort(_knobNameArray, true);
-            
-            var _i = 0;
-            repeat(array_length(_knobNameArray))
+            if (array_length(_knobNameArray) <= 0)
             {
-                var _knobName = _knobNameArray[_i];
-                var _knob = _knobDict[$ _knobName];
+                ImGui.TextWrapped("No knobs found");
+            }
+            else
+            {
+                array_sort(_knobNameArray, true);
                 
-                if (_knob.__unlimited)
+                var _i = 0;
+                repeat(array_length(_knobNameArray))
                 {
-                    ImGui.Text(_knobName);
-                    ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
+                    var _knobName = _knobNameArray[_i];
+                    var _knob = _knobDict[$ _knobName];
                     
-                    var _newValue = ImGui.InputFloat("##Knob Input " + _knobName, _knob.__valueInput, undefined, undefined, "%.2f");
-                    if (_newValue != _knob.__valueInput)
+                    if (_knob.__unlimited)
                     {
-                        _knob.__Set(_newValue);
+                        ImGui.Text(_knobName);
+                        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
+                        
+                        var _newValue = ImGui.InputFloat("##Knob Input " + _knobName, _knob.__valueInput, undefined, undefined, "%.2f");
+                        if (_newValue != _knob.__valueInput)
+                        {
+                            _knob.__Set(_newValue);
+                        }
+                        
+                        ImGui.NewLine();
+                    }
+                    else
+                    {
+                        ImGui.Text(_knobName);
+                        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
+                        
+                        var _newValue = ImGui.SliderFloat("##Knob Slider " + _knobName, _knob.__valueInput, _knob.__inputRange[0], _knob.__inputRange[1], "%.2f");
+                        if (_newValue != _knob.__valueInput)
+                        {
+                            _knob.__Set(_newValue);
+                        }
+                        ImGui.Text("= " + string_format(_knob.__valueOutput, 0, 2));
+                        
+                        ImGui.NewLine();
                     }
                     
-                    ImGui.NewLine();
+                    ++_i;
                 }
-                else
-                {
-                    ImGui.Text(_knobName);
-                    ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
-                    
-                    var _newValue = ImGui.SliderFloat("##Knob Slider " + _knobName, _knob.__valueInput, _knob.__inputRange[0], _knob.__inputRange[1], "%.2f");
-                    if (_newValue != _knob.__valueInput)
-                    {
-                        _knob.__Set(_newValue);
-                    }
-                    ImGui.Text("= " + string_format(_knob.__valueOutput, 0, 2));
-                    
-                    ImGui.NewLine();
-                }
-                
-                ++_i;
             }
             
         ImGui.EndChild();
