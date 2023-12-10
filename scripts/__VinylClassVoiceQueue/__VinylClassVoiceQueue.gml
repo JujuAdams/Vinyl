@@ -115,7 +115,7 @@ function __VinylClassVoiceQueue() : __VinylClassVoiceCommon() constructor
                 __child.__Tick(0);
             }
             
-            if (__behavior == 0) //Play the queue in its entirety once, popping assets off the queue as they finish
+            if (__behavior == __VINYL_QUEUE_PLAY_ONCE) //Play the queue in its entirety once, popping assets off the queue as they finish
             {
                 array_delete(__assetArray, __index, 1);
                 
@@ -128,7 +128,7 @@ function __VinylClassVoiceQueue() : __VinylClassVoiceCommon() constructor
                 
                 __index = __index mod array_length(__assetArray);
             }
-            else if (__behavior == 1) //Repeat the queue from the start once complete
+            else if (__behavior == __VINYL_QUEUE_REPEAT_ALL) //Repeat the queue from the start once complete
             {
                 if (array_length(__assetArray) <= 0)
                 {
@@ -139,7 +139,7 @@ function __VinylClassVoiceQueue() : __VinylClassVoiceCommon() constructor
                 
                 __index = (__index + 1) mod array_length(__assetArray);
             }
-            else if (__behavior == 2) //Repeat the last asset in the queue (popping previous assets as they finish)
+            else if (__behavior == __VINYL_QUEUE_REPEAT_LAST) //Repeat the last asset in the queue (popping previous assets as they finish)
             {
                 if (array_length(__assetArray) > 1)
                 {
