@@ -120,17 +120,17 @@ function __VinylClassEffectChain() constructor
     static __BuildPropertyUI = function()
     {
         static _effectTypeArray = [undefined,
-                                    AudioEffectType.Bitcrusher,
-                                    AudioEffectType.Delay,
-                                    AudioEffectType.Gain,
-                                    AudioEffectType.HPF2,
-                                    AudioEffectType.LPF2,
-                                    AudioEffectType.Reverb1,
-                                    AudioEffectType.Tremolo,
-                                    AudioEffectType.PeakEQ,
-                                    AudioEffectType.LoShelf,
-                                    AudioEffectType.HiShelf,
-                                    AudioEffectType.EQ];
+                                   AudioEffectType.Bitcrusher,
+                                   AudioEffectType.Delay,
+                                   AudioEffectType.Gain,
+                                   AudioEffectType.HPF2,
+                                   AudioEffectType.LPF2,
+                                   AudioEffectType.Reverb1,
+                                   AudioEffectType.Tremolo,
+                                   AudioEffectType.PeakEQ,
+                                   AudioEffectType.LoShelf,
+                                   AudioEffectType.HiShelf,
+                                   AudioEffectType.EQ];
         
         var _i = 0;
         repeat(__VINYL_EFFECT_BUS_SIZE)
@@ -224,6 +224,12 @@ function __VinylClassEffectChain() constructor
 
 function __VinylEffectChainUI(_effectStruct, _child, _bypassName)
 {
+    static _lfoTypeArray = [AudioLFOType.Sine,
+                            AudioLFOType.Square,
+                            AudioLFOType.Triangle,
+                            AudioLFOType.Sawtooth,
+                            AudioLFOType.InvSawtooth];
+    
     var _effectType = (_effectStruct == undefined)? undefined : _effectStruct.type;
     if (_effectType != undefined)
     {
@@ -386,6 +392,24 @@ function __VinylEffectChainUI(_effectStruct, _child, _bypassName)
                     ImGui.TableSetColumnIndex(0);
                     ImGui.Text("Shape");
                     ImGui.TableSetColumnIndex(1);
+                    
+                    if (ImGui.BeginCombo("##Effect Shape " + _id, __VinylTremoloShapeToName(_effectStruct.shape), ImGuiComboFlags.None))
+                    {
+                        var _i = 0;
+                        repeat(array_length(_lfoTypeArray))
+                        {
+                            var _lfoType = _lfoTypeArray[_i];
+                            if (ImGui.Selectable(__VinylTremoloShapeToName(_lfoType), (_effectStruct.shape == _lfoType)))
+                            {
+                                __document.__Write(_effectStruct, "shape", _lfoType);
+                            }
+                            
+                            ++_i;
+                        }
+                        
+                        ImGui.EndCombo();
+                    }
+                    
                 break;
                 
                 case AudioEffectType.PeakEQ:

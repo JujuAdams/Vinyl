@@ -12,7 +12,7 @@ function __VinylTremoloShapeToName(_tremolo)
         _lookup[$ string(AudioLFOType.Square     )] = "Square";
         _lookup[$ string(AudioLFOType.Triangle   )] = "Triangle";
         _lookup[$ string(AudioLFOType.Sawtooth   )] = "Sawtooth";
-        _lookup[$ string(AudioLFOType.InvSawtooth)] = "InvSawtooth";
+        _lookup[$ string(AudioLFOType.InvSawtooth)] = "InverseSawtooth";
     }
     
     var _name = _lookup[$ string(_tremolo)];

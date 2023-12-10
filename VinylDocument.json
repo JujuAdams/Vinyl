@@ -1,42 +1,13 @@
 {
-  "knobs":[
-  ],
-  "stacks":[
-  ],
-  "settings":{
-  },
-  "labels":[
-  ],
   "patterns":[
     {
-      "gainKnobOverride":false,
-      "transposeKnobOverride":false,
-      "name":"Default Properties",
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "effectChainOption":"Unset",
-      "gainKnob":"<None>",
-      "transposeKnob":"<None>",
+      "uuid":"Default Properties",
+      "persistentOption":"Unset",
       "gain":[
         1.0,
         1.0
       ],
-      "pitchKnobOverride":false,
-      "persistent":null,
-      "labelsOption":"Unset",
-      "type":"Sound Defaults",
-      "stackPriority":0.0,
-      "gainOption":"Unset",
-      "transposeOption":"Unset",
-      "pitchKnob":"<None>",
-      "loop":false,
-      "stack":"<None>",
-      "uuid":"Default Properties",
-      "persistentOption":"Unset",
+      "name":"Default Properties",
       "pitchOption":"Unset",
       "transpose":[
         0.0,
@@ -45,7 +16,28 @@
       "loopOption":"Unset",
       "stackOption":"Unset",
       "parent":null,
-      "effectChain":"<None>"
+      "effectChain":"<None>",
+      "gainKnobOverride":false,
+      "transposeKnobOverride":false,
+      "persistent":null,
+      "pitch":[
+        1.0,
+        1.0
+      ],
+      "type":"Sound Defaults",
+      "labels":[
+      ],
+      "effectChainOption":"Unset",
+      "gainKnob":"<None>",
+      "transposeKnob":"<None>",
+      "pitchKnobOverride":false,
+      "labelsOption":"Unset",
+      "stackPriority":0.0,
+      "gainOption":"Unset",
+      "transposeOption":"Unset",
+      "pitchKnob":"<None>",
+      "loop":false,
+      "stack":"<None>"
     }
   ],
   "effectChains":[
@@ -53,7 +45,7 @@
       "name":"Unnamed Effect Chain 1",
       "effectArray":[
         {
-          "type":"LoShelf"
+          "type":"Tremolo"
         },
         null,
         null,
@@ -64,5 +56,13 @@
         null
       ]
     }
+  ],
+  "knobs":[
+  ],
+  "stacks":[
+  ],
+  "settings":{
+  },
+  "labels":[
   ]
 }

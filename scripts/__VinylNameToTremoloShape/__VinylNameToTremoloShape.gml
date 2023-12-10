@@ -5,11 +5,11 @@
 function __VinylNameToTremoloShape(_name)
 {
     static _lookup = {
-        Sine:        AudioLFOType.Sine,
-        Square:      AudioLFOType.Square,
-        Triangle:    AudioLFOType.Triangle,
-        Sawtooth:    AudioLFOType.Sawtooth,
-        InvSawtooth: AudioLFOType.InvSawtooth,
+        "Sine":            AudioLFOType.Sine,
+        "Square":          AudioLFOType.Square,
+        "Triangle":        AudioLFOType.Triangle,
+        "Sawtooth":        AudioLFOType.Sawtooth,
+        "InverseSawtooth": AudioLFOType.InvSawtooth,
     };
     
     var _tremolo = _lookup[$ _name];
