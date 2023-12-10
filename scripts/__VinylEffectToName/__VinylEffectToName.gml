@@ -16,6 +16,7 @@ function __VinylEffectToName(_effect)
         _lookup[$ string(AudioEffectType.LPF2      )] = "LPF2";
         _lookup[$ string(AudioEffectType.Reverb1   )] = "Reverb1";
         _lookup[$ string(AudioEffectType.Tremolo   )] = "Tremolo";
+        _lookup[$ string(AudioEffectType.PeakEQ    )] = "PeakEQ";
         _lookup[$ string(AudioEffectType.LoShelf   )] = "LoShelf";
         _lookup[$ string(AudioEffectType.HiShelf   )] = "HiShelf";
         _lookup[$ string(AudioEffectType.EQ        )] = "EQ";

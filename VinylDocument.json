@@ -1,102 +1,68 @@
 {
-  "patterns":[
-    {
-      "stackPriority":0.0,
-      "name":"Default Properties",
-      "gainKnob":"<None>",
-      "transposeOption":"Unset",
-      "pitchKnob":"<None>",
-      "loop":0.0,
-      "stack":"<None>",
-      "gainOption":"Unset",
-      "persistentOption":"Unset",
-      "persistent":null,
-      "pitchOption":"Unset",
-      "transpose":[
-        0.0,
-        0.0
-      ],
-      "loopOption":"Unset",
-      "stackOption":"Unset",
-      "uuid":"Default Properties",
-      "effectChain":"<None>",
-      "gain":[
-        1.0,
-        1.0
-      ],
-      "transposeKnobOverride":0.0,
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "parent":null,
-      "effectChainOption":"Unset",
-      "gainKnobOverride":0.0,
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "type":"Sound Defaults",
-      "labelsOption":"Unset"
-    },
-    {
-      "stackPriority":0.0,
-      "name":"Unnamed Pattern 1",
-      "gainKnob":"<None>",
-      "childrenArray":[
-      ],
-      "transposeOption":"Unset",
-      "pitchKnob":"<None>",
-      "loop":0.0,
-      "stack":"<None>",
-      "gainOption":"Unset",
-      "blendCurveName":"acOtherTest",
-      "persistent":null,
-      "persistentOption":"Unset",
-      "pitchOption":"Unset",
-      "transpose":[
-        0.0,
-        0.0
-      ],
-      "loopOption":"Unset",
-      "stackOption":"Unset",
-      "uuid":"Unnamed Pattern 1",
-      "blend":[
-        0.0,
-        0.0
-      ],
-      "effectChain":"<None>",
-      "gain":[
-        1.0,
-        1.0
-      ],
-      "transposeKnobOverride":0.0,
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "parent":null,
-      "sync":0.0,
-      "effectChainOption":"Unset",
-      "gainKnobOverride":0.0,
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "type":"Multi",
-      "labelsOption":"Unset"
-    }
-  ],
-  "effectChains":[
-  ],
   "knobs":[
   ],
   "stacks":[
   ],
   "settings":{
-    "autogenerateMacros":1.0,
-    "macroScriptName":"__VinylGeneratedMacros"
   },
   "labels":[
+  ],
+  "patterns":[
+    {
+      "gainKnobOverride":false,
+      "transposeKnobOverride":false,
+      "name":"Default Properties",
+      "pitch":[
+        1.0,
+        1.0
+      ],
+      "labels":[
+      ],
+      "effectChainOption":"Unset",
+      "gainKnob":"<None>",
+      "transposeKnob":"<None>",
+      "gain":[
+        1.0,
+        1.0
+      ],
+      "pitchKnobOverride":false,
+      "persistent":null,
+      "labelsOption":"Unset",
+      "type":"Sound Defaults",
+      "stackPriority":0.0,
+      "gainOption":"Unset",
+      "transposeOption":"Unset",
+      "pitchKnob":"<None>",
+      "loop":false,
+      "stack":"<None>",
+      "uuid":"Default Properties",
+      "persistentOption":"Unset",
+      "pitchOption":"Unset",
+      "transpose":[
+        0.0,
+        0.0
+      ],
+      "loopOption":"Unset",
+      "stackOption":"Unset",
+      "parent":null,
+      "effectChain":"<None>"
+    }
+  ],
+  "effectChains":[
+    {
+      "name":"Unnamed Effect Chain 1",
+      "effectArray":[
+        {
+          "type":"LoShelf"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
   ]
 }
