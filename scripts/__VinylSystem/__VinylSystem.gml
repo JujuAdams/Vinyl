@@ -41,6 +41,9 @@
 #macro __VINYL_QUEUE_REPEAT_ALL   "Replay Whole Queue"
 #macro __VINYL_QUEUE_REPEAT_LAST  "Replay Last Child"
 
+#macro __VINYL_NEXT_UI_FILLS_WIDTH  ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
+#macro __VINYL_UNDERLINE_PREV_TEXT  ImGui.DrawListAddLine(ImGui.GetWindowDrawList(), ImGui.GetItemRectMinX(), ImGui.GetItemRectMaxY(), ImGui.GetItemRectMaxX(), ImGui.GetItemRectMaxY(), c_white);
+                
 enum __VINYL_SOUND_TYPE {
     __UNKNOWN,
     __WAD,

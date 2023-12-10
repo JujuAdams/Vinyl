@@ -23,7 +23,7 @@ function __VinylEditorWindowProject()
 		
         		ImGui.BeginChild("Paths", _width, 150, true);
                 ImGui.Text("Paths");
-                ImGui.DrawListAddLine(ImGui.GetWindowDrawList(), ImGui.GetItemRectMinX(), ImGui.GetItemRectMaxY(), ImGui.GetItemRectMaxX(), ImGui.GetItemRectMaxY(), c_white);
+                __VINYL_UNDERLINE_PREV_TEXT
                 ImGui.Text("GameMaker Project:");
                 ImGui.SetCursorPosX(50);
                 ImGui.TextUnformatted(GM_project_filename);
@@ -42,7 +42,7 @@ function __VinylEditorWindowProject()
         		ImGui.BeginChild("Macro Generation", _width, 100, true);
         
                 ImGui.Text("Macro Generation");
-                ImGui.DrawListAddLine(ImGui.GetWindowDrawList(), ImGui.GetItemRectMinX(), ImGui.GetItemRectMaxY(), ImGui.GetItemRectMaxX(), ImGui.GetItemRectMaxY(), c_white);
+                __VINYL_UNDERLINE_PREV_TEXT
         
                 _document.__SettingSet("autogenerateMacros", ImGui.Checkbox("Autogenerate Macros", _document.__SettingGet("autogenerateMacros")));
                 _document.__SettingSet("macroScriptName", ImGui.InputText("Macro Script Name", _document.__SettingGet("macroScriptName")));
@@ -55,7 +55,7 @@ function __VinylEditorWindowProject()
         		ImGui.BeginChild("Document", _width, 60, true);
         
                 ImGui.Text("Document");
-                ImGui.DrawListAddLine(ImGui.GetWindowDrawList(), ImGui.GetItemRectMinX(), ImGui.GetItemRectMaxY(), ImGui.GetItemRectMaxX(), ImGui.GetItemRectMaxY(), c_white);
+                __VINYL_UNDERLINE_PREV_TEXT
         
                 ImGui.Button("Clean Up Unused Properties");
         

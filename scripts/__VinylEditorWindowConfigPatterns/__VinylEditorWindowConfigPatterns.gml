@@ -175,7 +175,7 @@ function __VinylEditorWindowConfigPatterns(_stateStruct)
             static _childPatterns = [__VinylClassPatternBasic, __VinylClassPatternShuffle, __VinylClassPatternQueue, __VinylClassPatternMulti, __VinylClassPatternRefNameMatch, __VinylClassPatternRefAssetTag];
             
             ImGui.BeginDisabled(_selectedCount > 1);
-                ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
+                __VINYL_NEXT_UI_FILLS_WIDTH
                 if (ImGui.BeginCombo("##Pattern Type Combobox", __VinylPatternToName(instanceof(_selectedStruct)), ImGuiComboFlags.None))
                 {
                     var _patternArray = _selectedStruct.__IsChild()? _childPatterns : _rootPatterns;

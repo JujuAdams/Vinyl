@@ -35,7 +35,7 @@ function __VinylEditorPropertiesSound(_soundUUID, _soundData, _modified, _defaul
             //Audio group drop-down
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
-            ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
+            __VINYL_NEXT_UI_FILLS_WIDTH
             if (ImGui.BeginCombo("##Audio Group", _projectSound.__audioGroup, ImGuiComboFlags.None))
             {
                 var _audioGroupArray = __VinylDocument().__GetProjectAudioGroupArray();
@@ -84,7 +84,7 @@ function __VinylEditorPropertiesSound(_soundUUID, _soundData, _modified, _defaul
             
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
-            ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
+            __VINYL_NEXT_UI_FILLS_WIDTH
             if (ImGui.BeginCombo("##Asset Tag", __VinylAssetTagsGetAbbreviatedName(_soundAssetTags), ImGuiComboFlags.None))
             {
                 var _assetTagArray = __VinylDocument().__GetProjectAssetTagArray();

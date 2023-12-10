@@ -108,7 +108,7 @@ function __VinylEditorWindowSoundTest(_stateStruct)
                     if (_knob.__unlimited)
                     {
                         ImGui.Text(_knobName);
-                        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
+                        __VINYL_NEXT_UI_FILLS_WIDTH
                         
                         var _newValue = ImGui.InputFloat("##Knob Input " + _knobName, _knob.__valueInput, undefined, undefined, "%.2f");
                         if (_newValue != _knob.__valueInput)
@@ -121,7 +121,7 @@ function __VinylEditorWindowSoundTest(_stateStruct)
                     else
                     {
                         ImGui.Text(_knobName);
-                        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
+                        __VINYL_NEXT_UI_FILLS_WIDTH
                         
                         var _newValue = ImGui.SliderFloat("##Knob Slider " + _knobName, _knob.__valueInput, _knob.__inputRange[0], _knob.__inputRange[1], "%.2f");
                         if (_newValue != _knob.__valueInput)
