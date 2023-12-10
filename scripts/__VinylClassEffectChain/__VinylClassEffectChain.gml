@@ -160,9 +160,6 @@ function __VinylClassEffectChain() constructor
             ImGui.EndDisabled();
             
             ImGui.SameLine();
-            ImGui.Text("Effect " + string(_i+1));
-            
-            ImGui.SameLine();
             
             var _newType = _effectType;
             ImGui.SetNextItemWidth(150);

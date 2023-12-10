@@ -48,9 +48,50 @@ function __VinylEditorWindowConfigEffectChains(_stateStruct)
                 {
                     if ((not _useFilter) || __VinylFilterApply(_filter, _target)) //General filter
                     {
-                        if (ImGui.Selectable(_name + "##Select " + _name, _selectionHandler.__IsSelected(_name)))
+                        var _flags = ImGuiTreeNodeFlags.OpenOnArrow;
+                        
+                        if (_selectionHandler.__IsSelected(_name))
+                        {
+                            _flags |= ImGuiTreeNodeFlags.Selected;
+                        }
+                        
+                        var _open = ImGui.TreeNodeEx(_name + "##Select " + _name, _flags);
+                        if ((not ImGui.IsItemToggledOpen()) && ImGui.IsItemClicked())
                         {
                             _selectionHandler.__SelectToggle(_name);
+                        }
+                        
+                        if (_open)
+                        {
+                            var _effectChainStruct = _contentDict[$ _name];
+                            var _childArray = _effectChainStruct.__bus.effects;
+                            
+                            var _childCount = 0;
+                            var _j = 0;
+                            repeat(__VINYL_EFFECT_BUS_SIZE)
+                            {
+                                var _childEffectStruct = _childArray[_j];
+                                if (is_struct(_childEffectStruct))
+                                {
+                                    ++_childCount;
+                                    
+                                    var _childName = __VinylEffectToName(_childEffectStruct.type);
+                                    
+                                    if (ImGui.TreeNodeEx(_childName + "##Effect " + string(_i) + " Child " + string(_j), ImGuiTreeNodeFlags.Bullet))
+                                    {
+                                        ImGui.TreePop();
+                                    }
+                                }
+                                
+                                ++_j;
+                            }
+                            
+                            if (_childCount <= 0)
+                            {
+                                ImGui.Text("No effects set up");
+                            }
+                            
+                            ImGui.TreePop();
                         }
                         
                         //Push the name of this visible sound to our array
