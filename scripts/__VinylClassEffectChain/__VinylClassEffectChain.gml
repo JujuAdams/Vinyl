@@ -506,7 +506,9 @@ function __VinylEffectChainSerialize(_effect)
 
 function __VinylEffectChainDeserialize(_readStruct, _existingEffect)
 {
-    var _effect = __VinylEffectToName(_readStruct.type);
+    if (not is_struct(_readStruct)) return undefined;
+    
+    var _effect = __VinylNameToEffect(_readStruct.type);
     
     //If the old effect is of a different type, make a new one
     if ((_existingEffect == undefined) || (_existingEffect.type != _effect))
