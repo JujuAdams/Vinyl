@@ -1,12 +1,4 @@
 {
-  "labels":[
-  ],
-  "stacks":[
-  ],
-  "settings":{
-    "autogenerateMacros":1.0,
-    "macroScriptName":"__VinylGeneratedMacros"
-  },
   "patterns":[
     {
       "stackPriority":0.0,
@@ -48,72 +40,31 @@
       "labelsOption":"Unset"
     },
     {
-      "sound":"sndSync1",
       "stackPriority":0.0,
-      "name":"",
+      "name":"Unnamed Pattern 1",
       "gainKnob":"<None>",
-      "transposeOption":"Unset",
-      "pitchKnob":"<None>",
-      "loop":0.0,
-      "stack":"<None>",
-      "gainOption":"Unset",
-      "persistentOption":"Unset",
-      "persistent":null,
-      "pitchOption":"Unset",
-      "transpose":[
-        0.0,
-        0.0
-      ],
-      "loopOption":"Unset",
-      "stackOption":"Unset",
-      "uuid":"7294E672E3664400",
-      "effectChain":"<None>",
-      "gain":[
-        1.0,
-        1.0
-      ],
-      "transposeKnobOverride":0.0,
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "parent":"Queue Test",
-      "effectChainOption":"Unset",
-      "gainKnobOverride":0.0,
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "type":"Basic",
-      "labelsOption":"Unset"
-    },
-    {
       "childrenArray":[
-        "2083D46460DA6000",
-        "1BE1DA68645CB400",
-        "35341006AC048E00",
-        "51A8DD97BFF59000"
       ],
-      "stackPriority":0.0,
-      "name":"Multi Test",
-      "gainKnob":"<None>",
       "transposeOption":"Unset",
       "pitchKnob":"<None>",
       "loop":0.0,
-      "blendCurveName":"",
       "stack":"<None>",
       "gainOption":"Unset",
-      "persistentOption":"Unset",
+      "blendCurveName":"acOtherTest",
       "persistent":null,
+      "persistentOption":"Unset",
       "pitchOption":"Unset",
       "transpose":[
         0.0,
         0.0
       ],
       "loopOption":"Unset",
-      "blend":0.0,
       "stackOption":"Unset",
-      "uuid":"Multi Test",
+      "uuid":"Unnamed Pattern 1",
+      "blend":[
+        0.0,
+        0.0
+      ],
       "effectChain":"<None>",
       "gain":[
         1.0,
@@ -124,385 +75,28 @@
         1.0,
         1.0
       ],
-      "sync":0.0,
       "labels":[
       ],
       "parent":null,
+      "sync":0.0,
       "effectChainOption":"Unset",
       "gainKnobOverride":0.0,
       "transposeKnob":"<None>",
       "pitchKnobOverride":0.0,
       "type":"Multi",
       "labelsOption":"Unset"
-    },
-    {
-      "sound":"sndSync0",
-      "stackPriority":0.0,
-      "name":"",
-      "gainKnob":"<None>",
-      "transposeOption":"Unset",
-      "pitchKnob":"<None>",
-      "loop":0.0,
-      "stack":"<None>",
-      "gainOption":"Unset",
-      "persistentOption":"Unset",
-      "persistent":null,
-      "pitchOption":"Unset",
-      "transpose":[
-        0.0,
-        0.0
-      ],
-      "loopOption":"Unset",
-      "stackOption":"Unset",
-      "uuid":"2083D46460DA6000",
-      "effectChain":"<None>",
-      "gain":[
-        1.0,
-        1.0
-      ],
-      "transposeKnobOverride":0.0,
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "parent":"Multi Test",
-      "effectChainOption":"Unset",
-      "gainKnobOverride":0.0,
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "type":"Basic",
-      "labelsOption":"Unset"
-    },
-    {
-      "sound":"sndSync3",
-      "stackPriority":0.0,
-      "name":"",
-      "gainKnob":"<None>",
-      "transposeOption":"Unset",
-      "pitchKnob":"<None>",
-      "loop":0.0,
-      "stack":"<None>",
-      "gainOption":"Unset",
-      "persistentOption":"Unset",
-      "persistent":null,
-      "pitchOption":"Unset",
-      "transpose":[
-        0.0,
-        0.0
-      ],
-      "loopOption":"Unset",
-      "stackOption":"Unset",
-      "uuid":"4B773F254B508C00",
-      "effectChain":"<None>",
-      "gain":[
-        1.0,
-        1.0
-      ],
-      "transposeKnobOverride":0.0,
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "parent":"Queue Test",
-      "effectChainOption":"Unset",
-      "gainKnobOverride":0.0,
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "type":"Basic",
-      "labelsOption":"Unset"
-    },
-    {
-      "sound":"sndSync0",
-      "stackPriority":0.0,
-      "name":"",
-      "gainKnob":"<None>",
-      "transposeOption":"Unset",
-      "pitchKnob":"<None>",
-      "loop":0.0,
-      "stack":"<None>",
-      "gainOption":"Unset",
-      "persistentOption":"Unset",
-      "persistent":null,
-      "pitchOption":"Unset",
-      "transpose":[
-        0.0,
-        0.0
-      ],
-      "loopOption":"Unset",
-      "stackOption":"Unset",
-      "uuid":"402ADB2039C9A000",
-      "effectChain":"<None>",
-      "gain":[
-        1.0,
-        1.0
-      ],
-      "transposeKnobOverride":0.0,
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "parent":"Queue Test",
-      "effectChainOption":"Unset",
-      "gainKnobOverride":0.0,
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "type":"Basic",
-      "labelsOption":"Unset"
-    },
-    {
-      "sound":"sndSync2",
-      "stackPriority":0.0,
-      "name":"",
-      "gainKnob":"<None>",
-      "transposeOption":"Unset",
-      "pitchKnob":"<None>",
-      "loop":0.0,
-      "stack":"<None>",
-      "gainOption":"Unset",
-      "persistentOption":"Unset",
-      "persistent":null,
-      "pitchOption":"Unset",
-      "transpose":[
-        0.0,
-        0.0
-      ],
-      "loopOption":"Unset",
-      "stackOption":"Unset",
-      "uuid":"35341006AC048E00",
-      "effectChain":"<None>",
-      "gain":[
-        1.0,
-        1.0
-      ],
-      "transposeKnobOverride":0.0,
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "parent":"Multi Test",
-      "effectChainOption":"Unset",
-      "gainKnobOverride":0.0,
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "type":"Basic",
-      "labelsOption":"Unset"
-    },
-    {
-      "sound":"sndSync1",
-      "stackPriority":0.0,
-      "name":"",
-      "gainKnob":"<None>",
-      "transposeOption":"Unset",
-      "pitchKnob":"<None>",
-      "loop":0.0,
-      "stack":"<None>",
-      "gainOption":"Unset",
-      "persistentOption":"Unset",
-      "persistent":null,
-      "pitchOption":"Unset",
-      "transpose":[
-        0.0,
-        0.0
-      ],
-      "loopOption":"Unset",
-      "stackOption":"Unset",
-      "uuid":"1BE1DA68645CB400",
-      "effectChain":"<None>",
-      "gain":[
-        1.0,
-        1.0
-      ],
-      "transposeKnobOverride":0.0,
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "parent":"Multi Test",
-      "effectChainOption":"Unset",
-      "gainKnobOverride":0.0,
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "type":"Basic",
-      "labelsOption":"Unset"
-    },
-    {
-      "sound":"sndSync2",
-      "stackPriority":0.0,
-      "name":"",
-      "gainKnob":"<None>",
-      "transposeOption":"Unset",
-      "pitchKnob":"<None>",
-      "loop":0.0,
-      "stack":"<None>",
-      "gainOption":"Unset",
-      "persistentOption":"Unset",
-      "persistent":null,
-      "pitchOption":"Unset",
-      "transpose":[
-        0.0,
-        0.0
-      ],
-      "loopOption":"Unset",
-      "stackOption":"Unset",
-      "uuid":"250CEB5DABC31200",
-      "effectChain":"<None>",
-      "gain":[
-        1.0,
-        1.0
-      ],
-      "transposeKnobOverride":0.0,
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "parent":"Queue Test",
-      "effectChainOption":"Unset",
-      "gainKnobOverride":0.0,
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "type":"Basic",
-      "labelsOption":"Unset"
-    },
-    {
-      "childrenArray":[
-        "402ADB2039C9A000",
-        "7294E672E3664400",
-        "250CEB5DABC31200",
-        "4B773F254B508C00"
-      ],
-      "stackPriority":0.0,
-      "name":"Queue Test",
-      "gainKnob":"<None>",
-      "transposeOption":"Unset",
-      "pitchKnob":"<None>",
-      "loop":0.0,
-      "stack":"<None>",
-      "gainOption":"Unset",
-      "persistentOption":"Unset",
-      "persistent":null,
-      "pitchOption":"Unset",
-      "transpose":[
-        0.0,
-        0.0
-      ],
-      "loopOption":"Unset",
-      "stackOption":"Unset",
-      "uuid":"Queue Test",
-      "effectChain":"<None>",
-      "gain":[
-        1.0,
-        1.0
-      ],
-      "transposeKnobOverride":0.0,
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "parent":null,
-      "effectChainOption":"Unset",
-      "behavior":"Replay Last Child",
-      "gainKnobOverride":0.0,
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "type":"Queue",
-      "labelsOption":"Unset"
-    },
-    {
-      "sound":"sndSync3",
-      "stackPriority":0.0,
-      "name":"",
-      "gainKnob":"<None>",
-      "transposeOption":"Unset",
-      "pitchKnob":"<None>",
-      "loop":0.0,
-      "stack":"<None>",
-      "gainOption":"Unset",
-      "persistentOption":"Unset",
-      "persistent":null,
-      "pitchOption":"Unset",
-      "transpose":[
-        0.0,
-        0.0
-      ],
-      "loopOption":"Unset",
-      "stackOption":"Unset",
-      "uuid":"51A8DD97BFF59000",
-      "effectChain":"<None>",
-      "gain":[
-        1.0,
-        1.0
-      ],
-      "transposeKnobOverride":0.0,
-      "pitch":[
-        1.0,
-        1.0
-      ],
-      "labels":[
-      ],
-      "parent":"Multi Test",
-      "effectChainOption":"Unset",
-      "gainKnobOverride":0.0,
-      "transposeKnob":"<None>",
-      "pitchKnobOverride":0.0,
-      "type":"Basic",
-      "labelsOption":"Unset"
     }
   ],
   "effectChains":[
   ],
   "knobs":[
-    {
-      "unlimited":0.0,
-      "inputRange":[
-        0.0,
-        1.0
-      ],
-      "outputRange":[
-        0.0,
-        1.0
-      ],
-      "name":"Unnamed Knob 2",
-      "defaultValue":1.0
-    },
-    {
-      "unlimited":0.0,
-      "inputRange":[
-        0.0,
-        1.0
-      ],
-      "outputRange":[
-        0.0,
-        1.0
-      ],
-      "name":"Unnamed Knob 3",
-      "defaultValue":1.0
-    },
-    {
-      "unlimited":0.0,
-      "inputRange":[
-        0.0,
-        1.0
-      ],
-      "outputRange":[
-        0.0,
-        1.0
-      ],
-      "name":"Unnamed Knob 1",
-      "defaultValue":1.0
-    }
+  ],
+  "stacks":[
+  ],
+  "settings":{
+    "autogenerateMacros":1.0,
+    "macroScriptName":"__VinylGeneratedMacros"
+  },
+  "labels":[
   ]
 }

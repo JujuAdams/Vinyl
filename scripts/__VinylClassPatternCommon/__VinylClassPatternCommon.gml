@@ -424,6 +424,11 @@ function __VinylClassPatternCommon()
             
             var _parent = __document.__GetPattern(__parent);
             
+            if (is_method(_additionalWidgetFunc))
+            {
+                _additionalWidgetFunc(self, _parent, 0, 2, 1);
+            }
+            
             __VinylEditorPropWidgetGain(       "Gain",         self, _parent, 0, 2, 1);
             __VinylEditorPropWidgetPitch(      "Pitch",        self, _parent, 0, 2, 1);
             __VinylEditorPropWidgetLoop(       "Loop",         self, _parent, 0, 2, 1);
@@ -431,11 +436,6 @@ function __VinylClassPatternCommon()
             __VinylEditorPropWidgetEffectChain("Effect Chain", self, _parent, 0, 2, 1);
             __VinylEditorPropWidgetPersistent( "Persistent",   self, _parent, 0, 2, 1);
             __VinylEditorPropWidgetTranspose(  "Transpose",    self, _parent, 0, 2, 1);
-            
-            if (is_method(_additionalWidgetFunc))
-            {
-                _additionalWidgetFunc(self, _parent, 0, 2, 1);
-            }
             
             ImGui.EndTable();
         }

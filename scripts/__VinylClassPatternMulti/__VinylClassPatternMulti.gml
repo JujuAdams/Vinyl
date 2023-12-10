@@ -21,10 +21,17 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
     {
         __ResetShared();
         
-        __sync             = VINYL_DEFAULT_MULTI_SYNC;
-        __blend            = 0;
-        __blendCurveName   = "";
-        __blendFactorLocal = __blend;
+        __sync              = VINYL_DEFAULT_MULTI_SYNC;
+        
+        __blendOption       = __VINYL_OPTION_UNSET;
+        __blend             = [0, 0];
+        __blendKnob         = __VINYL_ASSET_NULL;
+        __blendKnobOverride = false;
+        
+        __blendCurveOption  = __VINYL_OPTION_UNSET;
+        __blendCurveName    = "";
+        
+        __blendFactorLocal  = __blend[0];
         
         if ((_oldStatic != undefined) && (not _oldStatic.__usesChildArray)) __childArray = [];
     }
@@ -32,7 +39,10 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
     static __Unset = function(_newStatic = undefined)
     {
         variable_struct_remove(self, "__sync");
+        variable_struct_remove(self, "__blendOption");
         variable_struct_remove(self, "__blend");
+        variable_struct_remove(self, "__blendKnob");
+        variable_struct_remove(self, "__blendKnobOverride");
         variable_struct_remove(self, "__blendCurveName");
         variable_struct_remove(self, "__blendFactorLocal");
         
@@ -86,7 +96,9 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
         ImGui.NewLine();
         __SharedWidgets(_selectionHandler, function(_dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
         {
-            __VinylEditorPropWidgetGain("Gain", _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption);
+            __VinylEditorPropWidgetMultiSync(      "Sync",        _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption);
+            __VinylEditorPropWidgetMultiBlend(     "Blend",       _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption);
+            __VinylEditorPropWidgetMultiBlendCurve("Blend Curve", _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption);
         });
     }
 }
