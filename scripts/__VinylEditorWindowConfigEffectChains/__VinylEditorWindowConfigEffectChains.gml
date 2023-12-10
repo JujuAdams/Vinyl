@@ -10,6 +10,7 @@ function __VinylEditorWindowConfigEffectChains(_stateStruct)
     array_sort(_contentNameArray, true);
     
     var _tabState = _stateStruct.__tabEffectChains;
+    var _makePopup = false;
     
     //Use the selection handler for this tab and ensure its binding to the project's sound dictionary
     //This dictionary will be used to track item selection
@@ -119,8 +120,9 @@ function __VinylEditorWindowConfigEffectChains(_stateStruct)
     ImGui.BeginChild("Right Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
         
         //Collect some basic facts about the current selection(s)
-        var _selectedCount = _selectionHandler.__GetSelectedCount();
-        var _lastSelected  = _selectionHandler.__lastSelected;
+        var _selectedCount  = _selectionHandler.__GetSelectedCount();
+        var _lastSelected   = _selectionHandler.__lastSelected;
+        var _selectedStruct = _contentDict[$ _lastSelected];
         
         //Bit of aesthetic spacing
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
@@ -137,17 +139,29 @@ function __VinylEditorWindowConfigEffectChains(_stateStruct)
             
             ImGui.SameLine(200);
             
-            if (ImGui.Button("Rename"))
-            {
-                //TODO
-            }
+            ImGui.BeginDisabled(_selectedCount > 1);
+                if (ImGui.Button("Rename"))
+                {
+                    _makePopup = true;
+                    
+                    with(_stateStruct.__popupData)
+                    {
+                        __type     = "Rename";
+                        __tempName = _selectedStruct.__name;
+                    }
+                }
+            ImGui.EndDisabled(_selectedCount);
             
             ImGui.SameLine(undefined, 20);
             
             if (ImGui.Button("Delete"))
             {
-                _contentDict[$ _lastSelected].__Discard(_document);
-                _selectionHandler.__Select(_lastSelected, false);
+                _makePopup = true;
+                
+                with(_stateStruct.__popupData)
+                {
+                    __type = "Delete";
+                }
             }
         }
         
@@ -162,4 +176,86 @@ function __VinylEditorWindowConfigEffectChains(_stateStruct)
             ImGui.EndChild();
         }
     ImGui.EndChild();
+    
+    
+    
+    if (_makePopup)
+    {
+        ImGui.OpenPopup("Popup");
+    }
+    
+    var _windowWidth  = window_get_width();
+    var _windowHeight = window_get_height();
+    ImGui.SetNextWindowSize(0.3*_windowWidth, 0.15*_windowHeight, ImGuiCond.Appearing);
+    ImGui.SetNextWindowPos(0.5*_windowWidth, 0.5*_windowHeight, ImGuiCond.Appearing, 0.5, 0.5);
+    
+    if (ImGui.BeginPopupModal("Popup", undefined, ImGuiWindowFlags.NoResize))
+    {
+        var _popupData = _stateStruct.__popupData;
+        
+        switch(_stateStruct.__popupData.__type)
+        {
+            case "Rename":
+                ImGui.Text("Please enter a new name for \"" + _selectedStruct.__GetName() + "\"");
+                
+                ImGui.Separator();
+                
+                _popupData.__tempName = ImGui.InputText("##Rename Field", _popupData.__tempName);
+                
+                if (ImGui.Button("Rename"))
+                {
+                    _selectionHandler.__Select(_selectedStruct.__name, false);
+                    _selectedStruct.__Rename(_popupData.__tempName);
+                    _selectionHandler.__Select(_selectedStruct.__name, true);
+                    
+                    ImGui.CloseCurrentPopup();
+                }
+                
+                ImGui.SameLine(undefined, 40);
+                if (ImGui.Button("Cancel"))
+                {
+                    ImGui.CloseCurrentPopup();
+                }
+                
+                ImGui.EndPopup();	
+            break;
+            
+            case "Delete":
+                if (_selectedCount > 1)
+                {
+                    ImGui.Text("Are you sure you want to delete multiple effect chains?\n\nThis cannot be undone!");
+                }
+                else
+                {
+                    ImGui.Text("Are you sure you want to delete \"" + _selectedStruct.__GetName() + "\"?\n\nThis cannot be undone!");
+                }
+                
+                ImGui.Separator();
+                
+                if (ImGui.Button("Delete"))
+                {
+                    _selectionHandler.__ForEachSelected(method({
+                        __selectionHandler: _selectionHandler,
+                        __patternDict: _contentDict,
+                    }, function(_name)
+                    {
+                        var _selectedStruct = __patternDict[$ _name];
+                        if (_selectedStruct != undefined) _selectedStruct.__Discard();
+                            
+                        __selectionHandler.__Select(_name, false);
+                    }));
+                    
+                    ImGui.CloseCurrentPopup();
+                }
+                
+                ImGui.SameLine(undefined, 40);
+                if (ImGui.Button("Keep"))
+                {
+                    ImGui.CloseCurrentPopup();
+                }
+                
+                ImGui.EndPopup();
+            break;
+        }
+    }
 }

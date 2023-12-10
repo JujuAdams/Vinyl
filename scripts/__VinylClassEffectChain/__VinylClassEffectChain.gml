@@ -30,6 +30,29 @@ function __VinylClassEffectChain() constructor
     
     
     
+    static __GetName = function()
+    {
+        return string(__name);
+    }
+    
+    static __Rename = function(_name)
+    {
+        if (_name == __name) return;
+        
+        var _effectChainDict = __document.__effectChainDict;
+        if (variable_struct_exists(_effectChainDict, _name))
+        {
+            __VinylTrace("Warning! Cannot rename Vinyl effect chain \"", __name, "\" to \"", _name, "\" as it conflicts with existing effect chain");
+            return;
+        }
+        
+        variable_struct_remove(_effectChainDict, __name);
+        __name = _name;
+        _effectChainDict[$ __name] = self;
+        
+        __document.__Save();
+    }
+    
     static __Store = function(_document)
     {
         __document = _document;
@@ -37,9 +60,9 @@ function __VinylClassEffectChain() constructor
         _document.__effectChainDict[$ __name] = self;
     }
     
-    static __Discard = function(_document)
+    static __Discard = function()
     {
-        variable_struct_remove(_document.__effectChainDict, __name);
+        variable_struct_remove(__document.__effectChainDict, __name);
         __document.__Save();
     }
     
