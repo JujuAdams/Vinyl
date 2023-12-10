@@ -152,6 +152,7 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                 if (ImGui.Button("Revert"))
                 {
                     _patternDict[$ _lastSelected].__Discard();
+                    _selectionHandler.__Select(_lastSelected, false);
                 }
             }
             else
@@ -182,6 +183,8 @@ function __VinylEditorWindowConfigSounds(_stateStruct)
                             _pattern.__Discard(__document);
                         }
                     }));
+                    
+                    _selectionHandler.__SelectNone();
                 }
             }
             else

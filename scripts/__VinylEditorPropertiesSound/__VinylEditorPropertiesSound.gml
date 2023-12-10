@@ -9,9 +9,12 @@ function __VinylEditorPropertiesSound(_soundUUID, _soundData, _modified, _defaul
         _defaultData = undefined;
     }
     
-    ImGui.BeginDisabled(not _modified);
-        _soundData.__BuildPropertyUI(_selectionHandler);
-    ImGui.EndDisabled();
+    if (_soundData != undefined)
+    {
+        ImGui.BeginDisabled(not _modified);
+            _soundData.__BuildPropertyUI(_selectionHandler);
+        ImGui.EndDisabled();
+    }
     
     ImGui.NewLine();
     
