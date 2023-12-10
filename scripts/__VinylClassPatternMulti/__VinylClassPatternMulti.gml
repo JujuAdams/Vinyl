@@ -65,7 +65,7 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
         __sync           = _struct.sync;
         __blend          = _struct.blend;
         __blendCurveName = _struct.blendCurveName;
-        __childArray  = variable_clone(_struct.childrenArray);
+        __childArray     = variable_clone(_struct.childrenArray);
     }
     
     static __Play = function(_patternTop, _parentVoice, _vinylEmitter, _sound, _loop = undefined, _gain = 1, _pitch = 1, _pan = undefined)
@@ -84,6 +84,9 @@ function __VinylClassPatternMulti() : __VinylClassPatternCommon() constructor
     {
         __SharedWidgetsChildren(_selectionHandler);
         ImGui.NewLine();
-        __SharedWidgets(_selectionHandler);
+        __SharedWidgets(_selectionHandler, function(_dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
+        {
+            __VinylEditorPropWidgetGain("Gain", _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption);
+        });
     }
 }

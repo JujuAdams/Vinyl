@@ -413,7 +413,7 @@ function __VinylClassPatternCommon()
         if (array_length(_assetArray) <= 0) __VinylError("Error in ", self, "\n", __patternType, "-type patterns must have at least one asset");
     }
     
-    static __SharedWidgets = function(_selectionHandler)
+    static __SharedWidgets = function(_selectionHandler, _additionalWidgetFunc = undefined)
     {
         if (ImGui.BeginTable("Pattern Properties", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 260))
         {
@@ -431,6 +431,11 @@ function __VinylClassPatternCommon()
             __VinylEditorPropWidgetEffectChain("Effect Chain", self, _parent, 0, 2, 1);
             __VinylEditorPropWidgetPersistent( "Persistent",   self, _parent, 0, 2, 1);
             __VinylEditorPropWidgetTranspose(  "Transpose",    self, _parent, 0, 2, 1);
+            
+            if (is_method(_additionalWidgetFunc))
+            {
+                _additionalWidgetFunc(self, _parent, 0, 2, 1);
+            }
             
             ImGui.EndTable();
         }

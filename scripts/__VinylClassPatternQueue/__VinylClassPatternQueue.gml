@@ -21,12 +21,14 @@ function __VinylClassPatternQueue() : __VinylClassPatternCommon() constructor
         __ResetShared();
         
         __behavior = __VINYL_QUEUE_PLAY_ONCE;
+        
         if ((_oldStatic != undefined) && (not _oldStatic.__usesChildArray)) __childArray = [];
     }
     
     static __Unset = function(_newStatic = undefined)
     {
         variable_struct_remove(self, "__behavior");
+        
         if (not _newStatic.__usesChildArray) variable_struct_remove(self, "__childArray");
     }
     
@@ -66,6 +68,9 @@ function __VinylClassPatternQueue() : __VinylClassPatternCommon() constructor
     {
         __SharedWidgetsChildren(_selectionHandler);
         ImGui.NewLine();
-        __SharedWidgets(_selectionHandler);
+        __SharedWidgets(_selectionHandler, function(_dataStruct, _parentStruct, _columnName, _columnValue, _columnOption)
+        {
+            __VinylEditorPropWidgetQueueBehavior("Behavior", _dataStruct, _parentStruct, _columnName, _columnValue, _columnOption);
+        });
     }
 }

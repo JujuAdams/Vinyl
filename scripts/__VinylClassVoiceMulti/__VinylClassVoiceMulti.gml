@@ -365,10 +365,27 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
     {
         __StateSetCommon(_patternTop, _pattern, _parentVoice, _vinylEmitter, _loop, _gain, _pitch, _pan);
         
+        var _blendCurveName = __pattern.__blendCurveName;
+        if (_blendCurveName == "")
+        {
+            var _blendCurve = undefined;
+        }
+        else
+        {
+            if ((asset_get_index(_blendCurveName) >= 0) && (asset_get_type(_blendCurveName) == asset_animationcurve))
+            {
+                _blendCurve = __VinylAnimCurveEnsure(_blendCurveName);
+            }
+            else
+            {
+                __VinylError("Error in ", self, "\n\Animation curve \"", _blendCurveName, "\" not recognised");
+            }
+        }
+        
         __blendFactorLocal  = undefined;
         __blendFactorOutput = undefined;
         __sync              = __pattern.__sync;
-        __blendCurve        = __pattern.__blendCurve;
+        __blendCurve        = _blendCurve;
         
         //Make a local copy of the input asset array
         __assetArray = array_create(array_length(_assetArray), undefined);

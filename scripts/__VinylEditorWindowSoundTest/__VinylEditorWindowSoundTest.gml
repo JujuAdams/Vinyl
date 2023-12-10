@@ -65,7 +65,7 @@ function __VinylEditorWindowSoundTest(_stateStruct)
                             var _pattern = _document.__GetPattern(_uuid);
                             if ((not _pattern.__IsChild()) && ((not is_instanceof(_pattern, __VinylClassPatternFallback)) && (not is_instanceof(_pattern, __VinylClassPatternSound))))
                             {
-                                if (ImGui.ArrowButton("##", ImGuiDir.Right))
+                                if (ImGui.ArrowButton("##Play " + _uuid, ImGuiDir.Right))
                                 {
                                     VinylPlay(_uuid);
                                 }

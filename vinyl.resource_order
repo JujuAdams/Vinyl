@@ -71,6 +71,7 @@
     {"name":"__VinylConfigMacros","order":1,"path":"scripts/__VinylConfigMacros/__VinylConfigMacros.yy",},
     {"name":"__VinylEditorPropWidgetLabel","order":8,"path":"scripts/__VinylEditorPropWidgetLabel/__VinylEditorPropWidgetLabel.yy",},
     {"name":"__VinylEditorWindowFilter","order":11,"path":"scripts/__VinylEditorWindowFilter/__VinylEditorWindowFilter.yy",},
+    {"name":"__VinylEditorPropWidgetQueueBehavior","order":10,"path":"scripts/__VinylEditorPropWidgetQueueBehavior/__VinylEditorPropWidgetQueueBehavior.yy",},
     {"name":"VinylPlayFadeIn","order":2,"path":"scripts/VinylPlayFadeIn/VinylPlayFadeIn.yy",},
     {"name":"__VinylGlobalSettingSet","order":5,"path":"scripts/__VinylGlobalSettingSet/__VinylGlobalSettingSet.yy",},
     {"name":"VinylKnobOutputGet","order":5,"path":"scripts/VinylKnobOutputGet/VinylKnobOutputGet.yy",},

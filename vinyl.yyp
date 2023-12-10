@@ -101,6 +101,7 @@
     {"id":{"name":"__VinylConfigMacros","path":"scripts/__VinylConfigMacros/__VinylConfigMacros.yy",},},
     {"id":{"name":"__VinylEditorPropWidgetLabel","path":"scripts/__VinylEditorPropWidgetLabel/__VinylEditorPropWidgetLabel.yy",},},
     {"id":{"name":"__VinylEditorWindowFilter","path":"scripts/__VinylEditorWindowFilter/__VinylEditorWindowFilter.yy",},},
+    {"id":{"name":"__VinylEditorPropWidgetQueueBehavior","path":"scripts/__VinylEditorPropWidgetQueueBehavior/__VinylEditorPropWidgetQueueBehavior.yy",},},
     {"id":{"name":"VinylPlayFadeIn","path":"scripts/VinylPlayFadeIn/VinylPlayFadeIn.yy",},},
     {"id":{"name":"__VinylGlobalSettingSet","path":"scripts/__VinylGlobalSettingSet/__VinylGlobalSettingSet.yy",},},
     {"id":{"name":"VinylKnobOutputGet","path":"scripts/VinylKnobOutputGet/VinylKnobOutputGet.yy",},},
