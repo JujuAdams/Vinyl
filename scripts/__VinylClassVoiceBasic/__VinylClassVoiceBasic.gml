@@ -18,6 +18,13 @@ function __VinylClassVoiceBasic() : __VinylClassVoiceCommon() constructor
         }
     }
     
+    static __Snapshot = function(_snapshot)
+    {
+        array_push(_snapshot.__patternArray, {
+            name: string(self),
+        });
+    }
+    
     static __StateReset = function()
     {
         if ((VINYL_DEBUG_LEVEL >= 2) && (__id != undefined)) __VinylTrace("Resetting state for ", self);

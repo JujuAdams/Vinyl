@@ -66,30 +66,73 @@ function __VinylEditorWindowDesktop(_stateStruct)
             ImGui.PushStyleColor(ImGuiCol.Button, c_white, 0);
             ImGui.SameLine(undefined, 50);
 
-            ImGui.BeginDisabled(__VinylEditorWindowGetOpen("__project"));
-                if (ImGui.Button("Project")) __VinylEditorWindowSetOpen("__project", true);
-            ImGui.EndDisabled();
+            if (ImGui.Button("Project"))
+            {
+                if (__VinylEditorWindowGetOpen("__project"))
+                {
+                    ImGui.SetWindowFocus("Project");
+                }
+                else
+                {
+                    __VinylEditorWindowSetOpen("__project", true);
+                }
+            }
             
-            ImGui.BeginDisabled(__VinylEditorWindowGetOpen("__config"));
-                if (ImGui.Button("Config")) __VinylEditorWindowSetOpen("__config", true);
-            ImGui.EndDisabled();
+            if (ImGui.Button("Config"))
+            {
+                if (__VinylEditorWindowGetOpen("__config"))
+                {
+                    ImGui.SetWindowFocus("Config");
+                }
+                else
+                {
+                    __VinylEditorWindowSetOpen("__config", true);
+                }
+            }
             
-            ImGui.BeginDisabled(__VinylEditorWindowGetOpen("__soundTest"));
-                if (ImGui.Button("Sound Test")) __VinylEditorWindowSetOpen("__soundTest", true);
-            ImGui.EndDisabled();
+            if (ImGui.Button("Sound Test"))
+            {
+                if (__VinylEditorWindowGetOpen("__soundTest"))
+                {
+                    ImGui.SetWindowFocus("Sound Test");
+                }
+                else
+                {
+                    __VinylEditorWindowSetOpen("__soundTest", true);
+                }
+            }
             
             ImGui.SameLine(undefined, 50);
 
-            ImGui.BeginDisabled(__VinylEditorWindowGetOpen("__nowPlaying"));
-                if (ImGui.Button("Now Playing")) __VinylEditorWindowSetOpen("__nowPlaying", true);
-            ImGui.EndDisabled();
+            if (ImGui.Button("Now Playing"))
+            {
+                if (__VinylEditorWindowGetOpen("__nowPlaying"))
+                {
+                    ImGui.SetWindowFocus("Now Playing");
+                }
+                else
+                {
+                    __VinylEditorWindowSetOpen("__nowPlaying", true);
+                }
+            }
+            
+            if (ImGui.Button("Take Snapshot!"))
+            {
+                __VinylEditorSnapshot();
+            }
 
-            ImGui.Button("Take Snapshot!");
-
-            ImGui.BeginDisabled(__VinylEditorWindowGetOpen("__snapshots"));
-                if (ImGui.Button("Snapshots")) __VinylEditorWindowSetOpen("__snapshots", true);
-            ImGui.EndDisabled();
-
+            if (ImGui.Button("Snapshots"))
+            {
+                if (__VinylEditorWindowGetOpen("__snapshots"))
+                {
+                    ImGui.SetWindowFocus("Snapshots");
+                }
+                else
+                {
+                    __VinylEditorWindowSetOpen("__snapshots", true);
+                }
+            }
+            
             ImGui.PopStyleColor();
         ImGui.EndMainMenuBar();
         

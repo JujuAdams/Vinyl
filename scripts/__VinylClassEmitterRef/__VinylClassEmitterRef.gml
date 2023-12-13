@@ -109,4 +109,9 @@ function __VinylClassEmitterRef() constructor
     {
         return string(__emitter);
     }
+    
+    static __Snapshot = function(_snapshot)
+    {
+        return __emitter.__Snapshot(_snapshot);
+    }
 }

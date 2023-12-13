@@ -17,6 +17,13 @@ function __VinylClassVoiceMulti() : __VinylClassVoiceCommon() constructor
         }
     }
     
+    static __Snapshot = function(_snapshot)
+    {
+        array_push(_snapshot.__patternArray, {
+            name: string(self),
+        });
+    }
+    
     static __GetCount = function()
     {
         var _count = 1;

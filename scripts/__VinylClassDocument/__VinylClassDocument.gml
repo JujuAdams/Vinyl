@@ -51,6 +51,7 @@ function __VinylClassDocument(_path) constructor
         __stackDict        = {};
         __animCurveDict    = {};
         __animCurveArray   = [];
+        __snapshotArray    = [];
         
         __settings = {};
         
@@ -357,6 +358,11 @@ function __VinylClassDocument(_path) constructor
         return __project.__GetAssetTagArray();
     }
     
+    static __GetSnapshotArray = function()
+    {
+        return __snapshotArray;
+    }
+    
     #endregion
     
     
@@ -490,5 +496,10 @@ function __VinylClassDocument(_path) constructor
         __Save();
         
         return _new;
+    }
+    
+    static __PushSnapshot = function(_snapshot)
+    {
+        array_push(__snapshotArray, _snapshot);
     }
 }

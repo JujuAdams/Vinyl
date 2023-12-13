@@ -8,7 +8,7 @@ function __VinylClassPatternRefAssetTag() constructor
     static __patternType    = __VINYL_PATTERN_TYPE_REF_ASSET_TAG;
     static __usesChildArray = false;
     
-    __uuid     = string(ptr(__VinylRandom(0x7FFF_FFFF_FFFF_FFFF)));
+    __uuid     = __VinylGenerateUUID();
     __document = undefined;
     __parent   = undefined;
     __name     = "";
