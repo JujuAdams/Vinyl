@@ -1,5 +1,3 @@
-__VinylEditorDraw();
-
 if (VinylEditorIsShowing()) return;
 
 

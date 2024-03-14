@@ -1,1 +1,1 @@
-__VinylEditorDraw();
+VedDraw();
