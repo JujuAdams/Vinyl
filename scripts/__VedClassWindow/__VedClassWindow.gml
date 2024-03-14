@@ -4,7 +4,7 @@ function __VedClassWindow() constructor
 {
     static _system = __VedSystem();
     
-    __handle = undefined;
+    __handle = "";
     __closed = false;
     
     static __Update = function()

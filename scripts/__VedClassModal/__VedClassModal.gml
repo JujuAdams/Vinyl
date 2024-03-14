@@ -4,6 +4,8 @@ function __VedClassModal() constructor
 {
     static _system = __VedSystem();
     
+    __handle = "";
+    
     __firstRun = true;
     __closed = false;
     

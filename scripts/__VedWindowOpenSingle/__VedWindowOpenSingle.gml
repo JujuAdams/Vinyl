@@ -10,7 +10,7 @@ function __VedWindowOpenSingle(_constructor)
     if (_first != undefined)
     {
         var _handle = _first.__handle;
-        if (_handle != undefined) ImGui.SetWindowFocus(_handle);
+        if (_handle != "") ImGui.SetWindowFocus(_handle);
         
         return _first;
     }

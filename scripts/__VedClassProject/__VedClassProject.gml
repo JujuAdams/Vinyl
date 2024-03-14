@@ -15,6 +15,9 @@ function __VedClassProject() constructor
     {
         __VedTrace("Loading \"", _projectPath, "\"");
         __projectPath = _projectPath;
+        
+        __VedModalOpen(__VedClassModalLoadSuccess).__path = __projectPath;
+        __VedModalOpen(__VedClassModalLoadFailed).__path = __projectPath;
     }
     
     static __Unload = function()
