@@ -1,6 +1,4 @@
-if (VinylEditorIsShowing()) return;
-
-
+return;
 
 UIStart(10, 10, 8);
 

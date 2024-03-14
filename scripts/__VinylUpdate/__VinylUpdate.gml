@@ -1,5 +1,5 @@
 // Feather disable all
-function __VinylTick()
+function __VinylUpdate()
 {
     static _system = __VinylSystem();
     

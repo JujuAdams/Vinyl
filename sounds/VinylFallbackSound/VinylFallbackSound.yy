@@ -12,8 +12,8 @@
   "conversionMode": 0,
   "duration": 0.586091,
   "parent": {
-    "name": "VIPs only in the green room",
-    "path": "folders/Vinyl/(Internals)/VIPs only in the green room.yy",
+    "name": "(Internals)",
+    "path": "folders/Vinyl/(Internals).yy",
   },
   "preload": false,
   "sampleRate": 44100,

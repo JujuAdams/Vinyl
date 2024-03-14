@@ -2,6 +2,6 @@
 
 function VedDraw()
 {
-    if (not VedIsShowing()) return;
-    ImGui.__Render();
+    static _system = __VedSystem();
+    if (_system.__showing) ImGui.__Render();
 }

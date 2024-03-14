@@ -19,14 +19,16 @@ function __VinylSystem()
 {
     static _system = undefined;
     if (_system != undefined) return _system;
-    
-    __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
-    
     _system = {};
+    
     with(_system)
     {
+        __frame = 0;
+        
+        __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
+        
         if (__VINYL_RUNNING_FROM_IDE) global.vinylSystem = _system;
-        time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylTick, [], -1));
+        time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylUpdate, [], -1));
     }
     
     return _system;

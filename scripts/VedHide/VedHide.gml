@@ -1,8 +1,7 @@
 // Feather disable all
 
-function VinylEditorHide()
+function VedHide()
 {
-    static _editor = __VinylGlobalData().__editor;
-    
-    _editor.__showing = false;
+    static _system = __VedSystem();
+    _system.__showing = false;
 }

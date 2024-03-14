@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylGenCode0",
+  "name": "__VinylUpdate",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Generated",
-    "path": "folders/Vinyl/Generated.yy",
+    "name": "(Internals)",
+    "path": "folders/Vinyl/(Internals).yy",
   },
 }

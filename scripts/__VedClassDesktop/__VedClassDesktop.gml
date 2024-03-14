@@ -11,9 +11,9 @@ function __VedClassDesktop() : __VedClassWindow() constructor
             
                 ImGui.Separator();
             
-            	if (ImGui.MenuItem("Global Settings", undefined, undefined, not __VinylEditorWindowGetOpen("__settings")))
+            	if (ImGui.MenuItem("Global Settings", undefined, undefined, not __VedWindowGetOpen("__settings")))
                 {
-                    __VinylEditorWindowSetOpen("__settings", true);
+                    __VedWindowSetOpen("__settings", true);
             	}
             
             	if (ImGui.MenuItem("GitHub (URL)"))
@@ -63,37 +63,37 @@ function __VedClassDesktop() : __VedClassWindow() constructor
 
             if (ImGui.Button("Project"))
             {
-                if (__VinylEditorWindowGetOpen("__project"))
+                if (__VedWindowGetOpen("__project"))
                 {
                     ImGui.SetWindowFocus("Project");
                 }
                 else
                 {
-                    __VinylEditorWindowSetOpen("__project", true);
+                    __VedWindowSetOpen("__project", true);
                 }
             }
             
             if (ImGui.Button("Config"))
             {
-                if (__VinylEditorWindowGetOpen("__config"))
+                if (__VedWindowGetOpen("__config"))
                 {
                     ImGui.SetWindowFocus("Config");
                 }
                 else
                 {
-                    __VinylEditorWindowSetOpen("__config", true);
+                    __VedWindowSetOpen("__config", true);
                 }
             }
             
             if (ImGui.Button("Sound Test"))
             {
-                if (__VinylEditorWindowGetOpen("__soundTest"))
+                if (__VedWindowGetOpen("__soundTest"))
                 {
                     ImGui.SetWindowFocus("Sound Test");
                 }
                 else
                 {
-                    __VinylEditorWindowSetOpen("__soundTest", true);
+                    __VedWindowSetOpen("__soundTest", true);
                 }
             }
             
@@ -101,30 +101,30 @@ function __VedClassDesktop() : __VedClassWindow() constructor
 
             if (ImGui.Button("Now Playing"))
             {
-                if (__VinylEditorWindowGetOpen("__nowPlaying"))
+                if (__VedWindowGetOpen("__nowPlaying"))
                 {
                     ImGui.SetWindowFocus("Now Playing");
                 }
                 else
                 {
-                    __VinylEditorWindowSetOpen("__nowPlaying", true);
+                    __VedWindowSetOpen("__nowPlaying", true);
                 }
             }
             
             if (ImGui.Button("Take Snapshot!"))
             {
-                __VinylEditorSnapshot();
+                __VedSnapshot();
             }
 
             if (ImGui.Button("Snapshots"))
             {
-                if (__VinylEditorWindowGetOpen("__snapshots"))
+                if (__VedWindowGetOpen("__snapshots"))
                 {
                     ImGui.SetWindowFocus("Snapshots");
                 }
                 else
                 {
-                    __VinylEditorWindowSetOpen("__snapshots", true);
+                    __VedWindowSetOpen("__snapshots", true);
                 }
             }
             

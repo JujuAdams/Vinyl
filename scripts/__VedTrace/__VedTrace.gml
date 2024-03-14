@@ -1,6 +1,6 @@
-function __VinylEdTrace()
+function __VedTrace()
 {
-    static _system = __VinylSystem();
+    static _system = __VedSystem();
     
     if (VINYL_DEBUG_SHOW_FRAMES)
     {

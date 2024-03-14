@@ -1,18 +1,18 @@
 // Feather disable all
 
-function VinylEditorShow()
+function VedShow()
 {
-    static _editor = __VinylGlobalData().__editor;
+    static _system = __VedSystem();
     
     if (not __VED_ENABLED)
     {
-        if (__VinylGetRunningFromIDE())
+        if (__VED_RUNNING_FROM_IDE)
         {
-            __VinylError("Cannot open the editor\n- Check VINYL_EDITOR_ENABLED is set to <true>\n- Editor is only supported on Windows");
+            __VinylError("Cannot open the editor\n- Check VED_ENABLED is set to <true>\n- Editor is only supported on Windows");
         }
         
         return;
     }
     
-    _editor.__showing = true;
+    _system.__showing = true;
 }

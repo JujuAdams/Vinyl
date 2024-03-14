@@ -13,12 +13,13 @@ function __VedSystem()
 {
     static _system = undefined;
     if (_system != undefined) return _system;
-    
-    __VedTrace("Welcome to Vinyl Editor! This is version ", __VED_VERSION, ", ", __VED_DATE);
-    
     _system = {};
+    
     with(_system)
     {
+        __frame = 0;
+        __VedTrace("Welcome to Vinyl Editor! This is version ", __VED_VERSION, ", ", __VED_DATE);
+        
         __ImGuiBoot();
         
         __showing = false;

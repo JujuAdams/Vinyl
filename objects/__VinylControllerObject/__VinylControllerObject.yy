@@ -8,8 +8,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "VIPs only in the green room",
-    "path": "folders/Vinyl/(Internals)/VIPs only in the green room.yy",
+    "name": "(Internals)",
+    "path": "folders/Vinyl/(Internals).yy",
   },
   "parentObjectId": null,
   "persistent": true,
