@@ -33,6 +33,13 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
             	ImGui.EndMenu();
             }
             
+            var _i = 0;
+            repeat(array_length(_system.__modalsArray))
+            {
+                _system.__modalsArray[_i].__Update();
+                ++_i;
+            }
+            
             ImGui.PushStyleColor(ImGuiCol.Button, c_white, 0);
             ImGui.SameLine(undefined, 50);
 

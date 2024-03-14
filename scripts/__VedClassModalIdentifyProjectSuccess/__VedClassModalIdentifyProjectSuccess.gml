@@ -10,7 +10,7 @@ function __VedClassModalIdentifyProjectSuccess() : __VedClassModal() constructor
     
     static __BuildUI = function()
     {
-        if (ImGui.BeginPopupModal("Identify Project", undefined, ImGuiWindowFlags.NoResize))
+        if (ImGui.BeginPopupModal("Identify Project"))
         {
             ImGui.Text("The project file has been successfully identied.");
             
