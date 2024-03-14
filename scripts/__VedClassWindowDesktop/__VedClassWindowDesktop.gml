@@ -9,6 +9,8 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
     
     static __BuildUI = function()
     {
+        var _exitModal = false;
+        
         ImGui.BeginMainMenuBar();
             if (ImGui.BeginMenu("Vinyl"))
             {
@@ -31,13 +33,6 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
             	if (ImGui.MenuItem("Close Editor")) __VedModalOpen(__VedClassModalCloseProject);
                 
             	ImGui.EndMenu();
-            }
-            
-            var _i = 0;
-            repeat(array_length(_system.__modalsArray))
-            {
-                _system.__modalsArray[_i].__Update();
-                ++_i;
             }
             
             ImGui.PushStyleColor(ImGuiCol.Button, c_white, 0);

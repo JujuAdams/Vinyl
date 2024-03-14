@@ -30,10 +30,11 @@ function __VedSystem()
         __sendBuffer = buffer_create(1024, buffer_grow, 1);
         
         __showing = false;
-        __windowsArray = [];
-        array_push(__windowsArray, new __VedClassWindowDesktop());
         
+        __windowsArray = [];
         __modalsArray = [];
+        
+        __VedWindowOpenSingle(__VedClassWindowDesktop);
         
         __project = undefined;
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VedUpdate, [], -1));

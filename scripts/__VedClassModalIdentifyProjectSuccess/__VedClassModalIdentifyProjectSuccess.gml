@@ -16,7 +16,7 @@ function __VedClassModalIdentifyProjectSuccess() : __VedClassModal() constructor
             
             ImGui.Separator();
             
-            if (ImGui.Button("OK")) ImGui.CloseCurrentPopup();
+            if (ImGui.Button("OK")) __Close();
             
             ImGui.EndPopup();
         }

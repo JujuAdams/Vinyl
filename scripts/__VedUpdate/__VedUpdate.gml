@@ -30,16 +30,36 @@ function __VedUpdate()
             var _i = 0;
             repeat(array_length(__windowsArray))
             {
-                __windowsArray[_i].__Update();
+                var _window = __windowsArray[_i];
+                _window.__Update();
+                
+                if (_window.__closed)
+                {
+                    array_delete(__windowsArray, _i, 1);
+                }
+                else
+                {
+                    ++_i;
+                }
+                
                 ++_i;
             }
             
-            //var _i = 0;
-            //repeat(array_length(__modalsArray))
-            //{
-            //    __modalsArray[_i].__Update();
-            //    ++_i;
-            //}
+            var _i = 0;
+            repeat(array_length(__modalsArray))
+            {
+                var _modal = __modalsArray[_i];
+                _modal.__Update();
+                
+                if (_modal.__closed)
+                {
+                    array_delete(__modalsArray, _i, 1);
+                }
+                else
+                {
+                    ++_i;
+                }
+            }
         }
     }
 }

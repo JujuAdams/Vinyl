@@ -18,12 +18,12 @@ function __VedClassModalIdentifyProjectFailed() : __VedClassModal() constructor
             
             if (ImGui.Button("Try Again"))
             {
-                ImGui.CloseCurrentPopup();
+                __Close();
                 __VedModalOpen(__VedClassModalIdentifyProjectSuccess).__receivedIdent = __receivedIdent;
             }
             
             ImGui.SameLine();
-            if (ImGui.Button("Abort Connection")) ImGui.CloseCurrentPopup();
+            if (ImGui.Button("Abort Connection")) __Close();
             
             ImGui.EndPopup();
         }

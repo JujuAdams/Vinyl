@@ -21,7 +21,7 @@ function __VedClassModalIdentifyProject() : __VedClassModal() constructor
                 var _path = get_open_filename("*.*", ".json");
                 if (_path != "")
                 {
-                    ImGui.CloseCurrentPopup();
+                    __Close();
                     
                     var _foundIdent = "1";
                     if (_foundIdent == __receivedIdent)
@@ -36,7 +36,7 @@ function __VedClassModalIdentifyProject() : __VedClassModal() constructor
             }
             
             ImGui.SameLine();
-            if (ImGui.Button("Abort Connection")) ImGui.CloseCurrentPopup();
+            if (ImGui.Button("Abort Connection")) __Close();
             
             ImGui.EndPopup();
         }

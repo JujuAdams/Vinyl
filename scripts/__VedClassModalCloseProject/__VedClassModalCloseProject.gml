@@ -5,7 +5,7 @@ function __VedClassModalCloseProject() : __VedClassModal() constructor
     static __FirstTime = function()
     {
         ImGui.OpenPopup("Close Editor?");
-        ImGui.SetNextWindowPos(window_get_width()/2, window_get_height ()/2, ImGuiCond.Appearing, 0.5, 0.5);
+        ImGui.SetNextWindowPos(window_get_width()/2, window_get_height()/2, ImGuiCond.Appearing, 0.5, 0.5);
     }
     
     static __BuildUI = function()
@@ -18,13 +18,13 @@ function __VedClassModalCloseProject() : __VedClassModal() constructor
             
             if (ImGui.Button("Lose all changes"))
             {
-            	ImGui.CloseCurrentPopup();
+            	__Close();
                 VedClose();
                 return;
             }
             
             ImGui.SameLine();
-            if (ImGui.Button("Keep working")) ImGui.CloseCurrentPopup();
+            if (ImGui.Button("Keep working")) __Close();
             
             ImGui.EndPopup();
         }
