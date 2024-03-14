@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylNetworkingEvent",
+  "name": "__VedNetworkingReceiveBuffer",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
     "name": "(Internals)",
-    "path": "folders/Vinyl/(Internals).yy",
+    "path": "folders/Vinyl Editor/(Internals).yy",
   },
 }

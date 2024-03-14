@@ -2,5 +2,6 @@
 
 function VedClose()
 {
-    static _system = __VedSystem();
+    VedUnload();
+    VedHide();
 }

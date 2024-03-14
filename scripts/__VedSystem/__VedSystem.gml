@@ -9,6 +9,8 @@
 #macro __VED_NEXT_UI_FILLS_WIDTH  ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX());
 #macro __VED_UNDERLINE_PREV_TEXT  ImGui.DrawListAddLine(ImGui.GetWindowDrawList(), ImGui.GetItemRectMinX(), ImGui.GetItemRectMaxY(), ImGui.GetItemRectMaxX(), ImGui.GetItemRectMaxY(), c_white);
 
+#macro __VED_NETWORKING_PORT  13587
+
 function __VedSystem()
 {
     static _system = undefined;
@@ -25,10 +27,10 @@ function __VedSystem()
         ImGui.__Initialize();
         
         __showing = false;
-        
         __windowsArray = [];
         array_push(__windowsArray, new __VedClassDesktop());
         
+        __project = undefined;
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VedUpdate, [], -1));
     }
     

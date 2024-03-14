@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VedNetworkingEvent",
+  "name": "VedUnload",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "(Internals)",
-    "path": "folders/Vinyl Editor/(Internals).yy",
+    "name": "Vinyl Editor",
+    "path": "folders/Vinyl Editor.yy",
   },
 }

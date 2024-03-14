@@ -2,22 +2,22 @@
 
 function __VedClassDesktop() : __VedClassWindow() constructor
 {
-    static __Build = function()
+    static __Update = function()
+    {
+        __BuildUI();
+    }
+    
+    static __BuildUI = function()
     {
         var _exit_modal = false;
         
         ImGui.BeginMainMenuBar();
             if (ImGui.BeginMenu("Vinyl"))
             {
-                ImGui.TextColored("ImGUI Test\nJuju Adams\n2023-11-09", #ff7f00);
+                ImGui.TextColored("Juju Adams\n" + __VED_VERSION + "\n" + __VED_DATE, #ff7f00);
             
                 ImGui.Separator();
-            
-            	//if (ImGui.MenuItem("Global Settings", undefined, undefined, not __VedWindowGetOpen("__settings")))
-                //{
-                //    __VedWindowSetOpen("__settings", true);
-            	//}
-            
+                
             	if (ImGui.MenuItem("GitHub (URL)"))
                 {
                     url_open("https://www.github.com/jujuadams/Vinyl");
@@ -44,11 +44,11 @@ function __VedClassDesktop() : __VedClassWindow() constructor
 
             if (ImGui.BeginPopupModal("Close Editor?", undefined, ImGuiWindowFlags.NoResize))
             {
-            	ImGui.Text("Are you sure you want to close the editor?");
+            	ImGui.Text("Are you sure you want to close the editor without saving?");
     
             	ImGui.Separator();
     
-            	if (ImGui.Button("Get me outta here"))
+            	if (ImGui.Button("Lose all changes"))
                 {
             	    ImGui.CloseCurrentPopup();
                     VedClose();
@@ -56,7 +56,7 @@ function __VedClassDesktop() : __VedClassWindow() constructor
                 }
     
             	ImGui.SameLine();
-            	if (ImGui.Button("Nope")) ImGui.CloseCurrentPopup();
+            	if (ImGui.Button("Keep working")) ImGui.CloseCurrentPopup();
             	ImGui.EndPopup();	
             }
 
@@ -87,18 +87,6 @@ function __VedClassDesktop() : __VedClassWindow() constructor
                 }
             }
             
-            if (ImGui.Button("Sound Test"))
-            {
-                if (__VedWindowGetOpen("__soundTest"))
-                {
-                    ImGui.SetWindowFocus("Sound Test");
-                }
-                else
-                {
-                    __VedWindowSetOpen("__soundTest", true);
-                }
-            }
-            
             ImGui.SameLine(undefined, 50);
 
             if (ImGui.Button("Now Playing"))
@@ -110,23 +98,6 @@ function __VedClassDesktop() : __VedClassWindow() constructor
                 else
                 {
                     __VedWindowSetOpen("__nowPlaying", true);
-                }
-            }
-            
-            if (ImGui.Button("Take Snapshot!"))
-            {
-                __VedSnapshot();
-            }
-
-            if (ImGui.Button("Snapshots"))
-            {
-                if (__VedWindowGetOpen("__snapshots"))
-                {
-                    ImGui.SetWindowFocus("Snapshots");
-                }
-                else
-                {
-                    __VedWindowSetOpen("__snapshots", true);
                 }
             }
             
