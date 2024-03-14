@@ -1,6 +1,6 @@
 // Feather disable all
 
-#macro VINYL_EDITOR_DOCUMENT_SAVE_PRETTY  true
+#macro VINYL_LIVE_EDIT  false
 
 //Maximum output gain for audio voices. Must be greater than or equal to zero
 //Choose lower values to get more resolution in perceived volume levels
