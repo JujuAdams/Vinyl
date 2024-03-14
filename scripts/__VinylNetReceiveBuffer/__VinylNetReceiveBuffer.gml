@@ -28,6 +28,8 @@ function __VinylNetReceiveBuffer(_buffer, _offset, _size)
                 break;
                 
                 case "load project":
+                case "identify project":
+                case "no ident found":
                     __VinylError("JSON type \"", _json[$ "__type"], "\" not supported");
                 break;
                 

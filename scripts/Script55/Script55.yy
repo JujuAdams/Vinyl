@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VedClassWindow",
+  "name": "Script55",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Classes",
-    "path": "folders/Vinyl Editor/(Internals)/UI/Classes.yy",
+    "name": "Generated",
+    "path": "folders/Vinyl/Generated.yy",
   },
 }

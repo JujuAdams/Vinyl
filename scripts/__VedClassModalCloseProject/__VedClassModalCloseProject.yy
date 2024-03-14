@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VedClassWindow",
+  "name": "__VedClassModalCloseProject",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

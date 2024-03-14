@@ -31,7 +31,9 @@ function __VedSystem()
         
         __showing = false;
         __windowsArray = [];
-        array_push(__windowsArray, new __VedClassDesktop());
+        array_push(__windowsArray, new __VedClassWindowDesktop());
+        
+        __modalsArray = [];
         
         __project = undefined;
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VedUpdate, [], -1));

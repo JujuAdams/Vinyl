@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VedClassDesktop",
+  "name": "__VedClassModalNoIdent",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "UI",
-    "path": "folders/Vinyl Editor/(Internals)/UI.yy",
+    "name": "Classes",
+    "path": "folders/Vinyl Editor/(Internals)/UI/Classes.yy",
   },
 }

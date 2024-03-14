@@ -4,14 +4,15 @@ switch(async_load[? "type"])
     case network_type_connect:
         if (async_load[? "id"] == __socket)
         {
-            if (__otherSocket != undefined)
+            if (__connectionEstablished)
             {
-                __VedTrace("Received another connection but we already have a link");
+                __VedWarning("Received connection to game but we already have a link");
                 return;
             }
             
+            __connectionEstablished = true;
             __otherSocket = async_load[? "socket"];
-            __VedTrace("Established connection to runtime, other socket = ", __otherSocket);
+            __VedTrace("Established connection to game, other socket = ", __otherSocket);
         }
     break;
     

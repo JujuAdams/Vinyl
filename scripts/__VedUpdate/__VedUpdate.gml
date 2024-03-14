@@ -33,6 +33,13 @@ function __VedUpdate()
                 __windowsArray[_i].__Update();
                 ++_i;
             }
+            
+            var _i = 0;
+            repeat(array_length(__modalsArray))
+            {
+                __modalsArray[_i].__Update();
+                ++_i;
+            }
         }
     }
 }

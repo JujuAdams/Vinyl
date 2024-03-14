@@ -20,6 +20,16 @@ function __VedNetReceiveBuffer(_buffer, _offset, _size)
                     VedLoad(_path, false);
                 break;
                 
+                case "identify project":
+                    var _ident = _json[$ "__ident"];
+                    if (_ident == undefined) __VinylError("JSON missing .__ident field");
+                    __VedModalOpen(__VedClassModalIdentifyProject).__receivedIdent = _ident;
+                break;
+                
+                case "no ident found":
+                    __VedModalOpen(__VedClassModalNoIdent);
+                break;
+                
                 case "rpc":
                     __VedError("JSON type \"", _json[$ "__type"], "\" not supported");
                 break;
