@@ -17,10 +17,12 @@ function __VedSystem()
     
     with(_system)
     {
+        if (not __VED_ENABLED) break;
+        
         __frame = 0;
         __VedTrace("Welcome to Vinyl Editor! This is version ", __VED_VERSION, ", ", __VED_DATE);
         
-        __ImGuiBoot();
+        ImGui.__Initialize();
         
         __showing = false;
         

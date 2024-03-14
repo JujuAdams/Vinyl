@@ -560,10 +560,10 @@ function ImGui() constructor {
 
 	/// @function SetNextWindowDockID(dock_id, cond)
 	/// @argument {Real} dock_id
-	/// @argument {Real} cond
+	/// @argument {Enum.ImGuiCond} [cond=ImGuiCond.None]
 	/// @context ImGui
 	/// @return {Undefined}
-	static SetNextWindowDockID = function(dock_id, cond) {
+	static SetNextWindowDockID = function(dock_id, cond=ImGuiCond.None) {
 		return __imgui_set_next_window_dock_id(dock_id, cond);
 	}
 
@@ -586,6 +586,126 @@ function ImGui() constructor {
 	/// @return {Bool}
 	static IsWindowDocked = function() {
 		return __imgui_is_window_docked();
+	}
+
+	/// @function DockBuilderDockWindow(window_name, node_id)
+	/// @argument {String} window_name
+	/// @argument {Real} node_id
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderDockWindow = function(window_name, node_id) {
+		return __imgui_dockbuilder_dock_window(window_name, node_id);
+	}
+
+	/// @function DockBuilderGetNode(node_id)
+	/// @argument {Real} node_id
+	/// @context ImGui
+	/// @return {Pointer}
+	static DockBuilderGetNode = function(node_id) {
+		return __imgui_dockbuilder_get_node(node_id);
+	}
+
+	/// @function DockBuilderGetCentralNode(node_id)
+	/// @argument {Real} node_id
+	/// @context ImGui
+	/// @return {Pointer}
+	static DockBuilderGetCentralNode = function(node_id) {
+		return __imgui_dockbuilder_get_central_node(node_id);
+	}
+
+	/// @function DockBuilderAddNode(node_id, flags)
+	/// @argument {Real} [node_id=0]
+	/// @argument {Enum.ImGuiDockNodeFlags} [flags=ImGuiDockNodeFlags.None]
+	/// @context ImGui
+	/// @return {Real}
+	static DockBuilderAddNode = function(node_id=0, flags=ImGuiDockNodeFlags.None) {
+		return __imgui_dockbuilder_add_node(node_id, flags);
+	}
+
+	/// @function DockBuilderRemoveNode(node_id)
+	/// @argument {Real} node_id
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderRemoveNode = function(node_id) {
+		return __imgui_dockbuilder_remove_node(node_id);
+	}
+
+	/// @function DockBuilderRemoveNodeDockedWindows(node_id, clear_settings_refs)
+	/// @argument {Real} node_id
+	/// @argument {Bool} [clear_settings_refs=true]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderRemoveNodeDockedWindows = function(node_id, clear_settings_refs=true) {
+		return __imgui_dockbuilder_remove_node_docked_windows(node_id, clear_settings_refs);
+	}
+
+	/// @function DockBuilderRemoveNodeChildNodes(node_id)
+	/// @argument {Real} node_id
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderRemoveNodeChildNodes = function(node_id) {
+		return __imgui_dockbuilder_remove_node_child_nodes(node_id);
+	}
+
+	/// @function DockBuilderSetNodePos(node_id, _x, _y)
+	/// @argument {Real} node_id
+	/// @argument {Real} _x
+	/// @argument {Real} _y
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderSetNodePos = function(node_id, _x, _y) {
+		return __imgui_dockbuilder_set_node_pos(node_id, _x, _y);
+	}
+
+	/// @function DockBuilderSetNodeSize(node_id, width, height)
+	/// @argument {Real} node_id
+	/// @argument {Real} width
+	/// @argument {Real} height
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderSetNodeSize = function(node_id, width, height) {
+		return __imgui_dockbuilder_set_node_size(node_id, width, height);
+	}
+
+	/// @function DockBuilderSplitNode(node_id, split_dir, size_ratio_for_node_at_dir)
+	/// @argument {Real} node_id
+	/// @argument {Real} split_dir
+	/// @argument {Real} size_ratio_for_node_at_dir
+	/// @context ImGui
+	/// @return {Array<ImGuiID>}
+	static DockBuilderSplitNode = function(node_id, split_dir, size_ratio_for_node_at_dir) {
+		return __imgui_dockbuilder_split_node(node_id, split_dir, size_ratio_for_node_at_dir);
+	}
+
+	/// @function DockBuilderCopyDockSpace()
+	/// @context ImGui
+	/// @return {Unknown<unset>}
+	static DockBuilderCopyDockSpace = function() {
+		return __imgui_dockbuilder_copy_dock_space();
+	}
+
+	/// @function DockBuilderCopyDockNode()
+	/// @context ImGui
+	/// @return {Unknown<unset>}
+	static DockBuilderCopyDockNode = function() {
+		return __imgui_dockbuilder_copy_node();
+	}
+
+	/// @function DockBuilderCopyWindowSettings(src_name, dst_name)
+	/// @argument {String} src_name
+	/// @argument {String} dst_name
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderCopyWindowSettings = function(src_name, dst_name) {
+		return __imgui_dockbuilder_copy_window_settings(src_name, dst_name);
+	}
+
+	/// @function DockBuilderFinish(node_id)
+	/// @argument {Real} node_id
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderFinish = function(node_id) {
+		return __imgui_dockbuilder_finish(node_id);
 	}
 
 	/// @function DragFloat(label, v, v_speed, v_min, v_max, format, flags)
@@ -1304,12 +1424,12 @@ function ImGui() constructor {
 		return __imgui_get_font_size();
 	}
 
-	/// @function PushFont(ptr)
-	/// @argument {Any} [ptr=undefined]
+	/// @function PushFont(_ptr)
+	/// @argument {Any} [_ptr=undefined]
 	/// @context ImGui
 	/// @return {Undefined}
-	static PushFont = function(ptr=undefined) {
-		return __imgui_push_font(ptr);
+	static PushFont = function(_ptr=undefined) {
+		return __imgui_push_font(_ptr);
 	}
 
 	/// @function PopFont()
@@ -2865,16 +2985,16 @@ function ImGui() constructor {
 		return __imgui_endframe();
 	}
 
-	/// @function BeginChild(str_id, width, height, border, flags)
+	/// @function BeginChild(str_id, width, height, child_flags, flags)
 	/// @argument {String} str_id
 	/// @argument {Real} [width=0]
 	/// @argument {Real} [height=0]
-	/// @argument {Bool} [border=false]
+	/// @argument {Enum.ImGuiChildFlags} [child_flags=ImGuiChildFlags.None]
 	/// @argument {Enum.ImGuiWindowFlags} [flags=ImGuiWindowFlags.None]
 	/// @context ImGui
 	/// @return {Bool}
-	static BeginChild = function(str_id, width=0, height=0, border=false, flags=ImGuiWindowFlags.None) {
-		return __imgui_begin_child(str_id, width, height, border, flags);
+	static BeginChild = function(str_id, width=0, height=0, child_flags=ImGuiChildFlags.None, flags=ImGuiWindowFlags.None) {
+		return __imgui_begin_child(str_id, width, height, child_flags, flags);
 	}
 
 	/// @function EndChild()
@@ -3184,11 +3304,10 @@ function ImGui() constructor {
 		NoBringToFrontOnFocus = 1 << 13,
 		AlwaysVerticalScrollbar = 1 << 14,
 		AlwaysHorizontalScrollbar = 1 << 15,
-		AlwaysUseWindowPadding = 1 << 16,
-		NoNavInputs = 1 << 18,
-		NoNavFocus = 1 << 19,
-		UnsavedDocument = 1 << 20,
-		NoDocking = 1 << 21,
+		NoNavInputs = 1 << 16,
+		NoNavFocus = 1 << 17,
+		UnsavedDocument = 1 << 18,
+		NoDocking = 1 << 19,
 		NoNav = ImGuiWindowFlags.NoNavInputs | ImGuiWindowFlags.NoNavFocus,
 		NoDecoration = ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoCollapse,
 		NoInputs = ImGuiWindowFlags.NoMouseInputs | ImGuiWindowFlags.NoNavInputs | ImGuiWindowFlags.NoNavFocus,
@@ -3199,6 +3318,19 @@ function ImGui() constructor {
 		Modal = 1 << 27,
 		ChildMenu = 1 << 28,
 		DockNodeHost = 1 << 29,
+		AlwaysUseWindowPadding = 1 << 30,
+	}
+
+	enum ImGuiChildFlags {
+		None = 0,
+		Border = 1 << 0,
+		AlwaysUseWindowPadding = 1 << 1,
+		ResizeX = 1 << 2,
+		ResizeY = 1 << 3,
+		AutoResizeX = 1 << 4,
+		AutoResizeY = 1 << 5,
+		AlwaysAutoResize = 1 << 6,
+		FrameStyle = 1 << 7,
 	}
 
 	enum ImGuiInputTextFlags {
@@ -3241,7 +3373,8 @@ function ImGui() constructor {
 		FramePadding = 1 << 10,
 		SpanAvailWidth = 1 << 11,
 		SpanFullWidth = 1 << 12,
-		NavLeftJumpsBackHere = 1 << 13,
+		SpanAllColumns = 1 << 13,
+		NavLeftJumpsBackHere = 1 << 14,
 		CollapsingHeader = ImGuiTreeNodeFlags.Framed | ImGuiTreeNodeFlags.NoTreePushOnOpen | ImGuiTreeNodeFlags.NoAutoOpenOnLog,
 		AllowItemOverlap = ImGuiTreeNodeFlags.AllowOverlap,
 	}
@@ -3253,10 +3386,11 @@ function ImGui() constructor {
 		MouseButtonMiddle = 2,
 		MouseButtonMask_ = 0x1F,
 		MouseButtonDefault_ = 1,
-		NoOpenOverExistingPopup = 1 << 5,
-		NoOpenOverItems = 1 << 6,
-		AnyPopupId = 1 << 7,
-		AnyPopupLevel = 1 << 8,
+		NoReopen = 1 << 5,
+		NoOpenOverExistingPopup = 1 << 7,
+		NoOpenOverItems = 1 << 8,
+		AnyPopupId = 1 << 10,
+		AnyPopupLevel = 1 << 11,
 		AnyPopup = ImGuiPopupFlags.AnyPopupId | ImGuiPopupFlags.AnyPopupLevel,
 	}
 
@@ -3279,6 +3413,7 @@ function ImGui() constructor {
 		HeightLargest = 1 << 4,
 		NoArrowButton = 1 << 5,
 		NoPreview = 1 << 6,
+		WidthFitPreview = 1 << 7,
 		HeightMask_ = ImGuiComboFlags.HeightSmall | ImGuiComboFlags.HeightRegular | ImGuiComboFlags.HeightLarge | ImGuiComboFlags.HeightLargest,
 	}
 
@@ -3306,87 +3441,7 @@ function ImGui() constructor {
 		NoReorder = 1 << 5,
 		Leading = 1 << 6,
 		Trailing = 1 << 7,
-	}
-
-	enum ImGuiTableFlags {
-		None = 0,
-		Resizable = 1 << 0,
-		Reorderable = 1 << 1,
-		Hideable = 1 << 2,
-		Sortable = 1 << 3,
-		NoSavedSettings = 1 << 4,
-		ContextMenuInBody = 1 << 5,
-		RowBg = 1 << 6,
-		BordersInnerH = 1 << 7,
-		BordersOuterH = 1 << 8,
-		BordersInnerV = 1 << 9,
-		BordersOuterV = 1 << 10,
-		BordersH = ImGuiTableFlags.BordersInnerH | ImGuiTableFlags.BordersOuterH,
-		BordersV = ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.BordersOuterV,
-		BordersInner = ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.BordersInnerH,
-		BordersOuter = ImGuiTableFlags.BordersOuterV | ImGuiTableFlags.BordersOuterH,
-		Borders = ImGuiTableFlags.BordersInner | ImGuiTableFlags.BordersOuter,
-		NoBordersInBody = 1 << 11,
-		NoBordersInBodyUntilResize = 1 << 12,
-		SizingFixedFit = 1 << 13,
-		SizingFixedSame = 2 << 13,
-		SizingStretchProp = 3 << 13,
-		SizingStretchSame = 4 << 13,
-		NoHostExtendX = 1 << 16,
-		NoHostExtendY = 1 << 17,
-		NoKeepColumnsVisible = 1 << 18,
-		PreciseWidths = 1 << 19,
-		NoClip = 1 << 20,
-		PadOuterX = 1 << 21,
-		NoPadOuterX = 1 << 22,
-		NoPadInnerX = 1 << 23,
-		ScrollX = 1 << 24,
-		ScrollY = 1 << 25,
-		SortMulti = 1 << 26,
-		SortTristate = 1 << 27,
-		SizingMask_ = ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.SizingFixedSame | ImGuiTableFlags.SizingStretchProp | ImGuiTableFlags.SizingStretchSame,
-	}
-
-	enum ImGuiTableColumnFlags {
-		None = 0,
-		Disabled = 1 << 0,
-		DefaultHide = 1 << 1,
-		DefaultSort = 1 << 2,
-		WidthStretch = 1 << 3,
-		WidthFixed = 1 << 4,
-		NoResize = 1 << 5,
-		NoReorder = 1 << 6,
-		NoHide = 1 << 7,
-		NoClip = 1 << 8,
-		NoSort = 1 << 9,
-		NoSortAscending = 1 << 10,
-		NoSortDescending = 1 << 11,
-		NoHeaderLabel = 1 << 12,
-		NoHeaderWidth = 1 << 13,
-		PreferSortAscending = 1 << 14,
-		PreferSortDescending = 1 << 15,
-		IndentEnable = 1 << 16,
-		IndentDisable = 1 << 17,
-		IsEnabled = 1 << 24,
-		IsVisible = 1 << 25,
-		IsSorted = 1 << 26,
-		IsHovered = 1 << 27,
-		WidthMask_ = ImGuiTableColumnFlags.WidthStretch | ImGuiTableColumnFlags.WidthFixed,
-		IndentMask_ = ImGuiTableColumnFlags.IndentEnable | ImGuiTableColumnFlags.IndentDisable,
-		StatusMask_ = ImGuiTableColumnFlags.IsEnabled | ImGuiTableColumnFlags.IsVisible | ImGuiTableColumnFlags.IsSorted | ImGuiTableColumnFlags.IsHovered,
-		NoDirectResize_ = 1 << 30,
-	}
-
-	enum ImGuiTableRowFlags {
-		None = 0,
-		Headers = 1 << 0,
-	}
-
-	enum ImGuiTableBgTarget {
-		None = 0,
-		RowBg0 = 1,
-		RowBg1 = 2,
-		CellBg = 3,
+		NoAssumedClosure = 1 << 8,
 	}
 
 	enum ImGuiFocusedFlags {
@@ -3426,11 +3481,14 @@ function ImGui() constructor {
 	enum ImGuiDockNodeFlags {
 		None = 0,
 		KeepAliveOnly = 1 << 0,
-		NoDockingInCentralNode = 1 << 2,
+		NoDockingOverCentralNode = 1 << 2,
 		PassthruCentralNode = 1 << 3,
-		NoSplit = 1 << 4,
+		NoDockingSplit = 1 << 4,
 		NoResize = 1 << 5,
 		AutoHideTabBar = 1 << 6,
+		NoUndocking = 1 << 7,
+		NoSplit = ImGuiDockNodeFlags.NoDockingSplit,
+		NoDockingInCentralNode = ImGuiDockNodeFlags.NoDockingOverCentralNode,
 	}
 
 	enum ImGuiDragDropFlags {
@@ -3603,6 +3661,7 @@ function ImGui() constructor {
 		GrabMinSize,
 		GrabRounding,
 		TabRounding,
+		TabBarBorderSize,
 		ButtonTextAlign,
 		SelectableTextAlign,
 		SeparatorTextBorderSize,
@@ -3687,6 +3746,89 @@ function ImGui() constructor {
 		Once = 1 << 1,
 		FirstUseEver = 1 << 2,
 		Appearing = 1 << 3,
+	}
+
+	enum ImGuiTableFlags {
+		None = 0,
+		Resizable = 1 << 0,
+		Reorderable = 1 << 1,
+		Hideable = 1 << 2,
+		Sortable = 1 << 3,
+		NoSavedSettings = 1 << 4,
+		ContextMenuInBody = 1 << 5,
+		RowBg = 1 << 6,
+		BordersInnerH = 1 << 7,
+		BordersOuterH = 1 << 8,
+		BordersInnerV = 1 << 9,
+		BordersOuterV = 1 << 10,
+		BordersH = ImGuiTableFlags.BordersInnerH | ImGuiTableFlags.BordersOuterH,
+		BordersV = ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.BordersOuterV,
+		BordersInner = ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.BordersInnerH,
+		BordersOuter = ImGuiTableFlags.BordersOuterV | ImGuiTableFlags.BordersOuterH,
+		Borders = ImGuiTableFlags.BordersInner | ImGuiTableFlags.BordersOuter,
+		NoBordersInBody = 1 << 11,
+		NoBordersInBodyUntilResize = 1 << 12,
+		SizingFixedFit = 1 << 13,
+		SizingFixedSame = 2 << 13,
+		SizingStretchProp = 3 << 13,
+		SizingStretchSame = 4 << 13,
+		NoHostExtendX = 1 << 16,
+		NoHostExtendY = 1 << 17,
+		NoKeepColumnsVisible = 1 << 18,
+		PreciseWidths = 1 << 19,
+		NoClip = 1 << 20,
+		PadOuterX = 1 << 21,
+		NoPadOuterX = 1 << 22,
+		NoPadInnerX = 1 << 23,
+		ScrollX = 1 << 24,
+		ScrollY = 1 << 25,
+		SortMulti = 1 << 26,
+		SortTristate = 1 << 27,
+		HighlightHoveredColumn = 1 << 28,
+		SizingMask_ = ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.SizingFixedSame | ImGuiTableFlags.SizingStretchProp | ImGuiTableFlags.SizingStretchSame,
+	}
+
+	enum ImGuiTableColumnFlags {
+		None = 0,
+		Disabled = 1 << 0,
+		DefaultHide = 1 << 1,
+		DefaultSort = 1 << 2,
+		WidthStretch = 1 << 3,
+		WidthFixed = 1 << 4,
+		NoResize = 1 << 5,
+		NoReorder = 1 << 6,
+		NoHide = 1 << 7,
+		NoClip = 1 << 8,
+		NoSort = 1 << 9,
+		NoSortAscending = 1 << 10,
+		NoSortDescending = 1 << 11,
+		NoHeaderLabel = 1 << 12,
+		NoHeaderWidth = 1 << 13,
+		PreferSortAscending = 1 << 14,
+		PreferSortDescending = 1 << 15,
+		IndentEnable = 1 << 16,
+		IndentDisable = 1 << 17,
+		AngledHeader = 1 << 18,
+		IsEnabled = 1 << 24,
+		IsVisible = 1 << 25,
+		IsSorted = 1 << 26,
+		IsHovered = 1 << 27,
+		WidthMask_ = ImGuiTableColumnFlags.WidthStretch | ImGuiTableColumnFlags.WidthFixed,
+		IndentMask_ = ImGuiTableColumnFlags.IndentEnable | ImGuiTableColumnFlags.IndentDisable,
+		StatusMask_ = ImGuiTableColumnFlags.IsEnabled | ImGuiTableColumnFlags.IsVisible | ImGuiTableColumnFlags.IsSorted | ImGuiTableColumnFlags.IsHovered,
+		NoDirectResize_ = 1 << 30,
+	}
+
+	enum ImGuiTableRowFlags {
+		None = 0,
+		Headers = 1 << 0,
+	}
+
+	enum ImGuiTableBgTarget {
+		None = 0,
+		RowBg0 = 1,
+		RowBg1 = 2,
+		CellBg = 3,
 	}
 
 	enum ImDrawFlags {
@@ -3800,37 +3942,18 @@ function ImGui() constructor {
 	}
 
 	static __Update = function() {
-        static timeSinceLastError = 0;
-        
-		var windowW = window_get_width();
-        var windowH = window_get_height();
-        
-        if ((windowW == 0) || (windowH == 0))
-        {
-            if (current_time > timeSinceLastError + 5000)
-            {
-                timeSinceLastError = current_time;
-                show_debug_message("[ImGui_GM - WARNING] Failed to update, window has zero size (" + string(windowW) + " x " + string(windowH) + ")");
-            }
-            
-            return;
-        }
-        else
-        {
-            timeSinceLastError = 0;
-        }
-        
-        __State.Display.Width = windowW;
-		__State.Display.Height = windowH;
+		var _width = window_get_width(), _height = window_get_height();
+		__State.Display.Width = _width;
+		__State.Display.Height = _height;
 		
 		if (!surface_exists(__Surface)) {
-			__Surface = surface_create(windowW, windowH);	
+			__Surface = surface_create(max(1, _width), max(1, _height));	
 		}
 		
 		__State.Engine.Time = delta_time / 1000000;
 		__State.Engine.Framerate = game_get_speed(gamespeed_fps);
 		
-		if (window_has_focus()) {
+		if ((_width > 0 && _height > 0) && window_has_focus()) {
 			for(var i = ImGuiKey.NamedKey_BEGIN; i < ImGuiKey.NamedKey_END; i++) {
 				var key = global.__IMGUI_MAPPING[i];
 				if (key > -1) __imgui_key(i, keyboard_check_direct(key));
@@ -3853,7 +3976,7 @@ function ImGui() constructor {
 			}
 			
 			var _x = window_get_x(), _y = window_get_y();
-			if (point_in_rectangle(display_mouse_get_x(), display_mouse_get_y(), _x, _y, _x + windowW, _y + windowH)) {
+			if (point_in_rectangle(display_mouse_get_x(), display_mouse_get_y(), _x, _y, _x + _width, _y + _height)) {
 				__State.Input.Mouse.X = window_mouse_get_x() / __Scale;
 				__State.Input.Mouse.Y = window_mouse_get_y() / __Scale;
 				
@@ -3879,22 +4002,6 @@ function ImGui() constructor {
 	}
 	
 	static __Render = function() {
-        static timeSinceLastError = 0;
-        if (!surface_exists(__Surface))
-        {
-            if (current_time > timeSinceLastError + 5000)
-            {
-                timeSinceLastError = current_time;
-                show_debug_message("[ImGui_GM - WARNING] Failed to render, surface " + string(__Surface) + " doesn't exist");
-            }
-            
-            return;
-        }
-        else
-        {
-            timeSinceLastError = 0;
-        }
-        
 		__imgui_render();
 		
 		buffer_seek(__CmdBuffer, buffer_seek_start, 0);
@@ -3960,7 +4067,7 @@ try {
 } catch(e) {
 	var ind = asset_get_index("ImGui_");
 	if (ind == -1) {
-		if __VinylGetRunningFromIDE() {
+		if (GM_build_type == "run") {
 			if (!file_exists("warning.bin")) {
 				var b = buffer_create(2, buffer_fixed, 1);
 				buffer_poke(b, 0, buffer_u16, 26984);
@@ -3984,143 +4091,101 @@ try {
 	show_debug_message("[ImGui_GM - WARNING] Failed version check, it is advised that you use a runtime that supports the \"static_get\" function");
 }
 
-
-
-__ImGuiBoot();
-
-function __ImGuiBoot()
-{
-    static _initialized = false;
-    if (_initialized) return;
-    _initialized = true;
-    
-    // Version Check
-    try {
-    	var _get = static_get(new ImGui());
-    	show_debug_message("[ImGui_GM - INFO] Successfully passed version check");
-    } catch(e) {
-    	var ind = asset_get_index("ImGui_");
-    	if (ind == -1) {
-    		if (GM_build_type == "run") {
-    			if (!file_exists("warning.bin")) {
-    				var b = buffer_create(2, buffer_fixed, 1);
-    				buffer_poke(b, 0, buffer_u16, 26984);
-    				buffer_save(b, "warning.bin");
-    				buffer_delete(b);
-			
-    				var _msg = "[WARNING]\nIt looks like you're using a version of GameMaker that does not support the \"static_get\" function.\n\nTo effectively use this extension, please rename the \"ImGui\" script and function to \"ImGui_\" and uncomment the ImGui globalvar delcaration below this warning (search: imgui_compat) to properly access the ImGui namespace\n\nThis warning will only appear when running from the IDE, additionally a stub file has been created in your game's save data directory to prevent this warning from displaying again.";
-    				show_message(_msg);
-    				game_end();
-    			}
-    		}
-    	} else {
-    		/*
-    			NOTE: If using LTS or unsupported runtime, rename this script and constructor to ImGui_ and uncomment the below globalvar delcaration
-    		*/
-		
-    		// [imgui_compat]
-    		//globalvar ImGui;
-    		variable_global_set("ImGui", new ImGui_());
-    	}
-    	show_debug_message("[ImGui_GM - WARNING] Failed version check, it is advised that you use a runtime that supports the \"static_get\" function");
-    }
-
-    global.__IMGUI_MAPPING = array_create(ImGuiKey.KeysData_SIZE, -1);
-    global.__IMGUI_MAPPING[ImGuiKey.None] = vk_nokey;
-    global.__IMGUI_MAPPING[ImGuiKey.Enter] = vk_enter;
-    global.__IMGUI_MAPPING[ImGuiKey.Escape] = vk_escape;
-    global.__IMGUI_MAPPING[ImGuiKey.Space] = vk_space;
-    global.__IMGUI_MAPPING[ImGuiKey.Backspace] = vk_backspace;
-    global.__IMGUI_MAPPING[ImGuiKey.Tab] = vk_tab;
-    global.__IMGUI_MAPPING[ImGuiKey.Pause] = vk_pause;
-    global.__IMGUI_MAPPING[ImGuiKey.LeftArrow] = vk_left;
-    global.__IMGUI_MAPPING[ImGuiKey.RightArrow] = vk_right;
-    global.__IMGUI_MAPPING[ImGuiKey.UpArrow] = vk_up;
-    global.__IMGUI_MAPPING[ImGuiKey.DownArrow] = vk_down;
-    global.__IMGUI_MAPPING[ImGuiKey.Home] = vk_home;
-    global.__IMGUI_MAPPING[ImGuiKey.End] = vk_end;
-    global.__IMGUI_MAPPING[ImGuiKey.Delete] = vk_delete;
-    global.__IMGUI_MAPPING[ImGuiKey.Insert] = vk_insert;
-    global.__IMGUI_MAPPING[ImGuiKey.PageUp] = vk_pageup;
-    global.__IMGUI_MAPPING[ImGuiKey.PageDown] = vk_pagedown;
-    global.__IMGUI_MAPPING[ImGuiKey.F1] = vk_f1;
-    global.__IMGUI_MAPPING[ImGuiKey.F2] = vk_f2;
-    global.__IMGUI_MAPPING[ImGuiKey.F3] = vk_f3;
-    global.__IMGUI_MAPPING[ImGuiKey.F4] = vk_f4;
-    global.__IMGUI_MAPPING[ImGuiKey.F5] = vk_f5;
-    global.__IMGUI_MAPPING[ImGuiKey.F6] = vk_f6;
-    global.__IMGUI_MAPPING[ImGuiKey.F7] = vk_f7;
-    global.__IMGUI_MAPPING[ImGuiKey.F8] = vk_f8;
-    global.__IMGUI_MAPPING[ImGuiKey.F9] = vk_f9;
-    global.__IMGUI_MAPPING[ImGuiKey.F10] = vk_f10;
-    global.__IMGUI_MAPPING[ImGuiKey.F11] = vk_f11;
-    global.__IMGUI_MAPPING[ImGuiKey.F12] = vk_f12;
-    global.__IMGUI_MAPPING[ImGuiKey.Keypad0] = vk_numpad0;
-    global.__IMGUI_MAPPING[ImGuiKey.Keypad1] = vk_numpad1;
-    global.__IMGUI_MAPPING[ImGuiKey.Keypad2] = vk_numpad2;
-    global.__IMGUI_MAPPING[ImGuiKey.Keypad3] = vk_numpad3;
-    global.__IMGUI_MAPPING[ImGuiKey.Keypad4] = vk_numpad4;
-    global.__IMGUI_MAPPING[ImGuiKey.Keypad5] = vk_numpad5;
-    global.__IMGUI_MAPPING[ImGuiKey.Keypad6] = vk_numpad6;
-    global.__IMGUI_MAPPING[ImGuiKey.Keypad7] = vk_numpad7;
-    global.__IMGUI_MAPPING[ImGuiKey.Keypad8] = vk_numpad8;
-    global.__IMGUI_MAPPING[ImGuiKey.Keypad9] = vk_numpad9;
-    global.__IMGUI_MAPPING[ImGuiKey.KeypadDivide] = vk_divide;
-    global.__IMGUI_MAPPING[ImGuiKey.KeypadMultiply] = vk_multiply;
-    global.__IMGUI_MAPPING[ImGuiKey.KeypadSubtract] = vk_subtract;
-    global.__IMGUI_MAPPING[ImGuiKey.KeypadAdd] = vk_add;
-    global.__IMGUI_MAPPING[ImGuiKey.KeypadDecimal] = vk_decimal;
-    global.__IMGUI_MAPPING[ImGuiKey.LeftShift] = vk_lshift;
-    global.__IMGUI_MAPPING[ImGuiKey.LeftCtrl] = vk_lcontrol;
-    global.__IMGUI_MAPPING[ImGuiKey.LeftAlt] = vk_lalt;
-    global.__IMGUI_MAPPING[ImGuiKey.RightShift] = vk_rshift;
-    global.__IMGUI_MAPPING[ImGuiKey.RightCtrl] = vk_rcontrol;
-    global.__IMGUI_MAPPING[ImGuiKey.RightAlt] = vk_ralt;
-    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_1] = ord("1");
-    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_2] = ord("2");
-    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_3] = ord("3");
-    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_4] = ord("4");
-    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_5] = ord("5");
-    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_6] = ord("6");
-    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_7] = ord("7");
-    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_8] = ord("8");
-    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_9] = ord("9");
-    global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_0] = ord("0");
-    global.__IMGUI_MAPPING[ImGuiKey.A] = ord("A");
-    global.__IMGUI_MAPPING[ImGuiKey.B] = ord("B");
-    global.__IMGUI_MAPPING[ImGuiKey.C] = ord("C");
-    global.__IMGUI_MAPPING[ImGuiKey.D] = ord("D");
-    global.__IMGUI_MAPPING[ImGuiKey.E] = ord("E");
-    global.__IMGUI_MAPPING[ImGuiKey.F] = ord("F");
-    global.__IMGUI_MAPPING[ImGuiKey.G] = ord("G");
-    global.__IMGUI_MAPPING[ImGuiKey.H] = ord("H");
-    global.__IMGUI_MAPPING[ImGuiKey.I] = ord("I");
-    global.__IMGUI_MAPPING[ImGuiKey.J] = ord("J");
-    global.__IMGUI_MAPPING[ImGuiKey.K] = ord("K");
-    global.__IMGUI_MAPPING[ImGuiKey.L] = ord("L");
-    global.__IMGUI_MAPPING[ImGuiKey.M] = ord("M");
-    global.__IMGUI_MAPPING[ImGuiKey.N] = ord("N");
-    global.__IMGUI_MAPPING[ImGuiKey.O] = ord("O");
-    global.__IMGUI_MAPPING[ImGuiKey.P] = ord("P");
-    global.__IMGUI_MAPPING[ImGuiKey.Q] = ord("Q");
-    global.__IMGUI_MAPPING[ImGuiKey.R] = ord("R");
-    global.__IMGUI_MAPPING[ImGuiKey.S] = ord("S");
-    global.__IMGUI_MAPPING[ImGuiKey.T] = ord("T");
-    global.__IMGUI_MAPPING[ImGuiKey.U] = ord("U");
-    global.__IMGUI_MAPPING[ImGuiKey.V] = ord("V");
-    global.__IMGUI_MAPPING[ImGuiKey.W] = ord("W");
-    global.__IMGUI_MAPPING[ImGuiKey.X] = ord("X");
-    global.__IMGUI_MAPPING[ImGuiKey.Y] = ord("Y");
-    global.__IMGUI_MAPPING[ImGuiKey.Z] = ord("Z");
-    global.__IMGUI_CURSOR = array_create(ImGuiMouseCursor.NotAllowed + 1, cr_none);
-    global.__IMGUI_CURSOR[ImGuiMouseCursor.None + 1] = cr_none;
-    global.__IMGUI_CURSOR[ImGuiMouseCursor.Arrow + 1] = cr_default;
-    global.__IMGUI_CURSOR[ImGuiMouseCursor.TextInput + 1] = cr_beam;
-    global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeAll + 1] = cr_size_all;
-    global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNS + 1] = cr_size_ns;
-    global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeEW + 1] = cr_size_we;
-    global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNESW + 1] = cr_size_nesw;
-    global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNWSE + 1] = cr_size_nwse;
-    global.__IMGUI_CURSOR[ImGuiMouseCursor.Hand + 1] = cr_handpoint;
-    global.__IMGUI_CURSOR[ImGuiMouseCursor.NotAllowed + 1] = cr_default;
-}
+global.__IMGUI_MAPPING = array_create(ImGuiKey.KeysData_SIZE, -1);
+global.__IMGUI_MAPPING[ImGuiKey.None] = vk_nokey;
+global.__IMGUI_MAPPING[ImGuiKey.Enter] = vk_enter;
+global.__IMGUI_MAPPING[ImGuiKey.Escape] = vk_escape;
+global.__IMGUI_MAPPING[ImGuiKey.Space] = vk_space;
+global.__IMGUI_MAPPING[ImGuiKey.Backspace] = vk_backspace;
+global.__IMGUI_MAPPING[ImGuiKey.Tab] = vk_tab;
+global.__IMGUI_MAPPING[ImGuiKey.Pause] = vk_pause;
+global.__IMGUI_MAPPING[ImGuiKey.LeftArrow] = vk_left;
+global.__IMGUI_MAPPING[ImGuiKey.RightArrow] = vk_right;
+global.__IMGUI_MAPPING[ImGuiKey.UpArrow] = vk_up;
+global.__IMGUI_MAPPING[ImGuiKey.DownArrow] = vk_down;
+global.__IMGUI_MAPPING[ImGuiKey.Home] = vk_home;
+global.__IMGUI_MAPPING[ImGuiKey.End] = vk_end;
+global.__IMGUI_MAPPING[ImGuiKey.Delete] = vk_delete;
+global.__IMGUI_MAPPING[ImGuiKey.Insert] = vk_insert;
+global.__IMGUI_MAPPING[ImGuiKey.PageUp] = vk_pageup;
+global.__IMGUI_MAPPING[ImGuiKey.PageDown] = vk_pagedown;
+global.__IMGUI_MAPPING[ImGuiKey.F1] = vk_f1;
+global.__IMGUI_MAPPING[ImGuiKey.F2] = vk_f2;
+global.__IMGUI_MAPPING[ImGuiKey.F3] = vk_f3;
+global.__IMGUI_MAPPING[ImGuiKey.F4] = vk_f4;
+global.__IMGUI_MAPPING[ImGuiKey.F5] = vk_f5;
+global.__IMGUI_MAPPING[ImGuiKey.F6] = vk_f6;
+global.__IMGUI_MAPPING[ImGuiKey.F7] = vk_f7;
+global.__IMGUI_MAPPING[ImGuiKey.F8] = vk_f8;
+global.__IMGUI_MAPPING[ImGuiKey.F9] = vk_f9;
+global.__IMGUI_MAPPING[ImGuiKey.F10] = vk_f10;
+global.__IMGUI_MAPPING[ImGuiKey.F11] = vk_f11;
+global.__IMGUI_MAPPING[ImGuiKey.F12] = vk_f12;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad0] = vk_numpad0;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad1] = vk_numpad1;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad2] = vk_numpad2;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad3] = vk_numpad3;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad4] = vk_numpad4;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad5] = vk_numpad5;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad6] = vk_numpad6;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad7] = vk_numpad7;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad8] = vk_numpad8;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad9] = vk_numpad9;
+global.__IMGUI_MAPPING[ImGuiKey.KeypadDivide] = vk_divide;
+global.__IMGUI_MAPPING[ImGuiKey.KeypadMultiply] = vk_multiply;
+global.__IMGUI_MAPPING[ImGuiKey.KeypadSubtract] = vk_subtract;
+global.__IMGUI_MAPPING[ImGuiKey.KeypadAdd] = vk_add;
+global.__IMGUI_MAPPING[ImGuiKey.KeypadDecimal] = vk_decimal;
+global.__IMGUI_MAPPING[ImGuiKey.LeftShift] = vk_lshift;
+global.__IMGUI_MAPPING[ImGuiKey.LeftCtrl] = vk_lcontrol;
+global.__IMGUI_MAPPING[ImGuiKey.LeftAlt] = vk_lalt;
+global.__IMGUI_MAPPING[ImGuiKey.RightShift] = vk_rshift;
+global.__IMGUI_MAPPING[ImGuiKey.RightCtrl] = vk_rcontrol;
+global.__IMGUI_MAPPING[ImGuiKey.RightAlt] = vk_ralt;
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_1] = ord("1");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_2] = ord("2");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_3] = ord("3");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_4] = ord("4");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_5] = ord("5");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_6] = ord("6");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_7] = ord("7");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_8] = ord("8");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_9] = ord("9");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_0] = ord("0");
+global.__IMGUI_MAPPING[ImGuiKey.A] = ord("A");
+global.__IMGUI_MAPPING[ImGuiKey.B] = ord("B");
+global.__IMGUI_MAPPING[ImGuiKey.C] = ord("C");
+global.__IMGUI_MAPPING[ImGuiKey.D] = ord("D");
+global.__IMGUI_MAPPING[ImGuiKey.E] = ord("E");
+global.__IMGUI_MAPPING[ImGuiKey.F] = ord("F");
+global.__IMGUI_MAPPING[ImGuiKey.G] = ord("G");
+global.__IMGUI_MAPPING[ImGuiKey.H] = ord("H");
+global.__IMGUI_MAPPING[ImGuiKey.I] = ord("I");
+global.__IMGUI_MAPPING[ImGuiKey.J] = ord("J");
+global.__IMGUI_MAPPING[ImGuiKey.K] = ord("K");
+global.__IMGUI_MAPPING[ImGuiKey.L] = ord("L");
+global.__IMGUI_MAPPING[ImGuiKey.M] = ord("M");
+global.__IMGUI_MAPPING[ImGuiKey.N] = ord("N");
+global.__IMGUI_MAPPING[ImGuiKey.O] = ord("O");
+global.__IMGUI_MAPPING[ImGuiKey.P] = ord("P");
+global.__IMGUI_MAPPING[ImGuiKey.Q] = ord("Q");
+global.__IMGUI_MAPPING[ImGuiKey.R] = ord("R");
+global.__IMGUI_MAPPING[ImGuiKey.S] = ord("S");
+global.__IMGUI_MAPPING[ImGuiKey.T] = ord("T");
+global.__IMGUI_MAPPING[ImGuiKey.U] = ord("U");
+global.__IMGUI_MAPPING[ImGuiKey.V] = ord("V");
+global.__IMGUI_MAPPING[ImGuiKey.W] = ord("W");
+global.__IMGUI_MAPPING[ImGuiKey.X] = ord("X");
+global.__IMGUI_MAPPING[ImGuiKey.Y] = ord("Y");
+global.__IMGUI_MAPPING[ImGuiKey.Z] = ord("Z");
+global.__IMGUI_CURSOR = array_create(ImGuiMouseCursor.NotAllowed + 1, cr_none);
+global.__IMGUI_CURSOR[ImGuiMouseCursor.None + 1] = cr_none;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.Arrow + 1] = cr_default;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.TextInput + 1] = cr_beam;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeAll + 1] = cr_size_all;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNS + 1] = cr_size_ns;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeEW + 1] = cr_size_we;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNESW + 1] = cr_size_nesw;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNWSE + 1] = cr_size_nwse;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.Hand + 1] = cr_handpoint;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.NotAllowed + 1] = cr_default;

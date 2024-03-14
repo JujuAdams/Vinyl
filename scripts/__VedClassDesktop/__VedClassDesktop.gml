@@ -4,6 +4,8 @@ function __VedClassDesktop() : __VedClassWindow() constructor
 {
     static __Build = function()
     {
+        var _exit_modal = false;
+        
         ImGui.BeginMainMenuBar();
             if (ImGui.BeginMenu("Vinyl"))
             {
@@ -11,10 +13,10 @@ function __VedClassDesktop() : __VedClassWindow() constructor
             
                 ImGui.Separator();
             
-            	if (ImGui.MenuItem("Global Settings", undefined, undefined, not __VedWindowGetOpen("__settings")))
-                {
-                    __VedWindowSetOpen("__settings", true);
-            	}
+            	//if (ImGui.MenuItem("Global Settings", undefined, undefined, not __VedWindowGetOpen("__settings")))
+                //{
+                //    __VedWindowSetOpen("__settings", true);
+            	//}
             
             	if (ImGui.MenuItem("GitHub (URL)"))
                 {
@@ -49,7 +51,7 @@ function __VedClassDesktop() : __VedClassWindow() constructor
             	if (ImGui.Button("Get me outta here"))
                 {
             	    ImGui.CloseCurrentPopup();
-                    instance_destroy();
+                    VedClose();
                     return;
                 }
     
@@ -134,23 +136,7 @@ function __VedClassDesktop() : __VedClassWindow() constructor
         ImGui.SetNextWindowPos(0, room_height - 30);
         ImGui.SetNextWindowSize(room_width, 30, ImGuiCond.Always);
         ImGui.Begin("Status Bar", true, ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize);
-        
-        if (_editor.__statusText == undefined)
-        {
-            if (__VinylDocument().__GetDirty())
-            {
-                ImGui.Text("Changes detected, waiting to save" + floor((current_time mod 799) / 200)*".");
-            }
-            else
-            {
-                ImGui.Text(floor((current_time mod 799) / 200)*".");
-            }
-        }
-        else
-        {
-            ImGui.Text(_editor.__statusText);
-        }
-        
+        ImGui.Text(floor((current_time mod 799) / 200)*".");
         ImGui.End();
     }
 }

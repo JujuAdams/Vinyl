@@ -2,6 +2,8 @@
 
 function __VedUpdate()
 {
+    static _system = __VedSystem();
+    
     static _inFocus = window_has_focus();
     if (_inFocus != window_has_focus())
     {
@@ -16,11 +18,14 @@ function __VedUpdate()
     {
         ImGui.__Update();
         
-        var _i = 0;
-        repeat(array_length(__windowsArray))
+        with(_system)
         {
-            __windowsArray[_i].__Build();
-            ++_i;
+            var _i = 0;
+            repeat(array_length(__windowsArray))
+            {
+                __windowsArray[_i].__Build();
+                ++_i;
+            }
         }
     }
 }
