@@ -9,6 +9,6 @@ function __VedError()
         ++_i;
     }
     
-    show_debug_message("Vinyl Editor " + __VED_VERSION + ": " + string_replace_all(_string, "\n", "\n             "));
-    show_error("Vinyl Editor:\n" + _string + "\n ", true);
+    show_debug_message("Ved " + __VED_VERSION + ": " + string_replace_all(_string, "\n", "\n             "));
+    show_error("Ved:\n" + _string + "\n ", true);
 }

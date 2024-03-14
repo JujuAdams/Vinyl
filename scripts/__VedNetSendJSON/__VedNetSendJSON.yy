@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VedNetworkingReceiveBuffer",
+  "name": "__VedNetSendJSON",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "(Internals)",
-    "path": "folders/Vinyl Editor/(Internals).yy",
+    "name": "Networking",
+    "path": "folders/Vinyl Editor/(Internals)/Networking.yy",
   },
 }

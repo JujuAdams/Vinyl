@@ -23,8 +23,11 @@ function __VedSystem()
         
         __frame = 0;
         __VedTrace("Welcome to Vinyl Editor! This is version ", __VED_VERSION, ", ", __VED_DATE);
+        if (__VINYL_RUNNING_FROM_IDE) global.vinylEditorSystem = self;
         
         ImGui.__Initialize();
+        
+        __sendBuffer = buffer_create(1024, buffer_grow, 1);
         
         __showing = false;
         __windowsArray = [];

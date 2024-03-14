@@ -1,18 +1,21 @@
+__VinylTrace(json_encode(async_load));
 if (async_load[? "id"] != __socket) return;
+
 switch(async_load[? "type"])
 {
     case network_type_non_blocking_connect:
-        if (__otherSocket != undefined)
-        {
-            __VinylTrace("Received another connection but we already have a link");
-            return;
-        }
-        
         __VinylTrace("Established connection to editor");
-        __otherSocket = async_load[? "socket"];
+        
+        if (__VINYL_RUNNING_FROM_IDE)
+        {
+            __VinylNetSendJSON({
+                __type: "load project",
+                __path: __VinylSystem().__projectPath,
+            });
+        }
     break;
     
     case network_type_data:
-        __VinylTrace(json_encode(async_load));
+        __VinylNetReceiveBuffer(async_load[? "buffer"], 0, async_load[? "size"]);
     break;
 }

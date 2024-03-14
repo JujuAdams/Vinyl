@@ -27,8 +27,16 @@ function __VinylSystem()
         __frame = 0;
         
         __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
+        if (__VINYL_RUNNING_FROM_IDE) global.vinylSystem = self;
         
-        if (__VINYL_RUNNING_FROM_IDE) global.vinylSystem = _system;
+        if (VINYL_LIVE_EDIT)
+        {
+            __rpcDict = {};
+            __sendBuffer = buffer_create(1024, buffer_grow, 1);
+        }
+        
+        __projectPath = __VINYL_RUNNING_FROM_IDE? (filename_dir(GM_project_filename) + "/" + __VINYL_PROJECT_FILENAME) : undefined;
+        
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylUpdate, [], -1));
     }
     

@@ -13,11 +13,12 @@ function __VedClassProject() constructor
     
     static __Load = function(_projectPath)
     {
+        __VedTrace("Loading \"", _projectPath, "\"");
         __projectPath = _projectPath;
     }
     
     static __Unload = function()
     {
-        
+        __VedTrace("Unloading \"", __projectPath, "\"");
     }
 }
