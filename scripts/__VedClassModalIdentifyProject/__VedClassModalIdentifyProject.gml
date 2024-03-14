@@ -12,7 +12,7 @@ function __VedClassModalIdentifyProject() : __VedClassModal() constructor
     {
         if (ImGui.BeginPopupModal("Identify Project", undefined, ImGuiWindowFlags.NoResize))
         {
-            ImGui.Text("Please identify the project file associated with this game.");
+            ImGui.Text(string_concat("Please identify the project file associated with this game.\nident=\"", __receivedIdent, "\""));
             
             ImGui.Separator();
             

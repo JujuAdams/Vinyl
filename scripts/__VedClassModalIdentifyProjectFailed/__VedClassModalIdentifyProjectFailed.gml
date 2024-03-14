@@ -4,15 +4,15 @@ function __VedClassModalIdentifyProjectFailed() : __VedClassModal() constructor
 {
     static __FirstTime = function()
     {
-        ImGui.OpenPopup("Identify Project");
+        ImGui.OpenPopup("Identify Mismatch");
         ImGui.SetNextWindowPos(window_get_width()/2, window_get_height ()/2, ImGuiCond.Appearing, 0.5, 0.5);
     }
     
     static __BuildUI = function()
     {
-        if (ImGui.BeginPopupModal("Identify Project", undefined, ImGuiWindowFlags.NoResize))
+        if (ImGui.BeginPopupModal("Identify Mismatch", undefined, ImGuiWindowFlags.NoResize))
         {
-            ImGui.Text("This project file is for a different version of the game.");
+            ImGui.Text(string_concat("This project file does not match the identifier for this game version.\nident=\"", __receivedIdent, "\""));
             
             ImGui.Separator();
             
