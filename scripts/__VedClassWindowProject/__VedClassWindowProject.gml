@@ -7,7 +7,7 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
     __filter = new __VinylClassFilter();
     
     __useFilter     = false;
-    __seeModified   = false;
+    __seeModified   = true;
     __seeUnmodified = true;
     
     __multiselector = new __VedClassMultiselector();
@@ -21,8 +21,9 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
     {
         var _project = _system.__project;
         
-        var _assetArray      = _project.__libYYPAssets.__GetNameArray();
-        var _assetDictionary = _project.__libYYPAssets.__GetDictionary();
+        var _yypAssetArray  = _project.__libYYPAssets.__GetNameArray();
+        var _yypAssetDict   = _project.__libYYPAssets.__GetDictionary();
+        var _vinylAssetDict = _project.__libVinylAssets.__GetDictionary();
         
         ImGui.SetNextWindowSize(0.7*room_width, 0.8*room_height, ImGuiCond.Once);
         ImGui.SetNextWindowPos(0.15*room_width, 0.1*room_height, ImGuiCond.Once);
@@ -61,9 +62,8 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                     ImGui.TableSetupColumn("Sounds", ImGuiTableColumnFlags.WidthStretch, 1);
                     
                     //DRY - Used for both the fallback sound config and standard sound configs
-                    var _funcBuildSelectable = function(_name, _patternDict, _multiselector)
+                    var _funcBuildSelectable = function(_name, _modified, _multiselector)
                     {
-                        var _modified = false;
                         var _selected = _multiselector.__IsSelected(_name);
                         
                         //Left-hand side custom checkbox
@@ -92,19 +92,19 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                     
                     //Iterate over every sound in the project and show them in the editor
                     var _i = 0;
-                    repeat(array_length(_assetArray))
+                    repeat(array_length(_yypAssetArray))
                     {
-                        var _name = _assetArray[_i];
+                        var _name = _yypAssetArray[_i];
                         
-                        var _modified = false;
+                        var _modified = _vinylAssetDict[$ _name].__modified;
                         var _selected = __multiselector.__IsSelected(_name);
                         
                         if (((_modified && __seeModified) || ((not _modified) && __seeUnmodified)) //Modified check
                         &&  ((not __multiselector.__multiselect) || (_selected && __multiselector.__seeSelected) || ((not _selected) && __multiselector.__seeUnselected))) //Selected check
                         {
-                            if ((not __useFilter) || __VedFilterApply(__filter, _assetDictionary[$ _name])) //General filter
+                            if ((not __useFilter) || __VedFilterApply(__filter, _yypAssetDict[$ _name])) //General filter
                             {
-                                _funcBuildSelectable(_name, undefined, __multiselector);
+                                _funcBuildSelectable(_name, _modified, __multiselector);
                                 
                                 //Push the name of this visible sound to our array
                                 array_push(_visibleArray, _name);
@@ -132,9 +132,11 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
             ImGui.BeginChild("Right Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
                 
                 //Collect some basic facts about the current selection(s)
-                var _selectedCount = __multiselector.__GetSelectedCount();
-                var _lastSelected  = __multiselector.__lastSelected;
-                var _modified      = false; //variable_struct_exists(_patternDict, _lastSelected);
+                var _selectedCount     = __multiselector.__GetSelectedCount();
+                var _lastSelectedName  = __multiselector.__lastSelected;
+                var _lastSelectedVinyl = _vinylAssetDict[$ _lastSelectedName];
+                var _lastSelectedYYP   = _yypAssetDict[$ _lastSelectedName];
+                var _modified          = is_struct(_lastSelectedVinyl)? _lastSelectedVinyl.__modified : false;
                 
                 //Bit of aesthetic spacing
                 ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
@@ -153,18 +155,11 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                     //Change the name and behaviour of the checbox based on its input state
                     if (_modified)
                     {
-                        if (ImGui.Button("Revert"))
-                        {
-                            //_patternDict[$ _lastSelected].__Discard();
-                            __multiselector.__Select(_lastSelected, false);
-                        }
+                        if (ImGui.Button("Revert")) _lastSelectedVinyl.__Unmodify();
                     }
                     else
                     {
-                        if (ImGui.Button("Modify"))
-                        {
-                            //_project.__NewSound(_lastSelected);
-                        }
+                        if (ImGui.Button("Modify")) _lastSelectedVinyl.__Modify();
                     }
                 }
                 else
@@ -176,34 +171,31 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                     {
                         if (ImGui.Button("Revert All"))
                         {
-                            //__multiselector.__ForEachSelected(method({
-                            //    __project: _project,
-                            //    __patternDict: _patternDict,
-                            //},
-                            //function(_name)
-                            //{
-                            //    var _pattern = __patternDict[$ _name];
-                            //    if (_pattern != undefined)
-                            //    {
-                            //        _pattern.__Discard(__project);
-                            //    }
-                            //}));
+                            __multiselector.__ForEachSelected(method({
+                                __vinylAssetDict: _vinylAssetDict,
+                            },
+                            function(_name)
+                            {
+                                var _asset = __vinylAssetDict[$ _name];
+                                if (_asset != undefined) _asset.__Unmodify();
+                            }));
                             
                             __multiselector.__SelectNone();
+                            __multiselector.__Select(_lastSelectedName, false);
                         }
                     }
                     else
                     {
                         if (ImGui.Button("Modify All"))
                         {
-                            //__multiselector.__ForEachSelected(method({
-                            //    __project: _project,
-                            //    __patternDict: _patternDict,
-                            //},
-                            //function(_name)
-                            //{
-                            //    __project.__NewSound(_name);
-                            //}));
+                            __multiselector.__ForEachSelected(method({
+                                __vinylAssetDict: _vinylAssetDict,
+                            },
+                            function(_name)
+                            {
+                                var _asset = __vinylAssetDict[$ _name];
+                                if (_asset != undefined) _asset.__Modify();
+                            }));
                         }
                     }
                 }
@@ -218,10 +210,7 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                 else
                 {
                     //Change the display text depending on what the user is actually seeing
-                    var _displayText = __multiselector.__GetLastSelectedName();
-                    if (not _modified) _displayText += " (displaying default sound properties)";
-                    
-                    ImGui.Text(_displayText);
+                    ImGui.Text(__multiselector.__GetLastSelectedName());
                 }
                 
                 //Little more aesthetic spacing
@@ -231,7 +220,9 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                 if (__multiselector.__GetSelectedCount() > 0)
                 {
                     ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                    _assetDictionary[$ _lastSelected].__BuildUI(__multiselector);
+                    _lastSelectedVinyl.__BuildUI(__multiselector);
+                    ImGui.NewLine();
+                    _lastSelectedYYP.__BuildUI(__multiselector);
                     ImGui.EndChild();
                 }
                 

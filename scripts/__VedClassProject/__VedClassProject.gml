@@ -279,7 +279,7 @@ function __VedClassProject() constructor
         {
             var _yypAsset = _missingInVinyl[_i];
             __VedLog("Creating Vinyl asset for GameMaker sound \"", _yypAsset.__GetName(), "\"");
-            __libVinylAssets.__Add(_yypAsset, _yypAsset.__GenerateVinylAsset());
+            __libVinylAssets.__Add(_yypAsset.__GetName(), _yypAsset.__GenerateVinylAsset());
             ++_i;
         }
     }

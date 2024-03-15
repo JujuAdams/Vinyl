@@ -13,6 +13,10 @@
 
 #macro __VED_NETWORKING_PORT  13587
 
+#macro __VED_OPTION_UNSET      "Unset"
+#macro __VED_OPTION_MULTIPLY   "Multiply"
+#macro __VED_OPTION_RANDOMIZE  "Randomize"
+
 function __VedSystem()
 {
     static _system = undefined;

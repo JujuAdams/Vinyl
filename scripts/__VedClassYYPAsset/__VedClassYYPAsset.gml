@@ -81,15 +81,6 @@ function __VedClassYYPAsset() constructor
     {
         __EnsureData();
         
-        //if (_soundData != undefined)
-        //{
-        //    ImGui.BeginDisabled(not _modified);
-        //        _soundData.__BuildPropertyUI(_selectionHandler);
-        //    ImGui.EndDisabled();
-        //}
-        
-        ImGui.NewLine();
-        
         //All the GameMaker properties
         if (ImGui.BeginTable("GameMaker Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 160))
         {
