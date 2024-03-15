@@ -14,7 +14,54 @@ function __VedClassVinylAsset() constructor
     
     static __Compile = function(_buffer)
     {
-        
+        if (__modified)
+        {
+            buffer_write(_buffer, buffer_text, "function ");
+            buffer_write(_buffer, buffer_text, VED_PREFIX);
+            buffer_write(_buffer, buffer_text, __name);
+            buffer_write(_buffer, buffer_text, "()\n{\n    return audio_play_sound(");
+            buffer_write(_buffer, buffer_text, __name);
+            buffer_write(_buffer, buffer_text, ", 1, false, ");
+            
+            if (__gain[0] == __gain[1])
+            {
+                buffer_write(_buffer, buffer_text, string(__gain[0]));
+            }
+            else
+            {
+                buffer_write(_buffer, buffer_text, " __VinylRandomRange(");
+                buffer_write(_buffer, buffer_text, string(__gain[0]));
+                buffer_write(_buffer, buffer_text, ", ");
+                buffer_write(_buffer, buffer_text, string(__gain[0]));
+                buffer_write(_buffer, buffer_text, ")");
+            }
+            
+            buffer_write(_buffer, buffer_text, ", 0, ");
+            
+            if (__pitch[0] == __pitch[1])
+            {
+                buffer_write(_buffer, buffer_text, string(__pitch[0]));
+            }
+            else
+            {
+                buffer_write(_buffer, buffer_text, " __VinylRandomRange(");
+                buffer_write(_buffer, buffer_text, string(__pitch[0]));
+                buffer_write(_buffer, buffer_text, ", ");
+                buffer_write(_buffer, buffer_text, string(__pitch[0]));
+                buffer_write(_buffer, buffer_text, ")");
+            }
+            
+            buffer_write(_buffer, buffer_text, ");\n}\n\n");
+        }
+        else
+        {
+            buffer_write(_buffer, buffer_text, "function ");
+            buffer_write(_buffer, buffer_text, VED_PREFIX);
+            buffer_write(_buffer, buffer_text, __name);
+            buffer_write(_buffer, buffer_text, "()\n{\n    return audio_play_sound(");
+            buffer_write(_buffer, buffer_text, __name);
+            buffer_write(_buffer, buffer_text, ", 1, false);\n}\n\n");
+        }
     }
     
     static __SetGain = function(_value)

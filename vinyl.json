@@ -13,6 +13,19 @@
         0.52799999713897705
       ],
       "pitchOption":"Multiply"
+    },
+    {
+      "name":"sndBleep0",
+      "gain":[
+        0.76899999380111694,
+        0.76899999380111694
+      ],
+      "gainOption":"Multiply",
+      "pitch":[
+        1.1729999780654907,
+        1.1729999780654907
+      ],
+      "pitchOption":"Multiply"
     }
   ],
   "triggers":[
