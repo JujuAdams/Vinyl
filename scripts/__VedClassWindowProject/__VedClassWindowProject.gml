@@ -2,7 +2,7 @@
 
 function __VedClassWindowProject() : __VedClassWindow() constructor
 {
-    __handle = "Config";
+    __handle = "Project";
     
     __filter = new __VinylClassFilter();
     
@@ -31,8 +31,9 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
         //var _flags = __VinylEditorWindowGetOpen("__filter")? ImGuiWindowFlags.NoBringToFrontOnFocus : ImGuiWindowFlags.None;
         var _flags = ImGuiWindowFlags.None;
         
-        var _return = ImGui.Begin(__handle, __open, _flags, ImGuiReturnMask.Both);
-        __open = _return & ImGuiReturnMask.Pointer;
+        var _return = ImGui.Begin(__handle, not __closed, _flags, ImGuiReturnMask.Both);
+        __closed = ((_return & ImGuiReturnMask.Pointer) <= 0);
+        
         if (_return & ImGuiReturnMask.Return)
         {
             ImGui.BeginChild("Left Pane", 0.3*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
@@ -178,7 +179,8 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                             //__multiselector.__ForEachSelected(method({
                             //    __project: _project,
                             //    __patternDict: _patternDict,
-                            //}, function(_name)
+                            //},
+                            //function(_name)
                             //{
                             //    var _pattern = __patternDict[$ _name];
                             //    if (_pattern != undefined)
@@ -197,7 +199,8 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                             //__multiselector.__ForEachSelected(method({
                             //    __project: _project,
                             //    __patternDict: _patternDict,
-                            //}, function(_name)
+                            //},
+                            //function(_name)
                             //{
                             //    __project.__NewSound(_name);
                             //}));
@@ -228,8 +231,7 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                 if (__multiselector.__GetSelectedCount() > 0)
                 {
                     ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                        _assetDictionary[$ _lastSelected].__BuildUI(__multiselector);
-                        //__VinylEditorPropertiesSound(_lastSelected, _patternDict[$ _lastSelected], _modified, _patternDict[$ __VINYL_SOUND_DEFAULT_UUID], __multiselector, _patternDict);
+                    _assetDictionary[$ _lastSelected].__BuildUI(__multiselector);
                     ImGui.EndChild();
                 }
                 
