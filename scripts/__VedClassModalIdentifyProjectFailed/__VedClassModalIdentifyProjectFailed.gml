@@ -14,7 +14,7 @@ function __VedClassModalIdentifyProjectFailed() : __VedClassModal() constructor
     {
         if (ImGui.BeginPopupModal(__handle, undefined, ImGuiWindowFlags.NoResize))
         {
-            ImGui.Text(string_concat("This project file does not match the identifier for this game version.\nident=\"", __receivedIdent, "\""));
+            ImGui.Text(string_concat("This GameMaker project file does not match the identifier for this game version.\n(Expected ident=\"", __receivedIdent, "\")"));
             
             ImGui.Separator();
             

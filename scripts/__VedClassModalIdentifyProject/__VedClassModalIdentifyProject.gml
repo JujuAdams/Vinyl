@@ -14,13 +14,13 @@ function __VedClassModalIdentifyProject() : __VedClassModal() constructor
     {
         if (ImGui.BeginPopupModal(__handle, undefined, ImGuiWindowFlags.NoResize))
         {
-            ImGui.Text(string_concat("Please identify the project file associated with this game.\nident=\"", __receivedIdent, "\""));
+            ImGui.Text(string_concat("Please identify the GameMaker project file associated with this game.\n(Expected ident=\"", __receivedIdent, "\")"));
             
             ImGui.Separator();
             
             if (ImGui.Button("Open File Browser"))
             {
-                var _path = get_open_filename("*.*", ".json");
+                var _path = get_open_filename("GameMaker Project (*.yyp)|*.yyp", "");
                 if (_path != "")
                 {
                     __Close();

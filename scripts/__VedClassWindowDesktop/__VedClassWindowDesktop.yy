@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Classes",
-    "path": "folders/Vinyl Editor/(Internals)/UI/Classes.yy",
+    "name": "Window Classes",
+    "path": "folders/Vinyl Editor/(Internals)/UI/Window Classes.yy",
   },
 }
