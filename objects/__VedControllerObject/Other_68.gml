@@ -1,4 +1,3 @@
-__VedTrace(json_encode(async_load));
 switch(async_load[? "type"])
 {
     case network_type_connect:

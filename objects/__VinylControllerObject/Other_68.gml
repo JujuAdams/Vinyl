@@ -1,4 +1,3 @@
-__VinylTrace(json_encode(async_load));
 if (async_load[? "id"] != __socket) return;
 
 switch(async_load[? "type"])
