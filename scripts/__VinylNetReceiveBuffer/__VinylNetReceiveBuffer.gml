@@ -27,6 +27,7 @@ function __VinylNetReceiveBuffer(_buffer, _offset, _size)
                     script_execute_ext(_function, _arguments);
                 break;
                 
+                case "create project":
                 case "load project":
                 case "identify project":
                 case "no ident found":

@@ -14,9 +14,15 @@ function __VedNetReceiveBuffer(_buffer, _offset, _size)
             var _json = json_parse(_jsonString);
             switch(_json[$ "__type"])
             {
+                case "create project":
+                    var _path = _json[$ "__yyPath"];
+                    if (_path == undefined) __VinylError("JSON missing .__yyPath field");
+                    __VedCreate(_path, false);
+                break;
+                
                 case "load project":
-                    var _path = _json[$ "__path"];
-                    if (_path == undefined) __VinylError("JSON missing .__path field");
+                    var _path = _json[$ "__yyPath"];
+                    if (_path == undefined) __VinylError("JSON missing .__yyPath field");
                     VedLoad(_path, false);
                 break;
                 

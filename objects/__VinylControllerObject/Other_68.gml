@@ -11,25 +11,35 @@ switch(async_load[? "type"])
         
         __VinylTrace("Established connection to editor");
         
+        var _ident = undefined;
+        try
+        {
+            _ident = __VINYL_GEN_PROJECT_VERSIONED_IDENT;
+        }
+        catch(_error)
+        {
+            __VinylWarning("No project identifier found");
+        }
+        
         if (__VINYL_RUNNING_FROM_IDE)
         {
-            __VinylNetSendJSON({
-                __type: "load project",
-                __path: __VinylSystem().__projectPath,
-            });
+            if (_ident == undefined)
+            {
+                __VinylNetSendJSON({
+                    __type: "create project",
+                    __yyPath: GM_project_filename,
+                });
+            }
+            else
+            {
+                __VinylNetSendJSON({
+                    __type: "load project",
+                    __yyPath: GM_project_filename,
+                });
+            }
         }
         else
         {
-            var _ident = undefined;
-            try
-            {
-                _ident = __VINYL_GEN_PROJECT_VERSIONED_IDENT;
-            }
-            catch(_error)
-            {
-                __VinylWarning("No project identifier found");
-            }
-            
             if (_ident == undefined)
             {
                 __VinylNetSendJSON({
