@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylGenCode",
+  "name": "__VedCreate",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Generated",
-    "path": "folders/Vinyl/(Internals)/Generated.yy",
+    "name": "(Internals)",
+    "path": "folders/Vinyl Editor/(Internals).yy",
   },
 }

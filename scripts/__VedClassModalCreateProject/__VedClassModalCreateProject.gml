@@ -1,8 +1,8 @@
 // Feather disable all
 
-function __VedClassModalLoadFailed() : __VedClassModal() constructor
+function __VedClassModalCreateProject() : __VedClassModal() constructor
 {
-    __handle = "Failed To Load";
+    __handle = "Create Project";
     
     static __FirstTime = function()
     {
@@ -14,11 +14,18 @@ function __VedClassModalLoadFailed() : __VedClassModal() constructor
     {
         if (ImGui.BeginPopupModal(__handle, undefined, ImGuiWindowFlags.NoResize))
         {
-            ImGui.Text(string_concat("Failed to load \"", __path, "\"."));
+            ImGui.Text(string_concat("No Vinyl project was found for \"", __path, "\".\nWould you like to create one?"));
             
             ImGui.Separator();
             
-            if (ImGui.Button("OK")) __Close();
+            if (ImGui.Button("Create Vinyl Project"))
+            {
+                __Close();
+                __VedCreate(__path);
+            }
+            
+            ImGui.SameLine();
+            if (ImGui.Button("Abort Connection")) __Close();
             
             ImGui.EndPopup();
         }

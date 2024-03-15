@@ -27,14 +27,14 @@ function __VedClassModalIdentifyProject() : __VedClassModal() constructor
                     if (_extension != ".yyp")
                     {
                         __VedWarning("GameMaker project extension invalid");
-                        __VedModalOpen(__VedClassModalLoadFailed).__path = _yyPath;
+                        __VedModalOpen(__VedClassModalOperationFailed).__path = _yyPath;
                         return;
                     }
                     
                     if (not file_exists(_yyPath))
                     {
                         __VedWarning("GameMaker project doesn't exist");
-                        __VedModalOpen(__VedClassModalLoadFailed).__path = _yyPath;
+                        __VedModalOpen(__VedClassModalOperationFailed).__path = _yyPath;
                         return;
                     }
                     
@@ -42,7 +42,7 @@ function __VedClassModalIdentifyProject() : __VedClassModal() constructor
                     if (not file_exists(_vinylPath))
                     {
                         __VedWarning("Vinyl project doesn't exist");
-                        __VedModalOpen(__VedClassModalLoadFailed).__path = _vinylPath;
+                        __VedModalOpen(__VedClassModalOperationFailed).__path = _vinylPath;
                         return;
                     }
                     
@@ -63,7 +63,7 @@ function __VedClassModalIdentifyProject() : __VedClassModal() constructor
                     if (_json == undefined)
                     {
                         __VedWarning("Failed to parse Vinyl project");
-                        __VedModalOpen(__VedClassModalLoadFailed).__path = _vinylPath;
+                        __VedModalOpen(__VedClassModalOperationFailed).__path = _vinylPath;
                         return;
                     }
                     

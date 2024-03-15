@@ -41,8 +41,6 @@ function __VedUpdate()
                 {
                     ++_i;
                 }
-                
-                ++_i;
             }
             
             var _i = 0;

@@ -3,7 +3,7 @@
 #macro __VINYL_VERSION  "6.0.0"
 #macro __VINYL_DATE     "2024-03-14"
 
-#macro __VINYL_PROJECT_FILENAME  "VinylProject.json"
+#macro __VINYL_PROJECT_FILENAME  "vinyl.json"
 
 #macro __VINYL_RUNNING_FROM_IDE  (GM_build_type == "run")
 #macro __VINYL_NETWORKING_PORT  13587

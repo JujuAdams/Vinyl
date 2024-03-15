@@ -1,1 +1,1 @@
-// Feather disable all
+#macro VINYL_VERSIONED_IDENT  "002B13F08385F9FE"

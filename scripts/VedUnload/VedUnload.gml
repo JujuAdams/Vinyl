@@ -25,9 +25,6 @@ function VedUnload()
             ++_i;
         }
         
-        array_resize(__windowsArray, 0);
-        array_resize(__modalsArray, 0);
-        
         __VedWindowOpenSingle(__VedClassWindowDesktop);
     }
 }

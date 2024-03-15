@@ -3,7 +3,7 @@
 #macro __VED_VERSION  "6.0.0"
 #macro __VED_DATE     "2024-03-14"
 
-#macro __VED_PROJECT_FILENAME  "VinylProject.json"
+#macro __VED_PROJECT_FILENAME  "vinyl.json"
 
 #macro __VED_RUNNING_FROM_IDE  (GM_build_type == "run")
 #macro __VED_ENABLED  (VED_ENABLED && (os_type == os_windows) && __VED_RUNNING_FROM_IDE)

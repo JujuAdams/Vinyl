@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Generated",
-    "path": "folders/Vinyl/Generated.yy",
+    "path": "folders/Vinyl/(Internals)/Generated.yy",
   },
 }

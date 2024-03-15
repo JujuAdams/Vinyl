@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VedClassModalLoadFailed",
+  "name": "__VedClassModalOperationFailed",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

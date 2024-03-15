@@ -17,13 +17,13 @@ function __VedNetReceiveBuffer(_buffer, _offset, _size)
                 case "create project":
                     var _path = _json[$ "__yyPath"];
                     if (_path == undefined) __VinylError("JSON missing .__yyPath field");
-                    __VedCreate(_path, false);
+                    __VedModalOpen(__VedClassModalCreateProject).__path = _path;
                 break;
                 
                 case "load project":
                     var _path = _json[$ "__yyPath"];
                     if (_path == undefined) __VinylError("JSON missing .__yyPath field");
-                    VedLoad(_path, false);
+                    VedLoad(_path, false, false);
                 break;
                 
                 case "identify project":

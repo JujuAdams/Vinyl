@@ -11,19 +11,9 @@ switch(async_load[? "type"])
         
         __VinylTrace("Established connection to editor");
         
-        var _ident = undefined;
-        try
-        {
-            _ident = __VINYL_GEN_PROJECT_VERSIONED_IDENT;
-        }
-        catch(_error)
-        {
-            __VinylWarning("No project identifier found");
-        }
-        
         if (__VINYL_RUNNING_FROM_IDE)
         {
-            if (_ident == undefined)
+            if (VINYL_VERSIONED_IDENT == undefined)
             {
                 __VinylNetSendJSON({
                     __type: "create project",
@@ -40,7 +30,7 @@ switch(async_load[? "type"])
         }
         else
         {
-            if (_ident == undefined)
+            if (VINYL_VERSIONED_IDENT == undefined)
             {
                 __VinylNetSendJSON({
                     __type: "no ident found",
@@ -50,7 +40,7 @@ switch(async_load[? "type"])
             {
                 __VinylNetSendJSON({
                     __type: "identify project",
-                    __ident: _ident,
+                    __ident: VINYL_VERSIONED_IDENT,
                 });
             }
         }
