@@ -6,6 +6,7 @@ function __VedClassWindow() constructor
     
     __handle = "";
     __closed = false;
+    __open = true;
     
     static __Update = function()
     {
