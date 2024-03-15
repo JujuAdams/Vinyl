@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VedClassProject",
+  "name": "__VedClassLibrary",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

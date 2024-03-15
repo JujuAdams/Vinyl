@@ -7,7 +7,9 @@ function __VedClassProject() constructor
     
     __ident = undefined;
     
-    
+    __libYYPAssets   = new __VedClassLibrary();
+    __libVinylAssets = new __VedClassLibrary();
+    __libTriggers    = new __VedClassLibrary();
     
     
     
@@ -69,6 +71,8 @@ function __VedClassProject() constructor
         if (not __LoadGameMakerProject()) return false;
         if (not __LoadVinylProject()) return false;
         
+        __Correlate();
+        
         __VedLog("Load successful!");
         if (_showPopUp) __VedModalOpen(__VedClassModalLoadSuccess).__path = __pathYY;
         
@@ -91,7 +95,7 @@ function __VedClassProject() constructor
         var _json = undefined;
         try
         {
-            _json = json_stringify(_string);
+            _json = json_parse(_string);
         }
         catch(_error)
         {
@@ -103,6 +107,28 @@ function __VedClassProject() constructor
             __VedWarning("Failed to parse GameMaker project");
             __VedModalOpen(__VedClassModalOperationFailed).__path = __pathYY;
             return false;
+        }
+        
+        var _libYYPAssets = __libYYPAssets;
+        var _resourcesArray = _json.resources;
+        var _i = 0;
+        repeat(array_length(_resourcesArray))
+        {
+            var _resourceData = _resourcesArray[_i];
+            var _id = _resourceData.id;
+            var _path = _id.path;
+            var _name = _id.name;
+            
+            if (string_copy(_path, 1, 6) == "sounds")
+            {
+                var _yypAsset = new __VedClassYYPAsset();
+                _yypAsset.__partialPath = _path;
+                _yypAsset.__name = _name;
+                
+                _libYYPAssets.__Add(_name, _yypAsset);
+            }
+            
+            ++_i;
         }
         
         try
@@ -180,6 +206,11 @@ function __VedClassProject() constructor
         __Compile();
     }
     
+    static __Correlate = function()
+    {
+        
+    }
+    
     static __Compile = function()
     {
         var _buffer = buffer_create(2048, buffer_grow, 1);
@@ -193,6 +224,23 @@ function __VedClassProject() constructor
         buffer_write(_buffer, buffer_text, "#macro VINYL_VERSIONED_IDENT  \"");
         buffer_write(_buffer, buffer_text, string(__ident));
         buffer_write(_buffer, buffer_text, "\"\n");
+        
+        __libVinylAssets.__ForEach(function(_index, _name, _scope, _metadata)
+        {
+            _scope.__Compile(_metadata.__buffer);
+        },
+        {
+            __buffer: _buffer,
+        });
+        
+        __libTriggers.__ForEach(function(_index, _name, _scope, _metadata)
+        {
+            _scope.__Compile(_metadata.__buffer);
+        },
+        {
+            __buffer: _buffer,
+        });
+        
         buffer_save(_buffer, __pathGenMacros);
         buffer_delete(_buffer);
     }

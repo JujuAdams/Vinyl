@@ -9,8 +9,6 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
     
     static __BuildUI = function()
     {
-        var _exitModal = false;
-        
         ImGui.BeginMainMenuBar();
             if (ImGui.BeginMenu("Vinyl"))
             {

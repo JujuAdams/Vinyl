@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VedClassProject",
+  "name": "__VedClassVinylAsset",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
