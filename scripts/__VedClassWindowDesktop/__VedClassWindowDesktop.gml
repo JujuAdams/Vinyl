@@ -58,10 +58,44 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
             ImGui.PopStyleColor();
         ImGui.EndMainMenuBar();
         
-        ImGui.SetNextWindowPos(0, room_height - 30);
-        ImGui.SetNextWindowSize(room_width, 30, ImGuiCond.Always);
+        ImGui.SetNextWindowPos(0, room_height - 28);
+        ImGui.SetNextWindowSize(room_width, 28, ImGuiCond.Always);
         ImGui.Begin("Status Bar", true, ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize);
-        ImGui.Text(floor((current_time mod 799) / 200)*".");
+        
+        ImGui.SmallButton("Log");
+        ImGui.SameLine(undefined, 20);
+        
+        var _drawDuration = 800;
+        var _logArray = _system.__logArray;
+        var _length = array_length(_logArray);
+        if (_length <= 0)
+        {
+            ImGui.Text(floor((current_time mod (_drawDuration-1)) / (_drawDuration/4))*".");
+        }
+        else
+        {
+            if (_length > 4) array_delete(_logArray, 0, _length-2);
+            repeat(array_length(_logArray))
+            {
+                var _log = _logArray[0];
+                
+                var _drawTime = _log.__drawTime;
+                if (_drawTime == undefined)
+                {
+                    _log.__drawTime = current_time;
+                    ImGui.Text(_log.__string);
+                    break;
+                }
+                else if (_drawTime + _drawDuration >= current_time)
+                {
+                    ImGui.Text(_log.__string);
+                    break;
+                }
+                
+                array_delete(_logArray, 0, 1);
+            }
+        }
+        
         ImGui.End();
     }
 }

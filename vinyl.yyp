@@ -85,6 +85,7 @@
     {"id":{"name":"sndBleep6","path":"sounds/sndBleep6/sndBleep6.yy",},},
     {"id":{"name":"__VedWindowGetFirst","path":"scripts/__VedWindowGetFirst/__VedWindowGetFirst.yy",},},
     {"id":{"name":"VedShow","path":"scripts/VedShow/VedShow.yy",},},
+    {"id":{"name":"__VedLog","path":"scripts/__VedLog/__VedLog.yy",},},
     {"id":{"name":"__VedNetReceiveBuffer","path":"scripts/__VedNetReceiveBuffer/__VedNetReceiveBuffer.yy",},},
     {"id":{"name":"VedClose","path":"scripts/VedClose/VedClose.yy",},},
     {"id":{"name":"__VedClassModalIdentifyProjectFailed","path":"scripts/__VedClassModalIdentifyProjectFailed/__VedClassModalIdentifyProjectFailed.yy",},},

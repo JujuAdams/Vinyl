@@ -42,7 +42,7 @@ function __VedClassProject() constructor
     static __CreateFromGameMakerProject = function(_yyPath)
     {
         __SetPaths(_yyPath);
-        __VedTrace("Creating \"", __pathVinyl, "\" next to \"", __pathYY, "\"");
+        __VedLog("Creating \"", __pathVinyl, "\" next to \"", __pathYY, "\"");
         
         if (not file_exists(__pathYY))
         {
@@ -54,7 +54,7 @@ function __VedClassProject() constructor
         __ident = __VedGenerateUUID();
         
         __Save();
-        __VedTrace("Create successful!");
+        __VedLog("Create successful!");
         
         __VedModalOpen(__VedClassModalCreateSuccess).__path = __pathVinyl;
         
@@ -64,12 +64,12 @@ function __VedClassProject() constructor
     static __LoadFromGameMakerProject = function(_yyPath, _showPopUp)
     {
         __SetPaths(_yyPath);
-        __VedTrace("Loading \"", __pathYY, "\" + \"", __pathVinyl, "\"");
+        __VedLog("Loading \"", __pathYY, "\" + \"", __pathVinyl, "\"");
         
         if (not __LoadGameMakerProject()) return false;
         if (not __LoadVinylProject()) return false;
         
-        __VedTrace("Load successful!");
+        __VedLog("Load successful!");
         if (_showPopUp) __VedModalOpen(__VedClassModalLoadSuccess).__path = __pathYY;
         
         return true;
@@ -164,7 +164,7 @@ function __VedClassProject() constructor
     
     static __Unload = function()
     {
-        __VedTrace("Unloading \"", __pathYY, "\" + \"", __pathVinyl, "\"");
+        __VedLog("Unloading \"", __pathYY, "\" + \"", __pathVinyl, "\"");
     }
     
     static __Save = function()

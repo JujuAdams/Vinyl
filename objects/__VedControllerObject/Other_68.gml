@@ -11,7 +11,7 @@ switch(async_load[? "type"])
             
             __connectionEstablished = true;
             __otherSocket = async_load[? "socket"];
-            __VedTrace("Established connection to game, other socket = ", __otherSocket);
+            __VedLog("Established connection to game, other socket = ", __otherSocket);
         }
     break;
     

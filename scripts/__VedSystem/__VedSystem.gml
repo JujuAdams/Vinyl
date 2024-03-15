@@ -23,8 +23,9 @@ function __VedSystem()
     {
         if (not __VED_ENABLED) break;
         
-        __frame = 0;
-        __VedTrace("Welcome to Vinyl Editor! This is version ", __VED_VERSION, ", ", __VED_DATE);
+        __logArray = [];
+        
+        __VedLog("Welcome to Vinyl Editor! This is version ", __VED_VERSION, ", ", __VED_DATE);
         if (__VINYL_RUNNING_FROM_IDE) global.vinylEditorSystem = self;
         
         ImGui.__Initialize();

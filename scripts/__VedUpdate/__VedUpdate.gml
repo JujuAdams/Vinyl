@@ -15,7 +15,7 @@ function __VedUpdate()
         _inFocus = window_has_focus();
         if (_inFocus)
         {
-            __VedTrace("Back in focus");
+            __VedLog("Back in focus");
         }
     }
     

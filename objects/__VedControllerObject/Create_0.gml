@@ -3,4 +3,4 @@ __otherSocket = undefined;
 
 __connectionEstablished = false;
 
-__VedTrace("Created socket ", __socket);
+__VedLog("Created socket ", __socket);
