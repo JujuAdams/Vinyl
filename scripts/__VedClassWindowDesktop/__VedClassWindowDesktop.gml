@@ -12,7 +12,38 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
         ImGui.BeginMainMenuBar();
             if (ImGui.BeginMenu("Vinyl"))
             {
-                ImGui.TextColored("Juju Adams\n" + __VED_VERSION + "\n" + __VED_DATE, #ff7f00);
+                ImGui.TextColored("Vinyl " + __VED_VERSION + "\n" + __VED_DATE, #ff7f00);
+            
+                ImGui.Separator();
+                
+            	if (ImGui.MenuItem("Save"))
+                {
+                    VedSave();
+            	}
+                
+            	if (ImGui.MenuItem("Load..."))
+                {
+                    var _yyPath = get_open_filename("GameMaker Project (*.yyp)|*.yyp", "");
+                    if (_yyPath != "")
+                    {
+                        var _extension = filename_ext(_yyPath);
+                        if (_extension != ".yyp")
+                        {
+                            __VedWarning("GameMaker project extension invalid");
+                            __VedModalOpen(__VedClassModalOperationFailed).__path = _yyPath;
+                            return;
+                        }
+                        
+                        if (not file_exists(_yyPath))
+                        {
+                            __VedWarning("GameMaker project doesn't exist");
+                            __VedModalOpen(__VedClassModalOperationFailed).__path = _yyPath;
+                            return;
+                        }
+                        
+                        VedLoad(_yyPath);
+                    }
+            	}
             
                 ImGui.Separator();
                 
@@ -20,12 +51,12 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
                 {
                     url_open("https://www.github.com/jujuadams/Vinyl");
             	}
-    
+                
             	if (ImGui.MenuItem("Documentation (URL)"))
                 {
                     url_open("https://www.jujuadams.com/Vinyl");
             	}
-    
+                
                 ImGui.Separator();
 	
             	if (ImGui.MenuItem("Close Editor")) __VedModalOpen(__VedClassModalCloseProject);
@@ -63,7 +94,7 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
         ImGui.SmallButton("Log");
         ImGui.SameLine(undefined, 20);
         
-        var _drawDuration = 800;
+        var _drawDuration = 600;
         var _logArray = _system.__logArray;
         var _length = array_length(_logArray);
         if (_length <= 0)
@@ -72,7 +103,17 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
         }
         else
         {
-            if (_length > 4) array_delete(_logArray, 0, _length-2);
+            if (_length > 10)
+            {
+                array_insert(_logArray, 0, {
+                    __createTime: current_time,
+                    __drawTime: undefined,
+                    __string: string_concat("(Skipping ", _length-4, " messages)"),
+                });
+                
+                array_delete(_logArray, 1, _length-4);
+            }
+            
             repeat(array_length(_logArray))
             {
                 var _log = _logArray[0];

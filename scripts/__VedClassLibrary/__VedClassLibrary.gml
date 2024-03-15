@@ -4,7 +4,12 @@ function __VedClassLibrary() constructor
 {
     __byName    = {};
     __orderName = [];
-    __orderData = [];
+    
+    static __Clear = function()
+    {
+        __byName    = {};
+        __orderName = [];
+    }
     
     static __Add = function(_name, _data)
     {
@@ -15,24 +20,19 @@ function __VedClassLibrary() constructor
         }
         
         __byName[$ _name] = _data;
-        array_push(__orderData, _data);
         array_push(__orderName, _name);
     }
     
     static __RemoveByName = function(_name)
     {
-        var _member = __byName[$ _name];
         variable_struct_remove(__byName, _name);
         
-        var _orderData = __orderData;
         var _orderName = __orderName;
-        
         var _i = 0;
-        repeat(array_length(_orderData))
+        repeat(array_length(_orderName))
         {
-            if (_orderData[_i] == _member)
+            if (_orderName[_i] == _name)
             {
-                array_delete(_orderData, _i, 1);
                 array_delete(_orderName, _i, 1);
                 break;
             }
@@ -45,8 +45,30 @@ function __VedClassLibrary() constructor
     {
         var _name = __orderName[_index];
         variable_struct_remove(__byName, _name);
-        array_delete(__orderData, _index, 1);
         array_delete(__orderName, _index, 1);
+    }
+    
+    static __ImportArray = function(_array)
+    {
+        var _i = 0;
+        repeat(array_length(_array))
+        {
+            var _data = _array[_i];
+            var _name = _data.__name;
+            
+            if (not variable_struct_exists(__byName, _name))
+            {
+                __byName[$ _name] = _data;
+                array_push(__orderName, _name);
+            }
+            
+            ++_i;
+        }
+    }
+    
+    static __SortNames = function(_ascending)
+    {
+        array_sort(__orderName, _ascending);
     }
     
     static __GetByName = function(_name)
@@ -61,12 +83,22 @@ function __VedClassLibrary() constructor
     
     static __GetCount = function()
     {
-        return array_length(__orderData);
+        return array_length(__orderName);
+    }
+    
+    static __GetNameArray = function()
+    {
+        return __orderName;
+    }
+    
+    static __GetDictionary = function()
+    {
+        return __byName;
     }
     
     static __GetDataByIndex = function(_index)
     {
-        return __orderData[_index];
+        return __byName[$ __orderName[_index]];
     }
     
     static __GetNameByIndex = function(_index)
@@ -76,13 +108,13 @@ function __VedClassLibrary() constructor
     
     static __ForEach = function(_function, _metadata)
     {
-        var _orderData = __orderData;
+        var _byName = __byName;
         var _orderName = __orderName;
-        
         var _i = 0;
-        repeat(array_length(_orderData))
+        repeat(array_length(_orderName))
         {
-            _function(_i, _orderName[_i], _orderData[_i], _metadata);
+            var _name = _orderName[_i];
+            _function(_i, _name, _byName[$ _name], _metadata);
             ++_i;
         }
     }

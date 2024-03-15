@@ -11,6 +11,8 @@ function __VedClassProject() constructor
     __libVinylAssets = new __VedClassLibrary();
     __libTriggers    = new __VedClassLibrary();
     
+    __changesArray = [];
+    
     
     
     static __Update = function()
@@ -20,14 +22,36 @@ function __VedClassProject() constructor
     
     static __Serialize = function()
     {
-        return {
+        var _output = {
             ident: __ident,
+            assets: [],
+            triggers: [],
         };
+        
+        __libVinylAssets.__ForEach(function(_index, _name, _scope, _metadata)
+        {
+            _scope.__Serialize(_metadata.__array);
+        },
+        {
+            __array: _output.assets,
+        });
+        
+        __libTriggers.__ForEach(function(_index, _name, _scope, _metadata)
+        {
+            _scope.__Serialize(_metadata.__array);
+        },
+        {
+            __array: _output.triggers,
+        });
+        
+        return _output;
     }
     
     static __Deserialize = function(_input)
     {
         __ident = _input.ident;
+        __libVinylAssets.__ImportArray(__VedDeserializeArray(__VedClassVinylAsset, _input.assets));
+        __libTriggers.__ImportArray(__VedDeserializeArray(__VedClassTrigger, _input.triggers));
     }
     
     
@@ -55,8 +79,10 @@ function __VedClassProject() constructor
         
         __ident = __VedGenerateUUID();
         
+        __LoadGameMakerProject();
+        __Correlate();
         __Save();
-        __VedLog("Create successful!");
+        __VedLog("Create \"", __pathVinyl, "\" successful!");
         
         __VedModalOpen(__VedClassModalCreateSuccess).__path = __pathVinyl;
         
@@ -109,6 +135,7 @@ function __VedClassProject() constructor
             return false;
         }
         
+        //Unpack sounds assets we find the .yyp file
         var _libYYPAssets = __libYYPAssets;
         var _resourcesArray = _json.resources;
         var _i = 0;
@@ -130,6 +157,8 @@ function __VedClassProject() constructor
             
             ++_i;
         }
+        
+        __libYYPAssets.__SortNames(true);
         
         try
         {
@@ -204,11 +233,55 @@ function __VedClassProject() constructor
         buffer_delete(_buffer);
         
         __Compile();
+        
+        __VedLog("Save \"", __pathVinyl, "\" successful!");
     }
     
     static __Correlate = function()
     {
+        var _yypNameArray = __libYYPAssets.__GetNameArray();
+        var _yypDict      = __libYYPAssets.__GetDictionary();
         
+        var _vinylNameArray = __libVinylAssets.__GetNameArray();
+        var _vinylDict      = __libVinylAssets.__GetDictionary();
+        
+        var _missingInVinyl = [];
+        var _missingInYYP   = [];
+        
+        var _i = 0;
+        repeat(array_length(_yypNameArray))
+        {
+            var _yypName = _yypNameArray[_i];
+            if (not variable_struct_exists(_vinylDict, _yypName))
+            {
+                __VedLog("\"", _yypName, "\" is missing in Vinyl project");
+                array_push(_missingInVinyl, _yypDict[$ _yypName]);
+            }
+            
+            ++_i;
+        }
+        
+        var _i = 0;
+        repeat(array_length(_vinylNameArray))
+        {
+            var _vinylName = _vinylNameArray[_i];
+            if (not variable_struct_exists(_yypDict, _vinylName))
+            {
+                __VedLog("\"", _vinylName, "\" is missing in GameMaker project");
+                array_push(_missingInYYP, _vinylDict[$ _vinylName]);
+            }
+            
+            ++_i;
+        }
+        
+        var _i = 0;
+        repeat(array_length(_missingInVinyl))
+        {
+            var _yypAsset = _missingInVinyl[_i];
+            __VedLog("Creating Vinyl asset for GameMaker sound \"", _yypAsset.__GetName(), "\"");
+            __libVinylAssets.__Add(_yypAsset, _yypAsset.__GenerateVinylAsset());
+            ++_i;
+        }
     }
     
     static __Compile = function()
