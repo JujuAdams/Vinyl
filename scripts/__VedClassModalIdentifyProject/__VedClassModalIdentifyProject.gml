@@ -70,8 +70,8 @@ function __VedClassModalIdentifyProject() : __VedClassModal() constructor
                     var _foundIdent = _json[$ "ident"];
                     if (_foundIdent == __receivedIdent)
                     {
-                        __Close();
                         __VedModalOpen(__VedClassModalIdentifyProjectSuccess);
+                        VedLoad(_vinylPath);
                     }
                     else
                     {
