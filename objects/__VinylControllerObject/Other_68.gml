@@ -17,6 +17,7 @@ switch(async_load[? "type"])
             {
                 __VinylNetSendJSON({
                     __type: "create project",
+                    __version: __VINYL_VERSION,
                     __yyPath: GM_project_filename,
                 });
             }
@@ -24,6 +25,7 @@ switch(async_load[? "type"])
             {
                 __VinylNetSendJSON({
                     __type: "load project",
+                    __version: __VINYL_VERSION,
                     __yyPath: GM_project_filename,
                 });
             }
@@ -34,12 +36,14 @@ switch(async_load[? "type"])
             {
                 __VinylNetSendJSON({
                     __type: "no ident found",
+                    __version: __VINYL_VERSION,
                 });
             }
             else
             {
                 __VinylNetSendJSON({
                     __type: "identify project",
+                    __version: __VINYL_VERSION,
                     __ident: VINYL_VERSIONED_IDENT,
                 });
             }

@@ -23,8 +23,8 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Window Classes","folderPath":"folders/Vinyl Editor/(Internals)/UI/Window Classes.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Vinyl","folderPath":"folders/Vinyl.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"(Internals)","folderPath":"folders/Vinyl/(Internals).yy",},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Networking","folderPath":"folders/Vinyl/(Internals)/Networking.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Generated","folderPath":"folders/Vinyl/(Internals)/Generated.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Networking","folderPath":"folders/Vinyl/(Internals)/Networking.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"LICENSE.txt","CopyToMask":-1,"filePath":"datafiles/fonts",},
@@ -61,6 +61,7 @@
     {"id":{"name":"__VedClassWindow","path":"scripts/__VedClassWindow/__VedClassWindow.yy",},},
     {"id":{"name":"UIText","path":"scripts/UIText/UIText.yy",},},
     {"id":{"name":"__VedConfig","path":"scripts/__VedConfig/__VedConfig.yy",},},
+    {"id":{"name":"__VedClassModalVersionMismatch","path":"scripts/__VedClassModalVersionMismatch/__VedClassModalVersionMismatch.yy",},},
     {"id":{"name":"__VedWindowOpen","path":"scripts/__VedWindowOpen/__VedWindowOpen.yy",},},
     {"id":{"name":"sndBleep4","path":"sounds/sndBleep4/sndBleep4.yy",},},
     {"id":{"name":"sndBleep8","path":"sounds/sndBleep8/sndBleep8.yy",},},

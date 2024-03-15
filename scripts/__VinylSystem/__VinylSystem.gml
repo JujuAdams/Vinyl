@@ -1,6 +1,6 @@
 // Feather disable all
 
-#macro __VINYL_VERSION  "6.0.0"
+#macro __VINYL_VERSION  "6.0.1"
 #macro __VINYL_DATE     "2024-03-14"
 
 #macro __VINYL_PROJECT_FILENAME  "vinyl.json"
