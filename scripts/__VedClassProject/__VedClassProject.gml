@@ -66,7 +66,7 @@ function __VedClassProject() constructor
     {
         __pathYY         = _yyPath;
         __pathVinyl      = filename_dir(__pathYY) + "/" + __VED_PROJECT_FILENAME;
-        __pathGenMacros  = filename_dir(__pathYY) + "/scripts/__VinylGenMacros/__VinylGenMacros.gml";
+        __pathGenMacros  = filename_dir(__pathYY) + "/scripts/__VinylGenMacro/__VinylGenMacro.gml";
         __pathGenPlay    = filename_dir(__pathYY) + "/scripts/__VinylGenPlay/__VinylGenPlay.gml";
         __pathGenPattern = filename_dir(__pathYY) + "/scripts/__VinylGenPattern/__VinylGenPattern.gml";
     }

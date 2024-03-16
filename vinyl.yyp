@@ -41,7 +41,7 @@
     {"id":{"name":"__VinylGenPlay","path":"scripts/__VinylGenPlay/__VinylGenPlay.yy",},},
     {"id":{"name":"__VedClassModal","path":"scripts/__VedClassModal/__VedClassModal.yy",},},
     {"id":{"name":"__VedClassVinylAsset","path":"scripts/__VedClassVinylAsset/__VedClassVinylAsset.yy",},},
-    {"id":{"name":"__VinylGenMacros","path":"scripts/__VinylGenMacros/__VinylGenMacros.yy",},},
+    {"id":{"name":"__VinylGenMacro","path":"scripts/__VinylGenMacro/__VinylGenMacro.yy",},},
     {"id":{"name":"__VedWarning","path":"scripts/__VedWarning/__VedWarning.yy",},},
     {"id":{"name":"__VedNetSendJSON","path":"scripts/__VedNetSendJSON/__VedNetSendJSON.yy",},},
     {"id":{"name":"__VinylClassVoiceContext","path":"scripts/__VinylClassVoiceContext/__VinylClassVoiceContext.yy",},},
