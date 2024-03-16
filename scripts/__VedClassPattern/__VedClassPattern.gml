@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VedClassTrigger() constructor
+function __VedClassPattern() constructor
 {
     __name = undefined;
     

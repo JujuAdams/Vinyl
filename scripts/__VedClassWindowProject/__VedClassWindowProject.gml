@@ -21,9 +21,9 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
     {
         var _project = _system.__project;
         
-        var _yypAssetArray  = _project.__libYYPAssets.__GetNameArray();
-        var _yypAssetDict   = _project.__libYYPAssets.__GetDictionary();
-        var _vinylAssetDict = _project.__libVinylAssets.__GetDictionary();
+        var _yypAssetArray  = _project.__libYYPAsset.__GetNameArray();
+        var _yypAssetDict   = _project.__libYYPAsset.__GetDictionary();
+        var _vinylAssetDict = _project.__libVinylAsset.__GetDictionary();
         
         ImGui.SetNextWindowSize(0.7*room_width, 0.8*room_height, ImGuiCond.Once);
         ImGui.SetNextWindowPos(0.15*room_width, 0.1*room_height, ImGuiCond.Once);

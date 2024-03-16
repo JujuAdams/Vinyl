@@ -22,7 +22,7 @@
     {"name":"__VedNetSendJSON","order":1,"path":"scripts/__VedNetSendJSON/__VedNetSendJSON.yy",},
     {"name":"__VinylClassVoiceContext","order":1,"path":"scripts/__VinylClassVoiceContext/__VinylClassVoiceContext.yy",},
     {"name":"__VinylError","order":10,"path":"scripts/__VinylError/__VinylError.yy",},
-    {"name":"__VedClassTrigger","order":4,"path":"scripts/__VedClassTrigger/__VedClassTrigger.yy",},
+    {"name":"__VedClassPattern","order":4,"path":"scripts/__VedClassPattern/__VedClassPattern.yy",},
     {"name":"sndBonk","order":3,"path":"sounds/sndBonk/sndBonk.yy",},
     {"name":"UIButton","order":4,"path":"scripts/UIButton/UIButton.yy",},
     {"name":"VedHide","order":6,"path":"scripts/VedHide/VedHide.yy",},
