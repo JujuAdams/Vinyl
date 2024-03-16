@@ -75,16 +75,42 @@ function __VedClassVinylAsset() constructor
         buffer_write(_buffer, buffer_text, "\n");
     }
     
+    static __BroadcastChange = function()
+    {
+        if (__modified)
+        {
+            __VedNetRPC("__VinylOverwritePlaySound", __name, __loop, __gain, __pitch);
+        }
+        else
+        {
+            __VedNetRPC("__VinylRemovePlaySound", __name);
+        }
+    }
+    
+    static __SetLoop = function(_value)
+    {
+        if (_value != __loop)
+        {
+            __loop = _value;
+            __BroadcastChange();
+        }
+    }
+    
     static __SetGain = function(_value)
     {
-        __gain = variable_clone(_value);
-                    
-        //If the two values have inverted then swap 'em over
-        if (__gain[0] > __gain[1])
+        if (not array_equals(_value, __gain))
         {
-            var _temp = __gain[0];
-            __gain[0] = __gain[1];
-            __gain[1] = _temp;
+            __gain = variable_clone(_value);
+            
+            //If the two values have inverted then swap 'em over
+            if (__gain[0] > __gain[1])
+            {
+                var _temp = __gain[0];
+                __gain[0] = __gain[1];
+                __gain[1] = _temp;
+            }
+            
+            __BroadcastChange();
         }
     }
     
@@ -99,14 +125,19 @@ function __VedClassVinylAsset() constructor
     
     static __SetPitch = function(_value)
     {
-        __pitch = variable_clone(_value);
-                    
-        //If the two values have inverted then swap 'em over
-        if (__pitch[0] > __pitch[1])
+        if (not array_equals(_value, __pitch))
         {
-            var _temp = __pitch[0];
-            __pitch[0] = __pitch[1];
-            __pitch[1] = _temp;
+            __pitch = variable_clone(_value);
+            
+            //If the two values have inverted then swap 'em over
+            if (__pitch[0] > __pitch[1])
+            {
+                var _temp = __pitch[0];
+                __pitch[0] = __pitch[1];
+                __pitch[1] = _temp;
+            }
+            
+            __BroadcastChange();
         }
     }
     
@@ -224,12 +255,20 @@ function __VedClassVinylAsset() constructor
     
     static __Modify = function()
     {
-        __modified = true;
+        if (not __modified)
+        {
+            __modified = true;
+            __BroadcastChange();
+        }
     }
     
     static __Unmodify = function()
     {
-        __modified = false;
+        if (__modified)
+        {
+            __modified = false;
+            __BroadcastChange();
+        }
     }
     
     static __Serialize = function(_array)

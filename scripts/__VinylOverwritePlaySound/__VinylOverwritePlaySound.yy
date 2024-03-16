@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylInterceptPlay",
+  "name": "__VinylOverwritePlaySound",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

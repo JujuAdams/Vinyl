@@ -18,12 +18,14 @@ function __VinylNetReceiveBuffer(_buffer, _offset, _size)
             switch(_json[$ "__type"])
             {
                 case "rpc":
-                    var _function  = _json[$ "__name"];
+                    var _name      = _json[$ "__name"];
                     var _arguments = _json[$ "__arguments"];
                     
-                    if (_function  == undefined) __VinylError("JSON missing .__name field");
+                    if (_name      == undefined) __VinylError("JSON missing .__name field");
                     if (_arguments == undefined) __VinylError("JSON missing .__arguments field");
                     
+                    var _function = _rpcDict[$ _name];
+                    if (_function == undefined) __VinylError("RPC \"", _name, "\" not recognised");
                     script_execute_ext(_function, _arguments);
                 break;
                 
