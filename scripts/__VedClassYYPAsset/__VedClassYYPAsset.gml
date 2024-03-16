@@ -33,19 +33,102 @@ function __VedClassYYPAsset() constructor
         return _new;
     }
     
-    static __SetAudioGroup = function()
+    static __SetAudioGroup = function(_newAudioGroup)
     {
+        __EnsureData();
+        if (__audioGroup == _newAudioGroup) return;
         
+        var _buffer = buffer_load(__yyPath);
+        var _fileString = buffer_read(_buffer, buffer_text);
+        buffer_delete(_buffer);
+        
+        var _searchString1 = "\"name\": \"" + __audioGroup + "\"";
+        var _searchString2 = "\"path\": \"audiogroups/" + __audioGroup + "\"";
+        
+        var _pos = string_pos(_searchString1, _fileString);
+        if (_pos < 0)
+        {
+            __VinylTrace("Warning! Could not find audio group \"", __audioGroup, "\" in \"", __yyPath, "\" (first check)");
+            return;
+        }
+        
+        var _pos = string_pos(_searchString2, _fileString);
+        if (_pos < 0)
+        {
+            __VinylTrace("Warning! Could not find audio group \"", __audioGroup, "\" in \"", __yyPath, "\" (second check)");
+            return;
+        }
+        
+        __audioGroup = _newAudioGroup;
+        
+        _fileString = string_replace(_fileString, _searchString1, "\"name\": \"" + _newAudioGroup + "\"");
+        _fileString = string_replace(_fileString, _searchString2, "\"path\": \"audiogroups/" + _newAudioGroup + "\"");
+        __Save(_fileString);
     }
     
-    static __SetAssetTag = function()
+    static __SetAssetTag = function(_assetTag, _state)
     {
+        __EnsureData();
         
+        var _changed = false;
+        if (_state)
+        {
+            if (not array_contains(__assetTags, _assetTag))
+            {
+                array_push(__assetTags, _assetTag);
+                array_sort(__assetTags, true);
+                _changed = true;
+            }
+        }
+        else
+        {
+            var _index = __VinylArrayFindIndex(__assetTags, _assetTag);
+            if (_index != undefined)
+            {
+                array_delete(__assetTags, _index, 1);
+                _changed = true;
+            }
+        }
+        
+        if (not _changed) return;
+        
+        //var _buffer = buffer_load(__absolutePath);
+        //var _fileString = buffer_read(_buffer, buffer_text);
+        //buffer_delete(_buffer);
     }
     
-    static __SetAttributes = function()
+    static __SetAttributes = function(_newAttributes)
     {
+        __EnsureData();
+        if (__attributes == _newAttributes) return;
         
+        var _buffer = buffer_load(__absolutePath);
+        var _fileString = buffer_read(_buffer, buffer_text);
+        buffer_delete(_buffer);
+        
+        var _searchString = "\"compression\": " + string(__attributes);
+        
+        var _pos = string_pos(_searchString, _fileString);
+        if (_pos < 0)
+        {
+            __VinylTrace("Warning! Could not find attribute ", __attributes, " in \"", __absolutePath, "\"");
+            return;
+        }
+        
+        __attributes = _newAttributes;
+        
+        _fileString = string_replace(_fileString, _searchString, "\"compression\": " + string(_newAttributes));
+        __Save(_fileString);
+    }
+    
+    static __Save = function(_fileString)
+    {
+        var _buffer = buffer_create(string_byte_length(_fileString), buffer_grow, 1);
+        buffer_write(_buffer, buffer_text, _fileString);
+        buffer_save(_buffer, __absolutePath);
+        buffer_delete(_buffer);
+        
+        __VedLog("Saved \"", __absolutePath, "\"");
     }
     
     static __EnsureData = function()
@@ -161,7 +244,8 @@ function __VedClassYYPAsset() constructor
                 ImGui.TableSetColumnIndex(0);
                 if (ImGui.RadioButton(_compressionArray[_i], (__attributes == _i)))
                 {
-                    _multiselector.__ForEachSelected(method({
+                    _multiselector.__ForEachSelected(_system.__project.__libYYPAsset.__GetDictionary(),
+                    method({
                         __attributes: _i,
                     },
                     function(_name, _struct)
