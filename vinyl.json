@@ -1,17 +1,17 @@
 {
-  "ident":"002B13D1991B4880",
+  "ident":"002B13F0BAD8EFBA",
   "assets":[
     {
-      "pitchOption":"Unset",
+      "pitchOption":"Multiply",
       "name":"snd1KHz",
       "gain":[
-        0.35699999332427979,
-        0.87599998712539673
-      ],
-      "gainOption":"Randomize",
-      "pitch":[
         1.0,
         1.0
+      ],
+      "gainOption":"Unset",
+      "pitch":[
+        0.63300001621246338,
+        0.63300001621246338
       ]
     }
   ],
