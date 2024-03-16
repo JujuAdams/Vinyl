@@ -81,15 +81,13 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
                 
                 if (ImGui.Button("Audio Groups"))
                 {
-                    //__VedWindowOpenSingle(__VedClassWindowAudioGroups);
+                    __VedWindowOpenSingle(__VedClassWindowAudioGroups);
                 }
                 
                 if (ImGui.Button("Asset Tags"))
                 {
                     //__VedWindowOpenSingle(__VedClassWindowAudioGroups);
                 }
-                
-                ImGui.SameLine(undefined, 60);
                 
                 if (ImGui.Button("Sounds"))
                 {
