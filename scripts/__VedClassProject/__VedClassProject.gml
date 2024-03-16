@@ -141,6 +141,22 @@ function __VedClassProject() constructor
             return false;
         }
         
+        //Find audio groups
+        var _libYYPAudioGroup = __libAudioGroup;
+        var _audioGroupsArray = _json.AudioGroups;
+        var _i = 0;
+        repeat(array_length(_audioGroupsArray))
+        {
+            var _name = _audioGroupsArray[_i].name;
+            
+            var _yypAudioGroup = new __VedClassYYPAudioGroup();
+            _yypAudioGroup.__name = _name;
+            
+            _libYYPAudioGroup.__Add(_name, _yypAudioGroup);
+            
+            ++_i;
+        }
+        
         //Unpack sounds assets we find the .yyp file
         var _libYYPAssets = __libYYPAsset;
         var _resourcesArray = _json.resources;
@@ -178,6 +194,220 @@ function __VedClassProject() constructor
             return false;
         }
     }
+    
+    //static __ImportData = function(_projectData, _firstUpdate)
+    //{
+    //    var _projectDirectory   = __directory;
+    //    var _oldSoundDictionary = __soundDictionary;
+    //    var _oldSoundArray      = __soundArray;
+    //    var _oldSoundHashDict   = __soundHashDict;
+    //    var _audioGroupArray    = __audioGroupArray;
+    //    var _assetTagArray      = __assetTagArray;
+    //    
+    //    array_resize(__audioGroupArray, 0);
+    //    array_resize(__assetTagArray, 0);
+    //    
+    //    var _assetTagDict = {};
+    //    __assetTagDict = _assetTagDict;
+    //    
+    //    var _audioGroupDict = {};
+    //    __audioGroupDict = _audioGroupDict;
+    //    
+    //    var _anyChanges = false;
+    //    
+    //    var _newSoundDict  = {};
+    //    var _newSoundArray = [];
+    //    
+    //    //Find audio groups
+    //    var _audioGroupsArray = _projectData.AudioGroups;
+    //    var _i = 0;
+    //    repeat(array_length(_audioGroupsArray))
+    //    {
+    //        array_push(_audioGroupArray, _audioGroupsArray[_i].name);
+    //        ++_i;
+    //    }
+    //    
+    //    //Iterate over the project and discover all sounds
+    //    var _resourcesArray = _projectData.resources;
+    //    var _i = 0;
+    //    repeat(array_length(_resourcesArray))
+    //    {
+    //        var _resource = _resourcesArray[_i];
+    //        var _path = _resource.id.path;
+    //        
+    //        if (string_copy(_path, 1, 6) == "sounds")
+    //        {
+    //            var _soundName = filename_change_ext(filename_name(_path), "");
+    //            __VinylTrace("Project: Saw sound \"", _soundName, "\" in project file");
+    //        
+    //            array_push(_newSoundArray, _soundName);
+    //            _newSoundDict[$ _soundName] = _path;
+    //        }
+    //        
+    //        ++_i;
+    //    }
+    //    
+    //    array_sort(_newSoundArray, true);
+    //    
+    //    //Add any new sounds from the project
+    //    var _i = 0;
+    //    repeat(array_length(_newSoundArray))
+    //    {    
+    //        var _soundName = _newSoundArray[_i];
+    //        if (variable_struct_exists(_oldSoundDictionary, _soundName))
+    //        {
+    //            var _newSoundData = _oldSoundDictionary[$ _soundName];
+    //            _newSoundData.__CheckYYFile(false);
+    //        }
+    //        else
+    //        {
+    //            _anyChanges = true;
+    //            
+    //            //Try to figure out what type of file the raw data on disk is
+    //            var _absolutePath = _projectDirectory + _newSoundDict[$ _soundName];
+    //            var _type = __VINYL_SOUND_TYPE.__EXTERNAL_WAV;
+    //            
+    //            _absolutePath = filename_change_ext(_absolutePath, ".wav");
+    //            if (not file_exists(_absolutePath))
+    //            {
+    //                _absolutePath = filename_change_ext(_absolutePath, ".ogg");
+    //                _type = __VINYL_SOUND_TYPE.__EXTERNAL_OGG;
+    //                
+    //                if (not file_exists(_absolutePath))
+    //                {
+    //                    __VinylTrace("Project: Warning! Could not find source audio file for \"", _soundName, "\"");
+    //                    
+    //                    ++_i;
+    //                    continue;
+    //                }
+    //            }
+    //            
+    //            var _yyPath = filename_change_ext(_absolutePath, ".yy");
+    //            
+    //            //Get the hash of the file
+    //            var _hash = md5_file(_absolutePath);
+    //            if (_firstUpdate && (asset_get_type(_soundName) == asset_sound))
+    //            {
+    //                //Special case for first update
+    //                __VinylTrace("Project: Sound \"", _soundName, "\" has been discovered on boot");
+    //                var _newSoundData = new __VinylClassProjectSound(__VINYL_SOUND_TYPE.__WAD, _soundName, _yyPath, _absolutePath);
+    //                
+    //                //Track this new sound
+    //                _oldSoundDictionary[$ _soundName] = _newSoundData;
+    //                array_push(_oldSoundArray, _soundName);
+    //                _oldSoundHashDict[$ _hash] = _newSoundData;
+    //            }
+    //            else
+    //            {
+    //                var _oldSoundData = _oldSoundHashDict[$ _hash];
+    //                if (is_struct(_oldSoundData))
+    //                {
+    //                    //Remove the old sound reference but not the hash (since that hasn't changed)
+    //                    variable_struct_remove(_oldSoundDictionary, _oldSoundData.__name);
+    //                    
+    //                    _oldSoundData.__Change(_type, _soundName, _absolutePath);
+    //                    
+    //                    //Re-add the sound under a new name
+    //                    _oldSoundDictionary[$ _soundName] = _oldSoundData;
+    //                    
+    //                    _newSoundData = _oldSoundData;
+    //                }
+    //                else
+    //                {
+    //                    __VinylTrace("Project: Sound \"", _soundName, "\" has been added");
+    //                    
+    //                    var _newSoundData = new __VinylClassProjectSound(_type, _soundName, _yyPath, _absolutePath);
+    //                    
+    //                    //Track this new sound
+    //                    _oldSoundDictionary[$ _soundName] = _newSoundData;
+    //                    array_push(_oldSoundArray, _soundName);
+    //                    _oldSoundHashDict[$ _hash] = _newSoundData;
+    //                }
+    //            }
+    //            
+    //            _newSoundData.__CheckYYFile(_firstUpdate);
+    //        }
+    //        
+    //        //Build audio group lookup
+    //        var _audioGroup = _newSoundData.__audioGroup
+    //        if (_audioGroup != undefined)
+    //        {
+    //            var _soundArray = _audioGroupDict[$ _audioGroup];
+    //            if (not is_array(_soundArray))
+    //            {
+    //                _soundArray = [_soundName];
+    //                _audioGroupDict[$ _audioGroup] = _soundArray;
+    //            }
+    //            else
+    //            {
+    //                array_push(_soundArray, _soundName);
+    //            }
+    //        }
+    //        
+    //        //Build asset tag lookups
+    //        var _soundAssetTagArray = _newSoundData.__assetTags;
+    //        var _j = 0;
+    //        repeat(array_length(_soundAssetTagArray))
+    //        {
+    //            var _assetTag = _soundAssetTagArray[_j];
+    //            
+    //            var _soundArray = _assetTagDict[$ _assetTag];
+    //            if (not is_array(_soundArray))
+    //            {
+    //                _soundArray = [_soundName];
+    //                _assetTagDict[$ _assetTag] = _soundArray;
+    //                array_push(_assetTagArray, _assetTag);
+    //            }
+    //            else
+    //            {
+    //                array_push(_soundArray, _soundName);
+    //            }
+    //            
+    //            ++_j;
+    //        }
+    //        
+    //        ++_i;
+    //    }
+    //    
+    //    //Remove any old sounds from the existing sound dictionary
+    //    var _i = 0;
+    //    repeat(array_length(_oldSoundArray))
+    //    {
+    //        var _oldSoundName = _oldSoundArray[_i];
+    //        if (not variable_struct_exists(_newSoundDict, _oldSoundName))
+    //        {
+    //            _anyChanges = true;
+    //            
+    //            var _oldSound = _oldSoundDictionary[$ _oldSoundName];
+    //            if (is_struct(_oldSound) && (_oldSound.__name == _oldSoundName))
+    //            {
+    //                __VinylTrace("Project: Sound \"", _oldSoundName, "\" has been removed");
+    //                
+    //                //Untrack the old sound
+    //                variable_struct_remove(_oldSoundDictionary, _oldSoundName);
+    //                array_delete(_oldSoundArray, _i, 1);
+    //                variable_struct_remove(_oldSoundHashDict, _oldSound.__hash);
+    //                
+    //                _oldSound.__Unload();
+    //            }
+    //            else
+    //            {
+    //                //Sound was renamed so we don't need to report this, nor do we need to remove the hash
+    //                variable_struct_remove(_oldSoundDictionary, _oldSoundName);
+    //                array_delete(_oldSoundArray, _i, 1);
+    //            }
+    //        }
+    //        else
+    //        {
+    //            ++_i;
+    //        }
+    //    }
+    //    
+    //    array_sort(__soundArray, true);
+    //    array_sort(__assetTagArray, true);
+    //    
+    //    return _anyChanges;
+    //}
     
     static __LoadVinylProject = function()
     {

@@ -171,7 +171,8 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                     {
                         if (ImGui.Button("Revert All"))
                         {
-                            __multiselector.__ForEachSelected(method({
+                            __multiselector.__ForEachSelected(_yypAssetDict,
+                            method({
                                 __vinylAssetDict: _vinylAssetDict,
                             },
                             function(_name)
@@ -185,7 +186,8 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                     {
                         if (ImGui.Button("Modify All"))
                         {
-                            __multiselector.__ForEachSelected(method({
+                            __multiselector.__ForEachSelected(_yypAssetDict,
+                            method({
                                 __vinylAssetDict: _vinylAssetDict,
                             },
                             function(_name)

@@ -167,6 +167,10 @@ function __VedClassYYPAsset() constructor
         //All the GameMaker properties
         if (ImGui.BeginTable("GameMaker Properties", 1, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 160))
         {
+            var _audioGroupArray = _system.__project.__libAudioGroup.__GetNameArray();
+            var _assetTagArray   = _system.__project.__libAssetTag.__GetNameArray();
+            var _yypAssetDict    = _system.__project.__libYYPAsset.__GetDictionary();
+            
             //Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("GameMaker Project");
             ImGui.TableHeadersRow();
@@ -177,16 +181,17 @@ function __VedClassYYPAsset() constructor
             __VED_NEXT_UI_FILLS_WIDTH
             if (ImGui.BeginCombo("##Audio Group", __audioGroup, ImGuiComboFlags.None))
             {
-                var _audioGroupArray = _system.__project.__libAudioGroup.__GetNameArray();
                 var _i = 0;
                 repeat(array_length(_audioGroupArray))
                 {
                     var _audioGroup = _audioGroupArray[_i];
                     if (ImGui.Selectable(_audioGroup, __audioGroup == _audioGroup))
                     {
-                        _multiselector.__ForEachSelected(method({
+                        _multiselector.__ForEachSelected(_yypAssetDict,
+                        method({
                             __audioGroup: _audioGroup,
-                        }, function(_name, _struct)
+                        },
+                        function(_name, _struct)
                         {
                             _struct.__SetAudioGroup(__audioGroup);
                         }));
@@ -206,7 +211,6 @@ function __VedClassYYPAsset() constructor
             __VED_NEXT_UI_FILLS_WIDTH
             if (ImGui.BeginCombo("##Asset Tag", __VedAssetTagsGetAbbreviatedName(_soundAssetTags), ImGuiComboFlags.None))
             {
-                var _assetTagArray = _system.__project.__libAssetTag.__GetNameArray();
                 var _i = 0;
                 repeat(array_length(_assetTagArray))
                 {
@@ -217,10 +221,12 @@ function __VedClassYYPAsset() constructor
                     
                     if (_oldValue != _newValue)
                     {
-                        _multiselector.__ForEachSelected(method({
+                        _multiselector.__ForEachSelected(_yypAssetDict,
+                        method({
                             __assetTag: _assetTag,
                             __newValue: _newValue,
-                        }, function(_name, _struct)
+                        },
+                        function(_name, _struct)
                         {
                             _struct.__SetAssetTag(__assetTag, __newValue);
                         }));
@@ -244,7 +250,7 @@ function __VedClassYYPAsset() constructor
                 ImGui.TableSetColumnIndex(0);
                 if (ImGui.RadioButton(_compressionArray[_i], (__attributes == _i)))
                 {
-                    _multiselector.__ForEachSelected(_system.__project.__libYYPAsset.__GetDictionary(),
+                    _multiselector.__ForEachSelected(_yypAssetDict,
                     method({
                         __attributes: _i,
                     },
