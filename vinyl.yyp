@@ -45,6 +45,7 @@
     {"id":{"name":"__VedWarning","path":"scripts/__VedWarning/__VedWarning.yy",},},
     {"id":{"name":"__VedNetSendJSON","path":"scripts/__VedNetSendJSON/__VedNetSendJSON.yy",},},
     {"id":{"name":"__VinylClassVoiceContext","path":"scripts/__VinylClassVoiceContext/__VinylClassVoiceContext.yy",},},
+    {"id":{"name":"__VedClassWindowAssetTags","path":"scripts/__VedClassWindowAssetTags/__VedClassWindowAssetTags.yy",},},
     {"id":{"name":"__VinylError","path":"scripts/__VinylError/__VinylError.yy",},},
     {"id":{"name":"__VedClassPattern","path":"scripts/__VedClassPattern/__VedClassPattern.yy",},},
     {"id":{"name":"sndBonk","path":"sounds/sndBonk/sndBonk.yy",},},

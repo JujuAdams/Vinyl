@@ -75,86 +75,18 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
             
             
             //Ok! Now we do the right-hand properties pane
-            
-            
-            /*
             ImGui.SameLine();
             ImGui.BeginChild("Right Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
                 
                 //Collect some basic facts about the current selection(s)
                 var _selectedCount     = __multiselector.__GetSelectedCount();
                 var _lastSelectedName  = __multiselector.__lastSelected;
-                var _lastSelectedVinyl = _vinylAssetDict[$ _lastSelectedName];
-                var _lastSelectedYYP   = _yypAssetDict[$ _lastSelectedName];
-                var _modified          = is_struct(_lastSelectedVinyl)? _lastSelectedVinyl.__modified : false;
-                
-                //Bit of aesthetic spacing
-                ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
-                
-                if (_selectedCount == 0)
-                {
-                    //Nothing's here! Disable the "modify" checkbox
-                    ImGui.BeginDisabled(true);
-                    ImGui.Button("Modify");
-                    ImGui.EndDisabled();
-                }
-                else if (_selectedCount == 1)
-                {
-                    //One thing is selected!
-                    
-                    //Change the name and behaviour of the checbox based on its input state
-                    if (_modified)
-                    {
-                        if (ImGui.Button("Revert")) _lastSelectedVinyl.__Unmodify();
-                    }
-                    else
-                    {
-                        if (ImGui.Button("Modify")) _lastSelectedVinyl.__Modify();
-                    }
-                }
-                else
-                {
-                    //Many things are selected!
-                    
-                    //Change the name and behaviour of the checbox based on its input state, and apply that to all selected sounds
-                    if (_modified)
-                    {
-                        if (ImGui.Button("Revert All"))
-                        {
-                            __multiselector.__ForEachSelected(_yypAssetDict,
-                            method({
-                                __vinylAssetDict: _vinylAssetDict,
-                            },
-                            function(_name)
-                            {
-                                var _asset = __vinylAssetDict[$ _name];
-                                if (_asset != undefined) _asset.__Unmodify();
-                            }));
-                        }
-                    }
-                    else
-                    {
-                        if (ImGui.Button("Modify All"))
-                        {
-                            __multiselector.__ForEachSelected(_yypAssetDict,
-                            method({
-                                __vinylAssetDict: _vinylAssetDict,
-                            },
-                            function(_name)
-                            {
-                                var _asset = __vinylAssetDict[$ _name];
-                                if (_asset != undefined) _asset.__Modify();
-                            }));
-                        }
-                    }
-                }
-                
-                ImGui.SameLine(undefined, 40);
+                var _lastSelected      = _audioGroupDict[$ _lastSelectedName];
                 
                 if (_selectedCount <= 0)
                 {
                     //Add some helpful text to guide users if nothing's selected
-                    ImGui.Text("Please select a sound from the menu on the left");
+                    ImGui.Text("Please select an audio group from the menu on the left");
                 }
                 else if (_selectedCount == 1)
                 {
@@ -174,14 +106,11 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                 if (__multiselector.__GetSelectedCount() > 0)
                 {
                     ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                    _lastSelectedVinyl.__BuildUI(__multiselector);
-                    ImGui.NewLine();
-                    _lastSelectedYYP.__BuildUI(__multiselector);
+                    _lastSelected.__BuildUI(__multiselector);
                     ImGui.EndChild();
                 }
                 
             ImGui.EndChild();
-            */
         }
         
         ImGui.End();

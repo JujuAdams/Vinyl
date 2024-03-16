@@ -15,8 +15,8 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
     {
         var _project = _system.__project;
         
-        var _audioGroupArray = _project.__libAssetTag.__GetNameArray();
-        var _audioGroupDict  = _project.__libAssetTag.__GetDictionary();
+        var _assetTagArray = _project.__libAssetTag.__GetNameArray();
+        var _assetTagDict  = _project.__libAssetTag.__GetDictionary();
         
         ImGui.SetNextWindowSize(0.6*room_width, 0.6*room_height, ImGuiCond.Once);
         ImGui.SetNextWindowPos(0.2*room_width, 0.2*room_height, ImGuiCond.Once);
@@ -49,9 +49,9 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
                     
                     //Iterate over every sound in the project and show them in the editor
                     var _i = 0;
-                    repeat(array_length(_audioGroupArray))
+                    repeat(array_length(_assetTagArray))
                     {
-                        var _name = _audioGroupArray[_i];
+                        var _name = _assetTagArray[_i];
                         
                         var _selected = __multiselector.__IsSelected(_name);
                         if ((not __multiselector.__multiselect) || (_selected && __multiselector.__seeSelected) || ((not _selected) && __multiselector.__seeUnselected)) //Selected check
@@ -68,13 +68,49 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
                 ImGui.EndChild();
                 
                 //Build the selection handler UI at the bottom of the list of sounds
-                __multiselector.__BuildUI(_audioGroupDict, _visibleArray);
+                __multiselector.__BuildUI(_assetTagDict, _visibleArray);
                 
             ImGui.EndChild();
             
             
             
             //Ok! Now we do the right-hand properties pane
+            ImGui.SameLine();
+            ImGui.BeginChild("Right Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
+                
+                //Collect some basic facts about the current selection(s)
+                var _selectedCount     = __multiselector.__GetSelectedCount();
+                var _lastSelectedName  = __multiselector.__lastSelected;
+                var _lastSelected      = _assetTagDict[$ _lastSelectedName];
+                
+                if (_selectedCount <= 0)
+                {
+                    //Add some helpful text to guide users if nothing's selected
+                    ImGui.Text("Please select an asset tag from the menu on the left");
+                }
+                else if (_selectedCount == 1)
+                {
+                    //Change the display text depending on what the user is actually seeing
+                    ImGui.Text(__multiselector.__GetLastSelectedName());
+                }
+                else
+                {
+                    //Change the display text depending on what the user is actually seeing
+                    ImGui.Text(string_concat(__multiselector.__GetLastSelectedName(), " and ", string(_selectedCount-1), " others"));
+                }
+                
+                //Little more aesthetic spacing
+                ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
+                
+                //Here's where we jump to a different function to draw the actual properties
+                if (__multiselector.__GetSelectedCount() > 0)
+                {
+                    ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
+                    _lastSelected.__BuildUI(__multiselector);
+                    ImGui.EndChild();
+                }
+                
+            ImGui.EndChild();
             
             
             /*
