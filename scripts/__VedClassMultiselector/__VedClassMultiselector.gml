@@ -9,10 +9,6 @@ function __VedClassMultiselector() constructor
     __selectedDict = {};
     __lastSelected = undefined;
     
-    __sourceStructWeakRef = undefined;
-    __constructor         = undefined;
-    __resourceTypeName    = undefined;
-    
     static __IsSelected = function(_name)
     {
         return variable_struct_exists(__selectedDict, _name);
@@ -76,9 +72,9 @@ function __VedClassMultiselector() constructor
         }
     }
     
-    static __SelectAll = function()
+    static __SelectAll = function(_dictionary)
     {
-        __SelectArray(variable_struct_get_names(__sourceStructWeakRef.ref));
+        __SelectArray(variable_struct_get_names(_dictionary));
     }
     
     static __SelectArray = function(_nameArray)
@@ -104,14 +100,14 @@ function __VedClassMultiselector() constructor
         __lastSelected = undefined;
     }
     
-    static __SelectLast = function()
+    static __SelectLast = function(_dictionary)
     {
         if (not __multiselect)
         {
             __selectedDict = {};
         }
         
-        if ((__lastSelected != undefined) && variable_struct_exists(__sourceStructWeakRef.ref, __lastSelected))
+        if ((__lastSelected != undefined) && variable_struct_exists(_dictionary, __lastSelected))
         {
             __Select(__lastSelected, true);
         }
@@ -121,87 +117,19 @@ function __VedClassMultiselector() constructor
         }
     }
     
-    static __ForEachSelected = function(_method)
+    static __ForEachSelected = function(_dictionary, _method)
     {
-        var _sourceStruct = __sourceStructWeakRef.ref;
-        
         var _nameArray = variable_struct_get_names(__selectedDict);
         var _i = 0
         repeat(array_length(_nameArray))
         {
             var _name = _nameArray[_i];
-            _method(_name, _sourceStruct[$ _name]);
+            _method(_name, _dictionary[$ _name]);
             ++_i;
         }
     }
     
-    static __Rename = function(_oldName, _newName)
-    {
-        var _sourceStruct = __sourceStructWeakRef.ref;
-        if (variable_struct_exists(_sourceStruct, _oldName))
-        {
-            _sourceStruct[$ _newName] = _sourceStruct[$ _oldName];
-            variable_struct_remove(_sourceStruct, _oldName);
-            
-            if (variable_struct_exists(__selectedDict, _oldName))
-            {
-                variable_struct_remove(__selectedDict, _oldName);
-                __selectedDict[$ _newName] = true;
-            }
-            
-            if (__lastSelected == _oldName)
-            {
-                __lastSelected = _newName;
-            }
-        }
-        else
-        {
-            __Select(_oldName, false);
-            
-            if (__lastSelected == _oldName)
-            {
-                __lastSelected = undefined;
-            }
-        }
-    }
-    
-    static __Bind = function(_sourceStruct, _constructor, _resourceTypeName)
-    {
-        var _change = false;
-        
-        if (__sourceStructWeakRef == undefined)
-        {
-            _change = true;
-        }
-        else if (not weak_ref_alive(__sourceStructWeakRef))
-        {
-            _change = true;
-        }
-        else if (__sourceStructWeakRef.ref != _sourceStruct)
-        {
-            _change = true;
-        }
-        
-        if (__constructor != _constructor)
-        {
-            _change = true;
-        }
-        
-        if (__resourceTypeName != _resourceTypeName)
-        {
-            _change = true;
-        }
-        
-        if (not _change) return;
-        
-        __sourceStructWeakRef = weak_ref_create(_sourceStruct);
-        __constructor         = _constructor;
-        __resourceTypeName    = _resourceTypeName;
-        
-        __SelectNone();
-    }
-    
-    static __BuildUI = function(_visibleArray)
+    static __BuildUI = function(_dictionary, _visibleArray)
     {
         ImGui.Text("Multiselect");
         ImGui.SameLine();
@@ -213,7 +141,7 @@ function __VedClassMultiselector() constructor
             
             if (not __multiselect)
             {
-                __SelectLast();
+                __SelectLast(_dictionary);
             }
         }
         
@@ -227,7 +155,7 @@ function __VedClassMultiselector() constructor
             ImGui.SameLine();
             if (ImGui.Button("None"))
             {
-                __SelectNone();
+                __SelectNone(_dictionary);
             }
             
             var _newValue = ImGui.Checkbox("See selected", (not __multiselect) || __seeSelected);

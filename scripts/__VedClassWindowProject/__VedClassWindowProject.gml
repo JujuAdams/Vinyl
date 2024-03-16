@@ -118,7 +118,7 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                 }
                 
                 //Build the selection handler UI at the bottom of the list of sounds
-                __multiselector.__BuildUI(_visibleArray);
+                __multiselector.__BuildUI(_yypAssetDict, _visibleArray);
                 
             ImGui.EndChild();
             
@@ -179,9 +179,6 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                                 var _asset = __vinylAssetDict[$ _name];
                                 if (_asset != undefined) _asset.__Unmodify();
                             }));
-                            
-                            __multiselector.__SelectNone();
-                            __multiselector.__Select(_lastSelectedName, false);
                         }
                     }
                     else
@@ -202,15 +199,20 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                 
                 ImGui.SameLine(undefined, 40);
                 
-                if (_selectedCount == 0)
+                if (_selectedCount <= 0)
                 {
                     //Add some helpful text to guide users if nothing's selected
                     ImGui.Text("Please select a sound from the menu on the left");
                 }
-                else
+                else if (_selectedCount == 1)
                 {
                     //Change the display text depending on what the user is actually seeing
                     ImGui.Text(__multiselector.__GetLastSelectedName());
+                }
+                else
+                {
+                    //Change the display text depending on what the user is actually seeing
+                    ImGui.Text(string_concat(__multiselector.__GetLastSelectedName(), " and ", string(_selectedCount-1), " others"));
                 }
                 
                 //Little more aesthetic spacing
