@@ -312,23 +312,38 @@ function __VedClassProject() constructor
         buffer_write(_buffer, buffer_text, __VED_VERSION);
         buffer_write(_buffer, buffer_text, ", ");
         buffer_write(_buffer, buffer_text, __VED_DATE);
-        buffer_write(_buffer, buffer_text, "\n\n");
+        buffer_write(_buffer, buffer_text, "\n");
+        buffer_write(_buffer, buffer_text, "\n");
+        buffer_write(_buffer, buffer_text, "function __VinylGenPlay()\n");
+        buffer_write(_buffer, buffer_text, "{\n");
+        buffer_write(_buffer, buffer_text, "    static _data = undefined;\n");
+        buffer_write(_buffer, buffer_text, "    \n");
+        buffer_write(_buffer, buffer_text, "    if (_data == undefined)\n");
+        buffer_write(_buffer, buffer_text, "    {\n");
+        buffer_write(_buffer, buffer_text, "        _data = {};\n");
+        buffer_write(_buffer, buffer_text, "        \n");
         
         __libVinylAssets.__ForEach(function(_index, _name, _scope, _metadata)
         {
-            _scope.__Compile(_metadata.__buffer);
+            _scope.__CompilePlay(_metadata.__buffer);
         },
         {
             __buffer: _buffer,
         });
         
-        __libTriggers.__ForEach(function(_index, _name, _scope, _metadata)
-        {
-            _scope.__Compile(_metadata.__buffer);
-        },
-        {
-            __buffer: _buffer,
-        });
+        //__libTriggers.__ForEach(function(_index, _name, _scope, _metadata)
+        //{
+        //    _scope.__CompilePlay(_metadata.__buffer);
+        //},
+        //{
+        //    __buffer: _buffer,
+        //});
+        
+        buffer_write(_buffer, buffer_text, "    }\n");
+        buffer_write(_buffer, buffer_text, "    \n");
+        buffer_write(_buffer, buffer_text, "    return _data;\n");
+        buffer_write(_buffer, buffer_text, "}\n");
+        buffer_write(_buffer, buffer_text, "\n");
         
         buffer_save_ext(_buffer, __pathGenCode, 0, buffer_tell(_buffer));
         buffer_delete(_buffer);

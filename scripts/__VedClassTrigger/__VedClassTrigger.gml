@@ -4,7 +4,7 @@ function __VedClassTrigger() constructor
 {
     __name = undefined;
     
-    static __Compile = function(_buffer)
+    static __CompilePlay = function(_buffer)
     {
         
     }

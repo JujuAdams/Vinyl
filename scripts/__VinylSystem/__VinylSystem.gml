@@ -35,6 +35,12 @@ function __VinylSystem()
             __sendBuffer = buffer_create(1024, buffer_grow, 1);
         }
         
+        __voiceArray = [];
+        __voiceDict  = {};
+        
+        //Initialize playback data now so we don't get lag on the first sound effect
+        __VinylGenPlay();
+        
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylUpdate, [], -1));
     }
     

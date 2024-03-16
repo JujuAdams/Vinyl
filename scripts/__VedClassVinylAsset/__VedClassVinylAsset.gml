@@ -7,61 +7,72 @@ function __VedClassVinylAsset() constructor
     __name         = undefined;
     
     __modified    = false;
+    __loop        = false;
     __gain        = [1, 1];
     __gainOption  = __VED_OPTION_UNSET;
     __pitch       = [1, 1];
     __pitchOption = __VED_OPTION_UNSET;
     
-    static __Compile = function(_buffer)
+    static __CompilePlay = function(_buffer)
     {
-        if (__modified)
+        if (not __modified) return;
+        
+        buffer_write(_buffer, buffer_text, "        struct_set_from_hash(_data, int64(");
+        buffer_write(_buffer, buffer_text, __name);
+        buffer_write(_buffer, buffer_text, "), function(_loop, _gainMultiplier, _pitchMultiplier)\n");
+        buffer_write(_buffer, buffer_text, "        {\n");
+        
+        buffer_write(_buffer, buffer_text, "            var _gainFinal = _gainMultiplier");
+        
+        //TODO - Don't generate _gainFinal if gain = 1
+        if (__gain[0] == __gain[1])
         {
-            buffer_write(_buffer, buffer_text, "function ");
-            buffer_write(_buffer, buffer_text, VED_PREFIX);
-            buffer_write(_buffer, buffer_text, __name);
-            buffer_write(_buffer, buffer_text, "()\n{\n    return audio_play_sound(");
-            buffer_write(_buffer, buffer_text, __name);
-            buffer_write(_buffer, buffer_text, ", 1, false, ");
-            
-            if (__gain[0] == __gain[1])
+            if (__gain[0] != 1)
             {
+                buffer_write(_buffer, buffer_text, "*");
                 buffer_write(_buffer, buffer_text, string(__gain[0]));
             }
-            else
-            {
-                buffer_write(_buffer, buffer_text, " __VinylRandomRange(");
-                buffer_write(_buffer, buffer_text, string(__gain[0]));
-                buffer_write(_buffer, buffer_text, ", ");
-                buffer_write(_buffer, buffer_text, string(__gain[0]));
-                buffer_write(_buffer, buffer_text, ")");
-            }
-            
-            buffer_write(_buffer, buffer_text, ", 0, ");
-            
-            if (__pitch[0] == __pitch[1])
-            {
-                buffer_write(_buffer, buffer_text, string(__pitch[0]));
-            }
-            else
-            {
-                buffer_write(_buffer, buffer_text, " __VinylRandomRange(");
-                buffer_write(_buffer, buffer_text, string(__pitch[0]));
-                buffer_write(_buffer, buffer_text, ", ");
-                buffer_write(_buffer, buffer_text, string(__pitch[0]));
-                buffer_write(_buffer, buffer_text, ")");
-            }
-            
-            buffer_write(_buffer, buffer_text, ");\n}\n\n");
         }
         else
         {
-            buffer_write(_buffer, buffer_text, "function ");
-            buffer_write(_buffer, buffer_text, VED_PREFIX);
-            buffer_write(_buffer, buffer_text, __name);
-            buffer_write(_buffer, buffer_text, "()\n{\n    return audio_play_sound(");
-            buffer_write(_buffer, buffer_text, __name);
-            buffer_write(_buffer, buffer_text, ", 1, false);\n}\n\n");
+            buffer_write(_buffer, buffer_text, "*__VinylRandomRange(");
+            buffer_write(_buffer, buffer_text, string(__gain[0]));
+            buffer_write(_buffer, buffer_text, ", ");
+            buffer_write(_buffer, buffer_text, string(__gain[1]));
+            buffer_write(_buffer, buffer_text, ")");
         }
+        
+        buffer_write(_buffer, buffer_text, ";\n");
+        buffer_write(_buffer, buffer_text, "            var _pitchFinal = _pitchMultiplier");
+        
+        //TODO - Don't generate _gainFinal if pitch = 1
+        if (__pitch[0] == __pitch[1])
+        {
+            if (__pitch[0] != 1)
+            {
+                buffer_write(_buffer, buffer_text, "*");
+                buffer_write(_buffer, buffer_text, string(__pitch[0]));
+            }
+        }
+        else
+        {
+            buffer_write(_buffer, buffer_text, "*__VinylRandomRange(");
+            buffer_write(_buffer, buffer_text, string(__pitch[0]));
+            buffer_write(_buffer, buffer_text, ", ");
+            buffer_write(_buffer, buffer_text, string(__pitch[1]));
+            buffer_write(_buffer, buffer_text, ")");
+        }
+        
+        buffer_write(_buffer, buffer_text, ";\n");
+        buffer_write(_buffer, buffer_text, "            var _voice = audio_play_sound(");
+        buffer_write(_buffer, buffer_text, __name);
+        buffer_write(_buffer, buffer_text, ", 0, _loop ?? ");
+        buffer_write(_buffer, buffer_text, __loop? "true" : "false");
+        buffer_write(_buffer, buffer_text, ", _gainFinal, 0, _pitchFinal);\n");
+        buffer_write(_buffer, buffer_text, "            __VinylVoiceTrack(_voice, _gainMultiplier, _gainFinal, _pitchMultiplier, _pitchFinal);\n");
+        buffer_write(_buffer, buffer_text, "            return _voice;\n");
+        buffer_write(_buffer, buffer_text, "        });\n");
+        buffer_write(_buffer, buffer_text, "\n");
     }
     
     static __SetGain = function(_value)

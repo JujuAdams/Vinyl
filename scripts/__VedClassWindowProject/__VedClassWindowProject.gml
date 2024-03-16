@@ -54,6 +54,9 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                 ImGui.SameLine(undefined, 20);
                 __seeUnmodified = ImGui.Checkbox("See unmodified", __seeUnmodified);
                 
+                //Keep an array of all visible sounds. We use this later for the "select all" button
+                var _visibleArray = [];
+                
                 //Now do the actual table
                 if (ImGui.BeginTable("Table", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.ScrollY, ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50))
                 {
@@ -86,9 +89,6 @@ function __VedClassWindowProject() : __VedClassWindow() constructor
                             _multiselector.__SelectToggle(_name);
                         }
                     }
-                    
-                    //Keep an array of all visible sounds. We use this later for the "select all" button
-                    var _visibleArray = [];
                     
                     //Iterate over every sound in the project and show them in the editor
                     var _i = 0;

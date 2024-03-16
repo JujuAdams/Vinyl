@@ -21,7 +21,7 @@ function __VedClassYYPAsset() constructor
         return __name;
     }
     
-    static __Compile = function(_buffer)
+    static __CompilePlay = function(_buffer)
     {
         __VedError("Cannot compile .yyp asset");
     }

@@ -1,31 +1,18 @@
 {
-  "ident":"002B1383F69636FA",
+  "ident":"002B13D1991B4880",
   "assets":[
     {
+      "pitchOption":"Unset",
       "name":"snd1KHz",
       "gain":[
-        1.2680000066757202,
-        1.2680000066757202
+        0.35699999332427979,
+        0.87599998712539673
       ],
-      "gainOption":"Multiply",
+      "gainOption":"Randomize",
       "pitch":[
-        0.52799999713897705,
-        0.52799999713897705
-      ],
-      "pitchOption":"Multiply"
-    },
-    {
-      "name":"sndBleep0",
-      "gain":[
-        0.76899999380111694,
-        0.76899999380111694
-      ],
-      "gainOption":"Multiply",
-      "pitch":[
-        1.1729999780654907,
-        1.1729999780654907
-      ],
-      "pitchOption":"Multiply"
+        1.0,
+        1.0
+      ]
     }
   ],
   "triggers":[
