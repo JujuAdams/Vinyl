@@ -1,24 +1,17 @@
 // Feather disable all
 
 /// @param voice
-/// @param gainMultiplier
+/// @param gainLocal
 /// @param gainFinal
-/// @param pitchMultiplier
+/// @param pitchLocal
 /// @param pitchFinal
 
-function __VinylVoiceTrack(_voice, _gainMultiplier, _gainFinal, _pitchMultiplier, _pitchFinal)
+function __VinylVoiceTrack(_voice, _gainLocal, _gainFinal, _pitchLocal, _pitchFinal)
 {
-    static _voiceDict  = __VinylSystem().__voiceDict;
-    static _voiceArray = __VinylSystem().__voiceArray;
+    static _voiceDict  = __VinylSystem().__voiceContextDict;
+    static _voiceArray = __VinylSystem().__voiceContextArray;
     
-    var _struct = {
-        __voice:           _voice,
-        __gainMultiplier:  _gainMultiplier,
-        __gainFinal:       _gainFinal,
-        __pitchMultiplier: _pitchMultiplier,
-        __pitchFinal:      _pitchFinal,
-    };
-    
+    var _struct = new __VinylClassVoiceContext(_voice, _gainLocal, _gainFinal, _pitchLocal, _pitchFinal);
     array_push(_voiceArray, _struct);
     struct_set_from_hash(_voiceDict, int64(_voice), _struct);
     

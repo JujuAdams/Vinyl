@@ -2,7 +2,7 @@
 
 function __VedClassWindowProject() : __VedClassWindow() constructor
 {
-    __handle = "Project";
+    __handle = "GameMaker Project Sounds";
     
     __filter = new __VinylClassFilter();
     

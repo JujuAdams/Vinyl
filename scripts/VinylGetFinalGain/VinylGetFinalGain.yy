@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylVoiceTrack",
+  "name": "VinylGetFinalGain",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Voice",
-    "path": "folders/Vinyl/(Internals)/Voice.yy",
+    "name": "Vinyl",
+    "path": "folders/Vinyl.yy",
   },
 }

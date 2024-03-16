@@ -67,21 +67,19 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
             ImGui.PushStyleColor(ImGuiCol.Button, c_white, 0);
             ImGui.SameLine(undefined, 50);
 
-            if (ImGui.Button("Project"))
+            if (ImGui.Button("Sounds"))
             {
                 __VedWindowOpenSingle(__VedClassWindowProject);
             }
-            
-            if (ImGui.Button("Config"))
+
+            if (ImGui.Button("Audio Groups"))
             {
-                __VedWindowOpenSingle(__VedClassWindowConfig);
+                //__VedWindowOpenSingle(__VedClassWindowAudioGroups);
             }
             
-            ImGui.SameLine(undefined, 50);
-
-            if (ImGui.Button("Now Playing"))
+            if (ImGui.Button("Asset Tags"))
             {
-                __VedWindowOpenSingle(__VedClassWindowNowPlaying);
+                //__VedWindowOpenSingle(__VedClassWindowAssetTags);
             }
             
             ImGui.PopStyleColor();

@@ -19,10 +19,10 @@ function __VedClassVinylAsset() constructor
         
         buffer_write(_buffer, buffer_text, "        struct_set_from_hash(_data, int64(");
         buffer_write(_buffer, buffer_text, __name);
-        buffer_write(_buffer, buffer_text, "), function(_loop, _gainMultiplier, _pitchMultiplier)\n");
+        buffer_write(_buffer, buffer_text, "), function(_loop, _gainLocal, _pitchLocal)\n");
         buffer_write(_buffer, buffer_text, "        {\n");
         
-        buffer_write(_buffer, buffer_text, "            var _gainFinal = _gainMultiplier");
+        buffer_write(_buffer, buffer_text, "            var _gainFinal = _gainLocal");
         
         //TODO - Don't generate _gainFinal if gain = 1
         if (__gain[0] == __gain[1])
@@ -43,7 +43,7 @@ function __VedClassVinylAsset() constructor
         }
         
         buffer_write(_buffer, buffer_text, ";\n");
-        buffer_write(_buffer, buffer_text, "            var _pitchFinal = _pitchMultiplier");
+        buffer_write(_buffer, buffer_text, "            var _pitchFinal = _pitchLocal");
         
         //TODO - Don't generate _gainFinal if pitch = 1
         if (__pitch[0] == __pitch[1])
@@ -64,14 +64,48 @@ function __VedClassVinylAsset() constructor
         }
         
         buffer_write(_buffer, buffer_text, ";\n");
+        buffer_write(_buffer, buffer_text, "            \n");
         buffer_write(_buffer, buffer_text, "            var _voice = audio_play_sound(");
         buffer_write(_buffer, buffer_text, __name);
         buffer_write(_buffer, buffer_text, ", 0, _loop ?? ");
         buffer_write(_buffer, buffer_text, __loop? "true" : "false");
         buffer_write(_buffer, buffer_text, ", _gainFinal, 0, _pitchFinal);\n");
-        buffer_write(_buffer, buffer_text, "            __VinylVoiceTrack(_voice, _gainMultiplier, _gainFinal, _pitchMultiplier, _pitchFinal);\n");
+        buffer_write(_buffer, buffer_text, "            \n");
+        buffer_write(_buffer, buffer_text, "            if (VINYL_LIVE_EDIT)\n");
+        buffer_write(_buffer, buffer_text, "            {\n");
+        buffer_write(_buffer, buffer_text, "                __VinylVoiceTrack(_voice, _gainLocal, _gainFinal, _pitchLocal, _pitchFinal).__pattern = ");
+        buffer_write(_buffer, buffer_text, __name);
+        buffer_write(_buffer, buffer_text, ";\n");
+        buffer_write(_buffer, buffer_text, "            }\n");
+        buffer_write(_buffer, buffer_text, "            else\n");
+        buffer_write(_buffer, buffer_text, "            {\n");
+        buffer_write(_buffer, buffer_text, "                __VinylVoiceTrack(_voice, _gainLocal, _gainFinal, _pitchLocal, _pitchFinal);\n");
+        buffer_write(_buffer, buffer_text, "            }\n");
+        buffer_write(_buffer, buffer_text, "            \n");
         buffer_write(_buffer, buffer_text, "            return _voice;\n");
         buffer_write(_buffer, buffer_text, "        });\n");
+        buffer_write(_buffer, buffer_text, "\n");
+    }
+    
+    static __CompilePattern = function(_buffer)
+    {
+        if (not __modified) return;
+        
+        buffer_write(_buffer, buffer_text, "        struct_set_from_hash(_data, int64(");
+        buffer_write(_buffer, buffer_text, __name);
+        buffer_write(_buffer, buffer_text, "), new __VinylClassPatternSound(");
+        buffer_write(_buffer, buffer_text, __name);
+        buffer_write(_buffer, buffer_text, ", ");
+        buffer_write(_buffer, buffer_text, __loop? "true" : "false");
+        buffer_write(_buffer, buffer_text, ", ");
+        buffer_write(_buffer, buffer_text, __gain[0]);
+        buffer_write(_buffer, buffer_text, ", ");
+        buffer_write(_buffer, buffer_text, __gain[1]);
+        buffer_write(_buffer, buffer_text, ", ");
+        buffer_write(_buffer, buffer_text, __pitch[0]);
+        buffer_write(_buffer, buffer_text, ", ");
+        buffer_write(_buffer, buffer_text, __pitch[1]);
+        buffer_write(_buffer, buffer_text, "));\n");
         buffer_write(_buffer, buffer_text, "\n");
     }
     
@@ -79,11 +113,11 @@ function __VedClassVinylAsset() constructor
     {
         if (__modified)
         {
-            __VedNetRPC("__VinylOverwritePlaySound", __name, __loop, __gain, __pitch);
+            __VedNetRPC("__VinylOverwritePatternSound", __name, __loop, __gain, __pitch);
         }
         else
         {
-            __VedNetRPC("__VinylRemovePlaySound", __name);
+            __VedNetRPC("__VinylRemovePatternSound", __name);
         }
     }
     

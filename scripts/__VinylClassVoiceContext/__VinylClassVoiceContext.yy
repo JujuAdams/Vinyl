@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylGenCode",
+  "name": "__VinylClassVoiceContext",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Generated",
-    "path": "folders/Vinyl/(Internals)/Generated.yy",
+    "name": "Voice",
+    "path": "folders/Vinyl/(Internals)/Voice.yy",
   },
 }
