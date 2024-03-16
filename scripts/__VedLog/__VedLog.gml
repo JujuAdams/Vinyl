@@ -15,12 +15,21 @@ function __VedLog()
         ++_i;
     }
     
-    array_push(_system.__logArray, {
-        __createTime: current_time,
-        __drawTime:   undefined,
-        __string:     _string,
-    });
+    with(_system)
+    {
+        array_push(__logArray, {
+            __createTime: current_time,
+            __drawTime:   undefined,
+            __string:     _string,
+        });
+        
+        __logHistoricString += _string + "\n";
+        if (string_byte_length(__logHistoricString) > 5000)
+        {
+            var _pos = string_pos("\n", __logHistoricString);
+            __logHistoricString = string_delete(__logHistoricString, 1, _pos+1);
+        }
+    }
     
     __VedTrace(_string);
-    
 }

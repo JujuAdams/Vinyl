@@ -152,6 +152,7 @@
     {"id":{"name":"__VedUpdate","path":"scripts/__VedUpdate/__VedUpdate.yy",},},
     {"id":{"name":"VinylFallbackSound","path":"sounds/VinylFallbackSound/VinylFallbackSound.yy",},},
     {"id":{"name":"__VedClassWindowProject","path":"scripts/__VedClassWindowProject/__VedClassWindowProject.yy",},},
+    {"id":{"name":"__VedClassWindowLog","path":"scripts/__VedClassWindowLog/__VedClassWindowLog.yy",},},
     {"id":{"name":"__VinylWarning","path":"scripts/__VinylWarning/__VinylWarning.yy",},},
     {"id":{"name":"__VedClassYYPAsset","path":"scripts/__VedClassYYPAsset/__VedClassYYPAsset.yy",},},
     {"id":{"name":"sndBleep2","path":"sounds/sndBleep2/sndBleep2.yy",},},

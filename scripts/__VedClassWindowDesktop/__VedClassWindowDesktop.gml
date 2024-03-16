@@ -106,7 +106,7 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
         ImGui.SetNextWindowSize(room_width, 28, ImGuiCond.Always);
         ImGui.Begin("Status Bar", true, ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize);
         
-        ImGui.SmallButton("Log");
+        if (ImGui.SmallButton("Log")) __VedWindowOpenSingle(__VedClassWindowLog);
         ImGui.SameLine(undefined, 20);
         
         var _drawDuration = 600;

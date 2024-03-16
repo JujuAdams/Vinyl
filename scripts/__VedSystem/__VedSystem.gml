@@ -28,6 +28,7 @@ function __VedSystem()
         if (not __VED_ENABLED) break;
         
         __logArray = [];
+        __logHistoricString = "";
         
         __VedLog("Welcome to Vinyl Editor! This is version ", __VED_VERSION, ", ", __VED_DATE);
         if (__VINYL_RUNNING_FROM_IDE) global.vinylEditorSystem = self;
