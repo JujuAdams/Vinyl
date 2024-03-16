@@ -21,7 +21,7 @@ function __VinylClassPatternSound(_sound, _loop, _gainMin, _gainMax, _pitchMin, 
     {
         var _gainFinal  = _gainLocal *__VinylRandomRange(__gainMin,  __gainMax);
         var _pitchFinal = _pitchLocal*__VinylRandomRange(__pitchMin, __pitchMax);
-        var _voice = audio_play_sound(snd1KHz, 0, _loop ?? false, _gainFinal, 0, _pitchFinal);
+        var _voice = audio_play_sound(__sound, 0, _loop ?? __loop, _gainFinal, 0, _pitchFinal);
         __VinylVoiceTrack(_voice, _gainLocal, _gainFinal, _pitchLocal, _pitchFinal).__pattern = __sound;
         return _voice;
     }
@@ -72,6 +72,7 @@ function __VinylClassPatternSound(_sound, _loop, _gainMin, _gainMax, _pitchMin, 
                 _voiceContext.__gainLocal  = _gainLocal;
                 _voiceContext.__pitchLocal = _pitchLocal;
                 
+                audio_sound_loop( _voice, _loop);
                 audio_sound_gain( _voice, audio_sound_get_gain( _voice)/_gainLocalPrev  * _gainLocal, VINYL_STEP_DURATION);
                 audio_sound_pitch(_voice, audio_sound_get_pitch(_voice)/_pitchLocalPrev * _pitchLocal);
             }

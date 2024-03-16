@@ -197,6 +197,14 @@ function __VedClassVinylAsset() constructor
             ImGui.TableSetupColumn("Option", ImGuiTableColumnFlags.WidthFixed, 125);
             ImGui.TableSetupColumn("Value",  ImGuiTableColumnFlags.WidthStretch, 1);
             
+            //Loop
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+            ImGui.Text("Loop");
+            
+            ImGui.TableSetColumnIndex(1);
+            __SetLoop(ImGui.Checkbox("##Loop", __loop));
+            
             //Gain
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
@@ -227,14 +235,14 @@ function __VedClassVinylAsset() constructor
             {
                 case __VED_OPTION_MULTIPLY:
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
-                    var _newValue = ImGui.SliderFloat("##Gain " + __name, __gain[0], 0, 2);
+                    var _newValue = ImGui.SliderFloat("##Gain " + __name, __gain[0], 0.01, 2);
                     __SetGain([_newValue, _newValue]);
                 break;
             
                 case __VED_OPTION_RANDOMIZE:
                     var _newValue = variable_clone(__gain);
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
-                    ImGui.SliderFloat2("##Gain " + __name, _newValue, 0, 2);
+                    ImGui.SliderFloat2("##Gain " + __name, _newValue, 0.1, 2);
                     __SetGain(_newValue);
                 break;
             }
