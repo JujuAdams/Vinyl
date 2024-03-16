@@ -10,7 +10,7 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
     static __BuildUI = function()
     {
         ImGui.BeginMainMenuBar();
-            if (ImGui.BeginMenu("Vinyl"))
+            if (ImGui.BeginMenu("Menu"))
             {
                 ImGui.TextColored("Vinyl " + __VED_VERSION + "\n" + __VED_DATE, #ff7f00);
             
@@ -65,21 +65,38 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
             }
             
             ImGui.PushStyleColor(ImGuiCol.Button, c_white, 0);
-            ImGui.SameLine(undefined, 50);
-
-            if (ImGui.Button("Sounds"))
-            {
-                __VedWindowOpenSingle(__VedClassWindowProject);
-            }
-
-            if (ImGui.Button("Audio Groups"))
-            {
-                //__VedWindowOpenSingle(__VedClassWindowAudioGroups);
-            }
             
-            if (ImGui.Button("Asset Tags"))
+            ImGui.SameLine(undefined, 60);
+            
+            var _project = _system.__project;
+            if (_project == undefined)
             {
-                //__VedWindowOpenSingle(__VedClassWindowAssetTags);
+                ImGui.Text("No project loaded");
+            }
+            else
+            {
+                ImGui.Text(filename_name(_system.__project.__pathYY));
+                
+                ImGui.SameLine(undefined, 60);
+                
+                if (ImGui.Button("Audio Groups"))
+                {
+                    //__VedWindowOpenSingle(__VedClassWindowAudioGroups);
+                }
+                
+                if (ImGui.Button("Asset Tags"))
+                {
+                    //__VedWindowOpenSingle(__VedClassWindowAudioGroups);
+                }
+                
+                ImGui.SameLine(undefined, 60);
+                
+                if (ImGui.Button("Sounds"))
+                {
+                    __VedWindowOpenSingle(__VedClassWindowProject);
+                }
+                
+                ImGui.SameLine(undefined, 50);
             }
             
             ImGui.PopStyleColor();
