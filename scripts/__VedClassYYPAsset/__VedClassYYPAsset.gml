@@ -82,10 +82,10 @@ function __VedClassYYPAsset() constructor
         __EnsureData();
         
         //All the GameMaker properties
-        if (ImGui.BeginTable("GameMaker Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 160))
+        if (ImGui.BeginTable("GameMaker Properties", 1, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 160))
         {
             //Set up our columns with fixed widths so we get a nice pretty layout
-            ImGui.TableSetupColumn("GameMaker Project", ImGuiTableColumnFlags.WidthStretch, 0.55);
+            ImGui.TableSetupColumn("GameMaker Project");
             ImGui.TableHeadersRow();
             
             //Audio group drop-down

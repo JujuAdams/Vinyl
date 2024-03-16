@@ -16,7 +16,7 @@ function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1)
         if (audio_exists(_pattern))
         {
             var _voice = audio_play_sound(_pattern, 0, _loop ?? false, _gain, 0, _pitch);
-            if (VINYL_LIVE_EDIT) __VinylVoiceTrack(_voice, _gain, 1, _pitch, 1).__pattern = _pattern;
+            if (VINYL_LIVE_EDIT) __VinylVoiceTrack(_voice, _gain, _pitch, 1, 1).__pattern = _pattern;
             return _voice;
         }
         else
@@ -26,7 +26,7 @@ function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1)
                 __VinylWarning("Could not find data for trigger ", _pattern);
                 
                 var _voice = audio_play_sound(VinylFallbackSound, 0, false, _gain, 0, _pitch);
-                if (VINYL_LIVE_EDIT) __VinylVoiceTrack(_voice, _gain, 1, _pitch, 1).__pattern = _pattern;
+                if (VINYL_LIVE_EDIT) __VinylVoiceTrack(_voice, _gain, _pitch, 1, 1).__pattern = _pattern;
                 return _voice;
             }
             else

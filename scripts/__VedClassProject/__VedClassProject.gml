@@ -12,7 +12,7 @@ function __VedClassProject() constructor
     __libYYPAssets   = new __VedClassLibrary();
     __libVinylAssets = new __VedClassLibrary();
     __libTriggers    = new __VedClassLibrary();
-    __libAugioGroup  = new __VedClassLibrary();
+    __libAudioGroup  = new __VedClassLibrary();
     __libAssetTag    = new __VedClassLibrary();
     
     __changesArray = [];

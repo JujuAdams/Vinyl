@@ -1,20 +1,20 @@
 {
-  "triggers":[
-  ],
   "ident":"002B13F0BAD8EFBA",
   "assets":[
     {
+      "gain":[
+        1.0,
+        1.0
+      ],
       "gainOption":"Unset",
       "pitch":[
         0.63300001621246338,
         0.63300001621246338
       ],
       "pitchOption":"Multiply",
-      "name":"snd1KHz",
-      "gain":[
-        1.0,
-        1.0
-      ]
+      "name":"snd1KHz"
     }
+  ],
+  "triggers":[
   ]
 }

@@ -21,17 +21,11 @@ function __VedClassVinylAsset() constructor
         buffer_write(_buffer, buffer_text, __name);
         buffer_write(_buffer, buffer_text, "), function(_loop, _gainLocal, _pitchLocal)\n");
         buffer_write(_buffer, buffer_text, "        {\n");
+        buffer_write(_buffer, buffer_text, "            var _gainPattern  = ");
         
-        buffer_write(_buffer, buffer_text, "            var _gainFinal = _gainLocal");
-        
-        //TODO - Don't generate _gainFinal if gain = 1
         if (__gain[0] == __gain[1])
         {
-            if (__gain[0] != 1)
-            {
-                buffer_write(_buffer, buffer_text, "*");
-                buffer_write(_buffer, buffer_text, string(__gain[0]));
-            }
+            buffer_write(_buffer, buffer_text, string(__gain[0]));
         }
         else
         {
@@ -43,16 +37,11 @@ function __VedClassVinylAsset() constructor
         }
         
         buffer_write(_buffer, buffer_text, ";\n");
-        buffer_write(_buffer, buffer_text, "            var _pitchFinal = _pitchLocal");
+        buffer_write(_buffer, buffer_text, "            var _pitchPattern = ");
         
-        //TODO - Don't generate _gainFinal if pitch = 1
         if (__pitch[0] == __pitch[1])
         {
-            if (__pitch[0] != 1)
-            {
-                buffer_write(_buffer, buffer_text, "*");
-                buffer_write(_buffer, buffer_text, string(__pitch[0]));
-            }
+            buffer_write(_buffer, buffer_text, string(__pitch[0]));
         }
         else
         {
@@ -69,17 +58,17 @@ function __VedClassVinylAsset() constructor
         buffer_write(_buffer, buffer_text, __name);
         buffer_write(_buffer, buffer_text, ", 0, _loop ?? ");
         buffer_write(_buffer, buffer_text, __loop? "true" : "false");
-        buffer_write(_buffer, buffer_text, ", _gainFinal, 0, _pitchFinal);\n");
+        buffer_write(_buffer, buffer_text, ", _gainLocal*_gainPattern, 0, _pitchLocal*_pitchPattern);\n");
         buffer_write(_buffer, buffer_text, "            \n");
         buffer_write(_buffer, buffer_text, "            if (VINYL_LIVE_EDIT)\n");
         buffer_write(_buffer, buffer_text, "            {\n");
-        buffer_write(_buffer, buffer_text, "                __VinylVoiceTrack(_voice, _gainLocal, _gainFinal, _pitchLocal, _pitchFinal).__pattern = ");
+        buffer_write(_buffer, buffer_text, "                __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainPattern, _pitchPattern).__pattern = ");
         buffer_write(_buffer, buffer_text, __name);
         buffer_write(_buffer, buffer_text, ";\n");
         buffer_write(_buffer, buffer_text, "            }\n");
         buffer_write(_buffer, buffer_text, "            else\n");
         buffer_write(_buffer, buffer_text, "            {\n");
-        buffer_write(_buffer, buffer_text, "                __VinylVoiceTrack(_voice, _gainLocal, _gainFinal, _pitchLocal, _pitchFinal);\n");
+        buffer_write(_buffer, buffer_text, "                __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainPattern, _pitchPattern);\n");
         buffer_write(_buffer, buffer_text, "            }\n");
         buffer_write(_buffer, buffer_text, "            \n");
         buffer_write(_buffer, buffer_text, "            return _voice;\n");
@@ -238,7 +227,7 @@ function __VedClassVinylAsset() constructor
                     var _newValue = ImGui.SliderFloat("##Gain " + __name, __gain[0], 0.01, 2);
                     __SetGain([_newValue, _newValue]);
                 break;
-            
+                
                 case __VED_OPTION_RANDOMIZE:
                     var _newValue = variable_clone(__gain);
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
@@ -265,7 +254,7 @@ function __VedClassVinylAsset() constructor
                     {
                         __SetPitchOption(_optionName);
                     }
-                        
+                    
                     ++_i;
                 }
                 
@@ -280,7 +269,7 @@ function __VedClassVinylAsset() constructor
                     var _newValue = ImGui.SliderFloat("##Pitch " + __name, __pitch[0], 0, 2);
                     __SetPitch([_newValue, _newValue]);
                 break;
-            
+                
                 case __VED_OPTION_RANDOMIZE:
                     var _newValue = variable_clone(__pitch);
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
