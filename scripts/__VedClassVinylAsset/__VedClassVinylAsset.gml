@@ -12,12 +12,12 @@ function __VedClassVinylAsset() constructor
     __pitch       = [1, 1];
     __pitchOption = __VED_OPTION_UNSET;
     
-    __tagLoopOption  = __VED_OPTION_SET;
-    __tagLoop        = undefined;
-    __tagGainOption  = __VED_OPTION_MULTIPLY;
-    __tagGain        = [1, 1];
-    __tagPitchOption = __VED_OPTION_MULTIPLY;
-    __tagPitch       = [1, 1];
+    __ruleLoopOption  = __VED_OPTION_SET;
+    __ruleLoop        = undefined;
+    __ruleGainOption  = __VED_OPTION_MULTIPLY;
+    __ruleGain        = [1, 1];
+    __rulePitchOption = __VED_OPTION_MULTIPLY;
+    __rulePitch       = [1, 1];
     
     static __CompilePlay = function(_buffer)
     {
@@ -119,7 +119,7 @@ function __VedClassVinylAsset() constructor
     static __GetModified = function()
     {
         return ((__loop != false) || (__gainOption != __VED_OPTION_UNSET) || (__pitchOption != __VED_OPTION_UNSET)
-             || (__tagLoopOption != __VED_OPTION_SET) || (__tagGainOption != __VED_OPTION_MULTIPLY) || (__tagPitchOption != __VED_OPTION_MULTIPLY))
+             || (__ruleLoopOption != __VED_OPTION_SET) || (__ruleGainOption != __VED_OPTION_MULTIPLY) || (__rulePitchOption != __VED_OPTION_MULTIPLY))
     }
     
     static __SetLoop = function(_value)
@@ -185,29 +185,29 @@ function __VedClassVinylAsset() constructor
         }
     }
     
-    static __SetTagLoopOption = function(_value)
+    static __SetRuleLoopOption = function(_value)
     {
-        if (__tagLoopOption != _value)
+        if (__ruleLoopOption != _value)
         {
-            __tagLoopOption = _value;
+            __ruleLoopOption = _value;
             __BroadcastChange();
         }
     }
     
-    static __SetTagGainOption = function(_value)
+    static __SetRuleGainOption = function(_value)
     {
-        if (__tagGainOption != _value)
+        if (__ruleGainOption != _value)
         {
-            __tagGainOption = _value;
+            __ruleGainOption = _value;
             __BroadcastChange();
         }
     }
     
-    static __SetTagPitchOption = function(_value)
+    static __SetRulePitchOption = function(_value)
     {
-        if (__tagPitchOption != _value)
+        if (__rulePitchOption != _value)
         {
-            __tagPitchOption = _value;
+            __rulePitchOption = _value;
             __BroadcastChange();
         }
     }
@@ -222,7 +222,7 @@ function __VedClassVinylAsset() constructor
             __pitchMax: 1,
         };
         
-        _result.__loop = ((__tagLoopOption == __VED_OPTION_SET) && (__tagLoop != undefined))? __tagLoop : __loop;
+        _result.__loop = ((__ruleLoopOption == __VED_OPTION_SET) && (__ruleLoop != undefined))? __ruleLoop : __loop;
         
         if (__gainOption == __VED_OPTION_UNSET)
         {
@@ -235,16 +235,16 @@ function __VedClassVinylAsset() constructor
             var _gainMax = __gain[1];
         }
         
-        switch(__tagGainOption)
+        switch(__ruleGainOption)
         {
             case __VED_OPTION_MULTIPLY:
-                _result.__gainMin = __tagGain[0]*_gainMin;
-                _result.__gainMax = __tagGain[1]*_gainMax;
+                _result.__gainMin = __ruleGain[0]*_gainMin;
+                _result.__gainMax = __ruleGain[1]*_gainMax;
             break;
             
             case __VED_OPTION_SET:
-                _result.__gainMin = __tagGain[0];
-                _result.__gainMax = __tagGain[1];
+                _result.__gainMin = __ruleGain[0];
+                _result.__gainMax = __ruleGain[1];
             break;
             
             case __VED_OPTION_IGNORE:
@@ -264,16 +264,16 @@ function __VedClassVinylAsset() constructor
             var _pitchMax = __pitch[1];
         }
         
-        switch(__tagPitchOption)
+        switch(__rulePitchOption)
         {
             case __VED_OPTION_MULTIPLY:
-                _result.__pitchMin = __tagPitch[0]*_pitchMin;
-                _result.__pitchMax = __tagPitch[1]*_pitchMax;
+                _result.__pitchMin = __rulePitch[0]*_pitchMin;
+                _result.__pitchMax = __rulePitch[1]*_pitchMax;
             break;
             
             case __VED_OPTION_SET:
-                _result.__pitchMin = __tagPitch[0];
-                _result.__pitchMax = __tagPitch[1];
+                _result.__pitchMin = __rulePitch[0];
+                _result.__pitchMax = __rulePitch[1];
             break;
             
             case __VED_OPTION_IGNORE:
@@ -287,9 +287,9 @@ function __VedClassVinylAsset() constructor
     
     static __BuildUI = function(_multiselector)
     {
-        static _optionArray        = [__VED_OPTION_UNSET, __VED_OPTION_MULTIPLY, __VED_OPTION_RANDOMIZE];
-        static _tagLoopOptionArray = [__VED_OPTION_SET, __VED_OPTION_IGNORE];
-        static _tagOptionArray     = [__VED_OPTION_MULTIPLY, __VED_OPTION_SET, __VED_OPTION_IGNORE];
+        static _optionArray         = [__VED_OPTION_UNSET, __VED_OPTION_MULTIPLY, __VED_OPTION_RANDOMIZE];
+        static _ruleLoopOptionArray = [__VED_OPTION_SET, __VED_OPTION_IGNORE];
+        static _ruleOptionArray     = [__VED_OPTION_MULTIPLY, __VED_OPTION_SET, __VED_OPTION_IGNORE];
         
         static _funcTextRange = function(_min, _max)
         {
@@ -352,10 +352,10 @@ function __VedClassVinylAsset() constructor
             ImGui.Text("Loop");
             
             ImGui.TableSetColumnIndex(1);
-            ImGui.Text(((__tagLoopOption == __VED_OPTION_SET) && (__tagLoop != undefined))? "Overridden" : "Set");
+            ImGui.Text(((__ruleLoopOption == __VED_OPTION_SET) && (__ruleLoop != undefined))? "Overridden" : "Set");
             
             ImGui.TableSetColumnIndex(2);
-            ImGui.BeginDisabled((__tagLoopOption == __VED_OPTION_SET) && (__tagLoop != undefined));
+            ImGui.BeginDisabled((__ruleLoopOption == __VED_OPTION_SET) && (__ruleLoop != undefined));
             __SetLoop(ImGui.Checkbox("##Loop", __loop));
             ImGui.EndDisabled();
             
@@ -366,7 +366,7 @@ function __VedClassVinylAsset() constructor
             
             var _originalOption = __gainOption;
             ImGui.TableSetColumnIndex(1);
-            if (__tagGainOption == __VED_OPTION_SET)
+            if (__ruleGainOption == __VED_OPTION_SET)
             {
                 ImGui.Text("Overridden");
             }
@@ -392,7 +392,7 @@ function __VedClassVinylAsset() constructor
             }
             
             ImGui.TableSetColumnIndex(2);
-            switch((__tagGainOption == __VED_OPTION_SET)? __VED_OPTION_UNSET : __gainOption)
+            switch((__ruleGainOption == __VED_OPTION_SET)? __VED_OPTION_UNSET : __gainOption)
             {
                 case __VED_OPTION_UNSET:
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
@@ -422,7 +422,7 @@ function __VedClassVinylAsset() constructor
             
             var _originalOption = __pitchOption;
             ImGui.TableSetColumnIndex(1);
-            if (__tagPitchOption == __VED_OPTION_SET)
+            if (__rulePitchOption == __VED_OPTION_SET)
             {
                 ImGui.Text("Overridden");
             }
@@ -448,7 +448,7 @@ function __VedClassVinylAsset() constructor
             }
             
             ImGui.TableSetColumnIndex(2);
-            switch((__tagPitchOption == __VED_OPTION_SET)? __VED_OPTION_UNSET : __pitchOption)
+            switch((__rulePitchOption == __VED_OPTION_SET)? __VED_OPTION_UNSET : __pitchOption)
             {
                 case __VED_OPTION_UNSET:
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
@@ -486,10 +486,10 @@ function __VedClassVinylAsset() constructor
         
         ImGui.NewLine();
         
-        if (ImGui.BeginTable("Tags", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 110))
+        if (ImGui.BeginTable("Rules", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 110))
         {
             ////Set up our columns with fixed widths so we get a nice pretty layout
-            ImGui.TableSetupColumn("Tags",   ImGuiTableColumnFlags.WidthFixed, 100);
+            ImGui.TableSetupColumn("Rules",   ImGuiTableColumnFlags.WidthFixed, 100);
             ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 125);
             ImGui.TableSetupColumn("",  ImGuiTableColumnFlags.WidthStretch, 1);
             ImGui.TableHeadersRow();
@@ -499,18 +499,18 @@ function __VedClassVinylAsset() constructor
             ImGui.TableSetColumnIndex(0);
             ImGui.Text("Loop");
             
-            var _originalOption = __tagLoopOption;
+            var _originalOption = __ruleLoopOption;
             ImGui.TableSetColumnIndex(1);
             ImGui.SetNextItemWidth(ImGui.GetColumnWidth(1));
-            if (ImGui.BeginCombo("##Loop Tag Option " + __name, _originalOption, ImGuiComboFlags.None))
+            if (ImGui.BeginCombo("##Loop Rule Option " + __name, _originalOption, ImGuiComboFlags.None))
             {
                 var _i = 0;
-                repeat(array_length(_tagLoopOptionArray))
+                repeat(array_length(_ruleLoopOptionArray))
                 {
-                    var _optionName = _tagLoopOptionArray[_i];
-                    if (ImGui.Selectable(_optionName + "##Tag Loop Option " + __name, (_originalOption == _optionName)))
+                    var _optionName = _ruleLoopOptionArray[_i];
+                    if (ImGui.Selectable(_optionName + "##Rule Loop Option " + __name, (_originalOption == _optionName)))
                     {
-                        __SetTagLoopOption(_optionName);
+                        __SetRuleLoopOption(_optionName);
                     }
                         
                     ++_i;
@@ -520,14 +520,14 @@ function __VedClassVinylAsset() constructor
             }
             
             ImGui.TableSetColumnIndex(2);
-            ImGui.BeginDisabled(__tagLoopOption == __VED_OPTION_IGNORE);
-            if (__tagLoop == undefined)
+            ImGui.BeginDisabled(__ruleLoopOption == __VED_OPTION_IGNORE);
+            if (__ruleLoop == undefined)
             {
                 ImGui.Text("<unset>");
             }
             else
             {
-                ImGui.Text(__tagLoop? "Yes" : "No");
+                ImGui.Text(__ruleLoop? "Yes" : "No");
             }
             
             ImGui.EndDisabled();
@@ -537,18 +537,18 @@ function __VedClassVinylAsset() constructor
             ImGui.TableSetColumnIndex(0);
             ImGui.Text("Gain");
             
-            var _originalOption = __tagGainOption;
+            var _originalOption = __ruleGainOption;
             ImGui.TableSetColumnIndex(1);
             ImGui.SetNextItemWidth(ImGui.GetColumnWidth(1));
-            if (ImGui.BeginCombo("##Tag Gain Option " + __name, _originalOption, ImGuiComboFlags.None))
+            if (ImGui.BeginCombo("##Rule Gain Option " + __name, _originalOption, ImGuiComboFlags.None))
             {
                 var _i = 0;
-                repeat(array_length(_tagOptionArray))
+                repeat(array_length(_ruleOptionArray))
                 {
-                    var _optionName = _tagOptionArray[_i];
-                    if (ImGui.Selectable(_optionName + "##Tag Gain Option " + __name, (_originalOption == _optionName)))
+                    var _optionName = _ruleOptionArray[_i];
+                    if (ImGui.Selectable(_optionName + "##Rule Gain Option " + __name, (_originalOption == _optionName)))
                     {
-                        __SetTagGainOption(_optionName);
+                        __SetRuleGainOption(_optionName);
                     }
                         
                     ++_i;
@@ -558,25 +558,25 @@ function __VedClassVinylAsset() constructor
             }
             
             ImGui.TableSetColumnIndex(2);
-            _funcTextRange(__tagGain[0], __tagGain[1]);
+            _funcTextRange(__ruleGain[0], __ruleGain[1]);
             
             //Pitch
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
             ImGui.Text("Pitch");
             
-            var _originalOption = __tagPitchOption;
+            var _originalOption = __rulePitchOption;
             ImGui.TableSetColumnIndex(1);
             ImGui.SetNextItemWidth(ImGui.GetColumnWidth(1));
-            if (ImGui.BeginCombo("##Tag Pitch Option " + __name, _originalOption, ImGuiComboFlags.None))
+            if (ImGui.BeginCombo("##Rule Pitch Option " + __name, _originalOption, ImGuiComboFlags.None))
             {
                 var _i = 0;
-                repeat(array_length(_tagOptionArray))
+                repeat(array_length(_ruleOptionArray))
                 {
-                    var _optionName = _tagOptionArray[_i];
-                    if (ImGui.Selectable(_optionName + "##Tag Pitch Option " + __name, (_originalOption == _optionName)))
+                    var _optionName = _ruleOptionArray[_i];
+                    if (ImGui.Selectable(_optionName + "##Rule Pitch Option " + __name, (_originalOption == _optionName)))
                     {
-                        __SetTagPitchOption(_optionName);
+                        __SetRulePitchOption(_optionName);
                     }
                     
                     ++_i;
@@ -586,16 +586,16 @@ function __VedClassVinylAsset() constructor
             }
             
             ImGui.TableSetColumnIndex(2);
-            _funcTextRange(__tagPitch[0], __tagPitch[1]);
+            _funcTextRange(__rulePitch[0], __rulePitch[1]);
             
             //Reset
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
-            if (ImGui.Button("Reset##Tag"))
+            if (ImGui.Button("Reset##Rules"))
             {
-                __SetTagLoopOption(__VED_OPTION_SET);
-                __SetTagGainOption(__VED_OPTION_MULTIPLY);
-                __SetTagPitchOption(__VED_OPTION_MULTIPLY);
+                __SetRuleLoopOption(__VED_OPTION_SET);
+                __SetRuleGainOption(__VED_OPTION_MULTIPLY);
+                __SetRulePitchOption(__VED_OPTION_MULTIPLY);
             }
             
             ImGui.EndTable();
@@ -607,29 +607,29 @@ function __VedClassVinylAsset() constructor
         if (__GetModified())
         {
             array_push(_array, {
-                name:           __name,
-                loop:           __loop,
-                gain:           __gain,
-                gainOption:     __gainOption,
-                pitch:          __pitch,
-                pitchOption:    __pitchOption,
-                tagLoopOption:  __tagLoopOption,
-                tagGainOption:  __tagGainOption,
-                tagPitchOption: __tagPitchOption,
+                name:            __name,
+                loop:            __loop,
+                gain:            __gain,
+                gainOption:      __gainOption,
+                pitch:           __pitch,
+                pitchOption:     __pitchOption,
+                ruleLoopOption:  __ruleLoopOption,
+                ruleGainOption:  __ruleGainOption,
+                rulePitchOption: __rulePitchOption,
             });
         }
     }
     
     static __Deserialize = function(_data)
     {
-        __name           = _data.name;
-        __loop           = _data[$ "loop"          ] ?? false;
-        __gain           = _data[$ "gain"          ] ?? [1, 1];
-        __gainOption     = _data[$ "gainOption"    ] ?? __VED_OPTION_UNSET;
-        __pitch          = _data[$ "pitch"         ] ?? [1, 1];
-        __pitchOption    = _data[$ "pitchOption"   ] ?? __VED_OPTION_UNSET;
-        __tagLoopOption  = _data[$ "tagLoopOption" ] ?? __VED_OPTION_SET;
-        __tagGainOption  = _data[$ "tagGainOption" ] ?? __VED_OPTION_MULTIPLY;
-        __tagPitchOption = _data[$ "tagPitchOption"] ?? __VED_OPTION_MULTIPLY;
+        __name            = _data.name;
+        __loop            = _data[$ "loop"          ] ?? false;
+        __gain            = _data[$ "gain"          ] ?? [1, 1];
+        __gainOption      = _data[$ "gainOption"    ] ?? __VED_OPTION_UNSET;
+        __pitch           = _data[$ "pitch"         ] ?? [1, 1];
+        __pitchOption     = _data[$ "pitchOption"   ] ?? __VED_OPTION_UNSET;
+        __ruleLoopOption  = _data[$ "ruleLoopOption" ] ?? __VED_OPTION_SET;
+        __ruleGainOption  = _data[$ "ruleGainOption" ] ?? __VED_OPTION_MULTIPLY;
+        __rulePitchOption = _data[$ "rulePitchOption"] ?? __VED_OPTION_MULTIPLY;
     }
 }
