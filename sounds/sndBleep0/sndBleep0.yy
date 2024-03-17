@@ -21,6 +21,6 @@
   "tags": [
     "bleep",
   ],
- "type": 0,
+  "type": 0,
   "volume": 1.0,
 }
