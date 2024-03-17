@@ -6,6 +6,7 @@ function __VedClassPatternShuffle() constructor
     
     __name = undefined;
     
+    __soundDict   = {};
     __soundArray  = [];
     __gainForce   = false;
     __gain        = [1, 1];
@@ -13,6 +14,8 @@ function __VedClassPatternShuffle() constructor
     __pitchForce  = false;
     __pitch       = [1, 1];
     __pitchOption = __VED_OPTION_MULTIPLY;
+    
+    __soundToAdd = "";
     
     static __CompilePlay = function(_buffer)
     {
@@ -233,23 +236,31 @@ function __VedClassPatternShuffle() constructor
         
         ImGui.NewLine();
         
-        if (ImGui.Button("Add"))
-        {
-            
-        }
-        
-        ImGui.SameLine();
-        
         ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX() - 100);
-        if (ImGui.BeginCombo("##Sound Combobox", "", ImGuiComboFlags.None))
+        if (ImGui.BeginCombo("##Sound Combobox", "Add Sound", ImGuiComboFlags.HeightLarge | ImGuiComboFlags.WidthFitPreview))
         {
             var _i = 0;
             repeat(array_length(_soundArray))
             {
                 var _soundName = _soundArray[_i];
-                if (ImGui.Selectable(_soundName, false))
+                
+                var _oldValue = variable_struct_exists(__soundDict, _soundName);
+                var _newValue = (ImGui.Checkbox(_soundName + "##Selectable", _oldValue))
+                
+                if (_oldValue != _newValue)
                 {
-                    
+                    if (_newValue)
+                    {
+                        array_push(__soundArray, _soundName);
+                        array_sort(__soundArray, true);
+                        __soundDict[$ _soundName] = true;
+                    }
+                    else
+                    {
+                        var _index = __VedArrayFindIndex(__soundArray, _soundName);
+                        if (_index = undefined) array_delete(__soundArray, 1, _index);
+                        variable_struct_remove(__soundDict, _soundName);
+                    }
                 }
                 
                 ++_i;
@@ -270,15 +281,28 @@ function __VedClassPatternShuffle() constructor
             ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthStretch, 1);
             ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 50);
             
-            repeat(100)
+            if (array_length(__soundArray) <= 0)
             {
-                ImGui.TableNextRow();
-                ImGui.TableSetColumnIndex(0);
-                ImGui.Text("sndBleep0");
-                ImGui.TableSetColumnIndex(1);
-                if (ImGui.Button("Delete"))
+                ImGui.Text("To add sounds to this pattern, use the combobox above");
+            }
+            else
+            {
+                var _i = 0;
+                repeat(array_length(__soundArray))
                 {
+                    ImGui.TableNextRow();
+                    ImGui.TableSetColumnIndex(0);
+                    ImGui.Text(__soundArray[_i]);
                     
+                    ImGui.TableSetColumnIndex(1);
+                    if (ImGui.Button("Delete##" + string(_i)))
+                    {
+                        array_delete(__soundArray, _i, 1);
+                    }
+                    else
+                    {
+                        ++_i;
+                    }
                 }
             }
             

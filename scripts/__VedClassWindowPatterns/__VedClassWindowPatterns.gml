@@ -51,6 +51,12 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
                 }
                 ImGui.EndDisabled();
                 
+                ImGui.Checkbox("Shuffle");
+                ImGui.SameLine();
+                ImGui.Checkbox("H-L-T");
+                ImGui.SameLine();
+                ImGui.Checkbox("Multi");
+                
                 //Keep an array of all visible sounds. We use this later for the "select all" button
                 var _visibleArray = [];
                 
