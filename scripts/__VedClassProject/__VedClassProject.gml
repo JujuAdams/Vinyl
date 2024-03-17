@@ -223,6 +223,56 @@ function __VedClassProject() constructor
         }
     }
     
+    static __SaveAudioGroups = function()
+    {
+        var _array = __libAudioGroup.__GetNameArray();
+        var _dict  = __libAudioGroup.__GetDictionary();
+        
+        var _insertString = "  \"AudioGroups\": [\n";
+        var _i = 0;
+        repeat(array_length(_array))
+        {
+            var _name = _array[_i];
+            var _audioGroup = _dict[$ _name];
+            
+            var _substring = string_concat("    {\"resourceType\":\"GMAudioGroup\",\"resourceVersion\":\"1.3\",\"name\":\"", _name, "\",\"targets\":", _audioGroup.__target, ",},\n");
+            _insertString += _substring;
+            
+            ++_i;
+        }
+        _insertString += "  ],\n";
+        
+        var _buffer = buffer_load(__pathYY);
+        var _fileString = buffer_read(_buffer, buffer_text);
+        buffer_delete(_buffer);
+        
+        var _tagPos = string_pos("  \"AudioGroups\": [", _fileString);
+        if (_tagPos <= 0)
+        {
+            __VedLog("Warning! Could not find \"soundFile\" position in \"", __pathYY, "\"");
+            return;
+        }
+        else
+        {
+            var _endPos = string_pos_ext("  ],", _fileString, _tagPos);
+            if (_endPos <= 0)
+            {
+                __VedLog("Warning! Could not find asset tag close position in \"", __pathYY, "\"");
+                return;
+            }
+            
+            _fileString = string_delete(_fileString, _tagPos, 6 + _endPos - _tagPos);
+            _fileString = string_insert(_insertString, _fileString, _tagPos);
+        }
+        
+        var _buffer = buffer_create(string_byte_length(_fileString), buffer_grow, 1);
+        buffer_write(_buffer, buffer_text, _fileString);
+        buffer_save(_buffer, __pathYY);
+        buffer_delete(_buffer);
+        
+        __VedLog("Saved \"", __pathYY, "\"");
+    }
+    
     //static __ImportData = function(_projectData, _firstUpdate)
     //{
     //    var _projectDirectory   = __directory;

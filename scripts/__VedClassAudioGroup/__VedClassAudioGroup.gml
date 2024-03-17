@@ -5,6 +5,8 @@ function __VedClassAudioGroup() constructor
     static _system = __VedSystem();
     
     __name = undefined;
+    __target = -1;
+    
     __soundNameArray = [];
     
     static __Add = function(_name)
@@ -25,17 +27,17 @@ function __VedClassAudioGroup() constructor
     
     static __MoveAllToDefault = function()
     {
-        var _audioGroupDict = _system.__project.__libAudioGroup.__GetDictionary();
+        var _soundDict = _system.__project.__libYYPAsset.__GetDictionary();
         
-        var _i = 0;
+        var _i = array_length(__soundNameArray)-1;
         repeat(array_length(__soundNameArray))
         {
             var _name = __soundNameArray[_i];
             
-            var _sound = _audioGroupDict[$ _name];
+            var _sound = _soundDict[$ _name];
             if (_sound != undefined) _sound.__SetAudioGroup(__VED_DEFAULT_AUDIO_GROUP);
             
-            ++_i;
+            --_i;
         }
         
         array_resize(__soundNameArray, 0);

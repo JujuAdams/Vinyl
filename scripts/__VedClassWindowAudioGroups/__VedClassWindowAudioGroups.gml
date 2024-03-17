@@ -67,6 +67,8 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                         }
                     }));
                     
+                    _system.__project.__SaveAudioGroups();
+                    
                     __multiselectorAG.__SelectNone();
                 }
                 ImGui.EndDisabled();

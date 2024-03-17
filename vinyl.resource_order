@@ -8,6 +8,7 @@
     {"name":"UI","order":10,"path":"folders/Vinyl Editor/(Internals)/UI.yy",},
     {"name":"Modal Classes","order":2,"path":"folders/Vinyl Editor/(Internals)/UI/Modal Classes.yy",},
     {"name":"Project Classes","order":3,"path":"folders/Vinyl Editor/(Internals)/UI/Project Classes.yy",},
+    {"name":"Rule Classes","order":4,"path":"folders/Vinyl Editor/(Internals)/UI/Rule Classes.yy",},
     {"name":"Window Classes","order":1,"path":"folders/Vinyl Editor/(Internals)/UI/Window Classes.yy",},
     {"name":"(Internals)","order":5,"path":"folders/Vinyl/(Internals).yy",},
     {"name":"Generated","order":13,"path":"folders/Vinyl/(Internals)/Generated.yy",},
@@ -16,7 +17,6 @@
     {"name":"Pattern","order":4,"path":"folders/Vinyl/Pattern.yy",},
     {"name":"Sounds & Voices","order":2,"path":"folders/Vinyl/Sounds & Voices.yy",},
     {"name":"Tag","order":3,"path":"folders/Vinyl/Tag.yy",},
-    {"name":"Rule Classes","order":4,"path":"folders/Vinyl Editor/(Internals)/UI/Rule Classes.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"__VinylGenPlay","order":1,"path":"scripts/__VinylGenPlay/__VinylGenPlay.yy",},
