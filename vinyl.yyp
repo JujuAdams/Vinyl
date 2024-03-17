@@ -87,6 +87,7 @@
     {"id":{"name":"__VinylGenPattern","path":"scripts/__VinylGenPattern/__VinylGenPattern.yy",},},
     {"id":{"name":"sndBleep7","path":"sounds/sndBleep7/sndBleep7.yy",},},
     {"id":{"name":"sndSync0","path":"sounds/sndSync0/sndSync0.yy",},},
+    {"id":{"name":"shdJujuverse","path":"shaders/shdJujuverse/shdJujuverse.yy",},},
     {"id":{"name":"VinylTagSetGain","path":"scripts/VinylTagSetGain/VinylTagSetGain.yy",},},
     {"id":{"name":"VinylTagFadeOut","path":"scripts/VinylTagFadeOut/VinylTagFadeOut.yy",},},
     {"id":{"name":"sndSync2","path":"sounds/sndSync2/sndSync2.yy",},},

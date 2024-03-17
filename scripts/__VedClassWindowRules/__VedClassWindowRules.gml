@@ -21,17 +21,24 @@ function __VedClassWindowRules() : __VedClassWindow() constructor
         {
             if (ImGui.BeginTabBar("Rules Tab Bar"))
             {
-                var _return = ImGui.BeginTabItem("Tab 1");
+                var _return = ImGui.BeginTabItem("Asset Tags");
                 if (_return & ImGuiReturnMask.Return)
                 {
                     ImGui.Text("Tab 1");
                     ImGui.EndTabItem();
                 }
                 
-                var _return = ImGui.BeginTabItem("Tab 2");
+                var _return = ImGui.BeginTabItem("Sounds");
                 if (_return & ImGuiReturnMask.Return)
                 {
                     ImGui.Text("Tab 2");
+                    ImGui.EndTabItem();
+                }
+                
+                var _return = ImGui.BeginTabItem("Triggerable");
+                if (_return & ImGuiReturnMask.Return)
+                {
+                    ImGui.Text("Tab 3");
                     ImGui.EndTabItem();
                 }
                 

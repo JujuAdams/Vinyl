@@ -57,6 +57,7 @@
     {"name":"__VinylGenPattern","order":2,"path":"scripts/__VinylGenPattern/__VinylGenPattern.yy",},
     {"name":"sndBleep7","order":17,"path":"sounds/sndBleep7/sndBleep7.yy",},
     {"name":"sndSync0","order":6,"path":"sounds/sndSync0/sndSync0.yy",},
+    {"name":"shdJujuverse","order":8,"path":"shaders/shdJujuverse/shdJujuverse.yy",},
     {"name":"VinylTagSetGain","order":2,"path":"scripts/VinylTagSetGain/VinylTagSetGain.yy",},
     {"name":"VinylTagFadeOut","order":1,"path":"scripts/VinylTagFadeOut/VinylTagFadeOut.yy",},
     {"name":"sndSync2","order":8,"path":"sounds/sndSync2/sndSync2.yy",},
