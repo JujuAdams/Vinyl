@@ -44,10 +44,7 @@ function __VedClassWindowSounds() : __VedClassWindow() constructor
                 ImGui.SameLine();
                 __useFilter = ImGui.Checkbox("##Filter", __useFilter);
                 ImGui.SameLine();
-                if (ImGui.Button("Edit..."))
-                {
-                    __VedWindowOpenSingle(__VedClassWindowAssetFilter);
-                }
+                if (ImGui.Button("Edit...")) __VedWindowOpenSingle(__VedClassWindowFilter).__filter = __filter;
                 
                 //Modified / unmodified filter
                 __seeModified = ImGui.Checkbox("See modified", __seeModified);
@@ -102,7 +99,7 @@ function __VedClassWindowSounds() : __VedClassWindow() constructor
                         if (((_modified && __seeModified) || ((not _modified) && __seeUnmodified)) //Modified check
                         &&  ((not __multiselector.__multiselect) || (_selected && __multiselector.__seeSelected) || ((not _selected) && __multiselector.__seeUnselected))) //Selected check
                         {
-                            if ((not __useFilter) || __VedFilterApply(__filter, _yypAssetDict[$ _name])) //General filter
+                            if ((not __useFilter) || __filter.__Apply(_yypAssetDict[$ _name]))
                             {
                                 _funcBuildSelectable(_name, _modified, __multiselector);
                                 

@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VedClassWindowAssetFilter",
+  "name": "__VedClassWindowFilter",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

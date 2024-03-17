@@ -149,10 +149,7 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                     ImGui.SameLine();
                     __useFilter = ImGui.Checkbox("##Filter", __useFilter);
                     ImGui.SameLine();
-                    if (ImGui.Button("Edit..."))
-                    {
-                        __VedWindowOpenSingle(__VedClassWindowAssetFilter);
-                    }
+                    if (ImGui.Button("Edit...")) __VedWindowOpenSingle(__VedClassWindowFilter).__filter = __filter;
                 }
                 
                 //Here's where we jump to a different function to draw the actual properties
@@ -187,10 +184,13 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                             var _selected = __multiselectorAsset.__IsSelected(_name);
                             if ((not __multiselectorAsset.__multiselect) || (_selected && __multiselectorAsset.__seeSelected) || ((not _selected) && __multiselectorAsset.__seeUnselected)) //Selected check
                             {
-                                _funcBuildSelectable(_name, __multiselectorAsset);
-                                
-                                //Push the name of this visible sound to our array
-                                array_push(_visibleArray, _name);
+                                if ((not __useFilter) || __filter.__Apply(_soundDict[$ _name]))
+                                {
+                                    _funcBuildSelectable(_name, __multiselectorAsset);
+                                    
+                                    //Push the name of this visible sound to our array
+                                    array_push(_visibleArray, _name);
+                                }
                             }
                             
                             ++_i;

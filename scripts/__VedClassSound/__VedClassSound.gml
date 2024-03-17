@@ -10,6 +10,7 @@ function __VedClassSound() constructor
     
     __hasData = false;
     
+    __length     = undefined;
     __audioGroup = undefined;
     __attributes = undefined;
     __assetTags  = undefined;
@@ -157,6 +158,9 @@ function __VedClassSound() constructor
         
         var _json = undefined;
         _json = json_parse(_string);
+        
+        //Playback length
+        __length = _json.duration;
         
         //Audio group
         __audioGroup = _json.audioGroupId.name;
