@@ -67,6 +67,7 @@
     {"name":"__VedClassModalCreateProject","order":9,"path":"scripts/__VedClassModalCreateProject/__VedClassModalCreateProject.yy",},
     {"name":"__VedWindowOpenSingle","order":5,"path":"scripts/__VedWindowOpenSingle/__VedWindowOpenSingle.yy",},
     {"name":"__VinylArrayFindIndex","order":7,"path":"scripts/__VinylArrayFindIndex/__VinylArrayFindIndex.yy",},
+    {"name":"__VedArrayFindIndex","order":14,"path":"scripts/__VedArrayFindIndex/__VedArrayFindIndex.yy",},
     {"name":"__VinylNetRPCRegister","order":2,"path":"scripts/__VinylNetRPCRegister/__VinylNetRPCRegister.yy",},
     {"name":"sndBleep6","order":16,"path":"sounds/sndBleep6/sndBleep6.yy",},
     {"name":"__VedWindowGetFirst","order":7,"path":"scripts/__VedWindowGetFirst/__VedWindowGetFirst.yy",},

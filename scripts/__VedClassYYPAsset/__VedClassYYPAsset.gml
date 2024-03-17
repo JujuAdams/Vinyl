@@ -158,6 +158,8 @@ function __VedClassYYPAsset() constructor
         {
             __assetTags = [];
         }
+        
+        _system.__project.__libAudioGroup.__GetByName(__audioGroup).__Add(__name);
     }
     
     static __BuildUI = function(_multiselector)

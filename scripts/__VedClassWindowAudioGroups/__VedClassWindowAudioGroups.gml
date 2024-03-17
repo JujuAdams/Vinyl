@@ -248,14 +248,21 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                 
                 ImGui.BeginChild("Right Pane List", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50, undefined, ImGuiWindowFlags.AlwaysVerticalScrollbar);
                 
+                var _remove = undefined;
                 var _array = __multiselectorAsset.__GetSelectedArray();
                 var _i = 0;
                 repeat(array_length(_array))
                 {
-                    ImGui.SmallButton("x");
+                    if (ImGui.SmallButton("x##" + string(_i))) _remove = _array[_i]; 
                     ImGui.SameLine();
                     ImGui.Text(_array[_i]);
+                    
                     ++_i;
+                }
+                
+                if (_remove != undefined)
+                {
+                    __multiselectorAsset.__Select(_remove, false);
                 }
                 
                 ImGui.EndChild();

@@ -99,6 +99,7 @@
     {"id":{"name":"__VedSystem","path":"scripts/__VedSystem/__VedSystem.yy",},},
     {"id":{"name":"__VedWindowOpenSingle","path":"scripts/__VedWindowOpenSingle/__VedWindowOpenSingle.yy",},},
     {"id":{"name":"__VinylArrayFindIndex","path":"scripts/__VinylArrayFindIndex/__VinylArrayFindIndex.yy",},},
+    {"id":{"name":"__VedArrayFindIndex","path":"scripts/__VedArrayFindIndex/__VedArrayFindIndex.yy",},},
     {"id":{"name":"__VinylNetRPCRegister","path":"scripts/__VinylNetRPCRegister/__VinylNetRPCRegister.yy",},},
     {"id":{"name":"sndBleep6","path":"sounds/sndBleep6/sndBleep6.yy",},},
     {"id":{"name":"__VedWindowGetFirst","path":"scripts/__VedWindowGetFirst/__VedWindowGetFirst.yy",},},
