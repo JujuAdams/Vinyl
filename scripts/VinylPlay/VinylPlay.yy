@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Vinyl",
-    "path": "folders/Vinyl.yy",
+    "name": "Sounds & Voices",
+    "path": "folders/Vinyl/Sounds & Voices.yy",
   },
 }

@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylGetLocalGain",
+  "name": "VinylTagSetGain",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Sounds & Voices",
-    "path": "folders/Vinyl/Sounds & Voices.yy",
+    "name": "Tag",
+    "path": "folders/Vinyl/Tag.yy",
   },
 }

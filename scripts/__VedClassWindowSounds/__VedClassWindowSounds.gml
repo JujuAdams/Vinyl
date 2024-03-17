@@ -96,7 +96,7 @@ function __VedClassWindowSounds() : __VedClassWindow() constructor
                     {
                         var _name = _yypAssetArray[_i];
                         
-                        var _modified = _vinylAssetDict[$ _name].__modified;
+                        var _modified = _vinylAssetDict[$ _name].__GetModified();
                         var _selected = __multiselector.__IsSelected(_name);
                         
                         if (((_modified && __seeModified) || ((not _modified) && __seeUnmodified)) //Modified check
@@ -136,75 +136,15 @@ function __VedClassWindowSounds() : __VedClassWindow() constructor
                 var _lastSelectedName  = __multiselector.__lastSelected;
                 var _lastSelectedVinyl = _vinylAssetDict[$ _lastSelectedName];
                 var _lastSelectedYYP   = _yypAssetDict[$ _lastSelectedName];
-                var _modified          = is_struct(_lastSelectedVinyl)? _lastSelectedVinyl.__modified : false;
+                var _modified          = is_struct(_lastSelectedVinyl)? _lastSelectedVinyl.__GetModified() : false;
                 
                 //Bit of aesthetic spacing
                 ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
                 
-                if (_selectedCount == 0)
-                {
-                    //Nothing's here! Disable the "modify" checkbox
-                    ImGui.BeginDisabled(true);
-                    ImGui.Button("Modify");
-                    ImGui.EndDisabled();
-                }
-                else if (_selectedCount == 1)
-                {
-                    //One thing is selected!
-                    
-                    //Change the name and behaviour of the checbox based on its input state
-                    if (_modified)
-                    {
-                        if (ImGui.Button("Revert")) _lastSelectedVinyl.__Unmodify();
-                    }
-                    else
-                    {
-                        if (ImGui.Button("Modify")) _lastSelectedVinyl.__Modify();
-                    }
-                }
-                else
-                {
-                    //Many things are selected!
-                    
-                    //Change the name and behaviour of the checbox based on its input state, and apply that to all selected sounds
-                    if (_modified)
-                    {
-                        if (ImGui.Button("Revert All"))
-                        {
-                            __multiselector.__ForEachSelected(_yypAssetDict,
-                            method({
-                                __vinylAssetDict: _vinylAssetDict,
-                            },
-                            function(_name)
-                            {
-                                var _asset = __vinylAssetDict[$ _name];
-                                if (_asset != undefined) _asset.__Unmodify();
-                            }));
-                        }
-                    }
-                    else
-                    {
-                        if (ImGui.Button("Modify All"))
-                        {
-                            __multiselector.__ForEachSelected(_yypAssetDict,
-                            method({
-                                __vinylAssetDict: _vinylAssetDict,
-                            },
-                            function(_name)
-                            {
-                                var _asset = __vinylAssetDict[$ _name];
-                                if (_asset != undefined) _asset.__Modify();
-                            }));
-                        }
-                    }
-                }
-                
-                ImGui.SameLine(undefined, 40);
-                
                 if (_selectedCount <= 0)
                 {
                     //Add some helpful text to guide users if nothing's selected
-                    ImGui.Text("Please select a sound from the menu on the left");
+                    ImGui.Text("Please select a sound from the menu on the left.");
                 }
                 else if (_selectedCount == 1)
                 {

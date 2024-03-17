@@ -15,7 +15,9 @@
 
 #macro __VED_OPTION_UNSET      "Unset"
 #macro __VED_OPTION_MULTIPLY   "Multiply"
+#macro __VED_OPTION_SET        "Set"
 #macro __VED_OPTION_RANDOMIZE  "Randomize"
+#macro __VED_OPTION_IGNORE     "Ignore"
 
 #macro __VED_DEFAULT_AUDIO_GROUP  "audiogroup_default"
 

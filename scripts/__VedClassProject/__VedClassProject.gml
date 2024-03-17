@@ -170,7 +170,7 @@ function __VedClassProject() constructor
             
             if (string_copy(_path, 1, 6) == "sounds")
             {
-                var _yypAsset = new __VedClassYYPAsset();
+                var _yypAsset = new __VedClassSound();
                 _yypAsset.__partialPath = _path;
                 _yypAsset.__name = _name;
                 _yypAsset.__EnsureData();
