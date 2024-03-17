@@ -19,6 +19,8 @@ function __VedClassProject() constructor
     
     
     
+    
+    
     static __Update = function()
     {
         
@@ -193,6 +195,22 @@ function __VedClassProject() constructor
             __VedWarning("Failed to deserialize GameMaker project");
             __VedModalOpen(__VedClassModalOperationFailed).__path = __pathYY;
             return false;
+        }
+    }
+    
+    static __EnsureAssetTag = function(_name)
+    {
+        if (__libAssetTag.__Exists(_name))
+        {
+            return __libAssetTag.__GetByName(_name);
+        }
+        else
+        {
+            var _assetTag = new __VedClassYYPAssetTag();
+            _assetTag.__name = _name;
+            
+            __libAssetTag.__Add(_name, _assetTag);
+            return _assetTag
         }
     }
     

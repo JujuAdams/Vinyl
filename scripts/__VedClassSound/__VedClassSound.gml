@@ -140,8 +140,10 @@ function __VedClassSound() constructor
         if (__hasData) return;
         __hasData = true;
         
+        var _project = _system.__project;
+        
         __VedLog("Ensuring data for GameMaker asset \"", __name, "\"");
-        __absolutePath = filename_dir(_system.__project.__pathYY) + "/" + __partialPath;
+        __absolutePath = filename_dir(_project.__pathYY) + "/" + __partialPath;
         
         var _buffer = buffer_load(__absolutePath);
         var _string = buffer_read(_buffer, buffer_text);
@@ -150,20 +152,30 @@ function __VedClassSound() constructor
         var _json = undefined;
         _json = json_parse(_string);
         
+        //Audio group
         __audioGroup = _json.audioGroupId.name;
+        _project.__libAudioGroup.__GetByName(__audioGroup).__Add(__name);
+        
+        //Attributes (compression settings)
         __attributes = _json.compression;
         
+        //Asset tags
         var _foundTagsArray = _json[$ "tags"];
         if (is_array(_foundTagsArray))
         {
             __assetTags = variable_clone(_foundTagsArray);
+            
+            var _i = 0;
+            repeat(array_length(__assetTags))
+            {
+                _project.__EnsureAssetTag(__assetTags[_i]).__Add(__name);
+                ++_i;
+            }
         }
         else
         {
             __assetTags = [];
         }
-        
-        _system.__project.__libAudioGroup.__GetByName(__audioGroup).__Add(__name);
     }
     
     static __BuildUI = function(_multiselector)

@@ -126,6 +126,7 @@
     {"name":"__VedUpdate","order":7,"path":"scripts/__VedUpdate/__VedUpdate.yy",},
     {"name":"__VedClassWindowSounds","order":2,"path":"scripts/__VedClassWindowSounds/__VedClassWindowSounds.yy",},
     {"name":"__VedClassWindowLog","order":5,"path":"scripts/__VedClassWindowLog/__VedClassWindowLog.yy",},
+    {"name":"__VedClassYYPAssetTag","order":6,"path":"scripts/__VedClassYYPAssetTag/__VedClassYYPAssetTag.yy",},
     {"name":"__VinylWarning","order":9,"path":"scripts/__VinylWarning/__VinylWarning.yy",},
     {"name":"__VedClassSound","order":2,"path":"scripts/__VedClassSound/__VedClassSound.yy",},
     {"name":"sndBleep2","order":12,"path":"sounds/sndBleep2/sndBleep2.yy",},
