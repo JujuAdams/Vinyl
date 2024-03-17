@@ -23,13 +23,26 @@ function __VedClassPatternShuffle() constructor
     static __Serialize = function(_array)
     {
         array_push(_array, {
-            name: __name,
+            type:        __VED_PATTERN_TYPE_SHUFFLE,
+            name:        __name,
+            gainForce:   __gainForce,
+            gain:        __gain,
+            gainOption:  __gainOption,
+            pitchForce:  __pitchForce,
+            pitch:       __pitch,
+            pitchOption: __pitchOption,
         });
     }
     
     static __Deserialize = function(_data)
     {
-        __name = _data.name;
+        __name        = _data.name;
+        __gainForce   = _data[$ "gainForce"  ] ?? false;
+        __gain        = _data[$ "gain"       ] ?? [1, 1];
+        __gainOption  = _data[$ "gainOption" ] ?? __VED_OPTION_UNSET;
+        __pitchForce  = _data[$ "pitchForce" ] ?? false;
+        __pitch       = _data[$ "pitch"      ] ?? [1, 1];
+        __pitchOption = _data[$ "pitchOption"] ?? __VED_OPTION_UNSET;
     }
     
     static __SetGain = function(_value)

@@ -127,7 +127,13 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
         var _length = array_length(_logArray);
         if (_length <= 0)
         {
-            ImGui.Text(floor((current_time mod (_drawDuration-1)) / (_drawDuration/4))*".");
+            var _string = "";
+            repeat(floor((current_time mod (_drawDuration-1)) / (_drawDuration/4)))
+            {
+                _string += ".";
+            }
+            
+            ImGui.Text(_string);
         }
         else
         {

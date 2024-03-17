@@ -21,13 +21,26 @@ function __VedClassPatternHLT() constructor
     static __Serialize = function(_array)
     {
         array_push(_array, {
-            name: __name,
+            type:        __VED_PATTERN_TYPE_HEAD_LOOP_TAIL,
+            name:        __name,
+            soundHead:   __soundHead,
+            soundLoop:   __soundLoop,
+            soundTail:   __soundTail,
+            gainForce:   __gainForce,
+            gain:        __gain,
+            gainOption:  __gainOption,
         });
     }
     
     static __Deserialize = function(_data)
     {
-        __name = _data.name;
+        __name        = _data.name;
+        __soundHead   = _data[$ "soundHead" ];
+        __soundLoop   = _data[$ "soundLoop" ];
+        __soundTail   = _data[$ "soundTail" ];
+        __gainForce   = _data[$ "gainForce" ] ?? false;
+        __gain        = _data[$ "gain"      ] ?? [1, 1];
+        __gainOption  = _data[$ "gainOption"] ?? __VED_OPTION_UNSET;
     }
     
     static __SetGain = function(_value)

@@ -3,5 +3,21 @@
   "assets":[
   ],
   "patterns":[
+    {
+      "name":"rhrht",
+      "gain":[
+        0.73500001430511475,
+        1.1059999465942383
+      ],
+      "type":"Shuffle",
+      "gainOption":"Randomize",
+      "gainForce":true,
+      "pitch":[
+        1.0,
+        1.0
+      ],
+      "pitchForce":false,
+      "pitchOption":"Unset"
+    }
   ]
 }

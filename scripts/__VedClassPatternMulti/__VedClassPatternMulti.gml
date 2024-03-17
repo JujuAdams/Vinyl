@@ -20,13 +20,29 @@ function __VedClassPatternMulti() constructor
     static __Serialize = function(_array)
     {
         array_push(_array, {
-            name: __name,
+            type:       __VED_PATTERN_TYPE_MULTI,
+            name:       __name,
+            sounds:     __soundArray,
+            gainForce:  __gainForce,
+            gain:       __gain,
+            gainOption: __gainOption,
         });
     }
     
     static __Deserialize = function(_data)
     {
-        __name = _data.name;
+        __name        = _data.name;
+        __soundArray  = _data[$ "sounds"    ] ?? [];
+        __gainForce   = _data[$ "gainForce" ] ?? false;
+        __gain        = _data[$ "gain"      ] ?? [1, 1];
+        __gainOption  = _data[$ "gainOption"] ?? __VED_OPTION_UNSET;
+        
+        var _i = 0;
+        repeat(array_length(__soundArray))
+        {
+            __soundDict[__soundArray[_i]] = true;
+            ++_i;
+        }
     }
     
     static __SetGain = function(_value)

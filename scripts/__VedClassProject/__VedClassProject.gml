@@ -54,8 +54,37 @@ function __VedClassProject() constructor
     static __Deserialize = function(_input)
     {
         __ident = _input.ident;
+        
+        //Import extra sound data
         __libVinyl.__ImportArray(__VedDeserializeArray(__VedClassVinylAsset, _input.assets));
-        __libPattern.__ImportArray(__VedDeserializeArray(__VedClassPatternShuffle, _input.patterns));
+        
+        //Import patterns
+        var _inputArray = _input.patterns;
+        var _unpackedArray = array_create(array_length(_inputArray));
+        
+        var _i = 0;
+        repeat(array_length(_inputArray))
+        {
+            var _struct = _inputArray[_i];
+            switch(_struct.type)
+            {
+                case __VED_PATTERN_TYPE_SHUFFLE:        var _constructor = __VedClassPatternShuffle; break;
+                case __VED_PATTERN_TYPE_HEAD_LOOP_TAIL: var _constructor = __VedClassPatternHLT;     break;
+                case __VED_PATTERN_TYPE_MULTI:          var _constructor = __VedClassPatternMulti;   break;
+                
+                default:
+                    __VedError("Unhandled type \"", _struct.type, "\"");
+                break;
+            }
+            
+            var _new = new _constructor();
+            _unpackedArray[_i] = _new;
+            _new.__Deserialize(_struct);
+            
+            ++_i;
+        }
+        
+        __libPattern.__ImportArray(_unpackedArray);
     }
     
     
