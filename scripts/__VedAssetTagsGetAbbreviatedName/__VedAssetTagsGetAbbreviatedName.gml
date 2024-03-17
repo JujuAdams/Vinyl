@@ -8,7 +8,7 @@ function __VedAssetTagsGetAbbreviatedName(_array, _maxCharacters = 40)
     if (not is_array(_array)) return "???";
     
     var _length = array_length(_array);
-    if (_length <= 0) return "<No asset tags>";
+    if (_length <= 0) return "<no asset tags>";
     
     var _string = "";
     var _i = 0;
