@@ -25,8 +25,8 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
         var _audioGroupDict  = _project.__libAudioGroup.__GetDictionary();
         var _soundDict       = _project.__libYYPAsset.__GetDictionary();
         
-        ImGui.SetNextWindowSize(0.8*room_width, 0.7*room_height, ImGuiCond.Once);
-        ImGui.SetNextWindowPos(0.1*room_width, 0.15*room_height, ImGuiCond.Once);
+        ImGui.SetNextWindowSize(0.7*room_width, 0.7*room_height, ImGuiCond.Once);
+        ImGui.SetNextWindowPos(0.15*room_width, 0.15*room_height, ImGuiCond.Once);
 	    
         //Allow the filter window to stay on top
         //var _flags = __VinylEditorWindowGetOpen("__filter")? ImGuiWindowFlags.NoBringToFrontOnFocus : ImGuiWindowFlags.None;
@@ -164,6 +164,20 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                         var _visibleArray = [];
                         var _assetArray = _project.__libYYPAsset.__GetNameArray();
                         
+                        var _assetArray = [];
+                        
+                        __multiselectorAG.__ForEachSelected(_audioGroupDict,
+                        method({
+                            __assetArray: _assetArray,
+                        },
+                        function(_name, _struct)
+                        {
+                            _struct.__CopyAssetArrayTo(__assetArray);
+                        }));
+                        
+                        array_resize(_assetArray, array_unique_ext(_assetArray));
+                        array_sort(_assetArray, true);
+                        
                         //Iterate over every sound in the project and show them in the editor
                         var _i = 0;
                         repeat(array_length(_assetArray))
@@ -198,7 +212,7 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                 
                 if (ImGui.Button("Move To"))
                 {
-                    _multiselector.__ForEachSelected(_soundDict,
+                    __multiselectorAsset.__ForEachSelected(_soundDict,
                     method({
                         __audioGroup: __moveToTarget,
                     },
@@ -238,6 +252,8 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                 var _i = 0;
                 repeat(array_length(_array))
                 {
+                    ImGui.SmallButton("x");
+                    ImGui.SameLine();
                     ImGui.Text(_array[_i]);
                     ++_i;
                 }

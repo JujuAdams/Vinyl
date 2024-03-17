@@ -7,6 +7,11 @@ function __VedClassYYPAudioGroup() constructor
     __name = undefined;
     __soundNameArray = [];
     
+    static __CopyAssetArrayTo = function(_array)
+    {
+        array_copy(_array, array_length(_array), __soundNameArray, 0, array_length(__soundNameArray));
+    }
+    
     static __MoveAllToDefault = function()
     {
         var _audioGroupDict = _system.__project.__libAudioGroup.__GetDictionary();

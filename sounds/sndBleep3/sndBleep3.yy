@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "sndBleep3",
   "audioGroupId": {
-    "name": "audiogroup_default",
-    "path": "audiogroups/audiogroup_default",
+    "name": "audiogroup1",
+    "path": "audiogroups/audiogroup1",
   },
   "bitDepth": 1,
   "bitRate": 128,
