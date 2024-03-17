@@ -4,6 +4,11 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
 {
     __handle = "Audio Groups";
     
+    __filter = new __VedClassFilter();
+    __useFilter = false;
+    
+    __moveToTarget = __VED_DEFAULT_AUDIO_GROUP;
+    
     __multiselectorAG    = new __VedClassMultiselector();
     __multiselectorAsset = new __VedClassMultiselector();
     
@@ -20,8 +25,8 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
         var _audioGroupDict  = _project.__libAudioGroup.__GetDictionary();
         var _soundDict       = _project.__libYYPAsset.__GetDictionary();
         
-        ImGui.SetNextWindowSize(0.6*room_width, 0.6*room_height, ImGuiCond.Once);
-        ImGui.SetNextWindowPos(0.2*room_width, 0.2*room_height, ImGuiCond.Once);
+        ImGui.SetNextWindowSize(0.8*room_width, 0.7*room_height, ImGuiCond.Once);
+        ImGui.SetNextWindowPos(0.1*room_width, 0.15*room_height, ImGuiCond.Once);
 	    
         //Allow the filter window to stay on top
         //var _flags = __VinylEditorWindowGetOpen("__filter")? ImGuiWindowFlags.NoBringToFrontOnFocus : ImGuiWindowFlags.None;
@@ -32,9 +37,45 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
         
         if (_return & ImGuiReturnMask.Return)
         {
-            ImGui.BeginChild("Left Pane", 0.3*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
+            ImGui.BeginChild("Left Pane", 0.33*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
                 
-                ImGui.BeginChild("Left Pane Top", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50);
+                if (ImGui.Button("New"))
+                {
+                    
+                }
+                
+                ImGui.SameLine(undefined, 20);
+                
+                var _disabled = (__multiselectorAG.__GetSelectedCount() <= 0);
+                if (not _disabled)
+                {
+                    if ((__multiselectorAG.__GetSelectedCount() == 1) && (__multiselectorAG.__GetLastSelectedName() == __VED_DEFAULT_AUDIO_GROUP))
+                    {
+                        _disabled = true;
+                    }
+                }
+                
+                ImGui.BeginDisabled(_disabled);
+                if (ImGui.Button("Delete"))
+                {
+                    __multiselectorAG.__ForEachSelected(_audioGroupDict,
+                    method({
+                        __library: _project.__libAudioGroup,
+                    },
+                    function(_name, _struct)
+                    {
+                        if (_name != __VED_DEFAULT_AUDIO_GROUP)
+                        {
+                            _struct.__MoveAllToDefault();
+                            __library.__RemoveByName(_name);
+                        }
+                    }));
+                    
+                    __multiselectorAG.__SelectNone();
+                }
+                ImGui.EndDisabled();
+                
+                ImGui.BeginChild("Left Pane List", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY()-50, undefined, ImGuiWindowFlags.AlwaysVerticalScrollbar);
                 
                     //Keep an array of all visible sounds. We use this later for the "select all" button
                     var _visibleArray = [];
@@ -79,36 +120,45 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
             
             //Ok! Now we do the right-hand properties pane
             ImGui.SameLine();
-            ImGui.BeginChild("Right Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
+            ImGui.BeginChild("Middle Pane", 0.5*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
                 
                 //Collect some basic facts about the current selection(s)
-                var _selectedCount     = __multiselectorAG.__GetSelectedCount();
-                var _lastSelectedName  = __multiselectorAG.__lastSelected;
-                var _lastSelected      = _audioGroupDict[$ _lastSelectedName];
-                
+                var _selectedCount = __multiselectorAG.__GetSelectedCount();
                 if (_selectedCount <= 0)
                 {
                     //Add some helpful text to guide users if nothing's selected
-                    ImGui.Text("Please select an audio group from the menu on the left");
-                }
-                else if (_selectedCount == 1)
-                {
-                    //Change the display text depending on what the user is actually seeing
-                    ImGui.Text(__multiselectorAG.__GetLastSelectedName());
+                    ImGui.TextWrapped("Please select an audio group from the menu on the left.");
                 }
                 else
                 {
-                    //Change the display text depending on what the user is actually seeing
-                    ImGui.Text(string_concat(__multiselectorAG.__GetLastSelectedName(), " and ", string(_selectedCount-1), " others"));
+                    if (_selectedCount == 1)
+                    {
+                        //Change the display text depending on what the user is actually seeing
+                        ImGui.Text(__multiselectorAG.__GetLastSelectedName());
+                    }
+                    else
+                    {
+                        //Change the display text depending on what the user is actually seeing
+                        ImGui.Text(string_concat(__multiselectorAG.__GetLastSelectedName(), " and ", string(_selectedCount-1), " others"));
+                    }
+                    
+                    ImGui.NewLine();
+                    
+                    //General filter checkbox and edit button
+                    ImGui.Text("Filter");
+                    ImGui.SameLine();
+                    __useFilter = ImGui.Checkbox("##Filter", __useFilter);
+                    ImGui.SameLine();
+                    if (ImGui.Button("Edit..."))
+                    {
+                        //__VinylEditorWindowSetOpen("__filter", true);
+                    }
                 }
-                
-                //Little more aesthetic spacing
-                ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 10);
                 
                 //Here's where we jump to a different function to draw the actual properties
                 if (_selectedCount > 0)
                 {
-                    ImGui.BeginChild("Right Pane Top", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50);
+                    ImGui.BeginChild("Middle Pane List", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50, undefined, ImGuiWindowFlags.AlwaysVerticalScrollbar);
                         
                         //Keep an array of all visible sounds. We use this later for the "select all" button
                         var _visibleArray = [];
@@ -136,11 +186,63 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                     
                     //Build the selection handler UI at the bottom of the list of sounds
                     __multiselectorAsset.__BuildUI(_soundDict, _visibleArray);
-                    
-                    //ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                    //_lastSelected.__BuildUI(__multiselectorAG);
-                    //ImGui.EndChild();
                 }
+                
+            ImGui.EndChild();
+            
+            ImGui.SameLine();
+            
+            ImGui.BeginChild("Right Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
+                
+                ImGui.BeginDisabled(__multiselectorAsset.__GetSelectedCount() <= 0);
+                
+                if (ImGui.Button("Move To"))
+                {
+                    _multiselector.__ForEachSelected(_soundDict,
+                    method({
+                        __audioGroup: __moveToTarget,
+                    },
+                    function(_name, _struct)
+                    {
+                        _struct.__SetAudioGroup(__audioGroup);
+                    }));
+                }
+                
+                ImGui.SameLine(undefined, 20);
+                
+                if (ImGui.BeginCombo("##Audio Group", __moveToTarget, ImGuiComboFlags.None))
+                {
+                    var _i = 0;
+                    repeat(array_length(_audioGroupArray))
+                    {
+                        var _audioGroup = _audioGroupArray[_i];
+                        if (ImGui.Selectable(_audioGroup, __moveToTarget == _audioGroup))
+                        {
+                            __moveToTarget = _audioGroup;
+                        }
+                        
+                        ++_i;
+                    }
+                    
+                    ImGui.EndCombo();
+                }
+                
+                ImGui.EndDisabled();
+                
+                ImGui.NewLine();
+                ImGui.NewLine();
+                
+                ImGui.BeginChild("Right Pane List", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50, undefined, ImGuiWindowFlags.AlwaysVerticalScrollbar);
+                
+                var _array = __multiselectorAsset.__GetSelectedArray();
+                var _i = 0;
+                repeat(array_length(_array))
+                {
+                    ImGui.Text(_array[_i]);
+                    ++_i;
+                }
+                
+                ImGui.EndChild();
                 
             ImGui.EndChild();
         }

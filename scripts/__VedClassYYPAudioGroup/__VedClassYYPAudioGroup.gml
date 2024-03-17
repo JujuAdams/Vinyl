@@ -2,5 +2,26 @@
 
 function __VedClassYYPAudioGroup() constructor
 {
+    static _system = __VedSystem();
+    
     __name = undefined;
+    __soundNameArray = [];
+    
+    static __MoveAllToDefault = function()
+    {
+        var _audioGroupDict = _system.__project.__libAudioGroup.__GetDictionary();
+        
+        var _i = 0;
+        repeat(array_length(__soundNameArray))
+        {
+            var _name = __soundNameArray[_i];
+            
+            var _sound = _audioGroupDict[$ _name];
+            if (_sound != undefined) _sound.__SetAudioGroup(__VED_DEFAULT_AUDIO_GROUP);
+            
+            ++_i;
+        }
+        
+        array_resize(__soundNameArray, 0);
+    }
 }

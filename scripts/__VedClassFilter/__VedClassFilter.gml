@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VinylClassFilter() constructor
+function __VedClassFilter() constructor
 {
     __invert = false;
     

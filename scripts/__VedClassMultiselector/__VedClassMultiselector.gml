@@ -129,6 +129,13 @@ function __VedClassMultiselector() constructor
         }
     }
     
+    static __GetSelectedArray = function(_sort = true)
+    {
+        var _array = variable_struct_get_names(__selectedDict);
+        if (_sort) array_sort(_array, true);
+        return _array;
+    }
+    
     static __BuildUI = function(_dictionary, _visibleArray)
     {
         ImGui.Text("Multiselect");

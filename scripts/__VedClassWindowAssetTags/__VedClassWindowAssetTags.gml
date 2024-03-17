@@ -47,7 +47,7 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
                 }
                 ImGui.EndDisabled();
                 
-                ImGui.BeginChild("Left Pane Top", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50);
+                ImGui.BeginChild("Left Pane Top", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50, undefined, ImGuiWindowFlags.AlwaysVerticalScrollbar);
                 
                     //Keep an array of all visible sounds. We use this later for the "select all" button
                     var _visibleArray = [];
