@@ -1,5 +1,4 @@
 {
-  "ident":"002B13F0BAD8EFBA",
   "assets":[
   ],
   "patterns":[
@@ -11,13 +10,15 @@
       ],
       "type":"Shuffle",
       "gainOption":"Randomize",
-      "gainForce":true,
+      "gainForce":1.0,
       "pitch":[
         1.0,
         1.0
       ],
-      "pitchForce":false,
+      "pitchForce":0.0,
       "pitchOption":"Unset"
     }
-  ]
+  ],
+  "projectName":"vinyl.yyp",
+  "ident":"002B13F0BAD8EFBA"
 }

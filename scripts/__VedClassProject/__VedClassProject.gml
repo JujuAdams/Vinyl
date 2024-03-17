@@ -27,6 +27,7 @@ function __VedClassProject() constructor
     static __Serialize = function()
     {
         var _output = {
+            projectName: filename_name(__pathYY),
             ident: __ident,
             assets: [],
             patterns: [],
