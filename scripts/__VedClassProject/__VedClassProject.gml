@@ -221,7 +221,7 @@ function __VedClassProject() constructor
         }
     }
     
-    static __EnsurePattern = function(_name)
+    static __EnsurePattern = function(_name, _constructor)
     {
         if (__libPattern.__Exists(_name))
         {
@@ -229,7 +229,7 @@ function __VedClassProject() constructor
         }
         else
         {
-            var _pattern = new __VedClassPatternShuffle();
+            var _pattern = new _constructor();
             _pattern.__name = _name;
             __libPattern.__Add(_name, _pattern);
             

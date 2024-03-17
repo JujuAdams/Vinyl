@@ -38,7 +38,18 @@ function __VedClassModalNewPattern() : __VedClassModal() constructor
             ImGui.BeginDisabled(_conflict || (string_length(__patternName) <= 2) || (__type == undefined));
             if (ImGui.Button("Create"))
             {
-                _system.__project.__EnsurePattern(__patternName);
+                switch(__type)
+                {
+                    case __VED_PATTERN_TYPE_SHUFFLE:        var _constructor = __VedClassPatternShuffle; break;
+                    case __VED_PATTERN_TYPE_HEAD_LOOP_TAIL: var _constructor = __VedClassPatternHLT;     break;
+                    case __VED_PATTERN_TYPE_MULTI:          var _constructor = __VedClassPatternMulti;   break;
+                    
+                    default:
+                        __VedError("Unhandled pattern type \"", __type, "\"");
+                    break;
+                }
+                
+                _system.__project.__EnsurePattern(__patternName, _constructor);
                 __Close();
             }
             ImGui.EndDisabled();

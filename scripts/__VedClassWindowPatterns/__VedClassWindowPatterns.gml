@@ -6,6 +6,12 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
     
     __multiselector = new __VedClassMultiselector();
     
+    __showDict = {
+        "__VedClassPatternShuffle": true,
+        "__VedClassPatternHLT":     true,
+        "__VedClassPatternMulti":   true,
+    };
+    
     static __Update = function()
     {
         __BuildUI();
@@ -18,8 +24,8 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
         var _patternArray = _project.__libPattern.__GetNameArray();
         var _patternDict  = _project.__libPattern.__GetDictionary();
         
-        ImGui.SetNextWindowSize(0.7*room_width, 0.7*room_height, ImGuiCond.Once);
-        ImGui.SetNextWindowPos(0.15*room_width, 0.15*room_height, ImGuiCond.Once);
+        ImGui.SetNextWindowSize(0.5*room_width, 0.7*room_height, ImGuiCond.Once);
+        ImGui.SetNextWindowPos(0.25*room_width, 0.15*room_height, ImGuiCond.Once);
 	    
         //Allow the filter window to stay on top
         //var _flags = __VinylEditorWindowGetOpen("__filter")? ImGuiWindowFlags.NoBringToFrontOnFocus : ImGuiWindowFlags.None;
@@ -51,11 +57,11 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
                 }
                 ImGui.EndDisabled();
                 
-                ImGui.Checkbox("Shuffle");
+                __showDict[$ "__VedClassPatternShuffle"] = ImGui.Checkbox("Shuffle", __showDict[$ "__VedClassPatternShuffle"]);
                 ImGui.SameLine();
-                ImGui.Checkbox("H-L-T");
+                __showDict[$ "__VedClassPatternHLT"] = ImGui.Checkbox("H-L-T", __showDict[$ "__VedClassPatternHLT"]);
                 ImGui.SameLine();
-                ImGui.Checkbox("Multi");
+                __showDict[$ "__VedClassPatternMulti"] = ImGui.Checkbox("Multi", __showDict[$ "__VedClassPatternMulti"]);
                 
                 //Keep an array of all visible sounds. We use this later for the "select all" button
                 var _visibleArray = [];
@@ -94,10 +100,14 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
                         
                         if ((not __multiselector.__multiselect) || (_selected && __multiselector.__seeSelected) || ((not _selected) && __multiselector.__seeUnselected)) //Selected check
                         {
-                            _funcBuildSelectable(_name, _patternDict[$ _name], __multiselector);
-                            
-                            //Push the name of this visible sound to our array
-                            array_push(_visibleArray, _name);
+                            var _pattern = _patternDict[$ _name];
+                            if (__showDict[$ instanceof(_pattern)] ?? true)
+                            {
+                                _funcBuildSelectable(_name, _pattern, __multiselector);
+                                
+                                //Push the name of this visible sound to our array
+                                array_push(_visibleArray, _name);
+                            }
                         }
                         
                         ++_i;

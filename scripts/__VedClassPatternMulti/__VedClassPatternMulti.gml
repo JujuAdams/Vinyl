@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VedClassPatternShuffle() constructor
+function __VedClassPatternMulti() constructor
 {
     static _system = __VedSystem();
     
@@ -11,9 +11,6 @@ function __VedClassPatternShuffle() constructor
     __gainForce   = false;
     __gain        = [1, 1];
     __gainOption  = __VED_OPTION_UNSET;
-    __pitchForce  = false;
-    __pitch       = [1, 1];
-    __pitchOption = __VED_OPTION_UNSET;
     
     static __CompilePlay = function(_buffer)
     {
@@ -48,37 +45,12 @@ function __VedClassPatternShuffle() constructor
         }
     }
     
-    static __SetPitch = function(_value)
-    {
-        if (not array_equals(_value, __pitch))
-        {
-            __pitch = variable_clone(_value);
-            
-            //If the two values have inverted then swap 'em over
-            if (__pitch[0] > __pitch[1])
-            {
-                var _temp = __pitch[0];
-                __pitch[0] = __pitch[1];
-                __pitch[1] = _temp;
-            }
-        }
-    }
-    
     static __SetGainOption = function(_value)
     {
         if (_value != __gainOption)
         {
             __gainOption = _value;
             if (__gainOption == __VED_OPTION_MULTIPLY) __SetGain([__gain[0], __gain[0]]);
-        }
-    }
-    
-    static __SetPitchOption = function(_value)
-    {
-        if (_value != __pitchOption)
-        {
-            __pitchOption = _value;
-            if (__pitchOption == __VED_OPTION_MULTIPLY) __SetPitch([__pitch[0], __pitch[0]]);
         }
     }
     
@@ -90,17 +62,9 @@ function __VedClassPatternShuffle() constructor
         }
     }
     
-    static __SetPitchForce = function(_value)
-    {
-        if (_value != __pitchForce)
-        {
-            __pitchForce = _value;
-        }
-    }
-    
     static __GetAbbreviation = function()
     {
-        return "Shf";
+        return "Mul";
     }
     
     static __BuildUI = function(_multiselector)
@@ -109,10 +73,10 @@ function __VedClassPatternShuffle() constructor
         
         static _optionArray = [__VED_OPTION_UNSET, __VED_OPTION_MULTIPLY, __VED_OPTION_RANDOMIZE];
         
-        ImGui.Text("Shuffle pattern");
+        ImGui.Text("Multi pattern");
         ImGui.NewLine();
         
-        if (ImGui.BeginTable("Pattern", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 100))
+        if (ImGui.BeginTable("Pattern", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 70))
         {
             ////Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 100);
@@ -171,61 +135,6 @@ function __VedClassPatternShuffle() constructor
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
                     ImGui.SliderFloat2("##Gain " + __name, _newValue, 0.01, 2);
                     __SetGain(_newValue);
-                break;
-            }
-            
-            //Pitch
-            ImGui.TableNextRow();
-            ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Force Pitch");
-            ImGui.TableSetColumnIndex(1);
-            __SetPitchForce(ImGui.Checkbox("##Force Pitch", __pitchForce));
-            
-            ImGui.TableNextRow();
-            ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Pitch");
-            
-            var _originalOption = __pitchOption;
-            ImGui.TableSetColumnIndex(1);
-            ImGui.SetNextItemWidth(ImGui.GetColumnWidth(1));
-            if (ImGui.BeginCombo("##Pitch Option " + __name, _originalOption, ImGuiComboFlags.None))
-            {
-                var _i = 0;
-                repeat(array_length(_optionArray))
-                {
-                    var _optionName = _optionArray[_i];
-                    if (ImGui.Selectable(_optionName + "##Pitch Option " + __name, (_originalOption == _optionName)))
-                    {
-                        __SetPitchOption(_optionName);
-                    }
-                    
-                    ++_i;
-                }
-                
-                ImGui.EndCombo();
-            }
-            
-            ImGui.TableSetColumnIndex(2);
-            switch(__pitchOption)
-            {
-                case __VED_OPTION_UNSET:
-                    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
-                    ImGui.BeginDisabled(true);
-                    var _newValue = ImGui.SliderFloat("##Pitch " + __name, 1, 0.01, 2);
-                    ImGui.EndDisabled();
-                break;
-                
-                case __VED_OPTION_MULTIPLY:
-                    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
-                    var _newValue = ImGui.SliderFloat("##Pitch " + __name, __pitch[0], 0.01, 2);
-                    __SetPitch([_newValue, _newValue]);
-                break;
-                
-                case __VED_OPTION_RANDOMIZE:
-                    var _newValue = variable_clone(__pitch);
-                    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
-                    ImGui.SliderFloat2("##Pitch " + __name, _newValue, 0.01, 2);
-                    __SetPitch(_newValue);
                 break;
             }
             
