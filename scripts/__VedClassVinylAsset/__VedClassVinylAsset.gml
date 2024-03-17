@@ -192,7 +192,7 @@ function __VedClassVinylAsset() constructor
             ImGui.Text("Loop");
             
             ImGui.TableSetColumnIndex(1);
-            __SetLoop(ImGui.Checkbox("##Loop", __loop));
+            __SetLoop(ImGui.Checkbox("##Loop", __modified && __loop));
             
             //Gain
             ImGui.TableNextRow();
@@ -220,8 +220,15 @@ function __VedClassVinylAsset() constructor
             }
             
             ImGui.TableSetColumnIndex(2);
-            switch(__gainOption)
+            switch(__modified? __gainOption : __VED_OPTION_UNSET)
             {
+                case __VED_OPTION_UNSET:
+                    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
+                    ImGui.BeginDisabled(true);
+                    var _newValue = ImGui.SliderFloat("##Gain " + __name, 1, 0.01, 2);
+                    ImGui.EndDisabled();
+                break;
+                
                 case __VED_OPTION_MULTIPLY:
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
                     var _newValue = ImGui.SliderFloat("##Gain " + __name, __gain[0], 0.01, 2);
@@ -262,8 +269,15 @@ function __VedClassVinylAsset() constructor
             }
             
             ImGui.TableSetColumnIndex(2);
-            switch(__pitchOption)
+            switch(__modified? __pitchOption : __VED_OPTION_UNSET)
             {
+                case __VED_OPTION_UNSET:
+                    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
+                    ImGui.BeginDisabled(true);
+                    var _newValue = ImGui.SliderFloat("##Pitch " + __name, 1, 0.01, 2);
+                    ImGui.EndDisabled();
+                break;
+                
                 case __VED_OPTION_MULTIPLY:
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
                     var _newValue = ImGui.SliderFloat("##Pitch " + __name, __pitch[0], 0, 2);
