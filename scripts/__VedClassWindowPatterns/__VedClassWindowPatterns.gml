@@ -24,8 +24,8 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
         var _patternArray = _project.__libPattern.__GetNameArray();
         var _patternDict  = _project.__libPattern.__GetDictionary();
         
-        ImGui.SetNextWindowSize(0.5*room_width, 0.7*room_height, ImGuiCond.Once);
-        ImGui.SetNextWindowPos(0.25*room_width, 0.15*room_height, ImGuiCond.Once);
+        ImGui.SetNextWindowSize(0.6*room_width, 0.7*room_height, ImGuiCond.Once);
+        ImGui.SetNextWindowPos(0.2*room_width, 0.15*room_height, ImGuiCond.Once);
 	    
         //Allow the filter window to stay on top
         //var _flags = __VinylEditorWindowGetOpen("__filter")? ImGuiWindowFlags.NoBringToFrontOnFocus : ImGuiWindowFlags.None;
