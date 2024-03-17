@@ -206,7 +206,7 @@ function __VedClassProject() constructor
         }
         else
         {
-            var _assetTag = new __VedClassYYPAssetTag();
+            var _assetTag = new __VedClassAssetTag();
             _assetTag.__name = _name;
             
             __libAssetTag.__Add(_name, _assetTag);

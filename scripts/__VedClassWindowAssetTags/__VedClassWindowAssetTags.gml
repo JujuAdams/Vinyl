@@ -140,15 +140,28 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
                     }
                     else
                     {
+                        var _lastSelectedName = __multiselectorTag.__GetLastSelectedName();
+                        var _lastSelected = _assetTagDict[$ _lastSelectedName];
+                        
                         if (_selectedCount == 1)
                         {
                             //Change the display text depending on what the user is actually seeing
-                            ImGui.Text(__multiselectorTag.__GetLastSelectedName());
+                            ImGui.Text(_lastSelectedName);
                         }
                         else
                         {
                             //Change the display text depending on what the user is actually seeing
-                            ImGui.Text(string_concat(__multiselectorTag.__GetLastSelectedName(), " and ", string(_selectedCount-1), " others"));
+                            ImGui.Text(string_concat(_lastSelectedName, " and ", string(_selectedCount-1), " others"));
+                        }
+                        
+                        ImGui.NewLine();
+                        
+                        //Here's where we jump to a different function to draw the actual properties
+                        if (_lastSelected != undefined)
+                        {
+                            ImGui.BeginChild("Properties Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
+                            _lastSelected.__BuildUI(__multiselectorTag);
+                            ImGui.EndChild();
                         }
                     }
                     
