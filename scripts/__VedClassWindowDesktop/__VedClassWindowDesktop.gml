@@ -47,6 +47,11 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
             
                 ImGui.Separator();
                 
+            	if (ImGui.MenuItem("About"))
+                {
+                    __VedModalOpen(__VedClassWindowAbout);
+            	}
+                
             	if (ImGui.MenuItem("GitHub (URL)"))
                 {
                     url_open("https://www.github.com/jujuadams/Vinyl");
