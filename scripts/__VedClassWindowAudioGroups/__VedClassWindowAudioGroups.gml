@@ -151,7 +151,7 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                     ImGui.SameLine();
                     if (ImGui.Button("Edit..."))
                     {
-                        //__VinylEditorWindowSetOpen("__filter", true);
+                        __VedWindowOpenSingle(__VedClassWindowAssetFilter);
                     }
                 }
                 
@@ -252,19 +252,26 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                 
                 var _remove = undefined;
                 var _array = __multiselectorAsset.__GetSelectedArray();
-                var _i = 0;
-                repeat(array_length(_array))
+                if (array_length(_array) <= 0)
                 {
-                    if (ImGui.SmallButton("x##" + string(_i))) _remove = _array[_i]; 
-                    ImGui.SameLine();
-                    ImGui.Text(_array[_i]);
-                    
-                    ++_i;
+                    ImGui.Text("(No sounds selected)");
                 }
-                
-                if (_remove != undefined)
+                else
                 {
-                    __multiselectorAsset.__Select(_remove, false);
+                    var _i = 0;
+                    repeat(array_length(_array))
+                    {
+                        if (ImGui.SmallButton("x##" + string(_i))) _remove = _array[_i]; 
+                        ImGui.SameLine();
+                        ImGui.Text(_array[_i]);
+                        
+                        ++_i;
+                    }
+                    
+                    if (_remove != undefined)
+                    {
+                        __multiselectorAsset.__Select(_remove, false);
+                    }
                 }
                 
                 ImGui.EndChild();

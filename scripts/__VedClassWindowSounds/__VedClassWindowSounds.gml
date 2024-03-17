@@ -46,7 +46,7 @@ function __VedClassWindowSounds() : __VedClassWindow() constructor
                 ImGui.SameLine();
                 if (ImGui.Button("Edit..."))
                 {
-                    //__VinylEditorWindowSetOpen("__filter", true);
+                    __VedWindowOpenSingle(__VedClassWindowAssetFilter);
                 }
                 
                 //Modified / unmodified filter

@@ -95,6 +95,16 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
                 }
                 
                 ImGui.SameLine(undefined, 50);
+                
+                if (ImGui.Button("Patterns"))
+                {
+                    __VedWindowOpenSingle(__VedClassWindowPatterns);
+                }
+                
+                if (ImGui.Button("Rules"))
+                {
+                    __VedWindowOpenSingle(__VedClassWindowRules);
+                }
             }
             
             ImGui.PopStyleColor();
