@@ -149,15 +149,6 @@ function __VedClassVinylAsset() constructor
         }
     }
     
-    static __SetGainOption = function(_value)
-    {
-        __gainOption = _value;
-        if (__gainOption == __VED_OPTION_MULTIPLY)
-        {
-            __SetGain([__gain[0], __gain[0]]);
-        }
-    }
-    
     static __SetPitch = function(_value)
     {
         if (not array_equals(_value, __pitch))
@@ -173,6 +164,15 @@ function __VedClassVinylAsset() constructor
             }
             
             __BroadcastChange();
+        }
+    }
+    
+    static __SetGainOption = function(_value)
+    {
+        __gainOption = _value;
+        if (__gainOption == __VED_OPTION_MULTIPLY)
+        {
+            __SetGain([__gain[0], __gain[0]]);
         }
     }
     
@@ -362,7 +362,7 @@ function __VedClassVinylAsset() constructor
             //Gain
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Sound");
+            ImGui.Text("Gain");
             
             var _originalOption = __gainOption;
             ImGui.TableSetColumnIndex(1);

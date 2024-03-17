@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VedClassPattern",
+  "name": "__VedClassPatternShuffle",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

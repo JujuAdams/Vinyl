@@ -81,10 +81,7 @@ function __VedClassWindowSounds() : __VedClassWindow() constructor
                         
                         //Right-hand side name
                         ImGui.TableSetColumnIndex(1);
-                        if (ImGui.Selectable(_name + "##Select " + _name, _selected))
-                        {
-                            _multiselector.__SelectToggle(_name);
-                        }
+                        if (ImGui.Selectable(_name + "##Select " + _name, _selected)) _multiselector.__SelectToggle(_name);
                     }
                     
                     //Iterate over every sound in the project and show them in the editor

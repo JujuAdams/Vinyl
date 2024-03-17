@@ -24,7 +24,7 @@ function __VedClassModalNewAssetTag() : __VedClassModal() constructor
             
             ImGui.Separator();
             
-            ImGui.BeginDisabled(_conflict);
+            ImGui.BeginDisabled(_conflict || (string_length(__assetTagName) <= 2));
             if (ImGui.Button("Create"))
             {
                 _system.__project.__EnsureAssetTag(__assetTagName);

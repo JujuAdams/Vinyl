@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylPatternPlay",
+  "name": "VinylCreateHeadLoopTail",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Pattern",
-    "path": "folders/Vinyl/Pattern.yy",
+    "name": "Runtime Patterns",
+    "path": "folders/Vinyl/Runtime Patterns.yy",
   },
 }

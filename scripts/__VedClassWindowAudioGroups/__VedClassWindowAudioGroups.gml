@@ -82,11 +82,7 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                     var _funcBuildSelectable = function(_name, _multiselector)
                     {
                         var _selected = _multiselector.__IsSelected(_name);
-                        
-                        if (ImGui.Selectable(_name + "##Select " + _name, _selected))
-                        {
-                            _multiselector.__SelectToggle(_name);
-                        }
+                        if (ImGui.Selectable(_name + "##Select " + _name, _selected)) _multiselector.__SelectToggle(_name);
                     }
                     
                     //Iterate over every sound in the project and show them in the editor

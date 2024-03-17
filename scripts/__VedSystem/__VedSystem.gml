@@ -19,6 +19,10 @@
 #macro __VED_OPTION_RANDOMIZE  "Randomize"
 #macro __VED_OPTION_IGNORE     "Ignore"
 
+#macro __VED_PATTERN_TYPE_SHUFFLE         "Shuffle"
+#macro __VED_PATTERN_TYPE_HEAD_LOOP_TAIL  "Head-Loop-Tail"
+#macro __VED_PATTERN_TYPE_MULTI           "Multi"
+
 #macro __VED_DEFAULT_AUDIO_GROUP  "audiogroup_default"
 
 

@@ -15,8 +15,6 @@ function __VedClassProject() constructor
     __libAudioGroup = new __VedClassLibrary();
     __libAssetTag   = new __VedClassLibrary();
     
-    __changesArray = [];
-    
     
     
     
@@ -31,7 +29,7 @@ function __VedClassProject() constructor
         var _output = {
             ident: __ident,
             assets: [],
-            triggers: [],
+            patterns: [],
         };
         
         __libVinylAsset.__ForEach(function(_index, _name, _scope, _metadata)
@@ -47,7 +45,7 @@ function __VedClassProject() constructor
             _scope.__Serialize(_metadata.__array);
         },
         {
-            __array: _output.triggers,
+            __array: _output.patterns,
         });
         
         return _output;
@@ -57,7 +55,7 @@ function __VedClassProject() constructor
     {
         __ident = _input.ident;
         __libVinylAsset.__ImportArray(__VedDeserializeArray(__VedClassVinylAsset, _input.assets));
-        __libPattern.__ImportArray(__VedDeserializeArray(__VedClassPattern, _input.triggers));
+        __libPattern.__ImportArray(__VedDeserializeArray(__VedClassPatternShuffle, _input.patterns));
     }
     
     
@@ -220,6 +218,22 @@ function __VedClassProject() constructor
             __libAssetTag.__Add(_name, _assetTag);
             
             return _assetTag
+        }
+    }
+    
+    static __EnsurePattern = function(_name)
+    {
+        if (__libPattern.__Exists(_name))
+        {
+            return __libPattern.__GetByName(_name);
+        }
+        else
+        {
+            var _pattern = new __VedClassPatternShuffle();
+            _pattern.__name = _name;
+            __libPattern.__Add(_name, _pattern);
+            
+            return _pattern
         }
     }
     

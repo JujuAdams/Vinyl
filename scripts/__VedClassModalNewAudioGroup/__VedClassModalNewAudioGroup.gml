@@ -22,12 +22,9 @@ function __VedClassModalNewAudioGroup() : __VedClassModal() constructor
                 ImGui.TextColored("Conflict!", #FF5050);
             }
             
-            var _disable = _conflict;
-            if (string_length(__audioGroupName) <= 2) _disable = true;
-            
             ImGui.Separator();
             
-            ImGui.BeginDisabled(_disable);
+            ImGui.BeginDisabled(_conflict || (string_length(__audioGroupName) <= 2));
             if (ImGui.Button("Create"))
             {
                 _system.__project.__EnsureAudioGroup(__audioGroupName);

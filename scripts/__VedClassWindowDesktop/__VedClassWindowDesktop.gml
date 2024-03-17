@@ -89,18 +89,6 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
                     __VedWindowOpenSingle(__VedClassWindowSounds);
                 }
                 
-                if (ImGui.Button("Asset Tags"))
-                {
-                    __VedWindowOpenSingle(__VedClassWindowAssetTags);
-                }
-                
-                if (ImGui.Button("Audio Groups"))
-                {
-                    __VedWindowOpenSingle(__VedClassWindowAudioGroups);
-                }
-                
-                ImGui.SameLine(undefined, 50);
-                
                 if (ImGui.Button("Patterns"))
                 {
                     __VedWindowOpenSingle(__VedClassWindowPatterns);
@@ -109,6 +97,18 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
                 if (ImGui.Button("Rules"))
                 {
                     __VedWindowOpenSingle(__VedClassWindowRules);
+                }
+                
+                ImGui.SameLine(undefined, 50);
+                
+                if (ImGui.Button("Asset Tags"))
+                {
+                    __VedWindowOpenSingle(__VedClassWindowAssetTags);
+                }
+                
+                if (ImGui.Button("Audio Groups"))
+                {
+                    __VedWindowOpenSingle(__VedClassWindowAudioGroups);
                 }
             }
             
