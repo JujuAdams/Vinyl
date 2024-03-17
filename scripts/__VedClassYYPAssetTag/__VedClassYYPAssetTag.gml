@@ -18,6 +18,18 @@ function __VedClassYYPAssetTag() constructor
         if (_index != undefined) array_delete(__soundNameArray, _index, 1);
     }
     
+    static __RemoveFromAll = function()
+    {
+        var _soundDict = _system.__project.__libYYPAsset.__GetDictionary();
+        
+        var _i = array_length(__soundNameArray)-1;
+        repeat(array_length(__soundNameArray))
+        {
+            _soundDict[$ __soundNameArray[_i]].__SetAssetTag(__name, false);
+            --_i;
+        }
+    }
+    
     static __CopyAssetArrayTo = function(_array)
     {
         array_copy(_array, array_length(_array), __soundNameArray, 0, array_length(__soundNameArray));

@@ -82,6 +82,8 @@ function __VedClassSound() constructor
                 array_push(__assetTags, _assetTag);
                 array_sort(__assetTags, true);
                 _changed = true;
+                
+                _system.__project.__EnsureAssetTag(_assetTag).__Add(__name);
             }
         }
         else
@@ -91,10 +93,14 @@ function __VedClassSound() constructor
             {
                 array_delete(__assetTags, _index, 1);
                 _changed = true;
+                
+                _system.__project.__EnsureAssetTag(_assetTag).__Remove(__name);
             }
         }
         
         if (not _changed) return;
+        
+        
         
         //var _buffer = buffer_load(__absolutePath);
         //var _fileString = buffer_read(_buffer, buffer_text);

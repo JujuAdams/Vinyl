@@ -73,7 +73,7 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
                     {
                         if (_name != __VED_DEFAULT_AUDIO_GROUP)
                         {
-                            _struct.__MoveAllToDefault();
+                            _struct.__RemoveFromAll();
                             __library.__RemoveByName(_name);
                         }
                     }));
