@@ -43,8 +43,7 @@ function __VedClassFilter() constructor
         
         if (__useLength)
         {
-            //var _length = audio_sound_length(_struct.__soundID);
-            //if ((_length < __length[0]) || (_length > __length[1])) return __invert;
+            if ((_struct.__length < __length[0]) || (_struct.__length > __length[1])) return __invert;
         }
         
         if (__useAudioGroup)
