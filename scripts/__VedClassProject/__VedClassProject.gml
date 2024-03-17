@@ -173,6 +173,7 @@ function __VedClassProject() constructor
                 var _yypAsset = new __VedClassYYPAsset();
                 _yypAsset.__partialPath = _path;
                 _yypAsset.__name = _name;
+                _yypAsset.__EnsureData();
                 
                 _libYYPAssets.__Add(_name, _yypAsset);
             }

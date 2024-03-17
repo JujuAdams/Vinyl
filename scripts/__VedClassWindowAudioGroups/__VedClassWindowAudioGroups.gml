@@ -220,6 +220,8 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                     {
                         _struct.__SetAudioGroup(__audioGroup);
                     }));
+                    
+                    __multiselectorAsset.__SelectNone();
                 }
                 
                 ImGui.SameLine(undefined, 20);

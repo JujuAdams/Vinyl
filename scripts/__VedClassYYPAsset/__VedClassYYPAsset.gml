@@ -37,8 +37,9 @@ function __VedClassYYPAsset() constructor
     {
         __EnsureData();
         if (__audioGroup == _newAudioGroup) return;
+        var _oldAudioGroup = __audioGroup;
         
-        var _buffer = buffer_load(__yyPath);
+        var _buffer = buffer_load(__absolutePath);
         var _fileString = buffer_read(_buffer, buffer_text);
         buffer_delete(_buffer);
         
@@ -48,14 +49,14 @@ function __VedClassYYPAsset() constructor
         var _pos = string_pos(_searchString1, _fileString);
         if (_pos < 0)
         {
-            __VinylTrace("Warning! Could not find audio group \"", __audioGroup, "\" in \"", __yyPath, "\" (first check)");
+            __VinylTrace("Warning! Could not find audio group \"", __audioGroup, "\" in \"", __absolutePath, "\" (first check)");
             return;
         }
         
         var _pos = string_pos(_searchString2, _fileString);
         if (_pos < 0)
         {
-            __VinylTrace("Warning! Could not find audio group \"", __audioGroup, "\" in \"", __yyPath, "\" (second check)");
+            __VinylTrace("Warning! Could not find audio group \"", __audioGroup, "\" in \"", __absolutePath, "\" (second check)");
             return;
         }
         
@@ -64,6 +65,9 @@ function __VedClassYYPAsset() constructor
         _fileString = string_replace(_fileString, _searchString1, "\"name\": \"" + _newAudioGroup + "\"");
         _fileString = string_replace(_fileString, _searchString2, "\"path\": \"audiogroups/" + _newAudioGroup + "\"");
         __Save(_fileString);
+        
+        _system.__project.__libAudioGroup.__GetByName(_oldAudioGroup).__Remove(__name);
+        _system.__project.__libAudioGroup.__GetByName(_newAudioGroup).__Add(__name);
     }
     
     static __SetAssetTag = function(_assetTag, _state)
