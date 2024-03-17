@@ -51,14 +51,30 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
                 }
                 ImGui.EndDisabled();
                 
-                ImGui.BeginChild("Left Pane List", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY()-50, undefined, ImGuiWindowFlags.AlwaysVerticalScrollbar);
-                    //Keep an array of all visible sounds. We use this later for the "select all" button
-                    var _visibleArray = [];
+                //Keep an array of all visible sounds. We use this later for the "select all" button
+                var _visibleArray = [];
                 
+                //Now do the actual table
+                if (ImGui.BeginTable("Table", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.ScrollY, ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50))
+                {
+                    //Set up our columns with fixed widths so we get a nice pretty layout
+                    ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 21);
+                    ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthStretch, 1);
+                    
                     //DRY - Used for both the fallback sound config and standard sound configs
-                    var _funcBuildSelectable = function(_name, _multiselector)
+                    var _funcBuildSelectable = function(_name, _pattern, _multiselector)
                     {
                         var _selected = _multiselector.__IsSelected(_name);
+                        
+                        //Left-hand side custom checkbox
+                        ImGui.TableNextRow();
+                        ImGui.TableSetColumnIndex(0);
+                        ImGui.BeginDisabled(true);
+                        ImGui.Text((_pattern == undefined)? "???" : _pattern.__GetAbbreviation());
+                        ImGui.EndDisabled();
+                        
+                        //Right-hand side name
+                        ImGui.TableSetColumnIndex(1);
                         if (ImGui.Selectable(_name + "##Select " + _name, _selected)) _multiselector.__SelectToggle(_name);
                     }
                     
@@ -69,9 +85,10 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
                         var _name = _patternArray[_i];
                         
                         var _selected = __multiselector.__IsSelected(_name);
+                        
                         if ((not __multiselector.__multiselect) || (_selected && __multiselector.__seeSelected) || ((not _selected) && __multiselector.__seeUnselected)) //Selected check
                         {
-                            _funcBuildSelectable(_name, __multiselector);
+                            _funcBuildSelectable(_name, _patternDict[$ _name], __multiselector);
                             
                             //Push the name of this visible sound to our array
                             array_push(_visibleArray, _name);
@@ -79,7 +96,9 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
                         
                         ++_i;
                     }
-                ImGui.EndChild();
+                    
+                    ImGui.EndTable();
+                }
                 
                 //Build the selection handler UI at the bottom of the list of sounds
                 __multiselector.__BuildUI(_patternDict, _visibleArray);

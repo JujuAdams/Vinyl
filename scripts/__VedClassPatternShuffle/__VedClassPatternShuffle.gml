@@ -2,6 +2,8 @@
 
 function __VedClassPatternShuffle() constructor
 {
+    static _system = __VedSystem();
+    
     __name = undefined;
     
     __soundArray  = [];
@@ -95,14 +97,21 @@ function __VedClassPatternShuffle() constructor
         }
     }
     
+    static __GetAbbreviation = function()
+    {
+        return "Shf";
+    }
+    
     static __BuildUI = function(_multiselector)
     {
+        var _soundArray = _system.__project.__libYYPAsset.__GetNameArray();
+        
         static _optionArray = [__VED_OPTION_UNSET, __VED_OPTION_MULTIPLY, __VED_OPTION_RANDOMIZE];
         
         ImGui.Text("Shuffle-type pattern");
         ImGui.NewLine();
         
-        if (ImGui.BeginTable("Sound", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 110))
+        if (ImGui.BeginTable("Sound", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 100))
         {
             ////Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 100);
@@ -114,7 +123,7 @@ function __VedClassPatternShuffle() constructor
             ImGui.TableSetColumnIndex(0);
             ImGui.Text("Force Gain");
             ImGui.TableSetColumnIndex(1);
-            __SetGainForce(ImGui.Checkbox("Force Gain", __gainForce));
+            __SetGainForce(ImGui.Checkbox("##Force Gain", __gainForce));
             
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
@@ -169,7 +178,7 @@ function __VedClassPatternShuffle() constructor
             ImGui.TableSetColumnIndex(0);
             ImGui.Text("Force Pitch");
             ImGui.TableSetColumnIndex(1);
-            __SetPitchForce(ImGui.Checkbox("Force Pitch", __pitchForce));
+            __SetPitchForce(ImGui.Checkbox("##Force Pitch", __pitchForce));
             
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
@@ -217,6 +226,60 @@ function __VedClassPatternShuffle() constructor
                     ImGui.SliderFloat2("##Pitch " + __name, _newValue, 0.01, 2);
                     __SetPitch(_newValue);
                 break;
+            }
+            
+            ImGui.EndTable();
+        }
+        
+        ImGui.NewLine();
+        
+        if (ImGui.Button("Add"))
+        {
+            
+        }
+        
+        ImGui.SameLine();
+        
+        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvailX() - 100);
+        if (ImGui.BeginCombo("##Sound Combobox", "", ImGuiComboFlags.None))
+        {
+            var _i = 0;
+            repeat(array_length(_soundArray))
+            {
+                var _soundName = _soundArray[_i];
+                if (ImGui.Selectable(_soundName, false))
+                {
+                    
+                }
+                
+                ++_i;
+            }
+            
+            ImGui.EndCombo();
+        }
+        
+        ImGui.SameLine();
+        
+        if (ImGui.Button("Clear"))
+        {
+            __VedModalOpen(__VedClassModalCloseProject);
+        }
+        
+        if (ImGui.BeginTable("Vinyl Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, ImGui.GetContentRegionAvailY()))
+        {
+            ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthStretch, 1);
+            ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 50);
+            
+            repeat(100)
+            {
+                ImGui.TableNextRow();
+                ImGui.TableSetColumnIndex(0);
+                ImGui.Text("sndBleep0");
+                ImGui.TableSetColumnIndex(1);
+                if (ImGui.Button("Delete"))
+                {
+                    
+                }
             }
             
             ImGui.EndTable();
