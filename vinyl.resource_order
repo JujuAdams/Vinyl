@@ -117,7 +117,7 @@
     {"name":"ImGui_Misc","order":2,"path":"scripts/ImGui_Misc/ImGui_Misc.yy",},
     {"name":"sndBleep9","order":19,"path":"sounds/sndBleep9/sndBleep9.yy",},
     {"name":"__VedUpdate","order":7,"path":"scripts/__VedUpdate/__VedUpdate.yy",},
-    {"name":"__VedClassWindowProject","order":2,"path":"scripts/__VedClassWindowProject/__VedClassWindowProject.yy",},
+    {"name":"__VedClassWindowSounds","order":2,"path":"scripts/__VedClassWindowSounds/__VedClassWindowSounds.yy",},
     {"name":"__VedClassWindowLog","order":5,"path":"scripts/__VedClassWindowLog/__VedClassWindowLog.yy",},
     {"name":"__VinylWarning","order":9,"path":"scripts/__VinylWarning/__VinylWarning.yy",},
     {"name":"__VedClassYYPAsset","order":2,"path":"scripts/__VedClassYYPAsset/__VedClassYYPAsset.yy",},

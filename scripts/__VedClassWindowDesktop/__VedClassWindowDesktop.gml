@@ -79,9 +79,9 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
                 
                 ImGui.SameLine(undefined, 60);
                 
-                if (ImGui.Button("Audio Groups"))
+                if (ImGui.Button("Sounds"))
                 {
-                    __VedWindowOpenSingle(__VedClassWindowAudioGroups);
+                    __VedWindowOpenSingle(__VedClassWindowSounds);
                 }
                 
                 if (ImGui.Button("Asset Tags"))
@@ -89,9 +89,9 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
                     __VedWindowOpenSingle(__VedClassWindowAssetTags);
                 }
                 
-                if (ImGui.Button("Sounds"))
+                if (ImGui.Button("Audio Groups"))
                 {
-                    __VedWindowOpenSingle(__VedClassWindowProject);
+                    __VedWindowOpenSingle(__VedClassWindowAudioGroups);
                 }
                 
                 ImGui.SameLine(undefined, 50);

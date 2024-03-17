@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VedClassWindowProject() : __VedClassWindow() constructor
+function __VedClassWindowSounds() : __VedClassWindow() constructor
 {
     __handle = "Sounds";
     
