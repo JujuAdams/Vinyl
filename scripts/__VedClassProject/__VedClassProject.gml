@@ -9,8 +9,8 @@ function __VedClassProject() constructor
     
     __ident = undefined;
     
-    __libYYPAsset   = new __VedClassLibrary();
-    __libVinylAsset = new __VedClassLibrary();
+    __libSound   = new __VedClassLibrary();
+    __libVinyl = new __VedClassLibrary();
     __libPattern    = new __VedClassLibrary();
     __libAudioGroup = new __VedClassLibrary();
     __libAssetTag   = new __VedClassLibrary();
@@ -32,7 +32,7 @@ function __VedClassProject() constructor
             patterns: [],
         };
         
-        __libVinylAsset.__ForEach(function(_index, _name, _scope, _metadata)
+        __libVinyl.__ForEach(function(_index, _name, _scope, _metadata)
         {
             _scope.__Serialize(_metadata.__array);
         },
@@ -54,7 +54,7 @@ function __VedClassProject() constructor
     static __Deserialize = function(_input)
     {
         __ident = _input.ident;
-        __libVinylAsset.__ImportArray(__VedDeserializeArray(__VedClassVinylAsset, _input.assets));
+        __libVinyl.__ImportArray(__VedDeserializeArray(__VedClassVinylAsset, _input.assets));
         __libPattern.__ImportArray(__VedDeserializeArray(__VedClassPatternShuffle, _input.patterns));
     }
     
@@ -151,7 +151,7 @@ function __VedClassProject() constructor
         }
         
         //Unpack sounds assets we find the .yyp file
-        var _libYYPAssets = __libYYPAsset;
+        var _libYYPAssets = __libSound;
         var _resourcesArray = _json.resources;
         var _i = 0;
         repeat(array_length(_resourcesArray))
@@ -174,7 +174,7 @@ function __VedClassProject() constructor
             ++_i;
         }
         
-        __libYYPAsset.__SortNames(true);
+        __libSound.__SortNames(true);
         
         try
         {
@@ -567,11 +567,11 @@ function __VedClassProject() constructor
     
     static __Correlate = function()
     {
-        var _yypNameArray = __libYYPAsset.__GetNameArray();
-        var _yypDict      = __libYYPAsset.__GetDictionary();
+        var _yypNameArray = __libSound.__GetNameArray();
+        var _yypDict      = __libSound.__GetDictionary();
         
-        var _vinylNameArray = __libVinylAsset.__GetNameArray();
-        var _vinylDict      = __libVinylAsset.__GetDictionary();
+        var _vinylNameArray = __libVinyl.__GetNameArray();
+        var _vinylDict      = __libVinyl.__GetDictionary();
         
         var _missingInVinyl = [];
         var _missingInYYP   = [];
@@ -607,7 +607,7 @@ function __VedClassProject() constructor
         {
             var _yypAsset = _missingInVinyl[_i];
             __VedLog("Creating Vinyl asset for GameMaker sound \"", _yypAsset.__GetName(), "\"");
-            __libVinylAsset.__Add(_yypAsset.__GetName(), _yypAsset.__GenerateVinylAsset());
+            __libVinyl.__Add(_yypAsset.__GetName(), _yypAsset.__GenerateVinylAsset());
             ++_i;
         }
     }
@@ -657,7 +657,7 @@ function __VedClassProject() constructor
         buffer_write(_buffer, buffer_text, "        _data = {};\n");
         buffer_write(_buffer, buffer_text, "        \n");
         
-        __libVinylAsset.__ForEach(function(_index, _name, _scope, _metadata)
+        __libVinyl.__ForEach(function(_index, _name, _scope, _metadata)
         {
             _scope.__CompilePlay(_metadata.__buffer);
         },
@@ -702,7 +702,7 @@ function __VedClassProject() constructor
         buffer_write(_buffer, buffer_text, "        _data = {};\n");
         buffer_write(_buffer, buffer_text, "        \n");
         
-        __libVinylAsset.__ForEach(function(_index, _name, _scope, _metadata)
+        __libVinyl.__ForEach(function(_index, _name, _scope, _metadata)
         {
             _scope.__CompilePattern(_metadata.__buffer);
         },

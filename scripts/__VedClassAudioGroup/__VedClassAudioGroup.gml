@@ -27,7 +27,7 @@ function __VedClassAudioGroup() constructor
     
     static __MoveAllToDefault = function()
     {
-        var _soundDict = _system.__project.__libYYPAsset.__GetDictionary();
+        var _soundDict = _system.__project.__libSound.__GetDictionary();
         
         var _i = array_length(__soundNameArray)-1;
         repeat(array_length(__soundNameArray))

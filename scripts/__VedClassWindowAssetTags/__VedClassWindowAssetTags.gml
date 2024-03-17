@@ -30,7 +30,7 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
         
         var _assetTagArray = _project.__libAssetTag.__GetNameArray();
         var _assetTagDict  = _project.__libAssetTag.__GetDictionary();
-        var _soundDict     = _project.__libYYPAsset.__GetDictionary();
+        var _soundDict     = _project.__libSound.__GetDictionary();
         
         ImGui.SetNextWindowSize(0.7*room_width, 0.7*room_height, ImGuiCond.Once);
         ImGui.SetNextWindowPos(0.15*room_width, 0.15*room_height, ImGuiCond.Once);
@@ -157,7 +157,7 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
                         
                         //Keep an array of all visible sounds. We use this later for the "select all" button
                         var _visibleArray = [];
-                        var _assetArray = _project.__libYYPAsset.__GetNameArray();
+                        var _assetArray = _project.__libSound.__GetNameArray();
                         
                         var _assetArray = [];
                         

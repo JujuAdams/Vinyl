@@ -239,7 +239,7 @@ function __VedClassSound() constructor
         {
             var _audioGroupArray = _system.__project.__libAudioGroup.__GetNameArray();
             var _assetTagArray   = _system.__project.__libAssetTag.__GetNameArray();
-            var _yypAssetDict    = _system.__project.__libYYPAsset.__GetDictionary();
+            var _yypAssetDict    = _system.__project.__libSound.__GetDictionary();
             
             //Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("GameMaker Project");

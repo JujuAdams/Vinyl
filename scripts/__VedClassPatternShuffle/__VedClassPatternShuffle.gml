@@ -105,7 +105,7 @@ function __VedClassPatternShuffle() constructor
     
     static __BuildUI = function(_multiselector)
     {
-        var _soundArray = _system.__project.__libYYPAsset.__GetNameArray();
+        var _soundArray = _system.__project.__libSound.__GetNameArray();
         
         static _optionArray = [__VED_OPTION_UNSET, __VED_OPTION_MULTIPLY, __VED_OPTION_RANDOMIZE];
         
