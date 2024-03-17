@@ -39,11 +39,7 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
         {
             ImGui.BeginChild("Left Pane", 0.33*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
                 
-                if (ImGui.Button("New"))
-                {
-                    
-                }
-                
+                if (ImGui.Button("New")) __VedModalOpen(__VedClassModalNewAudioGroup);
                 ImGui.SameLine(undefined, 20);
                 
                 var _disabled = (__multiselectorAG.__GetSelectedCount() <= 0);

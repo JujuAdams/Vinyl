@@ -143,19 +143,12 @@ function __VedClassProject() constructor
             return false;
         }
         
-        //Find audio groups
-        var _libYYPAudioGroup = __libAudioGroup;
+        //Find and create audio groups
         var _audioGroupsArray = _json.AudioGroups;
         var _i = 0;
         repeat(array_length(_audioGroupsArray))
         {
-            var _name = _audioGroupsArray[_i].name;
-            
-            var _yypAudioGroup = new __VedClassAudioGroup();
-            _yypAudioGroup.__name = _name;
-            
-            _libYYPAudioGroup.__Add(_name, _yypAudioGroup);
-            
+            __EnsureAudioGroup(_audioGroupsArray[_i].name);
             ++_i;
         }
         
@@ -198,6 +191,22 @@ function __VedClassProject() constructor
         }
     }
     
+    static __EnsureAudioGroup = function(_name)
+    {
+        if (__libAudioGroup.__Exists(_name))
+        {
+            return __libAudioGroup.__GetByName(_name);
+        }
+        else
+        {
+            var _audioGroup = new __VedClassAudioGroup();
+            _audioGroup.__name = _name;
+            __libAudioGroup.__Add(_name, _audioGroup);
+            
+            return _audioGroup
+        }
+    }
+    
     static __EnsureAssetTag = function(_name)
     {
         if (__libAssetTag.__Exists(_name))
@@ -208,8 +217,8 @@ function __VedClassProject() constructor
         {
             var _assetTag = new __VedClassAssetTag();
             _assetTag.__name = _name;
-            
             __libAssetTag.__Add(_name, _assetTag);
+            
             return _assetTag
         }
     }

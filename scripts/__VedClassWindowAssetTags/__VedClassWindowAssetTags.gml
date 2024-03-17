@@ -46,11 +46,7 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
         {
             ImGui.BeginChild("Left Pane", 0.33*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
                 
-                if (ImGui.Button("New"))
-                {
-                    
-                }
-                
+                if (ImGui.Button("New")) __VedModalOpen(__VedClassModalNewAssetTag);
                 ImGui.SameLine(undefined, 20);
                 
                 var _disabled = (__multiselectorTag.__GetSelectedCount() <= 0);
