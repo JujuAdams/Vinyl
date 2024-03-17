@@ -50,14 +50,14 @@ function __VedClassSound() constructor
         var _pos = string_pos(_searchString1, _fileString);
         if (_pos < 0)
         {
-            __VinylTrace("Warning! Could not find audio group \"", __audioGroup, "\" in \"", __absolutePath, "\" (first check)");
+            __VedLog("Warning! Could not find audio group \"", __audioGroup, "\" in \"", __absolutePath, "\" (first check)");
             return;
         }
         
         var _pos = string_pos(_searchString2, _fileString);
         if (_pos < 0)
         {
-            __VinylTrace("Warning! Could not find audio group \"", __audioGroup, "\" in \"", __absolutePath, "\" (second check)");
+            __VedLog("Warning! Could not find audio group \"", __audioGroup, "\" in \"", __absolutePath, "\" (second check)");
             return;
         }
         
@@ -101,11 +101,53 @@ function __VedClassSound() constructor
         
         if (not _changed) return;
         
+        var _insertString = "  \"tags\": [\n";
+        var _i = 0;
+        repeat(array_length(__assetTags))
+        {
+            _insertString += string_concat("    \"", __assetTags[_i], "\",\n");
+            ++_i;
+        }
+        _insertString += "  ],\n";
         
+        var _buffer = buffer_load(__absolutePath);
+        var _fileString = buffer_read(_buffer, buffer_text);
+        buffer_delete(_buffer);
         
-        //var _buffer = buffer_load(__absolutePath);
-        //var _fileString = buffer_read(_buffer, buffer_text);
-        //buffer_delete(_buffer);
+        var _tagPos = string_pos("  \"tags\": [", _fileString);
+        if (_tagPos <= 0)
+        {
+            //No tags
+            var _soundFile = string_pos("\"soundFile\":", _fileString);
+            if (_soundFile <= 0)
+            {
+                __VedLog("Warning! Could not find \"soundFile\" position in \"", __absolutePath, "\"");
+                return;
+            }
+            
+            var _typePos = string_pos_ext("  \"type\":", _fileString, _soundFile);
+            if (_typePos <= 0)
+            {
+                __VedLog("Warning! Could not find \"type\" position in \"", __absolutePath, "\"");
+                return;
+            }
+            
+            _fileString = string_insert(_insertString, _fileString, _typePos);
+        }
+        else
+        {
+            var _endPos = string_pos_ext("  ],", _fileString, _tagPos);
+            if (_endPos <= 0)
+            {
+                __VedLog("Warning! Could not find asset tag close position in \"", __absolutePath, "\"");
+                return;
+            }
+            
+            _fileString = string_delete(_fileString, _tagPos, 6 + _endPos - _tagPos);
+            _fileString = string_insert(_insertString, _fileString, _tagPos);
+        }
+        
+        __Save(_fileString);
     }
     
     static __SetAttributes = function(_newAttributes)
@@ -122,7 +164,7 @@ function __VedClassSound() constructor
         var _pos = string_pos(_searchString, _fileString);
         if (_pos < 0)
         {
-            __VinylTrace("Warning! Could not find attribute ", __attributes, " in \"", __absolutePath, "\"");
+            __VedLog("Warning! Could not find attribute ", __attributes, " in \"", __absolutePath, "\"");
             return;
         }
         

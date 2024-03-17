@@ -151,7 +151,7 @@ function __VedClassProject() constructor
         {
             var _name = _audioGroupsArray[_i].name;
             
-            var _yypAudioGroup = new __VedClassYYPAudioGroup();
+            var _yypAudioGroup = new __VedClassAudioGroup();
             _yypAudioGroup.__name = _name;
             
             _libYYPAudioGroup.__Add(_name, _yypAudioGroup);

@@ -91,7 +91,7 @@
     {"name":"shdImGui","order":3,"path":"shaders/shdImGui/shdImGui.yy",},
     {"name":"__VedClassModalNoIdent","order":6,"path":"scripts/__VedClassModalNoIdent/__VedClassModalNoIdent.yy",},
     {"name":"__VinylTrace","order":8,"path":"scripts/__VinylTrace/__VinylTrace.yy",},
-    {"name":"__VedClassYYPAudioGroup","order":5,"path":"scripts/__VedClassYYPAudioGroup/__VedClassYYPAudioGroup.yy",},
+    {"name":"__VedClassAudioGroup","order":5,"path":"scripts/__VedClassAudioGroup/__VedClassAudioGroup.yy",},
     {"name":"__VedClassWindowDesktop","order":1,"path":"scripts/__VedClassWindowDesktop/__VedClassWindowDesktop.yy",},
     {"name":"UITextWrap","order":3,"path":"scripts/UITextWrap/UITextWrap.yy",},
     {"name":"VedDraw","order":8,"path":"scripts/VedDraw/VedDraw.yy",},

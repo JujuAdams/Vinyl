@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VedClassYYPAudioGroup() constructor
+function __VedClassAudioGroup() constructor
 {
     static _system = __VedSystem();
     
