@@ -5,8 +5,8 @@
 /// @param gain
 /// @param pitch
 
-if (VINYL_LIVE_EDIT) __VinylNetRPCRegister("__VinylOverwritePatternSound", __VinylOverwritePatternSound);
-function __VinylOverwritePatternSound(_soundName, _loop, _gainArray, _pitchArray)
+if (VINYL_LIVE_EDIT) __VinylNetRPCRegister("__VinylCreatePatternSound", __VinylCreatePatternSound);
+function __VinylCreatePatternSound(_soundName, _loop, _gainArray, _pitchArray)
 {
     static _genPlayData    = __VinylGenPlay();
     static _genPatternData = __VinylGenPattern();

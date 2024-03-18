@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylOverwritePatternSound",
+  "name": "__VinylGenPatternNames",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

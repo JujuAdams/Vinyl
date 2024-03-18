@@ -108,7 +108,7 @@ function __VedClassVinylAsset() constructor
     {
         if (__GetModified())
         {
-            __VedNetRPC("__VinylOverwritePatternSound", __name, __loop, __gain, __pitch);
+            __VedNetRPC("__VinylCreatePatternSound", __name, __loop, __gain, __pitch);
         }
         else
         {

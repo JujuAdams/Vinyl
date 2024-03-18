@@ -9,6 +9,8 @@
 #macro __VINYL_REPORT_FAILURE_TO_PLAY  (VINYL_REPORT_FAILURE_TO_PLAY && __VINYL_RUNNING_FROM_IDE)
 #macro __VINYL_NETWORKING_PORT  13587
 
+#macro __VINYL_RUNTIME_PATTERN_MASK  0x7EB457F6_00000000
+
 enum __VINYL_SOUND_TYPE {
     __UNKNOWN,
     __WAD,
@@ -34,13 +36,19 @@ function __VinylSystem()
         {
             __rpcDict = {};
             __sendBuffer = buffer_create(1024, buffer_grow, 1);
+            
+            //We're probably going to need these names so let's initialize now
+            __VinylGenPatternNames();
         }
+        
+        __runtimePatternIndex = __VINYL_RUNTIME_PATTERN_MASK + 1;
         
         __voiceContextArray = [];
         __voiceContextDict  = {};
         
         //Initialize playback data now so we don't get lag on the first sound effect
         __VinylGenPlay();
+        __VinylGenPattern();
         
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylUpdate, [], -1));
     }

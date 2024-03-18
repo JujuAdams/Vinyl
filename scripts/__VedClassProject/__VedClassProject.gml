@@ -663,7 +663,7 @@ function __VedClassProject() constructor
             buffer_write(_metadata.__buffer, buffer_text, VED_GENERATED_ASSET_PREFIX);
             buffer_write(_metadata.__buffer, buffer_text, _name);
             buffer_write(_metadata.__buffer, buffer_text, "  ");
-            buffer_write(_metadata.__buffer, buffer_text, "0xEA17F00D_");
+            buffer_write(_metadata.__buffer, buffer_text, __VED_COMPILED_PATTERN_MASK);
             buffer_write(_metadata.__buffer, buffer_text, string_delete(string(ptr(int64(_index+1))), 1, 8));
             buffer_write(_metadata.__buffer, buffer_text, "\n");
         },

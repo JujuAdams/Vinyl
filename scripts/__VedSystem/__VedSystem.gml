@@ -25,6 +25,8 @@
 
 #macro __VED_DEFAULT_AUDIO_GROUP  "audiogroup_default"
 
+#macro __VED_COMPILED_PATTERN_MASK  "0x43F498AF_" //e.g. 0x43F498AF_00000000
+
 
 
 function __VedSystem()
