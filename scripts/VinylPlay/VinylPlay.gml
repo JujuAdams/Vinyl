@@ -13,7 +13,10 @@ function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1)
     var _function = struct_get_from_hash(_genPlayData, int64(_pattern));
     if (_function == undefined)
     {
-        if (audio_exists(_pattern))
+        //Passing in a number that's too big will fool audio_exists()
+        //Our patterns occupy numbers that use the upper 32 bits of an int64
+        //Checking if the number fits into the first 32 bits is sufficient to work around this bug
+        if ((int64(_pattern) <= 0xFFFFFFFF) && audio_exists(_pattern))
         {
             var _voice = audio_play_sound(_pattern, 0, _loop ?? false, _gain, 0, _pitch);
             
@@ -30,7 +33,7 @@ function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1)
         {
             if (__VINYL_RUNNING_FROM_IDE)
             {
-                __VinylWarning("Could not find data for trigger ", _pattern);
+                __VinylWarning("Could not find data for pattern ", ptr(_pattern));
                 
                 var _voice = audio_play_sound(VinylFallbackSound, 0, false, _gain, 0, _pitch);
                 if (__VINYL_REPORT_FAILURE_TO_PLAY && (_voice < 0))
