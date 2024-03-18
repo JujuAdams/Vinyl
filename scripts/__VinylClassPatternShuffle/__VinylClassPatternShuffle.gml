@@ -13,7 +13,7 @@ function __VinylClassPatternShuffle(_patternIndex, _soundArray, _gainForce, _gai
 {
     __patternIndex = _patternIndex;
     
-    __soundArray = _soundArray;
+    __soundArray = __VinylImportSoundArray(_soundArray);
     __gainForce  = _gainForce;
     __gainMin    = _gainMin;
     __gainMax    = _gainMax;
@@ -36,7 +36,7 @@ function __VinylClassPatternShuffle(_patternIndex, _soundArray, _gainForce, _gai
             array_insert(__soundArray, __soundCount div 2, _last); //...and stick it somewhere in the middle instead
         }
         
-        var _sound = _soundArray[__playIndex];
+        var _sound = __soundArray[__playIndex];
         ++__playIndex;
         
         var _gainPattern  = __VinylRandomRange(__gainMin,  __gainMax);
@@ -48,7 +48,7 @@ function __VinylClassPatternShuffle(_patternIndex, _soundArray, _gainForce, _gai
     
     static __Update = function(_soundArray, _gainForce, _gainMin, _gainMax, _pitchForce, _pitchMin, _pitchMax)
     {
-        __soundArray = _soundArray;
+        __soundArray = __VinylImportSoundArray(_soundArray);
         __gainForce  = _gainForce;
         __gainMin    = _gainMin;
         __gainMax    = _gainMax;

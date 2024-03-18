@@ -19,22 +19,30 @@ function VinylCreateShuffle(_soundArray, _gainForce, _gainMin, _gainMax, _pitchF
     
     if (_name != undefined)
     {
-        var _index = int64(_genNameData[$ _name]);
-        if (_index & __VINYL_RUNTIME_PATTERN_MASK)
+        var _index = _genNameData[$ _name];
+        if (_index != undefined)
         {
-            //This is already a runtime pattern, use it!
-            var _pattern = struct_get_from_hash(_genPatternData, _index);
-            _pattern.__Update(_soundArray, _gainForce, _gainMin, _gainMax, _pitchForce, _pitchMin, _pitchMax);
-            
-            return _index;
+            _index = int64(_index);
+            if (_index & __VINYL_RUNTIME_PATTERN_MASK)
+            {
+                //This is already a runtime pattern, use it!
+                var _pattern = struct_get_from_hash(_genPatternData, _index);
+                _pattern.__Update(_soundArray, _gainForce, _gainMin, _gainMax, _pitchForce, _pitchMin, _pitchMax);
+                
+                return _index;
+            }
         }
     }
+    
+    __VinylTrace("Creating new shuffle runtime pattern (name=", _name, ")");
     
     //Generate a new index for this pattern
     var _index = int64(_system.__runtimePatternIndex);
     _system.__runtimePatternIndex++;
     
     var _pattern = new __VinylClassPatternShuffle(_index, _soundArray, _gainForce, _gainMin, _gainMax, _pitchForce, _pitchMin, _pitchMax);
+    
+    _genNameData[$ _name] = _index;
     struct_set_from_hash(_genPatternData, _index, _pattern);
     struct_set_from_hash(_genPlayData, _index, _pattern.__Play);
     

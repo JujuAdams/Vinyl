@@ -5,5 +5,5 @@ if (keyboard_check_pressed(vk_space))
 
 if (keyboard_check_pressed(vk_shift))
 {
-    VinylPlay(vinFootsteps);
+    VinylPlay(__VINYL_RUNTIME_PATTERN_MASK+1);
 }

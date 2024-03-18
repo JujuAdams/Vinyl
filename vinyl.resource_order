@@ -44,6 +44,7 @@
     {"name":"__VedClassModalCloseProject","order":1,"path":"scripts/__VedClassModalCloseProject/__VedClassModalCloseProject.yy",},
     {"name":"__VedClassModalNewPattern","order":13,"path":"scripts/__VedClassModalNewPattern/__VedClassModalNewPattern.yy",},
     {"name":"__VedModalOpen","order":9,"path":"scripts/__VedModalOpen/__VedModalOpen.yy",},
+    {"name":"__VinylImportSoundArray","order":4,"path":"scripts/__VinylImportSoundArray/__VinylImportSoundArray.yy",},
     {"name":"__VedClassWindowPatterns","order":6,"path":"scripts/__VedClassWindowPatterns/__VedClassWindowPatterns.yy",},
     {"name":"sndSync1","order":7,"path":"sounds/sndSync1/sndSync1.yy",},
     {"name":"__VedRandom","order":2,"path":"scripts/__VedRandom/__VedRandom.yy",},

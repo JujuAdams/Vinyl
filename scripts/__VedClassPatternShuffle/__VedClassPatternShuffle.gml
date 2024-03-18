@@ -93,6 +93,11 @@ function __VedClassPatternShuffle() constructor
         __pitchOption = _data[$ "pitchOption"] ?? __VED_OPTION_UNSET;
     }
     
+    static __BroadcastChange = function()
+    {
+        __VedNetRPC("VinylCreateShuffle", __soundArray, __gainForce, __gain[0], __gain[1], __pitchForce, __pitch[0], __pitch[1], __name);
+    }
+    
     static __SetGain = function(_value)
     {
         if (not array_equals(_value, __gain))
@@ -106,6 +111,8 @@ function __VedClassPatternShuffle() constructor
                 __gain[0] = __gain[1];
                 __gain[1] = _temp;
             }
+            
+            __BroadcastChange();
         }
     }
     
@@ -122,6 +129,8 @@ function __VedClassPatternShuffle() constructor
                 __pitch[0] = __pitch[1];
                 __pitch[1] = _temp;
             }
+            
+            __BroadcastChange();
         }
     }
     
@@ -131,6 +140,7 @@ function __VedClassPatternShuffle() constructor
         {
             __gainOption = _value;
             if (__gainOption == __VED_OPTION_MULTIPLY) __SetGain([__gain[0], __gain[0]]);
+            __BroadcastChange();
         }
     }
     
@@ -140,6 +150,7 @@ function __VedClassPatternShuffle() constructor
         {
             __pitchOption = _value;
             if (__pitchOption == __VED_OPTION_MULTIPLY) __SetPitch([__pitch[0], __pitch[0]]);
+            __BroadcastChange();
         }
     }
     
@@ -148,6 +159,7 @@ function __VedClassPatternShuffle() constructor
         if (_value != __gainForce)
         {
             __gainForce = _value;
+            __BroadcastChange();
         }
     }
     
@@ -156,6 +168,7 @@ function __VedClassPatternShuffle() constructor
         if (_value != __pitchForce)
         {
             __pitchForce = _value;
+            __BroadcastChange();
         }
     }
     
@@ -320,6 +333,8 @@ function __VedClassPatternShuffle() constructor
                         if (_index != undefined) array_delete(__soundArray, _index, 1);
                         variable_struct_remove(__soundDict, _soundName);
                     }
+                    
+                    __BroadcastChange();
                 }
                 
                 ++_i;
