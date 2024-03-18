@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylRandomRange",
+  "name": "__VinylIRandom",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

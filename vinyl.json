@@ -1,4 +1,6 @@
 {
+  "projectName":"vinyl.yyp",
+  "ident":"002B13F0BAD8EFBA",
   "assets":[
   ],
   "patterns":[
@@ -8,15 +10,15 @@
         0.73500001430511475,
         1.1059999465942383
       ],
-      "type":"Shuffle",
       "gainOption":"Randomize",
-      "gainForce":1.0,
       "pitch":[
         1.0,
         1.0
       ],
-      "pitchForce":0.0,
-      "pitchOption":"Unset"
+      "pitchOption":"Unset",
+      "type":"Shuffle",
+      "gainForce":1.0,
+      "pitchForce":0.0
     },
     {
       "name":"Footsteps",
@@ -24,17 +26,15 @@
         1.0,
         1.0
       ],
-      "type":"Shuffle",
       "gainOption":"Unset",
-      "gainForce":false,
       "pitch":[
         1.0,
         1.0
       ],
-      "pitchForce":false,
-      "pitchOption":"Unset"
+      "pitchOption":"Unset",
+      "type":"Shuffle",
+      "gainForce":0.0,
+      "pitchForce":0.0
     }
-  ],
-  "projectName":"vinyl.yyp",
-  "ident":"002B13F0BAD8EFBA"
+  ]
 }

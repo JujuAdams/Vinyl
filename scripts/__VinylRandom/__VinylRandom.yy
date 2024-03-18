@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "(Internals)",
-    "path": "folders/Vinyl/(Internals).yy",
+    "name": "PRNG",
+    "path": "folders/Vinyl/(Internals)/PRNG.yy",
   },
 }

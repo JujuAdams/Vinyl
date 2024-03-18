@@ -702,13 +702,13 @@ function __VedClassProject() constructor
             __buffer: _buffer,
         });
         
-        //__libPattern.__ForEach(function(_index, _name, _scope, _metadata)
-        //{
-        //    _scope.__CompilePlay(_metadata.__buffer);
-        //},
-        //{
-        //    __buffer: _buffer,
-        //});
+        __libPattern.__ForEach(function(_index, _name, _scope, _metadata)
+        {
+            _scope.__CompilePlay(_metadata.__buffer);
+        },
+        {
+            __buffer: _buffer,
+        });
         
         buffer_write(_buffer, buffer_text, "    }\n");
         buffer_write(_buffer, buffer_text, "    \n");
