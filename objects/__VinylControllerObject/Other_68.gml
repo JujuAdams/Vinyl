@@ -5,7 +5,7 @@ switch(async_load[? "type"])
     case network_type_non_blocking_connect:
         if (__connectionEstablished)
         {
-            __VedWarning("Received connection to editor but we already have a link");
+            __VinylWarning("Received connection to editor but we already have a link");
             return;
         }
         
