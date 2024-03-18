@@ -8,7 +8,6 @@
 function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1)
 {
     static _genPlayData = __VinylGenPlay();
-    static _voiceContextDict = __VinylSystem().__voiceContextDict;
     
     var _function = struct_get_from_hash(_genPlayData, int64(_pattern));
     if (_function == undefined)
