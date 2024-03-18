@@ -2,4 +2,4 @@
 
 #macro VED_ENABLED  true
 
-#macro VED_PREFIX  "Vinyl_"
+#macro VED_GENERATED_ASSET_PREFIX  "vin"

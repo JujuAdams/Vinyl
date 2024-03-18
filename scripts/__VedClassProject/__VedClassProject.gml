@@ -651,18 +651,25 @@ function __VedClassProject() constructor
         buffer_write(_buffer, buffer_text, __VED_VERSION);
         buffer_write(_buffer, buffer_text, ", ");
         buffer_write(_buffer, buffer_text, __VED_DATE);
-        buffer_write(_buffer, buffer_text, "\n\n");
+        buffer_write(_buffer, buffer_text, "\n");
         buffer_write(_buffer, buffer_text, "#macro VINYL_VERSIONED_IDENT  \"");
         buffer_write(_buffer, buffer_text, string(__ident));
         buffer_write(_buffer, buffer_text, "\"\n");
-        
-        //__libPattern.__ForEach(function(_index, _name, _scope, _metadata)
-        //{
-        //    _scope.__CompileMacro(_metadata.__buffer);
-        //},
-        //{
-        //    __buffer: _buffer,
-        //});
+        buffer_write(_buffer, buffer_text, "\n");
+        buffer_write(_buffer, buffer_text, "//Patterns\n");
+        __libPattern.__ForEach(function(_index, _name, _scope, _metadata)
+        {
+            buffer_write(_metadata.__buffer, buffer_text, "#macro ");
+            buffer_write(_metadata.__buffer, buffer_text, VED_GENERATED_ASSET_PREFIX);
+            buffer_write(_metadata.__buffer, buffer_text, _name);
+            buffer_write(_metadata.__buffer, buffer_text, "  ");
+            buffer_write(_metadata.__buffer, buffer_text, "0xEA17F00D_");
+            buffer_write(_metadata.__buffer, buffer_text, string_delete(string(ptr(int64(_index+1))), 1, 8));
+            buffer_write(_metadata.__buffer, buffer_text, "\n");
+        },
+        {
+            __buffer: _buffer,
+        });
         
         buffer_save_ext(_buffer, __pathGenMacros, 0, buffer_tell(_buffer));
         buffer_delete(_buffer);
