@@ -17,6 +17,22 @@
       ],
       "pitchForce":0.0,
       "pitchOption":"Unset"
+    },
+    {
+      "name":"Footsteps",
+      "gain":[
+        1.0,
+        1.0
+      ],
+      "type":"Shuffle",
+      "gainOption":"Unset",
+      "gainForce":false,
+      "pitch":[
+        1.0,
+        1.0
+      ],
+      "pitchForce":false,
+      "pitchOption":"Unset"
     }
   ],
   "projectName":"vinyl.yyp",

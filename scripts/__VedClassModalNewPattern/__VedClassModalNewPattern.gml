@@ -18,11 +18,56 @@ function __VedClassModalNewPattern() : __VedClassModal() constructor
             ImGui.Text("Please enter the name and type of the new pattern.");
             
             __patternName = ImGui.InputTextWithHint("##Pattern Name", "e.g. Footstep", __patternName);
-            var _conflict = _libPattern.__Exists(__patternName);
-            if (_conflict)
+            
+            if (VED_CAPITALIZE_PATTERN_FIRST_CHAR)
             {
-                ImGui.SameLine(undefined, 23);
-                ImGui.TextColored("Conflict!", #FF5050);
+                __patternName = string_upper(string_copy(__patternName, 1, 1)) + string_delete(__patternName, 1, 1);
+            }
+            
+            var _disabled = false;
+            if (string_length(__patternName) <= 2)
+            {
+                if ((not _disabled) && (string_length(__patternName) > 0))
+                {
+                    ImGui.SameLine(undefined, 23);
+                    ImGui.TextColored("Too short!", #FF5050);
+                }
+                
+                _disabled = true;
+            }
+            
+            var _firstChar = string_copy(__patternName, 1, 1);
+            if (string_digits(_firstChar) == _firstChar)
+            {
+                if (not _disabled)
+                {
+                    ImGui.SameLine(undefined, 23);
+                    ImGui.TextColored("Invalid!", #FF5050);
+                }
+                
+                _disabled = true;
+            }
+            
+            if (string_pos(" ", __patternName) > 0)
+            {
+                if (not _disabled)
+                {
+                    ImGui.SameLine(undefined, 23);
+                    ImGui.TextColored("Invalid!", #FF5050);
+                }
+                
+                _disabled = true;
+            }
+            
+            if (_libPattern.__Exists(__patternName))
+            {
+                if (not _disabled)
+                {
+                    ImGui.SameLine(undefined, 23);
+                    ImGui.TextColored("Conflict!", #FF5050);
+                }
+                
+                _disabled = true;
             }
             
             var _i = 0;
@@ -35,7 +80,7 @@ function __VedClassModalNewPattern() : __VedClassModal() constructor
             
             ImGui.Separator();
             
-            ImGui.BeginDisabled(_conflict || (string_length(__patternName) <= 2) || (__type == undefined));
+            ImGui.BeginDisabled(_disabled || (__type == undefined));
             if (ImGui.Button("Create"))
             {
                 switch(__type)
