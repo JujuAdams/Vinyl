@@ -1,10 +1,12 @@
 {
-  "projectName":"vinyl.yyp",
-  "ident":"002B13F0BAD8EFBA",
-  "assets":[
-  ],
   "patterns":[
     {
+      "pitchOption":"Unset",
+      "type":"Shuffle",
+      "soundArray":[
+      ],
+      "gainForce":1.0,
+      "pitchForce":0.0,
       "name":"rhrht",
       "gain":[
         0.73500001430511475,
@@ -14,13 +16,20 @@
       "pitch":[
         1.0,
         1.0
-      ],
-      "pitchOption":"Unset",
-      "type":"Shuffle",
-      "gainForce":1.0,
-      "pitchForce":0.0
+      ]
     },
     {
+      "pitchOption":"Unset",
+      "type":"Shuffle",
+      "soundArray":[
+        "sndBleep0",
+        "sndBleep1",
+        "sndBleep2",
+        "sndBleep3",
+        "sndBleep4"
+      ],
+      "gainForce":0.0,
+      "pitchForce":0.0,
       "name":"Footsteps",
       "gain":[
         1.0,
@@ -30,11 +39,11 @@
       "pitch":[
         1.0,
         1.0
-      ],
-      "pitchOption":"Unset",
-      "type":"Shuffle",
-      "gainForce":0.0,
-      "pitchForce":0.0
+      ]
     }
+  ],
+  "projectName":"vinyl.yyp",
+  "ident":"002B13F0BAD8EFBA",
+  "assets":[
   ]
 }

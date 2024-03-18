@@ -71,6 +71,7 @@ function __VedClassPatternShuffle() constructor
         array_push(_array, {
             type:        __VED_PATTERN_TYPE_SHUFFLE,
             name:        __name,
+            sounds:      __soundArray,
             gainForce:   __gainForce,
             gain:        __gain,
             gainOption:  __gainOption,
@@ -83,6 +84,7 @@ function __VedClassPatternShuffle() constructor
     static __Deserialize = function(_data)
     {
         __name        = _data.name;
+        __soundArray  = _data[$ "sounds"     ] ?? [];
         __gainForce   = _data[$ "gainForce"  ] ?? false;
         __gain        = _data[$ "gain"       ] ?? [1, 1];
         __gainOption  = _data[$ "gainOption" ] ?? __VED_OPTION_UNSET;
