@@ -43,6 +43,11 @@ function __VedClassPatternHLT() constructor
         __gainOption  = _data[$ "gainOption"] ?? __VED_OPTION_UNSET;
     }
     
+    static __BroadcastChange = function()
+    {
+        __VedNetRPC("VinylCreateHeadLoopTail", __soundHead, __soundLoop, __soundTail, __gainForce, __gain[0], __gain[1], __name);
+    }
+    
     static __SetGain = function(_value)
     {
         if (not array_equals(_value, __gain))
@@ -56,6 +61,8 @@ function __VedClassPatternHLT() constructor
                 __gain[0] = __gain[1];
                 __gain[1] = _temp;
             }
+            
+            __BroadcastChange();
         }
     }
     
@@ -65,6 +72,8 @@ function __VedClassPatternHLT() constructor
         {
             __gainOption = _value;
             if (__gainOption == __VED_OPTION_MULTIPLY) __SetGain([__gain[0], __gain[0]]);
+            
+            __BroadcastChange();
         }
     }
     
@@ -73,6 +82,8 @@ function __VedClassPatternHLT() constructor
         if (_value != __gainForce)
         {
             __gainForce = _value;
+            
+            __BroadcastChange();
         }
     }
     
@@ -180,6 +191,7 @@ function __VedClassPatternHLT() constructor
                     if (ImGui.Selectable(_soundName + "##Selectable", __soundHead == _soundName))
                     {
                         __soundHead = _soundName;
+                        __BroadcastChange();
                     }
                 
                     ++_i;
@@ -207,6 +219,7 @@ function __VedClassPatternHLT() constructor
                     if (ImGui.Selectable(_soundName + "##Selectable", __soundLoop == _soundName))
                     {
                         __soundLoop = _soundName;
+                        __BroadcastChange();
                     }
                 
                     ++_i;
@@ -234,6 +247,7 @@ function __VedClassPatternHLT() constructor
                     if (ImGui.Selectable(_soundName + "##Selectable", __soundTail == _soundName))
                     {
                         __soundTail = _soundName;
+                        __BroadcastChange();
                     }
                 
                     ++_i;

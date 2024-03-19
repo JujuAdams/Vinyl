@@ -1,1 +1,3 @@
 VedShow();
+
+dictionary = {};
