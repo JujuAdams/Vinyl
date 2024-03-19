@@ -6,7 +6,7 @@
 /// @param gainPattern
 /// @param pitchPattern
 
-function __VinylClassVoiceContext(_voice, _gainLocal, _pitchLocal, _gainPattern, _pitchPattern) constructor
+function __VinylClassVoiceSound(_voice, _gainLocal, _pitchLocal, _gainPattern, _pitchPattern) constructor
 {
     __voice        = _voice;
     __gainLocal    = _gainLocal;
@@ -17,5 +17,10 @@ function __VinylClassVoiceContext(_voice, _gainLocal, _pitchLocal, _gainPattern,
     if (VINYL_LIVE_EDIT)
     {
         __pattern = undefined;
+    }
+    
+    static __IsPlaying = function()
+    {
+        return audio_is_playing(__voice);
     }
 }

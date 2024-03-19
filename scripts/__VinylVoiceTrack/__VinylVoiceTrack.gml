@@ -8,10 +8,10 @@
 
 function __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainPattern, _pitchPattern)
 {
-    static _voiceDict  = __VinylSystem().__voiceContextDict;
-    static _voiceArray = __VinylSystem().__voiceContextArray;
+    static _voiceDict  = __VinylSystem().__voiceStructDict;
+    static _voiceArray = __VinylSystem().__voiceStructArray;
     
-    var _struct = new __VinylClassVoiceContext(_voice, _gainLocal, _pitchLocal, _gainPattern, _pitchPattern);
+    var _struct = new __VinylClassVoiceSound(_voice, _gainLocal, _pitchLocal, _gainPattern, _pitchPattern);
     array_push(_voiceArray, _struct);
     struct_set_from_hash(_voiceDict, int64(_voice), _struct);
     

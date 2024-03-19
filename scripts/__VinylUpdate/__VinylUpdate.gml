@@ -11,6 +11,22 @@ function __VinylUpdate()
         }
     }
     
-    ++_system.__frame;
-    var _deltaTimeFactor = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
+    with(_system)
+    {
+        ++__frame;
+        var _deltaTimeFactor = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
+        
+        var _i = 0;
+        repeat(array_length(__voiceStructUpdateArray))
+        {
+            if (not __voiceStructUpdateArray[_i].__Update())
+            {
+                array_delete(__voiceStructUpdateArray, _i, 1);
+            }
+            else
+            {
+                ++_i;
+            }
+        }
+    }
 }

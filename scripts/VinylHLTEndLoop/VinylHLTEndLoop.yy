@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__VinylClassVoiceContext",
+  "name": "VinylHLTEndLoop",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Voice",
-    "path": "folders/Vinyl/(Internals)/Voice.yy",
+    "name": "Sounds & Voices",
+    "path": "folders/Vinyl/Sounds & Voices.yy",
   },
 }

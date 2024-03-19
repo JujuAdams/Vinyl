@@ -28,7 +28,7 @@ function __VinylClassPatternSound(_sound, _loop, _gainMin, _gainMax, _pitchMin, 
     
     static __Update = function(_loop, _gainMin, _gainMax, _pitchMin, _pitchMax)
     {
-        static _voiceContextArray = __VinylSystem().__voiceContextArray;
+        static _voiceContextArray = __VinylSystem().__voiceStructArray;
         
         var _gainMinPrev  = __gainMin;
         var _gainMaxPrev  = __gainMax;

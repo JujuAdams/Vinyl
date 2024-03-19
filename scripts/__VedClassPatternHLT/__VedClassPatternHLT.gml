@@ -45,7 +45,7 @@ function __VedClassPatternHLT() constructor
     
     static __BroadcastChange = function()
     {
-        __VedNetRPC("VinylCreateHeadLoopTail", __soundHead, __soundLoop, __soundTail, __gainForce, __gain[0], __gain[1], __name);
+        __VedNetRPC("VinylCreateHLT", __soundHead, __soundLoop, __soundTail, __gainForce, __gain[0], __gain[1], __name);
     }
     
     static __SetGain = function(_value)

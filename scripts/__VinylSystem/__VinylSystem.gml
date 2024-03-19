@@ -18,6 +18,13 @@ enum __VINYL_SOUND_TYPE {
     __EXTERNAL_OGG,
 }
 
+enum __VINYL_HLT_STATE
+{
+    __HEAD,
+    __LOOP,
+    __TAIL,
+}
+
 __VinylSystem();
 function __VinylSystem()
 {
@@ -43,8 +50,9 @@ function __VinylSystem()
         
         __runtimePatternIndex = __VINYL_RUNTIME_PATTERN_MASK + 1;
         
-        __voiceContextArray = [];
-        __voiceContextDict  = {};
+        __voiceStructUpdateArray = [];
+        __voiceStructArray = [];
+        __voiceStructDict = {};
         
         //Initialize playback data now so we don't get lag on the first sound effect
         __VinylGenPlay();

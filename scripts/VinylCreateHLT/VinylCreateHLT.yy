@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylHeadLoopTailCue",
+  "name": "VinylCreateHLT",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Sounds & Voices",
-    "path": "folders/Vinyl/Sounds & Voices.yy",
+    "name": "Runtime Patterns",
+    "path": "folders/Vinyl/Runtime Patterns.yy",
   },
 }

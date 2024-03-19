@@ -3,13 +3,12 @@
 /// @param soundHead
 /// @param soundLoop
 /// @param soundTail
-/// @param gainForce
-/// @param gainMin
-/// @param gainMax
+/// @param [gainForce=false]
+/// @param [gain=1]
 /// @param [name]
 
-if (VINYL_LIVE_EDIT) __VinylNetRPCRegister("VinylCreateHeadLoopTail", VinylCreateHeadLoopTail);
-function VinylCreateHeadLoopTail(_soundHead, _soundLoop, _soundTail, _gainForce, _gainMin, _gainMax, _name = undefined)
+if (VINYL_LIVE_EDIT) __VinylNetRPCRegister("VinylCreateHLT", VinylCreateHLT);
+function VinylCreateHLT(_soundHead, _soundLoop, _soundTail, _gainForce = false, _gain = 1, _name = undefined)
 {
     static _system         = __VinylSystem();
     static _genPlayData    = __VinylGenPlay();
@@ -26,7 +25,7 @@ function VinylCreateHeadLoopTail(_soundHead, _soundLoop, _soundTail, _gainForce,
             {
                 //This is already a runtime pattern, use it!
                 var _pattern = struct_get_from_hash(_genPatternData, _index);
-                _pattern.__Update(_soundHead, _soundLoop, _soundTail, _gainForce, _gainMin, _gainMax);
+                _pattern.__Update(_soundHead, _soundLoop, _soundTail, _gainForce, _gain);
                 
                 return _index;
             }
@@ -39,7 +38,7 @@ function VinylCreateHeadLoopTail(_soundHead, _soundLoop, _soundTail, _gainForce,
     var _index = int64(_system.__runtimePatternIndex);
     _system.__runtimePatternIndex++;
     
-    var _pattern = new __VinylClassPatternHLT(_index, _soundHead, _soundLoop, _soundTail, _gainForce, _gainMin, _gainMax);
+    var _pattern = new __VinylClassPatternHLT(_index, _soundHead, _soundLoop, _soundTail, _gainForce, _gain);
     
     _genNameData[$ _name] = _index;
     struct_set_from_hash(_genPatternData, _index, _pattern);

@@ -5,10 +5,9 @@
 /// @param soundLoop
 /// @param soundTail
 /// @param gainForce
-/// @param gainMin
-/// @param gainMax
+/// @param gain
 
-function __VinylClassPatternHLT(_patternIndex, _soundHead, _soundLoop, _soundTail, _gainForce, _gainMin, _gainMax) constructor
+function __VinylClassPatternHLT(_patternIndex, _soundHead, _soundLoop, _soundTail, _gainForce, _gain) constructor
 {
     __patternIndex = _patternIndex;
     
@@ -16,25 +15,21 @@ function __VinylClassPatternHLT(_patternIndex, _soundHead, _soundLoop, _soundTai
     __soundLoop = __VinylImportSound(_soundLoop);
     __soundTail = __VinylImportSound(_soundTail);
     __gainForce = _gainForce;
-    __gainMin   = _gainMin;
-    __gainMax   = _gainMax;
+    __gain      = _gain;
     
     //Don't make this static!
     __Play = function(_loop, _gainLocal, _pitchLocal)
     {
-        var _gainPattern = __VinylRandomRange(__gainMin,  __gainMax);
-        var _voice = audio_play_sound(__soundHead, 0, false, _gainLocal*_gainPattern, 0, _pitchLocal);
-        __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainPattern, _pitchPattern).__pattern = __patternIndex;
-        return _voice;
+        var _struct = new __VinylClassVoiceHLT(self);
+        return _struct.__currentVoice;
     }
     
-    static __Update = function(_soundHead, _soundLoop, _soundTail, _gainForce, _gainMin, _gainMax)
+    static __Update = function(_soundHead, _soundLoop, _soundTail, _gainForce, _gain)
     {
         __soundHead = __VinylImportSound(_soundHead);
         __soundLoop = __VinylImportSound(_soundLoop);
         __soundTail = __VinylImportSound(_soundTail);
         __gainForce = _gainForce;
-        __gainMin   = _gainMin;
-        __gainMax   = _gainMax;
+        __gain      = _gain;
     }
 }
