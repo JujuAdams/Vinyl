@@ -28,6 +28,8 @@ function VinylCreateHLT(_soundHead, _soundLoop, _soundTail, _gainForce = false, 
         {
             _index = int64(_index);
             
+            __VinylTrace("Overwriting HLT pattern (name=", _name, ", index=", string(ptr(_index)), ")");
+            
             var _pattern = struct_get_from_hash(_genPatternData, _index);
             _pattern.__Update(_soundHead, _soundLoop, _soundTail, _gainForce, _gain);
             
@@ -35,11 +37,11 @@ function VinylCreateHLT(_soundHead, _soundLoop, _soundTail, _gainForce = false, 
         }
     }
     
-    __VinylTrace("Creating new head-loop-tail runtime pattern (name=", _name, ")");
-    
     //Generate a new index for this pattern
     var _index = int64(_system.__runtimePatternIndex);
     _system.__runtimePatternIndex++;
+    
+    __VinylTrace("Creating new runtime HLT pattern (name=", _name, ", index=", string(ptr(_index)), ")");
     
     var _pattern = new __VinylClassPatternHLT(_index, _soundHead, _soundLoop, _soundTail, _gainForce, _gain);
     
