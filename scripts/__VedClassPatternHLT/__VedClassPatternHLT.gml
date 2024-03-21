@@ -95,6 +95,33 @@ function __VedClassPatternHLT() constructor
         }
     }
     
+    static __SetHeadSound = function(_value)
+    {
+        if (_value != __soundHead)
+        {
+            __soundHead = _value;
+            __BroadcastChange();
+        }
+    }
+    
+    static __SetLoopSound = function(_value)
+    {
+        if (_value != __soundHead)
+        {
+            __soundLoop = _value;
+            __BroadcastChange();
+        }
+    }
+    
+    static __SetTailSound = function(_value)
+    {
+        if (_value != __soundHead)
+        {
+            __soundTail = _value;
+            __BroadcastChange();
+        }
+    }
+    
     static __GetAbbreviation = function()
     {
         return "HLT";
@@ -189,12 +216,7 @@ function __VedClassPatternHLT() constructor
                 repeat(array_length(_soundArray))
                 {
                     var _soundName = _soundArray[_i];
-                    if (ImGui.Selectable(_soundName + "##Selectable", __soundHead == _soundName))
-                    {
-                        __soundHead = _soundName;
-                        __BroadcastChange();
-                    }
-                
+                    if (ImGui.Selectable(_soundName + "##Selectable", __soundHead == _soundName)) __SetHeadSound(_soundName);
                     ++_i;
                 }
             
@@ -202,7 +224,7 @@ function __VedClassPatternHLT() constructor
             }
             
             ImGui.TableSetColumnIndex(2);
-            if (ImGui.Button("Clear")) __soundHead = undefined;
+            if (ImGui.Button("Clear##Clear Head")) __SetHeadSound(undefined);
             
             //Loop
             ImGui.TableNextRow();
@@ -217,12 +239,7 @@ function __VedClassPatternHLT() constructor
                 repeat(array_length(_soundArray))
                 {
                     var _soundName = _soundArray[_i];
-                    if (ImGui.Selectable(_soundName + "##Selectable", __soundLoop == _soundName))
-                    {
-                        __soundLoop = _soundName;
-                        __BroadcastChange();
-                    }
-                
+                    if (ImGui.Selectable(_soundName + "##Selectable", __soundLoop == _soundName)) __SetLoopSound(_soundName);
                     ++_i;
                 }
             
@@ -230,7 +247,7 @@ function __VedClassPatternHLT() constructor
             }
             
             ImGui.TableSetColumnIndex(2);
-            if (ImGui.Button("Clear")) __soundLoop = undefined;
+            if (ImGui.Button("Clear##Clear Loop")) __SetLoopSound(undefined);
             
             //Tail
             ImGui.TableNextRow();
@@ -245,12 +262,7 @@ function __VedClassPatternHLT() constructor
                 repeat(array_length(_soundArray))
                 {
                     var _soundName = _soundArray[_i];
-                    if (ImGui.Selectable(_soundName + "##Selectable", __soundTail == _soundName))
-                    {
-                        __soundTail = _soundName;
-                        __BroadcastChange();
-                    }
-                
+                    if (ImGui.Selectable(_soundName + "##Selectable", __soundTail == _soundName)) __SetTailSound(_soundName);
                     ++_i;
                 }
             
@@ -258,7 +270,7 @@ function __VedClassPatternHLT() constructor
             }
             
             ImGui.TableSetColumnIndex(2);
-            if (ImGui.Button("Clear")) __soundTail = undefined;
+            if (ImGui.Button("Clear##Clear Tail")) __SetTailSound(undefined);
             
             ImGui.EndTable();
         }
