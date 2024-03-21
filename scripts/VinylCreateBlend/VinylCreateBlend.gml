@@ -2,7 +2,7 @@
 
 /// @param soundArray
 
-function VinylCreateMulti(_soundArray)
+function VinylCreateBlend(_soundArray)
 {
     
 }

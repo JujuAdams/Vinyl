@@ -9,7 +9,7 @@ function __VedClassModalNewPattern() : __VedClassModal() constructor
     
     static __BuildUI = function()
     {
-        static _patternOptions = [__VED_PATTERN_TYPE_SHUFFLE, __VED_PATTERN_TYPE_HEAD_LOOP_TAIL, __VED_PATTERN_TYPE_MULTI];
+        static _patternOptions = [__VED_PATTERN_TYPE_SHUFFLE, __VED_PATTERN_TYPE_HEAD_LOOP_TAIL, __VED_PATTERN_TYPE_BLEND];
         
         if (ImGui.BeginPopupModal(__handle, undefined, ImGuiWindowFlags.NoResize))
         {
@@ -87,7 +87,7 @@ function __VedClassModalNewPattern() : __VedClassModal() constructor
                 {
                     case __VED_PATTERN_TYPE_SHUFFLE:        var _constructor = __VedClassPatternShuffle; break;
                     case __VED_PATTERN_TYPE_HEAD_LOOP_TAIL: var _constructor = __VedClassPatternHLT;     break;
-                    case __VED_PATTERN_TYPE_MULTI:          var _constructor = __VedClassPatternMulti;   break;
+                    case __VED_PATTERN_TYPE_BLEND:          var _constructor = __VedClassPatternBlend;   break;
                     
                     default:
                         __VedError("Unhandled pattern type \"", __type, "\"");

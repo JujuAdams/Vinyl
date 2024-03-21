@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VedClassPatternMulti() constructor
+function __VedClassPatternBlend() constructor
 {
     static _system = __VedSystem();
     
@@ -9,7 +9,7 @@ function __VedClassPatternMulti() constructor
     __soundDict   = {};
     __soundArray  = [];
     __gainForce   = false;
-    __gain        = [1, 1];
+    __gain        = 1;
     __gainOption  = __VED_OPTION_UNSET;
     
     static __CompilePlay = function(_buffer)
@@ -30,7 +30,7 @@ function __VedClassPatternMulti() constructor
     static __Serialize = function(_array)
     {
         array_push(_array, {
-            type:       __VED_PATTERN_TYPE_MULTI,
+            type:       __VED_PATTERN_TYPE_BLEND,
             name:       __name,
             sounds:     __soundArray,
             gainForce:  __gainForce,
@@ -53,6 +53,11 @@ function __VedClassPatternMulti() constructor
             __soundDict[__soundArray[_i]] = true;
             ++_i;
         }
+    }
+    
+    static __BroadcastChange = function()
+    {
+        __VedNetRPC("VinylCreateBlend", __soundArray, __gainForce, __gain, VED_GENERATED_ASSET_PREFIX + __name);
     }
     
     static __SetGain = function(_value)
@@ -90,16 +95,16 @@ function __VedClassPatternMulti() constructor
     
     static __GetAbbreviation = function()
     {
-        return "Mul";
+        return "Bld";
     }
     
     static __BuildUI = function(_multiselector)
     {
         var _soundArray = _system.__project.__libSound.__GetNameArray();
         
-        static _optionArray = [__VED_OPTION_UNSET, __VED_OPTION_MULTIPLY, __VED_OPTION_RANDOMIZE];
+        static _optionArray = [__VED_OPTION_UNSET, __VED_OPTION_MULTIPLY];
         
-        ImGui.Text("Multi pattern");
+        ImGui.Text("Blend pattern");
         ImGui.NewLine();
         
         if (ImGui.BeginTable("Pattern", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 70))
@@ -152,15 +157,8 @@ function __VedClassPatternMulti() constructor
                 
                 case __VED_OPTION_MULTIPLY:
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
-                    var _newValue = ImGui.SliderFloat("##Gain " + __name, __gain[0], 0.01, 2);
+                    var _newValue = ImGui.SliderFloat("##Gain " + __name, __gain, 0.01, 2);
                     __SetGain([_newValue, _newValue]);
-                break;
-                
-                case __VED_OPTION_RANDOMIZE:
-                    var _newValue = variable_clone(__gain);
-                    ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
-                    ImGui.SliderFloat2("##Gain " + __name, _newValue, 0.01, 2);
-                    __SetGain(_newValue);
                 break;
             }
             

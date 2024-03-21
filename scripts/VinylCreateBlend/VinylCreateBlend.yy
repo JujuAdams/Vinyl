@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "VinylCreateMulti",
+  "name": "VinylCreateBlend",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

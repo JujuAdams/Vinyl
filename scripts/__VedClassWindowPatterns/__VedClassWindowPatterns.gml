@@ -9,7 +9,7 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
     __showDict = {
         "__VedClassPatternShuffle": true,
         "__VedClassPatternHLT":     true,
-        "__VedClassPatternMulti":   true,
+        "__VedClassPatternBlend":   true,
     };
     
     static __Update = function()
@@ -61,7 +61,7 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
                 ImGui.SameLine();
                 __showDict[$ "__VedClassPatternHLT"] = ImGui.Checkbox("H-L-T", __showDict[$ "__VedClassPatternHLT"]);
                 ImGui.SameLine();
-                __showDict[$ "__VedClassPatternMulti"] = ImGui.Checkbox("Multi", __showDict[$ "__VedClassPatternMulti"]);
+                __showDict[$ "__VedClassPatternBlend"] = ImGui.Checkbox("Blend", __showDict[$ "__VedClassPatternBlend"]);
                 
                 //Keep an array of all visible sounds. We use this later for the "select all" button
                 var _visibleArray = [];
