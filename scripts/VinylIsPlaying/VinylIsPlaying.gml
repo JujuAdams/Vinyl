@@ -4,10 +4,10 @@
 
 function VinylIsPlaying(_voice)
 {
-    static _voiceDict = __VinylSystem().__voiceStructDict;
+    static _voiceStructDict = __VinylSystem().__voiceStructDict;
     
-    var _voiceContext = struct_get_from_hash(_voiceDict, int64(_voice));
-    if (_voiceContext == undefined)
+    var _voiceStruct = struct_get_from_hash(_voiceStructDict, int64(_voice));
+    if (_voiceStruct == undefined)
     {
         return audio_is_playing(_voice);
     }

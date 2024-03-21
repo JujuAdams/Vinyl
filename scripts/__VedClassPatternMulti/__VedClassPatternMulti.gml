@@ -14,7 +14,17 @@ function __VedClassPatternMulti() constructor
     
     static __CompilePlay = function(_buffer)
     {
-        
+        //TODO
+    }
+    
+    static __CompilePattern = function(_buffer)
+    {
+        //TODO
+    }
+    
+    static __CompileName = function(_buffer)
+    {
+        buffer_write(_buffer, buffer_text, $"        _data[$ \"{VED_GENERATED_ASSET_PREFIX}{__name}\"] = {VED_GENERATED_ASSET_PREFIX}{__name};\n");
     }
     
     static __Serialize = function(_array)

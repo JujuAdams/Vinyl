@@ -8,12 +8,12 @@
 
 function __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainPattern, _pitchPattern)
 {
-    static _voiceDict  = __VinylSystem().__voiceStructDict;
+    static _voiceStructDict  = __VinylSystem().__voiceStructDict;
     static _voiceArray = __VinylSystem().__voiceStructArray;
     
     var _struct = new __VinylClassVoiceSound(_voice, _gainLocal, _pitchLocal, _gainPattern, _pitchPattern);
     array_push(_voiceArray, _struct);
-    struct_set_from_hash(_voiceDict, int64(_voice), _struct);
+    struct_set_from_hash(_voiceStructDict, int64(_voice), _struct);
     
     return _struct;
 }

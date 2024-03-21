@@ -1,49 +1,54 @@
 {
+  "projectName":"vinyl.yyp",
+  "ident":"002B13F0BAD8EFBA",
+  "assets":[
+  ],
   "patterns":[
     {
-      "pitchOption":"Unset",
-      "type":"Shuffle",
-      "soundArray":[
-      ],
-      "gainForce":1.0,
-      "pitchForce":0.0,
       "name":"rhrht",
+      "type":"Shuffle",
       "gain":[
         0.73500001430511475,
         1.1059999465942383
       ],
+      "sounds":[
+      ],
+      "gainForce":1.0,
       "gainOption":"Randomize",
+      "pitchForce":0.0,
       "pitch":[
         1.0,
         1.0
-      ]
+      ],
+      "pitchOption":"Unset"
     },
     {
-      "pitchOption":"Unset",
-      "type":"Shuffle",
-      "soundArray":[
-        "sndBleep0",
-        "sndBleep1",
-        "sndBleep2",
-        "sndBleep3",
-        "sndBleep4"
-      ],
-      "gainForce":0.0,
-      "pitchForce":0.0,
       "name":"Footsteps",
+      "type":"Shuffle",
       "gain":[
         1.0,
         1.0
       ],
+      "sounds":[
+      ],
+      "gainForce":0.0,
       "gainOption":"Unset",
+      "pitchForce":0.0,
       "pitch":[
         1.0,
         1.0
-      ]
+      ],
+      "pitchOption":"Unset"
+    },
+    {
+      "soundHead":"sndBleep0",
+      "soundLoop":"sndBleep1",
+      "soundTail":"sndBleep2",
+      "name":"LoopingTrack",
+      "type":"Head-Loop-Tail",
+      "gain":1.0,
+      "gainForce":0.0,
+      "gainOption":"Unset"
     }
-  ],
-  "projectName":"vinyl.yyp",
-  "ident":"002B13F0BAD8EFBA",
-  "assets":[
   ]
 }

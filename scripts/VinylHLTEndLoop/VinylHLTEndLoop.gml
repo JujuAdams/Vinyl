@@ -4,9 +4,9 @@
 
 function VinylHLTEndLoop(_voice)
 {
-    static _voiceDict = __VinylSystem().__voiceStructDict;
+    static _voiceStructDict = __VinylSystem().__voiceStructDict;
     
-    var _voiceStruct = struct_get_from_hash(_voiceDict, int64(_voice));
+    var _voiceStruct = struct_get_from_hash(_voiceStructDict, int64(_voice));
     
     var _instanceOf = instanceof(_voiceStruct);
     

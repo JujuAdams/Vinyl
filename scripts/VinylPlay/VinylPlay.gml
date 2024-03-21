@@ -8,6 +8,7 @@
 function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1)
 {
     static _genPlayData = __VinylGenPlay();
+    static _genNameData = __VinylGenPatternNames();
     
     var _function = struct_get_from_hash(_genPlayData, int64(_pattern));
     if (_function == undefined)
@@ -55,7 +56,18 @@ function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1)
         if (__VINYL_REPORT_FAILURE_TO_PLAY)
         {
             var _voice = _function(_loop, _gain, _pitch);
-            if (_voice < 0) __VinylWarning("Failed to play sound ", audio_get_name(VinylFallbackSound));
+            if (__VINYL_REPORT_FAILURE_TO_PLAY && (_voice < 0))
+            {
+                if ((int64(_pattern) <= 0xFFFFFFFF) && audio_exists(_pattern))
+                {
+                    __VinylWarning("Failed to play sound ", audio_get_name(_pattern));
+                }
+                else
+                {
+                    __VinylWarning("Failed to play pattern ", string(ptr(_pattern)));
+                }
+            }
+            
             return _voice;
         }
         else

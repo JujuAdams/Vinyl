@@ -28,11 +28,31 @@ function __VinylClassVoiceHLT(_pattern) constructor
     }
     else
     {
-        __currentVoice = audio_play_sound(__pattern.__soundLoop, 0, false);
-        struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
-        __voiceLoop = __currentVoice;
-        
-        __state = __VINYL_HLT_STATE.__LOOP;
+        var _soundLoop = __pattern.__soundLoop;
+        if (_soundLoop != undefined)
+        {
+            __currentVoice = audio_play_sound(_soundLoop, 0, false);
+            struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
+            __voiceLoop = __currentVoice;
+            
+            __state = __VINYL_HLT_STATE.__LOOP;
+        }
+        else
+        {
+            __state = __VINYL_HLT_STATE.__TAIL;
+            
+            var _soundTail = __pattern.__soundTail;
+            if (_soundTail != undefined)
+            {
+                __currentVoice = audio_play_sound(_soundTail, 0, false);
+                struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
+                __voiceLoop = __currentVoice;
+            }
+            else
+            {
+                __currentVoice = -1;
+            }
+        }
     }
     
     __doLoop = true;
@@ -48,7 +68,7 @@ function __VinylClassVoiceHLT(_pattern) constructor
             switch(__state)
             {
                 case __VINYL_HLT_STATE.__HEAD:
-                    if (__doLoop)
+                    if (__doLoop && (__pattern.__soundLoop != undefined))
                     {
                         __currentVoice = audio_play_sound(__pattern.__soundLoop, 0, true);
                         struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
@@ -58,12 +78,20 @@ function __VinylClassVoiceHLT(_pattern) constructor
                     }
                     else
                     {
-                        //If we've already indicated that the loop should end then move on to the tail immediately
-                        __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false);
-                        struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
-                        __voiceTail = __currentVoice;
-                        
                         __state = __VINYL_HLT_STATE.__TAIL;
+                        
+                        if (__pattern.__soundTail != undefined)
+                        {
+                            //If we've already indicated that the loop should end then move on to the tail immediately
+                            __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false);
+                            struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
+                            __voiceTail = __currentVoice;
+                        }
+                        else
+                        {
+                            __currentVoice = -1;
+                            return false;
+                        }
                     }
                 break;
                 
@@ -78,13 +106,13 @@ function __VinylClassVoiceHLT(_pattern) constructor
                     }
                     else
                     {
-                        __currentVoice = undefined;
+                        __currentVoice = -1;
                         return false;
                     }
                 break;
                 
                 case __VINYL_HLT_STATE.__TAIL:
-                    __currentVoice = undefined;
+                    __currentVoice = -1;
                     return false;
                 break;
             }
@@ -95,7 +123,7 @@ function __VinylClassVoiceHLT(_pattern) constructor
     
     static __IsPlaying = function()
     {
-        return (__currentVoice != undefined);
+        return (__currentVoice >= 0);
     }
     
     static __EndLoop = function()

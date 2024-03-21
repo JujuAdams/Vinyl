@@ -44,12 +44,12 @@ function __VinylClassPatternSound(_sound, _loop, _gainMin, _gainMax, _pitchMin, 
         var _i = 0;
         repeat(array_length(_voiceContextArray))
         {
-            var _voiceContext = _voiceContextArray[_i];
-            if (_voiceContext.__pattern == __sound)
+            var _voiceStruct = _voiceContextArray[_i];
+            if (_voiceStruct.__pattern == __sound)
             {
-                var _voice            = _voiceContext.__voice;
-                var _gainPatternPrev  = _voiceContext.__gainPattern;
-                var _pitchPatternPrev = _voiceContext.__pitchPattern;
+                var _voice            = _voiceStruct.__voice;
+                var _gainPatternPrev  = _voiceStruct.__gainPattern;
+                var _pitchPatternPrev = _voiceStruct.__pitchPattern;
                 
                 if (_gainMinPrev == _gainMaxPrev)
                 {
@@ -69,12 +69,12 @@ function __VinylClassPatternSound(_sound, _loop, _gainMin, _gainMax, _pitchMin, 
                     var _pitchPattern = lerp(_pitchMin, _pitchMax, clamp((_pitchPatternPrev - _pitchMinPrev) / (_pitchMaxPrev - _pitchMinPrev), 0, 1));
                 }
                 
-                _voiceContext.__gainPattern  = _gainPattern;
-                _voiceContext.__pitchPattern = _pitchPattern;
+                _voiceStruct.__gainPattern  = _gainPattern;
+                _voiceStruct.__pitchPattern = _pitchPattern;
                 
                 audio_sound_loop(_voice, _loop);
-                audio_sound_gain(_voice, _voiceContext.__gainLocal*_gainPattern, VINYL_STEP_DURATION);
-                audio_sound_pitch(_voice, _voiceContext.__pitchLocal*_pitchPattern);
+                audio_sound_gain(_voice, _voiceStruct.__gainLocal*_gainPattern, VINYL_STEP_DURATION);
+                audio_sound_pitch(_voice, _voiceStruct.__pitchLocal*_pitchPattern);
             }
             
             ++_i;

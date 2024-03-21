@@ -15,20 +15,23 @@ function VinylCreateHLT(_soundHead, _soundLoop, _soundTail, _gainForce = false, 
     static _genPatternData = __VinylGenPattern();
     static _genNameData    = __VinylGenPatternNames();
     
+    //Fix GameMaker's stupid fucking JSON decoding
+    //This is fixed in newer GameMaker versions but jeez was this a dumb decision that lasted far too long
+    if (_soundHead == pointer_null) _soundHead = undefined;
+    if (_soundLoop == pointer_null) _soundLoop = undefined;
+    if (_soundTail == pointer_null) _soundTail = undefined;
+    
     if (_name != undefined)
     {
         var _index = _genNameData[$ _name];
         if (_index != undefined)
         {
             _index = int64(_index);
-            if (_index & __VINYL_RUNTIME_PATTERN_MASK)
-            {
-                //This is already a runtime pattern, use it!
-                var _pattern = struct_get_from_hash(_genPatternData, _index);
-                _pattern.__Update(_soundHead, _soundLoop, _soundTail, _gainForce, _gain);
-                
-                return _index;
-            }
+            
+            var _pattern = struct_get_from_hash(_genPatternData, _index);
+            _pattern.__Update(_soundHead, _soundLoop, _soundTail, _gainForce, _gain);
+            
+            return _index;
         }
     }
     
