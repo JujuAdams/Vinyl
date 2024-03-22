@@ -30,7 +30,7 @@ function __VedClassModalNewPattern() : __VedClassModal() constructor
                 if ((not _disabled) && (string_length(__patternName) > 0))
                 {
                     ImGui.SameLine(undefined, 23);
-                    ImGui.TextColored("Too short!", #FF5050);
+                    ImGui.TextColored("Too short!", __VED_COLOUR_RED);
                 }
                 
                 _disabled = true;
@@ -42,7 +42,7 @@ function __VedClassModalNewPattern() : __VedClassModal() constructor
                 if (not _disabled)
                 {
                     ImGui.SameLine(undefined, 23);
-                    ImGui.TextColored("Invalid!", #FF5050);
+                    ImGui.TextColored("Invalid!", __VED_COLOUR_RED);
                 }
                 
                 _disabled = true;
@@ -53,7 +53,7 @@ function __VedClassModalNewPattern() : __VedClassModal() constructor
                 if (not _disabled)
                 {
                     ImGui.SameLine(undefined, 23);
-                    ImGui.TextColored("Invalid!", #FF5050);
+                    ImGui.TextColored("Invalid!", __VED_COLOUR_RED);
                 }
                 
                 _disabled = true;
@@ -64,7 +64,7 @@ function __VedClassModalNewPattern() : __VedClassModal() constructor
                 if (not _disabled)
                 {
                     ImGui.SameLine(undefined, 23);
-                    ImGui.TextColored("Conflict!", #FF5050);
+                    ImGui.TextColored("Conflict!", __VED_COLOUR_RED);
                 }
                 
                 _disabled = true;

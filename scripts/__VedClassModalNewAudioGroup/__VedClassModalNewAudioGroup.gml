@@ -19,7 +19,7 @@ function __VedClassModalNewAudioGroup() : __VedClassModal() constructor
             if (_conflict)
             {
                 ImGui.SameLine(undefined, 23);
-                ImGui.TextColored("Conflict!", #FF5050);
+                ImGui.TextColored("Conflict!", __VED_COLOUR_RED);
             }
             
             ImGui.Separator();
