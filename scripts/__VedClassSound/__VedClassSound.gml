@@ -230,12 +230,12 @@ function __VedClassSound() constructor
         }
     }
     
-    static __BuildUI = function(_multiselector)
+    static __BuildUI = function(_multiselector, _dictionary)
     {
         __EnsureData();
         
         //All the GameMaker properties
-        if (ImGui.BeginTable("GameMaker Properties", 1, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 160))
+        if (ImGui.BeginTable("GameMaker Properties", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 160))
         {
             var _audioGroupArray = _system.__project.__libAudioGroup.__GetNameArray();
             var _assetTagArray   = _system.__project.__libAssetTag.__GetNameArray();
@@ -243,6 +243,7 @@ function __VedClassSound() constructor
             
             //Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("GameMaker Project");
+            ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 27);
             ImGui.TableHeadersRow();
             
             //Audio group drop-down
@@ -271,6 +272,19 @@ function __VedClassSound() constructor
                 }
                 
                 ImGui.EndCombo();
+            }
+            
+            if (_multiselector.__GetSelectedCount() > 1)
+            {
+                ImGui.TableSetColumnIndex(1);
+                if (_multiselector.__ValueDifferent(_dictionary, "__audioGroup"))
+                {
+                    ImGui.TextColored("Diff", __VED_COLOUR_RED);
+                }
+                else
+                {
+                    ImGui.TextColored("Same", __VED_COLOUR_GREEN);
+                }
             }
             
             //Asset tag drop-down
@@ -308,6 +322,19 @@ function __VedClassSound() constructor
                 ImGui.EndCombo();
             }
             
+            if (_multiselector.__GetSelectedCount() > 1)
+            {
+                ImGui.TableSetColumnIndex(1);
+                if (_multiselector.__ValueDifferent(_dictionary, "__assetTags"))
+                {
+                    ImGui.TextColored("Diff", __VED_COLOUR_RED);
+                }
+                else
+                {
+                    ImGui.TextColored("Same", __VED_COLOUR_GREEN);
+                }
+            }
+            
             //Compression settings
             static _compressionArray = ["WAV",
                                         "OGG - Decompress during playback",
@@ -328,6 +355,22 @@ function __VedClassSound() constructor
                     {
                         _struct.__SetAttributes(__attributes);
                     }));
+                }
+                
+                if (_i == 0)
+                {
+                    if (_multiselector.__GetSelectedCount() > 1)
+                    {
+                        ImGui.TableSetColumnIndex(1);
+                        if (_multiselector.__ValueDifferent(_dictionary, "__attributes"))
+                        {
+                            ImGui.TextColored("Diff", __VED_COLOUR_RED);
+                        }
+                        else
+                        {
+                            ImGui.TextColored("Same", __VED_COLOUR_GREEN);
+                        }
+                    }
                 }
                 
                 ++_i;
