@@ -117,16 +117,47 @@ function __VedClassMultiselector() constructor
         }
     }
     
-    static __ForEachSelected = function(_dictionary, _method)
+    static __ForEachSelected = function(_dictionary, _method, _metadata)
     {
         var _nameArray = variable_struct_get_names(__selectedDict);
         var _i = 0
         repeat(array_length(_nameArray))
         {
             var _name = _nameArray[_i];
-            _method(_name, _dictionary[$ _name]);
+            _method(_name, _dictionary[$ _name], _metadata);
             ++_i;
         }
+    }
+    
+    static __ValueDifferent = function(_dictionary, _variableName)
+    {
+        var _nameArray = variable_struct_get_names(__selectedDict);
+        if (array_length(_nameArray) > 0)
+        {
+            var _expectedValue = _dictionary[$ _nameArray[0]][$ _variableName];
+            if (is_array(_expectedValue))
+            {
+                var _i = 1;
+                repeat(array_length(_nameArray)-1)
+                {
+                    var _name = _nameArray[_i];
+                    if (not array_equals(_dictionary[$ _name][$ _variableName], _expectedValue)) return true;
+                    ++_i;
+                }
+            }
+            else
+            {
+                var _i = 1;
+                repeat(array_length(_nameArray)-1)
+                {
+                    var _name = _nameArray[_i];
+                    if (_dictionary[$ _name][$ _variableName] != _expectedValue) return true;
+                    ++_i;
+                }
+            }
+        }
+        
+        return false;
     }
     
     static __GetSelectedArray = function(_sort = true)

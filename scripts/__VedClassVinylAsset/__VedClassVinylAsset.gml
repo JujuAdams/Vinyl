@@ -285,11 +285,11 @@ function __VedClassVinylAsset() constructor
         return _result;
     }
     
-    static __BuildUI = function(_multiselector)
+    static __BuildUI = function(_multiselector, _dictionary)
     {
         static _optionArray         = [__VED_OPTION_UNSET, __VED_OPTION_MULTIPLY, __VED_OPTION_RANDOMIZE];
         static _ruleLoopOptionArray = [__VED_OPTION_SET, __VED_OPTION_IGNORE];
-        static _ruleOptionArray     = [__VED_OPTION_MULTIPLY, __VED_OPTION_SET, __VED_OPTION_IGNORE];
+        static _ruleOptionArray     = [__VED_OPTION_MULTIPLY, __VED_OPTION_IGNORE];
         
         static _funcTextRange = function(_min, _max)
         {
@@ -338,12 +338,12 @@ function __VedClassVinylAsset() constructor
         
         ImGui.NewLine();
         
-        if (ImGui.BeginTable("Sound", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 110))
+        if (ImGui.BeginTable("Sound", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 160))
         {
             ////Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("Sound",   ImGuiTableColumnFlags.WidthFixed, 100);
-            ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 125);
             ImGui.TableSetupColumn("",  ImGuiTableColumnFlags.WidthStretch, 1);
+            ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 27);
             ImGui.TableHeadersRow();
             
             //Loop
@@ -352,17 +352,37 @@ function __VedClassVinylAsset() constructor
             ImGui.Text("Loop");
             
             ImGui.TableSetColumnIndex(1);
-            ImGui.Text(((__ruleLoopOption == __VED_OPTION_SET) && (__ruleLoop != undefined))? "Overridden" : "Set");
-            
-            ImGui.TableSetColumnIndex(2);
             ImGui.BeginDisabled((__ruleLoopOption == __VED_OPTION_SET) && (__ruleLoop != undefined));
-            __SetLoop(ImGui.Checkbox("##Loop", __loop));
+            
+            var _newValue = ImGui.Checkbox("##Loop", __loop)
+            if (__loop != _newValue)
+            {
+                _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                {
+                    _struct.__SetLoop(_metadata);
+                },
+                _newValue);
+            }
+            
             ImGui.EndDisabled();
             
-            //Gain
+            if (_multiselector.__GetSelectedCount() > 1)
+            {
+                ImGui.TableSetColumnIndex(2);
+                if (_multiselector.__ValueDifferent(_dictionary, "__loop"))
+                {
+                    ImGui.TextColored("Diff", __VED_COLOUR_RED);
+                }
+                else
+                {
+                    ImGui.TextColored("Same", __VED_COLOUR_GREEN);
+                }
+            }
+            
+            //Gain Option
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Gain");
+            ImGui.Text("Gain Option");
             
             var _originalOption = __gainOption;
             ImGui.TableSetColumnIndex(1);
@@ -381,7 +401,11 @@ function __VedClassVinylAsset() constructor
                         var _optionName = _optionArray[_i];
                         if (ImGui.Selectable(_optionName + "##Gain Option " + __name, (_originalOption == _optionName)))
                         {
-                            __SetGainOption(_optionName);
+                            _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                            {
+                                _struct.__SetGainOption(_metadata);
+                            },
+                            _optionName);
                         }
                         
                         ++_i;
@@ -391,7 +415,25 @@ function __VedClassVinylAsset() constructor
                 }
             }
             
-            ImGui.TableSetColumnIndex(2);
+            if (_multiselector.__GetSelectedCount() > 1)
+            {
+                ImGui.TableSetColumnIndex(2);
+                if (_multiselector.__ValueDifferent(_dictionary, "__gainOption"))
+                {
+                    ImGui.TextColored("Diff", __VED_COLOUR_RED);
+                }
+                else
+                {
+                    ImGui.TextColored("Same", __VED_COLOUR_GREEN);
+                }
+            }
+            
+            //Gain
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+            ImGui.Text("Gain");
+            
+            ImGui.TableSetColumnIndex(1);
             switch((__ruleGainOption == __VED_OPTION_SET)? __VED_OPTION_UNSET : __gainOption)
             {
                 case __VED_OPTION_UNSET:
@@ -404,21 +446,50 @@ function __VedClassVinylAsset() constructor
                 case __VED_OPTION_MULTIPLY:
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
                     var _newValue = ImGui.SliderFloat("##Gain " + __name, __gain[0], 0.01, 2);
-                    __SetGain([_newValue, _newValue]);
+                    
+                    if (_newValue != __gain[0])
+                    {
+                        _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                        {
+                            _struct.__SetGain(_metadata);
+                        },
+                        [_newValue, _newValue]);
+                    }
                 break;
                 
                 case __VED_OPTION_RANDOMIZE:
                     var _newValue = variable_clone(__gain);
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
                     ImGui.SliderFloat2("##Gain " + __name, _newValue, 0.01, 2);
-                    __SetGain(_newValue);
+                    
+                    if (not array_equals(_newValue, __gain))
+                    {
+                        _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                        {
+                            _struct.__SetGain(_metadata);
+                        },
+                        _newValue);
+                    }
                 break;
             }
             
-            //Pitch
+            if (_multiselector.__GetSelectedCount() > 1)
+            {
+                ImGui.TableSetColumnIndex(2);
+                if (_multiselector.__ValueDifferent(_dictionary, "__gain"))
+                {
+                    ImGui.TextColored("Diff", __VED_COLOUR_RED);
+                }
+                else
+                {
+                    ImGui.TextColored("Same", __VED_COLOUR_GREEN);
+                }
+            }
+            
+            //Pitch Option
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Pitch");
+            ImGui.Text("Pitch Option");
             
             var _originalOption = __pitchOption;
             ImGui.TableSetColumnIndex(1);
@@ -437,7 +508,11 @@ function __VedClassVinylAsset() constructor
                         var _optionName = _optionArray[_i];
                         if (ImGui.Selectable(_optionName + "##Pitch Option " + __name, (_originalOption == _optionName)))
                         {
-                            __SetPitchOption(_optionName);
+                            _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                            {
+                                _struct.__SetPitchOption(_metadata);
+                            },
+                            _optionName);
                         }
                         
                         ++_i;
@@ -447,7 +522,25 @@ function __VedClassVinylAsset() constructor
                 }
             }
             
-            ImGui.TableSetColumnIndex(2);
+            if (_multiselector.__GetSelectedCount() > 1)
+            {
+                ImGui.TableSetColumnIndex(2);
+                if (_multiselector.__ValueDifferent(_dictionary, "__pitchOption"))
+                {
+                    ImGui.TextColored("Diff", __VED_COLOUR_RED);
+                }
+                else
+                {
+                    ImGui.TextColored("Same", __VED_COLOUR_GREEN);
+                }
+            }
+            
+            //Pitch
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+            ImGui.Text("Pitch");
+            
+            ImGui.TableSetColumnIndex(1);
             switch((__rulePitchOption == __VED_OPTION_SET)? __VED_OPTION_UNSET : __pitchOption)
             {
                 case __VED_OPTION_UNSET:
@@ -460,15 +553,44 @@ function __VedClassVinylAsset() constructor
                 case __VED_OPTION_MULTIPLY:
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
                     var _newValue = ImGui.SliderFloat("##Pitch " + __name, __pitch[0], 0.01, 2);
-                    __SetPitch([_newValue, _newValue]);
+                    
+                    if (_newValue != __pitch[0])
+                    {
+                        _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                        {
+                            _struct.__SetPitch(_metadata);
+                        },
+                        [_newValue, _newValue]);
+                    }
                 break;
                 
                 case __VED_OPTION_RANDOMIZE:
                     var _newValue = variable_clone(__pitch);
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
                     ImGui.SliderFloat2("##Pitch " + __name, _newValue, 0.01, 2);
-                    __SetPitch(_newValue);
+                    
+                    if (not array_equals(_newValue, __pitch))
+                    {
+                        _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                        {
+                            _struct.__SetPitch(_metadata);
+                        },
+                        _newValue);
+                    }
                 break;
+            }
+            
+            if (_multiselector.__GetSelectedCount() > 1)
+            {
+                ImGui.TableSetColumnIndex(2);
+                if (_multiselector.__ValueDifferent(_dictionary, "__pitch"))
+                {
+                    ImGui.TextColored("Diff", __VED_COLOUR_RED);
+                }
+                else
+                {
+                    ImGui.TextColored("Same", __VED_COLOUR_GREEN);
+                }
             }
             
             //Reset
@@ -476,9 +598,12 @@ function __VedClassVinylAsset() constructor
             ImGui.TableSetColumnIndex(0);
             if (ImGui.Button("Reset##Sound"))
             {
-                __SetLoop(false);
-                __SetGainOption(__VED_OPTION_UNSET);
-                __SetPitchOption(__VED_OPTION_UNSET);
+                _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                {
+                    _struct.__SetLoop(false);
+                    _struct.__SetGainOption(__VED_OPTION_UNSET);
+                    _struct.__SetPitchOption(__VED_OPTION_UNSET);
+                });
             }
             
             ImGui.EndTable();

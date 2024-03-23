@@ -158,9 +158,9 @@ function __VedClassWindowSounds() : __VedClassWindow() constructor
                 if (__multiselector.__GetSelectedCount() > 0)
                 {
                     ImGui.BeginChild("Right Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY(), false);
-                    _lastSelectedVinyl.__BuildUI(__multiselector);
+                    _lastSelectedVinyl.__BuildUI(__multiselector, _vinylAssetDict);
                     ImGui.NewLine();
-                    _lastSelectedYYP.__BuildUI(__multiselector);
+                    _lastSelectedYYP.__BuildUI(__multiselector, _yypAssetDict);
                     ImGui.EndChild();
                 }
                 
