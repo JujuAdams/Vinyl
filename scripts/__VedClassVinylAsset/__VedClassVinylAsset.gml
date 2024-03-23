@@ -456,6 +456,7 @@ function __VedClassVinylAsset() constructor
                 });
             }
             
+            //var _originalOption = __gainOption;
             //ImGui.SetNextItemWidth(ImGui.GetColumnWidth(1));
             //if (ImGui.BeginCombo("##Gain Option " + __name, _originalOption, ImGuiComboFlags.None))
             //{
