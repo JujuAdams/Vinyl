@@ -138,6 +138,7 @@
     {"id":{"name":"__VinylVoiceTrack","path":"scripts/__VinylVoiceTrack/__VinylVoiceTrack.yy",},},
     {"id":{"name":"__VinylTrace","path":"scripts/__VinylTrace/__VinylTrace.yy",},},
     {"id":{"name":"__VedClassAudioGroup","path":"scripts/__VedClassAudioGroup/__VedClassAudioGroup.yy",},},
+    {"id":{"name":"__VedClassModalClearSounds","path":"scripts/__VedClassModalClearSounds/__VedClassModalClearSounds.yy",},},
     {"id":{"name":"__VedClassWindowDesktop","path":"scripts/__VedClassWindowDesktop/__VedClassWindowDesktop.yy",},},
     {"id":{"name":"VedDrawGUI","path":"scripts/VedDrawGUI/VedDrawGUI.yy",},},
     {"id":{"name":"__VinylGenPatternNames","path":"scripts/__VinylGenPatternNames/__VinylGenPatternNames.yy",},},

@@ -189,6 +189,40 @@ function __VedClassPatternShuffle() constructor
         }
     }
     
+    static __AddSound = function(_soundName)
+    {
+        array_push(__soundArray, _soundName);
+        __soundDict[$ _soundName] = true;
+        array_sort(__soundArray, true);
+        
+        __BroadcastChange();
+    }
+    
+    static __DeleteSoundByName = function(_soundName)
+    {
+        var _index = __VedArrayFindIndex(__soundArray, _soundName);
+        if (_index != undefined) array_delete(__soundArray, _index, 1);
+        variable_struct_remove(__soundDict, _soundName);
+        
+        __BroadcastChange();
+    }
+    
+    static __DeleteSoundByIndex = function(_index)
+    {
+        var _name = __soundArray[_index];
+        array_delete(__soundArray, _index, 1);
+        variable_struct_remove(__soundDict, _name);
+        
+        __BroadcastChange();
+    }
+    
+    static __ClearSoundArray = function()
+    {
+        array_resize(__soundArray, 0);
+        
+        __BroadcastChange();
+    }
+    
     static __GetAbbreviation = function()
     {
         return "Shf";
@@ -340,18 +374,12 @@ function __VedClassPatternShuffle() constructor
                 {
                     if (_newValue)
                     {
-                        array_push(__soundArray, _soundName);
-                        array_sort(__soundArray, true);
-                        __soundDict[$ _soundName] = true;
+                        __AddSound(_soundName);
                     }
                     else
                     {
-                        var _index = __VedArrayFindIndex(__soundArray, _soundName);
-                        if (_index != undefined) array_delete(__soundArray, _index, 1);
-                        variable_struct_remove(__soundDict, _soundName);
+                        __DeleteSoundByName(_soundName);
                     }
-                    
-                    __BroadcastChange();
                 }
                 
                 ++_i;
@@ -364,7 +392,9 @@ function __VedClassPatternShuffle() constructor
         
         if (ImGui.Button("Clear"))
         {
-            __VedModalOpen(__VedClassModalCloseProject);
+            var _modal = __VedModalOpen(__VedClassModalClearSounds);
+            _modal.__multiselector = _multiselector;
+            _modal.__dictionary    = _dictionary;
         }
         
         if (ImGui.BeginTable("Sounds", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, ImGui.GetContentRegionAvailY()))
@@ -390,8 +420,7 @@ function __VedClassPatternShuffle() constructor
                     ImGui.TableSetColumnIndex(1);
                     if (ImGui.Button("Delete##" + string(_i)))
                     {
-                        array_delete(__soundArray, _i, 1);
-                        variable_struct_remove(__soundDict, _name);
+                        __DeleteSoundByIndex(_i);
                     }
                     else
                     {

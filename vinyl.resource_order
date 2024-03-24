@@ -103,6 +103,7 @@
     {"name":"__VedClassModalNoIdent","order":6,"path":"scripts/__VedClassModalNoIdent/__VedClassModalNoIdent.yy",},
     {"name":"__VinylTrace","order":9,"path":"scripts/__VinylTrace/__VinylTrace.yy",},
     {"name":"__VedClassAudioGroup","order":7,"path":"scripts/__VedClassAudioGroup/__VedClassAudioGroup.yy",},
+    {"name":"__VedClassModalClearSounds","order":14,"path":"scripts/__VedClassModalClearSounds/__VedClassModalClearSounds.yy",},
     {"name":"__VedClassWindowDesktop","order":1,"path":"scripts/__VedClassWindowDesktop/__VedClassWindowDesktop.yy",},
     {"name":"VedDrawGUI","order":8,"path":"scripts/VedDrawGUI/VedDrawGUI.yy",},
     {"name":"__VinylGenPatternNames","order":3,"path":"scripts/__VinylGenPatternNames/__VinylGenPatternNames.yy",},
