@@ -24,8 +24,8 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
         var _patternArray = _project.__libPattern.__GetNameArray();
         var _patternDict  = _project.__libPattern.__GetDictionary();
         
-        ImGui.SetNextWindowSize(0.6*room_width, 0.7*room_height, ImGuiCond.Once);
-        ImGui.SetNextWindowPos(0.2*room_width, 0.15*room_height, ImGuiCond.Once);
+        ImGui.SetNextWindowSize(0.6*room_width, 0.8*room_height, ImGuiCond.Once);
+        ImGui.SetNextWindowPos(0.2*room_width, 0.1*room_height, ImGuiCond.Once);
 	    
         //Allow the filter window to stay on top
         //var _flags = __VinylEditorWindowGetOpen("__filter")? ImGuiWindowFlags.NoBringToFrontOnFocus : ImGuiWindowFlags.None;
@@ -142,15 +142,16 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
                     {
                         //Change the display text depending on what the user is actually seeing
                         ImGui.Text(__multiselector.__GetLastSelectedName());
+                        ImGui.NewLine();
+                        _lastSelected.__BuildUI(__multiselector, _patternDict);
                     }
                     else
                     {
                         //Change the display text depending on what the user is actually seeing
                         ImGui.Text(string_concat(__multiselector.__GetLastSelectedName(), " and ", string(_selectedCount-1), " others"));
+                        ImGui.NewLine();
+                        ImGui.Text("Cannot edit multiple patterns properties at the same time.");
                     }
-                    
-                    ImGui.NewLine();
-                    _lastSelected.__BuildUI(__multiselector);
                 }
             ImGui.EndChild();
             

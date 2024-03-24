@@ -104,7 +104,7 @@ function __VedClassPatternBlend() constructor
         return "Bld";
     }
     
-    static __BuildUI = function(_multiselector)
+    static __BuildUI = function(_multiselector, _dictionary)
     {
         var _soundArray = _system.__project.__libSound.__GetNameArray();
         
@@ -113,45 +113,19 @@ function __VedClassPatternBlend() constructor
         ImGui.Text("Blend pattern");
         ImGui.NewLine();
         
-        if (ImGui.BeginTable("Pattern", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 70))
+        if (ImGui.BeginTable("Pattern", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 69))
         {
             ////Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 100);
-            ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 125);
             ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthStretch, 1);
             
             //Gain
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Force Gain");
-            ImGui.TableSetColumnIndex(1);
-            __SetGainForce(ImGui.Checkbox("##Force Gain", __gainForce));
-            
-            ImGui.TableNextRow();
-            ImGui.TableSetColumnIndex(0);
+            ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 24);
             ImGui.Text("Gain");
             
-            var _originalOption = __gainOption;
             ImGui.TableSetColumnIndex(1);
-            ImGui.SetNextItemWidth(ImGui.GetColumnWidth(1));
-            if (ImGui.BeginCombo("##Gain Option " + __name, _originalOption, ImGuiComboFlags.None))
-            {
-                var _i = 0;
-                repeat(array_length(_optionArray))
-                {
-                    var _optionName = _optionArray[_i];
-                    if (ImGui.Selectable(_optionName + "##Gain Option " + __name, (_originalOption == _optionName)))
-                    {
-                        __SetGainOption(_optionName);
-                    }
-                    
-                    ++_i;
-                }
-                
-                ImGui.EndCombo();
-            }
-            
-            ImGui.TableSetColumnIndex(2);
             switch(__gainOption)
             {
                 case __VED_OPTION_UNSET:
@@ -164,9 +138,27 @@ function __VedClassPatternBlend() constructor
                 case __VED_OPTION_MULTIPLY:
                     ImGui.SetNextItemWidth(ImGui.GetColumnWidth(2));
                     var _newValue = ImGui.SliderFloat("##Gain " + __name, __gain, 0.01, 2);
-                    __SetGain([_newValue, _newValue]);
+                    __SetGain(_newValue);
                 break;
             }
+            
+            if (ImGui.RadioButton("No Change##Gain", __gainOption == __VED_OPTION_UNSET))
+            {
+                _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                {
+                    _struct.__SetGainOption(__VED_OPTION_UNSET);
+                });
+            }
+            ImGui.SameLine(undefined, 20);
+            if (ImGui.RadioButton("Multiply Gain", __gainOption == __VED_OPTION_MULTIPLY))
+            {
+                _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                {
+                    _struct.__SetGainOption(__VED_OPTION_MULTIPLY);
+                });
+            }
+            
+            __SetGainForce(ImGui.Checkbox("Override sound gain", __gainForce));
             
             ImGui.EndTable();
         }

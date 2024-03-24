@@ -194,54 +194,26 @@ function __VedClassPatternShuffle() constructor
         return "Shf";
     }
     
-    static __BuildUI = function(_multiselector)
+    static __BuildUI = function(_multiselector, _dictionary)
     {
         var _soundArray = _system.__project.__libSound.__GetNameArray();
-        
-        static _optionArray = [__VED_OPTION_UNSET, __VED_OPTION_MULTIPLY, __VED_OPTION_RANDOMIZE];
         
         ImGui.Text("Shuffle pattern");
         ImGui.NewLine();
         
-        if (ImGui.BeginTable("Pattern", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 100))
+        if (ImGui.BeginTable("Pattern", 2, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 142))
         {
             ////Set up our columns with fixed widths so we get a nice pretty layout
             ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 100);
-            ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 125);
             ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthStretch, 1);
             
             //Gain
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Force Gain");
-            ImGui.TableSetColumnIndex(1);
-            __SetGainForce(ImGui.Checkbox("##Force Gain", __gainForce));
-            
-            ImGui.TableNextRow();
-            ImGui.TableSetColumnIndex(0);
+            ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 24);
             ImGui.Text("Gain");
             
-            var _originalOption = __gainOption;
             ImGui.TableSetColumnIndex(1);
-            ImGui.SetNextItemWidth(ImGui.GetColumnWidth(1));
-            if (ImGui.BeginCombo("##Gain Option " + __name, _originalOption, ImGuiComboFlags.None))
-            {
-                var _i = 0;
-                repeat(array_length(_optionArray))
-                {
-                    var _optionName = _optionArray[_i];
-                    if (ImGui.Selectable(_optionName + "##Gain Option " + __name, (_originalOption == _optionName)))
-                    {
-                        __SetGainOption(_optionName);
-                    }
-                    
-                    ++_i;
-                }
-                
-                ImGui.EndCombo();
-            }
-            
-            ImGui.TableSetColumnIndex(2);
             switch(__gainOption)
             {
                 case __VED_OPTION_UNSET:
@@ -265,38 +237,40 @@ function __VedClassPatternShuffle() constructor
                 break;
             }
             
-            //Pitch
-            ImGui.TableNextRow();
-            ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Force Pitch");
-            ImGui.TableSetColumnIndex(1);
-            __SetPitchForce(ImGui.Checkbox("##Force Pitch", __pitchForce));
-            
-            ImGui.TableNextRow();
-            ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Pitch");
-            
-            var _originalOption = __pitchOption;
-            ImGui.TableSetColumnIndex(1);
-            ImGui.SetNextItemWidth(ImGui.GetColumnWidth(1));
-            if (ImGui.BeginCombo("##Pitch Option " + __name, _originalOption, ImGuiComboFlags.None))
+            if (ImGui.RadioButton("No Change##Gain", __gainOption == __VED_OPTION_UNSET))
             {
-                var _i = 0;
-                repeat(array_length(_optionArray))
+                _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
                 {
-                    var _optionName = _optionArray[_i];
-                    if (ImGui.Selectable(_optionName + "##Pitch Option " + __name, (_originalOption == _optionName)))
-                    {
-                        __SetPitchOption(_optionName);
-                    }
-                    
-                    ++_i;
-                }
-                
-                ImGui.EndCombo();
+                    _struct.__SetGainOption(__VED_OPTION_UNSET);
+                });
+            }
+            ImGui.SameLine(undefined, 20);
+            if (ImGui.RadioButton("Multiply Gain", __gainOption == __VED_OPTION_MULTIPLY))
+            {
+                _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                {
+                    _struct.__SetGainOption(__VED_OPTION_MULTIPLY);
+                });
+            }
+            ImGui.SameLine(undefined, 20);
+            if (ImGui.RadioButton("Randomize Gain", __gainOption == __VED_OPTION_RANDOMIZE))
+            {
+                _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                {
+                    _struct.__SetGainOption(__VED_OPTION_RANDOMIZE);
+                });
             }
             
-            ImGui.TableSetColumnIndex(2);
+            __SetGainForce(ImGui.Checkbox("Override sound gain", __gainForce));
+            
+            //Pitch
+            ImGui.TableNextRow();
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+            ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 24);
+            ImGui.Text("Pitch");
+            
+            ImGui.TableSetColumnIndex(1);
             switch(__pitchOption)
             {
                 case __VED_OPTION_UNSET:
@@ -319,6 +293,32 @@ function __VedClassPatternShuffle() constructor
                     __SetPitch(_newValue);
                 break;
             }
+            
+            if (ImGui.RadioButton("No Change##Pitch", __pitchOption == __VED_OPTION_UNSET))
+            {
+                _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                {
+                    _struct.__SetPitchOption(__VED_OPTION_UNSET);
+                });
+            }
+            ImGui.SameLine(undefined, 20);
+            if (ImGui.RadioButton("Multiply Pitch", __pitchOption == __VED_OPTION_MULTIPLY))
+            {
+                _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                {
+                    _struct.__SetPitchOption(__VED_OPTION_MULTIPLY);
+                });
+            }
+            ImGui.SameLine(undefined, 20);
+            if (ImGui.RadioButton("Randomize Pitch", __pitchOption == __VED_OPTION_RANDOMIZE))
+            {
+                _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
+                {
+                    _struct.__SetPitchOption(__VED_OPTION_RANDOMIZE);
+                });
+            }
+            
+            __SetPitchForce(ImGui.Checkbox("Override sound pitch", __pitchForce));
             
             ImGui.EndTable();
         }
