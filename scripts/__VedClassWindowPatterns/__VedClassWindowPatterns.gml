@@ -41,19 +41,41 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
                 if (ImGui.Button("New")) __VedModalOpen(__VedClassModalNewPattern);
                 ImGui.SameLine(undefined, 20);
                 
-                ImGui.BeginDisabled(__multiselector.__GetSelectedCount() <= 0);
+                var _selectedCount = __multiselector.__GetSelectedCount();
+                ImGui.BeginDisabled(_selectedCount <= 0);
                 if (ImGui.Button("Delete"))
                 {
-                    __multiselector.__ForEachSelected(_patternDict,
-                    method({
-                        __library: _project.__libPattern,
-                    },
-                    function(_name, _struct)
+                    if (_selectedCount > 0)
                     {
-                        __library.__RemoveByName(_name);
-                    }));
-                    
-                    __multiselector.__SelectNone();
+                        var _modal = __VedModalOpen(__VedClassModalDeleteAsset);
+                        if (_selectedCount == 1)
+                        {
+                            //Change the display text depending on what the user is actually seeing
+                            _modal.__assetName = __multiselector.__GetLastSelectedName();
+                        }
+                        else
+                        {
+                            //Change the display text depending on what the user is actually seeing
+                            _modal.__assetName = string_concat(__multiselector.__GetLastSelectedName(), " and ", string(_selectedCount-1), " others");
+                        }
+                        
+                        _modal.__function = function()
+                        {
+                            var _project     = _system.__project;
+                            var _patternDict = _project.__libPattern.__GetDictionary();
+                            
+                            __multiselector.__ForEachSelected(_patternDict,
+                            method({
+                                __library: _project.__libPattern,
+                            },
+                            function(_name, _struct)
+                            {
+                                __library.__RemoveByName(_name);
+                            }));
+                            
+                            __multiselector.__SelectNone();
+                        }
+                    }
                 }
                 ImGui.EndDisabled();
                 
