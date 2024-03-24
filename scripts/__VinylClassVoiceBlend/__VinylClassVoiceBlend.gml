@@ -13,25 +13,25 @@ function __VinylClassVoiceBlend(_pattern) constructor
     
     __pattern = _pattern;
     
+    __blendFactor = 0;
+    
     __voiceTop   = -1;
     __voiceArray = [];
     
     var _soundArray = __pattern.__soundArray;
     if (array_length(_soundArray) > 0)
     {
-        var _i = 0;
-        repeat(array_length(_soundArray))
+        var _loop = true;
+        
+        __voiceTop = audio_play_sound(_soundArray[0], 0, _loop, 1);
+        struct_set_from_hash(_voiceStructDict, int64(__voiceTop), self);
+        
+        var _i = 1;
+        repeat(array_length(_soundArray)-1)
         {
-            var _sound = _soundArray[_i];
-            
-            var _voice = audio_play_sound(_sound, 0, true);
-            __voiceArray[_i] = _voice;
-            
+            __voiceArray[_i] = audio_play_sound(_soundArray[_i], 0, _loop, 0);
             ++_i;
         }
-        
-        __voiceTop = __voiceArray[0];
-        struct_set_from_hash(_voiceStructDict, int64(__voiceTop), self);
     }
     
     
@@ -46,5 +46,10 @@ function __VinylClassVoiceBlend(_pattern) constructor
     static __IsPlaying = function()
     {
         return (__voiceTop >= 0);
+    }
+    
+    static __SetBlend = function(_value)
+    {
+        __blendFactor = _value;
     }
 }
