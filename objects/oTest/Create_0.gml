@@ -1,3 +1,4 @@
 VedShow();
 
 dictionary = {};
+blendVoice = undefined;

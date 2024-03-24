@@ -8,12 +8,9 @@ if (keyboard_check_pressed(vk_shift))
     VinylPlay(vinFootsteps);
 }
 
-if (keyboard_check_pressed(ord("H")))
+if (keyboard_check_pressed(ord("B")))
 {
-    hltTest = VinylPlay(vinLoopingTrack);
+    blendVoice = VinylPlay(vinBlendTest);
 }
 
-if (keyboard_check_pressed(ord("C")))
-{
-    VinylHLTEndLoop(hltTest);
-}
+VinylSetBlend(blendVoice, mouse_x / room_width);

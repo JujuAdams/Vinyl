@@ -184,6 +184,7 @@
     {"id":{"name":"__VedClassModalNewAudioGroup","path":"scripts/__VedClassModalNewAudioGroup/__VedClassModalNewAudioGroup.yy",},},
     {"id":{"name":"sndBleep9","path":"sounds/sndBleep9/sndBleep9.yy",},},
     {"id":{"name":"__VedUpdate","path":"scripts/__VedUpdate/__VedUpdate.yy",},},
+    {"id":{"name":"VinylSetBlendAnimCurve","path":"scripts/VinylSetBlendAnimCurve/VinylSetBlendAnimCurve.yy",},},
     {"id":{"name":"VinylFallbackSound","path":"sounds/VinylFallbackSound/VinylFallbackSound.yy",},},
     {"id":{"name":"__VedClassWindowSounds","path":"scripts/__VedClassWindowSounds/__VedClassWindowSounds.yy",},},
     {"id":{"name":"VinylCreateShuffle","path":"scripts/VinylCreateShuffle/VinylCreateShuffle.yy",},},
