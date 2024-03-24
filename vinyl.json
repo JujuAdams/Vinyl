@@ -43,9 +43,9 @@
     {
       "soundHead":"sndBleep0",
       "soundLoop":"sndBleep1",
-      "soundTail":"sndBleep2",
       "type":"Head-Loop-Tail",
       "name":"LoopingTrack",
+      "soundTail":"sndBleep2",
       "gainForce":0.0,
       "gain":1.0,
       "gainOption":"Unset"
@@ -55,7 +55,8 @@
       "name":"BlendTest",
       "sounds":[
         "sndBleep0",
-        "sndBleep1"
+        "sndBleep1",
+        "sndBleep2"
       ],
       "gain":1.0,
       "gainForce":0.0,
