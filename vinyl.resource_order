@@ -21,6 +21,7 @@
   ],
   "ResourceOrderSettings": [
     {"name":"__VinylGenPlay","order":1,"path":"scripts/__VinylGenPlay/__VinylGenPlay.yy",},
+    {"name":"__VedClassModalDeleteAsset","order":15,"path":"scripts/__VedClassModalDeleteAsset/__VedClassModalDeleteAsset.yy",},
     {"name":"__VedClassVinylAsset","order":3,"path":"scripts/__VedClassVinylAsset/__VedClassVinylAsset.yy",},
     {"name":"__VedWarning","order":5,"path":"scripts/__VedWarning/__VedWarning.yy",},
     {"name":"__VedNetSendJSON","order":1,"path":"scripts/__VedNetSendJSON/__VedNetSendJSON.yy",},
@@ -118,7 +119,6 @@
     {"name":"__VedClassFilter","order":11,"path":"scripts/__VedClassFilter/__VedClassFilter.yy",},
     {"name":"VedUnload","order":3,"path":"scripts/VedUnload/VedUnload.yy",},
     {"name":"__VedClassModalLoadSuccess","order":7,"path":"scripts/__VedClassModalLoadSuccess/__VedClassModalLoadSuccess.yy",},
-    {"name":"__VedClassModalDeleteAsset","order":15,"path":"scripts/__VedClassModalDeleteAsset/__VedClassModalDeleteAsset.yy",},
     {"name":"__VinylControllerObject","order":13,"path":"objects/__VinylControllerObject/__VinylControllerObject.yy",},
     {"name":"VedSave","order":1,"path":"scripts/VedSave/VedSave.yy",},
     {"name":"ImGui_GM","order":1,"path":"extensions/ImGui_GM/ImGui_GM.yy",},

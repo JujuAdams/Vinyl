@@ -58,7 +58,6 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                     if (_selectedCount > 0)
                     {
                         var _modal = __VedModalOpen(__VedClassModalDeleteAsset);
-                        
                         if (_selectedCount == 1)
                         {
                             //Change the display text depending on what the user is actually seeing
@@ -74,7 +73,7 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                         {
                             var _project        = _system.__project;
                             var _audioGroupDict = _project.__libAudioGroup.__GetDictionary();
-                        
+                            
                             __multiselectorAG.__ForEachSelected(_audioGroupDict,
                             method({
                                 __library: _project.__libAudioGroup,
@@ -87,7 +86,7 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                                     __library.__RemoveByName(_name);
                                 }
                             }));
-                        
+                            
                             _system.__project.__SaveAudioGroups();
                             __multiselectorAG.__SelectNone();
                         }

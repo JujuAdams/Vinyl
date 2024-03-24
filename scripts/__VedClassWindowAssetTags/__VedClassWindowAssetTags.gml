@@ -49,10 +49,11 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
                 if (ImGui.Button("New")) __VedModalOpen(__VedClassModalNewAssetTag);
                 ImGui.SameLine(undefined, 20);
                 
-                var _disabled = (__multiselectorTag.__GetSelectedCount() <= 0);
+                var _selectedCount = __multiselectorTag.__GetSelectedCount();
+                var _disabled = (_selectedCount <= 0);
                 if (not _disabled)
                 {
-                    if ((__multiselectorTag.__GetSelectedCount() == 1) && (__multiselectorTag.__GetLastSelectedName() == __VED_DEFAULT_AUDIO_GROUP))
+                    if ((_selectedCount == 1) && (__multiselectorTag.__GetLastSelectedName() == __VED_DEFAULT_AUDIO_GROUP))
                     {
                         _disabled = true;
                     }
@@ -61,20 +62,41 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
                 ImGui.BeginDisabled(_disabled);
                 if (ImGui.Button("Delete"))
                 {
-                    __multiselectorTag.__ForEachSelected(_assetTagDict,
-                    method({
-                        __library: _project.__libAssetTag,
-                    },
-                    function(_name, _struct)
+                    if (_selectedCount > 0)
                     {
-                        if (_name != __VED_DEFAULT_AUDIO_GROUP)
+                        var _modal = __VedModalOpen(__VedClassModalDeleteAsset);
+                        if (_selectedCount == 1)
                         {
-                            _struct.__RemoveFromAll();
-                            __library.__RemoveByName(_name);
+                            //Change the display text depending on what the user is actually seeing
+                            _modal.__assetName = __multiselectorTag.__GetLastSelectedName();
                         }
-                    }));
-                    
-                    __multiselectorTag.__SelectNone();
+                        else
+                        {
+                            //Change the display text depending on what the user is actually seeing
+                            _modal.__assetName = string_concat(__multiselectorTag.__GetLastSelectedName(), " and ", string(_selectedCount-1), " others");
+                        }
+                        
+                        _modal.__function = function()
+                        {
+                            var _project      = _system.__project;
+                            var _assetTagDict = _project.__libAssetTag.__GetDictionary();
+                            
+                            __multiselectorTag.__ForEachSelected(_assetTagDict,
+                            method({
+                                __library: _project.__libAssetTag,
+                            },
+                            function(_name, _struct)
+                            {
+                                if (_name != __VED_DEFAULT_AUDIO_GROUP)
+                                {
+                                    _struct.__RemoveFromAll();
+                                    __library.__RemoveByName(_name);
+                                }
+                            }));
+                            
+                            __multiselectorTag.__SelectNone();
+                        }
+                    }
                 }
                 ImGui.EndDisabled();
                 
