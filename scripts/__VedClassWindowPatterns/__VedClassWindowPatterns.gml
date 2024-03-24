@@ -172,7 +172,7 @@ function __VedClassWindowPatterns() : __VedClassWindow() constructor
                         //Change the display text depending on what the user is actually seeing
                         ImGui.Text(string_concat(__multiselector.__GetLastSelectedName(), " and ", string(_selectedCount-1), " others"));
                         ImGui.NewLine();
-                        ImGui.Text("Cannot edit multiple patterns properties at the same time.");
+                        ImGui.Text("Cannot edit multiple pattern properties at the same time.");
                     }
                 }
             ImGui.EndChild();

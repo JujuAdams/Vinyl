@@ -31,5 +31,7 @@ function __VinylClassPatternHLT(_patternIndex, _soundHead, _soundLoop, _soundTai
         __soundTail = __VinylImportSound(_soundTail);
         __gainForce = _gainForce;
         __gain      = _gain;
+        
+        //TODO - Change tracks over for extant currently-playing HLT voices
     }
 }

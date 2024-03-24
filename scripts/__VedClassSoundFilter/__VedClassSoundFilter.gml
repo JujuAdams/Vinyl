@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VedClassFilter() constructor
+function __VedClassSoundFilter() constructor
 {
     static _system = __VedSystem();
     

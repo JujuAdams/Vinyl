@@ -25,5 +25,7 @@ function __VinylClassPatternBlend(_patternIndex, _soundArray, _gainForce, _gain)
         __soundArray = __VinylImportSoundArray(_soundArray);
         __gainForce  = _gainForce;
         __gain       = _gain;
+        
+        //TODO - Change tracks over for extant currently-playing blend voices
     }
 }

@@ -4,7 +4,7 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
 {
     __handle = "Audio Groups";
     
-    __filter = new __VedClassFilter();
+    __filter = new __VedClassSoundFilter();
     __useFilter = false;
     
     __moveToTarget = __VED_DEFAULT_AUDIO_GROUP;

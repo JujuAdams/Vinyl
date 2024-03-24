@@ -4,7 +4,7 @@ function __VedClassWindowSounds() : __VedClassWindow() constructor
 {
     __handle = "Sounds";
     
-    __filter = new __VedClassFilter();
+    __filter = new __VedClassSoundFilter();
     
     __useFilter     = false;
     __seeModified   = true;

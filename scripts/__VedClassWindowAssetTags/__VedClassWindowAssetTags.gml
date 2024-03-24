@@ -4,7 +4,7 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
 {
     __handle = "Asset Tags";
     
-    __filter = new __VedClassFilter();
+    __filter = new __VedClassSoundFilter();
     __useFilter = false;
     
     if (_system.__project.__libAssetTag.__GetCount() <= 0)
