@@ -336,6 +336,9 @@ function __VedClassSound() constructor
             }
             
             //Compression settings
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+            
             static _compressionArray = ["WAV",
                                         "OGG - Decompress during playback",
                                         "OGG - Decompress when loaded and store in RAM",
@@ -343,8 +346,6 @@ function __VedClassSound() constructor
             var _i = 0;
             repeat(array_length(_compressionArray))
             {
-                ImGui.TableNextRow();
-                ImGui.TableSetColumnIndex(0);
                 if (ImGui.RadioButton(_compressionArray[_i], (__attributes == _i)))
                 {
                     _multiselector.__ForEachSelected(_yypAssetDict,
@@ -357,23 +358,20 @@ function __VedClassSound() constructor
                     }));
                 }
                 
-                if (_i == 0)
-                {
-                    if (_multiselector.__GetSelectedCount() > 1)
-                    {
-                        ImGui.TableSetColumnIndex(1);
-                        if (_multiselector.__ValueDifferent(_dictionary, "__attributes"))
-                        {
-                            ImGui.TextColored("Diff", __VED_COLOUR_RED);
-                        }
-                        else
-                        {
-                            ImGui.TextColored("Same", __VED_COLOUR_GREEN);
-                        }
-                    }
-                }
-                
                 ++_i;
+            }
+            
+            if (_multiselector.__GetSelectedCount() > 1)
+            {
+                ImGui.TableSetColumnIndex(1);
+                if (_multiselector.__ValueDifferent(_dictionary, "__attributes"))
+                {
+                    ImGui.TextColored("Diff", __VED_COLOUR_RED);
+                }
+                else
+                {
+                    ImGui.TextColored("Same", __VED_COLOUR_GREEN);
+                }
             }
             
             //We're done!

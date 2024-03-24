@@ -273,7 +273,7 @@ function __VedClassVinylAsset() constructor
             var _properties = __ResolveProperties();
             
             ////Set up our columns with fixed widths so we get a nice pretty layout
-            ImGui.TableSetupColumn("",   ImGuiTableColumnFlags.WidthFixed, 100);
+            ImGui.TableSetupColumn("",   ImGuiTableColumnFlags.WidthFixed, 50);
             ImGui.TableSetupColumn("From Sound",  ImGuiTableColumnFlags.WidthStretch, 1);
             ImGui.TableSetupColumn("From Rules",  ImGuiTableColumnFlags.WidthStretch, 1);
             ImGui.TableSetupColumn("Final Values",  ImGuiTableColumnFlags.WidthStretch, 1);
@@ -330,10 +330,10 @@ function __VedClassVinylAsset() constructor
         
         ImGui.NewLine();
         
-        if (ImGui.BeginTable("Sound", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 180))
+        if (ImGui.BeginTable("Sound", 3, ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.ScrollY | ImGuiTableFlags.RowBg, undefined, 190))
         {
             ////Set up our columns with fixed widths so we get a nice pretty layout
-            ImGui.TableSetupColumn("Sound",   ImGuiTableColumnFlags.WidthFixed, 100);
+            ImGui.TableSetupColumn("Sound",   ImGuiTableColumnFlags.WidthFixed, 50);
             ImGui.TableSetupColumn("",  ImGuiTableColumnFlags.WidthStretch, 1);
             ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 27);
             ImGui.TableHeadersRow();
@@ -374,6 +374,7 @@ function __VedClassVinylAsset() constructor
             //Gain
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
+            ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 12);
             ImGui.Text("Gain");
             
             ImGui.TableSetColumnIndex(1);
@@ -416,22 +417,6 @@ function __VedClassVinylAsset() constructor
                 break;
             }
             
-            if (_multiselector.__GetSelectedCount() > 1)
-            {
-                ImGui.TableSetColumnIndex(2);
-                if (_multiselector.__ValueDifferent(_dictionary, "__gain"))
-                {
-                    ImGui.TextColored("Diff", __VED_COLOUR_RED);
-                }
-                else
-                {
-                    ImGui.TextColored("Same", __VED_COLOUR_GREEN);
-                }
-            }
-            
-            //Gain Option
-            ImGui.TableNextRow();
-            ImGui.TableSetColumnIndex(1);
             if (ImGui.RadioButton("No Change##Gain", __gainOption == __VED_OPTION_UNSET))
             {
                 _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
@@ -456,32 +441,23 @@ function __VedClassVinylAsset() constructor
                 });
             }
             
-            //var _originalOption = __gainOption;
-            //ImGui.SetNextItemWidth(ImGui.GetColumnWidth(1));
-            //if (ImGui.BeginCombo("##Gain Option " + __name, _originalOption, ImGuiComboFlags.None))
-            //{
-            //    var _i = 0;
-            //    repeat(array_length(_optionArray))
-            //    {
-            //        var _optionName = _optionArray[_i];
-            //        if (ImGui.Selectable(_optionName + "##Gain Option " + __name, (_originalOption == _optionName)))
-            //        {
-            //            _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
-            //            {
-            //                _struct.__SetGainOption(_metadata);
-            //            },
-            //            _optionName);
-            //        }
-            //        
-            //        ++_i;
-            //    }
-            //    
-            //    ImGui.EndCombo();
-            //}
+            ImGui.TableSetColumnIndex(2);
+            if (_multiselector.__GetSelectedCount() > 1)
+            {
+                if (_multiselector.__ValueDifferent(_dictionary, "__gain"))
+                {
+                    ImGui.TextColored("Diff", __VED_COLOUR_RED);
+                }
+                else
+                {
+                    ImGui.TextColored("Same", __VED_COLOUR_GREEN);
+                }
+            }
+            
+            ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 6);
             
             if (_multiselector.__GetSelectedCount() > 1)
             {
-                ImGui.TableSetColumnIndex(2);
                 if (_multiselector.__ValueDifferent(_dictionary, "__gainOption"))
                 {
                     ImGui.TextColored("Diff", __VED_COLOUR_RED);
@@ -495,6 +471,7 @@ function __VedClassVinylAsset() constructor
             //Pitch
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
+            ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 12);
             ImGui.Text("Pitch");
             
             ImGui.TableSetColumnIndex(1);
@@ -537,22 +514,6 @@ function __VedClassVinylAsset() constructor
                 break;
             }
             
-            if (_multiselector.__GetSelectedCount() > 1)
-            {
-                ImGui.TableSetColumnIndex(2);
-                if (_multiselector.__ValueDifferent(_dictionary, "__pitch"))
-                {
-                    ImGui.TextColored("Diff", __VED_COLOUR_RED);
-                }
-                else
-                {
-                    ImGui.TextColored("Same", __VED_COLOUR_GREEN);
-                }
-            }
-            
-            //Pitch Option
-            ImGui.TableNextRow();
-            ImGui.TableSetColumnIndex(1);
             if (ImGui.RadioButton("No Change##Pitch", __pitchOption == __VED_OPTION_UNSET))
             {
                 _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
@@ -577,36 +538,23 @@ function __VedClassVinylAsset() constructor
                 });
             }
             
-            //ImGui.TableSetColumnIndex(0);
-            //ImGui.Text("Pitch Option");
-            //
-            //var _originalOption = __pitchOption;
-            //ImGui.TableSetColumnIndex(1);
-            //ImGui.SetNextItemWidth(ImGui.GetColumnWidth(1));
-            //if (ImGui.BeginCombo("##Pitch Option " + __name, _originalOption, ImGuiComboFlags.None))
-            //{
-            //    var _i = 0;
-            //    repeat(array_length(_optionArray))
-            //    {
-            //        var _optionName = _optionArray[_i];
-            //        if (ImGui.Selectable(_optionName + "##Pitch Option " + __name, (_originalOption == _optionName)))
-            //        {
-            //            _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
-            //            {
-            //                _struct.__SetPitchOption(_metadata);
-            //            },
-            //            _optionName);
-            //        }
-            //        
-            //        ++_i;
-            //    }
-            //    
-            //    ImGui.EndCombo();
-            //}
+            ImGui.TableSetColumnIndex(2);
+            if (_multiselector.__GetSelectedCount() > 1)
+            {
+                if (_multiselector.__ValueDifferent(_dictionary, "__pitch"))
+                {
+                    ImGui.TextColored("Diff", __VED_COLOUR_RED);
+                }
+                else
+                {
+                    ImGui.TextColored("Same", __VED_COLOUR_GREEN);
+                }
+            }
+            
+            ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 6);
             
             if (_multiselector.__GetSelectedCount() > 1)
             {
-                ImGui.TableSetColumnIndex(2);
                 if (_multiselector.__ValueDifferent(_dictionary, "__pitchOption"))
                 {
                     ImGui.TextColored("Diff", __VED_COLOUR_RED);
@@ -620,9 +568,10 @@ function __VedClassVinylAsset() constructor
             //Rule Ignore
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
-            ImGui.Text("Ignore Rules");
+            ImGui.Text("Ignore\nRules");
             
             ImGui.TableSetColumnIndex(1);
+            ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 3);
             var _newValue = ImGui.Checkbox("##Ignore Rules", __ruleIgnore)
             if (__ruleIgnore != _newValue)
             {
@@ -648,8 +597,8 @@ function __VedClassVinylAsset() constructor
             
             //Reset
             ImGui.TableNextRow();
-            ImGui.TableSetColumnIndex(0);
-            if (ImGui.Button("Reset##Sound"))
+            ImGui.TableSetColumnIndex(1);
+            if (ImGui.Button("Reset All##Sound"))
             {
                 _multiselector.__ForEachSelected(_dictionary, function(_name, _struct, _metadata)
                 {
