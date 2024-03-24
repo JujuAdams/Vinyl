@@ -43,6 +43,7 @@
   },
   "resources": [
     {"id":{"name":"__VinylGenPlay","path":"scripts/__VinylGenPlay/__VinylGenPlay.yy",},},
+    {"id":{"name":"__VedClassModalDeleteAsset","path":"scripts/__VedClassModalDeleteAsset/__VedClassModalDeleteAsset.yy",},},
     {"id":{"name":"__VedClassModal","path":"scripts/__VedClassModal/__VedClassModal.yy",},},
     {"id":{"name":"__VedClassVinylAsset","path":"scripts/__VedClassVinylAsset/__VedClassVinylAsset.yy",},},
     {"id":{"name":"__VinylGenMacro","path":"scripts/__VinylGenMacro/__VinylGenMacro.yy",},},

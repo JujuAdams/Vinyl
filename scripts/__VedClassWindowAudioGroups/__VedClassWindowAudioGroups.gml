@@ -42,10 +42,11 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                 if (ImGui.Button("New")) __VedModalOpen(__VedClassModalNewAudioGroup);
                 ImGui.SameLine(undefined, 20);
                 
-                var _disabled = (__multiselectorAG.__GetSelectedCount() <= 0);
+                var _selectedCount = __multiselectorAG.__GetSelectedCount();
+                var _disabled = (_selectedCount <= 0);
                 if (not _disabled)
                 {
-                    if ((__multiselectorAG.__GetSelectedCount() == 1) && (__multiselectorAG.__GetLastSelectedName() == __VED_DEFAULT_AUDIO_GROUP))
+                    if ((_selectedCount == 1) && (__multiselectorAG.__GetLastSelectedName() == __VED_DEFAULT_AUDIO_GROUP))
                     {
                         _disabled = true;
                     }
@@ -54,22 +55,43 @@ function __VedClassWindowAudioGroups() : __VedClassWindow() constructor
                 ImGui.BeginDisabled(_disabled);
                 if (ImGui.Button("Delete"))
                 {
-                    __multiselectorAG.__ForEachSelected(_audioGroupDict,
-                    method({
-                        __library: _project.__libAudioGroup,
-                    },
-                    function(_name, _struct)
+                    if (_selectedCount > 0)
                     {
-                        if (_name != __VED_DEFAULT_AUDIO_GROUP)
+                        var _modal = __VedModalOpen(__VedClassModalDeleteAsset);
+                        
+                        if (_selectedCount == 1)
                         {
-                            _struct.__MoveAllToDefault();
-                            __library.__RemoveByName(_name);
+                            //Change the display text depending on what the user is actually seeing
+                            _modal.__assetName = __multiselectorAG.__GetLastSelectedName();
                         }
-                    }));
-                    
-                    _system.__project.__SaveAudioGroups();
-                    
-                    __multiselectorAG.__SelectNone();
+                        else
+                        {
+                            //Change the display text depending on what the user is actually seeing
+                            _modal.__assetName = string_concat(__multiselectorAG.__GetLastSelectedName(), " and ", string(_selectedCount-1), " others");
+                        }
+                        
+                        _modal.__function = function()
+                        {
+                            var _project        = _system.__project;
+                            var _audioGroupDict = _project.__libAudioGroup.__GetDictionary();
+                        
+                            __multiselectorAG.__ForEachSelected(_audioGroupDict,
+                            method({
+                                __library: _project.__libAudioGroup,
+                            },
+                            function(_name, _struct)
+                            {
+                                if (_name != __VED_DEFAULT_AUDIO_GROUP)
+                                {
+                                    _struct.__MoveAllToDefault();
+                                    __library.__RemoveByName(_name);
+                                }
+                            }));
+                        
+                            _system.__project.__SaveAudioGroups();
+                            __multiselectorAG.__SelectNone();
+                        }
+                    }
                 }
                 ImGui.EndDisabled();
                 
