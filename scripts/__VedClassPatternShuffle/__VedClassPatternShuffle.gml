@@ -68,7 +68,7 @@ function __VedClassPatternShuffle() constructor
     
     static __CompilePattern = function(_buffer)
     {
-        buffer_write(_buffer, buffer_text, $"        struct_set_from_hash(_data, {VED_GENERATED_ASSET_PREFIX}{__name}, new __VinylClassPatternShuffle({VED_GENERATED_ASSET_PREFIX}{__name}, {__soundHead}, {__soundLoop}, {__soundTail}, {__gainForce? "true" : "false"}, {__gain}));\n");
+        //Not necessary
     }
     
     static __CompileName = function(_buffer)
@@ -101,6 +101,13 @@ function __VedClassPatternShuffle() constructor
         __pitchForce  = _data[$ "pitchForce" ] ?? false;
         __pitch       = _data[$ "pitch"      ] ?? [1, 1];
         __pitchOption = _data[$ "pitchOption"] ?? __VED_OPTION_UNSET;
+        
+        var _i = 0;
+        repeat(array_length(__soundArray))
+        {
+            __soundDict[$ __soundArray[_i]] = true;
+            ++_i;
+        }
     }
     
     static __BroadcastChange = function()

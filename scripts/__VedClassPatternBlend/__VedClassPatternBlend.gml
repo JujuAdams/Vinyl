@@ -14,12 +14,18 @@ function __VedClassPatternBlend() constructor
     
     static __CompilePlay = function(_buffer)
     {
-        //TODO
+        buffer_write(_buffer, buffer_text, $"        struct_set_from_hash(_data, {VED_GENERATED_ASSET_PREFIX}{__name}, function(_loop_UNUSED, _gainLocal, _pitchLocal)\n");
+        buffer_write(_buffer, buffer_text,  "        {\n");
+        buffer_write(_buffer, buffer_text, $"            static _pattern = struct_get_from_hash(__VinylGenPattern(), {VED_GENERATED_ASSET_PREFIX}{__name});\n");
+        buffer_write(_buffer, buffer_text,  "            return (new __VinylClassVoiceBlend(_pattern)).__voiceTop;\n");
+        buffer_write(_buffer, buffer_text,  "        });\n");
+        buffer_write(_buffer, buffer_text,  "\n");
     }
     
     static __CompilePattern = function(_buffer)
     {
-        //TODO
+        var _soundArrayString = "[" + string_join_ext(", ", __soundArray) + "]";
+        buffer_write(_buffer, buffer_text, $"        struct_set_from_hash(_data, {VED_GENERATED_ASSET_PREFIX}{__name}, new __VinylClassPatternBlend({VED_GENERATED_ASSET_PREFIX}{__name}, {_soundArrayString}, {__gainForce? "true" : "false"}, {__gain}));\n");
     }
     
     static __CompileName = function(_buffer)
@@ -50,7 +56,7 @@ function __VedClassPatternBlend() constructor
         var _i = 0;
         repeat(array_length(__soundArray))
         {
-            __soundDict[__soundArray[_i]] = true;
+            __soundDict[$ __soundArray[_i]] = true;
             ++_i;
         }
     }

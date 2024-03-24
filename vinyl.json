@@ -5,13 +5,13 @@
   ],
   "patterns":[
     {
-      "name":"rhrht",
       "type":"Shuffle",
+      "name":"rhrht",
+      "sounds":[
+      ],
       "gain":[
         0.73500001430511475,
         1.1059999465942383
-      ],
-      "sounds":[
       ],
       "gainForce":1.0,
       "gainOption":"Randomize",
@@ -23,13 +23,13 @@
       "pitchOption":"Unset"
     },
     {
-      "name":"Footsteps",
       "type":"Shuffle",
+      "name":"Footsteps",
+      "sounds":[
+      ],
       "gain":[
         1.0,
         1.0
-      ],
-      "sounds":[
       ],
       "gainForce":0.0,
       "gainOption":"Unset",
@@ -44,8 +44,19 @@
       "soundHead":"sndBleep0",
       "soundLoop":"sndBleep1",
       "soundTail":"sndBleep2",
-      "name":"LoopingTrack",
       "type":"Head-Loop-Tail",
+      "name":"LoopingTrack",
+      "gainForce":0.0,
+      "gain":1.0,
+      "gainOption":"Unset"
+    },
+    {
+      "type":"Blend",
+      "name":"BlendTest",
+      "sounds":[
+        "sndBleep0",
+        "sndBleep1"
+      ],
       "gain":1.0,
       "gainForce":0.0,
       "gainOption":"Unset"
