@@ -70,15 +70,15 @@ function __VedClassRule() constructor
         {
             if (ImGui.BeginTabItem("Filters"))
             {
-                if (ImGui.Button("Add Filter"))
+                ImGui.SetCursorPosX(ImGui.GetContentRegionAvailX() - 80);
+                if (ImGui.Button("Add Filter", 80))
                 {
                     var _filter = new __VedClassRuleFilter();
                     _filter.__opened = true;
                     array_push(__filterArray, _filter);
                 }
-        
+                
                 ImGui.BeginChild("Filter Panel", undefined, undefined, ImGuiChildFlags.Border, ImGuiWindowFlags.AlwaysVerticalScrollbar);
-        
                 if (ImGui.BeginTable("Filter Table", 3))
                 {
                     ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 22);
@@ -132,27 +132,74 @@ function __VedClassRule() constructor
                     
                     ImGui.EndTable();
                 }
-        
+                
                 ImGui.EndChild();
                 ImGui.EndTabItem();
             }
                 
             if (ImGui.BeginTabItem("Actions"))
             {
-                if (ImGui.Button("Add Action"))
+                ImGui.SetCursorPosX(ImGui.GetContentRegionAvailX() - 80);
+                if (ImGui.Button("Add Action", 80))
                 {
-                    array_push(__filterArray, new __VedClassRuleAction());
+                    array_push(__actionArray, new __VedClassRuleAction());
                 }
-        
+                
                 ImGui.BeginChild("Action Panel", undefined, undefined, ImGuiChildFlags.Border, ImGuiWindowFlags.AlwaysVerticalScrollbar);
-        
-                var _i = 0;
-                repeat(array_length(__actionArray))
+                if (ImGui.BeginTable("Action Table", 3))
                 {
-                    __actionArray[_i].__BuildUI(_i);
-                    ++_i;
+                    ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 22);
+                    ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 24);
+                    ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthStretch, 1);
+                    
+                    var _length = array_length(__actionArray);
+                    var _i = 0;
+                    repeat(array_length(__actionArray))
+                    {
+                        ImGui.TableNextRow();
+                        ImGui.TableSetColumnIndex(0);
+                        
+                        ImGui.BeginDisabled(_i <= 0);
+                        if (ImGui.ArrowButton("Up " + string(_i), ImGuiDir.Up))
+                        {
+                            var _temp = __actionArray[_i];
+                            __actionArray[_i] = __actionArray[_i-1];
+                            __actionArray[_i-1] = _temp;
+                        }
+                        ImGui.EndDisabled();
+                        
+                        ImGui.TableSetColumnIndex(1);
+                        
+                        ImGui.BeginDisabled(_i >= _length-1);
+                        if (ImGui.ArrowButton("Down " + string(_i), ImGuiDir.Down))
+                        {
+                            var _temp = __actionArray[_i];
+                            __actionArray[_i] = __actionArray[_i+1];
+                            __actionArray[_i+1] = _temp;
+                        }
+                        ImGui.EndDisabled();
+                        
+                        ImGui.TableSetColumnIndex(2);
+                        
+                        var _return = ImGui.CollapsingHeader("##" + string(_i), true, ImGuiTreeNodeFlags.DefaultOpen, ImGuiReturnMask.Both);
+                        if (not (_return & ImGuiReturnMask.Pointer))
+                        {
+                            array_delete(__actionArray, _i, 1);
+                        }
+                        else
+                        {
+                            if (_return & ImGuiReturnMask.Return)
+                            {
+                                __actionArray[_i].__BuildUI();
+                            }
+                            
+                            ++_i;
+                        }
+                    }
+                    
+                    ImGui.EndTable();
                 }
-        
+                
                 ImGui.EndChild();
                 ImGui.EndTabItem();
             }

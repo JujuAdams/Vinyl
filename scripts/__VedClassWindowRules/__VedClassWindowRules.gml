@@ -151,7 +151,6 @@ function __VedClassWindowRules() : __VedClassWindow() constructor
                     {
                         //Change the display text depending on what the user is actually seeing
                         ImGui.Text(__multiselector.__GetLastSelectedName());
-                        ImGui.NewLine();
                         _lastSelected.__BuildUI(__multiselector, _ruleDict);
                     }
                     else
