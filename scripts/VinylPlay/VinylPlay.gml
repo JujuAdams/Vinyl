@@ -26,7 +26,7 @@ function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1)
                 return _voice;
             }
             
-            if (VINYL_LIVE_EDIT) __VinylVoiceTrack(_voice, _gain, _pitch, 1, 1).__pattern = _pattern;
+            if (VINYL_LIVE_EDIT) __VinylVoiceTrack(_voice, _gain, _pitch, 0.5, 0.5).__pattern = _pattern;
             return _voice;
         }
         else
@@ -42,7 +42,7 @@ function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1)
                     return _voice;
                 }
                 
-                if (VINYL_LIVE_EDIT) __VinylVoiceTrack(_voice, _gain, _pitch, 1, 1).__pattern = _pattern;
+                if (VINYL_LIVE_EDIT) __VinylVoiceTrack(_voice, _gain, _pitch, 0.5, 0.5).__pattern = _pattern;
                 return _voice;
             }
             else

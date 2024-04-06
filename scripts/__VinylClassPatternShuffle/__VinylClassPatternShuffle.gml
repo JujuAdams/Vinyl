@@ -39,10 +39,14 @@ function __VinylClassPatternShuffle(_patternIndex, _soundArray, _gainForce, _gai
         var _sound = __soundArray[__playIndex];
         ++__playIndex;
         
-        var _gainPattern  = __VinylRandomRange(__gainMin,  __gainMax);
-        var _pitchPattern = __VinylRandomRange(__pitchMin, __pitchMax);
+        var _gainFactor  = __VinylRandom(1);
+        var _pitchFactor = __VinylRandom(1);
+        
+        var _gainPattern  = lerp(__gainMin,  __gainMax, _gainFactor);
+        var _pitchPattern = lerp(__pitchMin, __pitchMax, _pitchFactor);
+        
         var _voice = audio_play_sound(_sound, 0, false, _gainLocal*_gainPattern, 0, _pitchLocal*_pitchPattern);
-        __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainPattern, _pitchPattern).__pattern = __patternIndex;
+        __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor).__pattern = __patternIndex;
         return _voice;
     }
     
