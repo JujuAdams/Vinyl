@@ -26,7 +26,7 @@ function __VinylClassPatternSound(_sound, _loop, _gainMin, _gainMax, _pitchMin, 
         var _pitchPattern = lerp(__pitchMin, __pitchMax, _pitchFactor);
         
         var _voice = audio_play_sound(__sound, 0, _loop ?? __loop, _gainLocal*_gainPattern, 0, _pitchLocal*_pitchPattern);
-        __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor).__pattern = __sound;
+        __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor, __sound);
         return _voice;
     }
     

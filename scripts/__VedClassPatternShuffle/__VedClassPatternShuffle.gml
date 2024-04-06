@@ -52,14 +52,7 @@ function __VedClassPatternShuffle() constructor
         buffer_write(_buffer, buffer_text, $"            var _pitchPattern = lerp({__pitch[0]}, {__pitch[1]}, _pitchFactor);\n");
         buffer_write(_buffer, buffer_text, $"            var _voice = audio_play_sound(_sound, 0, false, _gainLocal*_gainPattern, 0, _pitchLocal*_pitchPattern);\n");
         buffer_write(_buffer, buffer_text,  "            \n");
-        buffer_write(_buffer, buffer_text,  "            if (VINYL_LIVE_EDIT)\n");
-        buffer_write(_buffer, buffer_text,  "            {\n");
-        buffer_write(_buffer, buffer_text, $"                __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor).__pattern = {VED_GENERATED_ASSET_PREFIX}{__name};\n");
-        buffer_write(_buffer, buffer_text,  "            }\n");
-        buffer_write(_buffer, buffer_text,  "            else\n");
-        buffer_write(_buffer, buffer_text,  "            {\n");
-        buffer_write(_buffer, buffer_text,  "                __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor);\n");
-        buffer_write(_buffer, buffer_text,  "            }\n");
+        buffer_write(_buffer, buffer_text, $"            __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor VINYL_LIVE_EDIT? {VED_GENERATED_ASSET_PREFIX}{__name} : undefined);\n");
         buffer_write(_buffer, buffer_text,  "            \n");
         buffer_write(_buffer, buffer_text,  "            return _voice;\n");
         buffer_write(_buffer, buffer_text,  "        });\n");

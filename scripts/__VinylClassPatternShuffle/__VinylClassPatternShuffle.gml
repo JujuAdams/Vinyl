@@ -46,7 +46,7 @@ function __VinylClassPatternShuffle(_patternIndex, _soundArray, _gainForce, _gai
         var _pitchPattern = lerp(__pitchMin, __pitchMax, _pitchFactor);
         
         var _voice = audio_play_sound(_sound, 0, false, _gainLocal*_gainPattern, 0, _pitchLocal*_pitchPattern);
-        __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor).__pattern = __patternIndex;
+        __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor, __patternIndex);
         return _voice;
     }
     
