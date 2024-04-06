@@ -3,16 +3,16 @@
 /// @param voice
 /// @param gainLocal
 /// @param pitchLocal
-/// @param gainPattern
-/// @param pitchPattern
+/// @param gainFactor
+/// @param pitchFactor
 
-function __VinylClassVoiceSound(_voice, _gainLocal, _pitchLocal, _gainPattern, _pitchPattern) constructor
+function __VinylClassVoiceSound(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor) constructor
 {
-    __voice        = _voice;
-    __gainLocal    = _gainLocal;
-    __pitchLocal   = _pitchLocal;
-    __gainPattern  = _gainPattern;
-    __pitchPattern = _pitchPattern;
+    __voice       = _voice;
+    __gainLocal   = _gainLocal;
+    __pitchLocal  = _pitchLocal;
+    __gainFactor  = _gainFactor;
+    __pitchFactor = _pitchFactor;
     
     if (VINYL_LIVE_EDIT)
     {

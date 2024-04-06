@@ -11,10 +11,10 @@ function VinylWillStop(_voice)
     if (audio_sound_get_loop_end(_voice) <= 0)
     {
         //No loop points
-         return (audio_sound_get_track_position(_voice) >= audio_sound_length(_voice) - VINYL_WILL_STOP_TOLERANCE/1000);
+         return (audio_sound_get_track_position(_voice) >= audio_sound_length(_voice) - audio_sound_get_pitch(_voice)*VINYL_WILL_STOP_TOLERANCE/1000);
     }
     else
     {
-        return (audio_sound_get_track_position(_voice) >= audio_sound_get_loop_end(_voice) - VINYL_WILL_STOP_TOLERANCE/1000);
+        return (audio_sound_get_track_position(_voice) >= audio_sound_get_loop_end(_voice) - audio_sound_get_pitch(_voice)*VINYL_WILL_STOP_TOLERANCE/1000);
     }
 }

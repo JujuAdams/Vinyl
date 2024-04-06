@@ -20,7 +20,7 @@ function __VinylClassPatternHLT(_patternIndex, _soundHead, _soundLoop, _soundTai
     //Don't make this static!
     __Play = function(_loop, _gainLocal, _pitchLocal)
     {
-        var _struct = new __VinylClassVoiceHLT(self);
+        var _struct = new __VinylClassVoiceHLT(self, _gainLocal, _pitchLocal);
         return _struct.__currentVoice;
     }
     
