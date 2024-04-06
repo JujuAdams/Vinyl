@@ -27,10 +27,7 @@ function __VedClassPatternShuffle() constructor
             return;
         }
         
-        var _soundCount   = array_length(__soundArray);
-        var _patternGain  = (__gain[ 0] == __gain[ 1])? string(__gain[ 0]) : $"__VinylRandomRange({__gain[ 0]}, {__gain[ 1]})";
-        var _patternPitch = (__pitch[0] == __pitch[1])? string(__pitch[0]) : $"__VinylRandomRange({__pitch[0]}, {__pitch[1]})";
-        
+        var _soundCount = array_length(__soundArray);
         buffer_write(_buffer, buffer_text, $"        struct_set_from_hash(_data, {VED_GENERATED_ASSET_PREFIX}{__name}, function(_loop, _gainLocal, _pitchLocal)\n");
         buffer_write(_buffer, buffer_text,  "        {\n");
         buffer_write(_buffer, buffer_text, $"            static _soundArray = [{string_join_ext(", ", __soundArray)}];\n");
@@ -48,17 +45,20 @@ function __VedClassPatternShuffle() constructor
         buffer_write(_buffer, buffer_text, $"            var _sound = _soundArray[_playIndex];\n");
         buffer_write(_buffer, buffer_text,  "            ++_playIndex;\n");
         buffer_write(_buffer, buffer_text,  "            \n");
-        buffer_write(_buffer, buffer_text, $"            var _gainPattern  = {_patternGain};\n");
-        buffer_write(_buffer, buffer_text, $"            var _pitchPattern = {_patternPitch};\n");
+        buffer_write(_buffer, buffer_text, $"            var _gainFactor   = __VinylRandom(1);\n");
+        buffer_write(_buffer, buffer_text, $"            var _pitchFactor  = __VinylRandom(1);\n");
+        buffer_write(_buffer, buffer_text,  "            \n");
+        buffer_write(_buffer, buffer_text, $"            var _gainPattern  = lerp({__gain[ 0]}, {__gain[ 1]}, _gainFactor);\n");
+        buffer_write(_buffer, buffer_text, $"            var _pitchPattern = lerp({__pitch[0]}, {__pitch[1]}, _pitchFactor);\n");
         buffer_write(_buffer, buffer_text, $"            var _voice = audio_play_sound(_sound, 0, false, _gainLocal*_gainPattern, 0, _pitchLocal*_pitchPattern);\n");
         buffer_write(_buffer, buffer_text,  "            \n");
         buffer_write(_buffer, buffer_text,  "            if (VINYL_LIVE_EDIT)\n");
         buffer_write(_buffer, buffer_text,  "            {\n");
-        buffer_write(_buffer, buffer_text, $"                __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainPattern, _pitchPattern).__pattern = {VED_GENERATED_ASSET_PREFIX}{__name};\n");
+        buffer_write(_buffer, buffer_text, $"                __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor).__pattern = {VED_GENERATED_ASSET_PREFIX}{__name};\n");
         buffer_write(_buffer, buffer_text,  "            }\n");
         buffer_write(_buffer, buffer_text,  "            else\n");
         buffer_write(_buffer, buffer_text,  "            {\n");
-        buffer_write(_buffer, buffer_text,  "                __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainPattern, _pitchPattern);\n");
+        buffer_write(_buffer, buffer_text,  "                __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor);\n");
         buffer_write(_buffer, buffer_text,  "            }\n");
         buffer_write(_buffer, buffer_text,  "            \n");
         buffer_write(_buffer, buffer_text,  "            return _voice;\n");
