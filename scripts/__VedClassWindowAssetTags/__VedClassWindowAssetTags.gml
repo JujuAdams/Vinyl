@@ -30,35 +30,29 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
         
         if (_return & ImGuiReturnMask.Return)
         {
-            ImGui.BeginChild("Left Pane", 0.5*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
+            ImGui.BeginChild("Left Pane", 0.3*ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
+                
+                ImGui.BeginDisabled(__multiselector.__GetLastSelectedName() == undefined);
+                if (ImGui.Button("Add"))
+                {
+                    
+                }
+                ImGui.EndDisabled();
+                
+                ImGui.SameLine();
+                
+                ImGui.BeginDisabled(__multiselector.__GetSelectedCount() <= 0);
+                if (ImGui.Button("Delete"))
+                {
+                    
+                }
+                ImGui.EndDisabled();
                 
                 //Keep an array of all visible sounds. We use this later for the "select all" button
                 var _visibleArray = [];
                 
                 ImGui.BeginChild("Left Inner Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50);
-                /*
-                //Iterate over every sound in the project and show them in the editor
-                var _i = 0;
-                repeat(array_length(_yypAssetArray))
-                {
-                    var _name = _yypAssetArray[_i];
-                    
-                    var _modified = _vinylAssetDict[$ _name].__GetModified();
-                    var _selected = __multiselector.__IsSelected(_name);
-                    
-                    if (((_modified && __seeModified) || ((not _modified) && __seeUnmodified)) //Modified check
-                    &&  ((not __multiselector.__multiselect) || (_selected && __multiselector.__seeSelected) || ((not _selected) && __multiselector.__seeUnselected))) //Selected check
-                    {
-                        //Push the name of this visible sound to our array
-                        array_push(_visibleArray, _name);
-                    }
-                    
-                    ++_i;
-                }
-                */
-                
-                _project.__rootAssetTag.__BuildTreeUI(__multiselector, _assetTagDict, _project.__rootAssetTag);
-                
+                _assetTagDict[$ __VED_ROOT_ASSET_TAG].__BuildTreeUI(__multiselector, _assetTagDict, _visibleArray);
                 ImGui.EndChild();
                 
                 //Build the selection handler UI at the bottom of the list of sounds

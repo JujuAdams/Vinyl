@@ -15,7 +15,9 @@ function __VedClassProject() constructor
     __libAudioGroup = new __VedClassLibrary();
     __libAssetTag   = new __VedClassLibrary();
     
-    __rootAssetTag = new __VedClassAssetTag();
+    var _assetTag = new __VedClassAssetTag();
+    _assetTag.__name = __VED_ROOT_ASSET_TAG;
+    __libAssetTag.__Add(__VED_ROOT_ASSET_TAG, _assetTag);
     
     
     
@@ -249,7 +251,7 @@ function __VedClassProject() constructor
             var _assetTag = new __VedClassAssetTag();
             _assetTag.__name = _name;
             __libAssetTag.__Add(_name, _assetTag);
-            _assetTag.__ChangeParent(__VED_ROOT_ASSET_TAG, __libAssetTag.__GetDictionary(), __rootAssetTag);
+            _assetTag.__ChangeParent(__VED_ROOT_ASSET_TAG, __libAssetTag.__GetDictionary());
             return _assetTag
         }
     }
