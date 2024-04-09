@@ -29,6 +29,8 @@
 
 #macro __VED_COMPILED_PATTERN_MASK  "0x43F498AF_" //e.g. 0x43F498AF_00000000
 
+#macro __VED_ROOT_ASSET_TAG  undefined
+
 
 
 function __VedSystem()

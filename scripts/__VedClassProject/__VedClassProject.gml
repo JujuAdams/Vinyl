@@ -249,10 +249,7 @@ function __VedClassProject() constructor
             var _assetTag = new __VedClassAssetTag();
             _assetTag.__name = _name;
             __libAssetTag.__Add(_name, _assetTag);
-            
-            array_push(__rootAssetTag.__childrenArray, _name);
-            array_sort(__rootAssetTag.__childrenArray, true);
-            
+            _assetTag.__ChangeParent(__VED_ROOT_ASSET_TAG, __libAssetTag.__GetDictionary(), __rootAssetTag);
             return _assetTag
         }
     }

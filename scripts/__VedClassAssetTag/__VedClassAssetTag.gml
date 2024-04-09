@@ -38,11 +38,44 @@ function __VedClassAssetTag() constructor
         array_copy(_array, array_length(_array), __soundNameArray, 0, array_length(__soundNameArray));
     }
     
+    static __AddChild = function(_assetTagName)
+    {
+        array_push(__childrenArray, _assetTagName);
+        array_sort(__childrenArray, true);
+    }
+    
+    static __RemoveChild = function(_assetTagName)
+    {
+        var _index = __VinylArrayFindIndex(__childrenArray, _assetTagName);
+        if (_index != undefined) array_delete(__childrenArray, _index, 1);
+    }
+    
+    static __ChangeParent = function(_assetTagName, _dictionary, _rootAssetTag)
+    {
+        var _oldParent = (__parent == __VED_ROOT_ASSET_TAG)? _rootAssetTag : _dictionary[$ __parent];
+        var _newParent = (_assetTagName == __VED_ROOT_ASSET_TAG)? _rootAssetTag : _dictionary[$ _assetTagName];
+        
+        //Prevent infinite loops
+        if ((_newParent != undefined) && _newParent.__HasAncestor(__name)) return;
+        
+        if (_oldParent != undefined) _oldParent.__RemoveChild(__name);
+        __parent = _assetTagName
+        if (_newParent != undefined) _newParent.__AddChild(__name);
+    }
+    
+    static __HasAncestor = function(_assetTagName)
+    {
+        if (_assetTagName == __VED_ROOT_ASSET_TAG) return true;
+        if (__parent == undefined) return false;
+        if (__parent == _assetTagName) return true;
+        return __parent.__HasAncestor(_assetTagName);
+    }
+    
     static __BuildTreeUI = function(_multiselector, _dictionary, _rootAssetTag)
     {
         ImGui.Selectable(__name ?? "Master");
         
-        if (__name != undefined)
+        if (__name != __VED_ROOT_ASSET_TAG)
         {
             if (ImGui.BeginDragDropSource())
             {
@@ -54,22 +87,7 @@ function __VedClassAssetTag() constructor
         if (ImGui.BeginDragDropTarget())
         {
     		var _payload = ImGui.AcceptDragDropPayload("Asset Tag Move");
-    		if (_payload != undefined)
-            {
-                var _source = _dictionary[$ _payload];
-                
-                var _oldParent = (_source.__parent == undefined)? _rootAssetTag : _dictionary[$ _source.__parent];
-                if (_oldParent != undefined)
-                {
-                    var _index = __VinylArrayFindIndex(_oldParent.__childrenArray, _payload);
-                    if (_index != undefined) array_delete(_oldParent.__childrenArray, _index, 1);
-                }
-                
-                _source.__parent = __name;
-                array_push(__childrenArray, _payload);
-                array_sort(__childrenArray, true);
-            }
-            
+    		if (_payload != undefined) _dictionary[$ _payload].__ChangeParent(__name, _dictionary, _rootAssetTag);
             ImGui.EndDragDropTarget();
         }
         
