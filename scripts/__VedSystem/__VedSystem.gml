@@ -23,10 +23,6 @@
 #macro __VED_PATTERN_TYPE_HEAD_LOOP_TAIL  "Head-Loop-Tail"
 #macro __VED_PATTERN_TYPE_BLEND           "Blend"
 
-#macro __VED_RULE_TYPE_ASSET_TAG  "Shuffle"
-#macro __VED_RULE_TYPE_SOUND      "Head-Loop-Tail"
-#macro __VED_RULE_TYPE_ONE_SHOT   "Blend"
-
 #macro __VED_COLOUR_RED    #FF6060
 #macro __VED_COLOUR_GREEN  #60FF60
 #macro __VED_DEFAULT_AUDIO_GROUP  "audiogroup_default"

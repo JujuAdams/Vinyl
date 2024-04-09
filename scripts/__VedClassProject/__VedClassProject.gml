@@ -14,7 +14,6 @@ function __VedClassProject() constructor
     __libPattern    = new __VedClassLibrary();
     __libAudioGroup = new __VedClassLibrary();
     __libAssetTag   = new __VedClassLibrary();
-    __libRule       = new __VedClassLibrary();
     
     
     
@@ -32,7 +31,6 @@ function __VedClassProject() constructor
             ident: __ident,
             assets: [],
             patterns: [],
-            rules: [],
         };
         
         __libVinyl.__ForEach(function(_index, _name, _scope, _metadata)
@@ -51,14 +49,6 @@ function __VedClassProject() constructor
             __array: _output.patterns,
         });
         
-        __libRule.__ForEach(function(_index, _name, _scope, _metadata)
-        {
-            _scope.__Serialize(_metadata.__array);
-        },
-        {
-            __array: _output.rules,
-        });
-        
         return _output;
     }
     
@@ -68,7 +58,6 @@ function __VedClassProject() constructor
         
         //Import extra sound data
         __libVinyl.__ImportArray(__VedDeserializeArray(__VedClassVinylAsset, _input.assets));
-        __libRule.__ImportArray(__VedDeserializeArray(__VedClassRule, _input.rules));
         
         //Import patterns
         var _inputArray = _input.patterns;
@@ -276,22 +265,6 @@ function __VedClassProject() constructor
             __libPattern.__Add(_name, _pattern);
             
             return _pattern
-        }
-    }
-    
-    static __EnsureRule = function(_name)
-    {
-        if (__libRule.__Exists(_name))
-        {
-            return __libRule.__GetByName(_name);
-        }
-        else
-        {
-            var _rule = new __VedClassRule();
-            _rule.__name = _name;
-            __libRule.__Add(_name, _rule);
-            
-            return _rule
         }
     }
     
