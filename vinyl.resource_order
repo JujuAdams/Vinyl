@@ -26,7 +26,7 @@
     {"name":"__VedNetSendJSON","order":1,"path":"scripts/__VedNetSendJSON/__VedNetSendJSON.yy",},
     {"name":"VinylIsPlaying","order":7,"path":"scripts/VinylIsPlaying/VinylIsPlaying.yy",},
     {"name":"__VinylClassVoiceSound","order":5,"path":"scripts/__VinylClassVoiceSound/__VinylClassVoiceSound.yy",},
-    {"name":"__VedClassWindowAssetTags","order":4,"path":"scripts/__VedClassWindowAssetTags/__VedClassWindowAssetTags.yy",},
+    {"name":"__VedClassWindowOrganiser","order":4,"path":"scripts/__VedClassWindowOrganiser/__VedClassWindowOrganiser.yy",},
     {"name":"__VinylRemovePattern","order":6,"path":"scripts/__VinylRemovePattern/__VinylRemovePattern.yy",},
     {"name":"__VinylError","order":11,"path":"scripts/__VinylError/__VinylError.yy",},
     {"name":"__VedClassPatternShuffle","order":4,"path":"scripts/__VedClassPatternShuffle/__VedClassPatternShuffle.yy",},

@@ -1,6 +1,6 @@
 // Feather disable all
 
-function __VedClassWindowAssetTags() : __VedClassWindow() constructor
+function __VedClassWindowOrganiser() : __VedClassWindow() constructor
 {
     __handle = "Asset Tags";
     

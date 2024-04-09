@@ -50,7 +50,7 @@
     {"id":{"name":"__VedNetSendJSON","path":"scripts/__VedNetSendJSON/__VedNetSendJSON.yy",},},
     {"id":{"name":"VinylIsPlaying","path":"scripts/VinylIsPlaying/VinylIsPlaying.yy",},},
     {"id":{"name":"__VinylClassVoiceSound","path":"scripts/__VinylClassVoiceSound/__VinylClassVoiceSound.yy",},},
-    {"id":{"name":"__VedClassWindowAssetTags","path":"scripts/__VedClassWindowAssetTags/__VedClassWindowAssetTags.yy",},},
+    {"id":{"name":"__VedClassWindowOrganiser","path":"scripts/__VedClassWindowOrganiser/__VedClassWindowOrganiser.yy",},},
     {"id":{"name":"__VinylRemovePattern","path":"scripts/__VinylRemovePattern/__VinylRemovePattern.yy",},},
     {"id":{"name":"__VinylError","path":"scripts/__VinylError/__VinylError.yy",},},
     {"id":{"name":"__VedClassPatternShuffle","path":"scripts/__VedClassPatternShuffle/__VedClassPatternShuffle.yy",},},
