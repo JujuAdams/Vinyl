@@ -15,12 +15,12 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
     {
         var _project = _system.__project;
         
-        var _yypAssetArray = _project.__libSound.__GetNameArray();
-        var _yypAssetDict  = _project.__libSound.__GetDictionary();
+        var _assetTagArray = _project.__libAssetTag.__GetNameArray();
+        var _assetTagDict  = _project.__libAssetTag.__GetDictionary();
         
         ImGui.SetNextWindowSize(0.7*room_width, 0.8*room_height, ImGuiCond.Once);
         ImGui.SetNextWindowPos(0.15*room_width, 0.1*room_height, ImGuiCond.Once);
-	    
+        
         //Allow the filter window to stay on top
         //var _flags = __VinylEditorWindowGetOpen("__filter")? ImGuiWindowFlags.NoBringToFrontOnFocus : ImGuiWindowFlags.None;
         var _flags = ImGuiWindowFlags.None;
@@ -57,16 +57,12 @@ function __VedClassWindowAssetTags() : __VedClassWindow() constructor
                 }
                 */
                 
-    			if (ImGui.TreeNodeEx("ImGui::TreeNode", ImGuiTreeNodeFlags.OpenOnArrow | ImGuiTreeNodeFlags.DefaultOpen))
-                {
-    				ImGui.Text("Hello!\nThis is some content inside of a tree node :)");
-    				ImGui.TreePop();
-    			}
+                _project.__rootAssetTag.__BuildTreeUI(__multiselector, _assetTagDict, _project.__rootAssetTag);
                 
                 ImGui.EndChild();
                 
                 //Build the selection handler UI at the bottom of the list of sounds
-                __multiselector.__BuildUI(_yypAssetDict, _visibleArray);
+                __multiselector.__BuildUI(_assetTagDict, _visibleArray);
                 
             ImGui.EndChild();
             

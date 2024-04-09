@@ -15,6 +15,8 @@ function __VedClassProject() constructor
     __libAudioGroup = new __VedClassLibrary();
     __libAssetTag   = new __VedClassLibrary();
     
+    __rootAssetTag = new __VedClassAssetTag();
+    
     
     
     
@@ -247,6 +249,9 @@ function __VedClassProject() constructor
             var _assetTag = new __VedClassAssetTag();
             _assetTag.__name = _name;
             __libAssetTag.__Add(_name, _assetTag);
+            
+            array_push(__rootAssetTag.__childrenArray, _name);
+            array_sort(__rootAssetTag.__childrenArray, true);
             
             return _assetTag
         }
