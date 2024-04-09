@@ -2,25 +2,36 @@
 
 function __VedClassWindowOrganiser() : __VedClassWindow() constructor
 {
-    __handle = "Asset Tags";
+    __handle = "Organiser";
     
-    __filter = new __VedClassSoundFilter();
-    __useFilter = false;
+    
+    
+    __filterTag    = new __VedClassSoundFilter();
+    __useFilterTag = false;
     
     if (_system.__project.__libAssetTag.__GetCount() <= 0)
     {
-        __moveToTarget = "<no asset tags>";
+        __moveToTargetAssetTag = "<no asset tags>";
     }
     else
     {
-        __moveToTarget = _system.__project.__libAssetTag.__GetNameByIndex(0);
+        __moveToTargetAssetTag = _system.__project.__libAssetTag.__GetNameByIndex(0);
     }
     
-    __multiselectorTag   = new __VedClassMultiselector();
-    __multiselectorAsset = new __VedClassMultiselector();
+    __multiselectorTag      = new __VedClassMultiselector();
+    __multiselectorTagAsset = new __VedClassMultiselector();
+    
+    
+    
+    __filterAG    = new __VedClassSoundFilter();
+    __useFilterAG = false;
+    
+    __moveToTargetAG = __VED_DEFAULT_AUDIO_GROUP;
     
     __multiselectorAG      = new __VedClassMultiselector();
     __multiselectorAGAsset = new __VedClassMultiselector();
+    
+    
     
     static __Update = function()
     {
@@ -35,7 +46,7 @@ function __VedClassWindowOrganiser() : __VedClassWindow() constructor
         ImGui.SetNextWindowPos(0.15*room_width, 0.15*room_height, ImGuiCond.Once);
 	    
         //Allow the filter window to stay on top
-        //var _flags = __VinylEditorWindowGetOpen("__filter")? ImGuiWindowFlags.NoBringToFrontOnFocus : ImGuiWindowFlags.None;
+        //var _flags = __VinylEditorWindowGetOpen("__filterTag")? ImGuiWindowFlags.NoBringToFrontOnFocus : ImGuiWindowFlags.None;
         var _flags = ImGuiWindowFlags.None;
         
         var _return = ImGui.Begin(__handle, not __closed, _flags, ImGuiReturnMask.Both);
@@ -174,9 +185,9 @@ function __VedClassWindowOrganiser() : __VedClassWindow() constructor
                             //General filter checkbox and edit button
                             ImGui.Text("Filter");
                             ImGui.SameLine();
-                            __useFilter = ImGui.Checkbox("##Filter", __useFilter);
+                            __useFilterTag = ImGui.Checkbox("##Filter", __useFilterTag);
                             ImGui.SameLine();
-                            if (ImGui.Button("Edit...")) __VedWindowOpenSingle(__VedClassWindowFilter).__filter = __filter;
+                            if (ImGui.Button("Edit...")) __VedWindowOpenSingle(__VedClassWindowFilter).__filterTag = __filterTag;
                         }
                 
                         //Here's where we jump to a different function to draw the actual properties
@@ -208,12 +219,12 @@ function __VedClassWindowOrganiser() : __VedClassWindow() constructor
                                 {
                                     var _name = _assetArray[_i];
                             
-                                    var _selected = __multiselectorAsset.__IsSelected(_name);
-                                    if ((not __multiselectorAsset.__multiselect) || (_selected && __multiselectorAsset.__seeSelected) || ((not _selected) && __multiselectorAsset.__seeUnselected)) //Selected check
+                                    var _selected = __multiselectorTagAsset.__IsSelected(_name);
+                                    if ((not __multiselectorTagAsset.__multiselect) || (_selected && __multiselectorTagAsset.__seeSelected) || ((not _selected) && __multiselectorTagAsset.__seeUnselected)) //Selected check
                                     {
-                                        if ((not __useFilter) || __filter.__Apply(_soundDict[$ _name]))
+                                        if ((not __useFilterTag) || __filterTag.__Apply(_soundDict[$ _name]))
                                         {
-                                            _funcBuildSelectable(_name, __multiselectorAsset);
+                                            _funcBuildSelectable(_name, __multiselectorTagAsset);
                                     
                                             //Push the name of this visible sound to our array
                                             array_push(_visibleArray, _name);
@@ -226,7 +237,7 @@ function __VedClassWindowOrganiser() : __VedClassWindow() constructor
                             ImGui.EndChild();
                     
                             //Build the selection handler UI at the bottom of the list of sounds
-                            __multiselectorAsset.__BuildUI(_soundDict, _visibleArray);
+                            __multiselectorTagAsset.__BuildUI(_soundDict, _visibleArray);
                         }
                 
                     ImGui.EndChild();
@@ -235,48 +246,48 @@ function __VedClassWindowOrganiser() : __VedClassWindow() constructor
             
                     ImGui.BeginChild("Right Pane", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY());
                         
-                        ImGui.BeginDisabled(__multiselectorAsset.__GetSelectedCount() <= 0);
+                        ImGui.BeginDisabled(__multiselectorTagAsset.__GetSelectedCount() <= 0);
                         
                         var _lastSelectedName = __multiselectorTag.__GetLastSelectedName() ?? "Tag";
                         if (ImGui.Button("Remove From " + _lastSelectedName))
                         {
-                            __multiselectorAsset.__ForEachSelected(_soundDict,
+                            __multiselectorTagAsset.__ForEachSelected(_soundDict,
                             method({
-                                __assetTag: __moveToTarget,
+                                __assetTag: __moveToTargetAssetTag,
                             },
                             function(_name, _struct)
                             {
                                 _struct.__SetAssetTag(__assetTag, false);
                             }));
                     
-                            __multiselectorAsset.__SelectNone();
+                            __multiselectorTagAsset.__SelectNone();
                         }
                         
                         if (ImGui.Button("Add To"))
                         {
-                            __multiselectorAsset.__ForEachSelected(_soundDict,
+                            __multiselectorTagAsset.__ForEachSelected(_soundDict,
                             method({
-                                __assetTag: __moveToTarget,
+                                __assetTag: __moveToTargetAssetTag,
                             },
                             function(_name, _struct)
                             {
                                 _struct.__SetAssetTag(__assetTag, true);
                             }));
                     
-                            __multiselectorAsset.__SelectNone();
+                            __multiselectorTagAsset.__SelectNone();
                         }
                 
                         ImGui.SameLine(undefined, 20);
                 
-                        if (ImGui.BeginCombo("##Asset Tag", __moveToTarget, ImGuiComboFlags.None))
+                        if (ImGui.BeginCombo("##Asset Tag", __moveToTargetAssetTag, ImGuiComboFlags.None))
                         {
                             var _i = 0;
                             repeat(array_length(_assetTagArray))
                             {
                                 var _assetTag = _assetTagArray[_i];
-                                if (ImGui.Selectable(_assetTag, __moveToTarget == _assetTag))
+                                if (ImGui.Selectable(_assetTag, __moveToTargetAssetTag == _assetTag))
                                 {
-                                    __moveToTarget = _assetTag;
+                                    __moveToTargetAssetTag = _assetTag;
                                 }
                         
                                 ++_i;
@@ -292,7 +303,7 @@ function __VedClassWindowOrganiser() : __VedClassWindow() constructor
                         ImGui.BeginChild("Right Pane List", ImGui.GetContentRegionAvailX(), ImGui.GetContentRegionAvailY() - 50, undefined, ImGuiWindowFlags.AlwaysVerticalScrollbar);
                 
                         var _remove = undefined;
-                        var _array = __multiselectorAsset.__GetSelectedArray();
+                        var _array = __multiselectorTagAsset.__GetSelectedArray();
                         if (array_length(_array) <= 0)
                         {
                             ImGui.Text("(No sounds selected)");
@@ -311,7 +322,7 @@ function __VedClassWindowOrganiser() : __VedClassWindow() constructor
                             
                             if (_remove != undefined)
                             {
-                                __multiselectorAsset.__Select(_remove, false);
+                                __multiselectorTagAsset.__Select(_remove, false);
                             }
                         }
                 
@@ -453,9 +464,9 @@ function __VedClassWindowOrganiser() : __VedClassWindow() constructor
                             //General filter checkbox and edit button
                             ImGui.Text("Filter");
                             ImGui.SameLine();
-                            __useFilter = ImGui.Checkbox("##Filter", __useFilter);
+                            __useFilterAG = ImGui.Checkbox("##Filter", __useFilterAG);
                             ImGui.SameLine();
-                            if (ImGui.Button("Edit...")) __VedWindowOpenSingle(__VedClassWindowFilter).__filter = __filter;
+                            if (ImGui.Button("Edit...")) __VedWindowOpenSingle(__VedClassWindowFilter).__filterAG = __filterAG;
                         }
                 
                         //Here's where we jump to a different function to draw the actual properties
@@ -490,7 +501,7 @@ function __VedClassWindowOrganiser() : __VedClassWindow() constructor
                                     var _selected = __multiselectorAGAsset.__IsSelected(_name);
                                     if ((not __multiselectorAGAsset.__multiselect) || (_selected && __multiselectorAGAsset.__seeSelected) || ((not _selected) && __multiselectorAGAsset.__seeUnselected)) //Selected check
                                     {
-                                        if ((not __useFilter) || __filter.__Apply(_soundDict[$ _name]))
+                                        if ((not __useFilterAG) || __filterAG.__Apply(_soundDict[$ _name]))
                                         {
                                             _funcBuildSelectable(_name, __multiselectorAGAsset);
                                     
@@ -520,7 +531,7 @@ function __VedClassWindowOrganiser() : __VedClassWindow() constructor
                         {
                             __multiselectorAGAsset.__ForEachSelected(_soundDict,
                             method({
-                                __audioGroup: __moveToTarget,
+                                __audioGroup: __moveToTargetAG,
                             },
                             function(_name, _struct)
                             {
@@ -532,15 +543,15 @@ function __VedClassWindowOrganiser() : __VedClassWindow() constructor
                 
                         ImGui.SameLine(undefined, 20);
                 
-                        if (ImGui.BeginCombo("##Audio Group", __moveToTarget, ImGuiComboFlags.None))
+                        if (ImGui.BeginCombo("##Audio Group", __moveToTargetAG, ImGuiComboFlags.None))
                         {
                             var _i = 0;
                             repeat(array_length(_audioGroupArray))
                             {
                                 var _audioGroup = _audioGroupArray[_i];
-                                if (ImGui.Selectable(_audioGroup, __moveToTarget == _audioGroup))
+                                if (ImGui.Selectable(_audioGroup, __moveToTargetAG == _audioGroup))
                                 {
-                                    __moveToTarget = _audioGroup;
+                                    __moveToTargetAG = _audioGroup;
                                 }
                         
                                 ++_i;
