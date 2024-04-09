@@ -53,7 +53,6 @@
     {"name":"__VedRandom","order":2,"path":"scripts/__VedRandom/__VedRandom.yy",},
     {"name":"__VinylGetProjectPath","order":12,"path":"scripts/__VinylGetProjectPath/__VinylGetProjectPath.yy",},
     {"name":"__VedClassWindowAbout","order":9,"path":"scripts/__VedClassWindowAbout/__VedClassWindowAbout.yy",},
-    {"name":"__VedClassWindowAudioGroups","order":3,"path":"scripts/__VedClassWindowAudioGroups/__VedClassWindowAudioGroups.yy",},
     {"name":"__VedClassModalVersionMismatch","order":2,"path":"scripts/__VedClassModalVersionMismatch/__VedClassModalVersionMismatch.yy",},
     {"name":"__VedClassLibrary","order":1,"path":"scripts/__VedClassLibrary/__VedClassLibrary.yy",},
     {"name":"__VedWindowOpen","order":6,"path":"scripts/__VedWindowOpen/__VedWindowOpen.yy",},

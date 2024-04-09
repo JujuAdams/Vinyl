@@ -100,11 +100,6 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
                 {
                     __VedWindowOpenSingle(__VedClassWindowAssetTags);
                 }
-                
-                if (ImGui.Button("Audio Groups"))
-                {
-                    __VedWindowOpenSingle(__VedClassWindowAudioGroups);
-                }
             }
             
             ImGui.PopStyleColor();
