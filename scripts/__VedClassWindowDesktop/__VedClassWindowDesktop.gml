@@ -94,6 +94,11 @@ function __VedClassWindowDesktop() : __VedClassWindow() constructor
                     __VedWindowOpenSingle(__VedClassWindowPatterns);
                 }
                 
+                if (ImGui.Button("Asset Tags"))
+                {
+                    __VedWindowOpenSingle(__VedClassWindowAssetTags);
+                }
+                
                 ImGui.SameLine(undefined, 50);
                 
                 if (ImGui.Button("Organiser"))

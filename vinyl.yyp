@@ -165,6 +165,7 @@
     {"id":{"name":"sndSync3","path":"sounds/sndSync3/sndSync3.yy",},},
     {"id":{"name":"__VedClassModalIdentifyProject","path":"scripts/__VedClassModalIdentifyProject/__VedClassModalIdentifyProject.yy",},},
     {"id":{"name":"__VedClassModalOperationFailed","path":"scripts/__VedClassModalOperationFailed/__VedClassModalOperationFailed.yy",},},
+    {"id":{"name":"__VedClassWindowAssetTags","path":"scripts/__VedClassWindowAssetTags/__VedClassWindowAssetTags.yy",},},
     {"id":{"name":"__VedClassModalNewAssetTag","path":"scripts/__VedClassModalNewAssetTag/__VedClassModalNewAssetTag.yy",},},
     {"id":{"name":"sndBleep0","path":"sounds/sndBleep0/sndBleep0.yy",},},
     {"id":{"name":"__VinylConfigDebug","path":"scripts/__VinylConfigDebug/__VinylConfigDebug.yy",},},
