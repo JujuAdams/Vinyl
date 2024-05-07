@@ -1,26 +1,28 @@
 {
-  "resourceType": "GMSound",
-  "resourceVersion": "1.0",
-  "name": "sndBleep10",
-  "audioGroupId": {
-    "name": "audiogroup_default",
-    "path": "audiogroups/audiogroup_default",
+  "$GMSound":"",
+  "%Name":"sndBleep10",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
   },
-  "bitDepth": 1,
-  "bitRate": 128,
-  "compression": 0,
-  "conversionMode": 0,
-  "duration": 0.074195,
-  "parent": {
-    "name": "Sounds",
-    "path": "folders/Sounds.yy",
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":0.074195,
+  "name":"sndBleep10",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
   },
-  "preload": false,
-  "sampleRate": 44100,
-  "soundFile": "sndBleep10.wav",
-  "tags": [
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"sndBleep10.wav",
+  "tags":[
     "bleep",
   ],
-  "type": 0,
-  "volume": 1.0,
+  "type":0,
+  "volume":1.0,
 }

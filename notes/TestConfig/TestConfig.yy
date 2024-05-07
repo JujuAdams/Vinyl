@@ -1,9 +1,11 @@
 {
-  "resourceType": "GMNotes",
-  "resourceVersion": "1.1",
-  "name": "TestConfig",
-  "parent": {
-    "name": "vinyl",
-    "path": "vinyl.yyp",
+  "$GMNotes":"",
+  "%Name":"TestConfig",
+  "name":"TestConfig",
+  "parent":{
+    "name":"vinyl",
+    "path":"vinyl.yyp",
   },
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
 }

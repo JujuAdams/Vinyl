@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "VinylAssetExists",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Assets",
-    "path": "folders/Vinyl/Assets.yy",
+  "$GMScript":"",
+  "%Name":"VinylAssetExists",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylAssetExists",
+  "parent":{
+    "name":"Assets",
+    "path":"folders/Vinyl/Assets.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

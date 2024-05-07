@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "UIButtonInline",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "UI",
-    "path": "folders/UI.yy",
+  "$GMScript":"",
+  "%Name":"UIButtonInline",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"UIButtonInline",
+  "parent":{
+    "name":"UI",
+    "path":"folders/UI.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

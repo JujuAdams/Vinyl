@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "VinylSystemGetTopLevelVoiceCount",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Other",
-    "path": "folders/Vinyl/Other.yy",
+  "$GMScript":"",
+  "%Name":"VinylSystemGetTopLevelVoiceCount",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylSystemGetTopLevelVoiceCount",
+  "parent":{
+    "name":"Other",
+    "path":"folders/Vinyl/Other.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

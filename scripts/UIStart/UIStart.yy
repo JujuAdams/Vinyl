@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "UIStart",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "UI",
-    "path": "folders/UI.yy",
+  "$GMScript":"",
+  "%Name":"UIStart",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"UIStart",
+  "parent":{
+    "name":"UI",
+    "path":"folders/UI.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }
