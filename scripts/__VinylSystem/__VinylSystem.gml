@@ -6,7 +6,6 @@
 #macro __VINYL_PROJECT_FILENAME  "vinyl.json"
 
 #macro __VINYL_RUNNING_FROM_IDE  (GM_build_type == "run")
-#macro __VINYL_REPORT_FAILURE_TO_PLAY  (VINYL_REPORT_FAILURE_TO_PLAY && __VINYL_RUNNING_FROM_IDE)
 #macro __VINYL_NETWORKING_PORT  13587
 
 enum __VINYL_SOUND_TYPE {
@@ -46,6 +45,7 @@ function __VinylSystem()
         __soundDict   = {};
         __patternDict = {};
         __mixDict     = {};
+        __mixArray    = [];
         
         __voiceStructUpdateArray = [];
         __voiceStructArray = [];

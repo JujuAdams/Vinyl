@@ -3,9 +3,10 @@
 /// @param mixName
 /// @param [baseGain=1]
 
-function VinylSetupMix(_mixName, _baseGain = 1)
+function VinylSetupMix(_mixName, _gainBase = 1)
 {
-    static _mixDict = __VinylSystem().__mixDict;
+    static _mixDict  = __VinylSystem().__mixDict;
+    static _mixArray = __VinylSystem().__mixArray;
     
     if (_mixName == VINYL_NO_MIX)
     {
@@ -16,10 +17,12 @@ function VinylSetupMix(_mixName, _baseGain = 1)
     var _existingPattern = _mixDict[$ _mixName];
     if (_existingPattern != undefined)
     {
-        _existingPattern.__Update(_baseGain);
+        _existingPattern.__UpdateSetup(_gainBase);
     }
     else
     {
-        _mixDict[$ _mixName] = new __VinylClassMix(_mixName, _baseGain);
+        var _mixStruct = new __VinylClassMix(_mixName, _gainBase);
+        _mixDict[$ _mixName] = _mixStruct;
+        array_push(_mixArray, _mixStruct);
     }
 }

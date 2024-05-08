@@ -1,14 +1,13 @@
 // Feather disable all
 
 /// @param mixName
-/// @param gain
 
-function VinylMixSetGain(_mixName, _gain)
+function VinylMixStopVoices(_mixName)
 {
     static _mixDict = __VinylSystem().__mixDict;
     
     var _mixStruct = _mixDict[$ _mixName];
     if (_mixStruct == undefined) __VinylError("Mix \"", _mixName, "\" not recognised");
     
-    _mixStruct.__SetGain(_gain);
+    _mixStruct.__StopVoices();
 }

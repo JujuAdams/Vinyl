@@ -1,12 +1,12 @@
 {
   "$GMScript":"",
-  "%Name":"VinylMixFadeOutMembers",
+  "%Name":"VinylSetMixForAssetTag",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylMixFadeOutMembers",
+  "name":"VinylSetMixForAssetTag",
   "parent":{
-    "name":"Mix",
-    "path":"folders/Vinyl/Mix.yy",
+    "name":"Setup",
+    "path":"folders/Vinyl/Setup.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"__VinylVoiceTrack",
+  "%Name":"__VinylCreateSoundVoice",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__VinylVoiceTrack",
+  "name":"__VinylCreateSoundVoice",
   "parent":{
     "name":"Voice",
     "path":"folders/Vinyl/(Internals)/Classes/Voice.yy",

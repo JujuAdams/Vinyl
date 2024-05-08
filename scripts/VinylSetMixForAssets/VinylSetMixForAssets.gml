@@ -4,7 +4,7 @@
 /// @param sound/pattern
 /// @param ...
 
-function VinylSetMix()
+function VinylSetMixForAssets()
 {
     static _soundDict   = __VinylSystem().__soundDict;
     static _patternDict = __VinylSystem().__patternDict;

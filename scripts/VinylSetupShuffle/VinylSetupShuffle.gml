@@ -17,7 +17,7 @@ function VinylSetupShuffle(_patternName, _soundArray, _gain = undefined, _pitch 
     var _existingPattern = _patternDict[$ _patternName];
     if (_existingPattern != undefined)
     {
-        _existingPattern.__Update(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _mix);
+        _existingPattern.__UpdateSetup(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _mix);
     }
     else
     {

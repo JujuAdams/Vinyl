@@ -17,9 +17,16 @@ function __VinylUpdate()
         var _deltaTimeFactor = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
         
         var _i = 0;
+        repeat(array_length(__mixArray))
+        {
+            __mixArray[_i].__Update(_deltaTimeFactor);
+            ++_i;
+        }
+        
+        var _i = 0;
         repeat(array_length(__voiceStructUpdateArray))
         {
-            if (not __voiceStructUpdateArray[_i].__Update())
+            if (not __voiceStructUpdateArray[_i].__Update(_deltaTimeFactor))
             {
                 array_delete(__voiceStructUpdateArray, _i, 1);
             }

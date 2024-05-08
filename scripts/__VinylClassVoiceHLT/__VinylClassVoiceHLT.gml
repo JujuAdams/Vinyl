@@ -6,16 +6,20 @@
 
 function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
 {
-    static _voiceStructArray       = __VinylSystem().__voiceStructArray;
     static _voiceStructDict        = __VinylSystem().__voiceStructDict;
+    static _voiceStructArray       = __VinylSystem().__voiceStructArray;
     static _voiceStructUpdateArray = __VinylSystem().__voiceStructUpdateArray;
     
-    array_push(_voiceStructArray, self);
+    array_push(_voiceStructArray,       self);
     array_push(_voiceStructUpdateArray, self);
     
     __pattern    = _pattern;
     __gainLocal  = _gainLocal;
     __pitchLocal = _pitchLocal;
+    
+    __gainFadeOut      = 1;
+    __gainFadeOutStart = undefined;
+    __gainFadeOutSpeed = undefined;
     
     __voiceHead = undefined;
     __voiceLoop = undefined;
@@ -65,8 +69,20 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     
     
     
-    static __Update = function()
+    static __Update = function(_delta)
     {
+        if (__gainFadeOutSpeed != undefined)
+        {
+            __gainFadeOut -= _delta*__gainFadeOutSpeed;
+            if (__gainFadeOut <= 0)
+            {
+                __Stop();
+                return false;
+            }
+            
+            audio_sound_gain(__currentVoice, __gainFadeOutStart*__gainFadeOut, VINYL_STEP_DURATION);
+        }
+        
         if (VinylWillStop(__currentVoice))
         {
             switch(__state)
@@ -134,10 +150,15 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     {
         if (__currentVoice >= 0)
         {
-            audio_sound_loop(__currentVoice, false);
-            __currentVoice = -1;
+            audio_stop_sound(__currentVoice);
             __state = __VINYL_HLT_STATE.__TAIL;
         }
+    }
+    
+    static __FadeOut = function(_rateOfChange)
+    {
+        if (__gainFadeOutStart == undefined) __gainFadeOutStart = audio_sound_get_gain(__currentVoice);
+        __gainFadeOutSpeed = max(0.001, _rateOfChange);
     }
     
     static __EndLoop = function()

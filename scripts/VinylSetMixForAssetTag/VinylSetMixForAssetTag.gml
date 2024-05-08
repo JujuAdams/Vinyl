@@ -1,9 +1,9 @@
 // Feather disable all
 
-/// @param assetTag
 /// @param mixName
+/// @param assetTag
 
-function VinylSetMixFromAssetTag(_assetTag, _mixName)
+function VinylSetMixForAssetTag(_mixName, _assetTag)
 {
     static _soundDict = __VinylSystem().__soundDict;
     

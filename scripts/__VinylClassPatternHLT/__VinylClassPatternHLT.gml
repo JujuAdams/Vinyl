@@ -24,7 +24,7 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         return _struct.__currentVoice;
     }
     
-    static __Update = function(_soundHead, _soundLoop, _soundTail, _gain, _mix)
+    static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mix)
     {
         __soundHead = __VinylImportSound(_soundHead);
         __soundLoop = __VinylImportSound(_soundLoop);
@@ -41,9 +41,9 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         __mix = _mix;
     }
     
-    static __Clear = function()
+    static __ClearSetup = function()
     {
-        __Update(__soundHead, __soundLoop, __soundTail, 1, VINYL_DEFAULT_MIX);
+        __UpdateSetup(__soundHead, __soundLoop, __soundTail, 1, VINYL_DEFAULT_MIX);
     }
     
     static __ExportJSON = function()
@@ -53,7 +53,7 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     }
 }
 
-function __VinylJSONImportHLT(_json)
+function __VinylImportHLT(_json)
 {
     if (VINYL_SAFE_JSON_IMPORT)
     {

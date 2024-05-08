@@ -15,7 +15,7 @@ function VinylSetupHLT(_patternName, _soundHead = undefined, _soundLoop, _soundT
     var _existingPattern = _patternDict[$ _patternName];
     if (_existingPattern != undefined)
     {
-        _existingPattern.__Update(_soundHead, _soundLoop, _soundTail, _gain);
+        _existingPattern.__UpdateSetup(_soundHead, _soundLoop, _soundTail, _gain);
     }
     else
     {

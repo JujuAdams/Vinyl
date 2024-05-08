@@ -13,7 +13,7 @@ function VinylSetupBlend(_patternName, _soundArray, _gain = 1, _mix = VINYL_DEFA
     var _existingPattern = _patternDict[$ _patternName];
     if (_existingPattern != undefined)
     {
-        _existingPattern.__Update(_soundArray, _gain);
+        _existingPattern.__UpdateSetup(_soundArray, _gain);
     }
     else
     {

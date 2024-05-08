@@ -7,10 +7,10 @@
 /// @param pitchFactor
 /// @param pattern
 
-function __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor, _pattern)
+function __VinylCreateSoundVoice(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor, _pattern)
 {
-    static _voiceStructDict  = __VinylSystem().__voiceStructDict;
-    static _voiceArray = __VinylSystem().__voiceStructArray;
+    static _voiceStructDict = __VinylSystem().__voiceStructDict;
+    static _voiceArray      = __VinylSystem().__voiceStructArray;
     
     var _struct = new __VinylClassVoiceSound(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor, _pattern);
     array_push(_voiceArray, _struct);

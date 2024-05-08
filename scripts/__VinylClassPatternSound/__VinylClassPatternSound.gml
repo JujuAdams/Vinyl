@@ -10,6 +10,8 @@
 
 function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix) constructor
 {
+    static _mixDict = __VinylSystem().__mixDict;
+    
     __sound    = _sound;
     __gainMin  = _gainMin;
     __gainMax  = _gainMax;
@@ -17,6 +19,7 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
     __pitchMax = _pitchMax;
     __loop     = _loop;
     __mix      = _mix;
+    __noMix    = (_mix == VINYL_NO_MIX);
     
     //Don't make this static!
     __Play = function(_loop, _gainLocal, _pitchLocal)
@@ -28,11 +31,24 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         var _pitchPattern = lerp(__pitchMin, __pitchMax, _pitchFactor);
         
         var _voice = audio_play_sound(__sound, 0, _loop ?? __loop, _gainLocal*_gainPattern, 0, _pitchLocal*_pitchPattern);
-        __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor, __sound);
+        if (not __noMix)
+        {
+            var _mixStruct = _mixDict[$ __mix];
+            if (_mixStruct == undefined)
+            {
+                __VinylError("Mix \"", __mix, "\" not recognised");
+            }
+            else
+            {
+                _mixStruct.__Add(_voice);
+            }
+        }
+        
+        if (VINYL_LIVE_EDIT) __VinylCreateSoundVoice(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor, __sound);
         return _voice;
     }
     
-    static __Update = function(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix)
+    static __UpdateSetup = function(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix)
     {
         static _voiceContextArray = __VinylSystem().__voiceStructArray;
         
@@ -68,12 +84,13 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
     
     static __SetMix = function(_mix)
     {
-        __mix = _mix;
+        __mix   = _mix;
+        __noMix = (_mix != VINYL_NO_MIX);
     }
     
-    static __Clear = function()
+    static __ClearSetup = function()
     {
-        __Update(1, 1, 1, 1, false, VINYL_DEFAULT_MIX);
+        __UpdateSetup(1, 1, 1, 1, false, VINYL_DEFAULT_MIX);
     }
     
     static __ExportJSON = function()
@@ -115,7 +132,7 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
     }
 }
 
-function __VinylJSONImportSound(_json)
+function __VinylImportSound(_json)
 {
     if (VINYL_SAFE_JSON_IMPORT)
     {

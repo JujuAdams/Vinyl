@@ -20,7 +20,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _gain, _mix) constr
         return _struct.__voiceTop;
     }
     
-    static __Update = function(_soundArray, _gain, _mix)
+    static __UpdateSetup = function(_soundArray, _gain, _mix)
     {
         __soundArray = __VinylImportSoundArray(_soundArray);
         __gain       = _gain;
@@ -35,9 +35,9 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _gain, _mix) constr
         __mix = _mix;
     }
     
-    static __Clear = function()
+    static __ClearSetup = function()
     {
-        __Update(__soundArray, 1, VINYL_DEFAULT_MIX);
+        __UpdateSetup(__soundArray, 1, VINYL_DEFAULT_MIX);
     }
     
     static __ExportJSON = function()
@@ -47,7 +47,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _gain, _mix) constr
     }
 }
 
-function __VinylJSONImportBlend(_json)
+function __VinylImportBlend(_json)
 {
     if (VINYL_SAFE_JSON_IMPORT)
     {

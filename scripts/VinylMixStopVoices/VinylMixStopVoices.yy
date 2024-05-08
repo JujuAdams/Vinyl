@@ -1,12 +1,12 @@
 {
   "$GMScript":"",
-  "%Name":"VinylSetMixFromAssetTag",
+  "%Name":"VinylMixStopVoices",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylSetMixFromAssetTag",
+  "name":"VinylMixStopVoices",
   "parent":{
-    "name":"Setup",
-    "path":"folders/Vinyl/Setup.yy",
+    "name":"Mix",
+    "path":"folders/Vinyl/Mix.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

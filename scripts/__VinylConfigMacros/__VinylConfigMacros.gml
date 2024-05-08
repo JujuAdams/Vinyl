@@ -5,8 +5,6 @@
 #macro VINYL_NO_MIX  "no mix"
 #macro VINYL_DEFAULT_MIX  VINYL_NO_MIX
 
-#macro VINYL_REPORT_FAILURE_TO_PLAY  true
-
 //Maximum output gain for audio voices. Must be greater than or equal to zero
 //Choose lower values to get more resolution in perceived volume levels
 #macro VINYL_MAX_GAIN  1

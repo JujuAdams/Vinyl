@@ -44,11 +44,11 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         var _pitchPattern = lerp(__pitchMin, __pitchMax, _pitchFactor);
         
         var _voice = audio_play_sound(_sound, 0, false, _gainLocal*_gainPattern, 0, _pitchLocal*_pitchPattern);
-        __VinylVoiceTrack(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor, __patternName);
+        __VinylCreateSoundVoice(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor, __patternName);
         return _voice;
     }
     
-    static __Update = function(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _mix)
+    static __UpdateSetup = function(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _mix)
     {
         __soundArray = __VinylImportSoundArray(_soundArray);
         __gainMin    = _gainMin;
@@ -67,9 +67,9 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         __mix = _mix;
     }
     
-    static __Clear = function()
+    static __ClearSetup = function()
     {
-        __Update(__soundArray, 1, 1, 1, 1, VINYL_DEFAULT_MIX);
+        __UpdateSetup(__soundArray, 1, 1, 1, 1, VINYL_DEFAULT_MIX);
     }
     
     static __ExportJSON = function()
@@ -79,7 +79,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     }
 }
 
-function __VinylJSONImportShuffle(_json)
+function __VinylImportShuffle(_json)
 {
     if (VINYL_SAFE_JSON_IMPORT)
     {
