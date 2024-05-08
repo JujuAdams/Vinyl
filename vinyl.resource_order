@@ -8,7 +8,7 @@
     {"name":"Networking","order":11,"path":"folders/Vinyl/(Internals)/Networking.yy",},
     {"name":"PRNG","order":13,"path":"folders/Vinyl/(Internals)/PRNG.yy",},
     {"name":"Mix","order":3,"path":"folders/Vinyl/Mix.yy",},
-    {"name":"JSON","order":7,"path":"folders/Vinyl/Setup/JSON.yy",},
+    {"name":"Import & Export","order":7,"path":"folders/Vinyl/Setup/Import & Export.yy",},
     {"name":"Setup","order":2,"path":"folders/Vinyl/Setup.yy",},
     {"name":"Sounds & Voices","order":4,"path":"folders/Vinyl/Sounds & Voices.yy",},
   ],

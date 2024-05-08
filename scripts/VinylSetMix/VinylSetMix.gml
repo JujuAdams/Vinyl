@@ -19,20 +19,24 @@ function VinylSetMix()
         
         if (is_handle(_pattern))
         {
-            var _patternStruct = struct_get_from_hash(_soundDict, int64(_pattern));
-            if (_patternStruct == undefined) __VinylError("Pattern \"", _pattern, "\" not found");
+            struct_get_from_hash(_soundDict, int64(_pattern)).__SetMix(_mixName);
         }
         else if (is_string(_pattern))
         {
             var _patternStruct = _patternDict[$ _pattern];
-            if (_patternStruct == undefined) __VinylError("Pattern \"", _pattern, "\" not found");
+            if (_patternStruct == undefined)
+            {
+                __VinylError("Pattern \"", _pattern, "\" not found");
+            }
+            else
+            {
+                _patternStruct.__SetMix(_mixName);
+            }
         }
         else
         {
             __VinylError("Datatype not supported (", typeof(_pattern), ")");
         }
-        
-        _patternStruct.__SetMix(_mixName);
         
         ++_i;
     }

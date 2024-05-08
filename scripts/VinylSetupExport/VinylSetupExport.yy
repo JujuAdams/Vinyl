@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylSetupExport",
   "parent":{
-    "name":"JSON",
-    "path":"folders/Vinyl/Setup/JSON.yy",
+    "name":"Import & Export",
+    "path":"folders/Vinyl/Setup/Import & Export.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

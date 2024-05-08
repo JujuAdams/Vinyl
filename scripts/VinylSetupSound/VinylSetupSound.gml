@@ -13,15 +13,5 @@ function VinylSetupSound(_sound, _gain = undefined, _pitch = undefined, _loop = 
     __VINYL_HANDLE_GAINS
     __VINYL_HANDLE_PITCHES
     
-    //Update an existing pattern if possible, otherwise make a new pattern
-    var _patternIndex = int64(_sound);
-    var _existingPattern = struct_get_from_hash(_soundDict, _patternIndex);
-    if (_existingPattern != undefined)
-    {
-        _existingPattern.__Update(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix);
-    }
-    else
-    {
-        struct_set_from_hash(_soundDict, _patternIndex, new __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix));
-    }
+    struct_get_from_hash(_soundDict, int64(_sound)).__Update(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix);
 }

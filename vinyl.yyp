@@ -19,7 +19,7 @@
     {"$GMFolder":"","%Name":"Networking","folderPath":"folders/Vinyl/(Internals)/Networking.yy","name":"Networking","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"PRNG","folderPath":"folders/Vinyl/(Internals)/PRNG.yy","name":"PRNG","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Mix","folderPath":"folders/Vinyl/Mix.yy","name":"Mix","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"JSON","folderPath":"folders/Vinyl/Setup/JSON.yy","name":"JSON","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Import & Export","folderPath":"folders/Vinyl/Setup/Import & Export.yy","name":"Import & Export","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Setup","folderPath":"folders/Vinyl/Setup.yy","name":"Setup","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Sounds & Voices","folderPath":"folders/Vinyl/Sounds & Voices.yy","name":"Sounds & Voices","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
