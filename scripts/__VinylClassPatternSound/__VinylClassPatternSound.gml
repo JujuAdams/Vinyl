@@ -71,6 +71,11 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         __mix = _mix;
     }
     
+    static __Clear = function()
+    {
+        __Update(1, 1, 1, 1, false, VINYL_DEFAULT_MIX);
+    }
+    
     static __ExportJSON = function()
     {
         var _struct = {

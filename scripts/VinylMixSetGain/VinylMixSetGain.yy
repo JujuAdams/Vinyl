@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"VinylMixSetGain",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylMixSetGain",
+  "parent":{
+    "name":"Mix",
+    "path":"folders/Vinyl/Mix.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

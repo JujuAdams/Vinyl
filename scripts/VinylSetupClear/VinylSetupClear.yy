@@ -1,12 +1,12 @@
 {
   "$GMScript":"",
-  "%Name":"VinylJSONImport",
+  "%Name":"VinylSetupClear",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylJSONImport",
+  "name":"VinylSetupClear",
   "parent":{
     "name":"JSON",
-    "path":"folders/Vinyl/JSON.yy",
+    "path":"folders/Vinyl/Setup/JSON.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

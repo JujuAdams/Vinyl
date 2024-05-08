@@ -2,14 +2,14 @@
 
 /// @param json
 
-function VinylJSONImport(_json)
+function VinylSetupImport(_json)
 {
     if (is_array(_json))
     {
         var _i = 0;
         repeat(array_length(_json))
         {
-            VinylJSONImport(_json[_i]);
+            VinylSetupImport(_json[_i]);
             ++_i;
         }
     }

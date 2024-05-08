@@ -67,6 +67,11 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         __mix = _mix;
     }
     
+    static __Clear = function()
+    {
+        __Update(__soundArray, 1, 1, 1, 1, VINYL_DEFAULT_MIX);
+    }
+    
     static __ExportJSON = function()
     {
         var _struct = {};

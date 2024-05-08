@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"VinylSetMixFromAssetTag",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylSetMixFromAssetTag",
+  "parent":{
+    "name":"Setup",
+    "path":"folders/Vinyl/Setup.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,12 +1,12 @@
 {
   "$GMScript":"",
-  "%Name":"VinylJSONExport",
+  "%Name":"VinylMixFadeOutMembers",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylJSONExport",
+  "name":"VinylMixFadeOutMembers",
   "parent":{
-    "name":"JSON",
-    "path":"folders/Vinyl/JSON.yy",
+    "name":"Mix",
+    "path":"folders/Vinyl/Mix.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

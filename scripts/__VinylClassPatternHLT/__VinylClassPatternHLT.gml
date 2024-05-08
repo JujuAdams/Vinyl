@@ -41,6 +41,11 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         __mix = _mix;
     }
     
+    static __Clear = function()
+    {
+        __Update(__soundHead, __soundLoop, __soundTail, 1, VINYL_DEFAULT_MIX);
+    }
+    
     static __ExportJSON = function()
     {
         var _struct = {};

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"VinylSetupExport",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylSetupExport",
+  "parent":{
+    "name":"JSON",
+    "path":"folders/Vinyl/Setup/JSON.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

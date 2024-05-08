@@ -35,6 +35,11 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _gain, _mix) constr
         __mix = _mix;
     }
     
+    static __Clear = function()
+    {
+        __Update(__soundArray, 1, VINYL_DEFAULT_MIX);
+    }
+    
     static __ExportJSON = function()
     {
         var _struct = {};

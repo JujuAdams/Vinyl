@@ -2,7 +2,8 @@
 
 #macro VINYL_LIVE_EDIT  false
 
-#macro VINYL_DEFAULT_MIX  undefined
+#macro VINYL_NO_MIX  "no mix"
+#macro VINYL_DEFAULT_MIX  VINYL_NO_MIX
 
 #macro VINYL_REPORT_FAILURE_TO_PLAY  true
 

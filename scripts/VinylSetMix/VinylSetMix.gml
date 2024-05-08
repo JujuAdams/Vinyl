@@ -10,6 +10,7 @@ function VinylSetMix()
     static _patternDict = __VinylSystem().__patternDict;
     
     var _mixName = argument[0];
+    if (_mixName == VINYL_NO_MIX) _mixName = undefined;
     
     var _i = 1;
     repeat(argument_count-1)

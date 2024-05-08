@@ -15,6 +15,11 @@ function __VinylClassMix(_mixName, _baseGain) constructor
         __baseGain = _baseGain;
     }
     
+    static __Clear = function()
+    {
+        __Update(1);
+    }
+    
     static __ExportJSON = function()
     {
         var _struct = {
