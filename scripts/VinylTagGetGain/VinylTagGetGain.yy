@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "VinylTagGetGain",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Tag",
-    "path": "folders/Vinyl/Tag.yy",
+  "$GMScript":"",
+  "%Name":"VinylTagGetGain",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylTagGetGain",
+  "parent":{
+    "name":"Tag",
+    "path":"folders/Vinyl/Tag.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

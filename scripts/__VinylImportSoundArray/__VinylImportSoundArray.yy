@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "__VinylImportSoundArray",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Voice",
-    "path": "folders/Vinyl/(Internals)/Voice.yy",
+  "$GMScript":"",
+  "%Name":"__VinylImportSoundArray",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__VinylImportSoundArray",
+  "parent":{
+    "name":"Voice",
+    "path":"folders/Vinyl/(Internals)/Voice.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

@@ -1,16 +1,24 @@
 // Feather disable all
 
-function __VinylImportSound(_asset)
+/// @param sound
+/// @param [strict=true]
+
+function __VinylImportSound(_sound, _strict = true)
 {
-    if ((_asset == undefined) || (_asset == pointer_null)) return undefined;
-    
-    if (is_string(_asset)) _asset = asset_get_index(_asset);
-    
-    if (not audio_exists(_asset))
+    if (is_string(_sound))
     {
-        __VinylWarning("Sound \"", _asset, "\" not recognised");
+        var _newSound = asset_get_index(_sound);
+        if (_strict && (not audio_exists(_newSound))) __VinylError("Sound \"", _sound, "\" not found");
+        return _newSound;
+    }
+    else if ((_sound == undefined) || (_sound == pointer_null))
+    {
         return undefined;
     }
+    else if (is_handle(_sound))
+    {
+        return _sound;
+    }
     
-    return _asset;
+    if (_strict) __VinylError("Datatype not supported (", typeof(_sound), ")");
 }

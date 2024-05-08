@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "__VinylNetSendJSON",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Networking",
-    "path": "folders/Vinyl/(Internals)/Networking.yy",
+  "$GMScript":"",
+  "%Name":"__VinylNetSendJSON",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__VinylNetSendJSON",
+  "parent":{
+    "name":"Networking",
+    "path":"folders/Vinyl/(Internals)/Networking.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

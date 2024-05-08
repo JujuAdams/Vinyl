@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "__VinylGetProjectPath",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "(Internals)",
-    "path": "folders/Vinyl/(Internals).yy",
+  "$GMScript":"",
+  "%Name":"__VinylGetProjectPath",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__VinylGetProjectPath",
+  "parent":{
+    "name":"(Internals)",
+    "path":"folders/Vinyl/(Internals).yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

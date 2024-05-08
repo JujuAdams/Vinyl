@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "VinylGetLocalGain",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Sounds & Voices",
-    "path": "folders/Vinyl/Sounds & Voices.yy",
+  "$GMScript":"",
+  "%Name":"VinylGetLocalGain",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylGetLocalGain",
+  "parent":{
+    "name":"Sounds & Voices",
+    "path":"folders/Vinyl/Sounds & Voices.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

@@ -1,16 +1,14 @@
 // Feather disable all
 
-/// @param patternIndex
+/// @param patternName
 /// @param soundArray
-/// @param gainForce
 /// @param gain
 
-function __VinylClassPatternBlend(_patternIndex, _soundArray, _gainForce, _gain) constructor
+function __VinylClassPatternBlend(_patternName, _soundArray, _gain) constructor
 {
-    __patternIndex = _patternIndex;
+    __patternName = _patternName;
     
     __soundArray = __VinylImportSoundArray(_soundArray);
-    __gainForce  = _gainForce;
     __gain       = _gain;
     
     //Don't make this static!
@@ -20,12 +18,47 @@ function __VinylClassPatternBlend(_patternIndex, _soundArray, _gainForce, _gain)
         return _struct.__voiceTop;
     }
     
-    static __Update = function(_soundArray, _gainForce, _gain)
+    static __Update = function(_soundArray, _gain)
     {
         __soundArray = __VinylImportSoundArray(_soundArray);
-        __gainForce  = _gainForce;
         __gain       = _gain;
         
         //TODO - Change tracks over for extant currently-playing blend voices
     }
+    
+    static __ExportJSON = function()
+    {
+        var _struct = {};
+        return _struct;
+    }
+}
+
+function __VinylJSONImportBlend(_json)
+{
+    if (VINYL_SAFE_JSON_IMPORT)
+    {
+        var _variableNames = struct_get_names(_json);
+        var _i = 0;
+        repeat(array_length(_variableNames))
+        {
+            switch(_variableNames[_i])
+            {
+                case "blend":
+                case "type":
+                case "sounds":
+                case "gain":
+                break;
+                
+                default:
+                    __VinylError("Blend pattern property \"", _variableNames[_i], "\" not supported");
+                break;
+            }
+            
+            ++_i;
+        }
+        
+        if (not struct_exists(_json, "sounds")) __VinylError("Blend pattern \"", _json.blend, "\" property .sounds must be defined");
+    }
+    
+    VinylSetupBlend(_json.blend, _json.sounds, _json[$ "gain"]);
 }

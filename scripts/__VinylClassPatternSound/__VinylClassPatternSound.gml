@@ -1,20 +1,20 @@
 // Feather disable all
 
 /// @param sound
-/// @param loop
 /// @param gainMin
 /// @param gainMax
 /// @param pitchMin
 /// @param pitchMax
+/// @param loop
 
-function __VinylClassPatternSound(_sound, _loop, _gainMin, _gainMax, _pitchMin, _pitchMax) constructor
+function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop) constructor
 {
     __sound    = _sound;
-    __loop     = _loop;
     __gainMin  = _gainMin;
     __gainMax  = _gainMax;
     __pitchMin = _pitchMin;
     __pitchMax = _pitchMax;
+    __loop     = _loop;
     
     //Don't make this static!
     __Play = function(_loop, _gainLocal, _pitchLocal)
@@ -30,15 +30,15 @@ function __VinylClassPatternSound(_sound, _loop, _gainMin, _gainMax, _pitchMin, 
         return _voice;
     }
     
-    static __Update = function(_loop, _gainMin, _gainMax, _pitchMin, _pitchMax)
+    static __Update = function(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop)
     {
         static _voiceContextArray = __VinylSystem().__voiceStructArray;
         
-        __loop     = _loop;
         __gainMin  = _gainMin;
         __gainMax  = _gainMax;
         __pitchMin = _pitchMin;
         __pitchMax = _pitchMax;
+        __loop     = _loop;
         
         var _i = 0;
         repeat(array_length(_voiceContextArray))
@@ -61,4 +61,70 @@ function __VinylClassPatternSound(_sound, _loop, _gainMin, _gainMax, _pitchMin, 
             ++_i;
         }
     }
+    
+    static __ExportJSON = function()
+    {
+        var _struct = {
+            sound: audio_get_name(__sound),
+        };
+        
+        if ((__gainMin != 1) || (__gainMax != 1))
+        {
+            if (__gainMin == __gainMax)
+            {
+                _struct.gain = __gainMin;
+            }
+            else
+            {
+                _struct.gain = [__gainMin, __gainMax];
+            }
+        }
+        
+        if ((__pitchMin != 1) || (__pitchMax != 1))
+        {
+            if (__pitchMin == __pitchMax)
+            {
+                _struct.pitch = __pitchMin;
+            }
+            else
+            {
+                _struct.pitch = [__pitchMin, __pitchMax];
+            }
+        }
+        
+        if (__loop)
+        {
+            _struct.loop = true;
+        }
+        
+        return _struct;
+    }
+}
+
+function __VinylJSONImportSound(_json)
+{
+    if (VINYL_SAFE_JSON_IMPORT)
+    {
+        var _variableNames = struct_get_names(_json);
+        var _i = 0;
+        repeat(array_length(_variableNames))
+        {
+            switch(_variableNames[_i])
+            {
+                case "sound":
+                case "loop":
+                case "gain":
+                case "pitch":
+                break;
+                
+                default:
+                    __VinylError("Sound \"", _json, "\" property .", _variableNames[_i], " not supported");
+                break;
+            }
+            
+            ++_i;
+        }
+    }
+    
+    VinylSetupSound(_json.sound, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"]);
 }

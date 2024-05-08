@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "VinylTagStop",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Tag",
-    "path": "folders/Vinyl/Tag.yy",
+  "$GMScript":"",
+  "%Name":"VinylTagStop",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylTagStop",
+  "parent":{
+    "name":"Tag",
+    "path":"folders/Vinyl/Tag.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

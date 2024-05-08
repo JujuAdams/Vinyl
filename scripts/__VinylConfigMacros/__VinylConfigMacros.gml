@@ -1,6 +1,6 @@
 // Feather disable all
 
-#macro VINYL_LIVE_EDIT  true
+#macro VINYL_LIVE_EDIT  false
 
 #macro VINYL_REPORT_FAILURE_TO_PLAY  true
 
@@ -16,3 +16,5 @@
 //How far from the end of an audio asset to determine the audio as finishing. This is used for
 //audio scheduling for queue voices
 #macro VINYL_WILL_STOP_TOLERANCE  20
+
+#macro VINYL_SAFE_JSON_IMPORT  true
