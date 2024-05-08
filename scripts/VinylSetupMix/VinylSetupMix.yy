@@ -1,12 +1,12 @@
 {
   "$GMScript":"",
-  "%Name":"VinylTagSetGain",
+  "%Name":"VinylSetupMix",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylTagSetGain",
+  "name":"VinylSetupMix",
   "parent":{
-    "name":"Tag",
-    "path":"folders/Vinyl/Tag.yy",
+    "name":"Setup",
+    "path":"folders/Vinyl/Setup.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

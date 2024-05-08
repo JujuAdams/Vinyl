@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"__VinylClassPatternSound",
   "parent":{
-    "name":"Voice",
-    "path":"folders/Vinyl/(Internals)/Voice.yy",
+    "name":"Patterns",
+    "path":"folders/Vinyl/(Internals)/Classes/Patterns.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

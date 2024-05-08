@@ -6,8 +6,9 @@
 /// @param pitchMin
 /// @param pitchMax
 /// @param loop
+/// @param mix
 
-function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop) constructor
+function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix) constructor
 {
     __sound    = _sound;
     __gainMin  = _gainMin;
@@ -15,6 +16,7 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
     __pitchMin = _pitchMin;
     __pitchMax = _pitchMax;
     __loop     = _loop;
+    __mix      = _mix;
     
     //Don't make this static!
     __Play = function(_loop, _gainLocal, _pitchLocal)
@@ -30,7 +32,7 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         return _voice;
     }
     
-    static __Update = function(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop)
+    static __Update = function(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix)
     {
         static _voiceContextArray = __VinylSystem().__voiceStructArray;
         
@@ -60,6 +62,13 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
             
             ++_i;
         }
+        
+        __SetMix(_mix);
+    }
+    
+    static __SetMix = function(_mix)
+    {
+        __mix = _mix;
     }
     
     static __ExportJSON = function()
@@ -115,6 +124,7 @@ function __VinylJSONImportSound(_json)
                 case "loop":
                 case "gain":
                 case "pitch":
+                case "mix":
                 break;
                 
                 default:
@@ -126,5 +136,5 @@ function __VinylJSONImportSound(_json)
         }
     }
     
-    VinylSetupSound(_json.sound, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"]);
+    VinylSetupSound(_json.sound, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"], _json[$ "mix"]);
 }

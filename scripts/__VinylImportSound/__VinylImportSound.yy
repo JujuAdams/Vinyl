@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"__VinylImportSound",
   "parent":{
-    "name":"Voice",
-    "path":"folders/Vinyl/(Internals)/Voice.yy",
+    "name":"(Internals)",
+    "path":"folders/Vinyl/(Internals).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

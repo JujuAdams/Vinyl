@@ -2,6 +2,8 @@
 
 #macro VINYL_LIVE_EDIT  false
 
+#macro VINYL_DEFAULT_MIX  undefined
+
 #macro VINYL_REPORT_FAILURE_TO_PLAY  true
 
 //Maximum output gain for audio voices. Must be greater than or equal to zero

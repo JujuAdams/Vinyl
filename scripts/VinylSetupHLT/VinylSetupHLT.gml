@@ -5,8 +5,9 @@
 /// @param soundLoop
 /// @param [soundTail]
 /// @param [gain=1]
+/// @param [mix=VINYL_DEFAULT_MIX]
 
-function VinylSetupHLT(_patternName, _soundHead = undefined, _soundLoop, _soundTail = undefined, _gain = 1)
+function VinylSetupHLT(_patternName, _soundHead = undefined, _soundLoop, _soundTail = undefined, _gain = 1, _mix = VINYL_DEFAULT_MIX)
 {
     static _patternDict = __VinylSystem().__patternDict;
     

@@ -24,4 +24,9 @@ function __VinylClassVoiceSound(_voice, _gainLocal, _pitchLocal, _gainFactor, _p
     {
         return audio_is_playing(__voice);
     }
+    
+    static __Stop = function()
+    {
+        audio_stop_sound(__voice);
+    }
 }

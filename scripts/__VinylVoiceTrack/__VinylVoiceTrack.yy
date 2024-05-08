@@ -6,7 +6,7 @@
   "name":"__VinylVoiceTrack",
   "parent":{
     "name":"Voice",
-    "path":"folders/Vinyl/(Internals)/Voice.yy",
+    "path":"folders/Vinyl/(Internals)/Classes/Voice.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

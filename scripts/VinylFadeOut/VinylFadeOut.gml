@@ -1,4 +1,8 @@
 // Feather disable all
-function VinylFadeOut(){
 
+/// @param voice
+
+function VinylFadeOut(_voice)
+{
+    
 }

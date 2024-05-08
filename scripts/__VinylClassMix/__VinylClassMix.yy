@@ -1,12 +1,12 @@
 {
   "$GMScript":"",
-  "%Name":"VinylTagStop",
+  "%Name":"__VinylClassMix",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylTagStop",
+  "name":"__VinylClassMix",
   "parent":{
-    "name":"Tag",
-    "path":"folders/Vinyl/Tag.yy",
+    "name":"Classes",
+    "path":"folders/Vinyl/(Internals)/Classes.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -45,6 +45,7 @@ function __VinylSystem()
         
         __soundDict   = {};
         __patternDict = {};
+        __mixDict     = {};
         
         __voiceStructUpdateArray = [];
         __voiceStructArray = [];

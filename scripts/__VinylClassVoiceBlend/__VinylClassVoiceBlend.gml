@@ -53,6 +53,21 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         return (__voiceTop >= 0);
     }
     
+    static __Stop = function()
+    {
+        if (__voiceTop >= 0)
+        {
+            __voiceTop = -1;
+            
+            var _i = 0;
+            repeat(array_length(__voiceArray))
+            {
+                audio_stop_sound(__voiceArray[_i]);
+                ++_i;
+            }
+        }
+    }
+    
     static __SetBlend = function(_value)
     {
         __blendFactor = clamp(_value, 0, 1);

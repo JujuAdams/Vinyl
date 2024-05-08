@@ -3,8 +3,9 @@
 /// @param patternName
 /// @param soundArray
 /// @param [gain=1]
+/// @param [mix=VINYL_DEFAULT_MIX]
 
-function VinylSetupBlend(_patternName, _soundArray, _gain = 1)
+function VinylSetupBlend(_patternName, _soundArray, _gain = 1, _mix = VINYL_DEFAULT_MIX)
 {
     static _patternDict = __VinylSystem().__patternDict;
     

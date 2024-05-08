@@ -130,6 +130,16 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         return (__currentVoice >= 0);
     }
     
+    static __Stop = function()
+    {
+        if (__currentVoice >= 0)
+        {
+            audio_sound_loop(__currentVoice, false);
+            __currentVoice = -1;
+            __state = __VINYL_HLT_STATE.__TAIL;
+        }
+    }
+    
     static __EndLoop = function()
     {
         __doLoop = false;

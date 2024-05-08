@@ -5,8 +5,9 @@
 /// @param soundLoop
 /// @param soundTail
 /// @param gain
+/// @param mix
 
-function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain) constructor
+function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain, _mix) constructor
 {
     __patternName = _patternName;
     
@@ -14,6 +15,7 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     __soundLoop = __VinylImportSound(_soundLoop);
     __soundTail = __VinylImportSound(_soundTail);
     __gain      = _gain;
+    __mix       = _mix;
     
     //Don't make this static!
     __Play = function(_loop, _gainLocal, _pitchLocal)
@@ -22,7 +24,7 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         return _struct.__currentVoice;
     }
     
-    static __Update = function(_soundHead, _soundLoop, _soundTail, _gain)
+    static __Update = function(_soundHead, _soundLoop, _soundTail, _gain, _mix)
     {
         __soundHead = __VinylImportSound(_soundHead);
         __soundLoop = __VinylImportSound(_soundLoop);
@@ -30,6 +32,13 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         __gain      = _gain;
         
         //TODO - Change tracks over for extant currently-playing HLT voices
+        
+        __SetMix(_mix);
+    }
+    
+    static __SetMix = function(_mix)
+    {
+        __mix = _mix;
     }
     
     static __ExportJSON = function()
@@ -54,6 +63,7 @@ function __VinylJSONImportHLT(_json)
                 case "loop":
                 case "tail":
                 case "gain":
+                case "mix":
                 break;
                 
                 default:
@@ -67,5 +77,5 @@ function __VinylJSONImportHLT(_json)
         if (not struct_exists(_json, "loop")) __VinylError("Head-Loop-Tail pattern \"", _json.hlt, "\" property .loop must be defined");
     }
     
-    VinylSetupHLT(_json.hlt, _json[$ "head"], _json.loop, _json[$ "tail"], _json[$ "gain"]);
+    VinylSetupHLT(_json.hlt, _json[$ "head"], _json.loop, _json[$ "tail"], _json[$ "gain"], _json[$ "mix"]);
 }

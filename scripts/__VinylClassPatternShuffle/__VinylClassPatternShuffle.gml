@@ -6,8 +6,9 @@
 /// @param gainMax
 /// @param pitchMin
 /// @param pitchMax
+/// @param mix
 
-function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax) constructor
+function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _mix) constructor
 {
     __patternName = _patternName;
     
@@ -16,6 +17,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     __gainMax    = _gainMax;
     __pitchMin   = _pitchMin;
     __pitchMax   = _pitchMax;
+    __mix        = _mix;
     
     __soundCount = array_length(__soundArray);
     __playIndex  = infinity;
@@ -46,7 +48,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         return _voice;
     }
     
-    static __Update = function(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax)
+    static __Update = function(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _mix)
     {
         __soundArray = __VinylImportSoundArray(_soundArray);
         __gainMin    = _gainMin;
@@ -56,6 +58,13 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         
         __soundCount = array_length(__soundArray);
         __playIndex  = infinity;
+        
+        __SetMix(_mix);
+    }
+    
+    static __SetMix = function(_mix)
+    {
+        __mix = _mix;
     }
     
     static __ExportJSON = function()
@@ -79,6 +88,7 @@ function __VinylJSONImportShuffle(_json)
                 case "sounds":
                 case "gain":
                 case "pitch":
+                case "mix":
                 break;
                 
                 default:
@@ -92,5 +102,5 @@ function __VinylJSONImportShuffle(_json)
         if (not struct_exists(_json, "sounds")) __VinylError("Shuffle pattern \"", _json.shuffle, "\" property .sounds must be defined");
     }
     
-    VinylSetupShuffle(_json.shuffle, _json.sounds, _json[$ "gain"], _json[$ "pitch"]);
+    VinylSetupShuffle(_json.shuffle, _json.sounds, _json[$ "gain"], _json[$ "pitch"], _json[$ "mix"]);
 }

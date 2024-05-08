@@ -3,13 +3,15 @@
 /// @param patternName
 /// @param soundArray
 /// @param gain
+/// @param mix
 
-function __VinylClassPatternBlend(_patternName, _soundArray, _gain) constructor
+function __VinylClassPatternBlend(_patternName, _soundArray, _gain, _mix) constructor
 {
     __patternName = _patternName;
     
     __soundArray = __VinylImportSoundArray(_soundArray);
     __gain       = _gain;
+    __mix        = _mix;
     
     //Don't make this static!
     __Play = function(_loop, _gainLocal, _pitchLocal)
@@ -18,12 +20,19 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _gain) constructor
         return _struct.__voiceTop;
     }
     
-    static __Update = function(_soundArray, _gain)
+    static __Update = function(_soundArray, _gain, _mix)
     {
         __soundArray = __VinylImportSoundArray(_soundArray);
         __gain       = _gain;
         
         //TODO - Change tracks over for extant currently-playing blend voices
+        
+        __SetMix(_mix);
+    }
+    
+    static __SetMix = function(_mix)
+    {
+        __mix = _mix;
     }
     
     static __ExportJSON = function()
@@ -47,6 +56,7 @@ function __VinylJSONImportBlend(_json)
                 case "type":
                 case "sounds":
                 case "gain":
+                case "mix":
                 break;
                 
                 default:
@@ -60,5 +70,5 @@ function __VinylJSONImportBlend(_json)
         if (not struct_exists(_json, "sounds")) __VinylError("Blend pattern \"", _json.blend, "\" property .sounds must be defined");
     }
     
-    VinylSetupBlend(_json.blend, _json.sounds, _json[$ "gain"]);
+    VinylSetupBlend(_json.blend, _json.sounds, _json[$ "gain"], _json[$ "mix"]);
 }

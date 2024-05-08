@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylSetupSound",
   "parent":{
-    "name":"Runtime Patterns",
-    "path":"folders/Vinyl/Runtime Patterns.yy",
+    "name":"Setup",
+    "path":"folders/Vinyl/Setup.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

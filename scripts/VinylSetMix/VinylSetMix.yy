@@ -1,12 +1,12 @@
 {
   "$GMScript":"",
-  "%Name":"VinylTagFadeOut",
+  "%Name":"VinylSetMix",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylTagFadeOut",
+  "name":"VinylSetMix",
   "parent":{
-    "name":"Tag",
-    "path":"folders/Vinyl/Tag.yy",
+    "name":"Setup",
+    "path":"folders/Vinyl/Setup.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
