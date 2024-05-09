@@ -88,6 +88,7 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         __gainRandomize  = (_gainMin != _gainMax);
         __pitchRandomize = (_pitchMin != _pitchMax);
         
+        //TODO - Clean this up
         var _i = 0;
         repeat(array_length(_voiceContextArray))
         {
