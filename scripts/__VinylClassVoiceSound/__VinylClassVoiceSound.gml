@@ -1,29 +1,34 @@
 // Feather disable all
 
 /// @param voice
+/// @param gainBase
 /// @param gainLocal
+/// @param gainMix
+/// @param pitchBase
 /// @param pitchLocal
-/// @param gainFactor
-/// @param pitchFactor
-/// @param pattern
+/// @param [pattern]
+/// @param [gainFactor]
+/// @param [pitchFactor]
 
-function __VinylClassVoiceSound(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor, _pattern) constructor
+function __VinylClassVoiceSound(_voice, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, _pattern, _gainFactor, _pitchFactor) constructor
 {
     static _voiceStructUpdateArray = __VinylSystem().__voiceStructUpdateArray;
     
-    __voice       = _voice;
-    __gainLocal   = _gainLocal;
-    __pitchLocal  = _pitchLocal;
-    __gainFactor  = _gainFactor;
-    __pitchFactor = _pitchFactor;
+    __voice      = _voice;
+    __gainBase   = _gainBase;
+    __gainLocal  = _gainLocal;
+    __gainMix    = _gainMix;
+    __pitchBase  = _pitchBase;
+    __pitchLocal = _pitchLocal;
     
     if (VINYL_LIVE_EDIT)
     {
-        __pattern = _pattern;
+        __pattern     = _pattern;
+        __gainFactor  = _gainFactor;
+        __pitchFactor = _pitchFactor;
     }
     
     __gainFadeOut      = 1;
-    __gainFadeOutStart = undefined;
     __gainFadeOutSpeed = undefined;
     
     
@@ -49,18 +54,34 @@ function __VinylClassVoiceSound(_voice, _gainLocal, _pitchLocal, _gainFactor, _p
             return false;
         }
         
-        audio_sound_gain(__voice, __gainFadeOutStart*__gainFadeOut, VINYL_STEP_DURATION);
+        audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION, VINYL_STEP_DURATION);
         return true;
     }
     
     static __FadeOut = function(_rateOfChange)
     {
-        if (__gainFadeOutStart == undefined)
-        {
-            __gainFadeOutStart = audio_sound_get_gain(__voice);
-            array_push(_voiceStructUpdateArray, self);
-        }
-        
+        if (__gainFadeOutSpeed == undefined) array_push(_voiceStructUpdateArray, self);
         __gainFadeOutSpeed = max(0.001, _rateOfChange);
+    }
+    
+    static __SetLocalGain = function(_gain)
+    {
+        __gainLocal = _gain;
+        audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION, VINYL_STEP_DURATION);
+    }
+    
+    static __SetMixGain = function(_gain)
+    {
+        __gainMix = _gain;
+        audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION, VINYL_STEP_DURATION);
+    }
+    
+    static __UpdateSetup = function(_gain, _pitch)
+    {
+        __gainBase  = _gain;
+        __pitchBase = _pitch;
+        
+        audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION, VINYL_STEP_DURATION);
+        audio_sound_pitch(__voice, __VINYL_VOICE_PITCH_EQUATION);
     }
 }

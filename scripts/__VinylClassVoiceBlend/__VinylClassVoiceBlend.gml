@@ -17,28 +17,35 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     __gainLocal  = _gainLocal;
     __pitchLocal = _pitchLocal;
     
+    __gainBase = 1; //TODO
+    __gainMix  = 1; //TODO
+    
     __gainFadeOut      = 1;
-    __gainFadeOutArray = undefined;
     __gainFadeOutSpeed = undefined;
     
     __blendFactor = 0;
     
     __voiceTop   = -1;
     __voiceArray = [];
+    __gainArray  = [];
     
     var _soundArray = __pattern.__soundArray;
     if (array_length(_soundArray) > 0)
     {
         var _loop = true;
         
-        __voiceTop = audio_play_sound(_soundArray[0], 0, _loop, __gainLocal, 0, __pitchLocal);
+        __voiceTop = audio_play_sound(_soundArray[0], 0, _loop, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
         __voiceArray[0] = __voiceTop;
+        __gainArray[0] = 1;
+        
         struct_set_from_hash(_voiceStructDict, int64(__voiceTop), self);
         
         var _i = 1;
         repeat(array_length(_soundArray)-1)
         {
             __voiceArray[_i] = audio_play_sound(_soundArray[_i], 0, _loop, 0, 0, __pitchLocal);
+            __gainArray[_i] = 0;
+            
             ++_i;
         }
     }
@@ -60,15 +67,24 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
                 return false;
             }
             
-            var _i = 0;
-            repeat(__voiceCount)
-            {
-                audio_sound_gain(__voiceArray[_i], __gainFadeOutArray[_i]*__gainFadeOut, VINYL_STEP_DURATION);
-                ++_i;
-            }
+            __UpdateGain();
         }
         
         return (not VinylWillStop(__voiceTop));
+    }
+    
+    static __UpdateGain = function()
+    {
+        var _voiceArray = __voiceArray;
+        var _gainArray  = __gainArray;
+        var _gainShared = __VINYL_VOICE_GAIN_EQUATION;
+        
+        var _i = 0;
+        repeat(__voiceCount)
+        {
+            audio_sound_gain(_voiceArray[_i], _gainArray[_i]*_gainShared, VINYL_STEP_DURATION);
+            ++_i;
+        }
     }
     
     static __IsPlaying = function()
@@ -93,19 +109,19 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     
     static __FadeOut = function(_rateOfChange)
     {
-        if (not is_array(__gainFadeOutArray))
-        {
-            __gainFadeOutArray = array_create(array_length(__gainFadeOutArray), 0);
-            
-            var _i = 0;
-            repeat(__voiceCount)
-            {
-                __gainFadeOutArray[_i] = audio_sound_get_gain(__voiceArray[_i]);
-                ++_i;
-            }
-        }
-        
         __gainFadeOutSpeed = max(0.001, _rateOfChange);
+    }
+    
+    static __SetLocalGain = function(_gain)
+    {
+        __gainLocal = _gain;
+        __UpdateGain();
+    }
+    
+    static __SetMixGain = function(_gain)
+    {
+        __gainMix = _gain;
+        __UpdateGain();
     }
     
     static __SetBlend = function(_value)
@@ -113,6 +129,8 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         __blendFactor = clamp(_value, 0, 1);
         
         if (__voiceCount <= 0) return;
+        
+        var _gainShared = __VINYL_VOICE_GAIN_EQUATION;
         
         //Scale up the blend factor to match the number of channels we have
         var _factor = clamp(__blendFactor, 0, 1)*(__voiceCount - 1);
@@ -122,7 +140,10 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         repeat(__voiceCount)
         {
             var _gain = max(0, 1 - abs(_i - _factor));
-            audio_sound_gain(__voiceArray[_i], _gain*__gainLocal, VINYL_STEP_DURATION);
+            
+            audio_sound_gain(__voiceArray[_i], _gain*_gainShared, VINYL_STEP_DURATION);
+            __gainArray[_i] = _gain;
+            
             ++_i;
         }
     }
@@ -131,13 +152,18 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     {
         __blendFactor = clamp(_value, 0, 1);
         
+        var _gainShared = __VINYL_VOICE_GAIN_EQUATION;
+        
         //Set channels from the animation curve
         var _channelCount = array_length(animcurve_get(_animCurve).channels);
         var _i = 0;
         repeat(min(_channelCount, __voiceCount))
         {
             var _gain = max(0, animcurve_channel_evaluate(animcurve_get_channel(_animCurve, _i), __blendFactor));
-            audio_sound_gain(__voiceArray[_i], _gain*__gainLocal, VINYL_STEP_DURATION);
+            
+            audio_sound_gain(__voiceArray[_i], _gain*_gainShared, VINYL_STEP_DURATION);
+            __gainArray[_i] = _gain;
+            
             ++_i;
         }
         
@@ -145,6 +171,8 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         repeat(__voiceCount - _i)
         {
             audio_sound_gain(__voiceArray[_i], 0, VINYL_STEP_DURATION);
+            __gainArray[_i] = 0;
+            
             ++_i;
         }
     }

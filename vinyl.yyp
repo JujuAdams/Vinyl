@@ -19,8 +19,8 @@
     {"$GMFolder":"","%Name":"Networking","folderPath":"folders/Vinyl/(Internals)/Networking.yy","name":"Networking","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"PRNG","folderPath":"folders/Vinyl/(Internals)/PRNG.yy","name":"PRNG","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Mix","folderPath":"folders/Vinyl/Mix.yy","name":"Mix","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Import & Export","folderPath":"folders/Vinyl/Setup/Import & Export.yy","name":"Import & Export","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Setup","folderPath":"folders/Vinyl/Setup.yy","name":"Setup","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Import & Export","folderPath":"folders/Vinyl/Setup/Import & Export.yy","name":"Import & Export","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Sounds & Voices","folderPath":"folders/Vinyl/Sounds & Voices.yy","name":"Sounds & Voices","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "IncludedFiles":[
@@ -50,6 +50,7 @@
     {"id":{"name":"__VinylConfigDebug","path":"scripts/__VinylConfigDebug/__VinylConfigDebug.yy",},},
     {"id":{"name":"__VinylConfigMacros","path":"scripts/__VinylConfigMacros/__VinylConfigMacros.yy",},},
     {"id":{"name":"__VinylCreateSoundVoice","path":"scripts/__VinylCreateSoundVoice/__VinylCreateSoundVoice.yy",},},
+    {"id":{"name":"__VinylEnsureSoundVoice","path":"scripts/__VinylEnsureSoundVoice/__VinylEnsureSoundVoice.yy",},},
     {"id":{"name":"__VinylError","path":"scripts/__VinylError/__VinylError.yy",},},
     {"id":{"name":"__VinylGetProjectPath","path":"scripts/__VinylGetProjectPath/__VinylGetProjectPath.yy",},},
     {"id":{"name":"__VinylImportSound","path":"scripts/__VinylImportSound/__VinylImportSound.yy",},},

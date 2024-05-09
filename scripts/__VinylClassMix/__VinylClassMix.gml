@@ -5,6 +5,8 @@
 
 function __VinylClassMix(_mixName, _gainBase) constructor
 {
+    static _voiceStructDict = __VinylSystem().__voiceStructDict;
+    
     __mixName  = _mixName;
     __gainBase = _gainBase;
     
@@ -63,6 +65,15 @@ function __VinylClassMix(_mixName, _gainBase) constructor
     static __SetGain = function(_gain)
     {
         __gainLocal = _gain;
+        var _gainFinal = __gainBase*__gainLocal;
+        
+        var _array = __voiceArray;
+        var _i = 0;
+        repeat(array_length(_array))
+        {
+            __VinylEnsureSoundVoice(_array[_i]).__SetMixGain(_gainFinal);
+            ++_i;
+        }
     }
     
     static __ExportJSON = function()

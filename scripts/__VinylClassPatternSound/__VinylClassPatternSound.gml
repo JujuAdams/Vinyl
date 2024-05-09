@@ -27,10 +27,12 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         var _gainFactor  = __VinylRandom(1);
         var _pitchFactor = __VinylRandom(1);
         
-        var _gainPattern  = lerp(__gainMin,  __gainMax,  _gainFactor);
-        var _pitchPattern = lerp(__pitchMin, __pitchMax, _pitchFactor);
+        var _gainBase  = lerp(__gainMin,  __gainMax,  _gainFactor);
+        var _pitchBase = lerp(__pitchMin, __pitchMax, _pitchFactor);
         
-        var _voice = audio_play_sound(__sound, 0, _loop ?? __loop, _gainLocal*_gainPattern, 0, _pitchLocal*_pitchPattern);
+        var _gainMix = 1; //TODO
+        
+        var _voice = audio_play_sound(__sound, 0, _loop ?? __loop, _gainBase*_gainLocal*_gainMix, 0, _pitchBase*_pitchLocal);
         if (not __noMix)
         {
             var _mixStruct = _mixDict[$ __mix];
@@ -44,7 +46,7 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
             }
         }
         
-        if (VINYL_LIVE_EDIT) __VinylCreateSoundVoice(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor, __sound);
+        if (VINYL_LIVE_EDIT) __VinylCreateSoundVoice(_voice, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, self, _gainFactor, _pitchFactor);
         return _voice;
     }
     
@@ -62,18 +64,17 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         repeat(array_length(_voiceContextArray))
         {
             var _voiceStruct = _voiceContextArray[_i];
-            if (_voiceStruct.__pattern == __sound)
+            if (_voiceStruct.__pattern == self)
             {
                 var _voice = _voiceStruct.__voice;
                 
                 _voiceStruct.__loop = _loop;
                 audio_sound_loop(_voice, _loop);
                 
-                var _gainPattern  = lerp(_gainMin, _gainMax, _voiceStruct.__gainFactor);
-                var _pitchPattern = lerp(_pitchMin, _pitchMax, _voiceStruct.__pitchFactor);
+                var _gainBase  = lerp(_gainMin, _gainMax, _voiceStruct.__gainFactor);
+                var _pitchBase = lerp(_pitchMin, _pitchMax, _voiceStruct.__pitchFactor);
                 
-                audio_sound_gain(_voice, _voiceStruct.__gainLocal*_gainPattern, VINYL_STEP_DURATION);
-                audio_sound_pitch(_voice, _voiceStruct.__pitchLocal*_pitchPattern);
+                __UpdateSetup(_gainBase, _pitchBase);
             }
             
             ++_i;

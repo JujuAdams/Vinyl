@@ -40,11 +40,26 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         var _gainFactor  = __VinylRandom(1);
         var _pitchFactor = __VinylRandom(1);
         
-        var _gainPattern  = lerp(__gainMin,  __gainMax, _gainFactor);
-        var _pitchPattern = lerp(__pitchMin, __pitchMax, _pitchFactor);
+        var _gainBase  = lerp(__gainMin,  __gainMax,  _gainFactor);
+        var _pitchBase = lerp(__pitchMin, __pitchMax, _pitchFactor);
         
-        var _voice = audio_play_sound(_sound, 0, false, _gainLocal*_gainPattern, 0, _pitchLocal*_pitchPattern);
-        __VinylCreateSoundVoice(_voice, _gainLocal, _pitchLocal, _gainFactor, _pitchFactor, __patternName);
+        var _gainMix = 1; //TODO
+        
+        var _voice = audio_play_sound(_sound, 0, _loop ?? __loop, _gainBase*_gainLocal*_gainMix, 0, _pitchBase*_pitchLocal);
+        if (not __noMix)
+        {
+            var _mixStruct = _mixDict[$ __mix];
+            if (_mixStruct == undefined)
+            {
+                __VinylError("Mix \"", __mix, "\" not recognised");
+            }
+            else
+            {
+                _mixStruct.__Add(_voice);
+            }
+        }
+        
+        if (VINYL_LIVE_EDIT) __VinylCreateSoundVoice(_voice, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, self, _gainFactor, _pitchFactor);
         return _voice;
     }
     

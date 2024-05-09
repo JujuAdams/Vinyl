@@ -17,8 +17,10 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     __gainLocal  = _gainLocal;
     __pitchLocal = _pitchLocal;
     
+    __gainBase = 1; //TODO
+    __gainMix  = 1; //TODO
+    
     __gainFadeOut      = 1;
-    __gainFadeOutStart = undefined;
     __gainFadeOutSpeed = undefined;
     
     __voiceHead = undefined;
@@ -28,7 +30,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     var _soundHead = __pattern.__soundHead;
     if (_soundHead != undefined)
     {
-        __currentVoice = audio_play_sound(_soundHead, 0, false, __pattern.__gain*__gainLocal, 0, __pitchLocal);
+        __currentVoice = audio_play_sound(_soundHead, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
         struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
         __voiceHead = __currentVoice;
         
@@ -39,7 +41,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         var _soundLoop = __pattern.__soundLoop;
         if (_soundLoop != undefined)
         {
-            __currentVoice = audio_play_sound(_soundLoop, 0, false, __pattern.__gain*__gainLocal, 0, __pitchLocal);
+            __currentVoice = audio_play_sound(_soundLoop, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
             struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
             __voiceLoop = __currentVoice;
             
@@ -52,7 +54,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
             var _soundTail = __pattern.__soundTail;
             if (_soundTail != undefined)
             {
-                __currentVoice = audio_play_sound(_soundTail, 0, false, __pattern.__gain*__gainLocal, 0, __pitchLocal);
+                __currentVoice = audio_play_sound(_soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
                 struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
                 __voiceLoop = __currentVoice;
             }
@@ -80,7 +82,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                 return false;
             }
             
-            audio_sound_gain(__currentVoice, __gainFadeOutStart*__gainFadeOut, VINYL_STEP_DURATION);
+            audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION, VINYL_STEP_DURATION);
         }
         
         if (VinylWillStop(__currentVoice))
@@ -90,7 +92,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                 case __VINYL_HLT_STATE.__HEAD:
                     if (__doLoop && (__pattern.__soundLoop != undefined))
                     {
-                        __currentVoice = audio_play_sound(__pattern.__soundLoop, 0, true, __pattern.__gain*__gainLocal, 0, __pitchLocal);
+                        __currentVoice = audio_play_sound(__pattern.__soundLoop, 0, true, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
                         struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
                         __voiceLoop = __currentVoice;
                         
@@ -103,7 +105,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                         if (__pattern.__soundTail != undefined)
                         {
                             //If we've already indicated that the loop should end then move on to the tail immediately
-                            __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false, __pattern.__gain*__gainLocal, 0, __pitchLocal);
+                            __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
                             struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
                             __voiceTail = __currentVoice;
                         }
@@ -120,7 +122,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                     
                     if (__pattern.__soundTail != undefined)
                     {
-                        __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false, __pattern.__gain*__gainLocal, 0, __pitchLocal);
+                        __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
                         struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
                         __voiceTail = __currentVoice;
                     }
@@ -157,8 +159,19 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     
     static __FadeOut = function(_rateOfChange)
     {
-        if (__gainFadeOutStart == undefined) __gainFadeOutStart = audio_sound_get_gain(__currentVoice);
         __gainFadeOutSpeed = max(0.001, _rateOfChange);
+    }
+    
+    static __SetLocalGain = function(_gain)
+    {
+        __gainLocal = _gain;
+        audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION, VINYL_STEP_DURATION);
+    }
+    
+    static __SetMixGain = function(_gain)
+    {
+        __gainMix = _gain;
+        audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION, VINYL_STEP_DURATION);
     }
     
     static __EndLoop = function()
