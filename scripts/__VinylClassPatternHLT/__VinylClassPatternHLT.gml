@@ -17,6 +17,8 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     __gain      = _gain;
     __mix       = _mix;
     
+    __noMix = (_mix == VINYL_NO_MIX);
+    
     //Don't make this static!
     __Play = function(_loop, _gainLocal, _pitchLocal)
     {
@@ -38,7 +40,8 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     
     static __SetMix = function(_mix)
     {
-        __mix = _mix;
+        __mix   = _mix;
+        __noMix = (_mix != VINYL_NO_MIX);
     }
     
     static __ClearSetup = function()

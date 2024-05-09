@@ -13,6 +13,8 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _gain, _mix) constr
     __gain       = _gain;
     __mix        = _mix;
     
+    __noMix = (_mix == VINYL_NO_MIX);
+    
     //Don't make this static!
     __Play = function(_loop, _gainLocal, _pitchLocal)
     {
@@ -32,7 +34,8 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _gain, _mix) constr
     
     static __SetMix = function(_mix)
     {
-        __mix = _mix;
+        __mix   = _mix;
+        __noMix = (_mix != VINYL_NO_MIX);
     }
     
     static __ClearSetup = function()

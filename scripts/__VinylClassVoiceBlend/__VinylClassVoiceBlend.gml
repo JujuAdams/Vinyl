@@ -17,8 +17,23 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     __gainLocal  = _gainLocal;
     __pitchLocal = _pitchLocal;
     
-    __gainBase = 1; //TODO
-    __gainMix  = 1; //TODO
+    __gainBase = _pattern.__gain;
+    
+    if (_pattern.__noMix)
+    {
+        __gainMix = 1;
+    }
+    else
+    {
+        var _mixStruct = _mixDict[$ _pattern.__mix];
+        if (_mixStruct == undefined)
+        {
+            __VinylError("Mix \"", _pattern.__mix, "\" not recognised");
+            return;
+        }
+        
+        __gainMix = _mixStruct.__gainFinal;
+    }
     
     __gainFadeOut      = 1;
     __gainFadeOutSpeed = undefined;

@@ -6,6 +6,7 @@
 
 function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
 {
+    static _mixDict                = __VinylSystem().__mixDict;
     static _voiceStructDict        = __VinylSystem().__voiceStructDict;
     static _voiceStructArray       = __VinylSystem().__voiceStructArray;
     static _voiceStructUpdateArray = __VinylSystem().__voiceStructUpdateArray;
@@ -17,8 +18,23 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     __gainLocal  = _gainLocal;
     __pitchLocal = _pitchLocal;
     
-    __gainBase = 1; //TODO
-    __gainMix  = 1; //TODO
+    __gainBase = _pattern.__gain;
+    
+    if (_pattern.__noMix)
+    {
+        __gainMix = 1;
+    }
+    else
+    {
+        var _mixStruct = _mixDict[$ _pattern.__mix];
+        if (_mixStruct == undefined)
+        {
+            __VinylError("Mix \"", _pattern.__mix, "\" not recognised");
+            return;
+        }
+        
+        __gainMix = _mixStruct.__gainFinal;
+    }
     
     __gainFadeOut      = 1;
     __gainFadeOutSpeed = undefined;
@@ -27,7 +43,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     __voiceLoop = undefined;
     __voiceTail = undefined;
     
-    var _soundHead = __pattern.__soundHead;
+    var _soundHead = _pattern.__soundHead;
     if (_soundHead != undefined)
     {
         __currentVoice = audio_play_sound(_soundHead, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
@@ -38,7 +54,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     }
     else
     {
-        var _soundLoop = __pattern.__soundLoop;
+        var _soundLoop = _pattern.__soundLoop;
         if (_soundLoop != undefined)
         {
             __currentVoice = audio_play_sound(_soundLoop, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
@@ -51,7 +67,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         {
             __state = __VINYL_HLT_STATE.__TAIL;
             
-            var _soundTail = __pattern.__soundTail;
+            var _soundTail = _pattern.__soundTail;
             if (_soundTail != undefined)
             {
                 __currentVoice = audio_play_sound(_soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);

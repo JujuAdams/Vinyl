@@ -19,6 +19,10 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     __pitchMax   = _pitchMax;
     __mix        = _mix;
     
+    __noMix          = (_mix == VINYL_NO_MIX);
+    __gainRandomize  = (_gainMin != _gainMax);
+    __pitchRandomize = (_pitchMin != _pitchMax);
+    
     __soundCount = array_length(__soundArray);
     __playIndex  = infinity;
     
@@ -37,29 +41,50 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         var _sound = __soundArray[__playIndex];
         ++__playIndex;
         
-        var _gainFactor  = __VinylRandom(1);
-        var _pitchFactor = __VinylRandom(1);
+        var _loopFinal = _loop ?? false;
         
-        var _gainBase  = lerp(__gainMin,  __gainMax,  _gainFactor);
-        var _pitchBase = lerp(__pitchMin, __pitchMax, _pitchFactor);
+        if (__gainRandomize)
+        {
+            var _gainFactor = __VinylRandom(1);
+            var _gainBase   = lerp(__gainMin,  __gainMax,  _gainFactor);
+        }
+        else
+        {
+            var _gainFactor = 0.5;
+            var _gainBase   = 1;
+        }
         
-        var _gainMix = 1; //TODO
+        if (__pitchRandomize)
+        {
+            var _pitchFactor = __VinylRandom(1);
+            var _pitchBase   = lerp(__pitchMin, __pitchMax, _pitchFactor);
+        }
+        else
+        {
+            var _pitchFactor = 0.5;
+            var _pitchBase   = 1;
+        }
         
-        var _voice = audio_play_sound(_sound, 0, _loop ?? __loop, _gainBase*_gainLocal*_gainMix, 0, _pitchBase*_pitchLocal);
-        if (not __noMix)
+        if (__noMix)
+        {
+            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainBase*_gainLocal, 0, _pitchBase*_pitchLocal);
+            var _gainMix = 1; //TODO
+        }
+        else
         {
             var _mixStruct = _mixDict[$ __mix];
             if (_mixStruct == undefined)
             {
                 __VinylError("Mix \"", __mix, "\" not recognised");
+                return;
             }
-            else
-            {
-                _mixStruct.__Add(_voice);
-            }
+            
+            var _gainMix = _mixStruct.__gainFinal;
+            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainBase*_gainLocal*_gainMix, 0, _pitchBase*_pitchLocal);
+            _mixStruct.__Add(_voice);
         }
         
-        if (VINYL_LIVE_EDIT) __VinylCreateSoundVoice(_voice, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, self, _gainFactor, _pitchFactor);
+        if (_loopFinal || VINYL_LIVE_EDIT) __VinylCreateSoundVoice(_voice, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, self, _gainFactor, _pitchFactor);
         return _voice;
     }
     
@@ -71,6 +96,9 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         __pitchMin   = _pitchMin;
         __pitchMax   = _pitchMax;
         
+        __gainRandomize  = (_gainMin != _gainMax);
+        __pitchRandomize = (_pitchMin != _pitchMax);
+        
         __soundCount = array_length(__soundArray);
         __playIndex  = infinity;
         
@@ -79,7 +107,8 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     
     static __SetMix = function(_mix)
     {
-        __mix = _mix;
+        __mix   = _mix;
+        __noMix = (_mix != VINYL_NO_MIX);
     }
     
     static __ClearSetup = function()

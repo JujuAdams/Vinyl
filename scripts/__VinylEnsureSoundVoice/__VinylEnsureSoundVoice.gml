@@ -4,8 +4,9 @@
 
 function __VinylEnsureSoundVoice(_voice)
 {
-    var _voiceStruct = struct_get_from_hash(_voiceStructDict, int64(_voice));
+    static _voiceStructDict = __VinylSystem().__voiceStructDict;
     
+    var _voiceStruct = struct_get_from_hash(_voiceStructDict, int64(_voice));
     if (_voiceStruct == undefined)
     {
         return __VinylCreateSoundVoice(_voice,
