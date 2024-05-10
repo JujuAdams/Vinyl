@@ -31,10 +31,10 @@ function __VinylSystem()
     
     with(_system)
     {
-        __frame = 0;
+        if (VINYL_DEBUG_SHOW_FRAMES) __frame = 0;
         
         __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
-        if (__VINYL_RUNNING_FROM_IDE) global.vinylSystem = self;
+        if (__VINYL_RUNNING_FROM_IDE) global.Vinyl = self;
         
         if (VINYL_LIVE_EDIT)
         {

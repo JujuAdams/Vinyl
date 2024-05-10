@@ -2,7 +2,7 @@
 
 #macro VINYL_LIVE_EDIT  true
 
-#macro VINYL_NO_MIX  "no mix"
+#macro VINYL_NO_MIX       "no mix"
 #macro VINYL_DEFAULT_MIX  VINYL_NO_MIX
 
 //Maximum output gain for audio voices. Must be greater than or equal to zero

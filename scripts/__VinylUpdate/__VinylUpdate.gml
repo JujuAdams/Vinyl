@@ -13,7 +13,8 @@ function __VinylUpdate()
     
     with(_system)
     {
-        ++__frame;
+        if (VINYL_DEBUG_SHOW_FRAMES) __frame++;
+        
         var _deltaTimeFactor = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
         
         var _i = 0;
