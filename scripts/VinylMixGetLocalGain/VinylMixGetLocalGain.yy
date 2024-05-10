@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylMixGetGain",
+  "%Name":"VinylMixGetLocalGain",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylMixGetGain",
+  "name":"VinylMixGetLocalGain",
   "parent":{
     "name":"Mix",
     "path":"folders/Vinyl/Mix.yy",

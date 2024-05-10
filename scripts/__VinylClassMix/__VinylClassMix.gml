@@ -6,6 +6,8 @@
 function __VinylClassMix(_mixName, _gainBase) constructor
 {
     static _voiceStructDict = __VinylSystem().__voiceStructDict;
+    static _soundDict       = __VinylSystem().__soundDict;
+    static _patternDict     = __VinylSystem().__patternDict;
     
     __mixName  = _mixName;
     __gainBase = _gainBase;
@@ -84,11 +86,54 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         __UpdateMemberGain();
     }
     
-    static __ExportJSON = function()
+    static __ExportJSON = function(_soundExportedDict, _patternExportedDict)
     {
+        var _membersArray = [];
+        
+        var _soundMethod = method({
+            __mix:               __mixName,
+            __array:             _membersArray,
+            __soundExportedDict: _soundExportedDict,
+        },
+        function(_name, _value)
+        {
+            if (_value.__mix == __mix)
+            {
+                __soundExportedDict[$ _name] = true;
+                
+                var _export = _value.__ExportJSON();
+                array_push(__array, _export);
+            }
+        });
+        
+        struct_foreach(_soundDict, _soundMethod);
+        
+        
+        
+        var _patternMethod = method({
+            __mix:                 __mixName,
+            __array:               _membersArray,
+            __patternExportedDict: _patternExportedDict,
+        },
+        function(_name, _value)
+        {
+            if (_value.__mix == __mix)
+            {
+                __patternExportedDict[$ _name] = true;
+                
+                var _export = _value.__ExportJSON();
+                array_push(__array, _export);
+            }
+        });
+        
+        struct_foreach(_patternDict, _patternMethod);
+        
+        
+        
         var _struct = {
             mix:      __mixName,
             baseGain: __gainBase,
+            members:  _membersArray,
         };
         
         return _struct;
@@ -129,7 +174,7 @@ function __VinylImportMixGroupJSON(_json)
         {
             var _memberData = _membersArray[_i];
             
-            var _return = VinylSetupImport(_memberData);
+            var _return = VinylSetupImportJSON(_memberData);
             if (_return != undefined) VinylSetMixForAssets(_json.mix, _return);
             
             ++_i;

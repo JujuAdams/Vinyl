@@ -1,6 +1,6 @@
 // Feather disable all
 
-function VinylSetupClear()
+function VinylSetupClearEverything()
 {
     static _soundDict        = __VinylSystem().__soundDict;
     static _patternDict      = __VinylSystem().__patternDict;

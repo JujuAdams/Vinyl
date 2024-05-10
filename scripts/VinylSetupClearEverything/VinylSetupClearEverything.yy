@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylSetupClear",
+  "%Name":"VinylSetupClearEverything",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylSetupClear",
+  "name":"VinylSetupClearEverything",
   "parent":{
     "name":"Import & Export",
     "path":"folders/Vinyl/Setup/Import & Export.yy",

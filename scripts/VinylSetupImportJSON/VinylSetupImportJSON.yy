@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylSetupExport",
+  "%Name":"VinylSetupImportJSON",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylSetupExport",
+  "name":"VinylSetupImportJSON",
   "parent":{
     "name":"Import & Export",
     "path":"folders/Vinyl/Setup/Import & Export.yy",
