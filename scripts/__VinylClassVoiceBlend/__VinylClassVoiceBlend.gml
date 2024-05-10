@@ -58,6 +58,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         //Add the generated voice to the mix's array of voices
         if (_mixStruct == undefined) _mixStruct.__Add(__voiceTop);
         struct_set_from_hash(_voiceStructDict, int64(__voiceTop), self);
+        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __voiceTop, " to voice lookup struct");
         
         var _i = 1;
         repeat(array_length(_soundArray)-1)

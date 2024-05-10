@@ -18,6 +18,7 @@ function __VinylClassVoiceSound(_voice, _gainBase, _gainLocal, _gainMix, _pitchB
     
     array_push(_voiceCleanUpArray, self);
     struct_set_from_hash(_voiceStructDict, int64(_voice), self);
+    if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", _voice, " to voice lookup struct");
     
     __voice      = _voice;
     __gainBase   = _gainBase;

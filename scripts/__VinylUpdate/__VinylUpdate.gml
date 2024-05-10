@@ -49,6 +49,7 @@ function __VinylUpdate()
             {
                 //FIXME - Replace with struct_remove_from_hash() when that is made available
                 struct_set_from_hash(__voiceStructDict, int64(_array[_index]), undefined);
+                if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __firstVoice, " from voice lookup struct");
                 array_delete(_array, _index, 1);
             }
             
