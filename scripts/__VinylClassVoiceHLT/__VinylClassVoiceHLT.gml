@@ -89,7 +89,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                 return false;
             }
             
-            audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION, VINYL_STEP_DURATION);
+            audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
         }
         
         if (VinylWillStop(__currentVoice))
@@ -198,13 +198,13 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     static __SetLocalGain = function(_gain)
     {
         __gainLocal = max(0, _gain);
-        audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION, VINYL_STEP_DURATION);
+        audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
     }
     
     static __SetMixGain = function(_gain)
     {
         __gainMix = max(0, _gain);
-        audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION, VINYL_STEP_DURATION);
+        audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
     }
     
     static __EndLoop = function()

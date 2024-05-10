@@ -45,7 +45,6 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         var _i = 0;
         repeat(array_length(_array))
         {
-            //TODO - Set mix and mix gain here
             __VinylEnsureSoundVoice(_array[_i]).__SetMixGain(_gainFinal);
             ++_i;
         }

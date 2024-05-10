@@ -98,7 +98,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         var _i = 0;
         repeat(__voiceCount)
         {
-            audio_sound_gain(_voiceArray[_i], _gainArray[_i]*_gainShared, VINYL_STEP_DURATION);
+            audio_sound_gain(_voiceArray[_i], _gainArray[_i]*_gainShared/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
             ++_i;
         }
     }
@@ -209,7 +209,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
             {
                 var _gain = max(0, 1 - abs(_i - _factor));
                 
-                audio_sound_gain(__voiceArray[_i], _gain*_gainShared, VINYL_STEP_DURATION);
+                audio_sound_gain(__voiceArray[_i], _gain*_gainShared/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
                 __gainArray[_i] = _gain;
                 
                 ++_i;
@@ -226,7 +226,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
             {
                 var _gain = max(0, animcurve_channel_evaluate(animcurve_get_channel(_animCurve, _i), __blendFactor));
                 
-                audio_sound_gain(__voiceArray[_i], _gain*_gainShared, VINYL_STEP_DURATION);
+                audio_sound_gain(__voiceArray[_i], _gain*_gainShared/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
                 __gainArray[_i] = _gain;
                 
                 ++_i;
