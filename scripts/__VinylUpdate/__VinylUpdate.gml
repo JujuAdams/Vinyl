@@ -17,19 +17,21 @@ function __VinylUpdate()
         
         var _deltaTimeFactor = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
         
+        var _array = __mixArray;
         var _i = 0;
-        repeat(array_length(__mixArray))
+        repeat(array_length(_array))
         {
-            __mixArray[_i].__Update(_deltaTimeFactor);
+            _array[_i].__Update();
             ++_i;
         }
         
+        var _array = __voiceStructUpdateArray;
         var _i = 0;
-        repeat(array_length(__voiceStructUpdateArray))
+        repeat(array_length(_array))
         {
-            if (not __voiceStructUpdateArray[_i].__Update(_deltaTimeFactor))
+            if (not _array[_i].__Update(_deltaTimeFactor))
             {
-                array_delete(__voiceStructUpdateArray, _i, 1);
+                array_delete(_array, _i, 1);
             }
             else
             {
