@@ -2,7 +2,7 @@
 
 /// @param voice
 
-function VinylGetBlend(_voice)
+function VinylGetBlendAnimCurve(_voice)
 {
     static _voiceStructDict = __VinylSystem().__voiceStructDict;
     
@@ -11,5 +11,5 @@ function VinylGetBlend(_voice)
     var _voiceStruct = struct_get_from_hash(_voiceStructDict, int64(_voice));
     if (not is_instanceof(_voiceStruct, __VinylClassVoiceBlend)) return undefined;
     
-    return _voiceStruct.__blendFactor;
+    return _voiceStruct.__blendAnimCurve;
 }

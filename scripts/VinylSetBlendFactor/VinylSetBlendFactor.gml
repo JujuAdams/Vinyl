@@ -3,7 +3,7 @@
 /// @param voice
 /// @param value
 
-function VinylSetBlend(_voice, _value)
+function VinylSetBlendFactor(_voice, _value)
 {
     static _voiceStructDict = __VinylSystem().__voiceStructDict;
     

@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylGetBlend",
+  "%Name":"VinylGetBlendAnimCurve",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylGetBlend",
+  "name":"VinylGetBlendAnimCurve",
   "parent":{
     "name":"Sounds & Voices",
     "path":"folders/Vinyl/Sounds & Voices.yy",

@@ -38,7 +38,8 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     __gainFadeOut      = 1;
     __gainFadeOutSpeed = undefined;
     
-    __blendFactor = 0;
+    __blendFactor    = 0;
+    __blendAnimCurve = undefined;
     
     __voiceTop   = -1;
     __voiceArray = [];
@@ -164,56 +165,77 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         __UpdateGain();
     }
     
-    static __SetBlend = function(_value)
+    static __SetBlend = function(_factor)
     {
-        __blendFactor = clamp(_value, 0, 1);
+        _factor = clamp(_factor, 0, 1);
         
+        if (_factor != __blendFactor)
+        {
+            __blendFactor = _factor;
+            __SetMemberGains();
+        }
+    }
+    
+    static __SetBlendAnimCurve = function(_animCurve, _factor)
+    {
+        if (_animCurve != __blendAnimCurve)
+        {
+            if (_factor != undefined) __blendFactor = clamp(_factor, 0, 1);
+            __blendAnimCurve = _animCurve;
+            __SetMemberGains();
+        }
+        else
+        {
+            __SetBlend(_factor);
+        }
+    }
+    
+    static __SetMemberGains = function()
+    {
         if (__voiceCount <= 0) return;
         
         var _gainShared = __VINYL_VOICE_GAIN_EQUATION;
         
-        //Scale up the blend factor to match the number of channels we have
-        var _factor = clamp(__blendFactor, 0, 1)*(__voiceCount - 1);
-        
-        //Set channels using linear crossfades
-        var _i = 0;
-        repeat(__voiceCount)
+        if (__blendAnimCurve == undefined)
         {
-            var _gain = max(0, 1 - abs(_i - _factor));
+            //Scale up the blend factor to match the number of channels we have
+            var _factor = clamp(__blendFactor, 0, 1)*(__voiceCount - 1);
             
-            audio_sound_gain(__voiceArray[_i], _gain*_gainShared, VINYL_STEP_DURATION);
-            __gainArray[_i] = _gain;
-            
-            ++_i;
+            //Set channels using linear crossfades
+            var _i = 0;
+            repeat(__voiceCount)
+            {
+                var _gain = max(0, 1 - abs(_i - _factor));
+                
+                audio_sound_gain(__voiceArray[_i], _gain*_gainShared, VINYL_STEP_DURATION);
+                __gainArray[_i] = _gain;
+                
+                ++_i;
+            }
         }
-    }
-    
-    static __SetBlendAnimCurve = function(_value, _animCurve)
-    {
-        __blendFactor = clamp(_value, 0, 1);
-        
-        var _gainShared = __VINYL_VOICE_GAIN_EQUATION;
-        
-        //Set channels from the animation curve
-        var _channelCount = array_length(animcurve_get(_animCurve).channels);
-        var _i = 0;
-        repeat(min(_channelCount, __voiceCount))
+        else
         {
-            var _gain = max(0, animcurve_channel_evaluate(animcurve_get_channel(_animCurve, _i), __blendFactor));
+            //Set channels from the animation curve
+            var _channelCount = array_length(animcurve_get(_animCurve).channels);
+            var _i = 0;
+            repeat(min(_channelCount, __voiceCount))
+            {
+                var _gain = max(0, animcurve_channel_evaluate(animcurve_get_channel(_animCurve, _i), __blendFactor));
+                
+                audio_sound_gain(__voiceArray[_i], _gain*_gainShared, VINYL_STEP_DURATION);
+                __gainArray[_i] = _gain;
+                
+                ++_i;
+            }
             
-            audio_sound_gain(__voiceArray[_i], _gain*_gainShared, VINYL_STEP_DURATION);
-            __gainArray[_i] = _gain;
-            
-            ++_i;
-        }
-        
-        //Set remaining channels to 0
-        repeat(__voiceCount - _i)
-        {
-            audio_sound_gain(__voiceArray[_i], 0, VINYL_STEP_DURATION);
-            __gainArray[_i] = 0;
-            
-            ++_i;
+            //Set remaining channels to 0
+            repeat(__voiceCount - _i)
+            {
+                audio_sound_gain(__voiceArray[_i], 0, VINYL_STEP_DURATION);
+                __gainArray[_i] = 0;
+                
+                ++_i;
+            }
         }
     }
 }

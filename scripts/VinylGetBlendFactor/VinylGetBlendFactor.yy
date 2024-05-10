@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylSetBlend",
+  "%Name":"VinylGetBlendFactor",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylSetBlend",
+  "name":"VinylGetBlendFactor",
   "parent":{
     "name":"Sounds & Voices",
     "path":"folders/Vinyl/Sounds & Voices.yy",

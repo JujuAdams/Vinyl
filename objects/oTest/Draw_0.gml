@@ -57,7 +57,7 @@ UIButton("HLT End Loop", function()
 
 
 UINewline();
-UIText(string_concat("Blend factor = ", VinylGetBlend(blendVoice)));
+UIText(string_concat("Blend factor = ", VinylGetBlendFactor(blendVoice)));
 UIButtonInline("Blend Test", function()
 {
     blendVoice = VinylPlay("blend");
@@ -65,22 +65,22 @@ UIButtonInline("Blend Test", function()
 UISpace(20);
 UIButtonInline("Factor +", function()
 {
-    VinylSetBlend(blendVoice, (VinylGetBlend(blendVoice) ?? 0) + 0.05);
+    VinylSetBlendFactor(blendVoice, (VinylGetBlendFactor(blendVoice) ?? 0) + 0.05);
 });
 UISpace(20);
 UIButton("Factor -", function()
 {
-    VinylSetBlend(blendVoice, (VinylGetBlend(blendVoice) ?? 0) - 0.05);
+    VinylSetBlendFactor(blendVoice, (VinylGetBlendFactor(blendVoice) ?? 0) - 0.05);
 });
 
 
 
 UIButtonInline("Blend linear", function()
 {
-    //VinylSetBlendAnimCurve(blendVoice, VinylGetBlend(blendVoice), undefined);
+    VinylSetBlendAnimCurve(blendVoice, undefined);
 });
 UISpace(20);
 UIButton("Blend anim curve", function()
 {
-    //VinylSetBlend(blendVoice, (VinylGetBlend(blendVoice) ?? 0) - 0.05);
+    VinylSetBlendFactor(blendVoice, undefined);
 });
