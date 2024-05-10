@@ -80,6 +80,26 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         }
     }
     
+    static __PauseVoices = function()
+    {
+        var _i = 0;
+        repeat(array_length(__voiceArray))
+        {
+            VinylPause(__voiceArray[_i]);
+            ++_i;
+        }
+    }
+    
+    static __ResumeVoices = function()
+    {
+        var _i = 0;
+        repeat(array_length(__voiceArray))
+        {
+            VinylResume(__voiceArray[_i]);
+            ++_i;
+        }
+    }
+    
     static __SetGain = function(_gain)
     {
         __gainLocal = _gain;

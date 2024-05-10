@@ -122,6 +122,32 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         }
     }
     
+    static __Pause = function()
+    {
+        var _i = 0;
+        repeat(array_length(__voiceArray))
+        {
+            audio_pause_sound(__voiceArray[_i]);
+            ++_i;
+        }
+    }
+    
+    static __Resume = function()
+    {
+        var _i = 0;
+        repeat(array_length(__voiceArray))
+        {
+            audio_resume_sound(__voiceArray[_i]);
+            ++_i;
+        }
+    }
+    
+    static __IsPaused = function()
+    {
+        if (__voiceTop < 0) return false;
+        return audio_is_paused(__voiceTop);
+    }
+    
     static __FadeOut = function(_rateOfChange)
     {
         __gainFadeOutSpeed = max(0.001, _rateOfChange);

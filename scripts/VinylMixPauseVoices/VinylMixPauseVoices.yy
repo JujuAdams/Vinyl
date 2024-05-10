@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"VinylMixPauseVoices",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylMixPauseVoices",
+  "parent":{
+    "name":"Mix",
+    "path":"folders/Vinyl/Mix.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

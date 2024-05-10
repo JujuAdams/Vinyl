@@ -45,6 +45,21 @@ function __VinylClassVoiceSound(_voice, _gainBase, _gainLocal, _gainMix, _pitchB
         audio_stop_sound(__voice);
     }
     
+    static __Pause = function()
+    {
+        audio_pause_sound(__voice);
+    }
+    
+    static __Resume = function()
+    {
+        audio_resume_sound(__voice);
+    }
+    
+    static __IsPaused = function()
+    {
+        return audio_is_paused(__voice);
+    }
+    
     static __Update = function(_delta)
     {
         __gainFadeOut -= __gainFadeOutSpeed*_delta;

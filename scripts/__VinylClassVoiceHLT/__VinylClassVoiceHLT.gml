@@ -173,6 +173,21 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         }
     }
     
+    static __Pause = function()
+    {
+        audio_pause_sound(__currentVoice);
+    }
+    
+    static __Resume = function()
+    {
+        audio_resume_sound(__currentVoice);
+    }
+    
+    static __IsPaused = function()
+    {
+        return audio_is_paused(__currentVoice);
+    }
+    
     static __FadeOut = function(_rateOfChange)
     {
         __gainFadeOutSpeed = max(0.001, _rateOfChange);
