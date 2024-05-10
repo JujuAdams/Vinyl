@@ -6,6 +6,7 @@
 
 function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
 {
+    static _mixDict           = __VinylSystem().__mixDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceStructDict   = __VinylSystem().__voiceStructDict;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
@@ -215,6 +216,8 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         }
         else
         {
+            var _animCurve = __blendAnimCurve;
+            
             //Set channels from the animation curve
             var _channelCount = array_length(animcurve_get(_animCurve).channels);
             var _i = 0;

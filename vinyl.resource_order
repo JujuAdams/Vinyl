@@ -14,6 +14,7 @@
     {"name":"Sounds & Voices","order":4,"path":"folders/Vinyl/Sounds & Voices.yy",},
   ],
   "ResourceOrderSettings":[
+    {"name":"acTest","order":7,"path":"animcurves/acTest/acTest.yy",},
     {"name":"fntText","order":6,"path":"fonts/fntText/fntText.yy",},
     {"name":"__VinylControllerObject","order":10,"path":"objects/__VinylControllerObject/__VinylControllerObject.yy",},
     {"name":"oTest","order":3,"path":"objects/oTest/oTest.yy",},

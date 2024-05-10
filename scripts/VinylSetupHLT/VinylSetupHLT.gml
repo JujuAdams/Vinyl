@@ -15,10 +15,10 @@ function VinylSetupHLT(_patternName, _soundHead = undefined, _soundLoop, _soundT
     var _existingPattern = _patternDict[$ _patternName];
     if (_existingPattern != undefined)
     {
-        _existingPattern.__UpdateSetup(_soundHead, _soundLoop, _soundTail, _gain);
+        _existingPattern.__UpdateSetup(_soundHead, _soundLoop, _soundTail, _gain, _mix);
     }
     else
     {
-        _patternDict[$ _patternName] = new __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain);
+        _patternDict[$ _patternName] = new __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain, _mix);
     }
 }

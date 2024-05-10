@@ -36,6 +36,7 @@
   },
   "name":"vinyl",
   "resources":[
+    {"id":{"name":"acTest","path":"animcurves/acTest/acTest.yy",},},
     {"id":{"name":"fntText","path":"fonts/fntText/fntText.yy",},},
     {"id":{"name":"__VinylControllerObject","path":"objects/__VinylControllerObject/__VinylControllerObject.yy",},},
     {"id":{"name":"oTest","path":"objects/oTest/oTest.yy",},},

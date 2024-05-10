@@ -82,5 +82,5 @@ UIButtonInline("Blend linear", function()
 UISpace(20);
 UIButton("Blend anim curve", function()
 {
-    VinylSetBlendFactor(blendVoice, undefined);
+    VinylSetBlendAnimCurve(blendVoice, acTest);
 });
