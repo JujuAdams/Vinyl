@@ -10,7 +10,8 @@
 
 function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix) constructor
 {
-    static _mixDict = __VinylSystem().__mixDict;
+    static _voiceStructArray = __VinylSystem().__voiceStructArray;
+    static _mixDict          = __VinylSystem().__mixDict;
     
     __sound    = _sound;
     __gainMin  = _gainMin;
@@ -75,8 +76,6 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
     
     static __UpdateSetup = function(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix)
     {
-        static _voiceContextArray = __VinylSystem().__voiceStructArray;
-        
         __gainMin  = _gainMin;
         __gainMax  = _gainMax;
         __pitchMin = _pitchMin;
@@ -86,28 +85,12 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         __gainRandomize  = (_gainMin != _gainMax);
         __pitchRandomize = (_pitchMin != _pitchMax);
         
-        //TODO - Clean this up
-        var _i = 0;
-        repeat(array_length(_voiceContextArray))
-        {
-            var _voiceStruct = _voiceContextArray[_i];
-            if (_voiceStruct.__pattern == self)
-            {
-                var _voice = _voiceStruct.__voice;
-                
-                _voiceStruct.__loop = _loop;
-                audio_sound_loop(_voice, _loop);
-                
-                var _gainBase  = lerp(_gainMin, _gainMax, _voiceStruct.__gainFactor);
-                var _pitchBase = lerp(_pitchMin, _pitchMax, _voiceStruct.__pitchFactor);
-                
-                __UpdateSetup(_gainBase, _pitchBase);
-            }
-            
-            ++_i;
-        }
-        
         __SetMix(_mix);
+        
+        if (VINYL_LIVE_EDIT)
+        {
+            //TODO
+        }
     }
     
     static __SetMix = function(_mix)

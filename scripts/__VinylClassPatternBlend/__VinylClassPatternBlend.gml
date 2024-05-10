@@ -26,9 +26,12 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _gain, _mix) constr
         __soundArray = __VinylImportSoundArray(_soundArray);
         __gain       = _gain;
         
-        //TODO - Change tracks over for extant currently-playing blend voices
-        
         __SetMix(_mix);
+        
+        if (VINYL_LIVE_EDIT)
+        {
+            //TODO
+        }
     }
     
     static __SetMix = function(_mix)

@@ -2,11 +2,10 @@
 
 function VinylSetupClearEverything()
 {
-    static _soundDict        = __VinylSystem().__soundDict;
-    static _patternDict      = __VinylSystem().__patternDict;
-    static _mixDict          = __VinylSystem().__mixDict;
-    static _mixArray         = __VinylSystem().__mixArray;
-    static _voiceStructArray = __VinylSystem().__voiceStructArray;
+    static _soundDict   = __VinylSystem().__soundDict;
+    static _patternDict = __VinylSystem().__patternDict;
+    static _mixDict     = __VinylSystem().__mixDict;
+    static _mixArray    = __VinylSystem().__mixArray;
     
     var _mixMethod = method(_mixDict, function(_key, _value)
     {

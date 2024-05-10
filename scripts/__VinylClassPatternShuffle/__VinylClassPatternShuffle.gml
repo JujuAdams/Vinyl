@@ -103,6 +103,11 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         __playIndex  = infinity;
         
         __SetMix(_mix);
+        
+        if (VINYL_LIVE_EDIT)
+        {
+            //TODO
+        }
     }
     
     static __SetMix = function(_mix)

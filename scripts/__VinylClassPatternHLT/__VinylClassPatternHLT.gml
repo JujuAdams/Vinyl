@@ -32,9 +32,12 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         __soundTail = __VinylImportSound(_soundTail);
         __gain      = _gain;
         
-        //TODO - Change tracks over for extant currently-playing HLT voices
-        
         __SetMix(_mix);
+        
+        if (VINYL_LIVE_EDIT)
+        {
+            //TODO
+        }
     }
     
     static __SetMix = function(_mix)

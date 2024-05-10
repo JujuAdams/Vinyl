@@ -11,7 +11,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     static _voiceStructArray       = __VinylSystem().__voiceStructArray;
     static _voiceStructUpdateArray = __VinylSystem().__voiceStructUpdateArray;
     
-    array_push(_voiceStructArray,       self);
+    if (VINYL_LIVE_EDIT) array_push(_voiceStructArray, self);
     array_push(_voiceStructUpdateArray, self);
     
     __pattern    = _pattern;
