@@ -36,7 +36,7 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         else
         {
             var _gainFactor = 0.5;
-            var _gainBase   = 1;
+            var _gainBase   = __gainMin;
         }
         
         if (__pitchRandomize)
@@ -47,7 +47,7 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         else
         {
             var _pitchFactor = 0.5;
-            var _pitchBase   = 1;
+            var _pitchBase   = __pitchMin;
         }
         
         if (__noMix)

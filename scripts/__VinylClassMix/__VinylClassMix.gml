@@ -36,7 +36,7 @@ function __VinylClassMix(_mixName, _gainBase) constructor
     
     static __UpdateMemberGain = function()
     {
-        var _gainFinal = __gainBase*_gain;
+        var _gainFinal = __gainBase*__gainLocal;
         __gainFinal = _gainFinal;
         
         var _array = __voiceArray;

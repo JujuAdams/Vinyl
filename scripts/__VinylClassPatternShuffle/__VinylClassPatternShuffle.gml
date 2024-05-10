@@ -51,7 +51,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         else
         {
             var _gainFactor = 0.5;
-            var _gainBase   = 1;
+            var _gainBase   = __gainMin;
         }
         
         if (__pitchRandomize)
@@ -62,7 +62,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         else
         {
             var _pitchFactor = 0.5;
-            var _pitchBase   = 1;
+            var _pitchBase   = __pitchMin;
         }
         
         if (__noMix)
