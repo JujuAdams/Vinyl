@@ -43,7 +43,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     var _soundHead = _pattern.__soundHead;
     if (_soundHead != undefined)
     {
-        __currentVoice = audio_play_sound(_soundHead, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
+        __currentVoice = audio_play_sound(_soundHead, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
         __state = __VINYL_HLT_STATE.__HEAD;
     }
     else
@@ -51,13 +51,13 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         var _soundLoop = _pattern.__soundLoop;
         if (_soundLoop != undefined)
         {
-            __currentVoice = audio_play_sound(_soundLoop, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
+            __currentVoice = audio_play_sound(_soundLoop, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
             __state = __VINYL_HLT_STATE.__LOOP;
         }
         else
         {
             var _soundTail = _pattern.__soundTail;
-            __currentVoice = (_soundTail == undefined)? -1 : audio_play_sound(_soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
+            __currentVoice = (_soundTail == undefined)? -1 : audio_play_sound(_soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
             __state = __VINYL_HLT_STATE.__TAIL;
         }
     }
@@ -99,7 +99,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                 case __VINYL_HLT_STATE.__HEAD:
                     if (__doLoop && (__pattern.__soundLoop != undefined))
                     {
-                        __currentVoice = audio_play_sound(__pattern.__soundLoop, 0, true, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
+                        __currentVoice = audio_play_sound(__pattern.__soundLoop, 0, true, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
                         
                         //Add the generated voice to the mix's array of voices
                         var _mixStruct = _mixDict[$ __pattern.__mixName];
@@ -114,7 +114,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                         if (__pattern.__soundTail != undefined)
                         {
                             //If we've already indicated that the loop should end then move on to the tail immediately
-                            __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
+                            __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
                             
                             //Add the generated voice to the mix's array of voices
                             var _mixStruct = _mixDict[$ __pattern.__mixName];
@@ -133,7 +133,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                     
                     if (__pattern.__soundTail != undefined)
                     {
-                        __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
+                        __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
                         
                         //Add the generated voice to the mix's array of voices
                         var _mixStruct = _mixDict[$ __pattern.__mixName];

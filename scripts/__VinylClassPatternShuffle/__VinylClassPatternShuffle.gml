@@ -69,7 +69,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         
         if (__noMix)
         {
-            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainBase*_gainLocal, 0, _pitchBase*_pitchLocal);
+            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainBase*_gainLocal/VINYL_MAX_GAIN, 0, _pitchBase*_pitchLocal);
             var _gainMix = 1; //TODO
         }
         else
@@ -82,7 +82,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             }
             
             var _gainMix = _mixStruct.__gainFinal;
-            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainBase*_gainLocal*_gainMix, 0, _pitchBase*_pitchLocal);
+            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainBase*_gainLocal*_gainMix/VINYL_MAX_GAIN, 0, _pitchBase*_pitchLocal);
             _mixStruct.__Add(_voice);
         }
         

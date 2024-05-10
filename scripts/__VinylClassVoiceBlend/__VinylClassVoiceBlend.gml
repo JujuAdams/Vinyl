@@ -51,7 +51,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     {
         var _loop = _pattern.__loop ?? false;
         
-        __voiceTop = audio_play_sound(_soundArray[0], 0, _loop, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
+        __voiceTop = audio_play_sound(_soundArray[0], 0, _loop, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
         __voiceArray[0] = __voiceTop;
         __gainArray[0] = 1;
         

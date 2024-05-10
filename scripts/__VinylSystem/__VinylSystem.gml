@@ -35,6 +35,7 @@ function __VinylSystem()
         
         __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
         if (__VINYL_RUNNING_FROM_IDE) global.Vinyl = self;
+        audio_master_gain(VINYL_MAX_GAIN);
         
         if (VINYL_LIVE_EDIT)
         {
