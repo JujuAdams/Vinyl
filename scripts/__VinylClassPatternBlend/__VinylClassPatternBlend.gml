@@ -11,9 +11,8 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _gain, _mix) constr
     
     __soundArray = __VinylImportSoundArray(_soundArray);
     __gain       = _gain;
-    __mix        = _mix;
     
-    __noMix = (_mix == VINYL_NO_MIX);
+    __SetMix(_mix);
     
     //Don't make this static!
     __Play = function(_loop, _gainLocal, _pitchLocal)
@@ -35,7 +34,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _gain, _mix) constr
     static __SetMix = function(_mix)
     {
         __mix   = _mix;
-        __noMix = (_mix != VINYL_NO_MIX);
+        __noMix = (_mix == undefined) || (_mix == VINYL_NO_MIX);
     }
     
     static __ClearSetup = function()
@@ -50,7 +49,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _gain, _mix) constr
     }
 }
 
-function __VinylImportBlend(_json)
+function __VinylImportBlendJSON(_json)
 {
     if (VINYL_SAFE_JSON_IMPORT)
     {

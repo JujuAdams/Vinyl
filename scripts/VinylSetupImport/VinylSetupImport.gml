@@ -17,23 +17,23 @@ function VinylSetupImport(_json)
     {
         if (struct_exists(_json, "shuffle"))
         {
-            return __VinylImportShuffle(_json);
+            return __VinylImportShuffleJSON(_json);
         }
         else if (struct_exists(_json, "hlt"))
         {
-            return __VinylImportHLT(_json);
+            return __VinylImportHLTJSON(_json);
         }
         else if (struct_exists(_json, "blend"))
         {
-            return __VinylImportBlend(_json);
+            return __VinylImportBlendJSON(_json);
         }
         else if (struct_exists(_json, "sound"))
         {
-            return __VinylImportSound(_json);
+            return __VinylImportSoundJSON(_json);
         }
         else if (struct_exists(_json, "mix"))
         {
-            return __VinylImportMixGroup(_json);
+            return __VinylImportMixGroupJSON(_json);
         }
         else
         {

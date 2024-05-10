@@ -1,6 +1,6 @@
 if (keyboard_check_pressed(vk_space))
 {
-    VinylPlay(snd1KHz);
+    VinylPlay(sndBleep2);
 }
 
 if (keyboard_check_pressed(vk_shift))

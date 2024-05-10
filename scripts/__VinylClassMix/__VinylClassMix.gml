@@ -95,7 +95,7 @@ function __VinylClassMix(_mixName, _gainBase) constructor
     }
 }
 
-function __VinylImportMixGroup(_json)
+function __VinylImportMixGroupJSON(_json)
 {
     if (VINYL_SAFE_JSON_IMPORT)
     {

@@ -17,11 +17,11 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     __gainMax    = _gainMax;
     __pitchMin   = _pitchMin;
     __pitchMax   = _pitchMax;
-    __mix        = _mix;
     
-    __noMix          = (_mix == VINYL_NO_MIX);
     __gainRandomize  = (_gainMin != _gainMax);
     __pitchRandomize = (_pitchMin != _pitchMax);
+    
+    __SetMix(_mix);
     
     __soundCount = array_length(__soundArray);
     __playIndex  = infinity;
@@ -108,7 +108,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     static __SetMix = function(_mix)
     {
         __mix   = _mix;
-        __noMix = (_mix != VINYL_NO_MIX);
+        __noMix = (_mix == undefined) || (_mix == VINYL_NO_MIX);
     }
     
     static __ClearSetup = function()
@@ -123,7 +123,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     }
 }
 
-function __VinylImportShuffle(_json)
+function __VinylImportShuffleJSON(_json)
 {
     if (VINYL_SAFE_JSON_IMPORT)
     {

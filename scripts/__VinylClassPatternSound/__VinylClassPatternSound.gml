@@ -18,11 +18,10 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
     __pitchMin = _pitchMin;
     __pitchMax = _pitchMax;
     __loop     = _loop;
-    __mix      = _mix;
-    
-    __noMix          = (_mix == VINYL_NO_MIX);
     __gainRandomize  = (_gainMin != _gainMax);
     __pitchRandomize = (_pitchMin != _pitchMax);
+    
+    __SetMix(_mix);
     
     //Don't make this static!
     __Play = function(_loop, _gainLocal, _pitchLocal)
@@ -83,7 +82,6 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         __pitchMin = _pitchMin;
         __pitchMax = _pitchMax;
         __loop     = _loop;
-        __mix      = _mix;
         
         __gainRandomize  = (_gainMin != _gainMax);
         __pitchRandomize = (_pitchMin != _pitchMax);
@@ -115,7 +113,7 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
     static __SetMix = function(_mix)
     {
         __mix   = _mix;
-        __noMix = (_mix != VINYL_NO_MIX);
+        __noMix = (_mix == undefined) || (_mix == VINYL_NO_MIX);
     }
     
     static __ClearSetup = function()
@@ -162,7 +160,7 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
     }
 }
 
-function __VinylImportSound(_json)
+function __VinylImportSoundJSON(_json)
 {
     if (VINYL_SAFE_JSON_IMPORT)
     {
