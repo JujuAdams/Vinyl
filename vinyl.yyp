@@ -75,6 +75,7 @@
     {"id":{"name":"VinylMixFadeOutVoices","path":"scripts/VinylMixFadeOutVoices/VinylMixFadeOutVoices.yy",},},
     {"id":{"name":"VinylMixGetLocalGain","path":"scripts/VinylMixGetLocalGain/VinylMixGetLocalGain.yy",},},
     {"id":{"name":"VinylMixPauseVoices","path":"scripts/VinylMixPauseVoices/VinylMixPauseVoices.yy",},},
+    {"id":{"name":"VinylMixResumeVoices","path":"scripts/VinylMixResumeVoices/VinylMixResumeVoices.yy",},},
     {"id":{"name":"VinylMixSetLocalGain","path":"scripts/VinylMixSetLocalGain/VinylMixSetLocalGain.yy",},},
     {"id":{"name":"VinylMixStopVoices","path":"scripts/VinylMixStopVoices/VinylMixStopVoices.yy",},},
     {"id":{"name":"VinylPause","path":"scripts/VinylPause/VinylPause.yy",},},
