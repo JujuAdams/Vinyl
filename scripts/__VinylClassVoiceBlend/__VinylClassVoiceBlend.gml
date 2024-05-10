@@ -20,14 +20,15 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     
     if (_pattern.__noMix)
     {
+        var _mixStruct = undefined;
         __gainMix = 1;
     }
     else
     {
-        var _mixStruct = _mixDict[$ _pattern.__mix];
+        var _mixStruct = _mixDict[$ _pattern.__mixName];
         if (_mixStruct == undefined)
         {
-            __VinylError("Mix \"", _pattern.__mix, "\" not recognised");
+            __VinylError("Mix \"", _pattern.__mixName, "\" not recognised");
             return;
         }
         
@@ -46,12 +47,14 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     var _soundArray = __pattern.__soundArray;
     if (array_length(_soundArray) > 0)
     {
-        var _loop = true;
+        var _loop = _pattern.__loop ?? false;
         
         __voiceTop = audio_play_sound(_soundArray[0], 0, _loop, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
         __voiceArray[0] = __voiceTop;
         __gainArray[0] = 1;
         
+        //Add the generated voice to the mix's array of voices
+        if (_mixStruct == undefined) _mixStruct.__Add(__voiceTop);
         struct_set_from_hash(_voiceStructDict, int64(__voiceTop), self);
         
         var _i = 1;

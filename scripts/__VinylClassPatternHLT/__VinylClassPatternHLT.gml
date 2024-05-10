@@ -42,8 +42,8 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     
     static __SetMix = function(_mix)
     {
-        __mix   = _mix;
-        __noMix = (_mix == undefined) || (_mix == VINYL_NO_MIX);
+        __mixName = _mix;
+        __noMix   = (_mix == undefined) || (_mix == VINYL_NO_MIX);
     }
     
     static __ClearSetup = function()

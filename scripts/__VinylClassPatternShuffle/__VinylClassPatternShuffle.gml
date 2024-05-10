@@ -72,10 +72,10 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         }
         else
         {
-            var _mixStruct = _mixDict[$ __mix];
+            var _mixStruct = _mixDict[$ __mixName];
             if (_mixStruct == undefined)
             {
-                __VinylError("Mix \"", __mix, "\" not recognised");
+                __VinylError("Mix \"", __mixName, "\" not recognised");
                 return;
             }
             
@@ -112,8 +112,8 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     
     static __SetMix = function(_mix)
     {
-        __mix   = _mix;
-        __noMix = (_mix == undefined) || (_mix == VINYL_NO_MIX);
+        __mixName = _mix;
+        __noMix   = (_mix == undefined) || (_mix == VINYL_NO_MIX);
     }
     
     static __ClearSetup = function()

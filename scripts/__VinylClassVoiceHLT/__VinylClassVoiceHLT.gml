@@ -18,18 +18,20 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     __gainLocal  = _gainLocal;
     __pitchLocal = _pitchLocal;
     
+    __mixName  = _pattern.__mixName;
     __gainBase = _pattern.__gain;
     
     if (_pattern.__noMix)
     {
+        var _mixStruct = undefined;
         __gainMix = 1;
     }
     else
     {
-        var _mixStruct = _mixDict[$ _pattern.__mix];
+        var _mixStruct = _mixDict[$ __mixName];
         if (_mixStruct == undefined)
         {
-            __VinylError("Mix \"", _pattern.__mix, "\" not recognised");
+            __VinylError("Mix \"", _pattern.__mixName, "\" not recognised");
             return;
         }
         
@@ -43,6 +45,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     __voiceLoop = undefined;
     __voiceTail = undefined;
     
+    //Manage which sound to play to begin with
     var _soundHead = _pattern.__soundHead;
     if (_soundHead != undefined)
     {
@@ -81,6 +84,12 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         }
     }
     
+    //Add the generated voice to the mix's array of voices
+    if ((__currentVoice >= 0) && (_mixStruct == undefined))
+    {
+        _mixStruct.__Add(__currentVoice);
+    }
+    
     __doLoop = true;
     
     
@@ -112,6 +121,10 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                         struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
                         __voiceLoop = __currentVoice;
                         
+                        //Add the generated voice to the mix's array of voices
+                        var _mixStruct = _mixDict[$ __mixName];
+                        if (_mixStruct == undefined) _mixStruct.__Add(__currentVoice);
+                        
                         __state = __VINYL_HLT_STATE.__LOOP;
                     }
                     else
@@ -124,6 +137,10 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                             __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
                             struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
                             __voiceTail = __currentVoice;
+                            
+                            //Add the generated voice to the mix's array of voices
+                            var _mixStruct = _mixDict[$ __mixName];
+                            if (_mixStruct == undefined) _mixStruct.__Add(__currentVoice);
                         }
                         else
                         {
@@ -141,6 +158,10 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                         __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION, 0, __pitchLocal);
                         struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
                         __voiceTail = __currentVoice;
+                        
+                        //Add the generated voice to the mix's array of voices
+                        var _mixStruct = _mixDict[$ __mixName];
+                        if (_mixStruct == undefined) _mixStruct.__Add(__currentVoice);
                     }
                     else
                     {

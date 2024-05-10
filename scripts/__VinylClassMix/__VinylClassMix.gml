@@ -111,13 +111,13 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         var _membersArray = [];
         
         var _soundMethod = method({
-            __mix:               __mixName,
+            __mixName:           __mixName,
             __array:             _membersArray,
             __soundExportedDict: _soundExportedDict,
         },
         function(_name, _value)
         {
-            if (_value.__mix == __mix)
+            if (_value.__mixName == __mixName)
             {
                 __soundExportedDict[$ _name] = true;
                 
@@ -131,13 +131,13 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         
         
         var _patternMethod = method({
-            __mix:                 __mixName,
+            __mixName:             __mixName,
             __array:               _membersArray,
             __patternExportedDict: _patternExportedDict,
         },
         function(_name, _value)
         {
-            if (_value.__mix == __mix)
+            if (_value.__mixName == __mixName)
             {
                 __patternExportedDict[$ _name] = true;
                 

@@ -36,8 +36,8 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _gain, _mix) constr
     
     static __SetMix = function(_mix)
     {
-        __mix   = _mix;
-        __noMix = (_mix == undefined) || (_mix == VINYL_NO_MIX);
+        __mixName = _mix;
+        __noMix   = (_mix == undefined) || (_mix == VINYL_NO_MIX);
     }
     
     static __ClearSetup = function()
