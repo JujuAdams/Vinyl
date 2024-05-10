@@ -72,7 +72,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         if (__noMix)
         {
             var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainBase*_gainLocal/VINYL_MAX_GAIN, 0, _pitchBase*_pitchLocal);
-            var _gainMix = 1; //TODO
+            var _gainMix = 1;
         }
         else
         {

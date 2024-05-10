@@ -8,6 +8,8 @@
 
 function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix) constructor
 {
+    static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
+    
     __patternName = _patternName;
     
     __soundArray = __VinylImportSoundArray(_soundArray);
@@ -33,7 +35,17 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
         
         if (VINYL_LIVE_EDIT)
         {
-            //TODO
+            var _i = 0;
+            repeat(array_length(_voiceCleanUpArray))
+            {
+                var _voiceStruct = _voiceCleanUpArray[_i];
+                if (_voiceStruct.__pattern == self)
+                {
+                    _voiceStruct.__SetFromPattern(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix);
+                }
+                
+                ++_i;
+            }
         }
     }
     

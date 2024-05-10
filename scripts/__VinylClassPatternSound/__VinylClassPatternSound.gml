@@ -56,7 +56,7 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         if (__noMix)
         {
             var _voice = audio_play_sound(__sound, 0, _loopFinal, _gainBase*_gainLocal/VINYL_MAX_GAIN, 0, _pitchBase*_pitchLocal);
-            var _gainMix = 1; //TODO
+            var _gainMix = 1;
         }
         else
         {
