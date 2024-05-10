@@ -110,8 +110,18 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         __UpdateSetup(1, 1, 1, 1, false, VINYL_DEFAULT_MIX);
     }
     
-    static __ExportJSON = function()
+    static __ExportJSON = function(_ignoreEmpty)
     {
+        if (_ignoreEmpty)
+        {
+            if ((__gainMin == 1) && (__gainMax == 1)
+            &&  (__pitchMin == 1) && (__pitchMax == 1)
+            &&  (not __loop))
+            {
+                return undefined;
+            }
+        }
+        
         var _struct = {
             sound: audio_get_name(__sound),
         };
@@ -148,8 +158,18 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         return _struct;
     }
     
-    static __ExportGML = function(_buffer, _indent)
+    static __ExportGML = function(_buffer, _indent, _ignoreEmpty)
     {
+        if (_ignoreEmpty)
+        {
+            if ((__gainMin == 1) && (__gainMax == 1)
+            &&  (__pitchMin == 1) && (__pitchMax == 1)
+            &&  (not __loop))
+            {
+                return undefined;
+            }
+        }
+        
         buffer_write(_buffer, buffer_text, _indent);
         buffer_write(_buffer, buffer_text, "{\n");
         buffer_write(_buffer, buffer_text, _indent);

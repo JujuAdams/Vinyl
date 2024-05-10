@@ -106,30 +106,9 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         __UpdateMemberGain();
     }
     
-    static __ExportJSON = function(_soundExportedDict, _patternExportedDict)
+    static __ExportJSON = function(_soundExportedDict, _patternExportedDict, _ignoreEmpty)
     {
         var _membersArray = [];
-        
-        
-        
-        //TODO - Sort
-        var _soundMethod = method({
-            __mixName:           __mixName,
-            __array:             _membersArray,
-            __soundExportedDict: _soundExportedDict,
-        },
-        function(_name, _value)
-        {
-            if (_value.__mixName == __mixName)
-            {
-                __soundExportedDict[$ _name] = true;
-                
-                var _export = _value.__ExportJSON();
-                array_push(__array, _export);
-            }
-        });
-        
-        struct_foreach(_soundDict, _soundMethod);
         
         
         
@@ -144,13 +123,33 @@ function __VinylClassMix(_mixName, _gainBase) constructor
             if (_value.__mixName == __mixName)
             {
                 __patternExportedDict[$ _name] = true;
-                
-                var _export = _value.__ExportJSON();
-                array_push(__array, _export);
+                array_push(__array, _value.__ExportJSON());
             }
         });
         
         struct_foreach(_patternDict, _patternMethod);
+        
+        
+        
+        //TODO - Sort
+        var _soundMethod = method({
+            __mixName:           __mixName,
+            __array:             _membersArray,
+            __soundExportedDict: _soundExportedDict,
+            __ignoreEmpty:       _ignoreEmpty,
+        },
+        function(_name, _value)
+        {
+            if (_value.__mixName == __mixName)
+            {
+                __soundExportedDict[$ _name] = true;
+                
+                var _struct = _value.__ExportJSON(__ignoreEmpty);
+                if (_struct != undefined) array_push(__array, _struct);
+            }
+        });
+        
+        struct_foreach(_soundDict, _soundMethod);
         
         
         
@@ -167,7 +166,7 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         return _struct;
     }
     
-    static __ExportGML = function(_buffer, _useMacros, _soundExportedDict, _patternExportedDict)
+    static __ExportGML = function(_buffer, _useMacros, _soundExportedDict, _patternExportedDict, _ignoreEmpty)
     {
         buffer_write(_buffer, buffer_text, "    {\n");
         buffer_write(_buffer, buffer_text, "        mix: ");
@@ -199,7 +198,7 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         var _patternMethod = method({
             __buffer:              _buffer,
             __mixName:             __mixName,
-            __useMacros:    _useMacros,
+            __useMacros:           _useMacros,
             __patternExportedDict: _patternExportedDict,
         },
         function(_name, _value)
@@ -220,13 +219,14 @@ function __VinylClassMix(_mixName, _gainBase) constructor
             __buffer:            _buffer,
             __mixName:           __mixName,
             __soundExportedDict: _soundExportedDict,
+            __ignoreEmpty:       _ignoreEmpty,
         },
         function(_name, _value)
         {
             if (_value.__mixName == __mixName)
             {
                 __soundExportedDict[$ _name] = true;
-                _value.__ExportGML(__buffer, "            ");
+                _value.__ExportGML(__buffer, "            ", __ignoreEmpty);
             }
         });
         

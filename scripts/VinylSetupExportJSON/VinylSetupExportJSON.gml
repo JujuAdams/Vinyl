@@ -1,6 +1,8 @@
 // Feather disable all
 
-function VinylSetupExportJSON()
+/// @param [ignoreEmpty=true]
+
+function VinylSetupExportJSON(_ignoreEmpty = true)
 {
     static _mixDict     = __VinylSystem().__mixDict;
     static _soundDict   = __VinylSystem().__soundDict;
@@ -19,13 +21,14 @@ function VinylSetupExportJSON()
     
     var _mixArray = [];
     var _mixMethod = method({
-        __array: _mixArray,
-        __soundExportedDict: _soundExportedDict,
+        __array:               _mixArray,
+        __soundExportedDict:   _soundExportedDict,
         __patternExportedDict: _patternExportedDict,
+        __ignoreEmpty:         _ignoreEmpty,
     },
     function(_name, _value)
     {
-        var _struct = _value.__ExportJSON(__soundExportedDict, __patternExportedDict);
+        var _struct = _value.__ExportJSON(__soundExportedDict, __patternExportedDict, __ignoreEmpty);
         array_push(__array, _struct);
     });
     
@@ -40,7 +43,7 @@ function VinylSetupExportJSON()
     
     var _patternArray = [];
     var _patternMethod = method({
-        __array: _patternArray,
+        __array:               _patternArray,
         __patternExportedDict: _patternExportedDict,
     },
     function(_name, _value)
@@ -68,14 +71,16 @@ function VinylSetupExportJSON()
     
     var _soundArray = [];
     var _soundMethod = method({
-        __array: _soundArray,
+        __array:             _soundArray,
         __soundExportedDict: _soundExportedDict,
+        __ignoreEmpty:       _ignoreEmpty,
     },
     function(_name, _value)
     {
         if (not struct_exists(__soundExportedDict, _name))
         {
-            array_push(__array, _value.__ExportJSON());
+            var _struct = _value.__ExportJSON(__ignoreEmpty);
+            if (_struct != undefined) array_push(__array, _struct);
         }
     });
     

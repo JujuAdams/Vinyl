@@ -1,8 +1,9 @@
 // Feather disable all
 
 /// @param [useMacros=false]
+/// @param [ignoreEmpty=true]
 
-function VinylSetupExportGML(_useMacros = false)
+function VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
 {
     static _mixDict     = __VinylSystem().__mixDict;
     static _soundDict   = __VinylSystem().__soundDict;
@@ -24,14 +25,15 @@ function VinylSetupExportGML(_useMacros = false)
     
     //TODO - Sort
     var _mixMethod = method({
-        __buffer: _buffer,
-        __useMacros: _useMacros,
-        __soundExportedDict: _soundExportedDict,
+        __buffer:              _buffer,
+        __useMacros:           _useMacros,
+        __soundExportedDict:   _soundExportedDict,
         __patternExportedDict: _patternExportedDict,
+        __ignoreEmpty:         _ignoreEmpty,
     },
     function(_name, _value)
     {
-        _value.__ExportGML(__buffer, __useMacros, __soundExportedDict, __patternExportedDict);
+        _value.__ExportGML(__buffer, __useMacros, __soundExportedDict, __patternExportedDict, __ignoreEmpty);
     });
     
     struct_foreach(_mixDict, _mixMethod);
@@ -40,9 +42,9 @@ function VinylSetupExportGML(_useMacros = false)
     
     //TODO - Sort
     var _patternMethod = method({
-        __buffer: _buffer,
+        __buffer:              _buffer,
         __patternExportedDict: _patternExportedDict,
-        __useMacros: _useMacros,
+        __useMacros:           _useMacros,
     },
     function(_name, _value)
     {
@@ -58,14 +60,15 @@ function VinylSetupExportGML(_useMacros = false)
     
     //TODO - Sort
     var _soundMethod = method({
-        __buffer: _buffer,
+        __buffer:            _buffer,
         __soundExportedDict: _soundExportedDict,
+        __ignoreEmpty:       _ignoreEmpty,
     },
     function(_name, _value)
     {
         if (not struct_exists(__soundExportedDict, _name))
         {
-            _value.__ExportGML(__buffer, "    ");
+            _value.__ExportGML(__buffer, "    ", __ignoreEmpty);
         }
     });
     
