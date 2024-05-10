@@ -69,7 +69,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     {
         struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
         if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __currentVoice, " to voice lookup struct");
-        if (_mixStruct == undefined) _mixStruct.__Add(__firstVoice);
+        if (_mixStruct != undefined) _mixStruct.__Add(__firstVoice);
     }
     
     __doLoop = true;
@@ -103,7 +103,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                         
                         //Add the generated voice to the mix's array of voices
                         var _mixStruct = _mixDict[$ __pattern.__mixName];
-                        if (_mixStruct == undefined) _mixStruct.__Add(__currentVoice);
+                        if (_mixStruct != undefined) _mixStruct.__Add(__currentVoice);
                         
                         __state = __VINYL_HLT_STATE.__LOOP;
                     }
@@ -118,7 +118,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                             
                             //Add the generated voice to the mix's array of voices
                             var _mixStruct = _mixDict[$ __pattern.__mixName];
-                            if (_mixStruct == undefined) _mixStruct.__Add(__currentVoice);
+                            if (_mixStruct != undefined) _mixStruct.__Add(__currentVoice);
                         }
                         else
                         {
@@ -137,7 +137,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                         
                         //Add the generated voice to the mix's array of voices
                         var _mixStruct = _mixDict[$ __pattern.__mixName];
-                        if (_mixStruct == undefined) _mixStruct.__Add(__currentVoice);
+                        if (_mixStruct != undefined) _mixStruct.__Add(__currentVoice);
                     }
                     else
                     {

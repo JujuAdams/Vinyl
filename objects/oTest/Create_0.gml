@@ -24,11 +24,11 @@ VinylSetupImportJSON([
                 loop: sndSync1,
                 tail: sndSync2,
             },
+            {
+                blend: "Blend",
+                sounds: [sndSync0, sndSync1, sndSync2, sndSync3,],
+            },
         ],
-    },
-    {
-        blend: "Blend",
-        sounds: [sndSync0, sndSync1, sndSync2, sndSync3,],
     },
 ]);
 
