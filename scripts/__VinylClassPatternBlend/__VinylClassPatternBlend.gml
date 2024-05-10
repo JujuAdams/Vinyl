@@ -64,7 +64,6 @@ function __VinylImportBlend(_json)
                 case "type":
                 case "sounds":
                 case "gain":
-                case "mix":
                 break;
                 
                 default:
@@ -78,5 +77,7 @@ function __VinylImportBlend(_json)
         if (not struct_exists(_json, "sounds")) __VinylError("Blend pattern \"", _json.blend, "\" property .sounds must be defined");
     }
     
-    VinylSetupBlend(_json.blend, _json.sounds, _json[$ "gain"], _json[$ "mix"]);
+    VinylSetupBlend(_json.blend, _json.sounds, _json[$ "gain"]);
+    
+    return _json.blend;
 }

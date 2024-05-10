@@ -17,19 +17,23 @@ function VinylSetupImport(_json)
     {
         if (struct_exists(_json, "shuffle"))
         {
-            __VinylImportShuffle(_json);
+            return __VinylImportShuffle(_json);
         }
         else if (struct_exists(_json, "hlt"))
         {
-            __VinylImportHLT(_json);
+            return __VinylImportHLT(_json);
         }
         else if (struct_exists(_json, "blend"))
         {
-            __VinylImportBlend(_json);
+            return __VinylImportBlend(_json);
         }
         else if (struct_exists(_json, "sound"))
         {
-            __VinylImportSound(_json);
+            return __VinylImportSound(_json);
+        }
+        else if (struct_exists(_json, "mix"))
+        {
+            return __VinylImportMixGroup(_json);
         }
         else
         {
@@ -40,4 +44,6 @@ function VinylSetupImport(_json)
     {
         __VinylError("Datatype unsupported (", typeof(_json), ")");
     }
+    
+    return undefined;
 }

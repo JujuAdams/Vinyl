@@ -94,3 +94,47 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         return _struct;
     }
 }
+
+function __VinylImportMixGroup(_json)
+{
+    if (VINYL_SAFE_JSON_IMPORT)
+    {
+        var _variableNames = struct_get_names(_json);
+        var _i = 0;
+        repeat(array_length(_variableNames))
+        {
+            switch(_variableNames[_i])
+            {
+                case "mix":
+                case "baseGain":
+                case "members":
+                break;
+                
+                default:
+                    __VinylError("Mix property .", _variableNames[_i], " not supported");
+                break;
+            }
+            
+            ++_i;
+        }
+    }
+    
+    VinylSetupMix(_json.mix, _json[$ "baseGain"]);
+    
+    var _membersArray = _json[$ "members"];
+    if (is_array(_membersArray))
+    {
+        var _i = 0;
+        repeat(array_length(_membersArray))
+        {
+            var _memberData = _membersArray[_i];
+            
+            var _return = VinylSetupImport(_memberData);
+            if (_return != undefined) VinylSetMixForAssets(_json.mix, _return);
+            
+            ++_i;
+        }
+    }
+    
+    return _json.mix;
+}

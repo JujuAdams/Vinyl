@@ -1,7 +1,7 @@
 // Feather disable all
 
 /// @param mixName
-/// @param sound/pattern
+/// @param sound/pattern/array
 /// @param ...
 
 function VinylSetMixForAssets()
@@ -15,27 +15,44 @@ function VinylSetMixForAssets()
     var _i = 1;
     repeat(argument_count-1)
     {
-        var _pattern = argument[_i];
+        var _patternArray = argument[_i];
         
-        if (is_handle(_pattern))
+        if (not is_array(_patternArray))
         {
-            struct_get_from_hash(_soundDict, int64(_pattern)).__SetMix(_mixName);
+            _patternArray = [_patternArray];
         }
-        else if (is_string(_pattern))
+        
+        var _j = 0;
+        repeat(array_length(_patternArray))
         {
-            var _patternStruct = _patternDict[$ _pattern];
-            if (_patternStruct == undefined)
+            var _pattern = _patternArray[_j];
+            
+            if (is_handle(_pattern))
             {
-                __VinylError("Pattern \"", _pattern, "\" not found");
+                struct_get_from_hash(_soundDict, int64(_pattern)).__SetMix(_mixName);
+            }
+            else if (is_string(_pattern))
+            {
+                var _patternStruct = _patternDict[$ _pattern];
+                if (_patternStruct == undefined)
+                {
+                    __VinylError("Pattern \"", _pattern, "\" not found");
+                }
+                else
+                {
+                    _patternStruct.__SetMix(_mixName);
+                }
+            }
+            else if (_pattern == undefined)
+            {
+                //Ignore!
             }
             else
             {
-                _patternStruct.__SetMix(_mixName);
+                __VinylError("Datatype not supported (", typeof(_pattern), ")");
             }
-        }
-        else
-        {
-            __VinylError("Datatype not supported (", typeof(_pattern), ")");
+            
+            ++_j;
         }
         
         ++_i;

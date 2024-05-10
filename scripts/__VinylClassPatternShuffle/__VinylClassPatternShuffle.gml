@@ -137,7 +137,6 @@ function __VinylImportShuffle(_json)
                 case "sounds":
                 case "gain":
                 case "pitch":
-                case "mix":
                 break;
                 
                 default:
@@ -151,5 +150,7 @@ function __VinylImportShuffle(_json)
         if (not struct_exists(_json, "sounds")) __VinylError("Shuffle pattern \"", _json.shuffle, "\" property .sounds must be defined");
     }
     
-    VinylSetupShuffle(_json.shuffle, _json.sounds, _json[$ "gain"], _json[$ "pitch"], _json[$ "mix"]);
+    VinylSetupShuffle(_json.shuffle, _json.sounds, _json[$ "gain"], _json[$ "pitch"]);
+    
+    return _json.shuffle;
 }

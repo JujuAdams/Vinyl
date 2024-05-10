@@ -71,7 +71,6 @@ function __VinylImportHLT(_json)
                 case "loop":
                 case "tail":
                 case "gain":
-                case "mix":
                 break;
                 
                 default:
@@ -85,5 +84,7 @@ function __VinylImportHLT(_json)
         if (not struct_exists(_json, "loop")) __VinylError("Head-Loop-Tail pattern \"", _json.hlt, "\" property .loop must be defined");
     }
     
-    VinylSetupHLT(_json.hlt, _json[$ "head"], _json.loop, _json[$ "tail"], _json[$ "gain"], _json[$ "mix"]);
+    VinylSetupHLT(_json.hlt, _json[$ "head"], _json.loop, _json[$ "tail"], _json[$ "gain"]);
+    
+    return _json.hlt;
 }
