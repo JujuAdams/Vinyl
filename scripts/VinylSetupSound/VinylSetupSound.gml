@@ -13,5 +13,7 @@ function VinylSetupSound(_sound, _gain = undefined, _pitch = undefined, _loop = 
     __VINYL_HANDLE_GAINS
     __VINYL_HANDLE_PITCHES
     
+    if (_mix == VINYL_NO_MIX) _mix = undefined;
+    
     struct_get_from_hash(_soundDict, int64(_sound)).__UpdateSetup(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix);
 }

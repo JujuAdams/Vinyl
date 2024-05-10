@@ -99,12 +99,10 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
             var _i = 0;
             repeat(array_length(_voiceCleanUpArray))
             {
-                var _voice = _voiceCleanUpArray[_i];
-                
-                var _voiceStruct = struct_get_from_hash(_voiceStructDict, int64(_voice));
-                if ((_voiceStruct != undefined) && (_voiceStruct.__pattern == self))
+                var _voiceStruct = _voiceCleanUpArray[_i];
+                if (_voiceStruct.__pattern == self)
                 {
-                    __SetFromPattern(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix);
+                    _voiceStruct.__SetFromPattern(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix);
                 }
                 
                 ++_i;

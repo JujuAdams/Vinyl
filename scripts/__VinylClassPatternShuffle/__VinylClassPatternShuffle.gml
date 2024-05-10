@@ -31,7 +31,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     __playIndex  = infinity;
     
     //Don't make this static!
-    __Play = function(_loop, _gainLocal, _pitchLocal)
+    __Play = function(_loopLocal, _gainLocal, _pitchLocal)
     {
         if (__playIndex >= __soundCount) //If we've played through our bank of sounds, reshuffle
         {
@@ -45,7 +45,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         var _sound = __soundArray[__playIndex];
         ++__playIndex;
         
-        var _loopFinal = _loop ?? false;
+        var _loopFinal = _loopLocal ?? false;
         
         if (__gainRandomize)
         {
@@ -91,7 +91,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         //If we're in live edit mode then always create a struct representation
         if (VINYL_LIVE_EDIT)
         {
-            new __VinylClassVoiceSound(_voice, false, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, self, _gainFactor, _pitchFactor);
+            new __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, self, _gainFactor, _pitchFactor);
         }
         
         return _voice;
@@ -118,12 +118,10 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             var _i = 0;
             repeat(array_length(_voiceCleanUpArray))
             {
-                var _voice = _voiceCleanUpArray[_i];
-                
-                var _voiceStruct = struct_get_from_hash(_voiceStructDict, int64(_voice));
-                if ((_voiceStruct != undefined) && (_voiceStruct.__pattern == self))
+                var _voiceStruct = _voiceCleanUpArray[_i];
+                if (_voiceStruct.__pattern == self)
                 {
-                    __SetFromPattern(_gainMin, _gainMax, _pitchMin, _pitchMax, false, _mix);
+                    _voiceStruct.__SetFromPattern(_gainMin, _gainMax, _pitchMin, _pitchMax, false, _mix);
                 }
                 
                 ++_i;

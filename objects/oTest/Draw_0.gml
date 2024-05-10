@@ -33,7 +33,7 @@ UIButton("\"TestMix\" mix gain +", function()
 UINewline();
 UIButtonInline("1KHz", function()
 {
-    VinylPlay(snd1KHz);
+    VinylPlay(snd1KHz, true);
 });
 UISpace(20);
 UIButton("Shuffle Bleeps", function()
@@ -75,12 +75,23 @@ UIButton("Factor +", function()
 
 
 
-UIButtonInline("Blend linear", function()
+UINewline();
+UIButtonInline("Set 1KHz gain high", function()
 {
-    VinylSetBlendAnimCurve(blendVoice, undefined);
+    VinylSetupSound(snd1KHz, 1.3);
 });
 UISpace(20);
-UIButton("Blend anim curve", function()
+UIButton("Set 1KHz gain low", function()
 {
-    VinylSetBlendAnimCurve(blendVoice, acTest);
+    VinylSetupSound(snd1KHz, 0.7);
+});
+
+UIButtonInline("Set 1KHz no mix", function()
+{
+    VinylSetupSound(snd1KHz);
+});
+UISpace(20);
+UIButton("Set 1KHz \"Test\" mix", function()
+{
+    VinylSetupSound(snd1KHz, undefined, undefined, undefined, "Test");
 });

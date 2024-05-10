@@ -10,6 +10,8 @@ function VinylSetupBlend(_patternName, _soundArray, _loop = true, _gain = 1, _mi
 {
     static _patternDict = __VinylSystem().__patternDict;
     
+    if (_mix == VINYL_NO_MIX) _mix = undefined;
+    
     //Update an existing pattern if possible, otherwise make a new pattern
     var _existingPattern = _patternDict[$ _patternName];
     if (_existingPattern != undefined)

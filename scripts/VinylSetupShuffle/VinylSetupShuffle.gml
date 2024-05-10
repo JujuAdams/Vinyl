@@ -13,6 +13,8 @@ function VinylSetupShuffle(_patternName, _soundArray, _gain = undefined, _pitch 
     __VINYL_HANDLE_GAINS
     __VINYL_HANDLE_PITCHES
     
+    if (_mix == VINYL_NO_MIX) _mix = undefined;
+    
     //Update an existing pattern if possible, otherwise make a new pattern
     var _existingPattern = _patternDict[$ _patternName];
     if (_existingPattern != undefined)

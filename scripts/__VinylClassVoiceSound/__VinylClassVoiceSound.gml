@@ -13,6 +13,7 @@
 
 function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, _pattern, _gainFactor, _pitchFactor) constructor
 {
+    static _mixDict           = __VinylSystem().__mixDict;
     static _voiceStructDict   = __VinylSystem().__voiceStructDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
@@ -102,8 +103,8 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
     
     static __SetFromPattern = function(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix)
     {
-        __gainBase  = lerp(__gainMin,  __gainMax,  __gainFactor);
-        __pitchBase = lerp(__pitchMin, __pitchMax, __pitchFactor);
+        __gainBase  = lerp(_gainMin,  _gainMax,  __gainFactor);
+        __pitchBase = lerp(_pitchMin, _pitchMax, __pitchFactor);
         
         if (_mix == undefined)
         {
@@ -133,7 +134,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
             _mixStruct.__Add(__voice);
         }
         
-        audio_sound_loop( __voice, _loop ?? __loopLocal);
+        audio_sound_loop( __voice, __loopLocal ?? _loop);
         audio_sound_gain( __voice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
         audio_sound_pitch(__voice, __VINYL_VOICE_PITCH_EQUATION);
     }
