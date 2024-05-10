@@ -106,23 +106,23 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
         __gainBase  = lerp(_gainMin,  _gainMax,  __gainFactor);
         __pitchBase = lerp(_pitchMin, _pitchMax, __pitchFactor);
         
+        if (__mixName != _mix)
+        {
+            if (__mixName != undefined)
+            {
+                var _oldMixStruct = _mixDict[$ __mixName];
+                if (_oldMixStruct != undefined) _oldMixStruct.__Remove(__voice);
+            }
+            
+            __mixName = _mix;
+        }
+        
         if (_mix == undefined)
         {
             __gainMix = 1;
         }
         else
         {
-            if (__mixName != _mix)
-            {
-                if (__mixName != undefined)
-                {
-                    var _oldMixStruct = _mixDict[$ __mixName];
-                    if (_oldMixStruct != undefined) _oldMixStruct.__Remove(__voice);
-                }
-                
-                __mixName = _mix;
-            }
-            
             var _mixStruct = _mixDict[$ __mixName];
             if (_mixStruct == undefined)
             {

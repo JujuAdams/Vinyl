@@ -9,6 +9,8 @@
 
 function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain, _mix) constructor
 {
+    static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
+    
     __patternName = _patternName;
     
     __soundHead = __VinylImportSound(_soundHead);
@@ -36,7 +38,17 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         
         if (VINYL_LIVE_EDIT)
         {
-            //TODO
+            var _i = 0;
+            repeat(array_length(_voiceUpdateArray))
+            {
+                var _voiceStruct = _voiceUpdateArray[_i];
+                if (_voiceStruct.__pattern == self)
+                {
+                    _voiceStruct.__SetFromPattern();
+                }
+                
+                ++_i;
+            }
         }
     }
     

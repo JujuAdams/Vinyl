@@ -19,6 +19,11 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     
     __gainBase = _pattern.__gain;
     
+    if (VINYL_LIVE_EDIT)
+    {
+        __mixName = _pattern.__mix;
+    }
+    
     if (_pattern.__noMix)
     {
         var _mixStruct = undefined;
@@ -194,6 +199,12 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         }
     }
     
+    static __EndLoop = function()
+    {
+        __doLoop = false;
+        if (__state == __VINYL_HLT_STATE.__LOOP) audio_sound_loop(__currentVoice, false);
+    }
+    
     static __Pause = function()
     {
         audio_pause_sound(__currentVoice);
@@ -226,9 +237,49 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
     }
     
-    static __EndLoop = function()
+    static __SetFromPattern = function()
     {
-        __doLoop = false;
-        if (__state == __VINYL_HLT_STATE.__LOOP) audio_sound_loop(__currentVoice, false);
+        //TODO - Handle changing of sounds
+        
+        var _pattern = __pattern;
+        var _newMix  = _pattern.__mixName;
+        
+        __gainBase = _pattern.__gain;
+        
+        if (__mixName != _newMix)
+        {
+            if (__mixName != undefined)
+            {
+                var _oldMixStruct = _mixDict[$ __mixName];
+                if (_oldMixStruct != undefined)
+                {
+                    _oldMixStruct.__Remove(__currentVoice);
+                    if (__currentVoice != __firstVoice) _oldMixStruct.__Remove(__firstVoice);
+                }
+            }
+            
+            __mixName = _newMix;
+        }
+        
+        if (_pattern.__noMix)
+        {
+            __gainMix = 1;
+        }
+        else
+        {
+            var _mixStruct = _mixDict[$ __mixName];
+            if (_mixStruct == undefined)
+            {
+                __VinylError("Mix \"", __mixName, "\" not recognised");
+                return;
+            }
+            
+            __gainMix = _mixStruct.__gainFinal;
+            
+            _mixStruct.__Add(__currentVoice);
+            if (__currentVoice != __firstVoice) _mixStruct.__Add(__firstVoice);
+        }
+        
+        audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
     }
 }

@@ -242,4 +242,44 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
             }
         }
     }
+    
+    static __SetFromPattern = function()
+    {
+        //TODO - Handle changing of sounds
+        
+        var _pattern = __pattern;
+        var _newMix  = _pattern.__mixName;
+        
+        __gainBase = _pattern.__gain;
+        
+        if (__mixName != _newMix)
+        {
+            if (__mixName != undefined)
+            {
+                var _oldMixStruct = _mixDict[$ __mixName];
+                if (_oldMixStruct != undefined) _oldMixStruct.__Remove(__voiceTop);
+            }
+            
+            __mixName = _newMix;
+        }
+        
+        if (_pattern.__noMix)
+        {
+            __gainMix = 1;
+        }
+        else
+        {
+            var _mixStruct = _mixDict[$ __mixName];
+            if (_mixStruct == undefined)
+            {
+                __VinylError("Mix \"", __mixName, "\" not recognised");
+                return;
+            }
+            
+            __gainMix = _mixStruct.__gainFinal;
+            _mixStruct.__Add(__voiceTop);
+        }
+        
+        __UpdateGain();
+    }
 }
