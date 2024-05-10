@@ -84,7 +84,12 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             _mixStruct.__Add(_voice);
         }
         
-        if (_loopFinal || VINYL_LIVE_EDIT) __VinylCreateSoundVoice(_voice, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, self, _gainFactor, _pitchFactor);
+        //If we're in live edit mode then always create a struct representation
+        if (VINYL_LIVE_EDIT)
+        {
+            new __VinylClassVoiceSound(_voice, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, self, _gainFactor, _pitchFactor);
+        }
+        
         return _voice;
     }
     

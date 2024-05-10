@@ -17,15 +17,7 @@ function __VinylUpdate()
         
         var _deltaTimeFactor = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
         
-        var _array = __mixArray;
-        var _i = 0;
-        repeat(array_length(_array))
-        {
-            _array[_i].__Update();
-            ++_i;
-        }
-        
-        var _array = __voiceStructUpdateArray;
+        var _array = __voiceUpdateArray;
         var _i = 0;
         repeat(array_length(_array))
         {
@@ -37,6 +29,30 @@ function __VinylUpdate()
             {
                 ++_i;
             }
+        }
+        
+        var _array = __mixArray;
+        var _i = 0;
+        repeat(array_length(_array))
+        {
+            _array[_i].__Update();
+            ++_i;
+        }
+        
+        var _array = __voiceCleanUpArray;
+        var _length = array_length(_array);
+        if (_length > 0)
+        {
+            var _index = (__cleanUpIndex + 1) mod _length;
+            
+            if (not audio_is_playing(_array[_index]))
+            {
+                //FIXME - Replace with struct_remove_from_hash() when that is made available
+                struct_set_from_hash(__voiceStructDict, int64(_array[_index]), undefined);
+                array_delete(_array, _index, 1);
+            }
+            
+            __cleanUpIndex = _index;
         }
     }
 }

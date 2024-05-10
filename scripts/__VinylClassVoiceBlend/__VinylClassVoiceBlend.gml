@@ -6,11 +6,11 @@
 
 function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
 {
-    static _voiceStructArray       = __VinylSystem().__voiceStructArray;
-    static _voiceStructDict        = __VinylSystem().__voiceStructDict;
-    static _voiceStructUpdateArray = __VinylSystem().__voiceStructUpdateArray;
+    static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
+    static _voiceStructDict   = __VinylSystem().__voiceStructDict;
+    static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
     
-    if (VINYL_LIVE_EDIT) array_push(_voiceStructArray, self);
+    array_push(_voiceCleanUpArray, self);
     
     __pattern    = _pattern;
     __gainLocal  = _gainLocal;
@@ -148,7 +148,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     
     static __FadeOut = function(_rateOfChange)
     {
-        if (__gainFadeOutSpeed == undefined) array_push(_voiceStructUpdateArray, self);
+        if (__gainFadeOutSpeed == undefined) array_push(_voiceUpdateArray, self);
         __gainFadeOutSpeed = max(0.001, _rateOfChange);
     }
     

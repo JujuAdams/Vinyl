@@ -40,12 +40,6 @@ function __VinylSystem()
         {
             __rpcDict = {};
             __sendBuffer = buffer_create(1024, buffer_grow, 1);
-            
-            __voiceStructArray = [];
-        }
-        else
-        {
-            __voiceStructArray = undefined;
         }
         
         __soundDict   = {};
@@ -53,8 +47,11 @@ function __VinylSystem()
         __mixDict     = {};
         __mixArray    = [];
         
-        __voiceStructUpdateArray = [];
-        __voiceStructDict = {};
+        __cleanUpIndex = 0;
+        
+        __voiceCleanUpArray = [];
+        __voiceStructDict   = {};
+        __voiceUpdateArray  = [];
         
         var _defaultMix = (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX;
         var _soundDict = __soundDict;

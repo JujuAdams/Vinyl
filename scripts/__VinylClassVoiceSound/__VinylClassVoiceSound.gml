@@ -12,7 +12,12 @@
 
 function __VinylClassVoiceSound(_voice, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, _pattern, _gainFactor, _pitchFactor) constructor
 {
-    static _voiceStructUpdateArray = __VinylSystem().__voiceStructUpdateArray;
+    static _voiceStructDict   = __VinylSystem().__voiceStructDict;
+    static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
+    static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
+    
+    array_push(_voiceCleanUpArray, self);
+    struct_set_from_hash(_voiceStructDict, int64(_voice), self);
     
     __voice      = _voice;
     __gainBase   = _gainBase;
@@ -75,7 +80,7 @@ function __VinylClassVoiceSound(_voice, _gainBase, _gainLocal, _gainMix, _pitchB
     
     static __FadeOut = function(_rateOfChange)
     {
-        if (__gainFadeOutSpeed == undefined) array_push(_voiceStructUpdateArray, self);
+        if (__gainFadeOutSpeed == undefined) array_push(_voiceUpdateArray, self);
         __gainFadeOutSpeed = max(0.001, _rateOfChange);
     }
     

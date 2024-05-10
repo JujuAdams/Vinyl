@@ -15,8 +15,8 @@ function __VinylClassMix(_mixName, _gainBase) constructor
     __gainLocal = 1;
     __gainFinal = _gainBase;
     
-    __voiceIndex = 0;
-    __voiceArray = [];
+    __cleanUpIndex = 0;
+    __voiceArray   = [];
     
     static __Update = function()
     {
@@ -24,9 +24,9 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         var _length = array_length(_array);
         if (_length > 0)
         {
-            var _index = (__voiceIndex + 1) mod _length;
+            var _index = (__cleanUpIndex + 1) mod _length;
             if (not audio_is_playing(_array[_index])) array_delete(_array, _index, 1);
-            __voiceIndex = _index;
+            __cleanUpIndex = _index;
         }
     }
     
@@ -45,6 +45,7 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         var _i = 0;
         repeat(array_length(_array))
         {
+            //TODO - Set mix and mix gain here
             __VinylEnsureSoundVoice(_array[_i]).__SetMixGain(_gainFinal);
             ++_i;
         }

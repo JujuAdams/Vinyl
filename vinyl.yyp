@@ -49,7 +49,6 @@
     {"id":{"name":"__VinylClassVoiceSound","path":"scripts/__VinylClassVoiceSound/__VinylClassVoiceSound.yy",},},
     {"id":{"name":"__VinylConfigDebug","path":"scripts/__VinylConfigDebug/__VinylConfigDebug.yy",},},
     {"id":{"name":"__VinylConfigMacros","path":"scripts/__VinylConfigMacros/__VinylConfigMacros.yy",},},
-    {"id":{"name":"__VinylCreateSoundVoice","path":"scripts/__VinylCreateSoundVoice/__VinylCreateSoundVoice.yy",},},
     {"id":{"name":"__VinylEnsureSoundVoice","path":"scripts/__VinylEnsureSoundVoice/__VinylEnsureSoundVoice.yy",},},
     {"id":{"name":"__VinylError","path":"scripts/__VinylError/__VinylError.yy",},},
     {"id":{"name":"__VinylGetProjectPath","path":"scripts/__VinylGetProjectPath/__VinylGetProjectPath.yy",},},
