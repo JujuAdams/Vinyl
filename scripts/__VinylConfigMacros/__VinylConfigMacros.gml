@@ -5,9 +5,12 @@
 #macro VINYL_NO_MIX       "no mix"
 #macro VINYL_DEFAULT_MIX  VINYL_NO_MIX
 
-//Maximum output gain for audio voices. Must be greater than or equal to zero
-//Choose lower values to get more resolution in perceived volume levels
+//Maximum final gain for audio voices. Must be greater than or equal to zero.
 #macro VINYL_MAX_GAIN  1
+
+//Boost to global master gain. This is helpful to tame audio levels if they're too loud or to
+//increase audio levels if they're too quiet.
+#macro VINYL_MASTER_GAIN_BOOST  1
 
 //Length of moment-to-moment gain adjustments, in milliseconds
 //Choose lower values for tigher, quicker gain adjustment

@@ -58,6 +58,8 @@
     {"name":"VinylIsPaused","order":14,"path":"scripts/VinylIsPaused/VinylIsPaused.yy",},
     {"name":"VinylIsPlaying","order":7,"path":"scripts/VinylIsPlaying/VinylIsPlaying.yy",},
     {"name":"VinylMacrosExport","order":3,"path":"scripts/VinylMacrosExport/VinylMacrosExport.yy",},
+    {"name":"VinylMasterGetGain","order":7,"path":"scripts/VinylMasterGetGain/VinylMasterGetGain.yy",},
+    {"name":"VinylMasterSetGain","order":6,"path":"scripts/VinylMasterSetGain/VinylMasterSetGain.yy",},
     {"name":"VinylMixFadeOutVoices","order":3,"path":"scripts/VinylMixFadeOutVoices/VinylMixFadeOutVoices.yy",},
     {"name":"VinylMixGetLocalGain","order":5,"path":"scripts/VinylMixGetLocalGain/VinylMixGetLocalGain.yy",},
     {"name":"VinylMixPauseVoices","order":1,"path":"scripts/VinylMixPauseVoices/VinylMixPauseVoices.yy",},

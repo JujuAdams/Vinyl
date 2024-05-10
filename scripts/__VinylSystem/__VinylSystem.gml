@@ -35,7 +35,6 @@ function __VinylSystem()
         
         __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
         if (__VINYL_RUNNING_FROM_IDE) global.Vinyl = self;
-        audio_master_gain(VINYL_MAX_GAIN);
         
         if (VINYL_LIVE_EDIT)
         {
@@ -53,6 +52,8 @@ function __VinylSystem()
         __voiceCleanUpArray = [];
         __voiceStructDict   = {};
         __voiceUpdateArray  = [];
+        
+        VinylMasterSetGain(1);
         
         var _defaultMix = (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX;
         var _soundDict = __soundDict;

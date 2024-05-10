@@ -86,6 +86,8 @@
     {"id":{"name":"VinylIsPaused","path":"scripts/VinylIsPaused/VinylIsPaused.yy",},},
     {"id":{"name":"VinylIsPlaying","path":"scripts/VinylIsPlaying/VinylIsPlaying.yy",},},
     {"id":{"name":"VinylMacrosExport","path":"scripts/VinylMacrosExport/VinylMacrosExport.yy",},},
+    {"id":{"name":"VinylMasterGetGain","path":"scripts/VinylMasterGetGain/VinylMasterGetGain.yy",},},
+    {"id":{"name":"VinylMasterSetGain","path":"scripts/VinylMasterSetGain/VinylMasterSetGain.yy",},},
     {"id":{"name":"VinylMixFadeOutVoices","path":"scripts/VinylMixFadeOutVoices/VinylMixFadeOutVoices.yy",},},
     {"id":{"name":"VinylMixGetLocalGain","path":"scripts/VinylMixGetLocalGain/VinylMixGetLocalGain.yy",},},
     {"id":{"name":"VinylMixPauseVoices","path":"scripts/VinylMixPauseVoices/VinylMixPauseVoices.yy",},},
