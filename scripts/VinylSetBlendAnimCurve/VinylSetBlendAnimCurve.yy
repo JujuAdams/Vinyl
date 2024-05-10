@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylSetBlendAnimCurve",
   "parent":{
-    "name":"Sounds & Voices",
-    "path":"folders/Vinyl/Sounds & Voices.yy",
+    "name":"Pattern-specific",
+    "path":"folders/Vinyl/Pattern-specific.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
