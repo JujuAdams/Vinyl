@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylMacrosExport",
+  "%Name":"VinylSetupExportGMLMacros",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylMacrosExport",
+  "name":"VinylSetupExportGMLMacros",
   "parent":{
     "name":"Import & Export",
     "path":"folders/Vinyl/Setup/Import & Export.yy",

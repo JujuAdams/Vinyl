@@ -50,8 +50,79 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
     
     static __ExportJSON = function()
     {
-        var _struct = {};
+        var _soundArray = [];
+        var _i = 0;
+        repeat(array_length(__soundArray))
+        {
+            array_push(_soundArray, audio_get_name(__soundArray[_i]));
+            ++_i;
+        }
+        
+        var _struct = {
+            blend: __patternName,
+            sounds: _soundArray,
+        };
+        
+        if (not __loop) _struct.loop = false;
+        if (__gain != 1) _struct.gain = __gain;
+        
         return _struct;
+    }
+    
+    static __ExportGML = function(_buffer, _indent, _useMacros)
+    {
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "{\n");
+        
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "    blend: ");
+        
+        if (_useMacros)
+        {
+            buffer_write(_buffer, buffer_text, __VinylGetPatternMacro(__patternName));
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        else
+        {
+            buffer_write(_buffer, buffer_text, "\"");
+            buffer_write(_buffer, buffer_text, __patternName);
+            buffer_write(_buffer, buffer_text, "\",\n");
+        }
+        
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "    sounds: [");
+        
+        if (array_length(__soundArray) > 0)
+        {
+            var _i = 0;
+            repeat(array_length(__soundArray))
+            {
+                buffer_write(_buffer, buffer_text, audio_get_name(__soundArray[_i]));
+                buffer_write(_buffer, buffer_text, ", ");
+                ++_i;
+            }
+            
+            buffer_seek(_buffer, buffer_seek_relative, -2);
+        }
+        
+        buffer_write(_buffer, buffer_text, "],\n");
+        
+        if (not __loop)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    loop: false,\n");
+        }
+        
+        if (__gain != 1)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    gain: ");
+            buffer_write(_buffer, buffer_text, __gain);
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "},\n");
     }
 }
 

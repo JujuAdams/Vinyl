@@ -111,6 +111,9 @@ function __VinylClassMix(_mixName, _gainBase) constructor
     {
         var _membersArray = [];
         
+        
+        
+        //TODO - Sort
         var _soundMethod = method({
             __mixName:           __mixName,
             __array:             _membersArray,
@@ -131,6 +134,7 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         
         
         
+        //TODO - Sort
         var _patternMethod = method({
             __mixName:             __mixName,
             __array:               _membersArray,
@@ -153,11 +157,85 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         
         var _struct = {
             mix:      __mixName,
-            baseGain: __gainBase,
             members:  _membersArray,
         };
         
+        if (__gainBase != 1)
+        {
+            _struct.baseGain = __gainBase;
+        }
+        
         return _struct;
+    }
+    
+    static __ExportGML = function(_buffer, _useMacros, _soundExportedDict, _patternExportedDict)
+    {
+        buffer_write(_buffer, buffer_text, "    {\n");
+        buffer_write(_buffer, buffer_text, "        mix: ");
+        
+        if (_useMacros)
+        {
+            buffer_write(_buffer, buffer_text, __VinylGetMixMacro(__mixName));
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        else
+        {
+            buffer_write(_buffer, buffer_text, "\"");
+            buffer_write(_buffer, buffer_text, __mixName);
+            buffer_write(_buffer, buffer_text, "\",\n");
+        }
+        
+        if (__gainBase != 1)
+        {
+            buffer_write(_buffer, buffer_text, "        baseGain: ");
+            buffer_write(_buffer, buffer_text, __gainBase);
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        
+        buffer_write(_buffer, buffer_text, "        members: [\n");
+        
+        
+        
+        //TODO - Sort
+        var _patternMethod = method({
+            __buffer:              _buffer,
+            __mixName:             __mixName,
+            __useMacros:    _useMacros,
+            __patternExportedDict: _patternExportedDict,
+        },
+        function(_name, _value)
+        {
+            if (_value.__mixName == __mixName)
+            {
+                __patternExportedDict[$ _name] = true;
+                _value.__ExportGML(__buffer, "            ", __useMacros);
+            }
+        });
+        
+        struct_foreach(_patternDict, _patternMethod);
+        
+        
+        
+        //TODO - Sort
+        var _soundMethod = method({
+            __buffer:            _buffer,
+            __mixName:           __mixName,
+            __soundExportedDict: _soundExportedDict,
+        },
+        function(_name, _value)
+        {
+            if (_value.__mixName == __mixName)
+            {
+                __soundExportedDict[$ _name] = true;
+                _value.__ExportGML(__buffer, "            ");
+            }
+        });
+        
+        struct_foreach(_soundDict, _soundMethod);
+        
+        
+        
+        buffer_write(_buffer, buffer_text, "        ],\n    },\n");
     }
 }
 

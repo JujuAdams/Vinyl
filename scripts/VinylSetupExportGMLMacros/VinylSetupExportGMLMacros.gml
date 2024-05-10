@@ -1,6 +1,6 @@
 // Feather disable all
 
-function VinylMacrosExport()
+function VinylSetupExportGMLMacros()
 {
     static _mixDict     = __VinylSystem().__mixDict;
     static _patternDict = __VinylSystem().__patternDict;

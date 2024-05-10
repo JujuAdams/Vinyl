@@ -147,6 +147,65 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         
         return _struct;
     }
+    
+    static __ExportGML = function(_buffer, _indent)
+    {
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "{\n");
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "    sound: ");
+        buffer_write(_buffer, buffer_text, audio_get_name(__sound));
+        buffer_write(_buffer, buffer_text, ",\n");
+        
+        if ((__gainMin != 1) || (__gainMax != 1))
+        {
+            if (__gainMin == __gainMax)
+            {
+                buffer_write(_buffer, buffer_text, _indent);
+                buffer_write(_buffer, buffer_text, "    gain: ");
+                buffer_write(_buffer, buffer_text, __gainMin);
+                buffer_write(_buffer, buffer_text, ",\n");
+            }
+            else
+            {
+                buffer_write(_buffer, buffer_text, _indent);
+                buffer_write(_buffer, buffer_text, "    gain: [");
+                buffer_write(_buffer, buffer_text, __gainMin);
+                buffer_write(_buffer, buffer_text, ", ");
+                buffer_write(_buffer, buffer_text, __gainMax);
+                buffer_write(_buffer, buffer_text, "],\n");
+            }
+        }
+        
+        if ((__pitchMin != 1) || (__pitchMax != 1))
+        {
+            if (__pitchMin == __pitchMax)
+            {
+                buffer_write(_buffer, buffer_text, _indent);
+                buffer_write(_buffer, buffer_text, "    pitch: ");
+                buffer_write(_buffer, buffer_text, __pitchMin);
+                buffer_write(_buffer, buffer_text, ",\n");
+            }
+            else
+            {
+                buffer_write(_buffer, buffer_text, _indent);
+                buffer_write(_buffer, buffer_text, "    pitch: [");
+                buffer_write(_buffer, buffer_text, __pitchMin);
+                buffer_write(_buffer, buffer_text, ", ");
+                buffer_write(_buffer, buffer_text, __pitchMax);
+                buffer_write(_buffer, buffer_text, "],\n");
+            }
+        }
+        
+        if (__loop)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    loop: true,\n");
+        }
+        
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "},\n");
+    }
 }
 
 function __VinylImportSoundJSON(_json)

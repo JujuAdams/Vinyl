@@ -53,8 +53,73 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     
     static __ExportJSON = function()
     {
-        var _struct = {};
+        var _struct = {
+            hlt: __patternName,
+        };
+        
+        if (__soundHead != undefined) _struct.head = audio_get_name(__soundHead);
+        if (__soundLoop != undefined) _struct.loop = audio_get_name(__soundLoop);
+        if (__soundTail != undefined) _struct.tail = audio_get_name(__soundTail);
+        
+        if (__gain != 1) _struct.gain = __gain;
+        
         return _struct;
+    }
+    
+    static __ExportGML = function(_buffer, _indent, _useMacros)
+    {
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "{\n");
+        
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "    hlt: ");
+        
+        if (_useMacros)
+        {
+            buffer_write(_buffer, buffer_text, __VinylGetPatternMacro(__patternName));
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        else
+        {
+            buffer_write(_buffer, buffer_text, "\"");
+            buffer_write(_buffer, buffer_text, __patternName);
+            buffer_write(_buffer, buffer_text, "\",\n");
+        }
+        
+        if (__soundHead != undefined)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    head: ");
+            buffer_write(_buffer, buffer_text, audio_get_name(__soundHead));
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        
+        if (__soundLoop != undefined)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    loop: ");
+            buffer_write(_buffer, buffer_text, audio_get_name(__soundLoop));
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        
+        if (__soundTail != undefined)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    tail: ");
+            buffer_write(_buffer, buffer_text, audio_get_name(__soundTail));
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        
+        if (__gain != 1)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    gain: ");
+            buffer_write(_buffer, buffer_text, __gain);
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "},\n");
     }
 }
 

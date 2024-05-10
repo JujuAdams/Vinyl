@@ -130,8 +130,126 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     
     static __ExportJSON = function()
     {
-        var _struct = {};
+        var _soundArray = [];
+        var _i = 0;
+        repeat(array_length(__soundArray))
+        {
+            array_push(_soundArray, audio_get_name(__soundArray[_i]));
+            ++_i;
+        }
+        
+        var _struct = {
+            shuffle: __patternName,
+            sounds: _soundArray,
+        };
+        
+        if ((__gainMin != 1) || (__gainMax != 1))
+        {
+            if (__gainMin == __gainMax)
+            {
+                _struct.gain = __gainMin;
+            }
+            else
+            {
+                _struct.gain = [__gainMin, __gainMax];
+            }
+        }
+        
+        if ((__pitchMin != 1) || (__pitchMax != 1))
+        {
+            if (__pitchMin == __pitchMax)
+            {
+                _struct.pitch = __pitchMin;
+            }
+            else
+            {
+                _struct.pitch = [__pitchMin, __pitchMax];
+            }
+        }
+        
         return _struct;
+    }
+    
+    static __ExportGML = function(_buffer, _indent, _useMacros)
+    {
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "{\n");
+        
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "    shuffle: ");
+        
+        if (_useMacros)
+        {
+            buffer_write(_buffer, buffer_text, __VinylGetPatternMacro(__patternName));
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        else
+        {
+            buffer_write(_buffer, buffer_text, "\"");
+            buffer_write(_buffer, buffer_text, __patternName);
+            buffer_write(_buffer, buffer_text, "\",\n");
+        }
+        
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "    sounds: [");
+        
+        if (array_length(__soundArray) > 0)
+        {
+            var _i = 0;
+            repeat(array_length(__soundArray))
+            {
+                buffer_write(_buffer, buffer_text, audio_get_name(__soundArray[_i]));
+                buffer_write(_buffer, buffer_text, ", ");
+                ++_i;
+            }
+            
+            buffer_seek(_buffer, buffer_seek_relative, -2);
+        }
+        
+        buffer_write(_buffer, buffer_text, "],\n");
+        
+        if ((__gainMin != 1) || (__gainMax != 1))
+        {
+            if (__gainMin == __gainMax)
+            {
+                buffer_write(_buffer, buffer_text, _indent);
+                buffer_write(_buffer, buffer_text, "    gain: ");
+                buffer_write(_buffer, buffer_text, __gainMin);
+                buffer_write(_buffer, buffer_text, ",\n");
+            }
+            else
+            {
+                buffer_write(_buffer, buffer_text, _indent);
+                buffer_write(_buffer, buffer_text, "    gain: [");
+                buffer_write(_buffer, buffer_text, __gainMin);
+                buffer_write(_buffer, buffer_text, ", ");
+                buffer_write(_buffer, buffer_text, __gainMax);
+                buffer_write(_buffer, buffer_text, "],\n");
+            }
+        }
+        
+        if ((__pitchMin != 1) || (__pitchMax != 1))
+        {
+            if (__pitchMin == __pitchMax)
+            {
+                buffer_write(_buffer, buffer_text, _indent);
+                buffer_write(_buffer, buffer_text, "    pitch: ");
+                buffer_write(_buffer, buffer_text, __pitchMin);
+                buffer_write(_buffer, buffer_text, ",\n");
+            }
+            else
+            {
+                buffer_write(_buffer, buffer_text, _indent);
+                buffer_write(_buffer, buffer_text, "    pitch: [");
+                buffer_write(_buffer, buffer_text, __pitchMin);
+                buffer_write(_buffer, buffer_text, ", ");
+                buffer_write(_buffer, buffer_text, __pitchMax);
+                buffer_write(_buffer, buffer_text, "],\n");
+            }
+        }
+        
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "},\n");
     }
 }
 

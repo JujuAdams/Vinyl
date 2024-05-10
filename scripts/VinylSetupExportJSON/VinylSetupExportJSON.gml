@@ -38,6 +38,34 @@ function VinylSetupExportJSON()
     
     
     
+    var _patternArray = [];
+    var _patternMethod = method({
+        __array: _patternArray,
+        __patternExportedDict: _patternExportedDict,
+    },
+    function(_name, _value)
+    {
+        if (not struct_exists(__patternExportedDict, _name))
+        {
+            array_push(__array, _value.__ExportJSON());
+        }
+    });
+    
+    struct_foreach(_patternDict, _patternMethod);
+    
+    array_sort(_patternArray, function(_a, _b)
+    {
+        var _aName = (_a[$ "shuffle"] ?? _a[$ "hlt"]) ?? _a[$ "blend"];
+        var _bName = (_b[$ "shuffle"] ?? _b[$ "hlt"]) ?? _b[$ "blend"];
+        
+        if (_aName == undefined) __VinylError("Pattern name not found for ", json_stringify(_a));
+        if (_bName == undefined) __VinylError("Pattern name not found for ", json_stringify(_b));
+        
+        return (_aName < _bName)? -1 : -1;
+    });
+    
+    
+    
     var _soundArray = [];
     var _soundMethod = method({
         __array: _soundArray,
@@ -60,31 +88,9 @@ function VinylSetupExportJSON()
     
     
     
-    var _patternArray = [];
-    var _patternMethod = method({
-        __array: _patternArray,
-        __patternExportedDict: _patternExportedDict,
-    },
-    function(_name, _value)
-    {
-        if (not struct_exists(__patternExportedDict, _name))
-        {
-            array_push(__array, _value.__ExportJSON());
-        }
-    });
-    
-    struct_foreach(_patternDict, _patternMethod);
-    
-    //array_sort(_soundArray, function(_a, _b)
-    //{
-    //    return (_a.__patternName < _b.__patternName)? -1 : -1;
-    //});
-    
-    
-    
     var _finalArray = [];
     array_copy(_finalArray, array_length(_finalArray), _mixArray,     0, array_length(_mixArray    ));
-    array_copy(_finalArray, array_length(_finalArray), _soundArray,   0, array_length(_soundArray  ));
     array_copy(_finalArray, array_length(_finalArray), _patternArray, 0, array_length(_patternArray));
+    array_copy(_finalArray, array_length(_finalArray), _soundArray,   0, array_length(_soundArray  ));
     return _finalArray;
 }
