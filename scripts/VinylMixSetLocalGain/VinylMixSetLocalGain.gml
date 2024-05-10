@@ -10,5 +10,5 @@ function VinylMixSetLocalGain(_mixName, _gain)
     var _mixStruct = _mixDict[$ _mixName];
     if (_mixStruct == undefined) __VinylError("Mix \"", _mixName, "\" not recognised");
     
-    _mixStruct.__SetGain(_gain);
+    _mixStruct.__SetLocalGain(_gain);
 }

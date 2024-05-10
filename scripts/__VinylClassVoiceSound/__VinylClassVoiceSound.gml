@@ -86,7 +86,7 @@ function __VinylClassVoiceSound(_voice, _gainBase, _gainLocal, _gainMix, _pitchB
     
     static __SetLocalGain = function(_gain)
     {
-        __gainLocal = _gain;
+        __gainLocal = max(0, _gain);
         audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION, VINYL_STEP_DURATION);
     }
     

@@ -7,7 +7,7 @@
 //Procedural generation "seed".
 #define S 0.
 //Color count.
-#define C 2.5
+#define C 4.0
 
 varying vec2 v_vTexcoord;
 varying vec4 v_vColour;

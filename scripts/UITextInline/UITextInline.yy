@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"UITextInline",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"UITextInline",
+  "parent":{
+    "name":"UI",
+    "path":"folders/UI.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

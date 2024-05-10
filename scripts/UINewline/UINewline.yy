@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"UINewline",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"UINewline",
+  "parent":{
+    "name":"UI",
+    "path":"folders/UI.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
