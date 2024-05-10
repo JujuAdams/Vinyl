@@ -101,6 +101,10 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                     {
                         __currentVoice = audio_play_sound(__pattern.__soundLoop, 0, true, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
                         
+                        //Add this new voice to our lookup dictionary
+                        struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
+                        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __currentVoice, " to voice lookup struct");
+                        
                         //Add the generated voice to the mix's array of voices
                         var _mixStruct = _mixDict[$ __pattern.__mixName];
                         if (_mixStruct != undefined) _mixStruct.__Add(__currentVoice);
@@ -115,6 +119,10 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                         {
                             //If we've already indicated that the loop should end then move on to the tail immediately
                             __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
+                            
+                            //Add this new voice to our lookup dictionary
+                            struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
+                            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __currentVoice, " to voice lookup struct");
                             
                             //Add the generated voice to the mix's array of voices
                             var _mixStruct = _mixDict[$ __pattern.__mixName];
@@ -133,7 +141,15 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                     
                     if (__pattern.__soundTail != undefined)
                     {
+                        //FIXME - Replace with struct_remove_from_hash() when that is made available
+                        struct_set_from_hash(_voiceStructDict, int64(__currentVoice), undefined);
+                        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __currentVoice, " from voice lookup struct");
+                        
                         __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
+                            
+                        //Add this new voice to our lookup dictionary
+                        struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
+                        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __currentVoice, " to voice lookup struct");
                         
                         //Add the generated voice to the mix's array of voices
                         var _mixStruct = _mixDict[$ __pattern.__mixName];
@@ -147,11 +163,14 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                 break;
                 
                 case __VINYL_HLT_STATE.__TAIL:
-                    __currentVoice = -1;
-                    
                     //FIXME - Replace with struct_remove_from_hash() when that is made available
                     struct_set_from_hash(_voiceStructDict, int64(__firstVoice), undefined);
                     if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __firstVoice, " from voice lookup struct");
+                    
+                    struct_set_from_hash(_voiceStructDict, int64(__currentVoice), undefined);
+                    if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __currentVoice, " from voice lookup struct");
+                    
+                    __currentVoice = -1;
                     
                     return false;
                 break;
