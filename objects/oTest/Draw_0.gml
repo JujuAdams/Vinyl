@@ -14,18 +14,18 @@ UIStart(10, 10, undefined, undefined, true);
 
 
 
-UIText(string_concat("\"test\" mix gain = ", VinylMixGetLocalGain("test")));
+UIText(string_concat("\"Test\" mix gain = ", VinylMixGetLocalGain("Test")));
 
 
 
-UIButtonInline("\"test\" mix gain +", function()
+UIButtonInline("\"TestMix\" mix gain -", function()
 {
-    VinylMixSetLocalGain("test", VinylMixGetLocalGain("test") - 0.05);
+    VinylMixSetLocalGain("Test", VinylMixGetLocalGain("Test") - 0.05);
 });
 UISpace(20);
-UIButton("\"test\" mix gain -", function()
+UIButton("\"TestMix\" mix gain +", function()
 {
-    VinylMixSetLocalGain("test", VinylMixGetLocalGain("test") + 0.05);
+    VinylMixSetLocalGain("Test", VinylMixGetLocalGain("Test") + 0.05);
 });
 
 
@@ -38,7 +38,7 @@ UIButtonInline("1KHz", function()
 UISpace(20);
 UIButton("Shuffle Bleeps", function()
 {
-    VinylPlay("shuffle");
+    VinylPlay("Shuffle");
 });
 
 
@@ -46,7 +46,7 @@ UIButton("Shuffle Bleeps", function()
 UINewline();
 UIButtonInline("HLT Test", function()
 {
-    hltVoice = VinylPlay("hlt");
+    hltVoice = VinylPlay("HLT");
 });
 UISpace(20);
 UIButton("HLT End Loop", function()
@@ -60,17 +60,17 @@ UINewline();
 UIText(string_concat("Blend factor = ", VinylGetBlendFactor(blendVoice)));
 UIButtonInline("Blend Test", function()
 {
-    blendVoice = VinylPlay("blend");
+    blendVoice = VinylPlay("Blend");
 });
 UISpace(20);
-UIButtonInline("Factor +", function()
-{
-    VinylSetBlendFactor(blendVoice, (VinylGetBlendFactor(blendVoice) ?? 0) + 0.05);
-});
-UISpace(20);
-UIButton("Factor -", function()
+UIButtonInline("Factor -", function()
 {
     VinylSetBlendFactor(blendVoice, (VinylGetBlendFactor(blendVoice) ?? 0) - 0.05);
+});
+UISpace(20);
+UIButton("Factor +", function()
+{
+    VinylSetBlendFactor(blendVoice, (VinylGetBlendFactor(blendVoice) ?? 0) + 0.05);
 });
 
 

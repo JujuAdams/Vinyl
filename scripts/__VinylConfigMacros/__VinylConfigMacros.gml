@@ -19,3 +19,6 @@
 #macro VINYL_WILL_STOP_TOLERANCE  20
 
 #macro VINYL_SAFE_JSON_IMPORT  true
+
+#macro VINYL_PATTERN_MACRO_PREFIX  "vin"
+#macro VINYL_MIX_MACRO_PREFIX      "vinMix"
