@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylSetBlendFactor",
   "parent":{
-    "name":"Pattern-specific",
-    "path":"folders/Vinyl/Pattern-specific.yy",
+    "name":"HLT & Blend Patterns",
+    "path":"folders/Vinyl/HLT & Blend Patterns.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -1,6 +1,7 @@
 // Feather disable all
 
 /// @param voice
+/// @param loopLocal
 /// @param gainBase
 /// @param gainLocal
 /// @param gainMix
@@ -10,7 +11,7 @@
 /// @param [gainFactor]
 /// @param [pitchFactor]
 
-function __VinylClassVoiceSound(_voice, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, _pattern, _gainFactor, _pitchFactor) constructor
+function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, _pattern, _gainFactor, _pitchFactor) constructor
 {
     static _voiceStructDict   = __VinylSystem().__voiceStructDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
@@ -21,6 +22,7 @@ function __VinylClassVoiceSound(_voice, _gainBase, _gainLocal, _gainMix, _pitchB
     if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", _voice, " to voice lookup struct");
     
     __voice      = _voice;
+    __loopLocal  = _loopLocal;
     __gainBase   = _gainBase;
     __gainLocal  = _gainLocal;
     __gainMix    = _gainMix;
@@ -30,6 +32,7 @@ function __VinylClassVoiceSound(_voice, _gainBase, _gainLocal, _gainMix, _pitchB
     if (VINYL_LIVE_EDIT)
     {
         __pattern     = _pattern;
+        __mixName     = (_pattern != undefined)? _pattern.__mixName : undefined;
         __gainFactor  = _gainFactor;
         __pitchFactor = _pitchFactor;
     }
@@ -95,5 +98,43 @@ function __VinylClassVoiceSound(_voice, _gainBase, _gainLocal, _gainMix, _pitchB
     {
         __gainMix = _gain;
         audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
+    }
+    
+    static __SetFromPattern = function(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix)
+    {
+        __gainBase  = lerp(__gainMin,  __gainMax,  __gainFactor);
+        __pitchBase = lerp(__pitchMin, __pitchMax, __pitchFactor);
+        
+        if (_mix == undefined)
+        {
+            __gainMix = 1;
+        }
+        else
+        {
+            if (__mixName != _mix)
+            {
+                if (__mixName != undefined)
+                {
+                    var _oldMixStruct = _mixDict[$ __mixName];
+                    if (_oldMixStruct != undefined) _oldMixStruct.__Remove(__voice);
+                }
+                
+                __mixName = _mix;
+            }
+            
+            var _mixStruct = _mixDict[$ __mixName];
+            if (_mixStruct == undefined)
+            {
+                __VinylError("Mix \"", __mixName, "\" not recognised");
+                return;
+            }
+            
+            __gainMix = _mixStruct.__gainFinal;
+            _mixStruct.__Add(__voice);
+        }
+        
+        audio_sound_loop( __voice, _loop ?? __loopLocal);
+        audio_sound_gain( __voice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
+        audio_sound_pitch(__voice, __VINYL_VOICE_PITCH_EQUATION);
     }
 }
