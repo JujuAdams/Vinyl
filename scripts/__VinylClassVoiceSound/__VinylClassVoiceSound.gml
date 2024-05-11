@@ -13,7 +13,6 @@
 
 function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, _pattern, _gainFactor, _pitchFactor) constructor
 {
-    static _mixDict           = __VinylSystem().__mixDict;
     static _voiceLookUpDict   = __VinylSystem().__voiceLookUpDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
@@ -88,7 +87,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
         if (not audio_is_playing(__voice))
         {
             //FIXME - Replace with struct_remove_from_hash() when that is made available
-            struct_set_from_hash(__voiceLookUpDict, int64(__voice), undefined);
+            struct_set_from_hash(_voiceLookUpDict, int64(__voice), undefined);
             if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __voice, " from voice lookup struct");
             
             return true;
@@ -115,12 +114,12 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
         audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
     }
     
-    static __SetFromPattern = function(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix)
+    static __SetFromPattern = function(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName)
     {
         __gainBase  = lerp(_gainMin,  _gainMax,  __gainFactor);
         __pitchBase = lerp(_pitchMin, _pitchMax, __pitchFactor);
         
-        __VinylVoiceMoveMix(__voice, _pattern.__mixName);
+        __VinylVoiceMoveMix(__voice, _mixName);
         
         audio_sound_loop( __voice, __loopLocal ?? _loop);
         audio_sound_gain( __voice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);

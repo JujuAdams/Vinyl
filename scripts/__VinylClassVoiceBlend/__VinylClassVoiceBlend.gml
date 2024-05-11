@@ -97,7 +97,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         if (not audio_is_playing(__voiceTop))
         {
             //FIXME - Replace with struct_remove_from_hash() when that is made available
-            struct_set_from_hash(__voiceLookUpDict, int64(__voiceReference), undefined);
+            struct_set_from_hash(_voiceLookUpDict, int64(__voiceReference), undefined);
             if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __voiceReference, " from voice lookup struct");
             
             return true;

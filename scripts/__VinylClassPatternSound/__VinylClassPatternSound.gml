@@ -11,7 +11,6 @@
 function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix) constructor
 {
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
-    static _voiceLookUpDict   = __VinylSystem().__voiceLookUpDict;
     static _mixDict           = __VinylSystem().__mixDict;
     
     __sound    = _sound;
