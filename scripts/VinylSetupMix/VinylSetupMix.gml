@@ -1,5 +1,12 @@
 // Feather disable all
 
+/// Sets up a mix that can be used to control multiple sounds, patterns, and voices all at the same
+/// time. Mixes should be defined before sounds and patterns.
+/// 
+/// You should typically only call this function once on boot. Subsequent calls to this function
+/// will only affect audio that is already playing if VINYL_LIVE_EDIT is set to <true>, and even
+/// then calls to this function whilst audio is playing is expensive.
+/// 
 /// @param mixName
 /// @param [baseGain=1]
 

@@ -1,5 +1,7 @@
 // Feather disable all
 
+/// Removes al the mixes, sounds, and patterns that have been defined for Vinyl.
+
 function VinylSetupClearEverything()
 {
     static _soundDict   = __VinylSystem().__soundDict;

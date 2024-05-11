@@ -1,5 +1,8 @@
 // Feather disable all
 
+/// Sets the mix for multiple sounds and patterns. This function can take multiple arguments and/or
+/// arguments can specify an array of sounds and patterns to set a mix for.
+/// 
 /// @param mixName
 /// @param sound/pattern/array
 /// @param ...

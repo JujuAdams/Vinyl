@@ -1,5 +1,12 @@
 // Feather disable all
 
+/// Exports the current Vinyl setup as JSON. The root node of this JSON is always an array. JSON
+/// can be used to communicate the Vinyl setup to other tools or can be saved to disk for reference
+/// later.
+/// 
+/// You can read more about the JSON format that Vinyl exports in the "Vinyl Setup JSON Format"
+/// note asset included with the library code.
+/// 
 /// @param [ignoreEmpty=true]
 
 function VinylSetupExportJSON(_ignoreEmpty = true)

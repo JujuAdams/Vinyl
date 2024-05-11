@@ -1,5 +1,13 @@
 // Feather disable all
 
+/// Sets up a blend pattern for playback with Vinyl. When played, a blend pattern will play a
+/// mixture of sounds whose composition can be adjusted by setting the blend factor with the
+/// VinylSetBlendFactor() and VinylSetBlendAnimCurve() functions.
+/// 
+/// You should typically only call this function once on boot. Subsequent calls to this function
+/// will only affect audio that is already playing if VINYL_LIVE_EDIT is set to <true>, and even
+/// then calls to this function whilst audio is playing is expensive.
+/// 
 /// @param patternName
 /// @param soundArray
 /// @param [loop=true]

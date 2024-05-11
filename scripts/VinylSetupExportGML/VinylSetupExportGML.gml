@@ -1,5 +1,13 @@
 // Feather disable all
 
+/// Exports the current Vinyl setup as JSON expressed in GML code. The root node of this JSON is
+/// always an array. This function returns a string that can be copy-pasted into your codebase, for
+/// example so that the inylSetupImportJSON() function can be called on boot with the required
+/// Vinyl setup information.
+/// 
+/// You can read more about the JSON format that Vinyl exports in the "Vinyl Setup JSON Format"
+/// note asset included with the library code.
+/// 
 /// @param [useMacros=false]
 /// @param [ignoreEmpty=true]
 

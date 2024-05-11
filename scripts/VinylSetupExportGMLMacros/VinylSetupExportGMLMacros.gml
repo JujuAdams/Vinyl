@@ -1,5 +1,10 @@
 // Feather disable all
 
+/// Exports a string of GML code that can be copy-pasted into your codebase. This GML string
+/// contains a series of macros that can be used to reference Vinyl mixes and patterns. This is
+/// often useful to assist with autocomplete when writing playback hooks in your code. In effect,
+/// the macros create "Vinyl assets" that can be used more easily than a bunch of strings.
+
 function VinylSetupExportGMLMacros()
 {
     static _mixDict     = __VinylSystem().__mixDict;

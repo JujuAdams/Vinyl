@@ -1,9 +1,18 @@
 // Feather disable all
 
+/// Imports a JSON that contains definitions for mixes, sounds, and patterns. This is sometimes
+/// more convenient than writing lines of code.
+/// 
+/// You can read more about the JSON format that Vinyl expects in the "Vinyl Setup JSON Format"
+/// note asset included with the library code.
+/// 
 /// @param json
+/// @param [overwrite=true]
 
-function VinylSetupImportJSON(_json)
+function VinylSetupImportJSON(_json, _overwrite = true)
 {
+    //TODO - Implement overwrite behaviour
+    
     if (is_array(_json))
     {
         var _i = 0;

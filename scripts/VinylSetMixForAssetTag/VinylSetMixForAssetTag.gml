@@ -1,5 +1,7 @@
 // Feather disable all
 
+/// Sets the mix for every sound with the given asset tag.
+/// 
 /// @param mixName
 /// @param assetTag
 
