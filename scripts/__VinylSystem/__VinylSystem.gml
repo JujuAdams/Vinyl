@@ -36,21 +36,16 @@ function __VinylSystem()
         __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
         if (__VINYL_RUNNING_FROM_IDE) global.Vinyl = self;
         
-        if (VINYL_LIVE_EDIT)
-        {
-            __rpcDict = {};
-            __sendBuffer = buffer_create(1024, buffer_grow, 1);
-        }
-        
         __soundDict   = {};
         __patternDict = {};
         __mixDict     = {};
         __mixArray    = [];
         
-        __cleanUpIndex = 0;
-        
         __voiceCleanUpArray = [];
-        __voiceStructDict   = {};
+        __cleanUpIndex      = 0;
+        
+        __voiceStructDict = {};
+        
         __voiceUpdateArray  = [];
         
         VinylMasterSetGain(1);

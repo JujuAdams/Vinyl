@@ -30,8 +30,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     __soundCount = array_length(__soundArray);
     __playIndex  = infinity;
     
-    //Don't make this static!
-    __Play = function(_loopLocal, _gainLocal, _pitchLocal)
+    static __Play = function(_loopLocal, _gainLocal, _pitchLocal)
     {
         if (__playIndex >= __soundCount) //If we've played through our bank of sounds, reshuffle
         {

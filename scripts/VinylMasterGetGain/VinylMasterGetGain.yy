@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylMasterGetGain",
   "parent":{
-    "name":"Mix",
-    "path":"folders/Vinyl/Mix.yy",
+    "name":"Vinyl",
+    "path":"folders/Vinyl.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

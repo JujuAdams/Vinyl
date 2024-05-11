@@ -26,8 +26,7 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
     
     __SetMix(_mix);
     
-    //Don't make this static!
-    __Play = function(_loopLocal, _gainLocal, _pitchLocal)
+    static __Play = function(_loopLocal, _gainLocal, _pitchLocal)
     {
         var _loopFinal = _loopLocal ?? __loop;
         

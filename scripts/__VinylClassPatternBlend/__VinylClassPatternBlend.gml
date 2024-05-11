@@ -18,8 +18,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
     
     __SetMix(_mix);
     
-    //Don't make this static!
-    __Play = function(_loop, _gainLocal, _pitchLocal)
+    static __Play = function(_loop, _gainLocal, _pitchLocal)
     {
         var _struct = new __VinylClassVoiceBlend(self, _gainLocal, _pitchLocal);
         return _struct.__voiceTop;
