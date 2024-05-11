@@ -1,5 +1,9 @@
 // Feather disable all
 
+/// Returns the animation curve set for a blend voice. If no animation curve has been set then this
+/// function will return <undefined>. If the target voice is not a blend voice then this function
+/// will return <undefined>.
+/// 
 /// @param voice
 
 function VinylGetBlendAnimCurve(_voice)

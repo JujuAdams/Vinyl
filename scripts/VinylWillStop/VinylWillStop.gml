@@ -1,5 +1,8 @@
 // Feather disable all
 
+/// Returns whether the target voice will stop playing imminently. The tolerance for this test is
+/// set by the VINYL_WILL_STOP_TOLERANCE macro (see __VinylConfigMacros()).
+/// 
 /// @param voice
 
 function VinylWillStop(_voice)

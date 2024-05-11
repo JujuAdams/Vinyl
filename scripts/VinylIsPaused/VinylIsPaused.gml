@@ -1,5 +1,7 @@
 // Feather disable all
 
+/// Returns if the target voice's playback is paused.
+/// 
 /// @param voice
 
 function VinylIsPaused(_voice)

@@ -1,5 +1,7 @@
 // Feather disable all
 
+/// Returns the local gain for a voice.
+/// 
 /// @param voice
 
 function VinylGetLocalGain(_voice)

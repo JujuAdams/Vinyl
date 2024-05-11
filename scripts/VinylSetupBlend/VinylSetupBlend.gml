@@ -1,7 +1,7 @@
 // Feather disable all
 
-/// Sets up a blend pattern for playback with Vinyl. When played, a blend pattern will play a
-/// mixture of sounds whose composition can be adjusted by setting the blend factor with the
+/// Sets up a blend pattern for playback with Vinyl. When played, a blend pattern will play
+/// multiple sounds whose balance can be adjusted by setting the blend factor with the
 /// VinylSetBlendFactor() and VinylSetBlendAnimCurve() functions.
 /// 
 /// You should typically only call this function once on boot. Subsequent calls to this function

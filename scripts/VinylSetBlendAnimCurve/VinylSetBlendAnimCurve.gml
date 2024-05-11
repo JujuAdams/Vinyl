@@ -1,5 +1,9 @@
 // Feather disable all
 
+/// Sets the animation curve for a blend voice. This animation curve will be used to derive gains
+/// for each of the blend voice's sounds. If the target voice is not a blend voice then this
+/// function does nothing.
+/// 
 /// @param voice
 /// @param animCurve
 /// @param [factor]

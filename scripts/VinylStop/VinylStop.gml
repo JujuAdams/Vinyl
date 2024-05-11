@@ -1,5 +1,7 @@
 // Feather disable all
 
+/// Immediately stops playback of a voice.
+/// 
 /// @param voice
 
 function VinylStop(_voice)

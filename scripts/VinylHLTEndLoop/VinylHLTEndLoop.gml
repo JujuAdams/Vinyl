@@ -1,5 +1,9 @@
 // Feather disable all
 
+/// Indicates to a head-loop-tail voice that you'd like the loop segment to stop playing soon and
+/// for playback to move onto the tail voice. If the target voice is not a head-loop-tail voice
+/// then this function does nothing.
+/// 
 /// @param voice
 
 function VinylHLTEndLoop(_voice)

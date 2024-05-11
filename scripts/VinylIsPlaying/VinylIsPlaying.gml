@@ -1,5 +1,7 @@
 // Feather disable all
 
+/// Returns if the target voice is currently playing.
+/// 
 /// @param voice
 
 function VinylIsPlaying(_voice)
