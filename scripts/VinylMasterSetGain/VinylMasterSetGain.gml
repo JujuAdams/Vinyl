@@ -10,6 +10,6 @@ function VinylMasterSetGain(_gain)
     
     _gain = max(_gain, 0);
     
-    audio_master_gain(VINYL_MASTER_GAIN_BOOST*VINYL_MAX_GAIN*_gain);
+    audio_master_gain(VINYL_MASTER_GAIN_BOOST*VINYL_MAX_VOICE_GAIN*_gain);
     __masterGain = _gain;
 }

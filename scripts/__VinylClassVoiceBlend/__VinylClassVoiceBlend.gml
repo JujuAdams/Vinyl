@@ -52,7 +52,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     {
         var _loop = _pattern.__loop ?? false;
         
-        __voiceTop      = audio_play_sound(_soundArray[0], 0, _loop, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
+        __voiceTop      = audio_play_sound(_soundArray[0], 0, _loop, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
         __voiceArray[0] = __voiceTop;
         __gainArray[ 0] = 1;
         
@@ -115,7 +115,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         var _i = 0;
         repeat(__voiceCount)
         {
-            audio_sound_gain(_voiceArray[_i], _gainArray[_i]*_gainShared/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(_voiceArray[_i], _gainArray[_i]*_gainShared/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
             ++_i;
         }
     }
@@ -174,7 +174,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     
     static __SetLocalGain = function(_gain)
     {
-        __gainLocal = _gain;
+        __gainLocal = max(0, _gain);
         __UpdateVoiceGains();
     }
     
@@ -276,7 +276,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
                 var _i = 0;
                 repeat(__voiceCount)
                 {
-                    __voiceArray[_i] = audio_play_sound(_soundArray[_i], 0, _loop, __gainArray[_i]/VINYL_MAX_GAIN, 0, __pitchLocal);
+                    __voiceArray[_i] = audio_play_sound(_soundArray[_i], 0, _loop, __gainArray[_i]/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
                     ++_i;
                 }
                 
