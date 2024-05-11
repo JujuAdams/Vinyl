@@ -15,6 +15,8 @@ function VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
         return;
     }
     
+    
+    
     var _buffer = buffer_create(1024, buffer_grow, 1);
     buffer_write(_buffer, buffer_text, "[\n");
     
