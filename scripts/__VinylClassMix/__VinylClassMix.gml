@@ -114,8 +114,8 @@ function __VinylClassMix(_mixName, _gainBase) constructor
     static __ExportJSON = function(_soundExportedDict, _patternExportedDict, _ignoreEmpty)
     {
         static _methodContext = {
-            __mixName:    __mixName,
-            __namesArray: _namesArray,
+            __mixName:    undefined,
+            __namesArray: undefined,
         };
         
         static _method = method(_methodContext,
@@ -159,7 +159,10 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         {
             var _name = _namesArray[_i];
             _soundExportedDict[$ _name] = true;
-            array_push(_membersArray, _soundDict[$ _name].__ExportJSON(_ignoreEmpty));
+            
+            var _struct = _soundDict[$ _name].__ExportJSON(_ignoreEmpty);
+            if (_struct != undefined) array_push(_membersArray, _struct);
+            
             ++_i;
         }
         
@@ -181,8 +184,8 @@ function __VinylClassMix(_mixName, _gainBase) constructor
     static __ExportGML = function(_buffer, _useMacros, _soundExportedDict, _patternExportedDict, _ignoreEmpty)
     {
         static _methodContext = {
-            __mixName:    __mixName,
-            __namesArray: _namesArray,
+            __mixName:    undefined,
+            __namesArray: undefined,
         };
         
         static _method = method(_methodContext,

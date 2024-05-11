@@ -32,7 +32,7 @@ function VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
     var _i = 0;
     repeat(array_length(_namesArray))
     {
-        _mixDict[$ _namesArray[_i]] = __ExportGML(_buffer, _useMacros, _soundExportedDict, _patternExportedDict, _ignoreEmpty);
+        _mixDict[$ _namesArray[_i]].__ExportGML(_buffer, _useMacros, _soundExportedDict, _patternExportedDict, _ignoreEmpty);
         ++_i;
     }
     
@@ -45,7 +45,13 @@ function VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
     var _i = 0;
     repeat(array_length(_namesArray))
     {
-        _patternDict[$ _namesArray[_i]] = __ExportGML(_buffer, "    ", _useMacros);
+        var _name = _namesArray[_i];
+        
+        if (not struct_exists(_patternExportedDict, _name))
+        {
+            _patternDict[$ _name].__ExportGML(_buffer, "    ", _useMacros);
+        }
+        
         ++_i;
     }
     
@@ -58,7 +64,13 @@ function VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
     var _i = 0;
     repeat(array_length(_namesArray))
     {
-        _soundDict[$ _namesArray[_i]] = __ExportGML(_buffer, "    ", _ignoreEmpty);
+        var _name = _namesArray[_i];
+        
+        if (not struct_exists(_soundExportedDict, _name))
+        {
+            _soundDict[$ _namesArray[_i]].__ExportGML(_buffer, "    ", _ignoreEmpty);
+        }
+        
         ++_i;
     }
     

@@ -46,7 +46,8 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
         
         if (not struct_exists(_patternExportedDict, _name))
         {
-            array_push(_outArray, _patternDict[$ _name].__ExportJSON());
+            var _struct = _patternDict[$ _name].__ExportJSON();
+            if (_struct != undefined) array_push(_outArray, _struct);
         }
         
         ++_i;
@@ -65,7 +66,8 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
         
         if (not struct_exists(_soundExportedDict, _name))
         {
-            array_push(_outArray, _soundDict[$ _name].__ExportJSON(_ignoreEmpty));
+            var _struct = _soundDict[$ _name].__ExportJSON(_ignoreEmpty);
+            if (_struct != undefined) array_push(_outArray, _struct);
         }
         
         ++_i;
