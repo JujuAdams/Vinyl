@@ -65,7 +65,7 @@
     {"id":{"name":"__VinylRandomRange","path":"scripts/__VinylRandomRange/__VinylRandomRange.yy",},},
     {"id":{"name":"__VinylSystem","path":"scripts/__VinylSystem/__VinylSystem.yy",},},
     {"id":{"name":"__VinylTrace","path":"scripts/__VinylTrace/__VinylTrace.yy",},},
-    {"id":{"name":"__VinylUpdate","path":"scripts/__VinylUpdate/__VinylUpdate.yy",},},
+    {"id":{"name":"__VinylVoiceMoveMix","path":"scripts/__VinylVoiceMoveMix/__VinylVoiceMoveMix.yy",},},
     {"id":{"name":"__VinylWarning","path":"scripts/__VinylWarning/__VinylWarning.yy",},},
     {"id":{"name":"UIButton","path":"scripts/UIButton/UIButton.yy",},},
     {"id":{"name":"UIButtonInline","path":"scripts/UIButtonInline/UIButtonInline.yy",},},

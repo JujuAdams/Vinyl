@@ -7,11 +7,9 @@
 function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
 {
     static _mixDict           = __VinylSystem().__mixDict;
-    static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceStructDict   = __VinylSystem().__voiceStructDict;
+    static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
-    
-    array_push(_voiceCleanUpArray, self);
     
     __pattern    = _pattern;
     __gainLocal  = _gainLocal;
@@ -42,36 +40,41 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     __blendFactor    = 0;
     __blendAnimCurve = undefined;
     
-    __voiceTop   = -1;
-    __voiceArray = [];
-    __gainArray  = [];
+    __voiceReference = -1;
+    __voiceTop       = -1;
+    __voiceArray     = [];
+    __gainArray      = [];
     
     var _soundArray = __pattern.__soundArray;
-    if (array_length(_soundArray) > 0)
+    __voiceCount = array_length(_soundArray);
+    
+    if (__voiceCount > 0)
     {
         var _loop = _pattern.__loop ?? false;
         
-        __voiceTop = audio_play_sound(_soundArray[0], 0, _loop, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
+        __voiceTop      = audio_play_sound(_soundArray[0], 0, _loop, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
         __voiceArray[0] = __voiceTop;
-        __gainArray[0] = 1;
-        
-        //Add the generated voice to the mix's array of voices
-        if (_mixStruct != undefined) _mixStruct.__Add(__voiceTop);
-        struct_set_from_hash(_voiceStructDict, int64(__voiceTop), self);
-        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __voiceTop, " to voice lookup struct");
+        __gainArray[ 0] = 1;
         
         var _i = 1;
-        repeat(array_length(_soundArray)-1)
+        repeat(__voiceCount - 1)
         {
             __voiceArray[_i] = audio_play_sound(_soundArray[_i], 0, _loop, 0, 0, __pitchLocal);
-            __gainArray[_i] = 0;
+            __gainArray[ _i] = 0;
             
             ++_i;
         }
     }
     
-    __voiceCount = array_length(__voiceArray);
-    
+    if (__voiceTop >= 0)
+    {
+        __voiceReference = __voiceTop;
+        
+        array_push(_voiceCleanUpArray, self);
+        struct_set_from_hash(_voiceStructDict, int64(__voiceReference), self);
+        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __voiceReference, " to voice lookup struct");
+        if (_mixStruct != undefined) _mixStruct.__Add(__voiceReference);
+    }
     
     
     
@@ -85,11 +88,25 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
             return false;
         }
         
-        __UpdateGain();
+        __UpdateVoiceGains();
         return true;
     }
     
-    static __UpdateGain = function()
+    static __CheckForCleanUp = function()
+    {
+        if (not audio_is_playing(__voiceTop))
+        {
+            //FIXME - Replace with struct_remove_from_hash() when that is made available
+            struct_set_from_hash(__voiceStructDict, int64(__voiceReference), undefined);
+            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __voiceReference, " from voice lookup struct");
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    static __UpdateVoiceGains = function()
     {
         var _voiceArray = __voiceArray;
         var _gainArray  = __gainArray;
@@ -158,13 +175,13 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     static __SetLocalGain = function(_gain)
     {
         __gainLocal = _gain;
-        __UpdateGain();
+        __UpdateVoiceGains();
     }
     
     static __SetMixGain = function(_gain)
     {
         __gainMix = _gain;
-        __UpdateGain();
+        __UpdateVoiceGains();
     }
     
     static __SetBlend = function(_factor)
@@ -175,6 +192,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         {
             __blendFactor = _factor;
             __SetMemberGains();
+            __UpdateVoiceGains();
         }
     }
     
@@ -185,6 +203,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
             if (_factor != undefined) __blendFactor = clamp(_factor, 0, 1);
             __blendAnimCurve = _animCurve;
             __SetMemberGains();
+            __UpdateVoiceGains();
         }
         else
         {
@@ -194,9 +213,8 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     
     static __SetMemberGains = function()
     {
-        if (__voiceCount <= 0) return;
-        
-        var _gainShared = __VINYL_VOICE_GAIN_EQUATION;
+        var _gainArray   = __gainArray;
+        var _blendFactor = __blendFactor;
         
         if (__blendAnimCurve == undefined)
         {
@@ -207,11 +225,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
             var _i = 0;
             repeat(__voiceCount)
             {
-                var _gain = max(0, 1 - abs(_i - _factor));
-                
-                audio_sound_gain(__voiceArray[_i], _gain*_gainShared/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
-                __gainArray[_i] = _gain;
-                
+                _gainArray[_i] = max(0, 1 - abs(_i - _factor));
                 ++_i;
             }
         }
@@ -224,62 +238,62 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
             var _i = 0;
             repeat(min(_channelCount, __voiceCount))
             {
-                var _gain = max(0, animcurve_channel_evaluate(animcurve_get_channel(_animCurve, _i), __blendFactor));
-                
-                audio_sound_gain(__voiceArray[_i], _gain*_gainShared/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
-                __gainArray[_i] = _gain;
-                
+                _gainArray[_i] = max(0, animcurve_channel_evaluate(animcurve_get_channel(_animCurve, _i), _blendFactor));
                 ++_i;
             }
             
             //Set remaining channels to 0
             repeat(__voiceCount - _i)
             {
-                audio_sound_gain(__voiceArray[_i], 0, VINYL_STEP_DURATION);
-                __gainArray[_i] = 0;
-                
+                _gainArray[_i] = 0;
                 ++_i;
             }
         }
     }
     
-    static __SetFromPattern = function()
+    static __SetFromPattern = function(_soundsChanged)
     {
-        //TODO - Handle changing of sounds
-        
         var _pattern = __pattern;
-        var _newMix  = _pattern.__mixName;
         
+        var _loop = _pattern.__loop ?? false;
         __gainBase = _pattern.__gain;
         
-        if (__mixName != _newMix)
-        {
-            if (__mixName != undefined)
-            {
-                var _oldMixStruct = _mixDict[$ __mixName];
-                if (_oldMixStruct != undefined) _oldMixStruct.__Remove(__voiceTop);
-            }
-            
-            __mixName = _newMix;
-        }
+        __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
         
-        if (_pattern.__noMix)
+        if (_soundsChanged)
         {
-            __gainMix = 1;
+            var _soundArray = __pattern.__soundArray;
+            __voiceCount = array_length(_soundArray);
+            
+            __voiceTop   = -1;
+            __voiceArray = [];
+            __gainArray  = [];
+            
+            if (__voiceCount > 0)
+            {
+                __SetMemberGains();
+                
+                var _i = 0;
+                repeat(__voiceCount)
+                {
+                    __voiceArray[_i] = audio_play_sound(_soundArray[_i], 0, _loop, __gainArray[_i]/VINYL_MAX_GAIN, 0, __pitchLocal);
+                    ++_i;
+                }
+                
+                __voiceTop = __voiceArray[0];
+            }
         }
         else
         {
-            var _mixStruct = _mixDict[$ __mixName];
-            if (_mixStruct == undefined)
+            var _i = 0;
+            repeat(__voiceCount)
             {
-                __VinylError("Mix \"", __mixName, "\" not recognised");
-                return;
+                __voiceArray[_i] = audio_sound_loop(__voiceArray[_i], _loop);
+                ++_i;
             }
-            
-            __gainMix = _mixStruct.__gainFinal;
-            _mixStruct.__Add(__voiceTop);
+                
+            __SetMemberGains();
+            __UpdateVoiceGains();
         }
-        
-        __UpdateGain();
     }
 }

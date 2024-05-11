@@ -18,10 +18,6 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
     
-    array_push(_voiceCleanUpArray, self);
-    struct_set_from_hash(_voiceStructDict, int64(_voice), self);
-    if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", _voice, " to voice lookup struct");
-    
     __voice      = _voice;
     __loopLocal  = _loopLocal;
     __gainBase   = _gainBase;
@@ -40,6 +36,10 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
     
     __gainFadeOut      = 1;
     __gainFadeOutSpeed = undefined;
+    
+    array_push(_voiceCleanUpArray, self);
+    struct_set_from_hash(_voiceStructDict, int64(_voice), self);
+    if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", _voice, " to voice lookup struct");
     
     
     
@@ -83,6 +83,20 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
         return true;
     }
     
+    static __CheckForCleanUp = function()
+    {
+        if (not audio_is_playing(__voice))
+        {
+            //FIXME - Replace with struct_remove_from_hash() when that is made available
+            struct_set_from_hash(__voiceStructDict, int64(__voice), undefined);
+            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __voice, " from voice lookup struct");
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
     static __FadeOut = function(_rateOfChange)
     {
         if (__gainFadeOutSpeed == undefined) array_push(_voiceUpdateArray, self);
@@ -106,33 +120,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
         __gainBase  = lerp(_gainMin,  _gainMax,  __gainFactor);
         __pitchBase = lerp(_pitchMin, _pitchMax, __pitchFactor);
         
-        if (__mixName != _mix)
-        {
-            if (__mixName != undefined)
-            {
-                var _oldMixStruct = _mixDict[$ __mixName];
-                if (_oldMixStruct != undefined) _oldMixStruct.__Remove(__voice);
-            }
-            
-            __mixName = _mix;
-        }
-        
-        if (_mix == undefined)
-        {
-            __gainMix = 1;
-        }
-        else
-        {
-            var _mixStruct = _mixDict[$ __mixName];
-            if (_mixStruct == undefined)
-            {
-                __VinylError("Mix \"", __mixName, "\" not recognised");
-                return;
-            }
-            
-            __gainMix = _mixStruct.__gainFinal;
-            _mixStruct.__Add(__voice);
-        }
+        __VinylVoiceMoveMix(__voice, _pattern.__mixName);
         
         audio_sound_loop( __voice, __loopLocal ?? _loop);
         audio_sound_gain( __voice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);

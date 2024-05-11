@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"__VinylUpdate",
+  "%Name":"__VinylVoiceMoveMix",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__VinylUpdate",
+  "name":"__VinylVoiceMoveMix",
   "parent":{
     "name":"(Internals)",
     "path":"folders/Vinyl/(Internals).yy",

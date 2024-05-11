@@ -11,8 +11,6 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
     
-    array_push(_voiceUpdateArray, self);
-    
     __pattern    = _pattern;
     __gainLocal  = _gainLocal;
     __pitchLocal = _pitchLocal;
@@ -21,7 +19,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     
     if (VINYL_LIVE_EDIT)
     {
-        __mixName = _pattern.__mix;
+        __mixName = _pattern.__mixName;
     }
     
     if (_pattern.__noMix)
@@ -48,7 +46,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     var _soundHead = _pattern.__soundHead;
     if (_soundHead != undefined)
     {
-        __currentVoice = audio_play_sound(_soundHead, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
+        __voiceCurrent = audio_play_sound(_soundHead, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
         __state = __VINYL_HLT_STATE.__HEAD;
     }
     else
@@ -56,25 +54,26 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         var _soundLoop = _pattern.__soundLoop;
         if (_soundLoop != undefined)
         {
-            __currentVoice = audio_play_sound(_soundLoop, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
+            __voiceCurrent = audio_play_sound(_soundLoop, 0, true, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
             __state = __VINYL_HLT_STATE.__LOOP;
         }
         else
         {
             var _soundTail = _pattern.__soundTail;
-            __currentVoice = (_soundTail == undefined)? -1 : audio_play_sound(_soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
+            __voiceCurrent = (_soundTail == undefined)? -1 : audio_play_sound(_soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
             __state = __VINYL_HLT_STATE.__TAIL;
         }
     }
     
-    __firstVoice = __currentVoice;
+    __voiceReference = __voiceCurrent;
     
     //Add the generated voice to the mix's array of voices
-    if (__firstVoice >= 0)
+    if (__voiceReference >= 0)
     {
-        struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
-        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __currentVoice, " to voice lookup struct");
-        if (_mixStruct != undefined) _mixStruct.__Add(__firstVoice);
+        array_push(_voiceUpdateArray, self);
+        struct_set_from_hash(_voiceStructDict, int64(__voiceReference), self);
+        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __voiceReference, " to voice lookup struct");
+        if (_mixStruct != undefined) _mixStruct.__Add(__voiceReference);
     }
     
     __doLoop = true;
@@ -94,25 +93,25 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                 return false;
             }
             
-            audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
         }
         
-        if (VinylWillStop(__currentVoice))
+        if (VinylWillStop(__voiceCurrent))
         {
             switch(__state)
             {
                 case __VINYL_HLT_STATE.__HEAD:
                     if (__doLoop && (__pattern.__soundLoop != undefined))
                     {
-                        __currentVoice = audio_play_sound(__pattern.__soundLoop, 0, true, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
+                        __voiceCurrent = audio_play_sound(__pattern.__soundLoop, 0, true, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
                         
                         //Add this new voice to our lookup dictionary
-                        struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
-                        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __currentVoice, " to voice lookup struct");
+                        struct_set_from_hash(_voiceStructDict, int64(__voiceCurrent), self);
+                        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __voiceCurrent, " to voice lookup struct");
                         
                         //Add the generated voice to the mix's array of voices
                         var _mixStruct = _mixDict[$ __pattern.__mixName];
-                        if (_mixStruct != undefined) _mixStruct.__Add(__currentVoice);
+                        if (_mixStruct != undefined) _mixStruct.__Add(__voiceCurrent);
                         
                         __state = __VINYL_HLT_STATE.__LOOP;
                     }
@@ -123,19 +122,19 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                         if (__pattern.__soundTail != undefined)
                         {
                             //If we've already indicated that the loop should end then move on to the tail immediately
-                            __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
+                            __voiceCurrent = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
                             
                             //Add this new voice to our lookup dictionary
-                            struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
-                            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __currentVoice, " to voice lookup struct");
+                            struct_set_from_hash(_voiceStructDict, int64(__voiceCurrent), self);
+                            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __voiceCurrent, " to voice lookup struct");
                             
                             //Add the generated voice to the mix's array of voices
                             var _mixStruct = _mixDict[$ __pattern.__mixName];
-                            if (_mixStruct != undefined) _mixStruct.__Add(__currentVoice);
+                            if (_mixStruct != undefined) _mixStruct.__Add(__voiceCurrent);
                         }
                         else
                         {
-                            __currentVoice = -1;
+                            __voiceCurrent = -1;
                             return false;
                         }
                     }
@@ -147,35 +146,35 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                     if (__pattern.__soundTail != undefined)
                     {
                         //FIXME - Replace with struct_remove_from_hash() when that is made available
-                        struct_set_from_hash(_voiceStructDict, int64(__currentVoice), undefined);
-                        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __currentVoice, " from voice lookup struct");
+                        struct_set_from_hash(_voiceStructDict, int64(__voiceCurrent), undefined);
+                        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __voiceCurrent, " from voice lookup struct");
                         
-                        __currentVoice = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
+                        __voiceCurrent = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
                             
                         //Add this new voice to our lookup dictionary
-                        struct_set_from_hash(_voiceStructDict, int64(__currentVoice), self);
-                        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __currentVoice, " to voice lookup struct");
+                        struct_set_from_hash(_voiceStructDict, int64(__voiceCurrent), self);
+                        if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __voiceCurrent, " to voice lookup struct");
                         
                         //Add the generated voice to the mix's array of voices
                         var _mixStruct = _mixDict[$ __pattern.__mixName];
-                        if (_mixStruct != undefined) _mixStruct.__Add(__currentVoice);
+                        if (_mixStruct != undefined) _mixStruct.__Add(__voiceCurrent);
                     }
                     else
                     {
-                        __currentVoice = -1;
+                        __voiceCurrent = -1;
                         return false;
                     }
                 break;
                 
                 case __VINYL_HLT_STATE.__TAIL:
                     //FIXME - Replace with struct_remove_from_hash() when that is made available
-                    struct_set_from_hash(_voiceStructDict, int64(__firstVoice), undefined);
-                    if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __firstVoice, " from voice lookup struct");
+                    struct_set_from_hash(_voiceStructDict, int64(__voiceReference), undefined);
+                    if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __voiceReference, " from voice lookup struct");
                     
-                    struct_set_from_hash(_voiceStructDict, int64(__currentVoice), undefined);
-                    if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __currentVoice, " from voice lookup struct");
+                    struct_set_from_hash(_voiceStructDict, int64(__voiceCurrent), undefined);
+                    if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __voiceCurrent, " from voice lookup struct");
                     
-                    __currentVoice = -1;
+                    __voiceCurrent = -1;
                     
                     return false;
                 break;
@@ -187,14 +186,14 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     
     static __IsPlaying = function()
     {
-        return (__currentVoice >= 0);
+        return (__voiceCurrent >= 0);
     }
     
     static __Stop = function()
     {
-        if (__currentVoice >= 0)
+        if (__voiceCurrent >= 0)
         {
-            audio_stop_sound(__currentVoice);
+            audio_stop_sound(__voiceCurrent);
             __state = __VINYL_HLT_STATE.__TAIL;
         }
     }
@@ -202,22 +201,22 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     static __EndLoop = function()
     {
         __doLoop = false;
-        if (__state == __VINYL_HLT_STATE.__LOOP) audio_sound_loop(__currentVoice, false);
+        if (__state == __VINYL_HLT_STATE.__LOOP) audio_sound_loop(__voiceCurrent, false);
     }
     
     static __Pause = function()
     {
-        audio_pause_sound(__currentVoice);
+        audio_pause_sound(__voiceCurrent);
     }
     
     static __Resume = function()
     {
-        audio_resume_sound(__currentVoice);
+        audio_resume_sound(__voiceCurrent);
     }
     
     static __IsPaused = function()
     {
-        return audio_is_paused(__currentVoice);
+        return audio_is_paused(__voiceCurrent);
     }
     
     static __FadeOut = function(_rateOfChange)
@@ -228,24 +227,22 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     static __SetLocalGain = function(_gain)
     {
         __gainLocal = max(0, _gain);
-        audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
+        audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
     }
     
     static __SetMixGain = function(_gain)
     {
         __gainMix = max(0, _gain);
-        audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
+        audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
     }
     
-    static __SetFromPattern = function()
+    static __SetFromPattern = function(_headChanged, _loopChanged, _tailChanged)
     {
-        //TODO - Handle changing of sounds
-        
         var _pattern = __pattern;
-        var _newMix  = _pattern.__mixName;
-        
         __gainBase = _pattern.__gain;
         
+        //TODO - Tidy up reference handling for HLT patterns
+        var _newMix  = _pattern.__mixName;
         if (__mixName != _newMix)
         {
             if (__mixName != undefined)
@@ -253,8 +250,8 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                 var _oldMixStruct = _mixDict[$ __mixName];
                 if (_oldMixStruct != undefined)
                 {
-                    _oldMixStruct.__Remove(__currentVoice);
-                    if (__currentVoice != __firstVoice) _oldMixStruct.__Remove(__firstVoice);
+                    _oldMixStruct.__Remove(__voiceCurrent);
+                    if (__voiceCurrent != __voiceReference) _oldMixStruct.__Remove(__voiceReference);
                 }
             }
             
@@ -276,10 +273,47 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
             
             __gainMix = _mixStruct.__gainFinal;
             
-            _mixStruct.__Add(__currentVoice);
-            if (__currentVoice != __firstVoice) _mixStruct.__Add(__firstVoice);
+            _mixStruct.__Add(__voiceCurrent);
+            if (__voiceCurrent != __voiceReference) _mixStruct.__Add(__voiceReference);
         }
         
-        audio_sound_gain(__currentVoice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
+        switch(__state)
+        {
+            case __VINYL_HLT_STATE.__HEAD:
+                if (_headChanged)
+                {
+                    audio_stop_sound(__voiceCurrent);
+                    __voiceCurrent = audio_play_sound(_pattern.__soundHead, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
+                }
+                else
+                {
+                    audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
+                }
+            break;
+            
+            case __VINYL_HLT_STATE.__LOOP:
+                if (_loopChanged)
+                {
+                    audio_stop_sound(__voiceCurrent);
+                    __voiceCurrent = audio_play_sound(_pattern.__soundLoop, 0, __doLoop, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
+                }
+                else
+                {
+                    audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
+                }
+            break;
+            
+            case __VINYL_HLT_STATE.__TAIL:
+                if (_tailChanged)
+                {
+                    audio_stop_sound(__voiceCurrent);
+                    __voiceCurrent = audio_play_sound(_pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, 0, __pitchLocal);
+                }
+                else
+                {
+                    audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_GAIN, VINYL_STEP_DURATION);
+                }
+            break;
+        }
     }
 }

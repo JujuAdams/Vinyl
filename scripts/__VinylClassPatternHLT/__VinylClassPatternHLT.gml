@@ -20,18 +20,28 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     
     __SetMix(_mix);
     
-    static __Play = function(_loop, _gainLocal, _pitchLocal)
+    
+    
+    static __Play = function(_loopLocal__UNUSED, _gainLocal, _pitchLocal)
     {
-        var _struct = new __VinylClassVoiceHLT(self, _gainLocal, _pitchLocal);
-        return _struct.__currentVoice;
+        return (new __VinylClassVoiceHLT(self, _gainLocal, _pitchLocal)).__voiceReference;
     }
     
     static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mix)
     {
-        __soundHead = __VinylImportSound(_soundHead);
-        __soundLoop = __VinylImportSound(_soundLoop);
-        __soundTail = __VinylImportSound(_soundTail);
-        __gain      = _gain;
+        var _newSoundHead = __VinylImportSound(_soundHead);
+        var _newSoundLoop = __VinylImportSound(_soundLoop);
+        var _newSoundTail = __VinylImportSound(_soundTail);
+        
+        var _headChanged = (_newSoundHead != __soundHead);
+        var _loopChanged = (_newSoundLoop != __soundLoop);
+        var _tailChanged = (_newSoundTail != __soundTail);
+        
+        __soundHead = _newSoundHead;
+        __soundLoop = _newSoundLoop;
+        __soundTail = _newSoundTail;
+        
+        __gain = _gain;
         
         __SetMix(_mix);
         
@@ -43,7 +53,7 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
                 var _voiceStruct = _voiceUpdateArray[_i];
                 if (_voiceStruct.__pattern == self)
                 {
-                    _voiceStruct.__SetFromPattern();
+                    _voiceStruct.__SetFromPattern(_headChanged, _loopChanged, _tailChanged);
                 }
                 
                 ++_i;

@@ -61,7 +61,43 @@ function __VinylSystem()
             ++_i;
         }
         
-        time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, __VinylUpdate, [], -1));
+        time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, method(self, function()
+        {
+            if (VINYL_DEBUG_SHOW_FRAMES) __frame++;
+            
+            var _deltaTimeFactor = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
+            
+            var _array = __voiceUpdateArray;
+            var _i = 0;
+            repeat(array_length(_array))
+            {
+                if (not _array[_i].__Update(_deltaTimeFactor))
+                {
+                    array_delete(_array, _i, 1);
+                }
+                else
+                {
+                    ++_i;
+                }
+            }
+            
+            var _array = __mixArray;
+            var _i = 0;
+            repeat(array_length(_array))
+            {
+                _array[_i].__Update();
+                ++_i;
+            }
+            
+            var _array = __voiceCleanUpArray;
+            var _length = array_length(_array);
+            if (_length > 0)
+            {
+                var _index = (__cleanUpIndex + 1) mod _length;
+                if (_array[_index].__CheckForCleanUp()) array_delete(_array, _index, 1);
+                __cleanUpIndex = _index;
+            }
+        }), [], -1));
     }
     
     return _system;

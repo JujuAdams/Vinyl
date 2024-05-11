@@ -18,15 +18,21 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
     
     __SetMix(_mix);
     
-    static __Play = function(_loop, _gainLocal, _pitchLocal)
+    
+    
+    
+    
+    static __Play = function(_loopLocal__UNUSED, _gainLocal, _pitchLocal)
     {
-        var _struct = new __VinylClassVoiceBlend(self, _gainLocal, _pitchLocal);
-        return _struct.__voiceTop;
+        return (new __VinylClassVoiceBlend(self, _gainLocal, _pitchLocal)).__voiceReference;
     }
     
     static __UpdateSetup = function(_soundArray, _loop, _gain, _mix)
     {
-        __soundArray = __VinylImportSoundArray(_soundArray);
+        var _newSoundArray = __VinylImportSoundArray(_soundArray);
+        var _soundsChanged = (not array_equals(_newSoundArray, __soundArray));
+        
+        __soundArray = _newSoundArray;
         __loop       = _loop;
         __gain       = _gain;
         
@@ -40,7 +46,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
                 var _voiceStruct = _voiceCleanUpArray[_i];
                 if (_voiceStruct.__pattern == self)
                 {
-                    _voiceStruct.__SetFromPattern(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix);
+                    _voiceStruct.__SetFromPattern(_soundsChanged);
                 }
                 
                 ++_i;
