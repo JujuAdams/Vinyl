@@ -1,5 +1,7 @@
 // Feather disable all
 
+/// Resumes all voices currently playing in a given mix.
+/// 
 /// @param mixName
 
 function VinylMixResumeVoices(_mixName)

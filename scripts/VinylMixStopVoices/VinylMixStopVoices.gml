@@ -1,5 +1,7 @@
 // Feather disable all
 
+/// Immediately stops all voices currently playing in a given mix.
+/// 
 /// @param mixName
 
 function VinylMixStopVoices(_mixName)

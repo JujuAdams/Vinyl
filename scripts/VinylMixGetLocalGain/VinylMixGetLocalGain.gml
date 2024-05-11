@@ -1,5 +1,7 @@
 // Feather disable all
 
+/// Returns the local gain for the mix.
+/// 
 /// @param mixName
 
 function VinylMixGetLocalGain(_mixName)

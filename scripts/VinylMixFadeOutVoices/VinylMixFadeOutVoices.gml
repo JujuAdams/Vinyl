@@ -1,5 +1,8 @@
 // Feather disable all
 
+/// Fades out all voices currently playing in a given mix. Once a voice is set to fade out, it
+/// cannot be stopped.
+/// 
 /// @param mixName
 /// @param rateOfChange
 
