@@ -5,7 +5,7 @@
 
 function __VinylClassMix(_mixName, _gainBase) constructor
 {
-    static _voiceStructDict = __VinylSystem().__voiceStructDict;
+    static _voiceLookUpDict = __VinylSystem().__voiceLookUpDict;
     static _soundDict       = __VinylSystem().__soundDict;
     static _patternDict     = __VinylSystem().__patternDict;
     

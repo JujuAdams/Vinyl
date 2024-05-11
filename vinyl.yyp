@@ -56,7 +56,6 @@
     {"id":{"name":"__VinylError","path":"scripts/__VinylError/__VinylError.yy",},},
     {"id":{"name":"__VinylGetMixMacro","path":"scripts/__VinylGetMixMacro/__VinylGetMixMacro.yy",},},
     {"id":{"name":"__VinylGetPatternMacro","path":"scripts/__VinylGetPatternMacro/__VinylGetPatternMacro.yy",},},
-    {"id":{"name":"__VinylGetProjectPath","path":"scripts/__VinylGetProjectPath/__VinylGetProjectPath.yy",},},
     {"id":{"name":"__VinylImportSound","path":"scripts/__VinylImportSound/__VinylImportSound.yy",},},
     {"id":{"name":"__VinylImportSoundArray","path":"scripts/__VinylImportSoundArray/__VinylImportSoundArray.yy",},},
     {"id":{"name":"__VinylIRandom","path":"scripts/__VinylIRandom/__VinylIRandom.yy",},},

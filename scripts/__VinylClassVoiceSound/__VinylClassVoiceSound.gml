@@ -14,7 +14,7 @@
 function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, _pattern, _gainFactor, _pitchFactor) constructor
 {
     static _mixDict           = __VinylSystem().__mixDict;
-    static _voiceStructDict   = __VinylSystem().__voiceStructDict;
+    static _voiceLookUpDict   = __VinylSystem().__voiceLookUpDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
     
@@ -38,7 +38,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
     __gainFadeOutSpeed = undefined;
     
     array_push(_voiceCleanUpArray, self);
-    struct_set_from_hash(_voiceStructDict, int64(_voice), self);
+    struct_set_from_hash(_voiceLookUpDict, int64(_voice), self);
     if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", _voice, " to voice lookup struct");
     
     
@@ -88,7 +88,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
         if (not audio_is_playing(__voice))
         {
             //FIXME - Replace with struct_remove_from_hash() when that is made available
-            struct_set_from_hash(__voiceStructDict, int64(__voice), undefined);
+            struct_set_from_hash(__voiceLookUpDict, int64(__voice), undefined);
             if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __voice, " from voice lookup struct");
             
             return true;

@@ -3,10 +3,7 @@
 #macro __VINYL_VERSION  "6.0.0"
 #macro __VINYL_DATE     "2024-03-14"
 
-#macro __VINYL_PROJECT_FILENAME  "vinyl.json"
-
 #macro __VINYL_RUNNING_FROM_IDE  (GM_build_type == "run")
-#macro __VINYL_NETWORKING_PORT  13587
 
 enum __VINYL_SOUND_TYPE {
     __UNKNOWN,
@@ -36,20 +33,37 @@ function __VinylSystem()
         __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
         if (__VINYL_RUNNING_FROM_IDE) global.Vinyl = self;
         
+        //Lookup dictionaries for sound/pattern/mix definitions.
         __soundDict   = {};
         __patternDict = {};
         __mixDict     = {};
-        __mixArray    = [];
         
+        //Array of mixes that need updating every frame
+        __mixArray = [];
+        
+        //Struct that converts integer keys (voice references) to voice data structs. This is used
+        //to efficiently find Vinyl's addition voice data using voice references
+        __voiceLookUpDict = {};
+        
+        //An array of voices that are in the lookup dictionary. This will never include HLT voices
+        //as they are managed in the update array (see below). Blend voices will automatically be
+        //put into this array. Sound voices will automatically be put into this array in Live Edit
+        //mode or if some additional property needs to be attached to the voice e.g. fading out or
+        //setting gain.
         __voiceCleanUpArray = [];
         __cleanUpIndex      = 0;
         
-        __voiceStructDict = {};
+        //An array of voice structs that need to be actively managed. This will always include HLT
+        //voices. Sound voices and Blend voices are added to the update array when a fade out
+        //operation is called on them.
+        __voiceUpdateArray = [];
         
-        __voiceUpdateArray  = [];
-        
+        //Set the master gain to 1. The actual gain value we pass into GameMaker's native function
+        //is some multiple of this value so we want to initialize early to ensure the native gain
+        //is set properly for unity gain.
         VinylMasterSetGain(1);
         
+        //Build sound patterns for every single sound in the project. This saves extra work later.
         var _defaultMix = (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX;
         var _soundDict = __soundDict;
         var _assetArray = asset_get_ids(asset_sound);
@@ -61,6 +75,7 @@ function __VinylSystem()
             ++_i;
         }
         
+        //Set up an update function that executes one every frame forever.
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, method(self, function()
         {
             if (VINYL_DEBUG_SHOW_FRAMES) __frame++;

@@ -7,7 +7,7 @@
 function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
 {
     static _mixDict           = __VinylSystem().__mixDict;
-    static _voiceStructDict   = __VinylSystem().__voiceStructDict;
+    static _voiceLookUpDict   = __VinylSystem().__voiceLookUpDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
     
@@ -71,7 +71,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         __voiceReference = __voiceTop;
         
         array_push(_voiceCleanUpArray, self);
-        struct_set_from_hash(_voiceStructDict, int64(__voiceReference), self);
+        struct_set_from_hash(_voiceLookUpDict, int64(__voiceReference), self);
         if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __voiceReference, " to voice lookup struct");
         if (_mixStruct != undefined) _mixStruct.__Add(__voiceReference);
     }
@@ -97,7 +97,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         if (not audio_is_playing(__voiceTop))
         {
             //FIXME - Replace with struct_remove_from_hash() when that is made available
-            struct_set_from_hash(__voiceStructDict, int64(__voiceReference), undefined);
+            struct_set_from_hash(__voiceLookUpDict, int64(__voiceReference), undefined);
             if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __voiceReference, " from voice lookup struct");
             
             return true;
