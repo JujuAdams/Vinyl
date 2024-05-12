@@ -1,7 +1,7 @@
 {
   "$GMNotes":"",
-  "%Name":"Vinyl Setup JSON Format",
-  "name":"Vinyl Setup JSON Format",
+  "%Name":"Vinyl JSON Format",
+  "name":"Vinyl JSON Format",
   "parent":{
     "name":"Config",
     "path":"folders/Vinyl/Config.yy",
