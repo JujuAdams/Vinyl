@@ -92,20 +92,6 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         return true;
     }
     
-    static __CheckForCleanUp = function()
-    {
-        if (not audio_is_playing(__voiceTop))
-        {
-            //FIXME - Replace with struct_remove_from_hash() when that is made available
-            struct_set_from_hash(_voiceLookUpDict, int64(__voiceReference), undefined);
-            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __voiceReference, " from voice lookup struct");
-            
-            return true;
-        }
-        
-        return false;
-    }
-    
     static __UpdateVoiceGains = function()
     {
         var _voiceArray = __voiceArray;
@@ -122,7 +108,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     
     static __IsPlaying = function()
     {
-        return (__voiceTop >= 0);
+        return audio_is_playing(__voiceTop);
     }
     
     static __Stop = function()

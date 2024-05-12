@@ -24,7 +24,7 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         if (_length > 0)
         {
             var _index = (__cleanUpIndex + 1) mod _length;
-            if (not audio_is_playing(_array[_index])) array_delete(_array, _index, 1);
+            if (not VinylIsPlaying(_array[_index])) array_delete(_array, _index, 1);
             __cleanUpIndex = _index;
         }
     }

@@ -82,20 +82,6 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
         return true;
     }
     
-    static __CheckForCleanUp = function()
-    {
-        if (not audio_is_playing(__voice))
-        {
-            //FIXME - Replace with struct_remove_from_hash() when that is made available
-            struct_set_from_hash(_voiceLookUpDict, int64(__voice), undefined);
-            if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __voice, " from voice lookup struct");
-            
-            return true;
-        }
-        
-        return false;
-    }
-    
     static __FadeOut = function(_rateOfChange)
     {
         if (__gainFadeOutSpeed == undefined) array_push(_voiceUpdateArray, self);

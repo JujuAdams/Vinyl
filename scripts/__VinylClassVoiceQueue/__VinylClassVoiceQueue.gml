@@ -3,39 +3,20 @@
 /// @param behaviour
 /// @param loopQueue
 /// @param localGain
-/// @param mix
 
-function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal, _mix) constructor
+function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
 {
     static _queueCount = 0;
     
-    static _mixDict           = __VinylSystem().__mixDict;
-    static _voiceLookUpDict   = __VinylSystem().__voiceLookUpDict;
-    static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
-    static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
+    static _soundDict        = __VinylSystem().__soundDict;
+    static _voiceLookUpDict  = __VinylSystem().__voiceLookUpDict;
+    static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
     
     __gainBase  = 1;
     __gainLocal = _gainLocal;
+    __gainMix   = 1;
     
-    __mixName = _mix;
-    __noMix   = ((_mix == undefined) || (_mix == VINYL_NO_MIX));
-    
-    if (__noMix)
-    {
-        var _mixStruct = undefined;
-        __gainMix = 1;
-    }
-    else
-    {
-        var _mixStruct = _mixDict[$ __mixName];
-        if (_mixStruct == undefined)
-        {
-            __VinylError("Mix \"", __mixName, "\" not recognised");
-            return;
-        }
-        
-        __gainMix = _mixStruct.__gainFinal;
-    }
+    __mixName = undefined;
     
     __gainFadeOut      = 1;
     __gainFadeOutSpeed = undefined;
@@ -54,7 +35,6 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal, _mix) constr
     array_push(_voiceUpdateArray, self);
     struct_set_from_hash(_voiceLookUpDict, int64(__voiceReference), self);
     if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __voiceReference, " to voice lookup struct");
-    if (_mixStruct != undefined) _mixStruct.__Add(__voiceReference);
     
     
     
@@ -98,8 +78,11 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal, _mix) constr
             }
             
             if (__loopQueue && (__soundCurrent != undefined)) array_push(__soundArray, __soundCurrent);
-            __voiceCurrent = audio_play_sound(_sound, 0, _loop, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+            
+            __VinylVoiceMoveMix(__voiceReference, struct_get_from_hash(_soundDict, int64(_sound)).__mixName);
+            
             __soundCurrent = _sound;
+            __voiceCurrent = audio_play_sound(_sound, 0, _loop, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
         }
         
         return true;

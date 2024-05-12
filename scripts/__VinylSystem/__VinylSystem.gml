@@ -116,7 +116,17 @@ function __VinylSystem()
             if (_length > 0)
             {
                 var _index = (__cleanUpIndex + 1) mod _length;
-                if (_array[_index].__CheckForCleanUp()) array_delete(_array, _index, 1);
+                if (not VinylIsPlaying(_array[_index]))
+                {
+                    var _voice = _array[_index];
+                    
+                    //FIXME - Replace with struct_remove_from_hash() when that is made available
+                    struct_set_from_hash(_voiceLookUpDict, int64(_voice), undefined);
+                    if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", _voice, " from voice lookup struct");
+                    
+                    array_delete(_array, _index, 1);
+                }
+                
                 __cleanUpIndex = _index;
             }
         }), [], -1));
