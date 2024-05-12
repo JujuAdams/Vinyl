@@ -15,6 +15,6 @@ function VinylIsPlaying(_voice)
     }
     else
     {
-        return _voice.__IsPlaying();
+        return _voiceStruct.__IsPlaying();
     }
 }
