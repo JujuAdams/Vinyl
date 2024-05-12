@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylGetBlendFactor",
   "parent":{
-    "name":"HLT & Blend Patterns",
-    "path":"folders/Vinyl/HLT & Blend Patterns.yy",
+    "name":"Blend Voices",
+    "path":"folders/Vinyl/Blend Voices.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

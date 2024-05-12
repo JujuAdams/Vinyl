@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylPlay",
   "parent":{
-    "name":"Sounds & Voices",
-    "path":"folders/Vinyl/Sounds & Voices.yy",
+    "name":"Playback",
+    "path":"folders/Vinyl/Playback.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

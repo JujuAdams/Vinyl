@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylMixPauseVoices",
   "parent":{
-    "name":"Mix",
-    "path":"folders/Vinyl/Mix.yy",
+    "name":"Mixes",
+    "path":"folders/Vinyl/Mixes.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

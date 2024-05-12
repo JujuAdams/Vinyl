@@ -135,6 +135,16 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal, _mix) constr
         __gainFadeOutSpeed = max(0.001, _rateOfChange);
     }
     
+    static __SetLoop = function(_state)
+    {
+        audio_sound_loop(__voiceCurrent, _state);
+    }
+    
+    static __GetLoop = function()
+    {
+        return audio_sound_get_loop(__voiceCurrent);
+    }
+    
     static __SetLocalGain = function(_gain)
     {
         __gainLocal = max(0, _gain);

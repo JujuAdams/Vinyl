@@ -102,6 +102,16 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
         __gainFadeOutSpeed = max(0.001, _rateOfChange);
     }
     
+    static __SetLoop = function(_state)
+    {
+        audio_sound_loop(__voice, _state);
+    }
+    
+    static __GetLoop = function()
+    {
+        return audio_sound_get_loop(__voice);
+    }
+    
     static __SetLocalGain = function(_gain)
     {
         __gainLocal = max(0, _gain);

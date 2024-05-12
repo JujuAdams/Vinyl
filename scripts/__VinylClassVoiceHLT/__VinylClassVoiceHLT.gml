@@ -164,12 +164,6 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         }
     }
     
-    static __EndLoop = function()
-    {
-        __doLoop = false;
-        if (__state == __VINYL_HLT_STATE.__LOOP) audio_sound_loop(__voiceCurrent, false);
-    }
-    
     static __Pause = function()
     {
         audio_pause_sound(__voiceCurrent);
@@ -194,6 +188,17 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     {
         __gainLocal = max(0, _gain);
         audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+    }
+    
+    static __SetLoop = function(_state)
+    {
+        __doLoop = _state;
+        if (__state == __VINYL_HLT_STATE.__LOOP) audio_sound_loop(__voiceCurrent, _state);
+    }
+    
+    static __GetLoop = function()
+    {
+        return audio_sound_get_loop(__voiceCurrent);
     }
     
     static __SetMixGain = function(_gain)
@@ -227,8 +232,8 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
             case __VINYL_HLT_STATE.__LOOP:
                 if (_loopChanged)
                 {
+                    __voiceCurrent = audio_play_sound(_pattern.__soundLoop, 0, audio_sound_get_loop(__voiceCurrent), __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
                     audio_stop_sound(__voiceCurrent);
-                    __voiceCurrent = audio_play_sound(_pattern.__soundLoop, 0, __doLoop, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
                 }
                 else
                 {

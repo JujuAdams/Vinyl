@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylIsPaused",
+  "%Name":"VinylGetLoop",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylIsPaused",
+  "name":"VinylGetLoop",
   "parent":{
     "name":"Playback",
     "path":"folders/Vinyl/Playback.yy",

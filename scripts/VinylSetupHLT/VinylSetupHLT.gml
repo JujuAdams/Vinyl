@@ -2,8 +2,8 @@
 
 /// Sets up a head-loop-tail pattern for playback with Vinyl. When played, an HLT pattern will
 /// first play the "head" sound. Once that sound has finished, the loop sound will be played.
-/// After VinylHLTEndLoop() is called, the loop sound will play out and the tail sound will be
-/// played.
+/// If VinylSetLoop() is called on the HLT voice to stop looping then the tail sound will be
+/// played after the loop sound has finished.
 /// 
 /// You should typically only call this function once on boot. Subsequent calls to this function
 /// will only affect audio that is already playing if VINYL_LIVE_EDIT is set to <true>, and even

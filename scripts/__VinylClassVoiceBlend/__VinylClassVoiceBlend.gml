@@ -172,6 +172,21 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         __gainFadeOutSpeed = max(0.001, _rateOfChange);
     }
     
+    static __SetLoop = function(_state)
+    {
+        var _i = 0;
+        repeat(__voiceCount)
+        {
+            audio_sound_loop(__voiceArray[_i], _state);
+            ++_i;
+        }
+    }
+    
+    static __GetLoop = function()
+    {
+        return audio_sound_get_loop(__voiceTop);
+    }
+    
     static __SetLocalGain = function(_gain)
     {
         __gainLocal = max(0, _gain);
