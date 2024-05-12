@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"VinylPlayFadeIn",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylPlayFadeIn",
+  "parent":{
+    "name":"Playback",
+    "path":"folders/Vinyl/Playback.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

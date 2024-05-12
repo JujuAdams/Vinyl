@@ -96,6 +96,7 @@
     {"id":{"name":"VinylMixStopVoices","path":"scripts/VinylMixStopVoices/VinylMixStopVoices.yy",},},
     {"id":{"name":"VinylPause","path":"scripts/VinylPause/VinylPause.yy",},},
     {"id":{"name":"VinylPlay","path":"scripts/VinylPlay/VinylPlay.yy",},},
+    {"id":{"name":"VinylPlayFadeIn","path":"scripts/VinylPlayFadeIn/VinylPlayFadeIn.yy",},},
     {"id":{"name":"VinylQueueClear","path":"scripts/VinylQueueClear/VinylQueueClear.yy",},},
     {"id":{"name":"VinylQueueCreate","path":"scripts/VinylQueueCreate/VinylQueueCreate.yy",},},
     {"id":{"name":"VinylQueueDestroy","path":"scripts/VinylQueueDestroy/VinylQueueDestroy.yy",},},
