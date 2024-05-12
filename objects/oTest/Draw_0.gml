@@ -51,7 +51,7 @@ UIButtonInline("HLT Test", function()
 UISpace(20);
 UIButton("HLT End Loop", function()
 {
-    VinylHLTEndLoop(hltVoice);
+    VinylSetLoop(hltVoice, false);
 });
 
 
