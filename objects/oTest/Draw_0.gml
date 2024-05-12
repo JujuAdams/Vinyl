@@ -14,18 +14,18 @@ UIStart(10, 10, undefined, undefined, true);
 UIText(string_concat("Vinyl ", __VINYL_VERSION, ", ", __VINYL_DATE, " by Juju Adams\nChicken Nuggets by Wangle Line"));
 
 UINewline();
-UIText(string_concat("\"Test\" mix gain = ", VinylMixGetLocalGain("Test")));
+UIText(string_concat("\"Test\" mix gain = ", VinylMixGetGain("Test")));
 
 
 
 UIButtonInline("\"TestMix\" mix gain -", function()
 {
-    VinylMixSetLocalGain("Test", VinylMixGetLocalGain("Test") - 0.05);
+    VinylMixSetGain("Test", VinylMixGetGain("Test") - 0.05);
 });
 UISpace(20);
 UIButton("\"TestMix\" mix gain +", function()
 {
-    VinylMixSetLocalGain("Test", VinylMixGetLocalGain("Test") + 0.05);
+    VinylMixSetGain("Test", VinylMixGetGain("Test") + 0.05);
 });
 
 

@@ -7,7 +7,7 @@
 /// @param mixName
 /// @param gain
 
-function VinylMixSetLocalGain(_mixName, _gain)
+function VinylMixSetGain(_mixName, _gain)
 {
     static _mixDict = __VinylSystem().__mixDict;
     

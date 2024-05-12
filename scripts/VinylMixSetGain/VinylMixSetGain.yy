@@ -1,12 +1,12 @@
 {
   "$GMScript":"",
-  "%Name":"VinylGetLocalGain",
+  "%Name":"VinylMixSetGain",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylGetLocalGain",
+  "name":"VinylMixSetGain",
   "parent":{
-    "name":"Playback",
-    "path":"folders/Vinyl/Playback.yy",
+    "name":"Mixes",
+    "path":"folders/Vinyl/Mixes.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

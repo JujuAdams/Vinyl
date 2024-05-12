@@ -4,7 +4,7 @@
 /// 
 /// @param voice
 
-function VinylGetLocalGain(_voice)
+function VinylGetGain(_voice)
 {
     static _voiceLookUpDict = __VinylSystem().__voiceLookUpDict;
     
