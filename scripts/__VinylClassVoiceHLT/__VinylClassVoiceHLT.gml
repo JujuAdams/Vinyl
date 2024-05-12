@@ -256,8 +256,9 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
             case __VINYL_HLT_STATE.__LOOP:
                 if (_loopChanged)
                 {
-                    __voiceCurrent = audio_play_sound(_pattern.__soundLoop, 0, audio_sound_get_loop(__voiceCurrent), __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+                    var _loop = audio_sound_get_loop(__voiceCurrent);
                     audio_stop_sound(__voiceCurrent);
+                    __voiceCurrent = audio_play_sound(_pattern.__soundLoop, 0, _loop, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
                 }
                 else
                 {
