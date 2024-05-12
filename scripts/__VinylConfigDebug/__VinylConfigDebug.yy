@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"__VinylConfigDebug",
   "parent":{
-    "name":"Vinyl",
-    "path":"folders/Vinyl.yy",
+    "name":"Config",
+    "path":"folders/Vinyl/Config.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -82,6 +82,10 @@ function __VinylSystem()
             ++_i;
         }
         
+        //Import the boot setup JSON
+        __VinylConfigBootSetupJSON();
+        VinylSetupImportJSON(global.VinylBootSetupJSON, false);
+        
         //Set up an update function that executes one every frame forever.
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, method(self, function()
         {
