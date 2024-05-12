@@ -14,11 +14,20 @@ function __VinylClassMix(_mixName, _gainBase) constructor
     __gainLocal = 1;
     __gainFinal = _gainBase;
     
+    __gainLocalTarget = 1;
+    __gainLocalSpeed  = infinity;
+    
     __cleanUpIndex = 0;
     __voiceArray   = [];
     
-    static __Update = function()
+    static __Update = function(_delta)
     {
+        if (__gainLocal != __gainLocalTarget)
+        {
+            __gainLocal += _delta*clamp(__gainLocalTarget - __gainLocal, -__gainLocalSpeed, __gainLocalSpeed);
+            __UpdateMemberGain();
+        }
+        
         var _array = __voiceArray;
         var _length = array_length(_array);
         if (_length > 0)
@@ -107,8 +116,14 @@ function __VinylClassMix(_mixName, _gainBase) constructor
     
     static __SetLocalGain = function(_gain, _rateOfChange)
     {
-        __gainLocal = max(0.0, _gain);
-        __UpdateMemberGain();
+        __gainLocalTarget = _gain;
+        __gainLocalSpeed  = _rateOfChange;
+        
+        if (_rateOfChange > 100)
+        {
+            __gainLocal = _gain;
+            __UpdateMemberGain();
+        }
     }
     
     static __ExportJSON = function(_soundExportedDict, _patternExportedDict, _ignoreEmpty)

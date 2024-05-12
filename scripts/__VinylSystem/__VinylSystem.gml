@@ -113,7 +113,7 @@ function __VinylSystem()
             var _i = 0;
             repeat(array_length(_array))
             {
-                _array[_i].__Update();
+                _array[_i].__Update(_deltaTimeFactor);
                 ++_i;
             }
             

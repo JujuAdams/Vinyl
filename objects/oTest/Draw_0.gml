@@ -18,14 +18,24 @@ UIText(string_concat("\"Test\" mix gain = ", VinylMixGetGain("Test")));
 
 
 
-UIButtonInline("\"TestMix\" mix gain -", function()
+UIButtonInline("Mix gain -", function()
 {
     VinylMixSetGain("Test", VinylMixGetGain("Test") - 0.05);
 });
 UISpace(20);
-UIButton("\"TestMix\" mix gain +", function()
+UIButtonInline("Mix gain +", function()
 {
     VinylMixSetGain("Test", VinylMixGetGain("Test") + 0.05);
+});
+UISpace(20);
+UIButtonInline("Mix slow 0", function()
+{
+    VinylMixSetGain("Test", 0, 0.05);
+});
+UISpace(20);
+UIButton("Mix slow 1", function()
+{
+    VinylMixSetGain("Test", 1, 0.05);
 });
 
 
