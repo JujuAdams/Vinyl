@@ -13,5 +13,5 @@ function VinylMixFadeOutVoices(_mixName, _rateOfChange)
     var _mixStruct = _mixDict[$ _mixName];
     if (_mixStruct == undefined) __VinylError("Mix \"", _mixName, "\" not recognised");
     
-    _mixStruct.__FadeOutVoices(_rateOfChange);
+    _mixStruct.__FadeOutQueue(_rateOfChange);
 }

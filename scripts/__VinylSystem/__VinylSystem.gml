@@ -19,6 +19,13 @@ enum __VINYL_HLT_STATE
     __TAIL,
 }
 
+enum VINYL_QUEUE
+{
+    PLAY_THROUGH,
+    LOOP_EACH,
+    LOOP_ON_LAST,
+}
+
 __VinylSystem();
 function __VinylSystem()
 {
