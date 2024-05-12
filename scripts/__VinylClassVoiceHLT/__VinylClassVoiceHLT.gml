@@ -39,6 +39,9 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         __gainMix = _mixStruct.__gainFinal;
     }
     
+    __gainLocalTarget = _gainLocal;
+    __gainLocalSpeed  = infinity;
+    
     __gainFadeOut      = 1;
     __gainFadeOutSpeed = undefined;
     
@@ -84,6 +87,8 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     
     static __Update = function(_delta)
     {
+        var _changed = false;
+        
         if (__gainFadeOutSpeed != undefined)
         {
             __gainFadeOut -= _delta*__gainFadeOutSpeed;
@@ -93,7 +98,13 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                 return false;
             }
             
-            audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            _changed = true;
+        }
+        
+        if (__gainLocal != __gainLocalTarget)
+        {
+            _changed = true;
+            __gainLocal += _delta*clamp(__gainLocalTarget - __gainLocal, -__gainLocalSpeed, __gainLocalSpeed);
         }
         
         if (VinylWillStop(__voiceCurrent))
@@ -146,6 +157,13 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                 break;
             }
         }
+        else
+        {
+            if (_changed)
+            {
+                audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            }
+        }
         
         return true;
     }
@@ -181,13 +199,19 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     
     static __FadeOut = function(_rateOfChange)
     {
-        __gainFadeOutSpeed = max(0.001, _rateOfChange);
+        __gainFadeOutSpeed = _rateOfChange;
     }
     
-    static __SetLocalGain = function(_gain)
+    static __SetLocalGain = function(_gain, _rateOfChange)
     {
-        __gainLocal = max(0, _gain);
-        audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        __gainLocalTarget = _gain;
+        __gainLocalSpeed  = _rateOfChange;
+        
+        if (_rateOfChange > 100)
+        {
+            __gainLocal = _gain;
+            audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        }
     }
     
     static __SetLoop = function(_state)

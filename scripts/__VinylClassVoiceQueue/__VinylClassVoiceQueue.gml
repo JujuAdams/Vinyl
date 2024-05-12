@@ -18,6 +18,9 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
     
     __mixName = undefined;
     
+    __gainLocalTarget = _gainLocal;
+    __gainLocalSpeed  = infinity;
+    
     __gainFadeOut      = 1;
     __gainFadeOutSpeed = undefined;
     __destroyed        = false;
@@ -44,6 +47,8 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
     {
         if (__destroyed) return false;
         
+        var _changed = false;
+        
         if (__gainFadeOutSpeed != undefined)
         {
             __gainFadeOut -= _delta*__gainFadeOutSpeed;
@@ -52,10 +57,14 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
                 __Destroy();
                 return false;
             }
-            else
-            {
-                audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
-            }
+            
+            _changed = true;
+        }
+        
+        if (__gainLocal != __gainLocalTarget)
+        {
+            _changed = true;
+            __gainLocal += _delta*clamp(__gainLocalTarget - __gainLocal, -__gainLocalSpeed, __gainLocalSpeed);
         }
         
         if ((array_length(__soundArray) > 0) && VinylWillStop(__voiceCurrent))
@@ -83,6 +92,13 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
             
             __soundCurrent = _sound;
             __voiceCurrent = audio_play_sound(_sound, 0, _loop, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+        }
+        else
+        {
+            if (_changed)
+            {
+                audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            }
         }
         
         return true;
@@ -115,7 +131,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
     
     static __FadeOut = function(_rateOfChange)
     {
-        __gainFadeOutSpeed = max(0.001, _rateOfChange);
+        __gainFadeOutSpeed = _rateOfChange;
     }
     
     static __SetLoop = function(_state)
@@ -128,10 +144,16 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
         return audio_sound_get_loop(__voiceCurrent);
     }
     
-    static __SetLocalGain = function(_gain)
+    static __SetLocalGain = function(_gain, _rateOfChange)
     {
-        __gainLocal = max(0, _gain);
-        audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        __gainLocalTarget = _gain;
+        __gainLocalSpeed  = _rateOfChange;
+        
+        if (_rateOfChange > 100)
+        {
+            __gainLocal = _gain;
+            audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        }
     }
     
     static __SetMixGain = function(_gain)

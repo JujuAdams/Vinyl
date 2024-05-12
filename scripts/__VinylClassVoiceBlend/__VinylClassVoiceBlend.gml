@@ -11,6 +11,8 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
     
+    __inUpdateArray = false;
+    
     __pattern    = _pattern;
     __gainLocal  = _gainLocal;
     __pitchLocal = _pitchLocal;
@@ -33,6 +35,9 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         
         __gainMix = _mixStruct.__gainFinal;
     }
+    
+    __gainLocalTarget  = _gainLocal;
+    __gainLocalSpeed   = infinity;
     
     __gainFadeOut      = 1;
     __gainFadeOutSpeed = undefined;
@@ -79,16 +84,35 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     
     
     
+    
     static __Update = function(_delta)
     {
-        __gainFadeOut -= _delta*__gainFadeOutSpeed;
-        if (__gainFadeOut <= 0)
+        var _changed = false;
+        
+        if (__gainFadeOutSpeed != undefined)
         {
-            __Stop();
-            return false;
+            __gainFadeOut -= _delta*__gainFadeOutSpeed;
+            
+            if (__gainFadeOut <= 0)
+            {
+                __Stop();
+                return false;
+            }
+            
+            _changed = true;
         }
         
-        __UpdateVoiceGains();
+        if (__gainLocal != __gainLocalTarget)
+        {
+            _changed = true;
+            __gainLocal += _delta*clamp(__gainLocalTarget - __gainLocal, -__gainLocalSpeed, __gainLocalSpeed);
+        }
+        
+        if (_changed)
+        {
+            __UpdateVoiceGains();
+        }
+        
         return true;
     }
     
@@ -154,8 +178,13 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     
     static __FadeOut = function(_rateOfChange)
     {
-        if (__gainFadeOutSpeed == undefined) array_push(_voiceUpdateArray, self);
-        __gainFadeOutSpeed = max(0.001, _rateOfChange);
+        __gainFadeOutSpeed = _rateOfChange;
+        
+        if (not __inUpdateArray)
+        {
+            __inUpdateArray = true;
+            array_push(_voiceUpdateArray, self);
+        }
     }
     
     static __SetLoop = function(_state)
@@ -173,10 +202,24 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         return audio_sound_get_loop(__voiceTop);
     }
     
-    static __SetLocalGain = function(_gain)
+    static __SetLocalGain = function(_gain, _rateOfChange)
     {
-        __gainLocal = max(0, _gain);
-        __UpdateVoiceGains();
+        __gainLocalTarget = _gain;
+        __gainLocalSpeed  = _rateOfChange;
+        
+        if (_rateOfChange > 100)
+        {
+            __gainLocal = _gain;
+            __UpdateVoiceGains();
+        }
+        else
+        {
+            if (not __inUpdateArray)
+            {
+                __inUpdateArray = true;
+                array_push(_voiceUpdateArray, self);
+            }
+        }
     }
     
     static __SetMixGain = function(_gain)

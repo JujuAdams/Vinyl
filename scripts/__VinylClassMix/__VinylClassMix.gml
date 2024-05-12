@@ -105,7 +105,7 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         }
     }
     
-    static __SetLocalGain = function(_gain)
+    static __SetLocalGain = function(_gain, _rateOfChange)
     {
         __gainLocal = max(0.0, _gain);
         __UpdateMemberGain();

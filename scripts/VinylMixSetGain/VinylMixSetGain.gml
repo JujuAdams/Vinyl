@@ -6,13 +6,14 @@
 /// 
 /// @param mixName
 /// @param gain
+/// @param [rateOfChange]
 
-function VinylMixSetGain(_mixName, _gain)
+function VinylMixSetGain(_mixName, _gain, _rateOfChange = infinity)
 {
     static _mixDict = __VinylSystem().__mixDict;
     
     var _mixStruct = _mixDict[$ _mixName];
     if (_mixStruct == undefined) __VinylError("Mix \"", _mixName, "\" not recognised");
     
-    _mixStruct.__SetLocalGain(_gain);
+    _mixStruct.__SetLocalGain(max(0, _gain), max(0.001, _rateOfChange));
 }

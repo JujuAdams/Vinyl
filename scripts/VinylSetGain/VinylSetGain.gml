@@ -5,8 +5,10 @@
 /// gain to give the final playback gain for the voice.
 /// 
 /// @param voice
+/// @param gain
+/// @param [rateOfChange]
 
-function VinylSetGain(_voice, _gain)
+function VinylSetGain(_voice, _gain, _rateOfChange = infinity)
 {
-    __VinylEnsureSoundVoice(_voice).__SetLocalGain(_gain);
+    __VinylEnsureSoundVoice(_voice).__SetLocalGain(max(0, _gain), max(0.001, _rateOfChange));
 }
