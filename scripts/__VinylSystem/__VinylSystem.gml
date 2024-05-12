@@ -90,11 +90,44 @@ function __VinylSystem()
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, method(self, function()
         {
             static _voiceLookUpDict = __voiceLookUpDict;
+            static _bootSetupTimer  = 0;
+            static _bootSetupPath   = VINYL_LIVE_EDIT? filename_dir(GM_project_filename) + "/scripts/__VinylConfigBootSetupJSON/__VinylConfigBootSetupJSON.gml" : undefined;
+            static _bootSetupHash   = undefined;
             
             if (VINYL_DEBUG_SHOW_FRAMES) __frame++;
             
             var _deltaTimeFactor = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
             
+            //Handle live update from boot setup JSON
+            if (VINYL_LIVE_EDIT && ((os_type == os_windows) || (os_type == os_macosx) || (os_type == os_linux)))
+            {
+                --_bootSetupTimer;
+                if (_bootSetupTimer <= 0)
+                {
+                    _bootSetupTimer = 60;
+                    
+                    var _newHash = md5_file(_bootSetupPath);
+                    if (_newHash != _bootSetupHash)
+                    {
+                        if (_bootSetupHash == undefined)
+                        {
+                            _bootSetupHash = _newHash;
+                        }
+                        else
+                        {
+                            _bootSetupHash = _newHash;
+                            
+                            var _buffer = buffer_load(_bootSetupPath);
+                            var _gml = SnapBufferReadGML(_buffer, 0, buffer_get_size(_buffer));
+                            buffer_delete(_buffer);
+                            
+                            VinylSetupImportJSON(_gml[$ "global.VinylBootSetupJSON"] ?? []);
+                        }
+                    }
+                }
+            }
+            
+            //Update voices that need it
             var _array = __voiceUpdateArray;
             var _i = 0;
             repeat(array_length(_array))
@@ -109,6 +142,7 @@ function __VinylSystem()
                 }
             }
             
+            //Update mixes
             var _array = __mixArray;
             var _i = 0;
             repeat(array_length(_array))
@@ -117,6 +151,7 @@ function __VinylSystem()
                 ++_i;
             }
             
+            //Check for clean up
             var _array = __voiceCleanUpArray;
             var _length = array_length(_array);
             if (_length > 0)
