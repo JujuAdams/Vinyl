@@ -12,7 +12,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
     static _voiceLookUpDict  = __VinylSystem().__voiceLookUpDict;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
     
-    __gainBase  = 1;
+    __gainPattern  = 1;
     __gainLocal = _gainLocal;
     __gainMix   = 1;
     
@@ -183,6 +183,11 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
                 break;
             }
         }
+    }
+    
+    static __SetFromSound = function(_sound)
+    {
+        
     }
     
     static __Destroy = function()

@@ -17,7 +17,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     __gainLocal  = _gainLocal;
     __pitchLocal = _pitchLocal;
     
-    __gainBase = _pattern.__gain;
+    __gainPattern = _pattern.__gain;
     
     if (_pattern.__noMix)
     {
@@ -295,12 +295,17 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         }
     }
     
+    static __SetFromSound = function(_sound, _gain, _pitch, _loop, _mixName)
+    {
+        
+    }
+    
     static __SetFromPattern = function(_soundsChanged)
     {
         var _pattern = __pattern;
         
         var _loop = _pattern.__loop ?? false;
-        __gainBase = _pattern.__gain;
+        __gainPattern = _pattern.__gain;
         
         __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
         

@@ -57,28 +57,28 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         if (__gainRandomize)
         {
             var _gainFactor = __VinylRandom(1);
-            var _gainBase   = lerp(__gainMin,  __gainMax,  _gainFactor);
+            var _gainPattern   = lerp(__gainMin,  __gainMax,  _gainFactor);
         }
         else
         {
             var _gainFactor = 0.5;
-            var _gainBase   = __gainMin;
+            var _gainPattern   = __gainMin;
         }
         
         if (__pitchRandomize)
         {
             var _pitchFactor = __VinylRandom(1);
-            var _pitchBase   = lerp(__pitchMin, __pitchMax, _pitchFactor);
+            var _pitchPattern   = lerp(__pitchMin, __pitchMax, _pitchFactor);
         }
         else
         {
             var _pitchFactor = 0.5;
-            var _pitchBase   = __pitchMin;
+            var _pitchPattern   = __pitchMin;
         }
         
         if (__noMix)
         {
-            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainBase*_gainLocal/VINYL_MAX_VOICE_GAIN, 0, _pitchBase*_pitchLocal);
+            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainPattern*_gainLocal/VINYL_MAX_VOICE_GAIN, 0, _pitchPattern*_pitchLocal);
             var _gainMix = 1;
         }
         else
@@ -91,14 +91,14 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             }
             
             var _gainMix = _mixStruct.__gainFinal;
-            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainBase*_gainLocal*_gainMix/VINYL_MAX_VOICE_GAIN, 0, _pitchBase*_pitchLocal);
+            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainPattern*_gainLocal*_gainMix/VINYL_MAX_VOICE_GAIN, 0, _pitchPattern*_pitchLocal);
             _mixStruct.__Add(_voice);
         }
         
         //If we're in live edit mode then always create a struct representation
         if (VINYL_LIVE_EDIT)
         {
-            new __VinylClassVoiceShuffle(_voice, _loopLocal, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, self, _gainFactor, _pitchFactor);
+            new __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _pitchPattern, _pitchLocal, self, _gainFactor, _pitchFactor);
         }
         
         return _voice;

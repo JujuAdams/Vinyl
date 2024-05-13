@@ -20,57 +20,55 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mix) constructo
     
     static __Play = function(_loopLocal, _gainLocal, _pitchLocal)
     {
-        var _gainBase  = __gain;
-        var _pitchBase = __pitch;
+        var _sound     = __sound;
+        var _gainPattern  = __gain;
+        var _pitchPattern = __pitch;
         var _loopFinal = _loopLocal ?? __loop;
+        var _mixName   = __mixName;
         
         if (__noMix)
         {
-            var _voice = audio_play_sound(__sound, 0, _loopFinal, _gainBase*_gainLocal/VINYL_MAX_VOICE_GAIN, 0, _pitchBase*_pitchLocal);
+            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainPattern*_gainLocal/VINYL_MAX_VOICE_GAIN, 0, _pitchPattern*_pitchLocal);
             var _gainMix = 1;
         }
         else
         {
-            var _mixStruct = _mixDict[$ __mixName];
+            var _mixStruct = _mixDict[$ _mixName];
             if (_mixStruct == undefined)
             {
-                __VinylError("Mix \"", __mixName, "\" not recognised");
+                __VinylError("Mix \"", _mixName, "\" not recognised");
                 return;
             }
             
             var _gainMix = _mixStruct.__gainFinal;
-            var _voice = audio_play_sound(__sound, 0, _loopFinal, _gainBase*_gainLocal*_gainMix/VINYL_MAX_VOICE_GAIN, 0, _pitchBase*_pitchLocal);
+            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainPattern*_gainLocal*_gainMix/VINYL_MAX_VOICE_GAIN, 0, _pitchPattern*_pitchLocal);
             _mixStruct.__Add(_voice);
         }
         
         //If we're in live edit mode then always create a struct representation
         if (VINYL_LIVE_EDIT)
         {
-            new __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, self);
+            new __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _pitchPattern, _pitchLocal, _mixName);
         }
         
         return _voice;
     }
     
-    static __UpdateSetup = function(_gain, _pitch, _loop, _mix)
+    static __UpdateSetup = function(_gain, _pitch, _loop, _mixName)
     {
         __gain  = _gain;
         __pitch = _pitch;
         __loop  = _loop;
         
-        __SetMix(_mix);
+        __SetMix(_mixName);
         
         if (VINYL_LIVE_EDIT)
         {
+            var _sound = __sound;
             var _i = 0;
             repeat(array_length(_voiceCleanUpArray))
             {
-                var _voiceStruct = _voiceCleanUpArray[_i];
-                if (_voiceStruct.__pattern == self)
-                {
-                    _voiceStruct.__SetFromPattern(_gain, _pitch, _loop, _mix);
-                }
-                
+                _voiceCleanUpArray[_i].__SetFromSound(_sound, _gain, _pitch, _loop, _mixName);
                 ++_i;
             }
         }

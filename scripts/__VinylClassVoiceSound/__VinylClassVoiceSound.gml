@@ -1,15 +1,16 @@
 // Feather disable all
 
+/// @param sound
 /// @param voice
 /// @param loopLocal
-/// @param gainBase
+/// @param gainSound
 /// @param gainLocal
 /// @param gainMix
-/// @param pitchBase
+/// @param pitchSound
 /// @param pitchLocal
-/// @param pattern
+/// @param mixName
 
-function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, _pattern) constructor
+function __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _pitchSound, _pitchLocal, _mixName) constructor
 {
     static _voiceLookUpDict   = __VinylSystem().__voiceLookUpDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
@@ -17,18 +18,20 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
     
     __inUpdateArray = false;
     
-    __voice      = _voice;
-    __loopLocal  = _loopLocal;
-    __gainBase   = _gainBase;
-    __gainLocal  = _gainLocal;
-    __gainMix    = _gainMix;
-    __pitchBase  = _pitchBase;
-    __pitchLocal = _pitchLocal;
+    __voice        = _voice;
+    __gainSound    = _gainSound;
+    __gainPattern  = 1;
+    __gainLocal    = _gainLocal;
+    __gainMix      = _gainMix;
+    __pitchSound   = _pitchSound;
+    __pitchPattern = 1;
+    __pitchLocal   = _pitchLocal;
     
     if (VINYL_LIVE_EDIT)
     {
-        __pattern = _pattern;
-        __mixName = (_pattern != undefined)? _pattern.__mixName : undefined;
+        __loopLocal = _loopLocal;
+        __sound     = _sound;
+        __mixName   = _mixName;
     }
     
     __gainLocalTarget  = _gainLocal;
@@ -147,10 +150,12 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
         audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
-    static __SetFromPattern = function(_gainBase, _pitchBase, _loop, _mixName)
+    static __SetFromSound = function(_sound, _gain, _gainMix, _pitch, _loop, _mixName)
     {
-        __gainBase  = _gainBase;
-        __pitchBase = _pitchBase;
+        if (__sound != _sound) return;
+        
+        __gainSound  = _gain;
+        __pitchSound = _pitch;
         
         __VinylVoiceMoveMix(__voice, _mixName);
         

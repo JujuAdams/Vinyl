@@ -3,16 +3,16 @@
 /// @param mixName
 /// @param baseGain
 
-function __VinylClassMix(_mixName, _gainBase) constructor
+function __VinylClassMix(_mixName, _gainPattern) constructor
 {
     static _soundDict   = __VinylSystem().__soundDict;
     static _patternDict = __VinylSystem().__patternDict;
     
     __mixName  = _mixName;
-    __gainBase = _gainBase;
+    __gainPattern = _gainPattern;
     
     __gainLocal = 1;
-    __gainFinal = _gainBase;
+    __gainFinal = _gainPattern;
     
     __gainLocalTarget = 1;
     __gainLocalSpeed  = infinity;
@@ -38,15 +38,15 @@ function __VinylClassMix(_mixName, _gainBase) constructor
         }
     }
     
-    static __UpdateSetup = function(_gainBase)
+    static __UpdateSetup = function(_gainPattern)
     {
-        __gainBase = _gainBase;
+        __gainPattern = _gainPattern;
         __UpdateMemberGain();
     }
     
     static __UpdateMemberGain = function()
     {
-        var _gainFinal = __gainBase*__gainLocal;
+        var _gainFinal = __gainPattern*__gainLocal;
         __gainFinal = _gainFinal;
         
         var _array = __voiceArray;
@@ -188,9 +188,9 @@ function __VinylClassMix(_mixName, _gainBase) constructor
             members:  _membersArray,
         };
         
-        if (__gainBase != 1)
+        if (__gainPattern != 1)
         {
-            _struct.baseGain = __gainBase;
+            _struct.baseGain = __gainPattern;
         }
         
         return _struct;
@@ -226,10 +226,10 @@ function __VinylClassMix(_mixName, _gainBase) constructor
             buffer_write(_buffer, buffer_text, "\",\n");
         }
         
-        if (__gainBase != 1)
+        if (__gainPattern != 1)
         {
             buffer_write(_buffer, buffer_text, "        baseGain: ");
-            buffer_write(_buffer, buffer_text, __gainBase);
+            buffer_write(_buffer, buffer_text, __gainPattern);
             buffer_write(_buffer, buffer_text, ",\n");
         }
         

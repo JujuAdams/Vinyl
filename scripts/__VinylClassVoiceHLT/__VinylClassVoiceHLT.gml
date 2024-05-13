@@ -15,7 +15,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     __gainLocal  = _gainLocal;
     __pitchLocal = _pitchLocal;
     
-    __gainBase = _pattern.__gain;
+    __gainPattern = _pattern.__gain;
     
     if (VINYL_LIVE_EDIT)
     {
@@ -231,13 +231,18 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
+    static __SetFromSound = function(_sound, _gain, _pitch, _loop, _mixName)
+    {
+        
+    }
+    
     static __SetFromPattern = function(_headChanged, _loopChanged, _tailChanged)
     {
         var _pattern = __pattern;
         
         __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
         
-        __gainBase = _pattern.__gain;
+        __gainPattern = _pattern.__gain;
         
         switch(__state)
         {
