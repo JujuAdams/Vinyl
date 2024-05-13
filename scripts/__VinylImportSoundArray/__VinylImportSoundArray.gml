@@ -5,6 +5,13 @@
 
 function __VinylImportSoundArray(_array, _strict)
 {
+    if (not is_array(_array))
+    {
+        var _newSound = asset_get_index(_array);
+        if (_strict && (not audio_exists(_newSound))) __VinylError("Sound \"", _array, "\" not found");
+        return [_newSound];
+    }
+    
     var _newArray = [];
     
     var _i = 0;
@@ -28,6 +35,12 @@ function __VinylImportSoundArray(_array, _strict)
         }
         
         ++_i;
+    }
+    
+    if (array_length(_newArray) <= 0)
+    {
+        if (_strict) __VinylError("Sound array must have at least one sound in array (length=", array_length(_newArray), ")");
+        array_push(_newArray, VinylFallbackSound);
     }
     
     return _newArray;

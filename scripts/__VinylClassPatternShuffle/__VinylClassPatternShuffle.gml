@@ -31,17 +31,24 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     
     static __Play = function(_loopLocal, _gainLocal, _pitchLocal)
     {
-        if (__playIndex >= __soundCount) //If we've played through our bank of sounds, reshuffle
+        if (__soundCount == 1)
         {
-            __playIndex = 0;
-            var _last = __soundArray[__soundCount-1];
-            array_delete(__soundArray, __soundCount-1, 1); //Make sure we don't reshuffle in the last played sound...
-            __VinylArrayShuffle(__soundArray);
-            array_insert(__soundArray, __soundCount div 2, _last); //...and stick it somewhere in the middle instead
+            var _sound = __soundArray[0];
         }
-        
-        var _sound = __soundArray[__playIndex];
-        ++__playIndex;
+        else
+        {
+            if (__playIndex >= __soundCount) //If we've played through our bank of sounds, reshuffle
+            {
+                __playIndex = 0;
+                var _last = __soundArray[__soundCount-1];
+                array_delete(__soundArray, __soundCount-1, 1); //Make sure we don't reshuffle in the last played sound...
+                __VinylArrayShuffle(__soundArray);
+                array_insert(__soundArray, __soundCount div 2, _last); //...and stick it somewhere in the middle instead
+            }
+            
+            var _sound = __soundArray[__playIndex];
+            ++__playIndex;
+        }
         
         var _loopFinal = _loopLocal ?? false;
         
@@ -274,6 +281,7 @@ function __VinylImportShuffleJSON(_json)
             switch(_variableNames[_i])
             {
                 case "shuffle":
+                case "sound":
                 case "sounds":
                 case "gain":
                 case "pitch":
@@ -287,10 +295,14 @@ function __VinylImportShuffleJSON(_json)
             ++_i;
         }
         
-        if (not struct_exists(_json, "sounds")) __VinylError("Shuffle pattern \"", _json.shuffle, "\" property .sounds must be defined");
+        if ((not struct_exists(_json, "sound")) && (not struct_exists(_json, "sounds")))
+        {
+            __VinylError("Shuffle pattern \"", _json.shuffle, "\" property .sounds must be defined");
+        }
     }
     
-    VinylSetupShuffle(_json.shuffle, _json.sounds, _json[$ "gain"], _json[$ "pitch"]);
+    var _sounds = _json[$ "sounds"] ?? _json[$ "sound"];
+    VinylSetupShuffle(_json.shuffle, _sounds, _json[$ "gain"], _json[$ "pitch"]);
     
     return _json.shuffle;
 }
