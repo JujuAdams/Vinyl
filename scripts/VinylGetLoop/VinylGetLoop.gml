@@ -1,5 +1,7 @@
 // Feather disable all
 
+/// Returns whether the target voice is set to loop.
+/// 
 /// @param voice
 
 function VinylGetLoop(_voice)

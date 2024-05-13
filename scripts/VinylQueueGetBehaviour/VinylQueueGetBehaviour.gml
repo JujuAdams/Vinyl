@@ -1,5 +1,7 @@
 // Feather disable all
 
+/// Returns the target queue's behaviour.
+/// 
 /// @param voice
 
 function VinylQueueGetBehaviour(_voice)

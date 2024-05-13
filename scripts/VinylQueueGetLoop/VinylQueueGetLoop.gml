@@ -1,12 +1,11 @@
 // Feather disable all
 
-/// Sets the target queue's behaviour. Please see VinylQueueCreate() for more information.
+/// Returns whether the queue itself is set to loop. If you'd like to return the loop state of the
+/// currently playing sound then use VinylGetLoop().
 /// 
 /// @param voice
-/// @param behaviour
-/// @param [setForPlaying=true]
 
-function VinylQueueSetBehaviour(_voice, _behaviour, _setForPlaying = true)
+function VinylQueueGetLoop(_voice)
 {
     static _voiceLookUpDict = __VinylSystem().__voiceLookUpDict;
     
@@ -15,5 +14,5 @@ function VinylQueueSetBehaviour(_voice, _behaviour, _setForPlaying = true)
     var _voiceStruct = struct_get_from_hash(_voiceLookUpDict, int64(_voice));
     if (not is_instanceof(_voiceStruct, __VinylClassVoiceQueue)) return undefined;
     
-    return _voiceStruct.__SetBehaviour(_behaviour, _setForPlaying);
+    return _voiceStruct.__loopQueue;
 }

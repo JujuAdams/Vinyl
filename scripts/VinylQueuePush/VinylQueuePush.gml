@@ -1,5 +1,8 @@
 // Feather disable all
 
+/// Pushes a sound to a queue voice's array of voices. If the queue is empty then the sound will
+/// be played at the start of the next frame.
+/// 
 /// @param voice
 /// @param sound
 

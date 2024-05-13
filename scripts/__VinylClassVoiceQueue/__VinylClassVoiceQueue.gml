@@ -73,7 +73,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
             
             switch(__behaviour)
             {
-                case VINYL_QUEUE.PLAY_THROUGH:
+                case VINYL_QUEUE.DONT_LOOP:
                     var _loop = false;
                 break;
                 
@@ -170,7 +170,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
         {
             switch(_behaviour)
             {
-                case VINYL_QUEUE.PLAY_THROUGH:
+                case VINYL_QUEUE.DONT_LOOP:
                     audio_sound_loop(__voiceCurrent, false);
                 break;
                 

@@ -1,5 +1,8 @@
 // Feather disable all
 
+/// Clears all sounds in a queue voice's array of sounds. This won't stop the currently playing
+/// sound, however.
+/// 
 /// @param voice
 
 function VinylQueueClear(_voice)

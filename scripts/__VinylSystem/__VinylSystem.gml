@@ -21,7 +21,7 @@ enum __VINYL_HLT_STATE
 
 enum VINYL_QUEUE
 {
-    PLAY_THROUGH,
+    DONT_LOOP,
     LOOP_EACH,
     LOOP_ON_LAST,
 }
