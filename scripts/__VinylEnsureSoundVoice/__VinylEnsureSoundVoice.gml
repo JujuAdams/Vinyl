@@ -12,7 +12,7 @@ function __VinylEnsureSoundVoice(_voice)
         _voiceStruct = new __VinylClassVoiceSound(_voice, audio_sound_get_loop(_voice),
                                                   1, audio_sound_get_gain(_voice), 1,
                                                   1, audio_sound_get_pitch(_voice),
-                                                  undefined, 0.5, 0.5);
+                                                  undefined);
     }
     
     return _voiceStruct;

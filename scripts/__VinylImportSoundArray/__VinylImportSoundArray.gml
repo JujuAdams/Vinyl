@@ -7,9 +7,7 @@ function __VinylImportSoundArray(_array, _strict)
 {
     if (not is_array(_array))
     {
-        var _newSound = asset_get_index(_array);
-        if (_strict && (not audio_exists(_newSound))) __VinylError("Sound \"", _array, "\" not found");
-        return [_newSound];
+        return [__VinylImportSound(_array)];
     }
     
     var _newArray = [];

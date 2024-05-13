@@ -8,8 +8,10 @@
 /// @param pitchBase
 /// @param pitchLocal
 /// @param pattern
+/// @param gainFactor
+/// @param pitchFactor
 
-function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, _pattern) constructor
+function __VinylClassVoiceShuffle(_voice, _loopLocal, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, _pattern, _gainFactor, _pitchFactor) constructor
 {
     static _voiceLookUpDict   = __VinylSystem().__voiceLookUpDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
@@ -17,19 +19,17 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
     
     __inUpdateArray = false;
     
-    __voice      = _voice;
-    __loopLocal  = _loopLocal;
-    __gainBase   = _gainBase;
-    __gainLocal  = _gainLocal;
-    __gainMix    = _gainMix;
-    __pitchBase  = _pitchBase;
-    __pitchLocal = _pitchLocal;
-    
-    if (VINYL_LIVE_EDIT)
-    {
-        __pattern = _pattern;
-        __mixName = (_pattern != undefined)? _pattern.__mixName : undefined;
-    }
+    __voice       = _voice;
+    __loopLocal   = _loopLocal;
+    __gainBase    = _gainBase;
+    __gainLocal   = _gainLocal;
+    __gainMix     = _gainMix;
+    __pitchBase   = _pitchBase;
+    __pitchLocal  = _pitchLocal;
+    __pattern     = _pattern;
+    __mixName     = (_pattern != undefined)? _pattern.__mixName : undefined;
+    __gainFactor  = _gainFactor;
+    __pitchFactor = _pitchFactor;
     
     __gainLocalTarget  = _gainLocal;
     __gainLocalSpeed   = infinity;
@@ -147,10 +147,10 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gain
         audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
-    static __SetFromPattern = function(_gainBase, _pitchBase, _loop, _mixName)
+    static __SetFromPattern = function(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName)
     {
-        __gainBase  = _gainBase;
-        __pitchBase = _pitchBase;
+        __gainBase  = lerp(_gainMin,  _gainMax,  __gainFactor);
+        __pitchBase = lerp(_pitchMin, _pitchMax, __pitchFactor);
         
         __VinylVoiceMoveMix(__voice, _mixName);
         

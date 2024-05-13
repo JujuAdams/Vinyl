@@ -13,14 +13,11 @@
 /// @param [loop=false]
 /// @param [mix=VINYL_DEFAULT_MIX]
 
-function VinylSetupSound(_sound, _gain = undefined, _pitch = undefined, _loop = false, _mix = VINYL_DEFAULT_MIX)
+function VinylSetupSound(_sound, _gain = 1, _pitch = 1, _loop = false, _mix = VINYL_DEFAULT_MIX)
 {
     static _soundDict = __VinylSystem().__soundDict;
     
-    __VINYL_HANDLE_GAINS
-    __VINYL_HANDLE_PITCHES
-    
     if (_mix == VINYL_NO_MIX) _mix = undefined;
     
-    struct_get_from_hash(_soundDict, int64(_sound)).__UpdateSetup(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix);
+    struct_get_from_hash(_soundDict, int64(_sound)).__UpdateSetup(_gain, _pitch, _loop, _mix);
 }

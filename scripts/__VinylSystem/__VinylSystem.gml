@@ -79,7 +79,7 @@ function __VinylSystem()
         repeat(array_length(_assetArray))
         {
             var _sound = _assetArray[_i];
-            struct_set_from_hash(_soundDict, int64(_sound), new __VinylClassPatternSound(_sound, 1, 1, 1, 1, false, _defaultMix));
+            struct_set_from_hash(_soundDict, int64(_sound), new __VinylClassPatternSound(_sound, 1, 1, false, _defaultMix));
             ++_i;
         }
         
@@ -158,7 +158,7 @@ function __VinylSystem()
             if (_length > 0)
             {
                 var _index = (__cleanUpIndex + 1) mod _length;
-                if (not VinylIsPlaying(_array[_index]))
+                if (not _array[_index].__IsPlaying())
                 {
                     var _voice = _array[_index];
                     

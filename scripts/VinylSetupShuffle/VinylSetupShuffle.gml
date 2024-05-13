@@ -11,14 +11,58 @@
 /// @param soundArray
 /// @param [gain=1]
 /// @param [pitch=1]
+/// @param [loop=false]
 /// @param [mix=VINYL_DEFAULT_MIX]
 
-function VinylSetupShuffle(_patternName, _soundArray, _gain = undefined, _pitch = undefined, _mix = VINYL_DEFAULT_MIX)
+function VinylSetupShuffle(_patternName, _soundArray, _gain = undefined, _pitch = undefined, _loop = false, _mix = VINYL_DEFAULT_MIX)
 {
-    static _patternDict = __VinylSystem().__patternDict; 
+    static _patternDict = __VinylSystem().__patternDict;
     
-    __VINYL_HANDLE_GAINS
-    __VINYL_HANDLE_PITCHES
+    if (_gain == undefined)
+    {
+        var _gainMin = 1;
+        var _gainMax = 1;
+    }
+    else if (is_array(_gain))
+    {
+        if (array_length(_gain) == 2)
+        {
+            var _gainMin = _gain[0];
+            var _gainMax = _gain[1];
+        }
+        else
+        {
+            __VinylError("Array length for gain argument must be 2 (found ", array_length(_gain), ")");
+        }
+    }
+    else
+    {
+        var _gainMin = _gain;
+        var _gainMax = _gain;
+    }
+    
+    if (_pitch == undefined)
+    {
+        var _pitchMin = 1;
+        var _pitchMax = 1;
+    }
+    else if (is_array(_pitch))
+    {
+        if (array_length(_pitch) == 2)
+        {
+            var _pitchMin = _pitch[0];
+            var _pitchMax = _pitch[1];
+        }
+        else
+        {
+            __VinylError("Array length for pitch argument must be 2 (found ", array_length(_pitch), ")");
+        }
+    }
+    else
+    {
+        var _pitchMin = _pitch;
+        var _pitchMax = _pitch;
+    }
     
     if (_mix == VINYL_NO_MIX) _mix = undefined;
     
@@ -26,10 +70,10 @@ function VinylSetupShuffle(_patternName, _soundArray, _gain = undefined, _pitch 
     var _existingPattern = _patternDict[$ _patternName];
     if (_existingPattern != undefined)
     {
-        _existingPattern.__UpdateSetup(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _mix);
+        _existingPattern.__UpdateSetup(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix);
     }
     else
     {
-        _patternDict[$ _patternName] = new __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _mix);
+        _patternDict[$ _patternName] = new __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix);
     }
 }

@@ -1,55 +1,28 @@
 // Feather disable all
 
 /// @param sound
-/// @param gainMin
-/// @param gainMax
-/// @param pitchMin
-/// @param pitchMax
+/// @param gain
+/// @param pitch
 /// @param loop
 /// @param mix
 
-function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix) constructor
+function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mix) constructor
 {
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _mixDict           = __VinylSystem().__mixDict;
     
-    __sound    = _sound;
-    __gainMin  = _gainMin;
-    __gainMax  = _gainMax;
-    __pitchMin = _pitchMin;
-    __pitchMax = _pitchMax;
-    __loop     = _loop;
-    
-    __gainRandomize  = (_gainMin != _gainMax);
-    __pitchRandomize = (_pitchMin != _pitchMax);
+    __sound = _sound;
+    __gain  = _gain;
+    __pitch = _pitch;
+    __loop  = _loop;
     
     __SetMix(_mix);
     
     static __Play = function(_loopLocal, _gainLocal, _pitchLocal)
     {
+        var _gainBase  = __gain;
+        var _pitchBase = __pitch;
         var _loopFinal = _loopLocal ?? __loop;
-        
-        if (__gainRandomize)
-        {
-            var _gainFactor = __VinylRandom(1);
-            var _gainBase   = lerp(__gainMin,  __gainMax,  _gainFactor);
-        }
-        else
-        {
-            var _gainFactor = 0.5;
-            var _gainBase   = __gainMin;
-        }
-        
-        if (__pitchRandomize)
-        {
-            var _pitchFactor = __VinylRandom(1);
-            var _pitchBase   = lerp(__pitchMin, __pitchMax, _pitchFactor);
-        }
-        else
-        {
-            var _pitchFactor = 0.5;
-            var _pitchBase   = __pitchMin;
-        }
         
         if (__noMix)
         {
@@ -73,22 +46,17 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         //If we're in live edit mode then always create a struct representation
         if (VINYL_LIVE_EDIT)
         {
-            new __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, self, _gainFactor, _pitchFactor);
+            new __VinylClassVoiceSound(_voice, _loopLocal, _gainBase, _gainLocal, _gainMix, _pitchBase, _pitchLocal, self);
         }
         
         return _voice;
     }
     
-    static __UpdateSetup = function(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix)
+    static __UpdateSetup = function(_gain, _pitch, _loop, _mix)
     {
-        __gainMin  = _gainMin;
-        __gainMax  = _gainMax;
-        __pitchMin = _pitchMin;
-        __pitchMax = _pitchMax;
-        __loop     = _loop;
-        
-        __gainRandomize  = (_gainMin != _gainMax);
-        __pitchRandomize = (_pitchMin != _pitchMax);
+        __gain  = _gain;
+        __pitch = _pitch;
+        __loop  = _loop;
         
         __SetMix(_mix);
         
@@ -100,7 +68,7 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
                 var _voiceStruct = _voiceCleanUpArray[_i];
                 if (_voiceStruct.__pattern == self)
                 {
-                    _voiceStruct.__SetFromPattern(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix);
+                    _voiceStruct.__SetFromPattern(_gain, _pitch, _loop, _mix);
                 }
                 
                 ++_i;
@@ -116,16 +84,14 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
     
     static __ClearSetup = function()
     {
-        __UpdateSetup(1, 1, 1, 1, false, VINYL_DEFAULT_MIX);
+        __UpdateSetup(1, 1, false, VINYL_DEFAULT_MIX);
     }
     
     static __ExportJSON = function(_ignoreEmpty)
     {
         if (_ignoreEmpty)
         {
-            if ((__gainMin == 1) && (__gainMax == 1)
-            &&  (__pitchMin == 1) && (__pitchMax == 1)
-            &&  (not __loop))
+            if ((__gain == 1) && (__pitch == 1) && (not __loop))
             {
                 return undefined;
             }
@@ -135,34 +101,9 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
             sound: audio_get_name(__sound),
         };
         
-        if ((__gainMin != 1) || (__gainMax != 1))
-        {
-            if (__gainMin == __gainMax)
-            {
-                _struct.gain = __gainMin;
-            }
-            else
-            {
-                _struct.gain = [__gainMin, __gainMax];
-            }
-        }
-        
-        if ((__pitchMin != 1) || (__pitchMax != 1))
-        {
-            if (__pitchMin == __pitchMax)
-            {
-                _struct.pitch = __pitchMin;
-            }
-            else
-            {
-                _struct.pitch = [__pitchMin, __pitchMax];
-            }
-        }
-        
-        if (__loop)
-        {
-            _struct.loop = true;
-        }
+        if (__gain != 1) _struct.gain = __gain;
+        if (__pitch != 1) _struct.pitch = __pitch;
+        if (__loop) _struct.loop = true;
         
         return _struct;
     }
@@ -171,9 +112,7 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
     {
         if (_ignoreEmpty)
         {
-            if ((__gainMin == 1) && (__gainMax == 1)
-            &&  (__pitchMin == 1) && (__pitchMax == 1)
-            &&  (not __loop))
+            if ((__gain == 1) && (__pitch == 1) && (not __loop))
             {
                 return undefined;
             }
@@ -186,44 +125,20 @@ function __VinylClassPatternSound(_sound, _gainMin, _gainMax, _pitchMin, _pitchM
         buffer_write(_buffer, buffer_text, audio_get_name(__sound));
         buffer_write(_buffer, buffer_text, ",\n");
         
-        if ((__gainMin != 1) || (__gainMax != 1))
+        if (__gain != 1)
         {
-            if (__gainMin == __gainMax)
-            {
-                buffer_write(_buffer, buffer_text, _indent);
-                buffer_write(_buffer, buffer_text, "    gain: ");
-                buffer_write(_buffer, buffer_text, __gainMin);
-                buffer_write(_buffer, buffer_text, ",\n");
-            }
-            else
-            {
-                buffer_write(_buffer, buffer_text, _indent);
-                buffer_write(_buffer, buffer_text, "    gain: [");
-                buffer_write(_buffer, buffer_text, __gainMin);
-                buffer_write(_buffer, buffer_text, ", ");
-                buffer_write(_buffer, buffer_text, __gainMax);
-                buffer_write(_buffer, buffer_text, "],\n");
-            }
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    gain: ");
+            buffer_write(_buffer, buffer_text, __gain);
+            buffer_write(_buffer, buffer_text, ",\n");
         }
         
-        if ((__pitchMin != 1) || (__pitchMax != 1))
+        if (__pitch == 1)
         {
-            if (__pitchMin == __pitchMax)
-            {
-                buffer_write(_buffer, buffer_text, _indent);
-                buffer_write(_buffer, buffer_text, "    pitch: ");
-                buffer_write(_buffer, buffer_text, __pitchMin);
-                buffer_write(_buffer, buffer_text, ",\n");
-            }
-            else
-            {
-                buffer_write(_buffer, buffer_text, _indent);
-                buffer_write(_buffer, buffer_text, "    pitch: [");
-                buffer_write(_buffer, buffer_text, __pitchMin);
-                buffer_write(_buffer, buffer_text, ", ");
-                buffer_write(_buffer, buffer_text, __pitchMax);
-                buffer_write(_buffer, buffer_text, "],\n");
-            }
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    pitch: ");
+            buffer_write(_buffer, buffer_text, __pitch);
+            buffer_write(_buffer, buffer_text, ",\n");
         }
         
         if (__loop)
