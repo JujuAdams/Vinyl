@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"SnapBufferWriteGML",
+  "%Name":"__VinylNumberToString",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"SnapBufferWriteGML",
+  "name":"__VinylNumberToString",
   "parent":{
     "name":"(Internals)",
     "path":"folders/Vinyl/(Internals).yy",

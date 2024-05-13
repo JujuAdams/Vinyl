@@ -1,5 +1,5 @@
 // Feather disable all
-function SnapNumberToString(_value, _accurateFloats)
+function __VinylNumberToString(_value, _accurateFloats)
 {
     if (_accurateFloats && is_real(_value) && (floor(_value) != _value))
     {

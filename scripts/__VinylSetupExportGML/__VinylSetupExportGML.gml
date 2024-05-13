@@ -100,7 +100,7 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
         buffer_write(_buffer, buffer_text, "\",\n");
         
         buffer_write(_buffer, buffer_text, "        data: ");
-        SnapBufferWriteGML(_buffer, _metadataDict[$ _name], true, "        ");
+        __VinylBufferWriteGML(_buffer, _metadataDict[$ _name], true, "        ");
         buffer_write(_buffer, buffer_text, ",\n");
         buffer_write(_buffer, buffer_text, "    },\n");
         

@@ -8,12 +8,12 @@
 /// 
 /// @jujuadams 2022-10-30
 
-function SnapBufferWriteGML(_buffer, _struct, _alphabetise = false, _indent = "")
+function __VinylBufferWriteGML(_buffer, _struct, _alphabetise = false, _indent = "")
 {
-    __SnapBufferWriteGMLInner(_buffer, _struct, _alphabetise, 1, _indent);
+    ____VinylBufferWriteGMLInner(_buffer, _struct, _alphabetise, 1, _indent);
 }
 
-function __SnapBufferWriteGMLInner(_buffer, _value, _alphabetise, _depth, _indent)
+function ____VinylBufferWriteGMLInner(_buffer, _value, _alphabetise, _depth, _indent)
 {
     if (is_method(_value)) //Implicitly also a struct so we have to check this first
     {
@@ -54,7 +54,7 @@ function __SnapBufferWriteGMLInner(_buffer, _value, _alphabetise, _depth, _inden
                     buffer_write(_buffer, buffer_text, _indent);
                     buffer_write(_buffer, buffer_text, string(_name));
                     buffer_write(_buffer, buffer_text, " = ");
-                    __SnapBufferWriteGMLInner(_buffer, _struct[$ _name], _alphabetise, _depth+1, _indent);
+                    ____VinylBufferWriteGMLInner(_buffer, _struct[$ _name], _alphabetise, _depth+1, _indent);
                     buffer_write(_buffer, buffer_text, ";\n");
                 }
                 else
@@ -62,7 +62,7 @@ function __SnapBufferWriteGMLInner(_buffer, _value, _alphabetise, _depth, _inden
                     buffer_write(_buffer, buffer_text, _indent);
                     buffer_write(_buffer, buffer_text, string(_name));
                     buffer_write(_buffer, buffer_text, ": ");
-                    __SnapBufferWriteGMLInner(_buffer, _struct[$ _name], _alphabetise, _depth+1, _indent);
+                    ____VinylBufferWriteGMLInner(_buffer, _struct[$ _name], _alphabetise, _depth+1, _indent);
                     buffer_write(_buffer, buffer_text, ",\n");
                 }
                 
@@ -96,7 +96,7 @@ function __SnapBufferWriteGMLInner(_buffer, _value, _alphabetise, _depth, _inden
             repeat(_count)
             {
                 buffer_write(_buffer, buffer_text, _indent);
-                __SnapBufferWriteGMLInner(_buffer, _array[_i], _alphabetise, _depth+1, _indent);
+                ____VinylBufferWriteGMLInner(_buffer, _array[_i], _alphabetise, _depth+1, _indent);
                 buffer_write(_buffer, buffer_text, ",\n");
                 ++_i;
             }
@@ -133,7 +133,7 @@ function __SnapBufferWriteGMLInner(_buffer, _value, _alphabetise, _depth, _inden
     }
     else if (is_real(_value))
     {
-        buffer_write(_buffer, buffer_text, SnapNumberToString(_value, true));
+        buffer_write(_buffer, buffer_text, __VinylNumberToString(_value, true));
     }
     else if (is_ptr(_value))
     {

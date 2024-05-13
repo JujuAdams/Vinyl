@@ -1,7 +1,7 @@
 // Feather disable all
 
-#macro __VINYL_VERSION  "6.0.0"
-#macro __VINYL_DATE     "2024-03-14"
+#macro __VINYL_VERSION  "6.0.0 (alpha)"
+#macro __VINYL_DATE     "2024-05-13"
 
 #macro __VINYL_RUNNING_FROM_IDE  (GM_build_type == "run")
 
@@ -119,7 +119,7 @@ function __VinylSystem()
                             _bootSetupHash = _newHash;
                             
                             var _buffer = buffer_load(_bootSetupPath);
-                            var _gml = SnapBufferReadGML(_buffer, 0, buffer_get_size(_buffer));
+                            var _gml = __VinylBufferReadGML(_buffer, 0, buffer_get_size(_buffer));
                             buffer_delete(_buffer);
                             
                             VinylSetupImportJSON(_gml[$ "global.VinylConfigSON"] ?? []);

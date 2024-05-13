@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"SnapBufferReadGML",
+  "%Name":"__VinylBufferReadGML",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"SnapBufferReadGML",
+  "name":"__VinylBufferReadGML",
   "parent":{
     "name":"(Internals)",
     "path":"folders/Vinyl/(Internals).yy",

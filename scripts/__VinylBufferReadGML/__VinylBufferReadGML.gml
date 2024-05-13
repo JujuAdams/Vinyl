@@ -7,16 +7,16 @@
 /// 
 /// @jujuadams 2022-10-30
 
-function SnapBufferReadGML(_buffer, _offset, _size)
+function __VinylBufferReadGML(_buffer, _offset, _size)
 {
     var _oldOffset = buffer_tell(_buffer);
     buffer_seek(_buffer, buffer_seek_start, _offset);
-    var _parser = new __SnapBufferReadGMLParser(_buffer, _size);
+    var _parser = new ____VinylBufferReadGMLParser(_buffer, _size);
     buffer_seek(_buffer, buffer_seek_start, _oldOffset);
     return _parser.root;
 }
 
-function __SnapBufferReadGMLParser(_buffer, _buffer_size) constructor
+function ____VinylBufferReadGMLParser(_buffer, _buffer_size) constructor
 {
     root = {};
     
