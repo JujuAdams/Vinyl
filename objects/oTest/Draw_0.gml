@@ -43,7 +43,7 @@ UIButton("Mix slow 1", function()
 UINewline();
 UIButtonInline("1KHz", function()
 {
-    VinylPlay(snd1KHz, true);
+    VinylPlay(snd1KHz);
 });
 UISpace(20);
 UIButton("Shuffle Bleeps", function()
