@@ -83,15 +83,15 @@ function __VinylSystem()
         }
         
         //Import the boot setup JSON
-        __VinylConfigBootSetupJSON();
-        VinylSetupImportJSON(global.VinylBootSetupJSON, false);
+        __VinylConfigJSON();
+        VinylSetupImportJSON(global.VinylConfigSON, false);
         
         //Set up an update function that executes one every frame forever.
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, method(self, function()
         {
             static _voiceLookUpDict = __voiceLookUpDict;
             static _bootSetupTimer  = 0;
-            static _bootSetupPath   = VINYL_LIVE_EDIT? filename_dir(GM_project_filename) + "/scripts/__VinylConfigBootSetupJSON/__VinylConfigBootSetupJSON.gml" : undefined;
+            static _bootSetupPath   = VINYL_LIVE_EDIT? filename_dir(GM_project_filename) + "/scripts/__VinylConfigJSON/__VinylConfigJSON.gml" : undefined;
             static _bootSetupHash   = undefined;
             
             if (VINYL_DEBUG_SHOW_FRAMES) __frame++;
@@ -121,7 +121,7 @@ function __VinylSystem()
                             var _gml = SnapBufferReadGML(_buffer, 0, buffer_get_size(_buffer));
                             buffer_delete(_buffer);
                             
-                            VinylSetupImportJSON(_gml[$ "global.VinylBootSetupJSON"] ?? []);
+                            VinylSetupImportJSON(_gml[$ "global.VinylConfigSON"] ?? []);
                         }
                     }
                 }

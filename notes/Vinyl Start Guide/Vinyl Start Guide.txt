@@ -1,0 +1,60 @@
+Vinyl 6.0 Start Guide
+
+At its core, Vinyl is a wrapper around GameMaker's native audio functions. Vinyl saves the hassle
+of setting up data structures that you'd typically use to adjust gains, set up pitch randomisation,
+create audio queues, etc.  Its main job is to take configuration and setup data and make sense of
+that when you want to play some audio.
+
+As a result, Vinyl is, at its core, a system for storing and recalling audio data. No matter what
+Vinyl functions you call, at the case level Vinyl is reading data from some struct somewhere that
+you've defined. Vinyl offers multiple ways to manipulate the audio data it holds internally with
+the idea being that different use cases will want a different interface for setting up audio. There
+are three ways to interact with Vinyl's audio data:
+
+    1. On boot, call some VinylSetup*() functions to create patterns
+    2. Edit __VinylConfigJSON() to define patterns
+    3. Store some JSON externally and call VinylSetupImportJSON() to import that JSON
+
+You can combine these in any way you want but for the sake of simplicity I'd stick to one approach.
+
+
+
+1. VinylSetup*() functions
+
+If you've been making your own audio system previously then the most natural point of entry is
+probably to use the VinylSetup*() funcctions. These are straight-forward global function calls that
+set up sounds, mixes, and patterns. You can technically call them at any point but you should try
+to call these functions on boot, or at least very soon after boot. Each function has their own
+description in the script themselves.
+
+However, if you opt to use VinylSetup*() functions then you will be missing out on a major features
+of Vinyl, which is live editing of your audio setup. If you're just looking for something simple
+then this is likely not a concern.
+
+
+
+2. Edit __VinylConfigJSON()
+
+If you're a JSON sicko like myself then you'll likely enjoy the option of using __VinylConfigJSON()
+to set up Vinyl. This JSON expects a specific format. Please read the "Vinyl JSON Format" note
+included with the library for more information.
+
+Using __VinylConfigJSON() opens up the possibility of live editing audio properties. If
+VINYL_LIVE_EDIT is set to <true> and you're running your game on Windows, Mac, or Linux then you
+will be able to modify the contents of __VinylConfigJSON() at runtime and hear the results. This is
+great for quickly fixing problems without having to reboot the game.
+
+N.B. The parser that I wrote to handle live update for __VinylConfigJSON() is very simple and
+     cannot handle most GML syntax. If you intend to use the live updating feature you should
+     treat the JSON written in this file as "pure JSON" and you should not use conditionals or
+     if-statements or any logic at all.
+
+
+
+3. External JSON
+
+If you'd like to write some external tooling or make the JSON file used to determine audio setup
+externally available then you can use VinylSetupImportJSON() and VinylSetupExportJSON() to move
+JSON in and out of the game at runtime. Live updating will work if you use external JSON, though
+of course you are reasonable for importing JSON yourself if something changes. For information on
+what format JSON Vinyl expects, please see the "Vinyl JSON Format" note included with the library.

@@ -5,7 +5,7 @@
 /// often useful to assist with autocomplete when writing playback hooks in your code. In effect,
 /// the macros create "Vinyl assets" that can be used more easily than a bunch of strings.
 
-function VinylSetupExportGMLMacros()
+function __VinylSetupExportGMLMacros()
 {
     static _mixDict     = __VinylSystem().__mixDict;
     static _patternDict = __VinylSystem().__patternDict;

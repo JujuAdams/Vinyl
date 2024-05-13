@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"__VinylConfigBootSetupJSON",
+  "%Name":"__VinylConfigJSON",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__VinylConfigBootSetupJSON",
+  "name":"__VinylConfigJSON",
   "parent":{
     "name":"Config",
     "path":"folders/Vinyl/Config.yy",

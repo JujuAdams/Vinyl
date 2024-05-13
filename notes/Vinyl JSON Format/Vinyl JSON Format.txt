@@ -6,9 +6,9 @@ Vinyl 6.0 JSON Format
 
 Vinyl can import and export JSON which represents the audio setup for your game. These features can
 be accessed via the VinylSetupImportJSON() and VinylSetupExportJSON() functions. Additionally,
-macros can be exported with VinylSetupExportGMLMacros(). A macro is created for each mix and named
+macros can be exported with __VinylSetupExportGMLMacros(). A macro is created for each mix and named
 pattern and are convenient for referencing those Vinyl resources in your code. Alternate function
-VinylSetupExportGML() will export the JSON in a GML-compatible format so that it can be copy-pasted
+__VinylSetupExportGML() will export the JSON in a GML-compatible format so that it can be copy-pasted
 directly into your project's codebase.
 
 JSON import and export is not essential to using Vinyl and is offered as a way to more easily set

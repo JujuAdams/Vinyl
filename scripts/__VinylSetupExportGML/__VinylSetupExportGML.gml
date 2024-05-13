@@ -11,7 +11,7 @@
 /// @param [useMacros=false]
 /// @param [ignoreEmpty=true]
 
-function VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
+function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
 {
     static _mixDict     = __VinylSystem().__mixDict;
     static _patternDict = __VinylSystem().__patternDict;
