@@ -121,3 +121,9 @@ Mixes:
         "baseGain": <number>, optional, defaults to 1
         "members": <array of definitions>, optional, defaults to no assets
     }
+
+Metadata:
+    {
+        "metadata": <mix name>, required
+        "data": <any>, required
+    }

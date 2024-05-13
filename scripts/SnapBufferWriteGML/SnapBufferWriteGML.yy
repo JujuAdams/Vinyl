@@ -1,12 +1,12 @@
 {
   "$GMScript":"",
-  "%Name":"VinylMasterGetGain",
+  "%Name":"SnapBufferWriteGML",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylMasterGetGain",
+  "name":"SnapBufferWriteGML",
   "parent":{
-    "name":"Other Stuff",
-    "path":"folders/Vinyl/Other Stuff.yy",
+    "name":"(Internals)",
+    "path":"folders/Vinyl/(Internals).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

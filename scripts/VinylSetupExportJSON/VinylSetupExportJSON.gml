@@ -11,9 +11,10 @@
 
 function VinylSetupExportJSON(_ignoreEmpty = true)
 {
-    static _mixDict     = __VinylSystem().__mixDict;
-    static _patternDict = __VinylSystem().__patternDict;
-    static _soundDict   = __VinylSystem().__soundDict;
+    static _mixDict      = __VinylSystem().__mixDict;
+    static _patternDict  = __VinylSystem().__patternDict;
+    static _soundDict    = __VinylSystem().__soundDict;
+    static _metadataDict = __VinylSystem().__metadataDict;
     
     if (not VINYL_LIVE_EDIT)
     {
@@ -76,6 +77,25 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
             var _struct = _soundDict[$ _name].__ExportJSON(_ignoreEmpty);
             if (_struct != undefined) array_push(_outArray, _struct);
         }
+        
+        ++_i;
+    }
+    
+    
+    
+    //Export metadata definitions
+    var _namesArray = struct_get_names(_metadataDict);
+    array_sort(_namesArray, true);
+    
+    var _i = 0;
+    repeat(array_length(_namesArray))
+    {
+        var _name = _namesArray[_i];
+        
+        array_push(_outArray, {
+            metadata: _name,
+            data: _metadataDict[$ _name],
+        });
         
         ++_i;
     }

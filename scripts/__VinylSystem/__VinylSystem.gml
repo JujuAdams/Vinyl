@@ -41,9 +41,10 @@ function __VinylSystem()
         if (__VINYL_RUNNING_FROM_IDE) global.Vinyl = self;
         
         //Lookup dictionaries for sound/pattern/mix definitions.
-        __soundDict   = {};
-        __patternDict = {};
-        __mixDict     = {};
+        __soundDict    = {};
+        __patternDict  = {};
+        __mixDict      = {};
+        __metadataDict = {};
         
         //Array of mixes that need updating every frame
         __mixArray = [];

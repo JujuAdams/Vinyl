@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylMasterGetGain",
+  "%Name":"VinylGetMetadata",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylMasterGetGain",
+  "name":"VinylGetMetadata",
   "parent":{
     "name":"Other Stuff",
     "path":"folders/Vinyl/Other Stuff.yy",

@@ -1,5 +1,6 @@
 Vinyl 6.0 Start Guide
 
+
 At its core, Vinyl is a wrapper around GameMaker's native audio functions. Vinyl saves the hassle
 of setting up data structures that you'd typically use to adjust gains, set up pitch randomisation,
 create audio queues, etc.  Its main job is to take configuration and setup data and make sense of
@@ -19,7 +20,7 @@ You can combine these in any way you want but for the sake of simplicity I'd sti
 
 
 
-1. VinylSetup*() functions
+=== 1. VinylSetup*() functions ===
 
 If you've been making your own audio system previously then the most natural point of entry is
 probably to use the VinylSetup*() funcctions. These are straight-forward global function calls that
@@ -33,7 +34,7 @@ then this is likely not a concern.
 
 
 
-2. Edit __VinylConfigJSON()
+=== 2. Edit __VinylConfigJSON() ===
 
 If you're a JSON sicko like myself then you'll likely enjoy the option of using __VinylConfigJSON()
 to set up Vinyl. This JSON expects a specific format. Please read the "Vinyl JSON Format" note
@@ -51,7 +52,7 @@ N.B. The parser that I wrote to handle live update for __VinylConfigJSON() is ve
 
 
 
-3. External JSON
+=== 3. External JSON ===
 
 If you'd like to write some external tooling or make the JSON file used to determine audio setup
 externally available then you can use VinylSetupImportJSON() and VinylSetupExportJSON() to move

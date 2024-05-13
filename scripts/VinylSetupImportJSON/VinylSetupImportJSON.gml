@@ -44,6 +44,10 @@ function VinylSetupImportJSON(_json, _overwrite = true)
         {
             return __VinylImportMixGroupJSON(_json);
         }
+        else if (struct_exists(_json, "metadata"))
+        {
+            return __VinylImportMetadataJSON(_json);
+        }
         else
         {
             __VinylError("Struct could not be parsed, missing type information\nStruct should contain one of the following variables to indicate type:\n  .sound\n  .shuffle\n  .hlt\n  .blend\n  .mix");

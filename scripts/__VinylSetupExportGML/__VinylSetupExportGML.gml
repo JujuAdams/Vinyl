@@ -13,9 +13,10 @@
 
 function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
 {
-    static _mixDict     = __VinylSystem().__mixDict;
-    static _patternDict = __VinylSystem().__patternDict;
-    static _soundDict   = __VinylSystem().__soundDict;
+    static _mixDict      = __VinylSystem().__mixDict;
+    static _patternDict  = __VinylSystem().__patternDict;
+    static _soundDict    = __VinylSystem().__soundDict;
+    static _metadataDict = __VinylSystem().__metadataDict;
     
     if (not VINYL_LIVE_EDIT)
     {
@@ -78,6 +79,30 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
         {
             _soundDict[$ _namesArray[_i]].__ExportGML(_buffer, "    ", _ignoreEmpty);
         }
+        
+        ++_i;
+    }
+    
+    
+    
+    //Export metadata definitions
+    var _namesArray = struct_get_names(_metadataDict);
+    array_sort(_namesArray, true);
+    
+    var _i = 0;
+    repeat(array_length(_namesArray))
+    {
+        var _name = _namesArray[_i];
+        
+        buffer_write(_buffer, buffer_text, "    {\n");
+        buffer_write(_buffer, buffer_text, "        metadata: \"");
+        buffer_write(_buffer, buffer_text, _name);
+        buffer_write(_buffer, buffer_text, "\",\n");
+        
+        buffer_write(_buffer, buffer_text, "        data: ");
+        SnapBufferWriteGML(_buffer, _metadataDict[$ _name], true, "        ");
+        buffer_write(_buffer, buffer_text, ",\n");
+        buffer_write(_buffer, buffer_text, "    },\n");
         
         ++_i;
     }
