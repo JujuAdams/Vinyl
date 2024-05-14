@@ -107,7 +107,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
                 __pitchSound = _pattern.__pitch;
                 
                 __soundCurrent = _sound;
-                __voiceCurrent = audio_play_sound(_sound, 0, _loop, __gainSound*__gainLocal*__gainMix*__gainFadeOut/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+                __voiceCurrent = audio_play_sound(_sound, 0, _loop, __VINYL_VOICE_GAIN_SxLxMxF/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
             }
             else
             {
@@ -119,7 +119,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
         {
             if (_changed)
             {
-                audio_sound_gain(__voiceCurrent, __gainSound*__gainLocal*__gainMix*__gainFadeOut/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+                audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
             }
         }
         
@@ -174,14 +174,14 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
         if (_rateOfChange > 100)
         {
             __gainLocal = _gain;
-            audio_sound_gain(__voiceCurrent, __gainSound*__gainLocal*__gainMix*__gainFadeOut/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         }
     }
     
     static __SetMixGain = function(_gain)
     {
         __gainMix = max(0, _gain);
-        audio_sound_gain(__voiceCurrent, __gainSound*__gainLocal*__gainMix*__gainFadeOut/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
     static __SetBehaviour = function(_behaviour, _setForPlaying)
@@ -224,7 +224,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
         __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
         
         audio_sound_loop( __voiceCurrent, __loopLocal ?? _pattern.__loop);
-        audio_sound_gain( __voiceCurrent, __gainSound*__gainLocal*__gainMix*__gainFadeOut/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
-        audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_EQUATION);
+        audio_sound_gain( __voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxPxL);
     }
 }

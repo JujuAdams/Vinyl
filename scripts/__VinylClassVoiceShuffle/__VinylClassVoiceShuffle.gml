@@ -24,12 +24,15 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
     __sound        = _sound;
     __voice        = _voice;
     __loopLocal    = _loopLocal;
+    
     __gainSound    = __VinylSoundGetGain(_sound);
     __gainPattern  = _gainPattern;
     __gainLocal    = _gainLocal;
     __gainMix      = _gainMix;
+    
     __pitchPattern = _pitchPattern;
     __pitchLocal   = _pitchLocal;
+    
     __pattern      = _pattern;
     __mixName      = (_pattern != undefined)? _pattern.__mixName : undefined;
     __gainFactor   = _gainFactor;
@@ -98,7 +101,7 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
         
         if (_changed)
         {
-            audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(__voice, __VINYL_VOICE_GAIN_SxPxLxMxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         }
         
         return true;
@@ -133,7 +136,7 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
         if (_rateOfChange > 100)
         {
             __gainLocal = _gain;
-            audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(__voice, __VINYL_VOICE_GAIN_SxPxLxMxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         }
         else
         {
@@ -148,7 +151,7 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
     static __SetMixGain = function(_gain)
     {
         __gainMix = _gain;
-        audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        audio_sound_gain(__voice, __VINYL_VOICE_GAIN_SxPxLxMxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
     static __QueueUpdateForSound = function(_sound)
@@ -168,7 +171,7 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
         __VinylVoiceMoveMix(__voice, _pattern.__mixName);
         
         audio_sound_loop( __voice, __loopLocal ?? _pattern.__loop);
-        audio_sound_gain( __voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
-        audio_sound_pitch(__voice, __VINYL_VOICE_PITCH_EQUATION);
+        audio_sound_gain( __voice, __VINYL_VOICE_GAIN_SxPxLxMxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        audio_sound_pitch(__voice, __VINYL_VOICE_PITCH_SxPxL);
     }
 }

@@ -59,7 +59,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         var _loop = _pattern.__loop ?? false;
         var _soundGainArray = _pattern.__soundGainArray;
         
-        __voiceTop      = audio_play_sound(_soundArray[0], 0, _loop, _soundGainArray[0]*__VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+        __voiceTop      = audio_play_sound(_soundArray[0], 0, _loop, _soundGainArray[0]*__VINYL_VOICE_GAIN_PxLxMxF/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
         __voiceArray[0] = __voiceTop;
         __gainArray[ 0] = _soundGainArray[0];
         
@@ -122,7 +122,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     {
         var _voiceArray = __voiceArray;
         var _gainArray  = __gainArray;
-        var _gainShared = __VINYL_VOICE_GAIN_EQUATION;
+        var _gainShared = __VINYL_VOICE_GAIN_PxLxMxF;
         
         var _i = 0;
         repeat(__voiceCount)
