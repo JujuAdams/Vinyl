@@ -44,6 +44,12 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
     
     
     
+    static __Destroy = function()
+    {
+        __Stop();
+        __destroyed = true;
+    }
+    
     static __Update = function(_delta)
     {
         if (__destroyed) return false;
@@ -191,9 +197,8 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
         if (__soundCurrent == _sound) array_push(_toUpdateArray, self);
     }
     
-    static __Destroy = function()
+    static __UpdateFromPattern = function()
     {
-        __Stop();
-        __destroyed = true;
+        //TODO
     }
 }

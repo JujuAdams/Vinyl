@@ -154,7 +154,7 @@ function __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainSound, _gainLoc
         if (__sound == _sound) array_push(_toUpdateArray, self);
     }
     
-    static __UpdateOnImport = function()
+    static __UpdateFromPattern = function()
     {
         var _pattern = struct_get_from_hash(_soundDict, int64(__sound));
         

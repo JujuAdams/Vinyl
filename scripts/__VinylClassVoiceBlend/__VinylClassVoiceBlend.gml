@@ -304,6 +304,11 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         if (__pattern.__UsesSound(_sound)) array_push(_toUpdateArray, self);
     }
     
+    static __UpdateFromPattern = function()
+    {
+        //TODO
+    }
+    
     static __SetFromPattern = function(_soundsChanged)
     {
         var _pattern = __pattern;

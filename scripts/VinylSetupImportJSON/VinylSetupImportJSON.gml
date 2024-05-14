@@ -101,7 +101,7 @@ function __VinylSetupImportJSONInner(_json, _overwrite = true)
                 case "__VinylClassVoiceHLT":
                 case "__VinylClassVoiceBlend":
                 case "__VinylClassVoiceQueue":
-                    _voice.__UpdateOnImport();
+                    _voice.__UpdateFromPattern();
                 break;
                 
                 default:

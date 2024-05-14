@@ -155,27 +155,15 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
         if (__sound == _sound) array_push(_toUpdateArray, self);
     }
     
-    static __SetFromSound = function(_sound, _gain, _pitch, _loop, _mixName)
+    static __UpdateFromPattern = function()
     {
-        if (__sound != _sound) return;
+        var _pattern = __pattern;
         
-        __gainSound  = _gain;
-        __pitchSound = _pitch;
+        __gainSound  = _pattern.__gain;
+        __pitchSound = _pattern.__pitch;
         
-        __VinylVoiceMoveMix(__voice, _mixName);
+        __VinylVoiceMoveMix(__voice, _pattern.__mixName);
         
         audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
-    }
-    
-    static __SetFromPattern = function(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName)
-    {
-        __gainPattern  = lerp(_gainMin,  _gainMax,  __gainFactor);
-        __pitchPattern = lerp(_pitchMin, _pitchMax, __pitchFactor);
-        
-        __VinylVoiceMoveMix(__voice, _mixName);
-        
-        audio_sound_loop( __voice, __loopLocal ?? _loop);
-        audio_sound_gain( __voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
-        audio_sound_pitch(__voice, __VINYL_VOICE_PITCH_EQUATION);
     }
 }

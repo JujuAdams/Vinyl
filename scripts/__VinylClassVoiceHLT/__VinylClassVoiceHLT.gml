@@ -244,6 +244,11 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         if (__pattern.__UsesSound(_sound)) array_push(_toUpdateArray, self);
     }
     
+    static __UpdateFromPattern = function()
+    {
+        //TODO
+    }
+    
     static __SetFromPattern = function(_headChanged, _loopChanged, _tailChanged)
     {
         var _pattern = __pattern;
