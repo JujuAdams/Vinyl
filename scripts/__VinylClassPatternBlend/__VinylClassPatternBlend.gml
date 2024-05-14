@@ -36,8 +36,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
     {
         if (VINYL_LIVE_EDIT)
         {
-            __oldSoundArray = __soundArray;
-            
+            __changedSoundArray = array_equals(__soundArray, _soundArray);
             array_push(_toUpdateArray, self);
         }
         

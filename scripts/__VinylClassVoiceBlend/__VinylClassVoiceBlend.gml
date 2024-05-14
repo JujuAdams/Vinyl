@@ -306,11 +306,6 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     
     static __UpdateFromPattern = function()
     {
-        //TODO
-    }
-    
-    static __SetFromPattern = function(_soundsChanged)
-    {
         var _pattern = __pattern;
         
         var _loop = _pattern.__loop ?? false;
@@ -318,9 +313,9 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
         
         __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
         
-        if (_soundsChanged)
+        if (_pattern.__changedSoundArray)
         {
-            var _soundArray = __pattern.__soundArray;
+            var _soundArray = _pattern.__soundArray;
             __voiceCount = array_length(_soundArray);
             
             __voiceTop   = -1;

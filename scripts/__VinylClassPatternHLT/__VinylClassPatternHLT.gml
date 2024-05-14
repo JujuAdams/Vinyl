@@ -30,18 +30,22 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     
     static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mix)
     {
+        var _newSoundHead = __VinylImportSound(_soundHead);
+        var _newSoundLoop = __VinylImportSound(_soundLoop);
+        var _newSoundTail = __VinylImportSound(_soundTail);
+        
         if (VINYL_LIVE_EDIT)
         {
-            __oldSoundHead = __soundHead;
-            __oldSoundLoop = __soundLoop;
-            __oldSoundTail = __soundTail;
+            __changedHead = (__soundHead != _newSoundHead);
+            __changedLoop = (__soundLoop != _newSoundLoop);
+            __changedTail = (__soundTail != _newSoundTail);
             
             array_push(_toUpdateArray, self);
         }
         
-        __soundHead = __VinylImportSound(_soundHead);
-        __soundLoop = __VinylImportSound(_soundLoop);
-        __soundTail = __VinylImportSound(_soundTail);
+        __soundHead = _newSoundHead;
+        __soundLoop = _newSoundLoop;
+        __soundTail = _newSoundTail;
         
         __gain = _gain;
         

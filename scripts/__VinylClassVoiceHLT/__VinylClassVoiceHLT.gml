@@ -246,11 +246,6 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     
     static __UpdateFromPattern = function()
     {
-        //TODO
-    }
-    
-    static __SetFromPattern = function(_headChanged, _loopChanged, _tailChanged)
-    {
         var _pattern = __pattern;
         
         __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
@@ -260,7 +255,9 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         switch(__state)
         {
             case __VINYL_HLT_STATE.__HEAD:
-                if (_headChanged)
+                __gainSound = __VinylSoundGetGain(_pattern.__soundHead);
+                
+                if (_pattern.__changedHead)
                 {
                     audio_stop_sound(__voiceCurrent);
                     __voiceCurrent = audio_play_sound(_pattern.__soundHead, 0, false, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
@@ -272,7 +269,9 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
             break;
             
             case __VINYL_HLT_STATE.__LOOP:
-                if (_loopChanged)
+                __gainSound = __VinylSoundGetGain(_pattern.__soundLoop);
+                
+                if (_pattern.__changedLoop)
                 {
                     var _loop = audio_sound_get_loop(__voiceCurrent);
                     audio_stop_sound(__voiceCurrent);
@@ -285,7 +284,9 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
             break;
             
             case __VINYL_HLT_STATE.__TAIL:
-                if (_tailChanged)
+                __gainSound = __VinylSoundGetGain(_pattern.__soundTail);
+                
+                if (_pattern.__changedTail)
                 {
                     audio_stop_sound(__voiceCurrent);
                     __voiceCurrent = audio_play_sound(_pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
