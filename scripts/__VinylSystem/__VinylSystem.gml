@@ -40,6 +40,8 @@ function __VinylSystem()
         __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
         if (__VINYL_RUNNING_FROM_IDE) global.Vinyl = self;
         
+        __toUpdateArray = VINYL_LIVE_EDIT? [] : undefined;
+        
         //Lookup dictionaries for sound/pattern/mix definitions.
         __soundDict    = {};
         __patternDict  = {};
@@ -85,7 +87,7 @@ function __VinylSystem()
         
         //Import the boot setup JSON
         __VinylConfigJSON();
-        VinylSetupImportJSON(global.VinylConfigSON, false);
+        __VinylSetupImportJSONInner(global.VinylConfigSON, false);
         
         //Set up an update function that executes one every frame forever.
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, method(self, function()
@@ -122,7 +124,7 @@ function __VinylSystem()
                             var _gml = __VinylBufferReadGML(_buffer, 0, buffer_get_size(_buffer));
                             buffer_delete(_buffer);
                             
-                            VinylSetupImportJSON(_gml[$ "global.VinylConfigSON"] ?? []);
+                            __VinylSetupImportJSONInner(_gml[$ "global.VinylConfigSON"] ?? [], true);
                         }
                     }
                 }

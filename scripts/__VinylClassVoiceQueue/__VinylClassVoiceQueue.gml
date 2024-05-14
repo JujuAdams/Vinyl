@@ -11,6 +11,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
     static _soundDict        = __VinylSystem().__soundDict;
     static _voiceLookUpDict  = __VinylSystem().__voiceLookUpDict;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
+    static _toUpdateArray    = __VinylSystem().__toUpdateArray;
     
     __gainPattern  = 1;
     __gainLocal = _gainLocal;
@@ -185,9 +186,9 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
         }
     }
     
-    static __SetFromSound = function(_sound)
+    static __QueueUpdateForSound = function(_sound)
     {
-        
+        if (__soundCurrent == _sound) array_push(_toUpdateArray, self);
     }
     
     static __Destroy = function()

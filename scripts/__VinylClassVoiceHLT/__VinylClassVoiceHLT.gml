@@ -10,11 +10,13 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     static _voiceLookUpDict   = __VinylSystem().__voiceLookUpDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
+    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
     
     __pattern    = _pattern;
     __gainLocal  = _gainLocal;
     __pitchLocal = _pitchLocal;
     
+    __gainSound   = 1;
     __gainPattern = _pattern.__gain;
     
     if (VINYL_LIVE_EDIT)
@@ -235,6 +237,11 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     {
         __gainMix = max(0, _gain);
         audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+    }
+    
+    static __QueueUpdateForSound = function(_sound)
+    {
+        if (__pattern.__UsesSound(_sound)) array_push(_toUpdateArray, self);
     }
     
     static __SetFromPattern = function(_headChanged, _loopChanged, _tailChanged)

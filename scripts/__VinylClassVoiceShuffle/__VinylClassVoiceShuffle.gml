@@ -17,6 +17,7 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
     static _voiceLookUpDict   = __VinylSystem().__voiceLookUpDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
+    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
     
     __inUpdateArray = false;
     
@@ -147,6 +148,11 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
     {
         __gainMix = _gain;
         audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+    }
+    
+    static __QueueUpdateForSound = function(_sound)
+    {
+        if (__sound == _sound) array_push(_toUpdateArray, self);
     }
     
     static __SetFromSound = function(_sound, _gain, _pitch, _loop, _mixName)

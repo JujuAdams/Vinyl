@@ -15,16 +15,15 @@ function __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainSound, _gainLoc
     static _voiceLookUpDict   = __VinylSystem().__voiceLookUpDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
+    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
     
     __inUpdateArray = false;
     
     __voice        = _voice;
     __gainSound    = _gainSound;
-    __gainPattern  = 1;
     __gainLocal    = _gainLocal;
     __gainMix      = _gainMix;
     __pitchSound   = _pitchSound;
-    __pitchPattern = 1;
     __pitchLocal   = _pitchLocal;
     
     if (VINYL_LIVE_EDIT)
@@ -97,7 +96,7 @@ function __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainSound, _gainLoc
         
         if (_changed)
         {
-            audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(__voice, __gainSound*__gainLocal*__gainMix*__gainFadeOut/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         }
         
         return true;
@@ -132,7 +131,7 @@ function __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainSound, _gainLoc
         if (_rateOfChange > 100)
         {
             __gainLocal = _gain;
-            audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(__voice, __gainSound*__gainLocal*__gainMix*__gainFadeOut/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         }
         else
         {
@@ -147,20 +146,25 @@ function __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainSound, _gainLoc
     static __SetMixGain = function(_gain)
     {
         __gainMix = _gain;
-        audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        audio_sound_gain(__voice, __gainSound*__gainLocal*__gainMix*__gainFadeOut/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
-    static __SetFromSound = function(_sound, _gain, _gainMix, _pitch, _loop, _mixName)
+    static __QueueUpdateForSound = function(_sound)
     {
-        if (__sound != _sound) return;
+        if (__sound == _sound) array_push(_toUpdateArray, self);
+    }
+    
+    static __UpdateOnImport = function()
+    {
+        var _pattern = struct_get_from_hash(_soundDict, int64(__sound));
         
-        __gainSound  = _gain;
-        __pitchSound = _pitch;
+        __gainSound  = _pattern.__gain;
+        __pitchSound = _pattern.__pitch;
         
-        __VinylVoiceMoveMix(__voice, _mixName);
+        __VinylVoiceMoveMix(__voice, _pattern.__mixName);
         
-        audio_sound_loop( __voice, __loopLocal ?? _loop);
-        audio_sound_gain( __voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        audio_sound_loop( __voice, __loopLocal ?? _pattern.__loop);
+        audio_sound_gain( __voice, __gainSound*__gainLocal*__gainMix*__gainFadeOut/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         audio_sound_pitch(__voice, __VINYL_VOICE_PITCH_EQUATION);
     }
 }

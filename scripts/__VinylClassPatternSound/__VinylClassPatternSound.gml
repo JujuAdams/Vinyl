@@ -10,6 +10,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mix) constructo
 {
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _mixDict           = __VinylSystem().__mixDict;
+    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
     
     __sound = _sound;
     __gain  = _gain;
@@ -56,22 +57,16 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mix) constructo
     
     static __UpdateSetup = function(_gain, _pitch, _loop, _mixName)
     {
+        if (VINYL_LIVE_EDIT)
+        {
+            array_push(_toUpdateArray, self);
+        }
+        
         __gain  = _gain;
         __pitch = _pitch;
         __loop  = _loop;
         
         __SetMix(_mixName);
-        
-        if (VINYL_LIVE_EDIT)
-        {
-            var _sound = __sound;
-            var _i = 0;
-            repeat(array_length(_voiceCleanUpArray))
-            {
-                _voiceCleanUpArray[_i].__SetFromSound(_sound, _gain, _pitch, _loop, _mixName);
-                ++_i;
-            }
-        }
     }
     
     static __SetMix = function(_mix)

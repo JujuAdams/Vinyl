@@ -279,7 +279,7 @@ function __VinylClassMix(_mixName, _gainPattern) constructor
     }
 }
 
-function __VinylImportMixGroupJSON(_json)
+function __VinylImportMixGroupJSON(_json, _overwrite)
 {
     if (VINYL_SAFE_JSON_IMPORT)
     {
@@ -313,7 +313,7 @@ function __VinylImportMixGroupJSON(_json)
         {
             var _memberData = _membersArray[_i];
             
-            var _return = VinylSetupImportJSON(_memberData);
+            var _return = __VinylSetupImportJSONInner(_memberData, _overwrite);
             if (_return != undefined) VinylSetMixForAssets(_json.mix, _return);
             
             ++_i;

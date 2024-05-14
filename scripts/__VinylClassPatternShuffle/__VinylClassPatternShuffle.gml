@@ -13,6 +13,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
 {
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _mixDict           = __VinylSystem().__mixDict;
+    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
     
     __patternName = _patternName;
     
@@ -106,6 +107,11 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     
     static __UpdateSetup = function(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix)
     {
+        if (VINYL_LIVE_EDIT)
+        {
+            array_push(_toUpdateArray, self);
+        }
+        
         __soundArray = __VinylImportSoundArray(_soundArray);
         __gainMin    = _gainMin;
         __gainMax    = _gainMax;
@@ -120,21 +126,6 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         __playIndex  = infinity;
         
         __SetMix(_mix);
-        
-        if (VINYL_LIVE_EDIT)
-        {
-            var _i = 0;
-            repeat(array_length(_voiceCleanUpArray))
-            {
-                var _voiceStruct = _voiceCleanUpArray[_i];
-                if (_voiceStruct.__pattern == self)
-                {
-                    _voiceStruct.__SetFromPattern(_gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix);
-                }
-                
-                ++_i;
-            }
-        }
     }
     
     static __SetMix = function(_mix)

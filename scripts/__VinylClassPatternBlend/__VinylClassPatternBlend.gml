@@ -10,14 +10,15 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
 {
     static _soundDict         = __VinylSystem().__soundDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
+    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
     
-    __soundGainArray = [];
     
     __patternName = _patternName;
     
-    __soundArray = __VinylImportSoundArray(_soundArray);
-    __loop       = _loop;
-    __gain       = _gain;
+    __soundArray     = __VinylImportSoundArray(_soundArray);
+    __soundGainArray = array_create(array_length(__soundArray), 1);
+    __loop           = _loop;
+    __gain           = _gain;
     
     __SetMix(_mix);
     __UpdateSoundGains();
@@ -33,30 +34,19 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
     
     static __UpdateSetup = function(_soundArray, _loop, _gain, _mix)
     {
-        var _newSoundArray = __VinylImportSoundArray(_soundArray);
-        var _soundsChanged = (not array_equals(_newSoundArray, __soundArray));
+        if (VINYL_LIVE_EDIT)
+        {
+            __oldSoundArray = __soundArray;
+            
+            array_push(_toUpdateArray, self);
+        }
         
-        __soundArray = _newSoundArray;
+        __soundArray = __VinylImportSoundArray(_soundArray);
         __loop       = _loop;
         __gain       = _gain;
         
         __SetMix(_mix);
         __UpdateSoundGains();
-        
-        if (VINYL_LIVE_EDIT)
-        {
-            var _i = 0;
-            repeat(array_length(_voiceCleanUpArray))
-            {
-                var _voiceStruct = _voiceCleanUpArray[_i];
-                if (_voiceStruct.__pattern == self)
-                {
-                    _voiceStruct.__SetFromPattern(_soundsChanged);
-                }
-                
-                ++_i;
-            }
-        }
     }
     
     static __UpdateSoundGains = function()
@@ -82,6 +72,11 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
     static __ClearSetup = function()
     {
         __UpdateSetup(__soundArray, 1, VINYL_DEFAULT_MIX);
+    }
+    
+    static __UsesSound = function(_sound)
+    {
+        return array_contains(__soundArray, _sound);
     }
     
     static __ExportJSON = function()

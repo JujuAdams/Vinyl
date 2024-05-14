@@ -11,6 +11,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     static _voiceLookUpDict   = __VinylSystem().__voiceLookUpDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
+    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
     
     __inUpdateArray = false;
     
@@ -296,6 +297,11 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
                 ++_i;
             }
         }
+    }
+    
+    static __QueueUpdateForSound = function(_sound)
+    {
+        if (__pattern.__UsesSound(_sound)) array_push(_toUpdateArray, self);
     }
     
     static __SetFromPattern = function(_soundsChanged)
