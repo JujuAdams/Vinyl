@@ -9,7 +9,7 @@
 /// @param json
 /// @param [overwrite=true]
 
-function __VinylSetupImportJSONInner(_json, _overwrite = true)
+function VinylSetupImportJSON(_json, _overwrite = true)
 {
     static _toUpdateArray     = __VinylSystem().__toUpdateArray;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
@@ -111,46 +111,6 @@ function __VinylSetupImportJSONInner(_json, _overwrite = true)
             
             ++_i;
         }
-        
-        // HLT
-        //
-        //var _headChanged = (_newSoundHead != __soundHead);
-        //var _loopChanged = (_newSoundLoop != __soundLoop);
-        //var _tailChanged = (_newSoundTail != __soundTail);
-        //
-        //if (VINYL_LIVE_EDIT)
-        //{
-        //    var _i = 0;
-        //    repeat(array_length(_voiceUpdateArray))
-        //    {
-        //        var _voiceStruct = _voiceUpdateArray[_i];
-        //        if (_voiceStruct.__pattern == self)
-        //        {
-        //            _voiceStruct.__SetFromPattern(_headChanged, _loopChanged, _tailChanged);
-        //        }
-        //        
-        //        ++_i;
-        //    }
-        //}
-        
-        // Blend
-        //
-        //var _soundsChanged = (not array_equals(_newSoundArray, __soundArray));
-        //
-        //if (VINYL_LIVE_EDIT)
-        //{
-        //    var _i = 0;
-        //    repeat(array_length(_voiceCleanUpArray))
-        //    {
-        //        var _voiceStruct = _voiceCleanUpArray[_i];
-        //        if (_voiceStruct.__pattern == self)
-        //        {
-        //            _voiceStruct.__SetFromPattern(_soundsChanged);
-        //        }
-        //        
-        //        ++_i;
-        //    }
-        //}
         
         array_resize(_toUpdateArray, 0);
     }

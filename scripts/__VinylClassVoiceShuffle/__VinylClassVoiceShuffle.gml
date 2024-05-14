@@ -24,6 +24,7 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
     __sound        = _sound;
     __voice        = _voice;
     __loopLocal    = _loopLocal;
+    __gainSound    = __VinylSoundGetGain(_sound);
     __gainPattern  = _gainPattern;
     __gainLocal    = _gainLocal;
     __gainMix      = _gainMix;
