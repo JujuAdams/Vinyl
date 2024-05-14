@@ -20,11 +20,11 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mix) constructo
     
     static __Play = function(_loopLocal, _gainLocal, _pitchLocal)
     {
-        var _sound     = __sound;
+        var _sound        = __sound;
         var _gainPattern  = __gain;
         var _pitchPattern = __pitch;
-        var _loopFinal = _loopLocal ?? __loop;
-        var _mixName   = __mixName;
+        var _loopFinal    = _loopLocal ?? __loop;
+        var _mixName      = __mixName;
         
         if (__noMix)
         {

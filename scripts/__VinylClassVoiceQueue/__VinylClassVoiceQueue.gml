@@ -91,13 +91,13 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
             __VinylVoiceMoveMix(__voiceReference, struct_get_from_hash(_soundDict, int64(_sound)).__mixName);
             
             __soundCurrent = _sound;
-            __voiceCurrent = audio_play_sound(_sound, 0, _loop, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+            __voiceCurrent = audio_play_sound(_sound, 0, _loop, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
         }
         else
         {
             if (_changed)
             {
-                audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+                audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
             }
         }
         
@@ -152,14 +152,14 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
         if (_rateOfChange > 100)
         {
             __gainLocal = _gain;
-            audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         }
     }
     
     static __SetMixGain = function(_gain)
     {
         __gainMix = max(0, _gain);
-        audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
     static __SetBehaviour = function(_behaviour, _setForPlaying)

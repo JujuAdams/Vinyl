@@ -97,7 +97,7 @@ function __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainSound, _gainLoc
         
         if (_changed)
         {
-            audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         }
         
         return true;
@@ -132,7 +132,7 @@ function __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainSound, _gainLoc
         if (_rateOfChange > 100)
         {
             __gainLocal = _gain;
-            audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         }
         else
         {
@@ -147,7 +147,7 @@ function __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainSound, _gainLoc
     static __SetMixGain = function(_gain)
     {
         __gainMix = _gain;
-        audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        audio_sound_gain(__voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
     static __SetFromSound = function(_sound, _gain, _gainMix, _pitch, _loop, _mixName)
@@ -160,7 +160,7 @@ function __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainSound, _gainLoc
         __VinylVoiceMoveMix(__voice, _mixName);
         
         audio_sound_loop( __voice, __loopLocal ?? _loop);
-        audio_sound_gain( __voice, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        audio_sound_gain( __voice, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         audio_sound_pitch(__voice, __VINYL_VOICE_PITCH_EQUATION);
     }
 }

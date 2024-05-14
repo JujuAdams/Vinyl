@@ -49,7 +49,8 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     var _soundHead = _pattern.__soundHead;
     if (_soundHead != undefined)
     {
-        __voiceCurrent = audio_play_sound(_soundHead, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+        __gainSound = __VinylSoundGetGain(_soundHead);
+        __voiceCurrent = audio_play_sound(_soundHead, 0, false, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
         __state = __VINYL_HLT_STATE.__HEAD;
     }
     else
@@ -57,13 +58,15 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         var _soundLoop = _pattern.__soundLoop;
         if (_soundLoop != undefined)
         {
-            __voiceCurrent = audio_play_sound(_soundLoop, 0, true, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+            __gainSound = __VinylSoundGetGain(_soundLoop);
+            __voiceCurrent = audio_play_sound(_soundLoop, 0, true, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
             __state = __VINYL_HLT_STATE.__LOOP;
         }
         else
         {
             var _soundTail = _pattern.__soundTail;
-            __voiceCurrent = (_soundTail == undefined)? -1 : audio_play_sound(_soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+            __gainSound = __VinylSoundGetGain(_soundTail);
+            __voiceCurrent = (_soundTail == undefined)? -1 : audio_play_sound(_soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
             __state = __VINYL_HLT_STATE.__TAIL;
         }
     }
@@ -114,7 +117,8 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                 case __VINYL_HLT_STATE.__HEAD:
                     if (__doLoop && (__pattern.__soundLoop != undefined))
                     {
-                        __voiceCurrent = audio_play_sound(__pattern.__soundLoop, 0, true, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+                        __gainSound = __VinylSoundGetGain(__pattern.__soundLoop);
+                        __voiceCurrent = audio_play_sound(__pattern.__soundLoop, 0, true, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
                         __state = __VINYL_HLT_STATE.__LOOP;
                     }
                     else
@@ -123,7 +127,8 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                         
                         if (__pattern.__soundTail != undefined)
                         {
-                            __voiceCurrent = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+                            __gainSound = __VinylSoundGetGain(__pattern.__soundTail);
+                            __voiceCurrent = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
                         }
                         else
                         {
@@ -138,7 +143,8 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                     
                     if (__pattern.__soundTail != undefined)
                     {
-                        __voiceCurrent = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+                        __gainSound = __VinylSoundGetGain(__pattern.__soundTail);
+                        __voiceCurrent = audio_play_sound(__pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
                     }
                     else
                     {
@@ -161,7 +167,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         {
             if (_changed)
             {
-                audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+                audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
             }
         }
         
@@ -210,7 +216,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         if (_rateOfChange > 100)
         {
             __gainLocal = _gain;
-            audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         }
     }
     
@@ -228,12 +234,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     static __SetMixGain = function(_gain)
     {
         __gainMix = max(0, _gain);
-        audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
-    }
-    
-    static __SetFromSound = function(_sound, _gain, _pitch, _loop, _mixName)
-    {
-        
+        audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
     static __SetFromPattern = function(_headChanged, _loopChanged, _tailChanged)
@@ -250,11 +251,11 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                 if (_headChanged)
                 {
                     audio_stop_sound(__voiceCurrent);
-                    __voiceCurrent = audio_play_sound(_pattern.__soundHead, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+                    __voiceCurrent = audio_play_sound(_pattern.__soundHead, 0, false, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
                 }
                 else
                 {
-                    audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+                    audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
                 }
             break;
             
@@ -263,11 +264,11 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                 {
                     var _loop = audio_sound_get_loop(__voiceCurrent);
                     audio_stop_sound(__voiceCurrent);
-                    __voiceCurrent = audio_play_sound(_pattern.__soundLoop, 0, _loop, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+                    __voiceCurrent = audio_play_sound(_pattern.__soundLoop, 0, _loop, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
                 }
                 else
                 {
-                    audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+                    audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
                 }
             break;
             
@@ -275,11 +276,11 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                 if (_tailChanged)
                 {
                     audio_stop_sound(__voiceCurrent);
-                    __voiceCurrent = audio_play_sound(_pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+                    __voiceCurrent = audio_play_sound(_pattern.__soundTail, 0, false, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
                 }
                 else
                 {
-                    audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+                    audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_EQUATION_INC_SOUND/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
                 }
             break;
         }

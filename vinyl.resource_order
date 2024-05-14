@@ -46,6 +46,7 @@
     {"name":"__VinylRandomRange","order":2,"path":"scripts/__VinylRandomRange/__VinylRandomRange.yy",},
     {"name":"__VinylSetupExportGML","order":13,"path":"scripts/__VinylSetupExportGML/__VinylSetupExportGML.yy",},
     {"name":"__VinylSetupExportGMLMacros","order":14,"path":"scripts/__VinylSetupExportGMLMacros/__VinylSetupExportGMLMacros.yy",},
+    {"name":"__VinylSoundGetGain","order":18,"path":"scripts/__VinylSoundGetGain/__VinylSoundGetGain.yy",},
     {"name":"__VinylSystem","order":1,"path":"scripts/__VinylSystem/__VinylSystem.yy",},
     {"name":"__VinylTrace","order":3,"path":"scripts/__VinylTrace/__VinylTrace.yy",},
     {"name":"__VinylVoiceMoveMix","order":12,"path":"scripts/__VinylVoiceMoveMix/__VinylVoiceMoveMix.yy",},

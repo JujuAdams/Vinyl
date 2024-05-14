@@ -8,7 +8,10 @@
 
 function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix) constructor
 {
+    static _soundDict         = __VinylSystem().__soundDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
+    
+    __soundGainArray = [];
     
     __patternName = _patternName;
     
@@ -17,6 +20,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
     __gain       = _gain;
     
     __SetMix(_mix);
+    __UpdateSoundGains();
     
     
     
@@ -37,6 +41,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
         __gain       = _gain;
         
         __SetMix(_mix);
+        __UpdateSoundGains();
         
         if (VINYL_LIVE_EDIT)
         {
@@ -51,6 +56,20 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
                 
                 ++_i;
             }
+        }
+    }
+    
+    static __UpdateSoundGains = function()
+    {
+        var _soundArray = __soundArray;
+        var _gainArray  = __soundGainArray;
+        array_resize(_gainArray, array_length(_soundArray));
+        
+        var _i = 0;
+        repeat(array_length(_soundArray))
+        {
+            _gainArray[_i] = struct_get_from_hash(_soundDict, int64(_soundArray[_i])).__gain;
+            ++_i;
         }
     }
     
