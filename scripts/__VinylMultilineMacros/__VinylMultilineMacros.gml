@@ -4,4 +4,5 @@
 #macro __VINYL_VOICE_GAIN_PxLxMxF    (__gainPattern*__gainLocal*__gainMix*__gainFadeOut)
 #macro __VINYL_VOICE_GAIN_SxPxLxMxF  (__gainSound*__gainPattern*__gainLocal*__gainMix*__gainFadeOut)
 
+#macro __VINYL_VOICE_PITCH_SxL  (__pitchSound*__pitchLocal)
 #macro __VINYL_VOICE_PITCH_SxPxL  (__pitchSound*__pitchPattern*__pitchLocal)

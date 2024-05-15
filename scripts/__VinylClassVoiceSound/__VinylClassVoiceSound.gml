@@ -12,6 +12,7 @@
 
 function __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _pitchSound, _pitchLocal, _mixName) constructor
 {
+    static _soundDict         = __VinylSystem().__soundDict;
     static _voiceLookUpDict   = __VinylSystem().__voiceLookUpDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
@@ -165,6 +166,6 @@ function __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainSound, _gainLoc
         
         audio_sound_loop( __voice, __loopLocal ?? _pattern.__loop);
         audio_sound_gain( __voice, __VINYL_VOICE_GAIN_SxLxMxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
-        audio_sound_pitch(__voice, __VINYL_VOICE_PITCH_SxPxL);
+        audio_sound_pitch(__voice, __VINYL_VOICE_PITCH_SxL);
     }
 }
