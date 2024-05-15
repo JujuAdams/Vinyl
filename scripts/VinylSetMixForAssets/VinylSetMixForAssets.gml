@@ -9,8 +9,9 @@
 
 function VinylSetMixForAssets()
 {
-    static _soundDict   = __VinylSystem().__soundDict;
-    static _patternDict = __VinylSystem().__patternDict;
+    static _toUpdateArray = __VinylSystem().__toUpdateArray;
+    static _soundDict     = __VinylSystem().__soundDict;
+    static _patternDict   = __VinylSystem().__patternDict;
     
     var _mixName = argument[0];
     if (_mixName == VINYL_NO_MIX) _mixName = undefined;
@@ -18,41 +19,44 @@ function VinylSetMixForAssets()
     var _i = 1;
     repeat(argument_count-1)
     {
-        var _patternArray = argument[_i];
+        var _inputArray = argument[_i];
         
-        if (not is_array(_patternArray))
+        if (not is_array(_inputArray))
         {
-            _patternArray = [_patternArray];
+            _inputArray = [_inputArray];
         }
         
         var _j = 0;
-        repeat(array_length(_patternArray))
+        repeat(array_length(_inputArray))
         {
-            var _pattern = _patternArray[_j];
+            var _input = _inputArray[_j];
             
-            if (is_handle(_pattern))
+            if (is_handle(_input))
             {
-                struct_get_from_hash(_soundDict, int64(_pattern)).__mixName = _mixName;
+                var _pattern = struct_get_from_hash(_soundDict, int64(_input));
+                _pattern.__mixName = _mixName;
+                
+                if (VINYL_LIVE_EDIT) array_push(_toUpdateArray, _pattern);
             }
-            else if (is_string(_pattern))
+            else if (is_string(_input))
             {
-                var _patternStruct = _patternDict[$ _pattern];
-                if (_patternStruct == undefined)
+                var _pattern = _patternDict[$ _input];
+                if (_pattern == undefined)
                 {
-                    __VinylError("Pattern \"", _pattern, "\" not found");
+                    __VinylError("Pattern \"", _input, "\" not found");
                 }
                 else
                 {
-                    _patternStruct.__mixName = _mixName;
+                    _pattern.__mixName = _mixName;
                 }
             }
-            else if (_pattern == undefined)
+            else if (_input == undefined)
             {
                 //Ignore!
             }
             else
             {
-                __VinylError("Datatype not supported (", typeof(_pattern), ")");
+                __VinylError("Datatype not supported (", typeof(_input), ")");
             }
             
             ++_j;
@@ -61,5 +65,5 @@ function VinylSetMixForAssets()
         ++_i;
     }
     
-    //TODO - Update sounds
+    if (VINYL_LIVE_EDIT) __VinylResolveChanges(false);
 }

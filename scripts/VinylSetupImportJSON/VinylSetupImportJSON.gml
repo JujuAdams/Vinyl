@@ -34,8 +34,6 @@ function VinylSetupImportJSON(_json, _replace = true)
 
 function __VinylSetupImportJSONInner(_json)
 {
-    //TODO - Implement overwrite behaviour
-    
     if (is_array(_json))
     {
         var _i = 0;
