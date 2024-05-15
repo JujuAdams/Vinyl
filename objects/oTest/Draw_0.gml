@@ -88,20 +88,20 @@ UIButton("Factor +", function()
 UINewline();
 UIButtonInline("Set 1KHz gain high", function()
 {
-    VinylSetupSound(snd1KHz, 1.3);
+    VinylSetupSound(snd1KHz, 1.3, undefined, true);
 });
 UISpace(20);
 UIButton("Set 1KHz gain low", function()
 {
-    VinylSetupSound(snd1KHz, 0.7);
+    VinylSetupSound(snd1KHz, 0.7, undefined, true);
 });
 
 UIButtonInline("Set 1KHz no mix", function()
 {
-    VinylSetupSound(snd1KHz);
+    VinylSetupSound(snd1KHz, undefined, undefined, true, VINYL_NO_MIX);
 });
 UISpace(20);
 UIButton("Set 1KHz \"Test\" mix", function()
 {
-    VinylSetupSound(snd1KHz, undefined, undefined, undefined, "Test");
+    VinylSetupSound(snd1KHz, undefined, undefined, true, "Test");
 });

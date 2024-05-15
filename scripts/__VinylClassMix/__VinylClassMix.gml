@@ -71,7 +71,7 @@ function __VinylClassMix(_mixName, _gainPattern) constructor
     static __Remove = function(_voice)
     {
         var _index = array_get_index(__voiceArray, _voice);
-        if (_index < 0) array_delete(__voiceArray, _index, 1);
+        if (_index >= 0) array_delete(__voiceArray, _index, 1);
     }
     
     static __StopVoices = function()

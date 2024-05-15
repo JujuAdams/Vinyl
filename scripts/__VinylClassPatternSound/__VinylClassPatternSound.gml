@@ -118,7 +118,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName) constr
             buffer_write(_buffer, buffer_text, ",\n");
         }
         
-        if (__pitch == 1)
+        if (__pitch != 1)
         {
             buffer_write(_buffer, buffer_text, _indent);
             buffer_write(_buffer, buffer_text, "    pitch: ");
