@@ -15,9 +15,15 @@
 
 function VinylSetupSound(_sound, _gain = 1, _pitch = 1, _loop = false, _mixName = VINYL_DEFAULT_MIX)
 {
-    static _soundDict = __VinylSystem().__soundDict;
+    static _system    = __VinylSystem();
+    static _soundDict = _system.__soundDict;
     
     if (_mixName == VINYL_NO_MIX) _mixName = undefined;
     
     struct_get_from_hash(_soundDict, int64(_sound)).__UpdateSetup(_gain, _pitch, _loop, _mixName);
+    
+    if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
+    {
+        __VinylResolveChanges();
+    }
 }

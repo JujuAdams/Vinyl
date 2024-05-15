@@ -72,6 +72,7 @@
     {"id":{"name":"__VinylNumberToString","path":"scripts/__VinylNumberToString/__VinylNumberToString.yy",},},
     {"id":{"name":"__VinylRandom","path":"scripts/__VinylRandom/__VinylRandom.yy",},},
     {"id":{"name":"__VinylRandomRange","path":"scripts/__VinylRandomRange/__VinylRandomRange.yy",},},
+    {"id":{"name":"__VinylResolveChanges","path":"scripts/__VinylResolveChanges/__VinylResolveChanges.yy",},},
     {"id":{"name":"__VinylSetupExportGML","path":"scripts/__VinylSetupExportGML/__VinylSetupExportGML.yy",},},
     {"id":{"name":"__VinylSetupExportGMLMacros","path":"scripts/__VinylSetupExportGMLMacros/__VinylSetupExportGMLMacros.yy",},},
     {"id":{"name":"__VinylSoundGetGain","path":"scripts/__VinylSoundGetGain/__VinylSoundGetGain.yy",},},

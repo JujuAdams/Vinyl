@@ -16,7 +16,8 @@
 
 function VinylSetupBlend(_patternName, _soundArray, _loop = true, _gain = 1, _mixName = VINYL_DEFAULT_MIX)
 {
-    static _patternDict = __VinylSystem().__patternDict;
+    static _system      = __VinylSystem();
+    static _patternDict = _system.__patternDict;
     
     if (_mixName == VINYL_NO_MIX) _mixName = undefined;
     
@@ -29,5 +30,10 @@ function VinylSetupBlend(_patternName, _soundArray, _loop = true, _gain = 1, _mi
     else
     {
         _patternDict[$ _patternName] = new __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixName);
+    }
+    
+    if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
+    {
+        __VinylResolveChanges();
     }
 }

@@ -18,4 +18,6 @@ function VinylSetMixForAssetTag(_mixName, _assetTag)
         struct_get_from_hash(_soundDict, int64(_assetArray[_i])).__mixName = _mixName;
         ++_i;
     }
+    
+    //TODO - Update sounds
 }

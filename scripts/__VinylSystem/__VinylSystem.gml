@@ -41,6 +41,7 @@ function __VinylSystem()
         if (__VINYL_RUNNING_FROM_IDE) global.Vinyl = self;
         
         __toUpdateArray = VINYL_LIVE_EDIT? [] : undefined;
+        __importingJSON = false;
         
         //Lookup dictionaries for sound/pattern/mix definitions.
         __soundDict    = {};

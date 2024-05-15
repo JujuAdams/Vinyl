@@ -12,8 +12,9 @@
 
 function VinylSetupMix(_mixName, _gainPattern = 1)
 {
-    static _mixDict  = __VinylSystem().__mixDict;
-    static _mixArray = __VinylSystem().__mixArray;
+    static _system   = __VinylSystem();
+    static _mixDict  = _system.__mixDict;
+    static _mixArray = _system.__mixArray;
     
     if (_mixName == VINYL_NO_MIX)
     {
@@ -31,5 +32,10 @@ function VinylSetupMix(_mixName, _gainPattern = 1)
         var _mixStruct = new __VinylClassMix(_mixName, _gainPattern);
         _mixDict[$ _mixName] = _mixStruct;
         array_push(_mixArray, _mixStruct);
+    }
+    
+    if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
+    {
+        __VinylResolveChanges();
     }
 }

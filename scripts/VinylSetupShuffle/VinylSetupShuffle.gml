@@ -16,7 +16,8 @@
 
 function VinylSetupShuffle(_patternName, _soundArray, _gain = undefined, _pitch = undefined, _loop = false, _mixName = VINYL_DEFAULT_MIX)
 {
-    static _patternDict = __VinylSystem().__patternDict;
+    static _system      = __VinylSystem();
+    static _patternDict = _system.__patternDict;
     
     if (_gain == undefined)
     {
@@ -75,5 +76,10 @@ function VinylSetupShuffle(_patternName, _soundArray, _gain = undefined, _pitch 
     else
     {
         _patternDict[$ _patternName] = new __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName);
+    }
+    
+    if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
+    {
+        __VinylResolveChanges();
     }
 }
