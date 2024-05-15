@@ -20,15 +20,15 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName) constr
     
     static __Play = function(_loopLocal, _gainLocal, _pitchLocal)
     {
-        var _sound        = __sound;
-        var _gainPattern  = __gain;
-        var _pitchPattern = __pitch;
-        var _loopFinal    = _loopLocal ?? __loop;
-        var _mixName      = __mixName;
+        var _sound      = __sound;
+        var _gainSound  = __gain;
+        var _pitchSound = __pitch;
+        var _loopFinal  = _loopLocal ?? __loop;
+        var _mixName    = __mixName;
         
         if (__mixName == undefined)
         {
-            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainPattern*_gainLocal/VINYL_MAX_VOICE_GAIN, 0, _pitchPattern*_pitchLocal);
+            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainSound*_gainLocal/VINYL_MAX_VOICE_GAIN, 0, _pitchSound*_pitchLocal);
             var _gainMix = 1;
         }
         else
@@ -41,14 +41,14 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName) constr
             }
             
             var _gainMix = _mixStruct.__gainFinal;
-            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainPattern*_gainLocal*_gainMix/VINYL_MAX_VOICE_GAIN, 0, _pitchPattern*_pitchLocal);
+            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainSound*_gainLocal*_gainMix/VINYL_MAX_VOICE_GAIN, 0, _pitchSound*_pitchLocal);
             _mixStruct.__Add(_voice);
         }
         
         //If we're in live edit mode then always create a struct representation
         if (VINYL_LIVE_EDIT)
         {
-            new __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _pitchPattern, _pitchLocal, _mixName);
+            new __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _pitchSound, _pitchLocal, self);
         }
         
         return _voice;

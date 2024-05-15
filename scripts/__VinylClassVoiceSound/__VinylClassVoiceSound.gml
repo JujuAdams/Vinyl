@@ -1,6 +1,5 @@
 // Feather disable all
 
-/// @param sound
 /// @param voice
 /// @param loopLocal
 /// @param gainSound
@@ -8,9 +7,9 @@
 /// @param gainMix
 /// @param pitchSound
 /// @param pitchLocal
-/// @param mixName
+/// @param pattern
 
-function __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _pitchSound, _pitchLocal, _mixName) constructor
+function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _pitchSound, _pitchLocal, _pattern) constructor
 {
     static _soundDict         = __VinylSystem().__soundDict;
     static _voiceLookUpDict   = __VinylSystem().__voiceLookUpDict;
@@ -29,9 +28,11 @@ function __VinylClassVoiceSound(_sound, _voice, _loopLocal, _gainSound, _gainLoc
     
     if (VINYL_LIVE_EDIT)
     {
+        __pattern = _pattern;
+        
         __loopLocal = _loopLocal;
-        __sound     = _sound;
-        __mixName   = _mixName;
+        __sound     = _pattern.__sound;
+        __mixName   = _pattern.__mixName;
     }
     
     __gainLocalTarget  = _gainLocal;
