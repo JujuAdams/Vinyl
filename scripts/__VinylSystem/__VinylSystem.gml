@@ -122,10 +122,32 @@ function __VinylSystem()
                             _bootSetupHash = _newHash;
                             
                             var _buffer = buffer_load(_bootSetupPath);
-                            var _gml = __VinylBufferReadGML(_buffer, 0, buffer_get_size(_buffer));
+                            
+                            var _gml = undefined;
+                            try
+                            {
+                                var _gml = __VinylBufferReadGML(_buffer, 0, buffer_get_size(_buffer));
+                            }
+                            catch(_error)
+                            {
+                                show_debug_message(json_stringify(_error, true));
+                                __VinylTrace("Warning! Failed to read GML");
+                            }
+                            
                             buffer_delete(_buffer);
                             
-                            __VinylSetupImportJSONInner(_gml[$ "global.VinylConfigSON"] ?? [], true);
+                            if (is_struct(_gml))
+                            {
+                                try
+                                {
+                                    VinylSetupImportJSON(_gml[$ "global.VinylConfigSON"] ?? []);
+                                }
+                                catch(_error)
+                                {
+                                    show_debug_message(json_stringify(_error, true));
+                                    __VinylTrace("Warning! Failed to import JSON");
+                                }
+                            }
                         }
                     }
                 }
