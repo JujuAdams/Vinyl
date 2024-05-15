@@ -92,7 +92,7 @@ function __VinylSystem()
         __VinylSetupImportJSONInner(global.VinylConfigSON);
         
         //Set up an update function that executes one every frame forever.
-        time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, method(self, function()
+        time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, function()
         {
             static _voiceLookUpMap = __voiceLookUpMap;
             static _bootSetupTimer = 0;
@@ -196,7 +196,7 @@ function __VinylSystem()
                 
                 __cleanUpIndex = _index;
             }
-        }), [], -1));
+        }, [], -1));
     }
     
     return _system;
