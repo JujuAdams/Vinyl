@@ -78,7 +78,7 @@ function __VinylSetupImportJSONInner(_json, _overwrite)
     }
     else
     {
-        __VinylError("Datatype unsupported (", typeof(_json), ")");
+        return __VinylImportSound(_json);
     }
     
     return undefined;
