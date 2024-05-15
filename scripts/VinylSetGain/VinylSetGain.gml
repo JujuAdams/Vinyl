@@ -10,16 +10,5 @@
 
 function VinylSetGain(_voice, _gain, _rateOfChange = infinity)
 {
-    static _voiceLookUpDict = __VinylSystem().__voiceLookUpDict;
-    
-    var _voiceStruct = struct_get_from_hash(_voiceLookUpDict, int64(_voice));
-    if (_voiceStruct == undefined)
-    {
-        var _time = (game_get_speed(gamespeed_microseconds)/1000) * ((_gain - audio_sound_get_gain(_voice)) / _rateOfChange);
-        return audio_sound_gain(_voice, _gain, _time);
-    }
-    else
-    {
-        return _voiceStruct.__SetLocalGain(max(0, _gain), max(0.001, _rateOfChange));
-    }
+    __VinylEnsureSoundVoice(_voice).__SetLocalGain(max(0, _gain), max(0.001, _rateOfChange));
 }
