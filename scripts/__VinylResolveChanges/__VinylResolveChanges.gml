@@ -1,13 +1,38 @@
 // Feather disable all
 
-function __VinylResolveChanges()
+/// @param replace
+
+function __VinylResolveChanges(_replace)
 {
     static _toUpdateArray     = __VinylSystem().__toUpdateArray;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
+    static _soundDict         = __VinylSystem().__soundDict;
+    static _patternDict       = __VinylSystem().__patternDict;
     
     //Strip out duplicates
     array_resize(_toUpdateArray, array_unique_ext(_toUpdateArray));
+    
+    if (_replace)
+    {
+        var _nameArray = struct_get_names(_soundDict);
+        var _i = 0;
+        repeat(array_length(_nameArray))
+        {
+            var _pattern = _soundDict[$ _nameArray[_i]];
+            if (not array_contains(_toUpdateArray, _pattern)) _pattern.__ClearSetup();
+            ++_i;
+        }
+        
+        var _nameArray = struct_get_names(_patternDict);
+        var _i = 0;
+        repeat(array_length(_nameArray))
+        {
+            var _pattern = _patternDict[$ _nameArray[_i]];
+            if (not array_contains(_toUpdateArray, _pattern)) _pattern.__ClearSetup();
+            ++_i;
+        }
+    }
     
     //First phase - Convert updated patterns into currently playing voices that we need to update
     var _i = 0;

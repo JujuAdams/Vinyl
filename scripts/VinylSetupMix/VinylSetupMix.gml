@@ -36,6 +36,6 @@ function VinylSetupMix(_mixName, _gainPattern = 1)
     
     if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
     {
-        __VinylResolveChanges();
+        __VinylResolveChanges(false);
     }
 }

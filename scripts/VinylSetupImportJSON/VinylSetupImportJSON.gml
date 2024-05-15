@@ -7,9 +7,9 @@
 /// note asset included with the library code.
 /// 
 /// @param json
-/// @param [overwrite=true]
+/// @param [replace=true]
 
-function VinylSetupImportJSON(_json, _overwrite = true)
+function VinylSetupImportJSON(_json, _replace = true)
 {
     static _system            = __VinylSystem();
     static _toUpdateArray     = _system.__toUpdateArray;
@@ -21,18 +21,18 @@ function VinylSetupImportJSON(_json, _overwrite = true)
         _system.__importingJSON = true;
     }
     
-    var _result = __VinylSetupImportJSONInner(_json, _overwrite);
+    var _result = __VinylSetupImportJSONInner(_json);
     
     if (VINYL_LIVE_EDIT)
     {
         _system.__importingJSON = false;
-        __VinylResolveChanges();
+        __VinylResolveChanges(_replace);
     }
     
     return _result;
 }
 
-function __VinylSetupImportJSONInner(_json, _overwrite)
+function __VinylSetupImportJSONInner(_json)
 {
     //TODO - Implement overwrite behaviour
     
@@ -41,7 +41,7 @@ function __VinylSetupImportJSONInner(_json, _overwrite)
         var _i = 0;
         repeat(array_length(_json))
         {
-            __VinylSetupImportJSONInner(_json[_i], _overwrite);
+            __VinylSetupImportJSONInner(_json[_i]);
             ++_i;
         }
     }
@@ -65,7 +65,7 @@ function __VinylSetupImportJSONInner(_json, _overwrite)
         }
         else if (struct_exists(_json, "mix"))
         {
-            return __VinylImportMixGroupJSON(_json, _overwrite);
+            return __VinylImportMixGroupJSON(_json);
         }
         else if (struct_exists(_json, "metadata"))
         {

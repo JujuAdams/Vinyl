@@ -24,6 +24,6 @@ function VinylSetupSound(_sound, _gain = 1, _pitch = 1, _loop = false, _mixName 
     
     if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
     {
-        __VinylResolveChanges();
+        __VinylResolveChanges(false);
     }
 }

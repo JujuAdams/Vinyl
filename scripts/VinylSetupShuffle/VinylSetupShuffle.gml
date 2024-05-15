@@ -80,6 +80,6 @@ function VinylSetupShuffle(_patternName, _soundArray, _gain = undefined, _pitch 
     
     if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
     {
-        __VinylResolveChanges();
+        __VinylResolveChanges(false);
     }
 }

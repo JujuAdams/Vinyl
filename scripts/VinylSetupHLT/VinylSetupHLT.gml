@@ -36,6 +36,6 @@ function VinylSetupHLT(_patternName, _soundHead = undefined, _soundLoop, _soundT
     
     if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
     {
-        __VinylResolveChanges();
+        __VinylResolveChanges(false);
     }
 }

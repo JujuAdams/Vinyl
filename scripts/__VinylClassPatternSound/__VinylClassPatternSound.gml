@@ -69,7 +69,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName) constr
     
     static __ClearSetup = function()
     {
-        __UpdateSetup(1, 1, false, VINYL_DEFAULT_MIX);
+        __UpdateSetup(1, 1, false, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX);
     }
     
     static __ExportJSON = function(_ignoreEmpty)

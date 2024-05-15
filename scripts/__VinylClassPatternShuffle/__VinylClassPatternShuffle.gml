@@ -132,7 +132,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     
     static __ClearSetup = function()
     {
-        __UpdateSetup(__soundArray, 1, 1, 1, 1, VINYL_DEFAULT_MIX);
+        __UpdateSetup(__soundArray, 1, 1, 1, 1, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX);
     }
     
     static __ExportJSON = function()

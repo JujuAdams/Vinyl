@@ -64,7 +64,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
     
     static __ClearSetup = function()
     {
-        __UpdateSetup(__soundArray, 1, VINYL_DEFAULT_MIX);
+        __UpdateSetup(__soundArray, 1, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX);
     }
     
     static __UsesSound = function(_sound)

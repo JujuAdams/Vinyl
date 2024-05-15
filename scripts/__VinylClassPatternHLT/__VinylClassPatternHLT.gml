@@ -53,7 +53,7 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     
     static __ClearSetup = function()
     {
-        __UpdateSetup(__soundHead, __soundLoop, __soundTail, 1, VINYL_DEFAULT_MIX);
+        __UpdateSetup(__soundHead, __soundLoop, __soundTail, 1, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX);
     }
     
     static __UsesSound = function(_sound)

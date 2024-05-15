@@ -34,6 +34,6 @@ function VinylSetupBlend(_patternName, _soundArray, _loop = true, _gain = 1, _mi
     
     if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
     {
-        __VinylResolveChanges();
+        __VinylResolveChanges(false);
     }
 }
