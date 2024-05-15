@@ -21,7 +21,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     
     __gainPattern = _pattern.__gain;
     
-    if (_pattern.__noMix)
+    if (_pattern.__mixName == undefined)
     {
         var _mixStruct = undefined;
         __gainMix = 1;

@@ -6,18 +6,17 @@
 /// @param loop
 /// @param mix
 
-function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mix) constructor
+function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName) constructor
 {
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _mixDict           = __VinylSystem().__mixDict;
     static _toUpdateArray     = __VinylSystem().__toUpdateArray;
     
-    __sound = _sound;
-    __gain  = _gain;
-    __pitch = _pitch;
-    __loop  = _loop;
-    
-    __SetMix(_mix);
+    __sound   = _sound;
+    __gain    = _gain;
+    __pitch   = _pitch;
+    __loop    = _loop;
+    __mixName = _mixName;
     
     static __Play = function(_loopLocal, _gainLocal, _pitchLocal)
     {
@@ -27,7 +26,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mix) constructo
         var _loopFinal    = _loopLocal ?? __loop;
         var _mixName      = __mixName;
         
-        if (__noMix)
+        if (__mixName == undefined)
         {
             var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainPattern*_gainLocal/VINYL_MAX_VOICE_GAIN, 0, _pitchPattern*_pitchLocal);
             var _gainMix = 1;
@@ -62,17 +61,10 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mix) constructo
             array_push(_toUpdateArray, self);
         }
         
-        __gain  = _gain;
-        __pitch = _pitch;
-        __loop  = _loop;
-        
-        __SetMix(_mixName);
-    }
-    
-    static __SetMix = function(_mix)
-    {
-        __mixName = _mix;
-        __noMix   = (_mix == undefined) || (_mix == VINYL_NO_MIX);
+        __gain    = _gain;
+        __pitch   = _pitch;
+        __loop    = _loop;
+        __mixName = _mixName;
     }
     
     static __ClearSetup = function()

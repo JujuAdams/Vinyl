@@ -6,7 +6,7 @@
 /// @param gain
 /// @param mix
 
-function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix) constructor
+function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixName) constructor
 {
     static _soundDict         = __VinylSystem().__soundDict;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
@@ -19,8 +19,8 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
     __soundGainArray = array_create(array_length(__soundArray), 1);
     __loop           = _loop;
     __gain           = _gain;
+    __mixName        = _mixName;
     
-    __SetMix(_mix);
     __UpdateSoundGains();
     
     
@@ -32,7 +32,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
         return (new __VinylClassVoiceBlend(self, _gainLocal, _pitchLocal)).__voiceReference;
     }
     
-    static __UpdateSetup = function(_soundArray, _loop, _gain, _mix)
+    static __UpdateSetup = function(_soundArray, _loop, _gain, _mixName)
     {
         if (VINYL_LIVE_EDIT)
         {
@@ -43,8 +43,8 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
         __soundArray = __VinylImportSoundArray(_soundArray);
         __loop       = _loop;
         __gain       = _gain;
+        __mixName    = _mixName;
         
-        __SetMix(_mix);
         __UpdateSoundGains();
     }
     
@@ -60,12 +60,6 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mix)
             _gainArray[_i] = struct_get_from_hash(_soundDict, int64(_soundArray[_i])).__gain;
             ++_i;
         }
-    }
-    
-    static __SetMix = function(_mix)
-    {
-        __mixName = _mix;
-        __noMix   = (_mix == undefined) || (_mix == VINYL_NO_MIX);
     }
     
     static __ClearSetup = function()

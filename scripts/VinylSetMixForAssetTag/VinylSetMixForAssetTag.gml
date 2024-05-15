@@ -15,7 +15,7 @@ function VinylSetMixForAssetTag(_mixName, _assetTag)
     var _i = 0;
     repeat(array_length(_assetArray))
     {
-        struct_get_from_hash(_soundDict, int64(_assetArray[_i])).__SetMix(_mixName);
+        struct_get_from_hash(_soundDict, int64(_assetArray[_i])).__mixName = _mixName;
         ++_i;
     }
 }

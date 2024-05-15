@@ -24,7 +24,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         __mixName = _pattern.__mixName;
     }
     
-    if (_pattern.__noMix)
+    if (_pattern.__mixName == undefined)
     {
         var _mixStruct = undefined;
         __gainMix = 1;

@@ -7,7 +7,7 @@
 /// @param gain
 /// @param mix
 
-function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain, _mix) constructor
+function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain, _mixName) constructor
 {
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
     static _toUpdateArray    = __VinylSystem().__toUpdateArray;
@@ -18,8 +18,9 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     __soundLoop = __VinylImportSound(_soundLoop);
     __soundTail = __VinylImportSound(_soundTail);
     __gain      = _gain;
+    __mixName   = _mixName;
     
-    __SetMix(_mix);
+    
     
     
     
@@ -28,7 +29,7 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         return (new __VinylClassVoiceHLT(self, _gainLocal, _pitchLocal)).__voiceReference;
     }
     
-    static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mix)
+    static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mixName)
     {
         var _newSoundHead = __VinylImportSound(_soundHead);
         var _newSoundLoop = __VinylImportSound(_soundLoop);
@@ -46,16 +47,8 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         __soundHead = _newSoundHead;
         __soundLoop = _newSoundLoop;
         __soundTail = _newSoundTail;
-        
-        __gain = _gain;
-        
-        __SetMix(_mix);
-    }
-    
-    static __SetMix = function(_mix)
-    {
-        __mixName = _mix;
-        __noMix   = (_mix == undefined) || (_mix == VINYL_NO_MIX);
+        __gain      = _gain;
+        __mixName   = _mixName;
     }
     
     static __ClearSetup = function()

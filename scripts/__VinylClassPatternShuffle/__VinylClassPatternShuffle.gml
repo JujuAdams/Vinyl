@@ -9,7 +9,7 @@
 /// @param loop
 /// @param mix
 
-function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix) constructor
+function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName) constructor
 {
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _mixDict           = __VinylSystem().__mixDict;
@@ -23,14 +23,17 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     __pitchMin   = _pitchMin;
     __pitchMax   = _pitchMax;
     __loop       = _loop;
+    __mixName    = _mixName;
     
     __gainRandomize  = (_gainMin != _gainMax);
     __pitchRandomize = (_pitchMin != _pitchMax);
     
-    __SetMix(_mix);
-    
     __soundCount = array_length(__soundArray);
     __playIndex  = infinity;
+    
+    
+    
+    
     
     static __Play = function(_loopLocal, _gainLocal, _pitchLocal)
     {
@@ -77,7 +80,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             var _pitchPattern   = __pitchMin;
         }
         
-        if (__noMix)
+        if (__mixName == undefined)
         {
             var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainPattern*_gainLocal/VINYL_MAX_VOICE_GAIN, 0, _pitchPattern*_pitchLocal);
             var _gainMix = 1;
@@ -105,7 +108,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         return _voice;
     }
     
-    static __UpdateSetup = function(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix)
+    static __UpdateSetup = function(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName)
     {
         if (VINYL_LIVE_EDIT)
         {
@@ -118,20 +121,13 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         __pitchMin   = _pitchMin;
         __pitchMax   = _pitchMax;
         __loop       = _loop;
+        __mixName    = _mixName;
         
         __gainRandomize  = (_gainMin != _gainMax);
         __pitchRandomize = (_pitchMin != _pitchMax);
         
         __soundCount = array_length(__soundArray);
         __playIndex  = infinity;
-        
-        __SetMix(_mix);
-    }
-    
-    static __SetMix = function(_mix)
-    {
-        __mixName = _mix;
-        __noMix   = (_mix == undefined) || (_mix == VINYL_NO_MIX);
     }
     
     static __ClearSetup = function()

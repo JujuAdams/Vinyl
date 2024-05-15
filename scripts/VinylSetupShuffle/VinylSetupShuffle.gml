@@ -14,7 +14,7 @@
 /// @param [loop=false]
 /// @param [mix=VINYL_DEFAULT_MIX]
 
-function VinylSetupShuffle(_patternName, _soundArray, _gain = undefined, _pitch = undefined, _loop = false, _mix = VINYL_DEFAULT_MIX)
+function VinylSetupShuffle(_patternName, _soundArray, _gain = undefined, _pitch = undefined, _loop = false, _mixName = VINYL_DEFAULT_MIX)
 {
     static _patternDict = __VinylSystem().__patternDict;
     
@@ -64,16 +64,16 @@ function VinylSetupShuffle(_patternName, _soundArray, _gain = undefined, _pitch 
         var _pitchMax = _pitch;
     }
     
-    if (_mix == VINYL_NO_MIX) _mix = undefined;
+    if (_mixName == VINYL_NO_MIX) _mixName = undefined;
     
     //Update an existing pattern if possible, otherwise make a new pattern
     var _existingPattern = _patternDict[$ _patternName];
     if (_existingPattern != undefined)
     {
-        _existingPattern.__UpdateSetup(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix);
+        _existingPattern.__UpdateSetup(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName);
     }
     else
     {
-        _patternDict[$ _patternName] = new __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mix);
+        _patternDict[$ _patternName] = new __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName);
     }
 }

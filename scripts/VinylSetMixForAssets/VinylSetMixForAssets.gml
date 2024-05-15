@@ -32,7 +32,7 @@ function VinylSetMixForAssets()
             
             if (is_handle(_pattern))
             {
-                struct_get_from_hash(_soundDict, int64(_pattern)).__SetMix(_mixName);
+                struct_get_from_hash(_soundDict, int64(_pattern)).__mixName = _mixName;
             }
             else if (is_string(_pattern))
             {
@@ -43,7 +43,7 @@ function VinylSetMixForAssets()
                 }
                 else
                 {
-                    _patternStruct.__SetMix(_mixName);
+                    _patternStruct.__mixName = _mixName;
                 }
             }
             else if (_pattern == undefined)
