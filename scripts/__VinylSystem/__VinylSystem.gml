@@ -52,9 +52,10 @@ function __VinylSystem()
         //Array of mixes that need updating every frame
         __mixArray = [];
         
-        //Struct that converts integer keys (voice references) to voice data structs. This is used
-        //to efficiently find Vinyl's addition voice data using voice references
-        __voiceLookUpDict = {};
+        //Maps that converts native GameMaker voice indexes to voice data structs. This is used
+        //to efficiently find Vinyl's addition voice data using voice references. We use a map
+        //instead of a struct because struct_remove_from_hash() doesn't exist yet.
+        __voiceLookUpMap = ds_map_create();
         
         //An array of voices that are in the lookup dictionary. This will never include HLT voices
         //as they are managed in the update array (see below). Blend voices will automatically be
@@ -88,15 +89,15 @@ function __VinylSystem()
         
         //Import the boot setup JSON
         __VinylConfigJSON();
-        __VinylSetupImportJSONInner(global.VinylConfigSON, false);
+        __VinylSetupImportJSONInner(global.VinylConfigSON);
         
         //Set up an update function that executes one every frame forever.
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, method(self, function()
         {
-            static _voiceLookUpDict = __voiceLookUpDict;
-            static _bootSetupTimer  = 0;
-            static _bootSetupPath   = VINYL_LIVE_EDIT? filename_dir(GM_project_filename) + "/scripts/__VinylConfigJSON/__VinylConfigJSON.gml" : undefined;
-            static _bootSetupHash   = undefined;
+            static _voiceLookUpMap = __voiceLookUpMap;
+            static _bootSetupTimer = 0;
+            static _bootSetupPath  = VINYL_LIVE_EDIT? filename_dir(GM_project_filename) + "/scripts/__VinylConfigJSON/__VinylConfigJSON.gml" : undefined;
+            static _bootSetupHash  = undefined;
             
             if (VINYL_DEBUG_SHOW_FRAMES) __frame++;
             
@@ -187,8 +188,7 @@ function __VinylSystem()
                 {
                     var _voice = _array[_index];
                     
-                    //FIXME - Replace with struct_remove_from_hash() when that is made available
-                    struct_set_from_hash(_voiceLookUpDict, int64(_voice), undefined);
+                    ds_map_delete(_voiceLookUpMap, _voice);
                     if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", _voice, " from voice lookup struct");
                     
                     array_delete(_array, _index, 1);

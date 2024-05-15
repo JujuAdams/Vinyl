@@ -12,7 +12,7 @@
 function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _pitchSound, _pitchLocal, _pattern) constructor
 {
     static _soundDict         = __VinylSystem().__soundDict;
-    static _voiceLookUpDict   = __VinylSystem().__voiceLookUpDict;
+    static _voiceLookUpMap    = __VinylSystem().__voiceLookUpMap;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
     static _toUpdateArray     = __VinylSystem().__toUpdateArray;
@@ -42,7 +42,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     __gainFadeOutSpeed = undefined;
     
     array_push(_voiceCleanUpArray, self);
-    struct_set_from_hash(_voiceLookUpDict, int64(_voice), self);
+    _voiceLookUpMap[? _voice] = self;
     if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", _voice, " to voice lookup struct");
     
     

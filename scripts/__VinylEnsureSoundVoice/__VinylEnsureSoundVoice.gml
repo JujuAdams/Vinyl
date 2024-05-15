@@ -4,9 +4,9 @@
 
 function __VinylEnsureSoundVoice(_voice)
 {
-    static _voiceLookUpDict = __VinylSystem().__voiceLookUpDict;
+    static _voiceLookUpMap = __VinylSystem().__voiceLookUpMap;
     
-    var _voiceStruct = struct_get_from_hash(_voiceLookUpDict, int64(_voice));
+    var _voiceStruct = _voiceLookUpMap[? _voice];
     if (_voiceStruct == undefined)
     {
         //TODO - Is there a way to derive sound/local/mix gains here?
@@ -19,8 +19,8 @@ function __VinylEnsureSoundVoice(_voice)
         
         _voiceStruct = new __VinylClassVoiceSound(_voice,
                                                   audio_sound_get_loop(_voice),
-                                                  1, audio_sound_get_gain(_voice), 1,
-                                                  1, audio_sound_get_pitch(_voice),
+                                                  audio_sound_get_gain(_voice), 1, 1,
+                                                  audio_sound_get_pitch(_voice), 1,
                                                   undefined);
     }
     

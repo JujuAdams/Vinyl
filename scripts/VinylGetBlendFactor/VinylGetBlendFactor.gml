@@ -7,11 +7,9 @@
 
 function VinylGetBlendFactor(_voice)
 {
-    static _voiceLookUpDict = __VinylSystem().__voiceLookUpDict;
+    static _voiceLookUpMap = __VinylSystem().__voiceLookUpMap;
     
-    if (_voice == undefined) return undefined;
-    
-    var _voiceStruct = struct_get_from_hash(_voiceLookUpDict, int64(_voice));
+    var _voiceStruct = _voiceLookUpMap[? _voice];
     if (not is_instanceof(_voiceStruct, __VinylClassVoiceBlend)) return undefined;
     
     return _voiceStruct.__blendFactor;
