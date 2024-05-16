@@ -102,6 +102,7 @@
     {"id":{"name":"VinylMasterSetGain","path":"scripts/VinylMasterSetGain/VinylMasterSetGain.yy",},},
     {"id":{"name":"VinylMixFadeOutVoices","path":"scripts/VinylMixFadeOutVoices/VinylMixFadeOutVoices.yy",},},
     {"id":{"name":"VinylMixGetGain","path":"scripts/VinylMixGetGain/VinylMixGetGain.yy",},},
+    {"id":{"name":"VinylMixGetMetadata","path":"scripts/VinylMixGetMetadata/VinylMixGetMetadata.yy",},},
     {"id":{"name":"VinylMixPauseVoices","path":"scripts/VinylMixPauseVoices/VinylMixPauseVoices.yy",},},
     {"id":{"name":"VinylMixResumeVoices","path":"scripts/VinylMixResumeVoices/VinylMixResumeVoices.yy",},},
     {"id":{"name":"VinylMixSetGain","path":"scripts/VinylMixSetGain/VinylMixSetGain.yy",},},
