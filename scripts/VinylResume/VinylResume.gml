@@ -11,7 +11,10 @@ function VinylResume(_voice)
     var _voiceStruct = _voiceToStructMap[? _voice];
     if (_voiceStruct == undefined)
     {
-        audio_resume_sound(_voice);
+        if (_voice != undefined)
+        {
+            audio_resume_sound(_voice);
+        }
     }
     else
     {

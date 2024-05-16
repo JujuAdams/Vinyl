@@ -11,7 +11,7 @@ function VinylGetLoop(_voice)
     var _voiceStruct = _voiceToStructMap[? _voice];
     if (_voiceStruct == undefined)
     {
-        return audio_sound_get_loop(_voice);
+        return (_voice != undefined)? audio_sound_get_loop(_voice) : false;
     }
     else
     {

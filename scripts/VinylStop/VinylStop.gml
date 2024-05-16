@@ -11,7 +11,10 @@ function VinylStop(_voice)
     var _voiceStruct = _voiceToStructMap[? _voice];
     if (_voiceStruct == undefined)
     {
-        audio_stop_sound(_voice);
+        if (_voice != undefined)
+        {
+            audio_stop_sound(_voice);
+        }
     }
     else
     {

@@ -11,7 +11,7 @@ function VinylIsPaused(_voice)
     var _voiceStruct = _voiceToStructMap[? _voice];
     if (_voiceStruct == undefined)
     {
-        return audio_is_paused(_voice);
+        return (_voice != undefined)? audio_is_paused(_voice) : false;
     }
     else
     {

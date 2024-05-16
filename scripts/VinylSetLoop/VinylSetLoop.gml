@@ -14,7 +14,10 @@ function VinylSetLoop(_voice, _state)
     var _voiceStruct = _voiceToStructMap[? _voice];
     if (_voiceStruct == undefined)
     {
-        return audio_sound_loop(_voice, _state);
+        if (_voice != undefined)
+        {
+            return audio_sound_loop(_voice, _state);
+        }
     }
     else
     {
