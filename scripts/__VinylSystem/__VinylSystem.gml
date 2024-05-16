@@ -55,7 +55,7 @@ function __VinylSystem()
         //Maps that converts native GameMaker voice indexes to voice data structs. This is used
         //to efficiently find Vinyl's addition voice data using voice references. We use a map
         //instead of a struct because struct_remove_from_hash() doesn't exist yet.
-        __voiceLookUpMap = ds_map_create();
+        __voiceLookUpMap = ds_map_create(); //TODO - Rename to __voiceToStructMap
         
         __voiceToSoundMap = ds_map_create();
         
@@ -64,7 +64,7 @@ function __VinylSystem()
         //put into this array. Sound voices will automatically be put into this array in Live Edit
         //mode or if some additional property needs to be attached to the voice e.g. fading out or
         //setting gain.
-        __voiceCleanUpArray = [];
+        __voiceCleanUpArray = []; //TODO - Replace with ds_map_find_first() against __voiceToStructMap (__voiceLookUpMap)
         __cleanUpIndex      = 0;
         
         //An array of voice structs that need to be actively managed. This will always include HLT
