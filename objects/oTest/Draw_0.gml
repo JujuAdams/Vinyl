@@ -46,9 +46,19 @@ UIButtonInline("1KHz", function()
     VinylPlay(snd1KHz);
 });
 UISpace(20);
-UIButton("Shuffle Bleeps", function()
+UIButtonInline("Shuffle Bleeps", function()
 {
     VinylPlay("Shuffle");
+});
+UISpace(20);
+UIButtonInline("Blast Start", function()
+{
+    alarm[0] = 4;
+});
+UISpace(20);
+UIButton("Blast End", function()
+{
+    alarm[0] = -1;
 });
 
 
