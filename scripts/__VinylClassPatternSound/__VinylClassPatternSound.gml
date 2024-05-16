@@ -11,6 +11,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName) constr
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _mixDict           = __VinylSystem().__mixDict;
     static _toUpdateArray     = __VinylSystem().__toUpdateArray;
+    static _voiceToSoundMap   = __VinylSystem().__voiceToSoundMap;
     
     __sound   = _sound;
     __gain    = _gain;
@@ -56,6 +57,8 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName) constr
         {
             new __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _pitchSound, _pitchLocal, self);
         }
+        
+        _voiceToSoundMap[? _voice] = _sound;
         
         return _voice;
     }

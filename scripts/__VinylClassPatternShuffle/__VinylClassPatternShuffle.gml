@@ -14,6 +14,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _mixDict           = __VinylSystem().__mixDict;
     static _toUpdateArray     = __VinylSystem().__toUpdateArray;
+    static _voiceToSoundMap   = __VinylSystem().__voiceToSoundMap;
     
     __patternName = _patternName;
     
@@ -105,6 +106,8 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         {
             new __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _pitchPattern, _pitchLocal, self, _gainFactor, _pitchFactor);
         }
+        
+        _voiceToSoundMap[? _voice] = _sound;
         
         return _voice;
     }

@@ -57,6 +57,8 @@ function __VinylSystem()
         //instead of a struct because struct_remove_from_hash() doesn't exist yet.
         __voiceLookUpMap = ds_map_create();
         
+        __voiceToSoundMap = ds_map_create();
+        
         //An array of voices that are in the lookup dictionary. This will never include HLT voices
         //as they are managed in the update array (see below). Blend voices will automatically be
         //put into this array. Sound voices will automatically be put into this array in Live Edit
@@ -94,10 +96,11 @@ function __VinylSystem()
         //Set up an update function that executes one every frame forever.
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, function()
         {
-            static _voiceLookUpMap = __voiceLookUpMap;
-            static _bootSetupTimer = 0;
-            static _bootSetupPath  = VINYL_LIVE_EDIT? filename_dir(GM_project_filename) + "/scripts/__VinylConfigJSON/__VinylConfigJSON.gml" : undefined;
-            static _bootSetupHash  = undefined;
+            static _voiceToSoundMap = __voiceToSoundMap;
+            static _voiceLookUpMap  = __voiceLookUpMap;
+            static _bootSetupTimer  = 0;
+            static _bootSetupPath   = VINYL_LIVE_EDIT? filename_dir(GM_project_filename) + "/scripts/__VinylConfigJSON/__VinylConfigJSON.gml" : undefined;
+            static _bootSetupHash   = undefined;
             
             if (VINYL_DEBUG_SHOW_FRAMES) __frame++;
             
@@ -196,6 +199,13 @@ function __VinylSystem()
                 
                 __cleanUpIndex = _index;
             }
+            
+            var _voice = ds_map_find_first(_voiceToSoundMap);
+            if ((_voice != undefined) && (not audio_is_playing(_voice)))
+            {
+                ds_map_delete(_voiceToSoundMap, _voice);
+            }
+            
         }, [], -1));
     }
     
