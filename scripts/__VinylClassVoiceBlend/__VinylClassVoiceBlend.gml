@@ -62,11 +62,12 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
     if (__voiceCount > 0)
     {
         var _loopFinal = _loopLocal ?? (_pattern.__loop ?? (_mixLoop ?? false));
-        var _soundGainArray = _pattern.__soundGainArray;
+        var _soundTop  = _soundArray[0];
+        var _gainTop   = struct_get_from_hash(_soundDict, int64(_soundTop)).__gain;;
         
-        __voiceTop      = audio_play_sound(_soundArray[0], 0, _loopFinal, _soundGainArray[0]*__VINYL_VOICE_GAIN_PxLxMxF/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+        __voiceTop      = audio_play_sound(_soundTop, 0, _loopFinal, _gainTop*__VINYL_VOICE_GAIN_PxLxMxF/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
         __voiceArray[0] = __voiceTop;
-        __gainArray[ 0] = _soundGainArray[0];
+        __gainArray[ 0] = _gainTop;
         
         var _i = 1;
         repeat(__voiceCount - 1)
@@ -263,10 +264,10 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
     
     static __SetMemberGains = function()
     {
+        var _soundArray = __pattern.__soundArray;
+        
         var _gainArray   = __gainArray;
         var _blendFactor = __blendFactor;
-        
-        var _soundGainArray = __pattern.__soundGainArray
         
         if (__blendAnimCurve == undefined)
         {
@@ -277,7 +278,8 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
             var _i = 0;
             repeat(__voiceCount)
             {
-                _gainArray[_i] = _soundGainArray[_i]*max(0, 1 - abs(_i - _factor));
+                var _gainSound = struct_get_from_hash(_soundDict, int64(_soundArray[_i])).__gain;
+                _gainArray[_i] = _gainSound*max(0, 1 - abs(_i - _factor));
                 ++_i;
             }
         }
@@ -290,7 +292,8 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
             var _i = 0;
             repeat(min(_channelCount, __voiceCount))
             {
-                _gainArray[_i] = _soundGainArray[_i]*max(0, animcurve_channel_evaluate(animcurve_get_channel(_animCurve, _i), _blendFactor));
+                var _gainSound = struct_get_from_hash(_soundDict, int64(_soundArray[_i])).__gain;
+                _gainArray[_i] = _gainSound*max(0, animcurve_channel_evaluate(animcurve_get_channel(_animCurve, _i), _blendFactor));
                 ++_i;
             }
             

@@ -14,13 +14,10 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
     
     __patternName = _patternName;
     
-    __soundArray     = __VinylImportSoundArray(_soundArray);
-    __soundGainArray = array_create(array_length(__soundArray), 1);
-    __loop           = _loop;
-    __gain           = _gain;
-    __mixName        = _mixName;
-    
-    __UpdateSoundGains();
+    __soundArray = __VinylImportSoundArray(_soundArray);
+    __loop       = _loop;
+    __gain       = _gain;
+    __mixName    = _mixName;
     
     
     
@@ -43,24 +40,6 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
         __loop       = _loop;
         __gain       = _gain;
         __mixName    = _mixName;
-        
-        __UpdateSoundGains();
-    }
-    
-    static __UpdateSoundGains = function()
-    {
-        //FIXME - This can be invalidated if sound gains change after this method is called
-        
-        var _soundArray = __soundArray;
-        var _gainArray  = __soundGainArray;
-        array_resize(_gainArray, array_length(_soundArray));
-        
-        var _i = 0;
-        repeat(array_length(_soundArray))
-        {
-            _gainArray[_i] = struct_get_from_hash(_soundDict, int64(_soundArray[_i])).__gain;
-            ++_i;
-        }
     }
     
     static __ClearSetup = function()
