@@ -87,6 +87,11 @@ function __VinylResolveChanges(_replace)
                 }
             break;
             
+            case "__VinylClassPatternMix":
+                var _array = _pattern.__voiceArray;
+                array_copy(_toUpdateArray, array_length(_toUpdateArray), _array, 0, array_length(_array));
+            break;
+            
             default:
                 __VinylError("Unhandled first-tier update struct, instanceof = \"", instanceof(_pattern), "\"");
             break;
