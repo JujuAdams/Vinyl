@@ -23,13 +23,13 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName) constr
         var _sound      = __sound;
         var _gainSound  = __gain;
         var _pitchSound = __pitch;
-        var _loopFinal  = _loopLocal ?? __loop;
         var _mixName    = __mixName;
         
         if (__mixName == undefined)
         {
-            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainSound*_gainLocal/VINYL_MAX_VOICE_GAIN, 0, _pitchSound*_pitchLocal);
             var _gainMix = 1;
+            var _loopFinal = _loopLocal ?? __loop;
+            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainSound*_gainLocal/VINYL_MAX_VOICE_GAIN, 0, _pitchSound*_pitchLocal);
         }
         else
         {
@@ -40,7 +40,9 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName) constr
                 return;
             }
             
-            var _gainMix = _mixStruct.__gainFinal;
+            var _gainMix   = _mixStruct.__gainFinal;
+            var _loopFinal = _loopLocal ?? (__loop ?? _mixStruct.__membersLoop);
+            
             var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainSound*_gainLocal*_gainMix/VINYL_MAX_VOICE_GAIN, 0, _pitchSound*_pitchLocal);
             _mixStruct.__Add(_voice);
         }

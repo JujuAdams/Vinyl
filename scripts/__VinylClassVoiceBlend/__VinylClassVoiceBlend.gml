@@ -3,8 +3,9 @@
 /// @param pattern
 /// @param gainLocal
 /// @param pitchLocal
+/// @param loopLocal
 
-function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
+function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal, _loopLocal) constructor
 {
     static _soundDict         = __VinylSystem().__soundDict;
     static _mixDict           = __VinylSystem().__mixDict;
@@ -18,12 +19,14 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     __pattern    = _pattern;
     __gainLocal  = _gainLocal;
     __pitchLocal = _pitchLocal;
+    __loopLocal  = _loopLocal;
     
     __gainPattern = _pattern.__gain;
     
     if (_pattern.__mixName == undefined)
     {
         var _mixStruct = undefined;
+        var _mixLoop   = undefined;
         __gainMix = 1;
     }
     else
@@ -35,6 +38,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
             return;
         }
         
+        var _mixLoop = _mixStruct.__membersLoop;
         __gainMix = _mixStruct.__gainFinal;
     }
     
@@ -56,17 +60,17 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal) constructor
     
     if (__voiceCount > 0)
     {
-        var _loop = _pattern.__loop ?? false;
+        var _loopFinal = _loopLocal ?? (_pattern.__loop ?? _mixLoop);
         var _soundGainArray = _pattern.__soundGainArray;
         
-        __voiceTop      = audio_play_sound(_soundArray[0], 0, _loop, _soundGainArray[0]*__VINYL_VOICE_GAIN_PxLxMxF/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+        __voiceTop      = audio_play_sound(_soundArray[0], 0, _loopFinal, _soundGainArray[0]*__VINYL_VOICE_GAIN_PxLxMxF/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
         __voiceArray[0] = __voiceTop;
         __gainArray[ 0] = _soundGainArray[0];
         
         var _i = 1;
         repeat(__voiceCount - 1)
         {
-            __voiceArray[_i] = audio_play_sound(_soundArray[_i], 0, _loop, 0, 0, __pitchLocal);
+            __voiceArray[_i] = audio_play_sound(_soundArray[_i], 0, _loopFinal, 0, 0, __pitchLocal);
             __gainArray[ _i] = 0;
             
             ++_i;
