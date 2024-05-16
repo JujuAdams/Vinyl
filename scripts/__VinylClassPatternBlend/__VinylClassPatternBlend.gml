@@ -26,6 +26,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
     
     
     
+    //TODO - Use local loop
     static __Play = function(_loopLocal__UNUSED, _gainLocal, _pitchLocal)
     {
         return (new __VinylClassVoiceBlend(self, _gainLocal, _pitchLocal)).__voiceReference;
@@ -49,6 +50,8 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
     
     static __UpdateSoundGains = function()
     {
+        //FIXME - This can be invalidated if sound gains change after this method is called
+        
         var _soundArray = __soundArray;
         var _gainArray  = __soundGainArray;
         array_resize(_gainArray, array_length(_soundArray));
@@ -63,7 +66,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
     
     static __ClearSetup = function()
     {
-        __UpdateSetup(__soundArray, 1, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX);
+        __UpdateSetup(__soundArray, false, 1, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX);
     }
     
     static __UsesSound = function(_sound)
