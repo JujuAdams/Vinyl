@@ -14,7 +14,7 @@
 
 function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _pitchPattern, _pitchLocal, _pattern, _gainFactor, _pitchFactor) constructor
 {
-    static _voiceLookUpMap    = __VinylSystem().__voiceLookUpMap;
+    static _voiceToStructMap  = __VinylSystem().__voiceToStructMap;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
     static _toUpdateArray     = __VinylSystem().__toUpdateArray;
@@ -45,7 +45,7 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
     __gainFadeOutSpeed = undefined;
     
     array_push(_voiceCleanUpArray, self);
-    _voiceLookUpMap[? _voice] = self;
+    _voiceToStructMap[? _voice] = self;
     if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", _voice, " to voice lookup struct");
     
     

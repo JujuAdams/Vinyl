@@ -6,9 +6,9 @@
 
 function VinylQueueGetBehaviour(_voice)
 {
-    static _voiceLookUpMap = __VinylSystem().__voiceLookUpMap;
+    static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     
-    var _voiceStruct = _voiceLookUpMap[? _voice];
+    var _voiceStruct = _voiceToStructMap[? _voice];
     if (not is_instanceof(_voiceStruct, __VinylClassVoiceQueue)) return undefined;
     
     return _voiceStruct.__behaviour;

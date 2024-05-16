@@ -7,7 +7,7 @@
 function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
 {
     static _mixDict           = __VinylSystem().__mixDict;
-    static _voiceLookUpMap    = __VinylSystem().__voiceLookUpMap;
+    static _voiceToStructMap  = __VinylSystem().__voiceToStructMap;
     static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
     static _toUpdateArray     = __VinylSystem().__toUpdateArray;
@@ -79,7 +79,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     if (__voiceReference >= 0)
     {
         array_push(_voiceUpdateArray, self);
-        _voiceLookUpMap[? __voiceReference] = self;
+        _voiceToStructMap[? __voiceReference] = self;
         if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __voiceReference, " to voice lookup struct");
         if (_mixStruct != undefined) _mixStruct.__Add(__voiceReference);
     }
@@ -156,7 +156,7 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
                 break;
                 
                 case __VINYL_HLT_STATE.__TAIL:
-                    ds_map_delete(_voiceLookUpMap, __voiceReference);
+                    ds_map_delete(_voiceToStructMap, __voiceReference);
                     if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", __voiceReference, " from voice lookup struct");
                     
                     __voiceCurrent = -1;

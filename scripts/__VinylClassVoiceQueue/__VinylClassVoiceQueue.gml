@@ -9,7 +9,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
     static _queueCount = 0;
     
     static _soundDict        = __VinylSystem().__soundDict;
-    static _voiceLookUpMap   = __VinylSystem().__voiceLookUpMap;
+    static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
     static _toUpdateArray    = __VinylSystem().__toUpdateArray;
     
@@ -40,7 +40,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
     
     //Add the generated voice to the mix's array of voices
     array_push(_voiceUpdateArray, self);
-    _voiceLookUpMap[? __voiceReference] = self;
+    _voiceToStructMap[? __voiceReference] = self;
     if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __voiceReference, " to voice lookup struct");
     
     

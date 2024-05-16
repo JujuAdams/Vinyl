@@ -4,12 +4,12 @@
 
 function __VinylEnsureSoundVoice(_voice)
 {
-    static _voiceLookUpMap  = __VinylSystem().__voiceLookUpMap;
-    static _voiceToSoundMap = __VinylSystem().__voiceToSoundMap;
-    static _soundDict       = __VinylSystem().__soundDict;
-    static _mixDict         = __VinylSystem().__mixDict;
+    static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
+    static _voiceToSoundMap  = __VinylSystem().__voiceToSoundMap;
+    static _soundDict        = __VinylSystem().__soundDict;
+    static _mixDict          = __VinylSystem().__mixDict;
     
-    var _voiceStruct = _voiceLookUpMap[? _voice];
+    var _voiceStruct = _voiceToStructMap[? _voice];
     if (_voiceStruct == undefined)
     {
         if (VINYL_LIVE_EDIT)

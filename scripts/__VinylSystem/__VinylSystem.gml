@@ -55,7 +55,7 @@ function __VinylSystem()
         //Maps that converts native GameMaker voice indexes to voice data structs. This is used
         //to efficiently find Vinyl's addition voice data using voice references. We use a map
         //instead of a struct because struct_remove_from_hash() doesn't exist yet.
-        __voiceLookUpMap = ds_map_create(); //TODO - Rename to __voiceToStructMap
+        __voiceToStructMap = ds_map_create();
         
         __voiceToSoundMap = ds_map_create();
         
@@ -96,11 +96,11 @@ function __VinylSystem()
         //Set up an update function that executes one every frame forever.
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, function()
         {
-            static _voiceToSoundMap = __voiceToSoundMap;
-            static _voiceLookUpMap  = __voiceLookUpMap;
-            static _bootSetupTimer  = 0;
-            static _bootSetupPath   = VINYL_LIVE_EDIT? filename_dir(GM_project_filename) + "/scripts/__VinylConfigJSON/__VinylConfigJSON.gml" : undefined;
-            static _bootSetupHash   = undefined;
+            static _voiceToSoundMap  = __voiceToSoundMap;
+            static _voiceToStructMap = __voiceToStructMap;
+            static _bootSetupTimer   = 0;
+            static _bootSetupPath    = VINYL_LIVE_EDIT? filename_dir(GM_project_filename) + "/scripts/__VinylConfigJSON/__VinylConfigJSON.gml" : undefined;
+            static _bootSetupHash    = undefined;
             
             if (VINYL_DEBUG_SHOW_FRAMES) __frame++;
             
@@ -191,7 +191,7 @@ function __VinylSystem()
                 {
                     var _voice = _array[_index];
                     
-                    ds_map_delete(_voiceLookUpMap, _voice);
+                    ds_map_delete(_voiceToStructMap, _voice);
                     if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", _voice, " from voice lookup struct");
                     
                     array_delete(_array, _index, 1);

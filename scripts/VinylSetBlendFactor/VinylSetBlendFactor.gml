@@ -10,9 +10,9 @@
 
 function VinylSetBlendFactor(_voice, _value)
 {
-    static _voiceLookUpMap = __VinylSystem().__voiceLookUpMap;
+    static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     
-    var _voiceStruct = _voiceLookUpMap[? _voice];
+    var _voiceStruct = _voiceToStructMap[? _voice];
     if (not is_instanceof(_voiceStruct, __VinylClassVoiceBlend)) return undefined;
     
     return _voiceStruct.__SetBlend(_value);
