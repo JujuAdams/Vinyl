@@ -214,6 +214,11 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop) constructor
             _struct.baseGain = __gainPattern;
         }
         
+        if (__membersLoop != undefined)
+        {
+            _struct.membersLoop = __membersLoop;
+        }
+        
         return _struct;
     }
     
@@ -251,6 +256,13 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop) constructor
         {
             buffer_write(_buffer, buffer_text, "        baseGain: ");
             buffer_write(_buffer, buffer_text, __gainPattern);
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        
+        if (__membersLoop != undefined)
+        {
+            buffer_write(_buffer, buffer_text, "        membersLoop: ");
+            buffer_write(_buffer, buffer_text, __membersLoop? "true" : "false");
             buffer_write(_buffer, buffer_text, ",\n");
         }
         
