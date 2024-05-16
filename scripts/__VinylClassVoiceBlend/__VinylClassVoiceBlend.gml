@@ -349,10 +349,10 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
             var _i = 0;
             repeat(__voiceCount)
             {
-                __voiceArray[_i] = audio_sound_loop(__voiceArray[_i], _loop);
+                audio_sound_loop(__voiceArray[_i], _loop);
                 ++_i;
             }
-                
+            
             __SetMemberGains();
             __UpdateVoiceGains();
         }
