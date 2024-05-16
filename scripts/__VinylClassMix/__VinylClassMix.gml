@@ -2,13 +2,14 @@
 
 /// @param mixName
 /// @param baseGain
+/// @param membersLoop
 
-function __VinylClassMix(_mixName, _gainPattern) constructor
+function __VinylClassMix(_mixName, _gainPattern, _membersLoop) constructor
 {
     static _soundDict   = __VinylSystem().__soundDict;
     static _patternDict = __VinylSystem().__patternDict;
     
-    __mixName  = _mixName;
+    __mixName     = _mixName;
     __gainPattern = _gainPattern;
     
     __gainLocal = 1;
@@ -17,8 +18,14 @@ function __VinylClassMix(_mixName, _gainPattern) constructor
     __gainLocalTarget = 1;
     __gainLocalSpeed  = infinity;
     
+    __membersLoop = _membersLoop;
+    
     __cleanUpIndex = 0;
     __voiceArray   = [];
+    
+    
+    
+    
     
     static __Update = function(_delta)
     {
@@ -38,10 +45,13 @@ function __VinylClassMix(_mixName, _gainPattern) constructor
         }
     }
     
-    static __UpdateSetup = function(_gainPattern)
+    static __UpdateSetup = function(_gainPattern, _membersLoop)
     {
         __gainPattern = _gainPattern;
+        __membersLoop = _membersLoop;
+        
         __UpdateMemberGain();
+        __UpdateMemberLoop();
     }
     
     static __UpdateMemberGain = function()
@@ -54,6 +64,17 @@ function __VinylClassMix(_mixName, _gainPattern) constructor
         repeat(array_length(_array))
         {
             __VinylEnsureSoundVoice(_array[_i]).__SetMixGain(_gainFinal);
+            ++_i;
+        }
+    }
+    
+    static __UpdateMemberLoop = function()
+    {
+        var _array = __voiceArray;
+        var _i = 0;
+        repeat(array_length(_array))
+        {
+            //__VinylEnsureSoundVoice(_array[_i]).__UpdateLoop();
             ++_i;
         }
     }
@@ -291,6 +312,7 @@ function __VinylImportMixGroupJSON(_json)
             {
                 case "mix":
                 case "baseGain":
+                case "membersLoop":
                 case "members":
                 break;
                 
@@ -303,7 +325,7 @@ function __VinylImportMixGroupJSON(_json)
         }
     }
     
-    VinylSetupMix(_json.mix, _json[$ "baseGain"]);
+    VinylSetupMix(_json.mix, _json[$ "baseGain"], _json[$ "membersLoop"]);
     
     var _membersArray = _json[$ "members"];
     if (is_array(_membersArray))

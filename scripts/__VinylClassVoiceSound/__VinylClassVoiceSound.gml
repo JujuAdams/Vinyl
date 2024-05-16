@@ -19,12 +19,12 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     
     __inUpdateArray = false;
     
-    __voice        = _voice;
-    __gainSound    = _gainSound;
-    __gainLocal    = _gainLocal;
-    __gainMix      = _gainMix;
-    __pitchSound   = _pitchSound;
-    __pitchLocal   = _pitchLocal;
+    __voice      = _voice;
+    __gainSound  = _gainSound;
+    __gainLocal  = _gainLocal;
+    __gainMix    = _gainMix;
+    __pitchSound = _pitchSound;
+    __pitchLocal = _pitchLocal;
     
     if (VINYL_LIVE_EDIT)
     {
