@@ -11,10 +11,7 @@
 
 function VinylSetupImportJSON(_json, _replace = true)
 {
-    static _system            = __VinylSystem();
-    static _toUpdateArray     = _system.__toUpdateArray;
-    static _voiceCleanUpArray = _system.__voiceCleanUpArray;
-    static _voiceUpdateArray  = _system.__voiceUpdateArray;
+    static _system = __VinylSystem();
     
     if (VINYL_LIVE_EDIT)
     {

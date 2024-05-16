@@ -8,10 +8,9 @@
 
 function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName) constructor
 {
-    static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
-    static _mixDict           = __VinylSystem().__mixDict;
-    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
-    static _voiceToSoundMap   = __VinylSystem().__voiceToSoundMap;
+    static _mixDict         = __VinylSystem().__mixDict;
+    static _toUpdateArray   = __VinylSystem().__toUpdateArray;
+    static _voiceToSoundMap = __VinylSystem().__voiceToSoundMap;
     
     __sound   = _sound;
     __gain    = _gain;

@@ -8,9 +8,8 @@
 
 function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixName) constructor
 {
-    static _soundDict         = __VinylSystem().__soundDict;
-    static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
-    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
+    static _soundDict     = __VinylSystem().__soundDict;
+    static _toUpdateArray = __VinylSystem().__toUpdateArray;
     
     
     __patternName = _patternName;

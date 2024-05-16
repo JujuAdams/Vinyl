@@ -7,12 +7,11 @@
 
 function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal, _loopLocal) constructor
 {
-    static _soundDict         = __VinylSystem().__soundDict;
-    static _mixDict           = __VinylSystem().__mixDict;
-    static _voiceToStructMap  = __VinylSystem().__voiceToStructMap;
-    static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
-    static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
-    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
+    static _soundDict        = __VinylSystem().__soundDict;
+    static _mixDict          = __VinylSystem().__mixDict;
+    static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
+    static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
+    static _toUpdateArray    = __VinylSystem().__toUpdateArray;
     
     __inUpdateArray = false;
     
@@ -80,9 +79,8 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal, _loopLocal) c
     if (__voiceTop >= 0)
     {
         __voiceReference = __voiceTop;
-        
-        array_push(_voiceCleanUpArray, self);
         _voiceToStructMap[? __voiceReference] = self;
+        
         if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __voiceReference, " to voice lookup struct");
         if (_mixStruct != undefined) _mixStruct.__Add(__voiceReference);
     }

@@ -11,10 +11,9 @@
 
 function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName) constructor
 {
-    static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
-    static _mixDict           = __VinylSystem().__mixDict;
-    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
-    static _voiceToSoundMap   = __VinylSystem().__voiceToSoundMap;
+    static _mixDict         = __VinylSystem().__mixDict;
+    static _toUpdateArray   = __VinylSystem().__toUpdateArray;
+    static _voiceToSoundMap = __VinylSystem().__voiceToSoundMap;
     
     __patternName = _patternName;
     

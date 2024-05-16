@@ -54,18 +54,19 @@ function __VinylSystem()
         
         //Maps that converts native GameMaker voice indexes to voice data structs. This is used
         //to efficiently find Vinyl's addition voice data using voice references. We use a map
-        //instead of a struct because struct_remove_from_hash() doesn't exist yet.
+        //instead of a struct because struct_remove_from_hash() doesn't exist yet and it's easier
+        //to incrementally 
         __voiceToStructMap = ds_map_create();
+        __voiceToStructLastKey = undefined;
         
         __voiceToSoundMap = ds_map_create();
+        __voiceToSoundLastKey = undefined;
         
         //An array of voices that are in the lookup dictionary. This will never include HLT voices
         //as they are managed in the update array (see below). Blend voices will automatically be
         //put into this array. Sound voices will automatically be put into this array in Live Edit
         //mode or if some additional property needs to be attached to the voice e.g. fading out or
         //setting gain.
-        __voiceCleanUpArray = []; //TODO - Replace with ds_map_find_first() against __voiceToStructMap (__voiceLookUpMap)
-        __cleanUpIndex      = 0;
         
         //An array of voice structs that need to be actively managed. This will always include HLT
         //voices. Sound voices and Blend voices are added to the update array when a fade out
@@ -181,31 +182,25 @@ function __VinylSystem()
                 ++_i;
             }
             
-            //Check for clean up
-            var _array = __voiceCleanUpArray;
-            var _length = array_length(_array);
-            if (_length > 0)
-            {
-                var _index = (__cleanUpIndex + 1) mod _length;
-                if (not _array[_index].__IsPlaying())
-                {
-                    var _voice = _array[_index];
-                    
-                    ds_map_delete(_voiceToStructMap, _voice);
-                    if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", _voice, " from voice lookup struct");
-                    
-                    array_delete(_array, _index, 1);
-                }
-                
-                __cleanUpIndex = _index;
-            }
+            //Clean up ds_maps
+            var _voice = (__voiceToStructLastKey == undefined)? ds_map_find_first(_voiceToSoundMap) : ds_map_find_next(_voiceToSoundMap, __voiceToStructLastKey);
+            __voiceToStructLastKey = _voice;
             
-            var _voice = ds_map_find_first(_voiceToSoundMap);
             if ((_voice != undefined) && (not audio_is_playing(_voice)))
             {
                 ds_map_delete(_voiceToSoundMap, _voice);
+                if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", _voice, " from voice-to-sound map");
             }
             
+            var _voice = (__voiceToSoundLastKey == undefined)? ds_map_find_first(_voiceToStructMap) : ds_map_find_next(_voiceToStructMap, __voiceToSoundLastKey);
+            __voiceToSoundLastKey = _voice;
+            
+            var _voice = ds_map_find_first(_voiceToStructMap);
+            if ((_voice != undefined) && (not _voiceToStructMap[? _voice].__IsPlaying()))
+            {
+                ds_map_delete(_voiceToStructMap, _voice);
+                if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", _voice, " from voice-to-struct map");
+            }
         }, [], -1));
     }
     

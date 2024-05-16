@@ -5,10 +5,12 @@
 function __VinylResolveChanges(_replace)
 {
     static _toUpdateArray     = __VinylSystem().__toUpdateArray;
-    static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
+    static _voiceToStructMap  = __VinylSystem().__voiceToStructMap;
     static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
     static _soundDict         = __VinylSystem().__soundDict;
     static _patternDict       = __VinylSystem().__patternDict;
+    
+    var _voiceToStructArray = ds_map_values_to_array(_voiceToStructMap);
     
     //Strip out duplicates
     array_resize(_toUpdateArray, array_unique_ext(_toUpdateArray));
@@ -46,9 +48,9 @@ function __VinylResolveChanges(_replace)
                 var _sound = _pattern.__sound;
                 
                 var _j = 0;
-                repeat(array_length(_voiceCleanUpArray))
+                repeat(array_length(_voiceToStructArray))
                 {
-                    _voiceCleanUpArray[_j].__QueueUpdateForSound(_sound);
+                    _voiceToStructArray[_j].__QueueUpdateForSound(_sound);
                     ++_j;
                 }
                 
@@ -63,11 +65,11 @@ function __VinylResolveChanges(_replace)
             case "__VinylClassPatternShuffle":
             case "__VinylClassPatternBlend":
                 var _j = 0;
-                repeat(array_length(_voiceCleanUpArray))
+                repeat(array_length(_voiceToStructArray))
                 {
-                    if (_voiceCleanUpArray[_j].__pattern == _pattern)
+                    if (_voiceToStructArray[_j].__pattern == _pattern)
                     {
-                        array_push(_toUpdateArray, _voiceCleanUpArray[_j]);
+                        array_push(_toUpdateArray, _voiceToStructArray[_j]);
                     }
                     
                     ++_j;

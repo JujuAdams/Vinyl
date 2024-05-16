@@ -6,11 +6,10 @@
 
 function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
 {
-    static _mixDict           = __VinylSystem().__mixDict;
-    static _voiceToStructMap  = __VinylSystem().__voiceToStructMap;
-    static _voiceCleanUpArray = __VinylSystem().__voiceCleanUpArray;
-    static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
-    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
+    static _mixDict          = __VinylSystem().__mixDict;
+    static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
+    static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
+    static _toUpdateArray    = __VinylSystem().__toUpdateArray;
     
     __pattern    = _pattern;
     __gainLocal  = _gainLocal;
@@ -79,8 +78,10 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     if (__voiceReference >= 0)
     {
         array_push(_voiceUpdateArray, self);
+        
         _voiceToStructMap[? __voiceReference] = self;
         if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __voiceReference, " to voice lookup struct");
+        
         if (_mixStruct != undefined) _mixStruct.__Add(__voiceReference);
     }
     
