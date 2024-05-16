@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylQueuePush",
+  "%Name":"VinylQueueContains",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylQueuePush",
+  "name":"VinylQueueContains",
   "parent":{
     "name":"Queues",
     "path":"folders/Vinyl/Queues.yy",

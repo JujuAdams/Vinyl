@@ -1,7 +1,7 @@
 // Feather disable all
 
 /// Destroys a queue voice. This stops any currently playing audio and renders the queue voice
-/// inoperable. This function is provided for convenience and You don't have to call this function
+/// inoperable. This function is provided for convenience and you don't have to call this function
 /// to manage memory.
 /// 
 /// @param voice

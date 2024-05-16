@@ -1,7 +1,7 @@
 // Feather disable all
 
 /// Create a new sound queue. This function returns a queue voice which can be used similarly to
-/// other Vinyl voices A sound queue is used to play audio in a particular sequence. There are
+/// other Vinyl voices. A sound queue is used to play audio in a particular sequence. There are
 /// three behaviours that a sound queue can use, found in VINYL_QUEUE enum.
 /// 
 ///   - .DONT_LOOP will play each sound in the queue once
