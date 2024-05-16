@@ -18,14 +18,16 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _mixParent, _meta
     __mixParent   = _mixParent;
     __metadata    = _metadata;
     
-    __gainLocal = 1;
-    __gainFinal = _gainPattern;
+    __gainLocal  = 1;
+    __gainParent = 1;
+    __gainFinal  = _gainPattern;
     
     __gainLocalTarget = 1;
     __gainLocalSpeed  = infinity;
     
     __cleanUpIndex = 0;
     __voiceArray   = [];
+    __childArray   = [];
     
     
     
@@ -64,7 +66,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _mixParent, _meta
     
     static __UpdateMemberGain = function()
     {
-        var _gainFinal = __gainPattern*__gainLocal;
+        var _gainFinal = __gainPattern*__gainParent*__gainLocal;
         __gainFinal = _gainFinal;
         
         var _array = __voiceArray;
@@ -92,6 +94,17 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _mixParent, _meta
         if (_index >= 0) array_delete(__voiceArray, _index, 1);
     }
     
+    static __AddMix = function(_voice)
+    {
+        array_push(__childArray, _voice);
+    }
+    
+    static __RemoveMix = function(_voice)
+    {
+        var _index = array_get_index(__childArray, _voice);
+        if (_index >= 0) array_delete(__childArray, _index, 1);
+    }
+    
     static __StopVoices = function()
     {
         var _i = 0;
@@ -100,6 +113,8 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _mixParent, _meta
             VinylStop(__voiceArray[_i]);
             ++_i;
         }
+        
+        //TODO - Handle child mixes
     }
     
     static __FadeOutVoices = function(_rateOfChange)
@@ -110,6 +125,8 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _mixParent, _meta
             VinylFadeOut(__voiceArray[_i], _rateOfChange);
             ++_i;
         }
+        
+        //TODO - Handle child mixes
     }
     
     static __PauseVoices = function()
@@ -120,6 +137,8 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _mixParent, _meta
             VinylPause(__voiceArray[_i]);
             ++_i;
         }
+        
+        //TODO - Handle child mixes
     }
     
     static __ResumeVoices = function()
@@ -130,6 +149,8 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _mixParent, _meta
             VinylResume(__voiceArray[_i]);
             ++_i;
         }
+        
+        //TODO - Handle child mixes
     }
     
     static __SetLocalGain = function(_gain, _rateOfChange)
@@ -146,6 +167,8 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _mixParent, _meta
     
     static __ExportJSON = function(_soundExportedDict, _patternExportedDict, _ignoreEmpty)
     {
+        //TODO - Handle child mixes
+        
         static _methodContext = {
             __mixName:    undefined,
             __namesArray: undefined,
@@ -221,6 +244,8 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _mixParent, _meta
     
     static __ExportGML = function(_buffer, _useMacros, _soundExportedDict, _patternExportedDict, _ignoreEmpty)
     {
+        //TODO - Handle child mixes
+        
         static _methodContext = {
             __mixName:    undefined,
             __namesArray: undefined,
