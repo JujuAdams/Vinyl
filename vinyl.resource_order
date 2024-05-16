@@ -13,8 +13,8 @@
     {"name":"Other Stuff","order":8,"path":"folders/Vinyl/Other Stuff.yy",},
     {"name":"Playback","order":4,"path":"folders/Vinyl/Playback.yy",},
     {"name":"Queues","order":7,"path":"folders/Vinyl/Queues.yy",},
-    {"name":"Setup","order":3,"path":"folders/Vinyl/Setup.yy",},
-    {"name":"Import & Export","order":8,"path":"folders/Vinyl/Setup/Import & Export.yy",},
+    {"name":"Runtime Setup","order":3,"path":"folders/Vinyl/Runtime Setup.yy",},
+    {"name":"Import & Export","order":8,"path":"folders/Vinyl/Runtime Setup/Import & Export.yy",},
   ],
   "ResourceOrderSettings":[
     {"name":"acTest","order":7,"path":"animcurves/acTest/acTest.yy",},

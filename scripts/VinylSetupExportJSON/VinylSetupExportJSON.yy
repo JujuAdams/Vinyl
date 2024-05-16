@@ -6,7 +6,7 @@
   "name":"VinylSetupExportJSON",
   "parent":{
     "name":"Import & Export",
-    "path":"folders/Vinyl/Setup/Import & Export.yy",
+    "path":"folders/Vinyl/Runtime Setup/Import & Export.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
