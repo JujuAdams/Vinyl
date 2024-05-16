@@ -156,6 +156,7 @@ function __VinylSystem()
                                 try
                                 {
                                     VinylSetupImportJSON(_gml[$ "global.VinylConfigSON"] ?? []);
+                                    __VinylTrace("Successfully loaded config JSON from disk (", date_datetime_string(date_current_datetime()), ")");
                                 }
                                 catch(_error)
                                 {
