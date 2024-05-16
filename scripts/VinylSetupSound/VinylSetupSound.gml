@@ -12,15 +12,16 @@
 /// @param [pitch=1]
 /// @param [loop]
 /// @param [mix=VINYL_DEFAULT_MIX]
+/// @param [metadata]
 
-function VinylSetupSound(_sound, _gain = 1, _pitch = 1, _loop = undefined, _mixName = VINYL_DEFAULT_MIX)
+function VinylSetupSound(_sound, _gain = 1, _pitch = 1, _loop = undefined, _mixName = VINYL_DEFAULT_MIX, _metadata = undefined)
 {
     static _system    = __VinylSystem();
     static _soundDict = _system.__soundDict;
     
     if (_mixName == VINYL_NO_MIX) _mixName = undefined;
     
-    struct_get_from_hash(_soundDict, int64(_sound)).__UpdateSetup(_gain, _pitch, _loop, _mixName);
+    struct_get_from_hash(_soundDict, int64(_sound)).__UpdateSetup(_gain, _pitch, _loop, _mixName, _metadata);
     
     if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
     {

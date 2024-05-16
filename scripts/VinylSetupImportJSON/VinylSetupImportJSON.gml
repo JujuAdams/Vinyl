@@ -69,7 +69,7 @@ function __VinylSetupImportJSONInner(_json)
         }
         else if (struct_exists(_json, "metadata"))
         {
-            return __VinylImportMetadataJSON(_json);
+            return __VinylImportGlobalMetadataJSON(_json);
         }
         else
         {

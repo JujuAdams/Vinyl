@@ -8,8 +8,9 @@
 /// @param pitchMax
 /// @param loop
 /// @param mix
+/// @param metadata
 
-function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName) constructor
+function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName, _metadata) constructor
 {
     static _mixDict         = __VinylSystem().__mixDict;
     static _toUpdateArray   = __VinylSystem().__toUpdateArray;
@@ -24,6 +25,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     __pitchMax   = _pitchMax;
     __loop       = _loop;
     __mixName    = _mixName;
+    __metadata   = _metadata;
     
     __gainRandomize  = (_gainMin != _gainMax);
     __pitchRandomize = (_pitchMin != _pitchMax);
@@ -111,7 +113,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         return _voice;
     }
     
-    static __UpdateSetup = function(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName)
+    static __UpdateSetup = function(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName, _metadata)
     {
         if (VINYL_LIVE_EDIT)
         {
@@ -125,6 +127,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         __pitchMax   = _pitchMax;
         __loop       = _loop;
         __mixName    = _mixName;
+        __metadata   = _metadata;
         
         __gainRandomize  = (_gainMin != _gainMax);
         __pitchRandomize = (_pitchMin != _pitchMax);
@@ -296,7 +299,7 @@ function __VinylImportShuffleJSON(_json)
     }
     
     var _sounds = _json[$ "sounds"] ?? _json[$ "sound"];
-    VinylSetupShuffle(_json.shuffle, _sounds, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"]);
+    VinylSetupShuffle(_json.shuffle, _sounds, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"], undefined, _json[$ "metadata"]);
     
     return _json.shuffle;
 }

@@ -3,14 +3,14 @@
 /// @param metadataName
 /// @param data
 
-function VinylSetupMetadata(_metadata, _data)
+function VinylSetupGlobalMetadata(_metadata, _data)
 {
     static _metadataDict = __VinylSystem().__metadataDict;
     
     _metadataDict[$ _metadata] = _data;
 }
 
-function __VinylImportMetadataJSON(_json)
+function __VinylImportGlobalMetadataJSON(_json)
 {
     if (VINYL_SAFE_JSON_IMPORT)
     {
@@ -35,7 +35,7 @@ function __VinylImportMetadataJSON(_json)
         if (not struct_exists(_json, "data")) __VinylError("Metadata pattern \"", _json.metadata, "\" property .data must be defined");
     }
     
-    VinylSetupMetadata(_json.metadata, _json.data);
+    VinylSetupGlobalMetadata(_json.metadata, _json.data);
     
     return _json.metadata;
 }

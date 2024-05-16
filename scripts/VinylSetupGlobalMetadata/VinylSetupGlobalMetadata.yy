@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylSetupMetadata",
+  "%Name":"VinylSetupGlobalMetadata",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylSetupMetadata",
+  "name":"VinylSetupGlobalMetadata",
   "parent":{
     "name":"Runtime Setup",
     "path":"folders/Vinyl/Runtime Setup.yy",

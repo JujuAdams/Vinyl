@@ -6,8 +6,9 @@
 /// @param soundTail
 /// @param gain
 /// @param mix
+/// @param metadata
 
-function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain, _mixName) constructor
+function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain, _mixName, _metadata) constructor
 {
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
     static _toUpdateArray    = __VinylSystem().__toUpdateArray;
@@ -19,6 +20,7 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     __soundTail = __VinylImportSound(_soundTail);
     __gain      = _gain;
     __mixName   = _mixName;
+    __metadata  = _metadata;
     
     
     
@@ -29,7 +31,7 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         return (new __VinylClassVoiceHLT(self, _gainLocal, _pitchLocal)).__voiceReference;
     }
     
-    static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mixName)
+    static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mixName, _metadata)
     {
         var _newSoundHead = __VinylImportSound(_soundHead);
         var _newSoundLoop = __VinylImportSound(_soundLoop);
@@ -49,6 +51,7 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         __soundTail = _newSoundTail;
         __gain      = _gain;
         __mixName   = _mixName;
+        __metadata  = _metadata;
     }
     
     static __ClearSetup = function()
@@ -161,7 +164,7 @@ function __VinylImportHLTJSON(_json)
         if (not struct_exists(_json, "loop")) __VinylError("Head-Loop-Tail pattern \"", _json.hlt, "\" property .loop must be defined");
     }
     
-    VinylSetupHLT(_json.hlt, _json[$ "head"], _json.loop, _json[$ "tail"], _json[$ "gain"]);
+    VinylSetupHLT(_json.hlt, _json[$ "head"], _json.loop, _json[$ "tail"], _json[$ "gain"], undefined, _json[$ "metadata"]);
     
     return _json.hlt;
 }

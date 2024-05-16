@@ -5,8 +5,9 @@
 /// @param loop
 /// @param gain
 /// @param mix
+/// @param metadata
 
-function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixName) constructor
+function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixName, _metadata) constructor
 {
     static _soundDict     = __VinylSystem().__soundDict;
     static _toUpdateArray = __VinylSystem().__toUpdateArray;
@@ -18,6 +19,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
     __loop       = _loop;
     __gain       = _gain;
     __mixName    = _mixName;
+    __metadata   = _metadata;
     
     
     
@@ -28,7 +30,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
         return (new __VinylClassVoiceBlend(self, _loopLocal, _gainLocal, _pitchLocal, __mixName)).__voiceReference;
     }
     
-    static __UpdateSetup = function(_soundArray, _loop, _gain, _mixName)
+    static __UpdateSetup = function(_soundArray, _loop, _gain, _mixName, _metadata)
     {
         if (VINYL_LIVE_EDIT)
         {
@@ -40,6 +42,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
         __loop       = _loop;
         __gain       = _gain;
         __mixName    = _mixName;
+        __metadata   = _metadata;
     }
     
     static __ClearSetup = function()
@@ -157,7 +160,7 @@ function __VinylImportBlendJSON(_json)
         if (not struct_exists(_json, "sounds")) __VinylError("Blend pattern \"", _json.blend, "\" property .sounds must be defined");
     }
     
-    VinylSetupBlend(_json.blend, _json.sounds, _json[$ "loop"], _json[$ "gain"]);
+    VinylSetupBlend(_json.blend, _json.sounds, _json[$ "loop"], _json[$ "gain"], undefined, _json[$ "metadata"]);
     
     return _json.blend;
 }

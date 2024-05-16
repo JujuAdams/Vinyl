@@ -85,34 +85,38 @@ is not placed inside a mix definition therefore it is assigned to the default mi
 Sounds:
     {
         "sound": <sound asset>, required
-        "gain":  <number> or <2-element array>, optional, defaults to 1
+        "gain": <number> or <2-element array>, optional, defaults to 1
         "pitch": <number> or <2-element array>, optional, defaults to 1
-        "loop":  <boolean>, optional, defaults to false
+        "loop": <boolean>, optional, defaults to false
+        "metadata": <any>, optional
     }
 
 Shuffle Patterns:
     {
         "shuffle": <pattern name>, required
-        "sounds":  <array of sound assets>, required
-        "gain":    <number> or <2-element array>, optional, defaults to 1
-        "pitch":   <number> or <2-element array>, optional, defaults to 1
+        "sounds": <array of sound assets>, required
+        "gain": <number> or <2-element array>, optional, defaults to 1
+        "pitch": <number> or <2-element array>, optional, defaults to 1
+        "metadata": <any>, optional
     }
 
 Head-Loop-Tail Patterns:
     {
-        "hlt":  <pattern name>, required
+        "hlt": <pattern name>, required
         "head": <sound asset>, optional, defaults to no asset
         "loop": <sound asset>, required
         "tail": <sound asset>, optional, defaults to no asset
         "gain": <number>, optional, defaults to 1
+        "metadata": <any>, optional
     }
 
 Blend Patterns:
     {
-        "blend":  <pattern name>, required
+        "blend": <pattern name>, required
         "sounds": <array of sound assets>, required
-        "loop":   <boolean>, optional, defaults to true
-        "gain":   <number>, optional, defaults to 1
+        "loop": <boolean>, optional, defaults to true
+        "gain": <number>, optional, defaults to 1
+        "metadata": <any>, optional
     }
 
 Mixes:
@@ -121,9 +125,10 @@ Mixes:
         "baseGain": <number>, optional, defaults to 1
         "membersLoop": <boolean>, optional, defaults to <undefined>
         "members": <array of definitions>, optional, defaults to no assets
+        "metadata": <any>, optional
     }
 
-Metadata:
+Global Metadata:
     {
         "metadata": <mix name>, required
         "data": <any>, required

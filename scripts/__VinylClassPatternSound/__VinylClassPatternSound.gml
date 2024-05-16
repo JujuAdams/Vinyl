@@ -5,18 +5,20 @@
 /// @param pitch
 /// @param loop
 /// @param mix
+/// @param metadata
 
-function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName) constructor
+function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _metadata) constructor
 {
     static _mixDict         = __VinylSystem().__mixDict;
     static _toUpdateArray   = __VinylSystem().__toUpdateArray;
     static _voiceToSoundMap = __VinylSystem().__voiceToSoundMap;
     
-    __sound   = _sound;
-    __gain    = _gain;
-    __pitch   = _pitch;
-    __loop    = _loop;
-    __mixName = _mixName;
+    __sound    = _sound;
+    __gain     = _gain;
+    __pitch    = _pitch;
+    __loop     = _loop;
+    __mixName  = _mixName;
+    __metadata = _metadata;
     
     
     
@@ -62,17 +64,18 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName) constr
         return _voice;
     }
     
-    static __UpdateSetup = function(_gain, _pitch, _loop, _mixName)
+    static __UpdateSetup = function(_gain, _pitch, _loop, _mixName, _metadata)
     {
         if (VINYL_LIVE_EDIT)
         {
             array_push(_toUpdateArray, self);
         }
         
-        __gain    = _gain;
-        __pitch   = _pitch;
-        __loop    = _loop;
-        __mixName = _mixName;
+        __gain     = _gain;
+        __pitch    = _pitch;
+        __loop     = _loop;
+        __mixName  = _mixName;
+        __metadata = _metadata;
     }
     
     static __ClearSetup = function()
@@ -159,6 +162,7 @@ function __VinylImportSoundJSON(_json)
                 case "loop":
                 case "gain":
                 case "pitch":
+                case "metadata":
                 break;
                 
                 default:
@@ -185,7 +189,7 @@ function __VinylImportSoundJSON(_json)
         __VinylError("Sound specified with incorrect datatype (", typeof(_sound), ")");
     }
     
-    VinylSetupSound(_json.sound, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"]);
+    VinylSetupSound(_json.sound, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"], undefined, _json[$ "metadata"]);
     
     return _json.sound;
 }
