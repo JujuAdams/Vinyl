@@ -105,7 +105,17 @@ function __VinylSystem()
             
             if (VINYL_DEBUG_SHOW_FRAMES) __frame++;
             
-            var _deltaTimeFactor = (delta_time / (game_get_speed(gamespeed_fps)*game_get_speed(gamespeed_microseconds)));
+            var _usPerFrame = game_get_speed(gamespeed_microseconds);
+            if (delta_time > 10*_usPerFrame)
+            {
+                //Game hung, revert to fixed step size
+                var _deltaTimeFactor = _usPerFrame / 1000000;
+            }
+            else
+            {
+                //Game running within generous acceptable parameters, delta time as normal
+                var _deltaTimeFactor = (clamp(delta_time, _usPerFrame/3, 3*_usPerFrame) / 1000000);
+            }
             
             //Handle live update from boot setup JSON
             if (VINYL_LIVE_EDIT && ((os_type == os_windows) || (os_type == os_macosx) || (os_type == os_linux)))
