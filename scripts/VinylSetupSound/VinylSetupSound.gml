@@ -10,10 +10,10 @@
 /// @param sound
 /// @param [gain=1]
 /// @param [pitch=1]
-/// @param [loop=false]
+/// @param [loop]
 /// @param [mix=VINYL_DEFAULT_MIX]
 
-function VinylSetupSound(_sound, _gain = 1, _pitch = 1, _loop = false, _mixName = VINYL_DEFAULT_MIX)
+function VinylSetupSound(_sound, _gain = 1, _pitch = 1, _loop = undefined, _mixName = VINYL_DEFAULT_MIX)
 {
     static _system    = __VinylSystem();
     static _soundDict = _system.__soundDict;

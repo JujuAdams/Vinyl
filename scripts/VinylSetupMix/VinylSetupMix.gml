@@ -11,7 +11,7 @@
 /// @param [baseGain=1]
 /// @param [membersLoop]
 
-function VinylSetupMix(_mixName, _gainPattern = 1, _membersLoop)
+function VinylSetupMix(_mixName, _gainPattern = 1, _membersLoop = undefined)
 {
     static _system   = __VinylSystem();
     static _mixDict  = _system.__mixDict;

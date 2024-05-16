@@ -94,7 +94,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             }
             
             var _gainMix   = _mixStruct.__gainFinal;
-            var _loopFinal = _loopLocal ?? (__loop ?? _mixStruct.__membersLoop);
+            var _loopFinal = _loopLocal ?? (__loop ?? (_mixStruct.__membersLoop ?? false));
             
             var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainPattern*_gainLocal*_gainMix/VINYL_MAX_VOICE_GAIN, 0, _pitchPattern*_pitchLocal);
             _mixStruct.__Add(_voice);

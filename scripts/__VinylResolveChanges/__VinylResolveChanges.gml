@@ -87,9 +87,14 @@ function __VinylResolveChanges(_replace)
                 }
             break;
             
-            case "__VinylClassPatternMix":
+            case "__VinylClassMix":
                 var _array = _pattern.__voiceArray;
-                array_copy(_toUpdateArray, array_length(_toUpdateArray), _array, 0, array_length(_array));
+                var _j = 0;
+                repeat(array_length(_array))
+                {
+                    array_push(_toUpdateArray, __VinylEnsureSoundVoice(_array[_i]));
+                    ++_j;
+                }
             break;
             
             default:

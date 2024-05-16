@@ -166,7 +166,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         var _mixStruct = __VinylVoiceMoveMix(__voice, _pattern.__mixName);
         var _loopMix = (_mixStruct == undefined)? undefined : _mixStruct.__membersLoop;
         
-        audio_sound_loop( __voice, __loopLocal ?? (_pattern.__loop ?? _loopMix));
+        audio_sound_loop( __voice, __loopLocal ?? (_pattern.__loop ?? (_loopMix ?? false)));
         audio_sound_gain( __voice, __VINYL_VOICE_GAIN_SxLxMxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         audio_sound_pitch(__voice, __VINYL_VOICE_PITCH_SxL);
     }

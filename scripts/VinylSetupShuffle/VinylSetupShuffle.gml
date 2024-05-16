@@ -11,10 +11,10 @@
 /// @param soundArray
 /// @param [gain=1]
 /// @param [pitch=1]
-/// @param [loop=false]
+/// @param [loop]
 /// @param [mix=VINYL_DEFAULT_MIX]
 
-function VinylSetupShuffle(_patternName, _soundArray, _gain = undefined, _pitch = undefined, _loop = false, _mixName = VINYL_DEFAULT_MIX)
+function VinylSetupShuffle(_patternName, _soundArray, _gain = undefined, _pitch = undefined, _loop = undefined, _mixName = VINYL_DEFAULT_MIX)
 {
     static _system      = __VinylSystem();
     static _patternDict = _system.__patternDict;

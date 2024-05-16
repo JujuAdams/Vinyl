@@ -6,8 +6,9 @@
 
 function __VinylClassMix(_mixName, _gainPattern, _membersLoop) constructor
 {
-    static _soundDict   = __VinylSystem().__soundDict;
-    static _patternDict = __VinylSystem().__patternDict;
+    static _toUpdateArray = __VinylSystem().__toUpdateArray;
+    static _soundDict     = __VinylSystem().__soundDict;
+    static _patternDict   = __VinylSystem().__patternDict;
     
     __mixName     = _mixName;
     __gainPattern = _gainPattern;

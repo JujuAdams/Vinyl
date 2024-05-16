@@ -119,6 +119,7 @@ Mixes:
     {
         "mix": <mix name>, required
         "baseGain": <number>, optional, defaults to 1
+        "membersLoop": <boolean>, optional, defaults to <undefined>
         "members": <array of definitions>, optional, defaults to no assets
     }
 

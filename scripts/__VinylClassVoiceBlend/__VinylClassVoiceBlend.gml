@@ -60,7 +60,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal, _loopLocal) c
     
     if (__voiceCount > 0)
     {
-        var _loopFinal = _loopLocal ?? (_pattern.__loop ?? _mixLoop);
+        var _loopFinal = _loopLocal ?? (_pattern.__loop ?? (_mixLoop ?? false));
         var _soundGainArray = _pattern.__soundGainArray;
         
         __voiceTop      = audio_play_sound(_soundArray[0], 0, _loopFinal, _soundGainArray[0]*__VINYL_VOICE_GAIN_PxLxMxF/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
@@ -317,7 +317,7 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal, _loopLocal) c
         var _mixStruct = __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
         var _loopMix = (_mixStruct == undefined)? undefined : _mixStruct.__membersLoop;
         
-        var _loop = __loopLocal ?? (_pattern.__loop ?? _loopMix);
+        var _loop = __loopLocal ?? (_pattern.__loop ?? (_loopMix ?? false));
         
         if (_pattern.__changedSoundArray)
         {

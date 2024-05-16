@@ -20,6 +20,7 @@ function __VinylVoiceMoveMix(_voiceReference, _newMixName)
     
     if (_newMixName == undefined)
     {
+        var _mixStruct = undefined;
         __gainMix = 1;
     }
     else

@@ -83,7 +83,7 @@ function __VinylSystem()
         repeat(array_length(_assetArray))
         {
             var _sound = _assetArray[_i];
-            struct_set_from_hash(_soundDict, int64(_sound), new __VinylClassPatternSound(_sound, 1, 1, false, _defaultMix));
+            struct_set_from_hash(_soundDict, int64(_sound), new __VinylClassPatternSound(_sound, 1, 1, undefined, _defaultMix));
             ++_i;
         }
         

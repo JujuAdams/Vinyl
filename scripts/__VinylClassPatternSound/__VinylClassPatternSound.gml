@@ -45,7 +45,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName) constr
             }
             
             var _gainMix   = _mixStruct.__gainFinal;
-            var _loopFinal = _loopLocal ?? (__loop ?? _mixStruct.__membersLoop);
+            var _loopFinal = _loopLocal ?? (__loop ?? (_mixStruct.__membersLoop ?? false));
             
             var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainSound*_gainLocal*_gainMix/VINYL_MAX_VOICE_GAIN, 0, _pitchSound*_pitchLocal);
             _mixStruct.__Add(_voice);

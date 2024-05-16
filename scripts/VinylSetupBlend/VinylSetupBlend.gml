@@ -10,11 +10,11 @@
 /// 
 /// @param patternName
 /// @param soundArray
-/// @param [loop=true]
+/// @param [loop]
 /// @param [gain=1]
 /// @param [mix=VINYL_DEFAULT_MIX]
 
-function VinylSetupBlend(_patternName, _soundArray, _loop = true, _gain = 1, _mixName = VINYL_DEFAULT_MIX)
+function VinylSetupBlend(_patternName, _soundArray, _loop = undefined, _gain = 1, _mixName = VINYL_DEFAULT_MIX)
 {
     static _system      = __VinylSystem();
     static _patternDict = _system.__patternDict;
