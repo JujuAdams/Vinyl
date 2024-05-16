@@ -18,6 +18,10 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName) constr
     __loop    = _loop;
     __mixName = _mixName;
     
+    
+    
+    
+    
     static __Play = function(_loopLocal, _gainLocal, _pitchLocal)
     {
         var _sound      = __sound;

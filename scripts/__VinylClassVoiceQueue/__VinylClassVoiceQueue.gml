@@ -222,8 +222,8 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
         __pitchSound = _pattern.__pitch;
         
         __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
+        //Loop behaviour is determined by the queue's behaviour so we don't want to tamper with it here
         
-        audio_sound_loop( __voiceCurrent, __loopLocal ?? _pattern.__loop);
         audio_sound_gain( __voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxPxL);
     }

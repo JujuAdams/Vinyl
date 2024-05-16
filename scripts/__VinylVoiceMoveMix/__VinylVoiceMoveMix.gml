@@ -34,4 +34,6 @@ function __VinylVoiceMoveMix(_voiceReference, _newMixName)
         __gainMix = _mixStruct.__gainFinal;
         _mixStruct.__Add(_voiceReference);
     }
+    
+    return _mixStruct;
 }

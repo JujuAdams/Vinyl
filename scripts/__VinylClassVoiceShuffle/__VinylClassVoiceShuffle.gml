@@ -168,9 +168,10 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
         __gainPattern  = lerp(_pattern.__gainMin,  _pattern.__gainMax,  __gainFactor);
         __pitchPattern = lerp(_pattern.__pitchMin, _pattern.__pitchMax, __pitchFactor);
         
-        __VinylVoiceMoveMix(__voice, _pattern.__mixName);
+        var _mixStruct = __VinylVoiceMoveMix(__voice, _pattern.__mixName);
+        var _loopMix = (_mixStruct == undefined)? undefined : _mixStruct.__membersLoop;
         
-        audio_sound_loop( __voice, __loopLocal ?? _pattern.__loop);
+        audio_sound_loop( __voice, __loopLocal ?? (_pattern.__loop ?? _loopMix));
         audio_sound_gain( __voice, __VINYL_VOICE_GAIN_SxPxLxMxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         audio_sound_pitch(__voice, __VINYL_VOICE_PITCH_SxPxL);
     }

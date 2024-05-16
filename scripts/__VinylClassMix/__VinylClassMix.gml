@@ -47,11 +47,15 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop) constructor
     
     static __UpdateSetup = function(_gainPattern, _membersLoop)
     {
+        if (VINYL_LIVE_EDIT)
+        {
+            array_push(_toUpdateArray, self);
+        }
+        
         __gainPattern = _gainPattern;
         __membersLoop = _membersLoop;
         
         __UpdateMemberGain();
-        __UpdateMemberLoop();
     }
     
     static __UpdateMemberGain = function()
@@ -64,17 +68,6 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop) constructor
         repeat(array_length(_array))
         {
             __VinylEnsureSoundVoice(_array[_i]).__SetMixGain(_gainFinal);
-            ++_i;
-        }
-    }
-    
-    static __UpdateMemberLoop = function()
-    {
-        var _array = __voiceArray;
-        var _i = 0;
-        repeat(array_length(_array))
-        {
-            //__VinylEnsureSoundVoice(_array[_i]).__UpdateLoop();
             ++_i;
         }
     }

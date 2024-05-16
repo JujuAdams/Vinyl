@@ -312,10 +312,12 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal, _loopLocal) c
     {
         var _pattern = __pattern;
         
-        var _loop = _pattern.__loop ?? false;
         __gainPattern = _pattern.__gain;
         
-        __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
+        var _mixStruct = __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
+        var _loopMix = (_mixStruct == undefined)? undefined : _mixStruct.__membersLoop;
+        
+        var _loop = __loopLocal ?? (_pattern.__loop ?? _loopMix);
         
         if (_pattern.__changedSoundArray)
         {
