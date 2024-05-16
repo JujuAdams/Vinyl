@@ -324,6 +324,8 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
             var _soundArray = _pattern.__soundArray;
             __voiceCount = array_length(_soundArray);
             
+            __Stop();
+            
             __voiceTop   = -1;
             __voiceArray = [];
             __gainArray  = [];

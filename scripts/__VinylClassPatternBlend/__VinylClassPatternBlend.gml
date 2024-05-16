@@ -33,8 +33,6 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
     
     static __UpdateSetup = function(_soundArray, _loop, _gain, _mixName)
     {
-        __VinylTrace(debug_get_callstack());
-        
         if (VINYL_LIVE_EDIT)
         {
             __changedSoundArray = array_equals(__soundArray, _soundArray);
