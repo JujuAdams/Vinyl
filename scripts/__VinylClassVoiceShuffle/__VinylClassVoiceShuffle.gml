@@ -29,6 +29,7 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
     __gainLocal    = _gainLocal;
     __gainMix      = _gainMix;
     
+    __pitchSound   = __VinylSoundGetPitch(_sound);
     __pitchPattern = _pitchPattern;
     __pitchLocal   = _pitchLocal;
     
@@ -161,7 +162,8 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
     {
         var _pattern = __pattern;
         
-        __gainSound = __VinylSoundGetGain(__sound);
+        __gainSound  = __VinylSoundGetGain(__sound);
+        __pitchSound = __VinylSoundGetPitch(__sound);
         
         __gainPattern  = lerp(_pattern.__gainMin,  _pattern.__gainMax,  __gainFactor);
         __pitchPattern = lerp(_pattern.__pitchMin, _pattern.__pitchMax, __pitchFactor);
