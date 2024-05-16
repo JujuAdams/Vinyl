@@ -11,11 +11,16 @@
 
 function VinylSetupImportJSON(_json, _replace = true)
 {
-    static _system = __VinylSystem();
+    static _system      = __VinylSystem();
+    static _soundDict   = __VinylSystem().__soundDict;
+    static _patternDict = __VinylSystem().__patternDict;
     
     if (VINYL_LIVE_EDIT)
     {
         _system.__importingJSON = true;
+        
+        var _oldSoundNameArray   = struct_get_names(_soundDict);
+        var _oldPatternNameArray = struct_get_names(_patternDict);
     }
     
     var _result = __VinylSetupImportJSONInner(_json);
@@ -23,7 +28,7 @@ function VinylSetupImportJSON(_json, _replace = true)
     if (VINYL_LIVE_EDIT)
     {
         _system.__importingJSON = false;
-        __VinylResolveChanges(_replace);
+        __VinylResolveChanges(_replace, _oldSoundNameArray, _oldPatternNameArray);
     }
     
     return _result;

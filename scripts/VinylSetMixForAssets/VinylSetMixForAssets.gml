@@ -9,9 +9,10 @@
 
 function VinylSetMixForAssets()
 {
-    static _toUpdateArray = __VinylSystem().__toUpdateArray;
-    static _soundDict     = __VinylSystem().__soundDict;
-    static _patternDict   = __VinylSystem().__patternDict;
+    static _system        = __VinylSystem();
+    static _toUpdateArray = _system.__toUpdateArray;
+    static _soundDict     = _system.__soundDict;
+    static _patternDict   = _system.__patternDict;
     
     var _mixName = argument[0];
     if (_mixName == VINYL_NO_MIX) _mixName = undefined;
@@ -65,5 +66,8 @@ function VinylSetMixForAssets()
         ++_i;
     }
     
-    if (VINYL_LIVE_EDIT) __VinylResolveChanges(false);
+    if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
+    {
+        __VinylResolveChanges(false);
+    }
 }

@@ -1,8 +1,10 @@
 // Feather disable all
 
 /// @param replace
+/// @param [oldSoundNameArray]
+/// @param [oldPatternNameArray]
 
-function __VinylResolveChanges(_replace)
+function __VinylResolveChanges(_replace, _oldSoundNameArray = undefined, _oldPatternNameArray = undefined)
 {
     static _toUpdateArray     = __VinylSystem().__toUpdateArray;
     static _voiceToStructMap  = __VinylSystem().__voiceToStructMap;
@@ -17,21 +19,27 @@ function __VinylResolveChanges(_replace)
     
     if (_replace)
     {
-        var _nameArray = struct_get_names(_soundDict);
         var _i = 0;
-        repeat(array_length(_nameArray))
+        repeat(array_length(_oldSoundNameArray))
         {
-            var _pattern = _soundDict[$ _nameArray[_i]];
-            if (not array_contains(_toUpdateArray, _pattern)) _pattern.__ClearSetup();
+            var _pattern = _soundDict[$ _oldSoundNameArray[_i]];
+            if (not array_contains(_toUpdateArray, _pattern))
+            {
+                _pattern.__ClearSetup();
+            }
+            
             ++_i;
         }
         
-        var _nameArray = struct_get_names(_patternDict);
         var _i = 0;
-        repeat(array_length(_nameArray))
+        repeat(array_length(_oldPatternNameArray))
         {
-            var _pattern = _patternDict[$ _nameArray[_i]];
-            if (not array_contains(_toUpdateArray, _pattern)) _pattern.__ClearSetup();
+            var _pattern = _patternDict[$ _oldPatternNameArray[_i]];
+            if (not array_contains(_toUpdateArray, _pattern))
+            {
+                _pattern.__ClearSetup();
+            }
+            
             ++_i;
         }
     }

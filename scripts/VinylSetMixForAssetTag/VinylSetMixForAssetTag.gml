@@ -7,8 +7,9 @@
 
 function VinylSetMixForAssetTag(_mixName, _assetTag)
 {
-    static _toUpdateArray = __VinylSystem().__toUpdateArray;
-    static _soundDict     = __VinylSystem().__soundDict;
+    static _system        = __VinylSystem();
+    static _toUpdateArray = _system.__toUpdateArray;
+    static _soundDict     = _system.__soundDict;
     
     if (_mixName == VINYL_NO_MIX) _mixName = undefined;
     
@@ -24,5 +25,8 @@ function VinylSetMixForAssetTag(_mixName, _assetTag)
         ++_i;
     }
     
-    if (VINYL_LIVE_EDIT) __VinylResolveChanges(false);
+    if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
+    {
+        __VinylResolveChanges(false);
+    }
 }
