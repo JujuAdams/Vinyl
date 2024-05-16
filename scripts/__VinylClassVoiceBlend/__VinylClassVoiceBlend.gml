@@ -63,17 +63,20 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
     {
         var _loopFinal = _loopLocal ?? (_pattern.__loop ?? (_mixLoop ?? false));
         var _soundTop  = _soundArray[0];
-        var _gainTop   = struct_get_from_hash(_soundDict, int64(_soundTop)).__gain;;
+        var _gainTop   = __VinylSoundGetGain(_soundTop);
+        var _pitchTop  = __VinylSoundGetPitch(_soundTop);
         
-        __voiceTop      = audio_play_sound(_soundTop, 0, _loopFinal, _gainTop*__VINYL_VOICE_GAIN_PxLxMxF/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+        __voiceTop      = audio_play_sound(_soundTop, 0, _loopFinal, _gainTop*__VINYL_VOICE_GAIN_PxLxMxF/VINYL_MAX_VOICE_GAIN, 0, _pitchTop*__pitchLocal);
         __voiceArray[0] = __voiceTop;
         __gainArray[ 0] = _gainTop;
+        __pitchArray[0] = _pitchTop;
         
         var _i = 1;
         repeat(__voiceCount - 1)
         {
             __voiceArray[_i] = audio_play_sound(_soundArray[_i], 0, _loopFinal, 0, 0, __pitchLocal);
             __gainArray[ _i] = 0;
+            __pitchArray[_i] = 1;
             
             ++_i;
         }
@@ -133,6 +136,20 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
         repeat(__voiceCount)
         {
             audio_sound_gain(_voiceArray[_i], _gainArray[_i]*_gainShared/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            ++_i;
+        }
+    }
+    
+    static __UpdateVoicePitches = function()
+    {
+        var _voiceArray  = __voiceArray;
+        var _pitchArray  = __pitchArray;
+        var _pitchShared = __pitchLocal;
+        
+        var _i = 0;
+        repeat(__voiceCount)
+        {
+            audio_sound_pitch(_voiceArray[_i], _pitchArray[_i]*_pitchShared);
             ++_i;
         }
     }
@@ -278,8 +295,7 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
             var _i = 0;
             repeat(__voiceCount)
             {
-                var _gainSound = struct_get_from_hash(_soundDict, int64(_soundArray[_i])).__gain;
-                _gainArray[_i] = _gainSound*max(0, 1 - abs(_i - _factor));
+                _gainArray[_i] = __VinylSoundGetGain(_soundArray[_i])*max(0, 1 - abs(_i - _factor));
                 ++_i;
             }
         }
@@ -292,8 +308,7 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
             var _i = 0;
             repeat(min(_channelCount, __voiceCount))
             {
-                var _gainSound = struct_get_from_hash(_soundDict, int64(_soundArray[_i])).__gain;
-                _gainArray[_i] = _gainSound*max(0, animcurve_channel_evaluate(animcurve_get_channel(_animCurve, _i), _blendFactor));
+                _gainArray[_i] = __VinylSoundGetGain(_soundArray[_i])*max(0, animcurve_channel_evaluate(animcurve_get_channel(_animCurve, _i), _blendFactor));
                 ++_i;
             }
             
@@ -303,6 +318,19 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
                 _gainArray[_i] = 0;
                 ++_i;
             }
+        }
+    }
+    
+    static __SetMemberPitches = function()
+    {
+        var _soundArray = __pattern.__soundArray;
+        var _pitchArray = __pitchArray;
+        
+        var _i = 0;
+        repeat(__voiceCount)
+        {
+            _pitchArray[_i] = __VinylSoundGetPitch(_soundArray[_i]);
+            ++_i;
         }
     }
     
@@ -336,11 +364,12 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
             if (__voiceCount > 0)
             {
                 __SetMemberGains();
+                __SetMemberPitches();
                 
                 var _i = 0;
                 repeat(__voiceCount)
                 {
-                    __voiceArray[_i] = audio_play_sound(_soundArray[_i], 0, _loop, __gainArray[_i]/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+                    __voiceArray[_i] = audio_play_sound(_soundArray[_i], 0, _loop, __gainArray[_i]/VINYL_MAX_VOICE_GAIN, 0, __pitchArray[_i]*__pitchLocal);
                     ++_i;
                 }
                 
@@ -357,7 +386,10 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
             }
             
             __SetMemberGains();
+            __SetMemberPitches();
+            
             __UpdateVoiceGains();
+            __UpdateVoicePitches();
         }
     }
 }
