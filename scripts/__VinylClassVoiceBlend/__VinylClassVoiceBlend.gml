@@ -1,11 +1,12 @@
 // Feather disable all
 
 /// @param pattern
+/// @param loopLocal
 /// @param gainLocal
 /// @param pitchLocal
-/// @param loopLocal
+/// @param mixName
 
-function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal, _loopLocal) constructor
+function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _mixName) constructor
 {
     static _soundDict        = __VinylSystem().__soundDict;
     static _mixDict          = __VinylSystem().__mixDict;
@@ -21,8 +22,9 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal, _loopLocal) c
     __loopLocal  = _loopLocal;
     
     __gainPattern = _pattern.__gain;
+    __mixName     = _mixName;
     
-    if (_pattern.__mixName == undefined)
+    if (_mixName == undefined)
     {
         var _mixStruct = undefined;
         var _mixLoop   = undefined;
@@ -30,10 +32,10 @@ function __VinylClassVoiceBlend(_pattern, _gainLocal, _pitchLocal, _loopLocal) c
     }
     else
     {
-        var _mixStruct = _mixDict[$ _pattern.__mixName];
+        var _mixStruct = _mixDict[$ _mixName];
         if (_mixStruct == undefined)
         {
-            __VinylError("Mix \"", _pattern.__mixName, "\" not recognised");
+            __VinylError("Mix \"", _mixName, "\" not recognised");
             return;
         }
         
