@@ -1,7 +1,8 @@
 // Feather disable all
 
-/// Pushes a sound to the bottom of a queue voice's array of sounds. If the queue is empty then
-/// the sound will be played at the start of the next frame.
+/// Pushes a sound to the top of a queue's array of sounds. Once the currently playing sound has
+/// stopped, the sound pushed by this function will play. If the queue is empty then the next sound
+/// will be played at the start of the next frame.
 /// 
 /// @param voice
 /// @param sound

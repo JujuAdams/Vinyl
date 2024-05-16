@@ -1,7 +1,7 @@
 // Feather disable all
 
-/// Returns whether a queue voice's array of sounds contains the specified target sound. This
-/// function will return <true> if the currently playing sound also matches the target sound.
+/// Returns whether a queue's array of sounds contains the specified target sound. This function
+/// will return <true> if the currently playing sound also matches the target sound.
 /// 
 /// @param voice
 /// @param sound

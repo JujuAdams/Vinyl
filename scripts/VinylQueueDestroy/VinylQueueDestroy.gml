@@ -1,6 +1,6 @@
 // Feather disable all
 
-/// Destroys a queue voice. This stops any currently playing audio and renders the queue voice
+/// Destroys a Vinyl queue. This stops any currently playing audio and renders the queue
 /// inoperable. This function is provided for convenience and you don't have to call this function
 /// to manage memory.
 /// 

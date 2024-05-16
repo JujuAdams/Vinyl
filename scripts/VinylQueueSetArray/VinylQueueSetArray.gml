@@ -1,9 +1,9 @@
 // Feather disable all
 
-/// Sets the queued sound for a queue voice. This function will "save" a copy of the input array
-/// which means that any adjustment to the input array after calling VinylQueueSetArray() will not
-/// alter what sounds are played back. You will need to call VinylQueueSetArray() again if you want
-/// to change the internal sound array.
+/// Sets the queue of sounds for a queue created by VinylQueueCreate(). This function will "save" a
+/// copy of the input array which means that any adjustment to the input array after calling
+/// VinylQueueSetArray() will not alter what sounds are played back. You will need to call
+/// VinylQueueSetArray() again if you want to change the internal sound array.
 /// 
 /// @param voice
 /// @param soundArray
