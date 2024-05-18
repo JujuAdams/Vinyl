@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"__VinylClassDuck",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__VinylClassDuck",
+  "parent":{
+    "name":"Classes",
+    "path":"folders/Vinyl/(Internals)/Classes.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
