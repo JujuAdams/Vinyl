@@ -22,10 +22,11 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
     __gainLocalTarget = _gainLocal;
     __gainLocalSpeed  = infinity;
     
-    __gainDuck       = 1;
-    __gainDuckTarget = 1;
-    __gainDuckSpeed  = undefined;
-    __destroyed      = false;
+    __gainDuck          = 1;
+    __gainDuckTarget    = 1;
+    __gainDuckSpeed     = undefined;
+    __gainDuckBehaviour = __VINYL_DUCK.__DO_NOTHING;
+    __destroyed         = false;
     
     __pitchSound = 1;
     __pitchLocal = 1;
@@ -63,7 +64,8 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
         if (__gainDuckSpeed != undefined)
         {
             __gainDuck += clamp(__gainDuckTarget - __gainDuck, -_delta*__gainDuckSpeed, _delta*__gainDuckSpeed);
-            if (__gainDuck <= 0)
+            
+            if ((__gainDuckBehaviour == __VINYL_DUCK.__STOP) && (__gainDuck <= 0))
             {
                 __Destroy();
                 return false;
@@ -154,8 +156,9 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
     
     static __FadeOut = function(_rateOfChange)
     {
-        __gainDuckSpeed  = _rateOfChange;
-        __gainDuckTarget = 0;
+        __gainDuckSpeed     = _rateOfChange;
+        __gainDuckTarget    = 0;
+        __gainDuckBehaviour = __VINYL_DUCK.__STOP;
     }
     
     static __SetLoop = function(_state)

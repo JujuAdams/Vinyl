@@ -26,6 +26,13 @@ enum VINYL_QUEUE
     LOOP_ON_LAST,
 }
 
+enum __VINYL_DUCK
+{
+    __DO_NOTHING,
+    __PAUSE,
+    __STOP,
+}
+
 __VinylSystem();
 function __VinylSystem()
 {

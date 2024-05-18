@@ -42,9 +42,10 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     __gainLocalTarget = _gainLocal;
     __gainLocalSpeed  = infinity;
     
-    __gainDuck       = 1;
-    __gainDuckTarget = 1;
-    __gainDuckSpeed  = undefined;
+    __gainDuck          = 1;
+    __gainDuckTarget    = 1;
+    __gainDuckSpeed     = undefined;
+    __gainDuckBehaviour = __VINYL_DUCK.__DO_NOTHING;
     
     //Manage which sound to play to begin with
     var _soundHead = _pattern.__soundHead;
@@ -115,7 +116,8 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         if (__gainDuckSpeed != undefined)
         {
             __gainDuck += clamp(__gainDuckTarget - __gainDuck, -_delta*__gainDuckSpeed, _delta*__gainDuckSpeed);
-            if (__gainDuck <= 0)
+            
+            if ((__gainDuckBehaviour == __VINYL_DUCK.__STOP) && (__gainDuck <= 0))
             {
                 __Stop();
                 return false;
@@ -232,8 +234,9 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     
     static __FadeOut = function(_rateOfChange)
     {
-        __gainDuckSpeed  = _rateOfChange;
-        __gainDuckTarget = 0;
+        __gainDuckSpeed     = _rateOfChange;
+        __gainDuckTarget    = 0;
+        __gainDuckBehaviour = __VINYL_DUCK.__STOP;
     }
     
     static __SetLocalGain = function(_gain, _rateOfChange)
