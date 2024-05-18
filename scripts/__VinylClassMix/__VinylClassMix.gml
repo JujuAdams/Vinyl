@@ -3,10 +3,9 @@
 /// @param mixName
 /// @param baseGain
 /// @param membersLoop
-/// @param parentMix
 /// @param metadata
 
-function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _mixParent, _metadata) constructor
+function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _metadata) constructor
 {
     static _toUpdateArray = __VinylSystem().__toUpdateArray;
     static _soundDict     = __VinylSystem().__soundDict;
@@ -15,7 +14,6 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _mixParent, _meta
     __mixName     = _mixName;
     __gainPattern = _gainPattern;
     __membersLoop = _membersLoop;
-    __mixParent   = _mixParent;
     __metadata    = _metadata;
     
     __gainLocal = 1;

@@ -10,10 +10,9 @@
 /// @param mixName
 /// @param [baseGain=1]
 /// @param [membersLoop]
-/// @param [parentMix]
 /// @param [metadata]
 
-function VinylSetupMix(_mixName, _gainPattern = 1, _membersLoop = undefined, _mixParent = undefined, _metadata = undefined)
+function VinylSetupMix(_mixName, _gainPattern = 1, _membersLoop = undefined, _metadata = undefined)
 {
     static _system   = __VinylSystem();
     static _mixDict  = _system.__mixDict;
@@ -28,11 +27,11 @@ function VinylSetupMix(_mixName, _gainPattern = 1, _membersLoop = undefined, _mi
     var _existingPattern = _mixDict[$ _mixName];
     if (_existingPattern != undefined)
     {
-        _existingPattern.__UpdateSetup(_gainPattern, _membersLoop, _mixParent, _metadata);
+        _existingPattern.__UpdateSetup(_gainPattern, _membersLoop, _metadata);
     }
     else
     {
-        var _mixStruct = new __VinylClassMix(_mixName, _gainPattern, _membersLoop, _mixParent, _metadata);
+        var _mixStruct = new __VinylClassMix(_mixName, _gainPattern, _membersLoop, _metadata);
         _mixDict[$ _mixName] = _mixStruct;
         array_push(_mixArray, _mixStruct);
     }
