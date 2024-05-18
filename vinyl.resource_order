@@ -60,6 +60,7 @@
     {"name":"UIText","order":5,"path":"scripts/UIText/UIText.yy",},
     {"name":"UITextInline","order":6,"path":"scripts/UITextInline/UITextInline.yy",},
     {"name":"UITextWrap","order":7,"path":"scripts/UITextWrap/UITextWrap.yy",},
+    {"name":"VinylCallbackOnStop","order":14,"path":"scripts/VinylCallbackOnStop/VinylCallbackOnStop.yy",},
     {"name":"VinylFadeOut","order":3,"path":"scripts/VinylFadeOut/VinylFadeOut.yy",},
     {"name":"VinylGetBlendAnimCurve","order":4,"path":"scripts/VinylGetBlendAnimCurve/VinylGetBlendAnimCurve.yy",},
     {"name":"VinylGetBlendFactor","order":2,"path":"scripts/VinylGetBlendFactor/VinylGetBlendFactor.yy",},

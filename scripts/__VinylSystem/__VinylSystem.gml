@@ -62,6 +62,9 @@ function __VinylSystem()
         __voiceToSoundMap = ds_map_create();
         __voiceToSoundLastKey = undefined;
         
+        //Contains structs that describe callbacks to be executed when a voice stops playing.
+        __callbackArray = [];
+        
         //An array of voices that are in the lookup dictionary. This will never include HLT voices
         //as they are managed in the update array (see below). Blend voices will automatically be
         //put into this array. Sound voices will automatically be put into this array in Live Edit
@@ -99,6 +102,7 @@ function __VinylSystem()
         {
             static _voiceToSoundMap  = __voiceToSoundMap;
             static _voiceToStructMap = __voiceToStructMap;
+            static _callbackArray    = __callbackArray;
             static _bootSetupTimer   = 0;
             static _bootSetupPath    = VINYL_LIVE_EDIT? filename_dir(GM_project_filename) + "/scripts/__VinylConfigJSON/__VinylConfigJSON.gml" : undefined;
             static _bootSetupHash    = undefined;
@@ -211,6 +215,19 @@ function __VinylSystem()
             {
                 ds_map_delete(_voiceToStructMap, _voice);
                 if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", _voice, " from voice-to-struct map");
+            }
+            
+            //Check for callback execution
+            var _i = 0;
+            repeat(array_length(_callbackArray))
+            {
+                if (not _callbackArray[_i].__IsPlaying())
+                {
+                    var _callbackData = _callbackArray[_i];
+                    _callbackData.__method(_callbackData.__metadata);
+                }
+                
+                ++_i;
             }
         }, [], -1));
     }
