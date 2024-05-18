@@ -72,6 +72,9 @@ function __VinylSystem()
         //Contains structs that describe callbacks to be executed when a voice stops playing.
         __callbackArray = [];
         
+        __duckDict  = {};
+        __duckArray = [];
+        
         //An array of voices that are in the lookup dictionary. This will never include HLT voices
         //as they are managed in the update array (see below). Blend voices will automatically be
         //put into this array. Sound voices will automatically be put into this array in Live Edit
@@ -178,6 +181,15 @@ function __VinylSystem()
                         }
                     }
                 }
+            }
+            
+            //Update ducks
+            var _array = __duckArray;
+            var _i = 0;
+            repeat(array_length(_array))
+            {
+                _array[_i].__Update();
+                ++_i;
             }
             
             //Update voices that need it

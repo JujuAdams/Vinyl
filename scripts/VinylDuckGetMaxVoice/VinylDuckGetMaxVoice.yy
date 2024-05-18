@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"VinylDuckGetMaxVoice",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylDuckGetMaxVoice",
+  "parent":{
+    "name":"Duck",
+    "path":"folders/Vinyl/Duck.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

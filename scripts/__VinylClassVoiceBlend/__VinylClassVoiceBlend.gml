@@ -204,14 +204,30 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
     
     static __FadeOut = function(_rateOfChange)
     {
-        __gainDuckSpeed     = _rateOfChange;
-        __gainDuckTarget    = 0;
-        __gainDuckBehaviour = __VINYL_DUCK.__STOP;
-        
         if (not __inUpdateArray)
         {
             __inUpdateArray = true;
             array_push(_voiceUpdateArray, self);
+        }
+        
+        __gainDuckSpeed     = _rateOfChange;
+        __gainDuckTarget    = 0;
+        __gainDuckBehaviour = __VINYL_DUCK.__STOP;
+    }
+    
+    static __Duck = function(_targetGain, _rateOfChange, _behaviour)
+    {
+        if (__gainDuckBehaviour != __VINYL_DUCK.__STOP)
+        {
+            if (not __inUpdateArray)
+            {
+                __inUpdateArray = true;
+                array_push(_voiceUpdateArray, self);
+            }
+            
+            __gainDuckSpeed     = _rateOfChange;
+            __gainDuckTarget    = _targetGain;
+            __gainDuckBehaviour = _behaviour;
         }
     }
     

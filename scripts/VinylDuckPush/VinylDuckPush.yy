@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"VinylDuckPush",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylDuckPush",
+  "parent":{
+    "name":"Duck",
+    "path":"folders/Vinyl/Duck.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

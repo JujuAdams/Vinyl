@@ -239,6 +239,16 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
         __gainDuckBehaviour = __VINYL_DUCK.__STOP;
     }
     
+    static __Duck = function(_targetGain, _rateOfChange, _behaviour)
+    {
+        if (__gainDuckBehaviour != __VINYL_DUCK.__STOP)
+        {
+            __gainDuckSpeed     = _rateOfChange;
+            __gainDuckTarget    = _targetGain;
+            __gainDuckBehaviour = _behaviour;
+        }
+    }
+    
     static __SetLocalGain = function(_gain, _rateOfChange)
     {
         __gainLocalTarget = _gain;

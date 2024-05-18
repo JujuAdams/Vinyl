@@ -117,6 +117,22 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         __gainDuckBehaviour = __VINYL_DUCK.__STOP;
     }
     
+    static __Duck = function(_targetGain, _rateOfChange, _behaviour)
+    {
+        if (__gainDuckBehaviour != __VINYL_DUCK.__STOP)
+        {
+            if (not __inUpdateArray)
+            {
+                __inUpdateArray = true;
+                array_push(_voiceUpdateArray, self);
+            }
+            
+            __gainDuckSpeed     = _rateOfChange;
+            __gainDuckTarget    = _targetGain;
+            __gainDuckBehaviour = _behaviour;
+        }
+    }
+    
     static __SetLoop = function(_state)
     {
         audio_sound_loop(__voice, _state);
