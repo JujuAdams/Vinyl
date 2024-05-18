@@ -46,8 +46,9 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
     __gainLocalTarget  = _gainLocal;
     __gainLocalSpeed   = infinity;
     
-    __gainFadeOut      = 1;
-    __gainFadeOutSpeed = undefined;
+    __gainDuck       = 1;
+    __gainDuckTarget = 1;
+    __gainDuckSpeed  = undefined;
     
     __blendFactor    = 0;
     __blendAnimCurve = undefined;
@@ -66,7 +67,7 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
         var _gainTop   = __VinylSoundGetGain(_soundTop);
         var _pitchTop  = __VinylSoundGetPitch(_soundTop);
         
-        __voiceTop      = audio_play_sound(_soundTop, 0, _loopFinal, _gainTop*__VINYL_VOICE_GAIN_PxLxMxF/VINYL_MAX_VOICE_GAIN, 0, _pitchTop*__pitchLocal);
+        __voiceTop      = audio_play_sound(_soundTop, 0, _loopFinal, _gainTop*__VINYL_VOICE_GAIN_PxLxMxD/VINYL_MAX_VOICE_GAIN, 0, _pitchTop*__pitchLocal);
         __voiceArray[0] = __voiceTop;
         __gainArray[ 0] = _gainTop;
         __pitchArray[0] = _pitchTop;
@@ -99,11 +100,11 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
     {
         var _changed = false;
         
-        if (__gainFadeOutSpeed != undefined)
+        if (__gainDuckSpeed != undefined)
         {
-            __gainFadeOut -= _delta*__gainFadeOutSpeed;
+            __gainDuck += clamp(__gainDuckTarget - __gainDuck, -_delta*__gainDuckSpeed, _delta*__gainDuckSpeed);
             
-            if (__gainFadeOut <= 0)
+            if (__gainDuck <= 0)
             {
                 __Stop();
                 return false;
@@ -130,7 +131,7 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
     {
         var _voiceArray = __voiceArray;
         var _gainArray  = __gainArray;
-        var _gainShared = __VINYL_VOICE_GAIN_PxLxMxF;
+        var _gainShared = __VINYL_VOICE_GAIN_PxLxMxD;
         
         var _i = 0;
         repeat(__voiceCount)
@@ -202,7 +203,8 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
     
     static __FadeOut = function(_rateOfChange)
     {
-        __gainFadeOutSpeed = _rateOfChange;
+        __gainDuckSpeed  = _rateOfChange;
+        __gainDuckTarget = 0;
         
         if (not __inUpdateArray)
         {
