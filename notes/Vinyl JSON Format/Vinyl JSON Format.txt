@@ -141,7 +141,6 @@ Duckers:
         "ducker": <ducker name>, required
         "duckedGain": <number>, defaults to 1
         "rateOfChange": <number>, defaults to 1
-        "pauseOnDuck": <boolean>, defaults to <true>
     }
 
 Global Metadata:

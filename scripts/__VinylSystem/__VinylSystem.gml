@@ -27,7 +27,6 @@ enum VINYL_QUEUE
 enum __VINYL_DUCK
 {
     __DO_NOTHING,
-    __PAUSE,
     __STOP,
 }
 

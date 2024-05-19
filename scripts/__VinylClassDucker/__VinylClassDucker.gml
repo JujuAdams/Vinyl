@@ -3,16 +3,14 @@
 /// @param duckerName
 /// @param duckedGain
 /// @param rateOfChange
-/// @param pauseOnDuck
 
-function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _pauseOnDuck) constructor
+function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange) constructor
 {
     static _toUpdateArray = __VinylSystem().__toUpdateArray;
     
     __duckerName   = _duckerName;
     __duckedGain   = _duckedGain;
     __rateOfChange = _rateOfChange;
-    __pauseOnDuck  = _pauseOnDuck;
     
     __maxPriority   = -infinity;
     __voiceArray    = [];
@@ -22,7 +20,7 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _pauseOnDuc
     
     
     
-    static __UpdateSetup = function(_duckedGain, _rateOfChange, _pauseOnDuck)
+    static __UpdateSetup = function(_duckedGain, _rateOfChange)
     {
         if (VINYL_LIVE_EDIT)
         {
@@ -31,7 +29,6 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _pauseOnDuc
         
         __duckedGain   = _duckedGain;
         __rateOfChange = _rateOfChange;
-        __pauseOnDuck  = _pauseOnDuck;
     }
     
     static __ClearSetup = function()
@@ -76,7 +73,7 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _pauseOnDuc
                 if (_existingPriority < _priority)
                 {
                     //We found an existing voice with a lower priority - ducker the existing voice
-                    _voiceArray[_i].__Duck(__duckedGain, __rateOfChange, __pauseOnDuck? __VINYL_DUCK.__PAUSE : __VINYL_DUCK.__DO_NOTHING);
+                    _voiceArray[_i].__Duck(__duckedGain, __rateOfChange, __VINYL_DUCK.__DO_NOTHING);
                 }
                 else if (_existingPriority == _priority)
                 {
@@ -160,7 +157,6 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _pauseOnDuc
         //Activate whatever voice is now the highest priority
         if (_maxVoice != undefined)
         {
-            if (__pauseOnDuck) _maxVoice.__Resume();
             _maxVoice.__Duck(1, __rateOfChange, __VINYL_DUCK.__DO_NOTHING);
         }
     }
@@ -173,11 +169,9 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _pauseOnDuc
         
         _struct.duckedGain   = __duckedGain;
         _struct.rateOfChange = __rateOfChange;
-        _struct.pauseOnDuck  = __pauseOnDuck;
         
         if (__duckedGain != 0) _struct.duckedGain = __duckedGain;
         if (__rateOfChange != __VINYL_DEFAULT_DUCK_RATE_OF_GAIN) _struct.rateOfChange = __rateOfChange;
-        if (__pauseOnDuck) _struct.pauseOnDuck = true;
         
         return _struct;
     }
@@ -207,12 +201,6 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _pauseOnDuc
             buffer_write(_buffer, buffer_text, ",\n");
         }
         
-        if (__pauseOnDuck)
-        {
-            buffer_write(_buffer, buffer_text, _indent);
-            buffer_write(_buffer, buffer_text, "    pauseOnDuck: true,\n");
-        }
-        
         buffer_write(_buffer, buffer_text, _indent);
         buffer_write(_buffer, buffer_text, "},\n");
     }
@@ -231,7 +219,6 @@ function __VinylImportDuckerJSON(_json)
                 case "ducker":
                 case "duckedGain":
                 case "rateOfChange":
-                case "pauseOnDuck":
                 break;
                 
                 default:
@@ -243,7 +230,7 @@ function __VinylImportDuckerJSON(_json)
         }
     }
     
-    VinylSetupDucker(_json.ducker, _json[$ "duckedGain"], _json[$ "rateOfChange"], _json[$ "pauseOnDuck"]);
+    VinylSetupDucker(_json.ducker, _json[$ "duckedGain"], _json[$ "rateOfChange"]);
     
     return _json.ducker;
 }
