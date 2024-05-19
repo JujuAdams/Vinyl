@@ -12,7 +12,7 @@
 function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _metadata) constructor
 {
     static _mixDict         = __VinylSystem().__mixDict;
-    static _duckerDict        = __VinylSystem().__duckerDict;
+    static _duckerDict      = __VinylSystem().__duckerDict;
     static _toUpdateArray   = __VinylSystem().__toUpdateArray;
     static _voiceToSoundMap = __VinylSystem().__voiceToSoundMap;
     
@@ -67,7 +67,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
             }
             
             var _duckPrioFinal = _duckPrioLocal ?? (__duckPrio ?? 0);
-            var _gainDuck = (_duckerStruct.__maxPriority <= _duckPrioFinal)? 1 : 0;
+            var _gainDuck = (_duckerStruct.__maxPriority <= _duckPrioFinal)? 1 : _duckerStruct.__duckedGain;
         }
         else
         {

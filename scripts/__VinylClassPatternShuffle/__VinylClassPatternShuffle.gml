@@ -115,7 +115,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             }
             
             var _duckPrioFinal = _duckPrioLocal ?? (__duckPrio ?? 0);
-            var _gainDuck      = (_duckerStruct.__maxPriority <= _duckPrioFinal)? 1 : 0;
+            var _gainDuck      = (_duckerStruct.__maxPriority <= _duckPrioFinal)? 1 : _duckerStruct.__duckedGain;
         }
         else
         {
