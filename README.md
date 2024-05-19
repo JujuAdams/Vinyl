@@ -1,7 +1,7 @@
 <p align="center"><img src="https://raw.githubusercontent.com/JujuAdams/vinyl/master/LOGO.png" style="display:block; margin:auto; width:300px"></p>
-<h1 align="center">Vinyl 6.0.0</h1>
+<h1 align="center">Vinyl 6.0.1</h1>
 
-<p align="center">Audio tooling for GameMaker 2023.8 (and later)</p>
+<p align="center">Audio tooling for GameMaker 2024.4 (and later)</p>
 
 &nbsp;
 

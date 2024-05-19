@@ -1,18 +1,11 @@
 // Feather disable all
 
-#macro __VINYL_VERSION  "6.0.0 (alpha)"
-#macro __VINYL_DATE     "2024-05-13"
+#macro __VINYL_VERSION  "6.0.1 (alpha)"
+#macro __VINYL_DATE     "2024-05-19"
 
 #macro __VINYL_RUNNING_FROM_IDE  (GM_build_type == "run")
 
 #macro __VINYL_DEFAULT_DUCK_RATE_OF_GAIN  1
-
-enum __VINYL_SOUND_TYPE {
-    __UNKNOWN,
-    __WAD,
-    __EXTERNAL_WAV,
-    __EXTERNAL_OGG,
-}
 
 enum __VINYL_HLT_STATE
 {
