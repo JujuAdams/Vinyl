@@ -131,7 +131,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             var _voiceStruct = new __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _gainDuck, _pitchPattern, _pitchLocal, _duckNameLocal, _duckPrioLocal, self, _gainFactor, _pitchFactor);
         }
         
-        if (_duckStruct != undefined) _duckStruct.__Push(_voiceStruct, _duckPrioFinal);
+        if (_duckStruct != undefined) _duckStruct.__Push(_voiceStruct, _duckPrioFinal, false);
         if (_mixStruct != undefined) _mixStruct.__Add(_voice);
         
         _voiceToSoundMap[? _voice] = _sound;

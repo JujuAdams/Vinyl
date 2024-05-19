@@ -51,13 +51,15 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
         __UpdateSetup(0, __VINYL_DEFAULT_DUCK_RATE_OF_GAIN, true);
     }
     
-    static __Push = function(_voiceStruct, _priority)
+    static __Push = function(_voiceStruct, _priority, _doDuck)
     {
         var _priorityArray = __priorityArray;
         var _voiceArray    = __voiceArray;
         
         if (_priority < __maxPriority)
         {
+            if (_doDuck) _voiceStruct.__Duck(__duckedGain, __rateOfChange, __behaviour);
+            
             //Try to find an existing voice to replace
             var _index = array_get_index(_priorityArray, _priority);
             if (_index >= 0)
@@ -76,6 +78,8 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
         else //priority >= maxPriority
         {
             __maxPriority = _priority;
+            
+            if (_doDuck) _voiceStruct.__Duck(1, __rateOfChange, __VINYL_DUCK.__DO_NOTHING);
             
             var _i = 0;
             repeat(array_length(_priorityArray))

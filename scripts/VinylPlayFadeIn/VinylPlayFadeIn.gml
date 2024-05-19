@@ -8,7 +8,7 @@
 /// @param [targetGain=1]
 /// @oaram [rateOfChange]
 /// @param [pitch=1]
-/// @param [duck]
+/// @param [duckName]
 /// @param [duckPrio]
 
 function VinylPlayFadeIn(_pattern, _loop = undefined, _gain = 1, _rateOfChange = infinity, _pitch = 1, _duckName = undefined, _duckPrio = undefined)

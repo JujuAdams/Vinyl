@@ -107,6 +107,21 @@ function __VinylResolveChanges(_replace, _oldSoundNameArray = undefined, _oldPat
                 }
             break;
             
+            case "__VinylClassDuck":
+                var _array = _pattern.__voiceArray;
+                var _j = 0;
+                repeat(array_length(_array))
+                {
+                    array_push(_toUpdateArray, _array[_j]);
+                    ++_j;
+                }
+                
+                //Reset the duck too
+                array_resize(_array, 0);
+                array_resize(_pattern.__priorityArray, 0);
+                _pattern.__maxPriority = -infinity;
+            break;
+            
             default:
                 __VinylError("Unhandled first-tier update struct, instanceof = \"", instanceof(_pattern), "\"");
             break;

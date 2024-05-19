@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"__VinylVoiceUpdateDuck",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__VinylVoiceUpdateDuck",
+  "parent":{
+    "name":"(Internals)",
+    "path":"folders/Vinyl/(Internals).yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

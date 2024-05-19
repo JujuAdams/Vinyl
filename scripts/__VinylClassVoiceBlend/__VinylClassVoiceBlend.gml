@@ -221,7 +221,7 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
     
     static __Duck = function(_targetGain, _rateOfChange, _behaviour)
     {
-        if (__gainDuckBehaviour != __VINYL_DUCK.__STOP)
+        if ((__gainDuckBehaviour != __VINYL_DUCK.__STOP) && (_targetGain != __gainDuckTarget))
         {
             if (not __inUpdateArray)
             {
@@ -371,6 +371,8 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
         
         var _mixStruct = __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
         var _loopMix = (_mixStruct == undefined)? undefined : _mixStruct.__membersLoop;
+        
+        __VinylVoiceUpdateDuck(_mixStruct);
         
         var _loop = __loopLocal ?? (_pattern.__loop ?? (_loopMix ?? false));
         

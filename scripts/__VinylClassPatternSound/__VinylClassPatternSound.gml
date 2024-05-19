@@ -82,7 +82,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _duckN
             var _voiceStruct = new __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _gainDuck, _pitchSound, _pitchLocal, _duckNameLocal, _duckPrioLocal, self);
         }
         
-        if (_duckStruct != undefined) _duckStruct.__Push(_voiceStruct, _duckPrioFinal);
+        if (_duckStruct != undefined) _duckStruct.__Push(_voiceStruct, _duckPrioFinal, false);
         if (_mixStruct != undefined) _mixStruct.__Add(_voice);
         
         _voiceToSoundMap[? _voice] = _sound;
@@ -97,13 +97,13 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _duckN
             array_push(_toUpdateArray, self);
         }
         
-        __gain         = _gain;
-        __pitch        = _pitch;
-        __loop         = _loop;
-        __mixName      = _mixName;
-        __duckName     = _duckName;
+        __gain     = _gain;
+        __pitch    = _pitch;
+        __loop     = _loop;
+        __mixName  = _mixName;
+        __duckName = _duckName;
         __duckPrio = _duckPrio;
-        __metadata     = _metadata;
+        __metadata = _metadata;
     }
     
     static __ClearSetup = function()

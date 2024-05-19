@@ -291,7 +291,8 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal, _duckNameLocal,
     {
         var _pattern = __pattern;
         
-        __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
+        var _mixStruct = __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
+        __VinylVoiceUpdateDuck(_mixStruct);
         
         __gainPattern = _pattern.__gain;
         

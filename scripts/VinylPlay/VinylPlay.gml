@@ -15,7 +15,7 @@
 /// @param [loop]
 /// @param [gain=1]
 /// @param [pitch=1]
-/// @param [duck]
+/// @param [duckName]
 /// @param [duckPrio]
 
 function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1, _duckName = undefined, _duckPrio = undefined)

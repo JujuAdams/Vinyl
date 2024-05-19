@@ -124,7 +124,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     
     static __Duck = function(_targetGain, _rateOfChange, _behaviour)
     {
-        if (__gainDuckBehaviour != __VINYL_DUCK.__STOP)
+        if ((__gainDuckBehaviour != __VINYL_DUCK.__STOP) && (_targetGain != __gainDuckTarget))
         {
             if (not __inUpdateArray)
             {
@@ -188,6 +188,8 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         
         var _mixStruct = __VinylVoiceMoveMix(__voice, _pattern.__mixName);
         var _loopMix = (_mixStruct == undefined)? undefined : _mixStruct.__membersLoop;
+        
+        __VinylVoiceUpdateDuck(_mixStruct);
         
         audio_sound_loop( __voice, __loopLocal ?? (_pattern.__loop ?? (_loopMix ?? false)));
         audio_sound_gain( __voice, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
