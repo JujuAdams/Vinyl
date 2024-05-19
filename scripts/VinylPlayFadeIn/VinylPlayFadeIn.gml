@@ -1,7 +1,7 @@
 // Feather disable all
 
 /// Convenience function to play a new sound or pattern and fade it in. Please see VinylPlay() for
-/// more information.
+/// more information. The rate of change for this function is measured in "gain units per second".
 /// 
 /// @param sound/pattern
 /// @param [loop]

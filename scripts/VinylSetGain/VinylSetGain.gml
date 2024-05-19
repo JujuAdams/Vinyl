@@ -2,7 +2,8 @@
 
 /// Sets the local gain for a voice. This is multipled with the sound/pattern gain set by the
 /// corresponding setup function, the mix gain (if a mix is set for the voice), and the fade-out
-/// gain to give the final playback gain for the voice.
+/// gain to give the final playback gain for the voice. The rate of change for this function is
+/// measured in "gain units per second".
 /// 
 /// @param voice
 /// @param gain
