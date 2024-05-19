@@ -1,7 +1,9 @@
 // Feather disable all
 
 /// This is an optional configuration script that you can edit. On boot, Vinyl will import the JSON
-/// defined in this script by passing it into VinylSetupImportJSON().
+/// defined in this script by passing it into VinylSetupImportJSON(). If VINYL_LIVE_EDIT is set to
+/// <true> then editing this JSON file will quickly be reflected in audio currently playing in your
+/// game (This feature is only available when running on Windows, Mac, or Linux).
 
 global.VinylConfigSON = [
     
@@ -118,4 +120,5 @@ global.VinylConfigSON = [
         ],
     },
     */
+    
 ];
