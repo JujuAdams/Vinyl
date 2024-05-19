@@ -137,12 +137,15 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange) constructor
     
     static __Refresh = function()
     {
+        var _priorityArray = __priorityArray;
+        var _voiceArray    = __voiceArray;
+        
         //Find the voice with the highest priority
         __maxPriority = -infinity;
         var _maxVoice = undefined;
             
         var _i = 0;
-        repeat(array_length(__voiceArray))
+        repeat(array_length(_voiceArray))
         {
             var _priority = _priorityArray[_i];
             if (_priority > __maxPriority)
