@@ -158,9 +158,9 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
             duck: __duckName,
         };
         
-        __duckedGain   = _duckedGain;
-        __rateOfChange = _rateOfChange;
-        __pauseOnDuck  = _pauseOnDuck;
+        _struct.duckedGain   = __duckedGain;
+        _struct.rateOfChange = __rateOfChange;
+        _struct.pauseOnDuck  = __pauseOnDuck;
         
         if (__duckedGain != 0) _struct.duckedGain = __duckedGain;
         if (__rateOfChange != __VINYL_DEFAULT_DUCK_RATE_OF_GAIN) _struct.rateOfChange = __rateOfChange;

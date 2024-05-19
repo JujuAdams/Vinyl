@@ -132,7 +132,7 @@ Ducks:
     {
         "duck": <duck name>, required
         "duckGain": <number>, optional, defaults to 1
-        "rateOfChange": <number>, optional, defaults to 0.05
+        "rateOfChange": <number>, optional, defaults to 1
         "pauseOnDuck": <boolean>, optional, defaults to <true>
     }
 

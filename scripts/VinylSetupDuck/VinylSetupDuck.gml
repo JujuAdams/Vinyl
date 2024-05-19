@@ -2,7 +2,7 @@
 
 /// @param duckName
 /// @param [duckedGain=0]
-/// @param [rateOfChange=0.05]
+/// @param [rateOfChange=1]
 /// @param [pauseOnDuck=true]
 
 function VinylSetupDuck(_duckName, _duckedGain = 0, _rateOfChange = __VINYL_DEFAULT_DUCK_RATE_OF_GAIN, _pauseOnDuck = true)

@@ -67,7 +67,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _duckN
             }
             
             var _duckPrioFinal = _duckPrioLocal ?? (__duckPrio ?? 0);
-            var _gainDuck = (_duckStruct.__maxPriority <= __duckPrio)? 1 : 0;
+            var _gainDuck = (_duckStruct.__maxPriority <= _duckPrioFinal)? 1 : 0;
         }
         else
         {

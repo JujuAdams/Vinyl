@@ -5,7 +5,7 @@
 
 #macro __VINYL_RUNNING_FROM_IDE  (GM_build_type == "run")
 
-#macro __VINYL_DEFAULT_DUCK_RATE_OF_GAIN  0.05
+#macro __VINYL_DEFAULT_DUCK_RATE_OF_GAIN  1
 
 enum __VINYL_SOUND_TYPE {
     __UNKNOWN,
