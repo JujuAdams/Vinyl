@@ -99,6 +99,8 @@ Shuffle Patterns:
         "sounds": <array of sound assets>, required
         "gain": <number> or <2-element array>, defaults to 1
         "pitch": <number> or <2-element array>, defaults to 1
+        "duckOn": <ducker name>
+        "duckPrio", <number>, default to 0
         "metadata": <any>
     }
 
@@ -109,6 +111,8 @@ Head-Loop-Tail Patterns:
         "loop": <sound asset>, required
         "tail": <sound asset>, optional, defaults to no asset
         "gain": <number>, defaults to 1
+        "duckOn": <ducker name>
+        "duckPrio", <number>, default to 0
         "metadata": <any>
     }
 
@@ -116,8 +120,10 @@ Blend Patterns:
     {
         "blend": <pattern name>, required
         "sounds": <array of sound assets>, required
-        "loop": <boolean> defaults to true
-        "gain": <number> defaults to 1
+        "loop": <boolean>, defaults to true
+        "gain": <number>, defaults to 1
+        "duckOn": <ducker name>
+        "duckPrio", <number>, default to 0
         "metadata": <any>
     }
 
