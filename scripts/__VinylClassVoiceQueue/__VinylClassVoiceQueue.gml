@@ -43,7 +43,6 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
     //Add the generated voice to the mix's array of voices
     array_push(_voiceUpdateArray, self);
     _voiceToStructMap[? __voiceReference] = self;
-    if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", __voiceReference, " to voice lookup struct");
     
     
     

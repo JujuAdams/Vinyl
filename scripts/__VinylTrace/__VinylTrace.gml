@@ -4,7 +4,7 @@ function __VinylTrace()
 {
     static _system = __VinylSystem();
     
-    if (VINYL_DEBUG_SHOW_FRAMES)
+    if (__VINYL_DEBUG_SHOW_FRAMES)
     {
         var _string = "Vinyl fr." + string(_system.__frame) + ": ";
     }

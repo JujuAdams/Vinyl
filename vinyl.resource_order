@@ -34,7 +34,6 @@
     {"name":"__VinylClassVoiceQueue","order":5,"path":"scripts/__VinylClassVoiceQueue/__VinylClassVoiceQueue.yy",},
     {"name":"__VinylClassVoiceShuffle","order":2,"path":"scripts/__VinylClassVoiceShuffle/__VinylClassVoiceShuffle.yy",},
     {"name":"__VinylClassVoiceSound","order":1,"path":"scripts/__VinylClassVoiceSound/__VinylClassVoiceSound.yy",},
-    {"name":"__VinylConfigDebug","order":1,"path":"scripts/__VinylConfigDebug/__VinylConfigDebug.yy",},
     {"name":"__VinylConfigJSON","order":2,"path":"scripts/__VinylConfigJSON/__VinylConfigJSON.yy",},
     {"name":"__VinylError","order":5,"path":"scripts/__VinylError/__VinylError.yy",},
     {"name":"__VinylGetMixMacro","order":11,"path":"scripts/__VinylGetMixMacro/__VinylGetMixMacro.yy",},

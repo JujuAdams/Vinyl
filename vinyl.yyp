@@ -59,7 +59,6 @@
     {"id":{"name":"__VinylClassVoiceQueue","path":"scripts/__VinylClassVoiceQueue/__VinylClassVoiceQueue.yy",},},
     {"id":{"name":"__VinylClassVoiceShuffle","path":"scripts/__VinylClassVoiceShuffle/__VinylClassVoiceShuffle.yy",},},
     {"id":{"name":"__VinylClassVoiceSound","path":"scripts/__VinylClassVoiceSound/__VinylClassVoiceSound.yy",},},
-    {"id":{"name":"__VinylConfigDebug","path":"scripts/__VinylConfigDebug/__VinylConfigDebug.yy",},},
     {"id":{"name":"__VinylConfigJSON","path":"scripts/__VinylConfigJSON/__VinylConfigJSON.yy",},},
     {"id":{"name":"__VinylConfigMacros","path":"scripts/__VinylConfigMacros/__VinylConfigMacros.yy",},},
     {"id":{"name":"__VinylEnsureSoundVoice","path":"scripts/__VinylEnsureSoundVoice/__VinylEnsureSoundVoice.yy",},},

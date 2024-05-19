@@ -53,7 +53,6 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
     __gainDuckBehaviour = __VINYL_DUCK.__DO_NOTHING;
     
     _voiceToStructMap[? _voice] = self;
-    if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Adding ", _voice, " to voice lookup struct");
     
     
     

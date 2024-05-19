@@ -4,5 +4,5 @@
 
 function __VinylGetMixMacro(_mixName)
 {
-    return VINYL_MIX_MACRO_PREFIX + _mixName;
+    return __VINYL_MIX_MACRO_PREFIX + _mixName;
 }

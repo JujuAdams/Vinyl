@@ -7,6 +7,9 @@
 
 #macro __VINYL_DEFAULT_DUCK_RATE_OF_GAIN  1
 
+//Whether to show the frame number in debug messages
+#macro __VINYL_DEBUG_SHOW_FRAMES  false
+
 enum __VINYL_HLT_STATE
 {
     __HEAD,
@@ -37,7 +40,7 @@ function __VinylSystem()
     
     with(_system)
     {
-        if (VINYL_DEBUG_SHOW_FRAMES) __frame = 0;
+        if (__VINYL_DEBUG_SHOW_FRAMES) __frame = 0;
         
         __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
         if (__VINYL_RUNNING_FROM_IDE) global.Vinyl = self;
@@ -112,7 +115,7 @@ function __VinylSystem()
             static _bootSetupPath    = VINYL_LIVE_EDIT? filename_dir(GM_project_filename) + "/scripts/__VinylConfigJSON/__VinylConfigJSON.gml" : undefined;
             static _bootSetupHash    = undefined;
             
-            if (VINYL_DEBUG_SHOW_FRAMES) __frame++;
+            if (__VINYL_DEBUG_SHOW_FRAMES) __frame++;
             
             var _usPerFrame = game_get_speed(gamespeed_microseconds);
             if (delta_time > 10*_usPerFrame)
@@ -218,7 +221,6 @@ function __VinylSystem()
             if ((_voice != undefined) && (not audio_is_playing(_voice)))
             {
                 ds_map_delete(_voiceToSoundMap, _voice);
-                if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", _voice, " from voice-to-sound map");
             }
             
             var _voice = (__voiceToSoundLastKey == undefined)? ds_map_find_first(_voiceToStructMap) : ds_map_find_next(_voiceToStructMap, __voiceToSoundLastKey);
@@ -228,7 +230,6 @@ function __VinylSystem()
             if ((_voice != undefined) && (not _voiceToStructMap[? _voice].__IsPlaying()))
             {
                 ds_map_delete(_voiceToStructMap, _voice);
-                if (VINYL_DEBUG_LEVEL >= 2) __VinylTrace("Removing ", _voice, " from voice-to-struct map");
             }
             
             //Check for callback execution
