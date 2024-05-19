@@ -8,6 +8,17 @@ function VinylSetupClearEverything()
     static _patternDict = __VinylSystem().__patternDict;
     static _mixDict     = __VinylSystem().__mixDict;
     static _mixArray    = __VinylSystem().__mixArray;
+    static _duckDict    = __VinylSystem().__duckDict;
+    static _duckArray   = __VinylSystem().__duckArray;
+    
+    var _duckMethod = method(_duckDict, function(_key, _value)
+    {
+        _value.__ClearSetup();
+        struct_remove(self, _key);
+    });
+    
+    struct_foreach(_duckDict, _duckMethod);
+    array_resize(_duckArray, 0);
     
     var _mixMethod = method(_mixDict, function(_key, _value)
     {

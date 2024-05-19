@@ -67,6 +67,10 @@ function __VinylSetupImportJSONInner(_json)
         {
             return __VinylImportMixGroupJSON(_json);
         }
+        else if (struct_exists(_json, "duck"))
+        {
+            return __VinylImportDuckJSON(_json);
+        }
         else if (struct_exists(_json, "metadata"))
         {
             return __VinylImportGlobalMetadataJSON(_json);

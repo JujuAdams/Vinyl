@@ -7,6 +7,8 @@
 
 function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) constructor
 {
+    static _toUpdateArray = __VinylSystem().__toUpdateArray;
+    
     __duckName     = _duckName;
     __duckedGain   = _duckedGain;
     __rateOfChange = _rateOfChange;
@@ -22,6 +24,11 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
     
     static __UpdateSetup = function(_duckedGain, _rateOfChange, _pauseOnDuck)
     {
+        if (VINYL_LIVE_EDIT)
+        {
+            array_push(_toUpdateArray, self);
+        }
+        
         __duckedGain   = _duckedGain;
         __rateOfChange = _rateOfChange;
         __pauseOnDuck  = _pauseOnDuck;
@@ -37,6 +44,11 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
             
             ++_i;
         }
+    }
+    
+    static __ClearSetup = function()
+    {
+        __UpdateSetup(0, __VINYL_DEFAULT_DUCK_RATE_OF_GAIN, true);
     }
     
     static __Push = function(_priority, _voice, _onInstantiate)
@@ -164,4 +176,86 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
             }
         }
     }
+    
+    static __ExportJSON = function()
+    {
+        var _struct = {
+            duck: __duckName,
+        };
+        
+        __duckedGain   = _duckedGain;
+        __rateOfChange = _rateOfChange;
+        __pauseOnDuck  = _pauseOnDuck;
+        
+        if (__duckedGain != 0) _struct.duckedGain = __duckedGain;
+        if (__rateOfChange != __VINYL_DEFAULT_DUCK_RATE_OF_GAIN) _struct.rateOfChange = __rateOfChange;
+        if (__pauseOnDuck != __VINYL_DEFAULT_DUCK_RATE_OF_GAIN) _struct.pauseOnDuck = __pauseOnDuck;
+        
+        return _struct;
+    }
+    
+    static __ExportGML = function(_buffer, _indent)
+    {
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "{\n");
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "    duck: \"");
+        buffer_write(_buffer, buffer_text, __duckName);
+        buffer_write(_buffer, buffer_text, "\",\n");
+        
+        if (__duckedGain != 1)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    duckedGain: ");
+            buffer_write(_buffer, buffer_text, __duckedGain);
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        
+        if (__rateOfChange != __VINYL_DEFAULT_DUCK_RATE_OF_GAIN)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    rateOfChange: ");
+            buffer_write(_buffer, buffer_text, __rateOfChange);
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        
+        if (not __pauseOnDuck)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    pauseOnDuck: false,\n");
+        }
+        
+        buffer_write(_buffer, buffer_text, _indent);
+        buffer_write(_buffer, buffer_text, "},\n");
+    }
+}
+
+function __VinylImportDuckJSON(_json)
+{
+    if (VINYL_SAFE_JSON_IMPORT)
+    {
+        var _variableNames = struct_get_names(_json);
+        var _i = 0;
+        repeat(array_length(_variableNames))
+        {
+            switch(_variableNames[_i])
+            {
+                case "duck":
+                case "duckedGain":
+                case "rateOfChange":
+                case "pauseOnDuck":
+                break;
+                
+                default:
+                    __VinylError("Duck \"", _json, "\" property .", _variableNames[_i], " not supported");
+                break;
+            }
+            
+            ++_i;
+        }
+    }
+    
+    VinylSetupDuck(_json.duck, _json[$ "duckedGain"], _json[$ "rateOfChange"], _json[$ "pauseOnDuck"]);
+    
+    return _json.duck;
 }

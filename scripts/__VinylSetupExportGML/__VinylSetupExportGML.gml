@@ -13,6 +13,7 @@
 
 function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
 {
+    static _duckDict     = __VinylSystem().__duckDict;
     static _mixDict      = __VinylSystem().__mixDict;
     static _patternDict  = __VinylSystem().__patternDict;
     static _soundDict    = __VinylSystem().__soundDict;
@@ -31,6 +32,19 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
     
     var _patternExportedDict = {};
     var _soundExportedDict   = {};
+    
+    
+    
+    //Export duck definitions
+    var _namesArray = struct_get_names(_duckDict);
+    array_sort(_namesArray, true);
+    
+    var _i = 0;
+    repeat(array_length(_namesArray))
+    {
+        _duckDict[$ _namesArray[_i]].__ExportGML(_buffer, "    ");
+        ++_i;
+    }
     
     
     
