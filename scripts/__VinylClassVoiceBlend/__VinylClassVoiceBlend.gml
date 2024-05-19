@@ -50,6 +50,8 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
     __gainLocalTarget  = _gainLocal;
     __gainLocalSpeed   = infinity;
     
+    //TODO - Calculate duck gain
+    
     __gainDuck       = 1;
     __gainDuckTarget = 1;
     __gainDuckSpeed  = undefined;

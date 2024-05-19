@@ -46,6 +46,8 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal, _duckerNameLoca
     __gainLocalTarget = _gainLocal;
     __gainLocalSpeed  = infinity;
     
+    //TODO - Calculate duck gain
+    
     __gainDuck          = 1;
     __gainDuckTarget    = 1;
     __gainDuckSpeed     = undefined;

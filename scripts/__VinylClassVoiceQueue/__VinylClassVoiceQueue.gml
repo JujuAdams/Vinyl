@@ -108,6 +108,8 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
                 __gainSound  = _pattern.__gain;
                 __pitchSound = _pattern.__pitch;
                 
+                //TODO - Calculate duck gain
+                
                 __soundCurrent = _sound;
                 __voiceCurrent = audio_play_sound(_sound, 0, _loop, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
             }
