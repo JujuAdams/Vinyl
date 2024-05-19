@@ -99,7 +99,7 @@ function __VinylResolveChanges(_replace, _oldSoundNameArray = undefined, _oldPat
                 }
             break;
             
-            case "__VinylClassDuck":
+            case "__VinylClassDucker":
                 var _array = _pattern.__voiceArray;
                 var _j = 0;
                 repeat(array_length(_array))
@@ -108,7 +108,7 @@ function __VinylResolveChanges(_replace, _oldSoundNameArray = undefined, _oldPat
                     ++_j;
                 }
                 
-                //Reset the duck too
+                //Reset the ducker too
                 array_resize(_array, 0);
                 array_resize(_pattern.__priorityArray, 0);
                 _pattern.__maxPriority = -infinity;

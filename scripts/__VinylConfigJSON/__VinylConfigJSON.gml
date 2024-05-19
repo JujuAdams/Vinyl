@@ -51,8 +51,8 @@ global.VinylConfigSON = [
         head: sndMusicForestHead,
         loop: sndMusicForestLoop,
         tail: sndMusicForestTail,
-        duck: "ducking music", //This pattern has additionally been set up to duck. See below for
-                               //more information on setting up this feature.
+        duckOn: "duckering music", //This pattern has additionally been set up on a ducker. See
+                                   //below for more information on setting up this feature.
     },
     
     
@@ -90,22 +90,22 @@ global.VinylConfigSON = [
     
     
     
-    // -- Duck
+    // -- Duckers
     //    When playing music you'll sometimes want to easily crossfade between tracks such that
     //    only one music track is playing at a time. You'll also sometimes want to allow "strings"
-    //    (short pieces of music triggered by special events) to duck background music tracks.
-    //    Both of these effects can be achieved with the "duck" feature.
+    //    (short pieces of music triggered by special events) to ducker background music tracks.
+    //    Both of these effects can be achieved with the "duckOn" feature.
     {
-        duck: "music ducker", //First, we set up the ducker itself
+        ducker: "music ducker", //First, we set up the ducker itself
     },
     {
         sound: sndMusicMoon, //Second, we set up a link to a ducker in a sound or pattern
-        duck: "music ducker",
+        duckOn: "music ducker",
     },
     {
-        mix: "ducking music",
-        membersDuck: "music ducker", //You can also set up a ducker for multiple sounds at once by
-                                     //using the .membersDuck property on a mix
+        mix: "duckering music",
+        membersDuckOn: "music ducker", //You can also set up a ducker for multiple sounds at once by
+                                     //using the .membersDuckOn property on a mix
         members: [
             sndMusicLava,
             sndMusicWater,

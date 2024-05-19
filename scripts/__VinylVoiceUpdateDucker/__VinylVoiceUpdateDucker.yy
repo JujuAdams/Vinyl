@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"__VinylVoiceUpdateDuck",
+  "%Name":"__VinylVoiceUpdateDucker",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__VinylVoiceUpdateDuck",
+  "name":"__VinylVoiceUpdateDucker",
   "parent":{
     "name":"(Internals)",
     "path":"folders/Vinyl/(Internals).yy",

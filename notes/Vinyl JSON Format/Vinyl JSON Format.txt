@@ -85,19 +85,21 @@ is not placed inside a mix definition therefore it is assigned to the default mi
 Sounds:
     {
         "sound": <sound asset>, required
-        "gain": <number> or <2-element array>, optional, defaults to 1
-        "pitch": <number> or <2-element array>, optional, defaults to 1
-        "loop": <boolean>, optional, defaults to false
-        "metadata": <any>, optional
+        "gain": <number> or <2-element array>, defaults to 1
+        "pitch": <number> or <2-element array>, defaults to 1
+        "loop": <boolean>, defaults to false
+        "duckOn": <ducker name>
+        "duckPrio", <number>, default to 0
+        "metadata": <any>
     }
 
 Shuffle Patterns:
     {
         "shuffle": <pattern name>, required
         "sounds": <array of sound assets>, required
-        "gain": <number> or <2-element array>, optional, defaults to 1
-        "pitch": <number> or <2-element array>, optional, defaults to 1
-        "metadata": <any>, optional
+        "gain": <number> or <2-element array>, defaults to 1
+        "pitch": <number> or <2-element array>, defaults to 1
+        "metadata": <any>
     }
 
 Head-Loop-Tail Patterns:
@@ -106,34 +108,34 @@ Head-Loop-Tail Patterns:
         "head": <sound asset>, optional, defaults to no asset
         "loop": <sound asset>, required
         "tail": <sound asset>, optional, defaults to no asset
-        "gain": <number>, optional, defaults to 1
-        "metadata": <any>, optional
+        "gain": <number>, defaults to 1
+        "metadata": <any>
     }
 
 Blend Patterns:
     {
         "blend": <pattern name>, required
         "sounds": <array of sound assets>, required
-        "loop": <boolean>, optional, defaults to true
-        "gain": <number>, optional, defaults to 1
-        "metadata": <any>, optional
+        "loop": <boolean> defaults to true
+        "gain": <number> defaults to 1
+        "metadata": <any>
     }
 
 Mixes:
     {
         "mix": <mix name>, required
-        "baseGain": <number>, optional, defaults to 1
-        "membersLoop": <boolean>, optional, defaults to <undefined>
-        "members": <array of definitions>, optional, defaults to no assets
-        "metadata": <any>, optional
+        "baseGain": <number>, defaults to 1
+        "membersLoop": <boolean>, defaults to <undefined>
+        "members": <array of definitions>, defaults to no assets
+        "metadata": <any>
     }
 
-Ducks:
+Duckers:
     {
-        "duck": <duck name>, required
-        "duckGain": <number>, optional, defaults to 1
-        "rateOfChange": <number>, optional, defaults to 1
-        "pauseOnDuck": <boolean>, optional, defaults to <true>
+        "ducker": <ducker name>, required
+        "duckedGain": <number>, defaults to 1
+        "rateOfChange": <number>, defaults to 1
+        "pauseOnDuck": <boolean>, defaults to <true>
     }
 
 Global Metadata:

@@ -108,17 +108,17 @@ UIButtonInline("Set 1KHz \"Test\" mix", function()
 });
 UINewline();
 UINewline();
-UIButtonInline("Duck prio 0", function()
+UIButtonInline("Ducker prio 0", function()
 {
     duckPrio0 = VinylPlay(sndSync0, true);
 });
 UISpace(20);
-UIButtonInline("Duck prio 1", function()
+UIButtonInline("Ducker prio 1", function()
 {
     duckPrio1 = VinylPlay(sndSync1, true);
 });
 UISpace(20);
-UIButtonInline("Duck prio 2", function()
+UIButtonInline("Ducker prio 2", function()
 {
     duckPrio2 = VinylPlay(sndSync2, true);
 });

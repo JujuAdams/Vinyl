@@ -15,24 +15,24 @@
 /// @param [loop]
 /// @param [gain=1]
 /// @param [pitch=1]
-/// @param [duckName]
+/// @param [duckerName]
 /// @param [duckPrio]
 
-function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1, _duckName = undefined, _duckPrio = undefined)
+function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1, _duckerName = undefined, _duckPrio = undefined)
 {
     static _soundDict   = __VinylSystem().__soundDict;
     static _patternDict = __VinylSystem().__patternDict;
     
     if (is_handle(_pattern))
     {
-        return struct_get_from_hash(_soundDict, int64(_pattern)).__Play(_loop, _gain, _pitch, _duckName, _duckPrio);
+        return struct_get_from_hash(_soundDict, int64(_pattern)).__Play(_loop, _gain, _pitch, _duckerName, _duckPrio);
     }
     else if (is_string(_pattern))
     {
         var _patternStruct = _patternDict[$ _pattern];
         if (_patternStruct != undefined)
         {
-            return _patternStruct.__Play(_loop, _gain, _pitch, _duckName, _duckPrio);
+            return _patternStruct.__Play(_loop, _gain, _pitch, _duckerName, _duckPrio);
         }
         else
         {

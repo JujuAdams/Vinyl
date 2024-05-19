@@ -11,7 +11,7 @@
 
 function VinylSetupExportJSON(_ignoreEmpty = true)
 {
-    static _duckArray    = __VinylSystem().__duckArray;
+    static _duckerArray    = __VinylSystem().__duckerArray;
     static _mixDict      = __VinylSystem().__mixDict;
     static _patternDict  = __VinylSystem().__patternDict;
     static _soundDict    = __VinylSystem().__soundDict;
@@ -31,11 +31,11 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
     
     
     
-    //Export duck definitions
+    //Export ducker definitions
     var _i = 0;
-    repeat(array_length(_duckArray))
+    repeat(array_length(_duckerArray))
     {
-        array_push(_outArray, _duckArray[_i].__ExportJSON());
+        array_push(_outArray, _duckerArray[_i].__ExportJSON());
         ++_i;
     }
     

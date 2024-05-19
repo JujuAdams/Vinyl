@@ -8,12 +8,12 @@
 /// @param [targetGain=1]
 /// @oaram [rateOfChange]
 /// @param [pitch=1]
-/// @param [duckName]
+/// @param [duckerName]
 /// @param [duckPrio]
 
-function VinylPlayFadeIn(_pattern, _loop = undefined, _gain = 1, _rateOfChange = VINYL_DEFAULT_FADE_IN_RATE, _pitch = 1, _duckName = undefined, _duckPrio = undefined)
+function VinylPlayFadeIn(_pattern, _loop = undefined, _gain = 1, _rateOfChange = VINYL_DEFAULT_FADE_IN_RATE, _pitch = 1, _duckerName = undefined, _duckPrio = undefined)
 {
-    var _voice = VinylPlay(_pattern, _loop, 0, _pitch, _duckName, _duckPrio);
+    var _voice = VinylPlay(_pattern, _loop, 0, _pitch, _duckerName, _duckPrio);
     VinylSetGain(_voice, _gain, _rateOfChange);
     return _voice;
 }

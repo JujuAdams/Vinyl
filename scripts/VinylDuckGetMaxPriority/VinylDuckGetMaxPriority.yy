@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylDuckGetMaxPriority",
   "parent":{
-    "name":"Duck",
-    "path":"folders/Vinyl/Duck.yy",
+    "name":"Ducker",
+    "path":"folders/Vinyl/Ducker.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

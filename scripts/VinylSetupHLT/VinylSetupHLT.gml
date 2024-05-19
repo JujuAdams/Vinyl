@@ -15,11 +15,11 @@
 /// @param [soundTail]
 /// @param [gain=1]
 /// @param [mix=VINYL_DEFAULT_MIX]
-/// @param [duck]
+/// @param [duckerName]
 /// @param [duckPrio]
 /// @param [metadata]
 
-function VinylSetupHLT(_patternName, _soundHead = undefined, _soundLoop, _soundTail = undefined, _gain = 1, _mixName = VINYL_DEFAULT_MIX, _duckName = undefined, _duckPrio = undefined, _metadata = undefined)
+function VinylSetupHLT(_patternName, _soundHead = undefined, _soundLoop, _soundTail = undefined, _gain = 1, _mixName = VINYL_DEFAULT_MIX, _duckerName = undefined, _duckPrio = undefined, _metadata = undefined)
 {
     static _system      = __VinylSystem();
     static _patternDict = _system.__patternDict;
@@ -30,11 +30,11 @@ function VinylSetupHLT(_patternName, _soundHead = undefined, _soundLoop, _soundT
     var _existingPattern = _patternDict[$ _patternName];
     if (_existingPattern != undefined)
     {
-        _existingPattern.__UpdateSetup(_soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckName, _duckPrio, _metadata);
+        _existingPattern.__UpdateSetup(_soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckerName, _duckPrio, _metadata);
     }
     else
     {
-        _patternDict[$ _patternName] = new __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckName, _duckPrio, _metadata);
+        _patternDict[$ _patternName] = new __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckerName, _duckPrio, _metadata);
     }
     
     if (VINYL_LIVE_EDIT && (not _system.__importingJSON))

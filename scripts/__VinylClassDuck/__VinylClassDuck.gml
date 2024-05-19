@@ -1,15 +1,15 @@
 // Feather disable all
 
-/// @param duckName
+/// @param duckerName
 /// @param duckedGain
 /// @param rateOfChange
 /// @param pauseOnDuck
 
-function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) constructor
+function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _pauseOnDuck) constructor
 {
     static _toUpdateArray = __VinylSystem().__toUpdateArray;
     
-    __duckName     = _duckName;
+    __duckerName   = _duckerName;
     __duckedGain   = _duckedGain;
     __rateOfChange = _rateOfChange;
     __pauseOnDuck  = _pauseOnDuck;
@@ -75,7 +75,7 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
                 var _existingPriority = _priorityArray[_i];
                 if (_existingPriority < _priority)
                 {
-                    //We found an existing voice with a lower priority - duck the existing voice
+                    //We found an existing voice with a lower priority - ducker the existing voice
                     _voiceArray[_i].__Duck(__duckedGain, __rateOfChange, __pauseOnDuck? __VINYL_DUCK.__PAUSE : __VINYL_DUCK.__DO_NOTHING);
                 }
                 else if (_existingPriority == _priority)
@@ -155,7 +155,7 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
     static __ExportJSON = function()
     {
         var _struct = {
-            duck: __duckName,
+            ducker: __duckerName,
         };
         
         _struct.duckedGain   = __duckedGain;
@@ -174,8 +174,8 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
         buffer_write(_buffer, buffer_text, _indent);
         buffer_write(_buffer, buffer_text, "{\n");
         buffer_write(_buffer, buffer_text, _indent);
-        buffer_write(_buffer, buffer_text, "    duck: \"");
-        buffer_write(_buffer, buffer_text, __duckName);
+        buffer_write(_buffer, buffer_text, "    ducker: \"");
+        buffer_write(_buffer, buffer_text, __duckerName);
         buffer_write(_buffer, buffer_text, "\",\n");
         
         if (__duckedGain != 1)
@@ -205,7 +205,7 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
     }
 }
 
-function __VinylImportDuckJSON(_json)
+function __VinylImportDuckerJSON(_json)
 {
     if (VINYL_SAFE_JSON_IMPORT)
     {
@@ -215,14 +215,14 @@ function __VinylImportDuckJSON(_json)
         {
             switch(_variableNames[_i])
             {
-                case "duck":
+                case "duckOn":
                 case "duckedGain":
                 case "rateOfChange":
                 case "pauseOnDuck":
                 break;
                 
                 default:
-                    __VinylError("Duck \"", _json, "\" property .", _variableNames[_i], " not supported");
+                    __VinylError("Ducker \"", _json, "\" property .", _variableNames[_i], " not supported");
                 break;
             }
             
@@ -230,7 +230,7 @@ function __VinylImportDuckJSON(_json)
         }
     }
     
-    VinylSetupDuck(_json.duck, _json[$ "duckedGain"], _json[$ "rateOfChange"], _json[$ "pauseOnDuck"]);
+    VinylSetupDucker(_json.ducker, _json[$ "duckedGain"], _json[$ "rateOfChange"], _json[$ "pauseOnDuck"]);
     
-    return _json.duck;
+    return _json.ducker;
 }

@@ -8,11 +8,11 @@
 /// @param gainDuck
 /// @param pitchSound
 /// @param pitchLocal
-/// @param duckNameLocal
+/// @param duckerNameLocal
 /// @param duckPrioLocal
 /// @param pattern
 
-function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _gainDuck, _pitchSound, _pitchLocal, _duckNameLocal, _duckPrioLocal, _pattern) constructor
+function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _gainDuck, _pitchSound, _pitchLocal, _duckerNameLocal, _duckPrioLocal, _pattern) constructor
 {
     static _soundDict        = __VinylSystem().__soundDict;
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
@@ -21,15 +21,15 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     
     __inUpdateArray = false;
     
-    __voice         = _voice;
-    __gainSound     = _gainSound;
-    __gainLocal     = _gainLocal;
-    __gainMix       = _gainMix;
-    __gainDuck      = _gainDuck;
-    __pitchSound    = _pitchSound;
-    __pitchLocal    = _pitchLocal;
-    __duckNameLocal = _duckNameLocal;
-    __duckPrioLocal = _duckPrioLocal;
+    __voice           = _voice;
+    __gainSound       = _gainSound;
+    __gainLocal       = _gainLocal;
+    __gainMix         = _gainMix;
+    __gainDuck        = _gainDuck;
+    __pitchSound      = _pitchSound;
+    __pitchLocal      = _pitchLocal;
+    __duckerNameLocal = _duckerNameLocal;
+    __duckPrioLocal   = _duckPrioLocal;
     
     if (VINYL_LIVE_EDIT)
     {
@@ -189,7 +189,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         var _mixStruct = __VinylVoiceMoveMix(__voice, _pattern.__mixName);
         var _loopMix = (_mixStruct == undefined)? undefined : _mixStruct.__membersLoop;
         
-        __VinylVoiceUpdateDuck(_mixStruct);
+        __VinylVoiceUpdateDucker(_mixStruct);
         
         audio_sound_loop( __voice, __loopLocal ?? (_pattern.__loop ?? (_loopMix ?? false)));
         audio_sound_gain( __voice, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);

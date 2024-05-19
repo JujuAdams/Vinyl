@@ -7,27 +7,27 @@
 ///  0 = Priority is below the current maximum priority
 ///  1 = Priority is equal to the current maximum priority
 ///  2 = Priority is above the current maximum priority
-///  <undefined> = Duck name not recognised
+///  <undefined> = Ducker name not recognised
 /// 
-/// @param duckName
+/// @param duckerName
 /// @param priority
 
-function VinylDuckCheck(_name, _priority)
+function VinylDuckerCheck(_name, _priority)
 {
-    static _duckDict = __VinylSystem().__duckDict;
+    static _duckerDict = __VinylSystem().__duckerDict;
     
-    var _duckStruct = _duckDict[$ _duckName];
-    if (_duckStruct == undefined) return undefined;
+    var _duckerStruct = _duckerDict[$ _duckerName];
+    if (_duckerStruct == undefined) return undefined;
     
-    if (_priority > _duckStruct.__maxPriority)
+    if (_priority > _duckerStruct.__maxPriority)
     {
         return 2;
     }
-    else if (_priority == _duckStruct.__maxPriority)
+    else if (_priority == _duckerStruct.__maxPriority)
     {
         return 1;
     }
-    else // (_priority < _duckStruct.__maxPriority)
+    else // (_priority < _duckerStruct.__maxPriority)
     {
         return 0;
     }

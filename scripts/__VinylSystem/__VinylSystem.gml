@@ -67,8 +67,8 @@ function __VinylSystem()
         //Contains structs that describe callbacks to be executed when a voice stops playing.
         __callbackArray = [];
         
-        __duckDict  = {};
-        __duckArray = [];
+        __duckerDict  = {};
+        __duckerArray = [];
         
         //An array of voices that are in the lookup dictionary. This will never include HLT voices
         //as they are managed in the update array (see below). Blend voices will automatically be
@@ -178,8 +178,8 @@ function __VinylSystem()
                 }
             }
             
-            //Update ducks
-            var _array = __duckArray;
+            //Update duckers
+            var _array = __duckerArray;
             var _i = 0;
             repeat(array_length(_array))
             {

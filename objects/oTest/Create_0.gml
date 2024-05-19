@@ -8,7 +8,7 @@ duckPrio2 = undefined;
 ///*
 VinylSetupImportJSON([
     {
-        duck: "duck test",
+        ducker: "ducker test",
     },
     {
         mix: "Test",
@@ -40,7 +40,7 @@ VinylSetupImportJSON([
     },
     {
         mix: "Ducking Mix",
-        membersDuck: "duck test",
+        membersDuckOn: "ducker test",
         members: [
             {
                 sound: sndSync0,

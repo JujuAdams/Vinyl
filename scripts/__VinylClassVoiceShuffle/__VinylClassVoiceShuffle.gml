@@ -9,13 +9,13 @@
 /// @param gainDuck
 /// @param pitchPattern
 /// @param pitchLocal
-/// @param duckNameLocal
+/// @param duckerNameLocal
 /// @param duckPrioLocal
 /// @param pattern
 /// @param gainFactor
 /// @param pitchFactor
 
-function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _gainDuck, _pitchPattern, _pitchLocal, _duckNameLocal, _duckPrioLocal, _pattern, _gainFactor, _pitchFactor) constructor
+function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _gainDuck, _pitchPattern, _pitchLocal, _duckerNameLocal, _duckPrioLocal, _pattern, _gainFactor, _pitchFactor) constructor
 {
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
@@ -37,8 +37,8 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
     __pitchPattern = _pitchPattern;
     __pitchLocal   = _pitchLocal;
     
-    __duckNameLocal = _duckNameLocal;
-    __duckPrioLocal = _duckPrioLocal;
+    __duckerNameLocal = _duckerNameLocal;
+    __duckPrioLocal   = _duckPrioLocal;
     
     __pattern      = _pattern;
     __mixName      = (_pattern != undefined)? _pattern.__mixName : undefined;
@@ -197,7 +197,7 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
         var _mixStruct = __VinylVoiceMoveMix(__voice, _pattern.__mixName);
         var _loopMix = (_mixStruct == undefined)? undefined : _mixStruct.__membersLoop;
         
-        __VinylVoiceUpdateDuck(_mixStruct);
+        __VinylVoiceUpdateDucker(_mixStruct);
         
         audio_sound_loop( __voice, __loopLocal ?? (_pattern.__loop ?? (_loopMix ?? false)));
         audio_sound_gain( __voice, __VINYL_VOICE_GAIN_SxPxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);

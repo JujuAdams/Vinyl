@@ -1,14 +1,14 @@
 // Feather disable all
 
-/// @param duckName
+/// @param duckerName
 /// @param priority
 
-function VinylDuckGetVoice(_duckName, _priority)
+function VinylDuckerGetVoice(_duckerName, _priority)
 {
-    static _duckDict = __VinylSystem().__duckDict;
+    static _duckerDict = __VinylSystem().__duckerDict;
     
-    var _duckStruct = _duckDict[$ _duckName];
-    if (_duckStruct == undefined) return;
+    var _duckerStruct = _duckerDict[$ _duckerName];
+    if (_duckerStruct == undefined) return;
     
-    return _duckStruct.__Get(_priority);
+    return _duckerStruct.__Get(_priority);
 }
