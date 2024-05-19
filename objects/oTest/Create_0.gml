@@ -5,7 +5,11 @@ duckPrio0 = undefined;
 duckPrio1 = undefined;
 duckPrio2 = undefined;
 
+///*
 VinylSetupImportJSON([
+    {
+        duck: "duck test",
+    },
     {
         mix: "Test",
         members: [
@@ -35,9 +39,29 @@ VinylSetupImportJSON([
         ],
     },
     {
-        duck: "duck test",
-    }
+        mix: "Ducking Mix",
+        membersDuck: "duck test",
+        members: [
+            {
+                sound: sndSync0,
+                duckPrio: 0,
+            },
+            {
+                sound: sndSync1,
+                duckPrio: 1,
+            },
+            {
+                sound: sndSync2,
+                duckPrio: 2,
+            },
+            {
+                sound: sndSync3,
+                duckPrio: 3,
+            },
+        ],
+    },
 ]);
+//*/
 
 show_debug_message(json_stringify(VinylSetupExportJSON(), true));
 show_debug_message(__VinylSetupExportGMLMacros());
