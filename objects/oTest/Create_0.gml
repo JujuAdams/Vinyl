@@ -1,6 +1,10 @@
 hltVoice   = undefined;
 blendVoice = undefined;
 
+duckPrio0 = undefined;
+duckPrio1 = undefined;
+duckPrio2 = undefined;
+
 VinylSetupImportJSON([
     {
         mix: "Test",
@@ -30,6 +34,9 @@ VinylSetupImportJSON([
             },
         ],
     },
+    {
+        duck: "duck test",
+    }
 ]);
 
 show_debug_message(json_stringify(VinylSetupExportJSON(), true));
