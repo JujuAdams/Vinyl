@@ -16,6 +16,9 @@
 //increase audio levels if they're too quiet.
 #macro VINYL_MASTER_GAIN_BOOST  1
 
+#macro VINYL_DEFAULT_FADE_IN_RATE   1
+#macro VINYL_DEFAULT_FADE_OUT_RATE  1
+
 //Whether to rigorously check imported JSON when calling VinylSetupImportJSON(). This is useful to
 //catch errors in JSON but carries a performance penality. You may want to consider setting this
 //macro to <false> for production builds after your JSON import has been thoroughly tested.

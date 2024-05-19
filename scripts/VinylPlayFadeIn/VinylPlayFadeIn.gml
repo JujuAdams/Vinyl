@@ -11,7 +11,7 @@
 /// @param [duckName]
 /// @param [duckPrio]
 
-function VinylPlayFadeIn(_pattern, _loop = undefined, _gain = 1, _rateOfChange = infinity, _pitch = 1, _duckName = undefined, _duckPrio = undefined)
+function VinylPlayFadeIn(_pattern, _loop = undefined, _gain = 1, _rateOfChange = VINYL_DEFAULT_FADE_IN_RATE, _pitch = 1, _duckName = undefined, _duckPrio = undefined)
 {
     var _voice = VinylPlay(_pattern, _loop, 0, _pitch, _duckName, _duckPrio);
     VinylSetGain(_voice, _gain, _rateOfChange);
