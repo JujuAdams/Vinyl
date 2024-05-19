@@ -67,7 +67,7 @@ function __VinylSetupImportJSONInner(_json)
         {
             return __VinylImportMixGroupJSON(_json);
         }
-        else if (struct_exists(_json, "duckOn"))
+        else if (struct_exists(_json, "ducker"))
         {
             return __VinylImportDuckerJSON(_json);
         }
@@ -77,7 +77,7 @@ function __VinylSetupImportJSONInner(_json)
         }
         else
         {
-            __VinylError("Struct could not be parsed, missing type information\nStruct should contain one of the following variables to indicate type:\n  .sound\n  .shuffle\n  .hlt\n  .blend\n  .mix");
+            __VinylError("Struct could not be parsed, missing type information\nStruct should contain one of the following properties to indicate type:\n  .sound\n  .shuffle\n  .hlt\n  .blend\n  .mix\n  .ducker\n  .metadata\nPlease see \"Vinyl JSON Format\" for more information.");
         }
     }
     else

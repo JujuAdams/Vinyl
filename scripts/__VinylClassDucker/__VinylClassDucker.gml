@@ -215,7 +215,7 @@ function __VinylImportDuckerJSON(_json)
         {
             switch(_variableNames[_i])
             {
-                case "duckOn":
+                case "ducker":
                 case "duckedGain":
                 case "rateOfChange":
                 case "pauseOnDuck":
