@@ -26,7 +26,6 @@
     {"$GMFolder":"","%Name":"Playback","folderPath":"folders/Vinyl/Playback.yy","name":"Playback","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Queues","folderPath":"folders/Vinyl/Queues.yy","name":"Queues","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Runtime Setup","folderPath":"folders/Vinyl/Runtime Setup.yy","name":"Runtime Setup","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Import & Export","folderPath":"folders/Vinyl/Runtime Setup/Import & Export.yy","name":"Import & Export","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"LICENSE.txt","CopyToMask":-1,"filePath":"datafiles/fonts","name":"LICENSE.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
@@ -138,7 +137,6 @@
     {"id":{"name":"VinylSetMixForAssets","path":"scripts/VinylSetMixForAssets/VinylSetMixForAssets.yy",},},
     {"id":{"name":"VinylSetMixForAssetTag","path":"scripts/VinylSetMixForAssetTag/VinylSetMixForAssetTag.yy",},},
     {"id":{"name":"VinylSetupBlend","path":"scripts/VinylSetupBlend/VinylSetupBlend.yy",},},
-    {"id":{"name":"VinylSetupClearEverything","path":"scripts/VinylSetupClearEverything/VinylSetupClearEverything.yy",},},
     {"id":{"name":"VinylSetupDuck","path":"scripts/VinylSetupDuck/VinylSetupDuck.yy",},},
     {"id":{"name":"VinylSetupExportJSON","path":"scripts/VinylSetupExportJSON/VinylSetupExportJSON.yy",},},
     {"id":{"name":"VinylSetupGlobalMetadata","path":"scripts/VinylSetupGlobalMetadata/VinylSetupGlobalMetadata.yy",},},
