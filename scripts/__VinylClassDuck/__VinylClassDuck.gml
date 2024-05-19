@@ -164,7 +164,7 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
         
         if (__duckedGain != 0) _struct.duckedGain = __duckedGain;
         if (__rateOfChange != __VINYL_DEFAULT_DUCK_RATE_OF_GAIN) _struct.rateOfChange = __rateOfChange;
-        if (__pauseOnDuck != __VINYL_DEFAULT_DUCK_RATE_OF_GAIN) _struct.pauseOnDuck = __pauseOnDuck;
+        if (__pauseOnDuck) _struct.pauseOnDuck = true;
         
         return _struct;
     }
@@ -194,10 +194,10 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
             buffer_write(_buffer, buffer_text, ",\n");
         }
         
-        if (not __pauseOnDuck)
+        if (__pauseOnDuck)
         {
             buffer_write(_buffer, buffer_text, _indent);
-            buffer_write(_buffer, buffer_text, "    pauseOnDuck: false,\n");
+            buffer_write(_buffer, buffer_text, "    pauseOnDuck: true,\n");
         }
         
         buffer_write(_buffer, buffer_text, _indent);

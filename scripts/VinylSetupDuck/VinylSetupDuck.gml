@@ -3,9 +3,9 @@
 /// @param duckName
 /// @param [duckedGain=0]
 /// @param [rateOfChange=1]
-/// @param [pauseOnDuck=true]
+/// @param [pauseOnDuck=false]
 
-function VinylSetupDuck(_duckName, _duckedGain = 0, _rateOfChange = __VINYL_DEFAULT_DUCK_RATE_OF_GAIN, _pauseOnDuck = true)
+function VinylSetupDuck(_duckName, _duckedGain = 0, _rateOfChange = __VINYL_DEFAULT_DUCK_RATE_OF_GAIN, _pauseOnDuck = false)
 {
     static _system    = __VinylSystem();
     static _duckDict  = _system.__duckDict;
