@@ -62,6 +62,8 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             ++__playIndex;
         }
         
+        var _gainSound = __VinylSoundGetGain(_sound);
+        
         if (__gainRandomize)
         {
             var _gainFactor  = __VinylRandom(1);
@@ -123,7 +125,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             var _gainDuck     = 1;
         }
         
-        var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainPattern*_gainLocal*_gainMix*_gainDuck/VINYL_MAX_VOICE_GAIN, 0, _pitchPattern*_pitchLocal);
+        var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainSound*_gainPattern*_gainLocal*_gainMix*_gainDuck/VINYL_MAX_VOICE_GAIN, 0, _pitchPattern*_pitchLocal);
         
         //If we're in live edit mode then always create a struct representation
         if (VINYL_LIVE_EDIT || (_duckerNameFinal != undefined))
