@@ -23,7 +23,7 @@ function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1, _duckName
     static _soundDict   = __VinylSystem().__soundDict;
     static _patternDict = __VinylSystem().__patternDict;
     
-    if (audio_exists(_pattern))
+    if (is_handle(_pattern))
     {
         return struct_get_from_hash(_soundDict, int64(_pattern)).__Play(_loop, _gain, _pitch, _duckName, _duckPrio);
     }
