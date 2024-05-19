@@ -25,7 +25,7 @@
     {"name":"__VinylArrayShuffle","order":3,"path":"scripts/__VinylArrayShuffle/__VinylArrayShuffle.yy",},
     {"name":"__VinylBufferReadGML","order":16,"path":"scripts/__VinylBufferReadGML/__VinylBufferReadGML.yy",},
     {"name":"__VinylBufferWriteGML","order":17,"path":"scripts/__VinylBufferWriteGML/__VinylBufferWriteGML.yy",},
-    {"name":"__VinylClassDuck","order":1,"path":"scripts/__VinylClassDuck/__VinylClassDuck.yy",},
+    {"name":"__VinylClassDucker","order":1,"path":"scripts/__VinylClassDucker/__VinylClassDucker.yy",},
     {"name":"__VinylClassPatternBlend","order":4,"path":"scripts/__VinylClassPatternBlend/__VinylClassPatternBlend.yy",},
     {"name":"__VinylClassPatternHLT","order":3,"path":"scripts/__VinylClassPatternHLT/__VinylClassPatternHLT.yy",},
     {"name":"__VinylClassPatternShuffle","order":2,"path":"scripts/__VinylClassPatternShuffle/__VinylClassPatternShuffle.yy",},

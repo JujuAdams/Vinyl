@@ -1,12 +1,12 @@
 // Feather disable all
 
 /// Fades out all voices currently playing in a given mix. Once a voice is set to fade out, it
-/// cannot be stopped.
+/// cannot be stopped. The rate of change for this function is measured in "gain units per second".
 /// 
 /// @param mixName
-/// @param rateOfChange
+/// @param [rateOfChange]
 
-function VinylMixFadeOutVoices(_mixName, _rateOfChange)
+function VinylMixFadeOutVoices(_mixName, _rateOfChange = VINYL_DEFAULT_FADE_OUT_RATE)
 {
     static _mixDict = __VinylSystem().__mixDict;
     

@@ -1,5 +1,8 @@
 // Feather disable all
 
+/// Returns the voice currently playing on the ducker with the given priority. If either the ducker
+/// doesn't exist or no voice is playing with that priority then this function returns <undefined>.
+/// 
 /// @param duckerName
 /// @param priority
 

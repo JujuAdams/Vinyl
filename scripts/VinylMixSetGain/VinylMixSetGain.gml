@@ -2,7 +2,8 @@
 
 /// Sets the local gain for the mix. This is multipled with the base gain (see VinylSetupMix()) to
 /// give a gain factor applied to all audio played on this mix. Setting the local gain for a mix
-/// will affect all current and future audio played on the mix.
+/// will affect all current and future audio played on the mix. The rate of change for this
+/// function is measured in "gain units per second".
 /// 
 /// @param mixName
 /// @param gain

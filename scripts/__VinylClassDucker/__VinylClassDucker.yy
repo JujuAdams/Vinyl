@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"__VinylClassDuck",
+  "%Name":"__VinylClassDucker",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__VinylClassDuck",
+  "name":"__VinylClassDucker",
   "parent":{
     "name":"Classes",
     "path":"folders/Vinyl/(Internals)/Classes.yy",

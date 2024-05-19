@@ -48,7 +48,7 @@
     {"id":{"name":"__VinylArrayShuffle","path":"scripts/__VinylArrayShuffle/__VinylArrayShuffle.yy",},},
     {"id":{"name":"__VinylBufferReadGML","path":"scripts/__VinylBufferReadGML/__VinylBufferReadGML.yy",},},
     {"id":{"name":"__VinylBufferWriteGML","path":"scripts/__VinylBufferWriteGML/__VinylBufferWriteGML.yy",},},
-    {"id":{"name":"__VinylClassDuck","path":"scripts/__VinylClassDuck/__VinylClassDuck.yy",},},
+    {"id":{"name":"__VinylClassDucker","path":"scripts/__VinylClassDucker/__VinylClassDucker.yy",},},
     {"id":{"name":"__VinylClassMix","path":"scripts/__VinylClassMix/__VinylClassMix.yy",},},
     {"id":{"name":"__VinylClassPatternBlend","path":"scripts/__VinylClassPatternBlend/__VinylClassPatternBlend.yy",},},
     {"id":{"name":"__VinylClassPatternHLT","path":"scripts/__VinylClassPatternHLT/__VinylClassPatternHLT.yy",},},
