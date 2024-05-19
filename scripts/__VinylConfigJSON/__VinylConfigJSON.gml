@@ -1,9 +1,14 @@
 // Feather disable all
 
 /// This is an optional configuration script that you can edit. On boot, Vinyl will import the JSON
-/// defined in this script by passing it into VinylSetupImportJSON(). If VINYL_LIVE_EDIT is set to
-/// <true> then editing this JSON file will quickly be reflected in audio currently playing in your
-/// game (This feature is only available when running on Windows, Mac, or Linux).
+/// defined in this script by passing it into VinylSetupImportJSON(). You can configure the
+/// entirety of your game audio from this one script in most cases.
+/// 
+/// If VINYL_LIVE_EDIT is set to <true> then editing this JSON file will quickly be reflected in
+/// audio currently playing in your game. The live update feature does have limitations, however.
+/// This feature is only available when running on Windows, Mac, or Linux. Furthermore, the GML
+/// parser used to power live updating is very simple. You should treat the JSON written in this
+/// file as "pure JSON" and you should not use conditionals or if-statements or any logic at all.
 
 global.VinylConfigSON = [
     
