@@ -13,7 +13,7 @@
 /// @param [loop]
 /// @param [mix=VINYL_DEFAULT_MIX]
 /// @param [duckerName]
-/// @param [duckPrio]
+/// @param [duckPriority=0]
 /// @param [metadata]
 
 function VinylSetupSound(_sound, _gain = 1, _pitch = 1, _loop = undefined, _mixName = VINYL_DEFAULT_MIX, _duckerName = undefined, _duckPrio = undefined, _metadata = undefined)

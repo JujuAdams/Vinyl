@@ -7,7 +7,7 @@
 /// @param gain
 /// @param mix
 /// @param ducker
-/// @param duckPrio
+/// @param duckPriority
 /// @param metadata
 
 function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckerName, _duckPrio, _metadata) constructor

@@ -14,7 +14,7 @@
 /// @param [loop]
 /// @param [mix=VINYL_DEFAULT_MIX]
 /// @param [duckerName]
-/// @param [duckPrio]
+/// @param [duckPriority=0]
 /// @param [metadata]
 
 function VinylSetupShuffle(_patternName, _soundArray, _gain = undefined, _pitch = undefined, _loop = undefined, _mixName = VINYL_DEFAULT_MIX, _duckerName = undefined, _duckPrio = undefined, _metadata = undefined)

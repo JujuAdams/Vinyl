@@ -14,7 +14,7 @@
 /// @param [gain=1]
 /// @param [mix=VINYL_DEFAULT_MIX]
 /// @param [duckerName]
-/// @param [duckPrio]
+/// @param [duckPriority=0]
 /// @param [metadata]
 
 function VinylSetupBlend(_patternName, _soundArray, _loop = undefined, _gain = 1, _mixName = VINYL_DEFAULT_MIX, _duckerName = undefined, _duckPrio = undefined, _metadata = undefined)

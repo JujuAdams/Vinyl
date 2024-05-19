@@ -6,7 +6,7 @@
 /// @param loop
 /// @param mix
 /// @param ducker
-/// @param duckPrio
+/// @param duckPriority
 /// @param metadata
 
 function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _metadata) constructor

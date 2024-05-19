@@ -6,7 +6,7 @@
 /// @param gain
 /// @param mix
 /// @param ducker
-/// @param duckPrio
+/// @param duckPriority
 /// @param metadata
 
 function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixName, _duckerName, _duckPrio, _metadata) constructor

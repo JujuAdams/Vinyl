@@ -9,7 +9,7 @@
 /// @param loop
 /// @param mix
 /// @param ducker
-/// @param duckPrio
+/// @param duckPriority
 /// @param metadata
 
 function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName, _duckerName, _duckPrio, _metadata) constructor
