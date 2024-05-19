@@ -3,8 +3,10 @@
 /// @param pattern
 /// @param gainLocal
 /// @param pitchLocal
+/// @param duckNameLocal
+/// @param duckPrioLocal
 
-function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
+function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal, _duckNameLocal, _duckPrioLocal) constructor
 {
     static _mixDict          = __VinylSystem().__mixDict;
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
@@ -14,6 +16,8 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal) constructor
     __pattern    = _pattern;
     __gainLocal  = _gainLocal;
     __pitchLocal = _pitchLocal;
+    __duckName   = _duckNameLocal;
+    __duckPrio   = _duckPrioLocal;
     
     __gainPattern = _pattern.__gain;
     

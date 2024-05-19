@@ -4,9 +4,11 @@
 /// @param loopLocal
 /// @param gainLocal
 /// @param pitchLocal
+/// @param duckNameLocal
+/// @param duckPrioLocal
 /// @param mixName
 
-function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _mixName) constructor
+function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _duckNameLocal, _duckPrioLocal, _mixName) constructor
 {
     static _soundDict        = __VinylSystem().__soundDict;
     static _mixDict          = __VinylSystem().__mixDict;
@@ -16,10 +18,12 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
     
     __inUpdateArray = false;
     
-    __pattern    = _pattern;
-    __gainLocal  = _gainLocal;
-    __pitchLocal = _pitchLocal;
-    __loopLocal  = _loopLocal;
+    __pattern       = _pattern;
+    __gainLocal     = _gainLocal;
+    __pitchLocal    = _pitchLocal;
+    __loopLocal     = _loopLocal;
+    __duckNameLocal = _duckNameLocal;
+    __duckPrioLocal = _duckPrioLocal;
     
     __gainPattern = _pattern.__gain;
     __mixName     = _mixName;

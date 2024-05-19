@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylDuckPush",
+  "%Name":"VinylDuckCheck",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylDuckPush",
+  "name":"VinylDuckCheck",
   "parent":{
     "name":"Duck",
     "path":"folders/Vinyl/Duck.yy",

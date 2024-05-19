@@ -3,9 +3,10 @@
 /// @param mixName
 /// @param baseGain
 /// @param membersLoop
+/// @param membersDuck
 /// @param metadata
 
-function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _metadata) constructor
+function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuck, _metadata) constructor
 {
     static _toUpdateArray = __VinylSystem().__toUpdateArray;
     static _soundDict     = __VinylSystem().__soundDict;
@@ -14,6 +15,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _metadata) constr
     __mixName     = _mixName;
     __gainPattern = _gainPattern;
     __membersLoop = _membersLoop;
+    __membersDuck = _membersDuck;
     __metadata    = _metadata;
     
     __gainLocal = 1;
@@ -47,7 +49,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _metadata) constr
         }
     }
     
-    static __UpdateSetup = function(_gainPattern, _membersLoop)
+    static __UpdateSetup = function(_gainPattern, _membersLoop, _membersDuck)
     {
         if (VINYL_LIVE_EDIT)
         {
@@ -76,7 +78,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _metadata) constr
     
     static __ClearSetup = function()
     {
-        __UpdateSetup(1);
+        __UpdateSetup(1, false, undefined);
     }
     
     static __Add = function(_voice)

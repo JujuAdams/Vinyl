@@ -5,9 +5,11 @@
 /// @param loop
 /// @param gain
 /// @param mix
+/// @param duck
+/// @param duckPrio
 /// @param metadata
 
-function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixName, _metadata) constructor
+function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixName, _duckName, _duckPrio, _metadata) constructor
 {
     static _soundDict     = __VinylSystem().__soundDict;
     static _toUpdateArray = __VinylSystem().__toUpdateArray;
@@ -15,22 +17,24 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
     
     __patternName = _patternName;
     
-    __soundArray = __VinylImportSoundArray(_soundArray);
-    __loop       = _loop;
-    __gain       = _gain;
-    __mixName    = _mixName;
-    __metadata   = _metadata;
+    __soundArray   = __VinylImportSoundArray(_soundArray);
+    __loop         = _loop;
+    __gain         = _gain;
+    __mixName      = _mixName;
+    __duckName     = _duckName;
+    __duckPrio = _duckPrio;
+    __metadata     = _metadata;
     
     
     
     
     
-    static __Play = function(_loopLocal, _gainLocal, _pitchLocal)
+    static __Play = function(_loopLocal, _gainLocal, _pitchLocal, _duckNameLocal, _duckPrioLocal)
     {
-        return (new __VinylClassVoiceBlend(self, _loopLocal, _gainLocal, _pitchLocal, __mixName)).__voiceReference;
+        return (new __VinylClassVoiceBlend(self, _loopLocal, _gainLocal, _pitchLocal, _duckNameLocal, _duckPrioLocal, __mixName)).__voiceReference;
     }
     
-    static __UpdateSetup = function(_soundArray, _loop, _gain, _mixName, _metadata)
+    static __UpdateSetup = function(_soundArray, _loop, _gain, _mixName, _duckName, _duckPrio, _metadata)
     {
         if (VINYL_LIVE_EDIT)
         {
@@ -38,16 +42,18 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
             array_push(_toUpdateArray, self);
         }
         
-        __soundArray = __VinylImportSoundArray(_soundArray);
-        __loop       = _loop;
-        __gain       = _gain;
-        __mixName    = _mixName;
-        __metadata   = _metadata;
+        __soundArray   = __VinylImportSoundArray(_soundArray);
+        __loop         = _loop;
+        __gain         = _gain;
+        __mixName      = _mixName;
+        __duckName     = _duckName;
+        __duckPrio = _duckPrio;
+        __metadata     = _metadata;
     }
     
     static __ClearSetup = function()
     {
-        __UpdateSetup(__soundArray, false, 1, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX);
+        __UpdateSetup(__soundArray, false, 1, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX, undefined, 0, undefined);
     }
     
     static __UsesSound = function(_sound)
@@ -147,6 +153,9 @@ function __VinylImportBlendJSON(_json)
                 case "loop":
                 case "sounds":
                 case "gain":
+                case "duck":
+                case "duckPrio":
+                case "metadata":
                 break;
                 
                 default:
@@ -160,7 +169,7 @@ function __VinylImportBlendJSON(_json)
         if (not struct_exists(_json, "sounds")) __VinylError("Blend pattern \"", _json.blend, "\" property .sounds must be defined");
     }
     
-    VinylSetupBlend(_json.blend, _json.sounds, _json[$ "loop"], _json[$ "gain"], undefined, _json[$ "metadata"]);
+    VinylSetupBlend(_json.blend, _json.sounds, _json[$ "loop"], _json[$ "gain"], undefined, _json[$ "duck"], _json[$ "duckPrio"], _json[$ "metadata"]);
     
     return _json.blend;
 }

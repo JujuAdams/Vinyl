@@ -6,9 +6,11 @@
 /// @param soundTail
 /// @param gain
 /// @param mix
+/// @param duck
+/// @param duckPrio
 /// @param metadata
 
-function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain, _mixName, _metadata) constructor
+function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckName, _duckPrio, _metadata) constructor
 {
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
     static _toUpdateArray    = __VinylSystem().__toUpdateArray;
@@ -20,18 +22,20 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     __soundTail = __VinylImportSound(_soundTail);
     __gain      = _gain;
     __mixName   = _mixName;
+    __duckName  = _duckName;
+    __duckPrio  = _duckPrio;
     __metadata  = _metadata;
     
     
     
     
     
-    static __Play = function(_loopLocal__UNUSED, _gainLocal, _pitchLocal)
+    static __Play = function(_loopLocal__UNUSED, _gainLocal, _pitchLocal, _duckNameLocal, _duckPrioLocal)
     {
-        return (new __VinylClassVoiceHLT(self, _gainLocal, _pitchLocal)).__voiceReference;
+        return (new __VinylClassVoiceHLT(self, _gainLocal, _pitchLocal, _duckNameLocal, _duckPrioLocal)).__voiceReference;
     }
     
-    static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mixName, _metadata)
+    static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckName, _duckPrio, _metadata)
     {
         var _newSoundHead = __VinylImportSound(_soundHead);
         var _newSoundLoop = __VinylImportSound(_soundLoop);
@@ -46,17 +50,19 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
             array_push(_toUpdateArray, self);
         }
         
-        __soundHead = _newSoundHead;
-        __soundLoop = _newSoundLoop;
-        __soundTail = _newSoundTail;
-        __gain      = _gain;
-        __mixName   = _mixName;
-        __metadata  = _metadata;
+        __soundHead    = _newSoundHead;
+        __soundLoop    = _newSoundLoop;
+        __soundTail    = _newSoundTail;
+        __gain         = _gain;
+        __mixName      = _mixName;
+        __duckName     = _duckName;
+        __duckPrio = _duckPrio;
+        __metadata     = _metadata;
     }
     
     static __ClearSetup = function()
     {
-        __UpdateSetup(__soundHead, __soundLoop, __soundTail, 1, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX);
+        __UpdateSetup(__soundHead, __soundLoop, __soundTail, 1, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX, undefined, 0, undefined);
     }
     
     static __UsesSound = function(_sound)
@@ -151,6 +157,9 @@ function __VinylImportHLTJSON(_json)
                 case "loop":
                 case "tail":
                 case "gain":
+                case "duck":
+                case "duckPrio":
+                case "metadata":
                 break;
                 
                 default:
@@ -164,7 +173,7 @@ function __VinylImportHLTJSON(_json)
         if (not struct_exists(_json, "loop")) __VinylError("Head-Loop-Tail pattern \"", _json.hlt, "\" property .loop must be defined");
     }
     
-    VinylSetupHLT(_json.hlt, _json[$ "head"], _json.loop, _json[$ "tail"], _json[$ "gain"], undefined, _json[$ "metadata"]);
+    VinylSetupHLT(_json.hlt, _json[$ "head"], _json.loop, _json[$ "tail"], _json[$ "gain"], undefined, _json[$ "duck"], _json[$ "duckPrio"], _json[$ "metadata"]);
     
     return _json.hlt;
 }

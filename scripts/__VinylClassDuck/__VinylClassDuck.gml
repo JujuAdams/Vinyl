@@ -51,32 +51,23 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
         __UpdateSetup(0, __VINYL_DEFAULT_DUCK_RATE_OF_GAIN, true);
     }
     
-    static __Push = function(_priority, _voice, _onInstantiate)
+    static __Push = function(_voiceStruct, _priority)
     {
         var _priorityArray = __priorityArray;
         var _voiceArray    = __voiceArray;
         
         if (_priority < __maxPriority)
         {
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pushing ", _voice, " to stack \"", __duckName, "\" with lower priorty (", _priority, ") versus max (", __maxPriority, ")");
-            
-            var _voiceStruct = __VinylEnsureSoundVoice(_voice);
-            _voiceStruct.__Duck(__duckedGain, _onInstantiate? infinity : __rateOfChange, __pauseOnDuck? __VINYL_DUCK.__PAUSE : __VINYL_DUCK.__DO_NOTHING);
-            
             //Try to find an existing voice to replace
             var _index = array_get_index(_priorityArray, _priority);
             if (_index >= 0)
             {
-                if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(_voiceArray[_i], " on stack \"", __duckName, "\" shares priorty ", _priority, ", replacing it");
-                
                 //We found an existing voice with the same priority - fade out the existing voice and replace with ourselves
                 _voiceArray[_i].__FadeOut(__rateOfChange);
                 _voiceArray[_i] = _voiceStruct;
             }
             else
             {
-                if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Adding ", _voice, " to stack \"", __duckName, "\"");
-                
                 //If no voice exists to replace, add the incoming voice
                 array_push(_voiceArray, _voiceStruct);
                 array_push(_priorityArray, _priority);
@@ -84,8 +75,6 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
         }
         else //priority >= maxPriority
         {
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Pushing ", _voice, " to stack \"", __duckName, "\" with sufficient priorty (", _priority, ") versus max (", __maxPriority, ")");
-            
             __maxPriority = _priority;
             
             var _i = 0;
@@ -94,15 +83,11 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
                 var _existingPriority = _priorityArray[_i];
                 if (_existingPriority < _priority)
                 {
-                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(_voiceArray[_i], " on stack \"", __duckName, "\" has lesser priorty (", _existingPriority, ") than incoming (", _priority, ")");
-                    
                     //We found an existing voice with a lower priority - duck the existing voice
                     _voiceArray[_i].__Duck(__duckedGain, __rateOfChange, __pauseOnDuck? __VINYL_DUCK.__PAUSE : __VINYL_DUCK.__DO_NOTHING);
                 }
                 else if (_existingPriority == _priority)
                 {
-                    if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace(_voiceArray[_i], " on stack \"", __duckName, "\" shares priorty ", _priority, ", replacing it");
-                    
                     //We found an existing voice with the same priority - fade out the existing voice and replace with ourselves
                     _voiceArray[_i].__FadeOut(__rateOfChange);
                     _voiceArray[_i] = _voiceStruct;
@@ -111,8 +96,6 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
                 
                 ++_i;
             }
-            
-            if (VINYL_DEBUG_LEVEL >= 1) __VinylTrace("Adding ", _voice, " to stack \"", __duckName, "\"");
             
             //If no voice exists to replace, add the incoming voice
             array_push(__voiceArray, _voiceStruct);

@@ -8,9 +8,11 @@
 /// @param pitchMax
 /// @param loop
 /// @param mix
+/// @param duck
+/// @param duckPrio
 /// @param metadata
 
-function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName, _metadata) constructor
+function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName, _duckName, _duckPrio, _metadata) constructor
 {
     static _mixDict         = __VinylSystem().__mixDict;
     static _toUpdateArray   = __VinylSystem().__toUpdateArray;
@@ -25,6 +27,8 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     __pitchMax   = _pitchMax;
     __loop       = _loop;
     __mixName    = _mixName;
+    __duckName   = _duckName;
+    __duckPrio   = _duckPrio;
     __metadata   = _metadata;
     
     __gainRandomize  = (_gainMin != _gainMax);
@@ -37,7 +41,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     
     
     
-    static __Play = function(_loopLocal, _gainLocal, _pitchLocal)
+    static __Play = function(_loopLocal, _gainLocal, _pitchLocal, _duckNameLocal, _duckPrioLocal)
     {
         if (__soundCount == 1)
         {
@@ -82,9 +86,10 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         
         if (__mixName == undefined)
         {
-            var _gainMix = 1;
-            var _loopFinal = _loopLocal ?? __loop;
-            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainPattern*_gainLocal/VINYL_MAX_VOICE_GAIN, 0, _pitchPattern*_pitchLocal);
+            var _mixStruct     = undefined;
+            var _gainMix       = 1;
+            var _loopFinal     = _loopLocal ?? __loop;
+            var _duckNameFinal = _duckNameLocal ?? __duckName;
         }
         else
         {
@@ -95,39 +100,62 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
                 return;
             }
             
-            var _gainMix   = _mixStruct.__gainFinal;
-            var _loopFinal = _loopLocal ?? (__loop ?? (_mixStruct.__membersLoop ?? false));
+            var _gainMix       = _mixStruct.__gainFinal;
+            var _loopFinal     = _loopLocal ?? (__loop ?? (_mixStruct.__membersLoop ?? false));
+            var _duckNameFinal = _duckNameLocal ?? (__duckName ?? _mixStruct.__membersDuck);
+        }
             
-            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainPattern*_gainLocal*_gainMix/VINYL_MAX_VOICE_GAIN, 0, _pitchPattern*_pitchLocal);
-            _mixStruct.__Add(_voice);
+        if (_duckNameFinal != undefined)
+        {
+            var _duckStruct = _duckDict[$ _duckNameFinal];
+            if (_duckStruct == undefined)
+            {
+                __VinylError("Duck \"", _duckNameFinal, "\" not recognised");
+                return;
+            }
+            
+            var _duckPrioFinal = _duckPrioLocal ?? (__duckPrio ?? 0);
+            var _gainDuck = (_duckStruct.__maxPriority <= __duckPrio)? 1 : 0;
+        }
+        else
+        {
+            var _duckStruct = undefined;
+            var _gainDuck   = 1;
         }
         
+        var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainPattern*_gainLocal*_gainMix*_gainDuck/VINYL_MAX_VOICE_GAIN, 0, _pitchPattern*_pitchLocal);
+        
         //If we're in live edit mode then always create a struct representation
-        if (VINYL_LIVE_EDIT)
+        if (VINYL_LIVE_EDIT || (_duckNameFinal != undefined))
         {
-            new __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _pitchPattern, _pitchLocal, self, _gainFactor, _pitchFactor);
+            var _voiceStruct = new __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _gainDuck, _pitchPattern, _pitchLocal, _duckNameLocal, _duckPrioLocal, self, _gainFactor, _pitchFactor);
         }
+        
+        if (_duckStruct != undefined) _duckStruct.__Push(_voiceStruct, _duckPrioFinal);
+        if (_mixStruct != undefined) _mixStruct.__Add(_voice);
         
         _voiceToSoundMap[? _voice] = _sound;
         
         return _voice;
     }
     
-    static __UpdateSetup = function(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName, _metadata)
+    static __UpdateSetup = function(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName, _duckName, _duckPrio, _metadata)
     {
         if (VINYL_LIVE_EDIT)
         {
             array_push(_toUpdateArray, self);
         }
         
-        __soundArray = __VinylImportSoundArray(_soundArray);
-        __gainMin    = _gainMin;
-        __gainMax    = _gainMax;
-        __pitchMin   = _pitchMin;
-        __pitchMax   = _pitchMax;
-        __loop       = _loop;
-        __mixName    = _mixName;
-        __metadata   = _metadata;
+        __soundArray   = __VinylImportSoundArray(_soundArray);
+        __gainMin      = _gainMin;
+        __gainMax      = _gainMax;
+        __pitchMin     = _pitchMin;
+        __pitchMax     = _pitchMax;
+        __loop         = _loop;
+        __mixName      = _mixName;
+        __duckName     = _duckName;
+        __duckPrio = _duckPrio;
+        __metadata     = _metadata;
         
         __gainRandomize  = (_gainMin != _gainMax);
         __pitchRandomize = (_pitchMin != _pitchMax);
@@ -138,7 +166,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     
     static __ClearSetup = function()
     {
-        __UpdateSetup(__soundArray, 1, 1, 1, 1, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX);
+        __UpdateSetup(__soundArray, 1, 1, 1, 1, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX, undefined, 0, undefined);
     }
     
     static __ExportJSON = function()
@@ -282,6 +310,9 @@ function __VinylImportShuffleJSON(_json)
                 case "gain":
                 case "pitch":
                 case "loop":
+                case "duck":
+                case "duckPrio":
+                case "metadata":
                 break;
                 
                 default:
@@ -299,7 +330,7 @@ function __VinylImportShuffleJSON(_json)
     }
     
     var _sounds = _json[$ "sounds"] ?? _json[$ "sound"];
-    VinylSetupShuffle(_json.shuffle, _sounds, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"], undefined, _json[$ "metadata"]);
+    VinylSetupShuffle(_json.shuffle, _sounds, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"], undefined, _json[$ "duck"], _json[$ "duckPrio"], _json[$ "metadata"]);
     
     return _json.shuffle;
 }

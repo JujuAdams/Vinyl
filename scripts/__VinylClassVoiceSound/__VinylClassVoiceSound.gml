@@ -5,11 +5,14 @@
 /// @param gainSound
 /// @param gainLocal
 /// @param gainMix
+/// @param gainDuck
 /// @param pitchSound
 /// @param pitchLocal
+/// @param duckNameLocal
+/// @param duckPrioLocal
 /// @param pattern
 
-function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _pitchSound, _pitchLocal, _pattern) constructor
+function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _gainDuck, _pitchSound, _pitchLocal, _duckNameLocal, _duckPrioLocal, _pattern) constructor
 {
     static _soundDict        = __VinylSystem().__soundDict;
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
@@ -18,12 +21,15 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     
     __inUpdateArray = false;
     
-    __voice      = _voice;
-    __gainSound  = _gainSound;
-    __gainLocal  = _gainLocal;
-    __gainMix    = _gainMix;
-    __pitchSound = _pitchSound;
-    __pitchLocal = _pitchLocal;
+    __voice         = _voice;
+    __gainSound     = _gainSound;
+    __gainLocal     = _gainLocal;
+    __gainMix       = _gainMix;
+    __gainDuck      = _gainDuck;
+    __pitchSound    = _pitchSound;
+    __pitchLocal    = _pitchLocal;
+    __duckNameLocal = _duckNameLocal;
+    __duckPrioLocal = _duckPrioLocal;
     
     if (VINYL_LIVE_EDIT)
     {
@@ -37,8 +43,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     __gainLocalTarget  = _gainLocal;
     __gainLocalSpeed   = infinity;
     
-    __gainDuck          = 1;
-    __gainDuckTarget    = 1;
+    __gainDuckTarget    = _gainDuck;
     __gainDuckSpeed     = undefined;
     __gainDuckBehaviour = __VINYL_DUCK.__DO_NOTHING;
     
