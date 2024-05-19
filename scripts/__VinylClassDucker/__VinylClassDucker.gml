@@ -95,6 +95,17 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _pauseOnDuc
         }
     }
     
+    static __Remove = function(_voiceStruct)
+    {
+        var _index = array_get_index(__voiceArray, _voiceStruct);
+        if (_index >= 0)
+        {
+            array_delete(__voiceArray,    _index, 1);
+            array_delete(__priorityArray, _index, 1);
+            __Refresh();
+        }
+    }
+    
     static __Get = function(_priority)
     {
         var _index = array_get_index(__priorityArray, _priority);
@@ -124,31 +135,33 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _pauseOnDuc
             }
         }
         
-        if (_refresh)
+        if (_refresh) __Refresh();
+    }
+    
+    static __Refresh = function()
+    {
+        //Find the voice with the highest priority
+        __maxPriority = -infinity;
+        var _maxVoice = undefined;
+            
+        var _i = 0;
+        repeat(array_length(__voiceArray))
         {
-            //Find the voice with the highest priority
-            __maxPriority = -infinity;
-            var _maxVoice = undefined;
-            
-            var _i = 0;
-            repeat(array_length(__voiceArray))
+            var _priority = _priorityArray[_i];
+            if (_priority > __maxPriority)
             {
-                var _priority = _priorityArray[_i];
-                if (_priority > __maxPriority)
-                {
-                    __maxPriority = _priority;
-                    _maxVoice = _voiceArray[_i];
-                }
-                
-                ++_i;
+                __maxPriority = _priority;
+                _maxVoice = _voiceArray[_i];
             }
             
-            //Activate whatever voice is now the highest priority
-            if (_maxVoice != undefined)
-            {
-                if (__pauseOnDuck) _maxVoice.__Resume();
-                _maxVoice.__Duck(1, __rateOfChange, __VINYL_DUCK.__DO_NOTHING);
-            }
+            ++_i;
+        }
+        
+        //Activate whatever voice is now the highest priority
+        if (_maxVoice != undefined)
+        {
+            if (__pauseOnDuck) _maxVoice.__Resume();
+            _maxVoice.__Duck(1, __rateOfChange, __VINYL_DUCK.__DO_NOTHING);
         }
     }
     

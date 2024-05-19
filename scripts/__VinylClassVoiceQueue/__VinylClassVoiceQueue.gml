@@ -8,6 +8,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
 {
     static _queueCount = 0;
     
+    static _duckerDict       = __VinylSystem().__duckerDict;
     static _soundDict        = __VinylSystem().__soundDict;
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
@@ -22,11 +23,14 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
     __gainLocalTarget = _gainLocal;
     __gainLocalSpeed  = infinity;
     
+    __duckerName = undefined;
+    
     __gainDuck          = 1;
     __gainDuckTarget    = 1;
     __gainDuckSpeed     = undefined;
     __gainDuckBehaviour = __VINYL_DUCK.__DO_NOTHING;
-    __destroyed         = false;
+    
+    __destroyed = false;
     
     __pitchSound = 1;
     __pitchLocal = 1;
@@ -103,12 +107,44 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
                 if (__loopQueue && (__soundCurrent != undefined)) array_push(__soundArray, __soundCurrent);
                 
                 var _pattern = struct_get_from_hash(_soundDict, int64(_sound));
+                var _mixStruct = __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
                 
-                __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
+                //Remove this voice from the old ducker
+                if (__duckerName != undefined)
+                {
+                    var _duckerStruct = _duckerDict[$ _duckerNameFinal];
+                    if (_duckerStruct != undefined) _duckerStruct.__Remove(self);
+                }
+                
+                //Figure out what we're doing with the ducker
+                var _duckerNameFinal = (_mixStruct == undefined)? _pattern.__duckerName : (_pattern.__duckerName ?? _mixStruct.__membersDuckOn);
+                if (_duckerNameFinal != undefined)
+                {
+                    var _duckerStruct = _duckerDict[$ _duckerNameFinal];
+                    if (_duckerStruct == undefined)
+                    {
+                        __VinylError("Ducker \"", _duckerNameFinal, "\" not recognised");
+                        return;
+                    }
+                    
+                    __duckerName = _duckerNameFinal;
+                    
+                    var _duckPrioFinal = _pattern.__duckPrio ?? 0;
+                    __gainDuck = (_duckerStruct.__maxPriority <= _duckPrioFinal)? 1 : _duckerStruct.__duckedGain;
+                }
+                else
+                {
+                    __duckerName = undefined;
+                    __gainDuck = 1;
+                }
+                
+                //Reset ducker variables
+                __gainDuckTarget    = __gainDuck;
+                __gainDuckSpeed     = undefined;
+                __gainDuckBehaviour = __VINYL_DUCK.__DO_NOTHING;
+                
                 __gainSound  = _pattern.__gain;
                 __pitchSound = _pattern.__pitch;
-                
-                //TODO - Calculate duck gain
                 
                 __soundCurrent = _sound;
                 __voiceCurrent = audio_play_sound(_sound, 0, _loop, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
@@ -237,8 +273,26 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
         __gainSound  = _pattern.__gain;
         __pitchSound = _pattern.__pitch;
         
-        __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
+        var _mixStruct = __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
         //Loop behaviour is determined by the queue's behaviour so we don't want to tamper with it here
+        
+        var _duckerNameFinal = (_mixStruct == undefined)? _pattern.__duckerName : (_pattern.__duckerName ?? _mixStruct.__membersDuckOn);
+        if (_duckerNameFinal != undefined)
+        {
+            var _duckerStruct = _duckerDict[$ _duckerNameFinal];
+            if (_duckerStruct == undefined)
+            {
+                __VinylWarning("Ducker \"", _duckerNameFinal, "\" not recognised");
+                __Duck(1, __VINYL_DEFAULT_DUCK_RATE_OF_GAIN, __VINYL_DUCK.__DO_NOTHING);
+                return;
+            }
+        
+            _duckerStruct.__Push(self, _pattern.__duckPrio ?? 0, true);
+        }
+        else
+        {
+            __Duck(1, __VINYL_DEFAULT_DUCK_RATE_OF_GAIN, __VINYL_DUCK.__DO_NOTHING);
+        }
         
         audio_sound_gain( __voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxPxL);
