@@ -110,17 +110,17 @@ UINewline();
 UINewline();
 UIButtonInline("Duck prio 0", function()
 {
-    duckPrio0 = VinylPlay(sndSync0, true, undefined, undefined, "duck test");
+    duckPrio0 = VinylPlay(sndSync0, true);
 });
 UISpace(20);
 UIButtonInline("Duck prio 1", function()
 {
-    duckPrio1 = VinylPlay(sndSync1, true, undefined, undefined, "duck test", 1);
+    duckPrio1 = VinylPlay(sndSync1, true);
 });
 UISpace(20);
 UIButtonInline("Duck prio 2", function()
 {
-    duckPrio2 = VinylPlay(sndSync2, true, undefined, undefined, "duck test", 2);
+    duckPrio2 = VinylPlay(sndSync2, true);
 });
 UINewline();
 UIButtonInline("Fade out prio 0", function()

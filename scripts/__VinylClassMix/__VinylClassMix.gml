@@ -322,6 +322,7 @@ function __VinylImportMixGroupJSON(_json)
                 case "mix":
                 case "baseGain":
                 case "membersLoop":
+                case "membersDuck":
                 case "members":
                 case "metadata":
                 break;
@@ -335,7 +336,7 @@ function __VinylImportMixGroupJSON(_json)
         }
     }
     
-    VinylSetupMix(_json.mix, _json[$ "baseGain"], _json[$ "membersLoop"], _json[$ "metadata"]);
+    VinylSetupMix(_json.mix, _json[$ "baseGain"], _json[$ "membersLoop"], _json[$ "membersDuck"], _json[$ "metadata"]);
     
     var _membersArray = _json[$ "members"];
     if (is_array(_membersArray))
