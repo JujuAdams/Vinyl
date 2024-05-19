@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylDuckGetVoice",
+  "%Name":"VinylDuckerGetVoice",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylDuckGetVoice",
+  "name":"VinylDuckerGetVoice",
   "parent":{
     "name":"Ducker",
     "path":"folders/Vinyl/Ducker.yy",

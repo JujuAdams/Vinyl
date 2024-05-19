@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylDuckCheck",
+  "%Name":"VinylDuckerCheck",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylDuckCheck",
+  "name":"VinylDuckerCheck",
   "parent":{
     "name":"Ducker",
     "path":"folders/Vinyl/Ducker.yy",

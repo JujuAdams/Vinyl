@@ -1,12 +1,12 @@
 {
   "$GMScript":"",
-  "%Name":"VinylSetupDuck",
+  "%Name":"VinylDuckerGetMaxVoice",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylSetupDuck",
+  "name":"VinylDuckerGetMaxVoice",
   "parent":{
-    "name":"Runtime Setup",
-    "path":"folders/Vinyl/Runtime Setup.yy",
+    "name":"Ducker",
+    "path":"folders/Vinyl/Ducker.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylDuckGetMaxPriority",
+  "%Name":"VinylDuckerGetMaxPriority",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylDuckGetMaxPriority",
+  "name":"VinylDuckerGetMaxPriority",
   "parent":{
     "name":"Ducker",
     "path":"folders/Vinyl/Ducker.yy",
