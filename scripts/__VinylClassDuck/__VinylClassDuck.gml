@@ -32,18 +32,6 @@ function __VinylClassDuck(_duckName, _duckedGain, _rateOfChange, _pauseOnDuck) c
         __duckedGain   = _duckedGain;
         __rateOfChange = _rateOfChange;
         __pauseOnDuck  = _pauseOnDuck;
-        
-        //Update duck targets
-        var _i = 0;
-        repeat(array_length(__voiceArray))
-        {
-            if (__priorityArray[_i] < __maxPriority)
-            {
-                __voiceArray[_i].__Duck(__duckedGain, __rateOfChange, __pauseOnDuck? __VINYL_DUCK.__PAUSE : __VINYL_DUCK.__DO_NOTHING);
-            }
-            
-            ++_i;
-        }
     }
     
     static __ClearSetup = function()

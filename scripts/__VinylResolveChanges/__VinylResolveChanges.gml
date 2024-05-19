@@ -6,11 +6,11 @@
 
 function __VinylResolveChanges(_replace, _oldSoundNameArray = undefined, _oldPatternNameArray = undefined)
 {
-    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
-    static _voiceToStructMap  = __VinylSystem().__voiceToStructMap;
-    static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
-    static _soundDict         = __VinylSystem().__soundDict;
-    static _patternDict       = __VinylSystem().__patternDict;
+    static _toUpdateArray    = __VinylSystem().__toUpdateArray;
+    static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
+    static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
+    static _soundDict        = __VinylSystem().__soundDict;
+    static _patternDict      = __VinylSystem().__patternDict;
     
     var _voiceToStructArray = ds_map_values_to_array(_voiceToStructMap);
     
@@ -23,11 +23,7 @@ function __VinylResolveChanges(_replace, _oldSoundNameArray = undefined, _oldPat
         repeat(array_length(_oldSoundNameArray))
         {
             var _pattern = _soundDict[$ _oldSoundNameArray[_i]];
-            if (not array_contains(_toUpdateArray, _pattern))
-            {
-                _pattern.__ClearSetup();
-            }
-            
+            if (not array_contains(_toUpdateArray, _pattern)) _pattern.__ClearSetup();
             ++_i;
         }
         
@@ -35,11 +31,7 @@ function __VinylResolveChanges(_replace, _oldSoundNameArray = undefined, _oldPat
         repeat(array_length(_oldPatternNameArray))
         {
             var _pattern = _patternDict[$ _oldPatternNameArray[_i]];
-            if (not array_contains(_toUpdateArray, _pattern))
-            {
-                _pattern.__ClearSetup();
-            }
-            
+            if (not array_contains(_toUpdateArray, _pattern)) _pattern.__ClearSetup();
             ++_i;
         }
     }
