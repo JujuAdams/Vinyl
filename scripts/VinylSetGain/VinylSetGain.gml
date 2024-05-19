@@ -10,5 +10,6 @@
 
 function VinylSetGain(_voice, _gain, _rateOfChange = infinity)
 {
+    if (_voice == undefined) return;
     __VinylEnsureSoundVoice(_voice).__SetLocalGain(max(0, _gain), max(0.001, _rateOfChange));
 }

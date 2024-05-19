@@ -11,7 +11,7 @@ function VinylGetMetadata(_pattern, _default = undefined)
     static _soundDict   = __VinylSystem().__soundDict;
     static _patternDict = __VinylSystem().__patternDict;
     
-    if (audio_exists(_pattern))
+    if (is_handle(_pattern))
     {
         return struct_get_from_hash(_soundDict, int64(_pattern)).__metadata ?? _default;
     }
