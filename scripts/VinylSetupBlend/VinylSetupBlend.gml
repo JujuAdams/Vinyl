@@ -12,12 +12,13 @@
 /// @param soundArray
 /// @param [loop]
 /// @param [gain=1]
+/// @param [animCurve]
 /// @param [mix=VINYL_DEFAULT_MIX]
 /// @param [duckerName]
 /// @param [duckPriority=0]
 /// @param [metadata]
 
-function VinylSetupBlend(_patternName, _soundArray, _loop = undefined, _gain = 1, _mixName = VINYL_DEFAULT_MIX, _duckerName = undefined, _duckPrio = undefined, _metadata = undefined)
+function VinylSetupBlend(_patternName, _soundArray, _loop = undefined, _gain = 1, _animCurve = undefined, _mixName = VINYL_DEFAULT_MIX, _duckerName = undefined, _duckPrio = undefined, _metadata = undefined)
 {
     static _system      = __VinylSystem();
     static _patternDict = _system.__patternDict;
@@ -28,11 +29,11 @@ function VinylSetupBlend(_patternName, _soundArray, _loop = undefined, _gain = 1
     var _existingPattern = _patternDict[$ _patternName];
     if (_existingPattern != undefined)
     {
-        _existingPattern.__UpdateSetup(_soundArray, _loop, _gain, _mixName, _duckerName, _duckPrio, _metadata);
+        _existingPattern.__UpdateSetup(_soundArray, _loop, _gain, _animCurve, _mixName, _duckerName, _duckPrio, _metadata);
     }
     else
     {
-        _patternDict[$ _patternName] = new __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixName, _duckerName, _duckPrio, _metadata);
+        _patternDict[$ _patternName] = new __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _animCurve, _mixName, _duckerName, _duckPrio, _metadata);
     }
     
     if (VINYL_LIVE_EDIT && (not _system.__importingJSON))

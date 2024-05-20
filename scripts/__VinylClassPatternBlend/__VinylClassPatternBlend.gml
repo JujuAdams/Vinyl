@@ -4,12 +4,13 @@
 /// @param soundArray
 /// @param loop
 /// @param gain
+/// @param animCurve
 /// @param mix
 /// @param ducker
 /// @param duckPriority
 /// @param metadata
 
-function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixName, _duckerName, _duckPrio, _metadata) constructor
+function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _animCurve, _mixName, _duckerName, _duckPrio, _metadata) constructor
 {
     static _soundDict     = __VinylSystem().__soundDict;
     static _toUpdateArray = __VinylSystem().__toUpdateArray;
@@ -20,6 +21,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
     __soundArray = __VinylImportSoundArray(_soundArray);
     __loop       = _loop;
     __gain       = _gain;
+    __animCurve  = _animCurve;
     __mixName    = _mixName;
     __duckerName = _duckerName;
     __duckPrio   = _duckPrio;
@@ -39,7 +41,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
         return (new __VinylClassVoiceBlend(self, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal, __mixName)).__voiceReference;
     }
     
-    static __UpdateSetup = function(_soundArray, _loop, _gain, _mixName, _duckerName, _duckPrio, _metadata)
+    static __UpdateSetup = function(_soundArray, _loop, _gain, _animCurve, _mixName, _duckerName, _duckPrio, _metadata)
     {
         if (VINYL_LIVE_EDIT)
         {
@@ -50,6 +52,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
         __soundArray = __VinylImportSoundArray(_soundArray);
         __loop       = _loop;
         __gain       = _gain;
+        __animCurve  = _animCurve;
         __mixName    = _mixName;
         __duckerName = _duckerName;
         __duckPrio   = _duckPrio;
@@ -165,6 +168,7 @@ function __VinylImportBlendJSON(_json)
                 case "gain":
                 case "duckOn":
                 case "duckPrio":
+                case "animCurve":
                 case "metadata":
                 break;
                 
@@ -181,7 +185,7 @@ function __VinylImportBlendJSON(_json)
     
     //TODO - Add animation curve definition
     
-    VinylSetupBlend(_json.blend, _json.sounds, _json[$ "loop"], _json[$ "gain"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "metadata"]);
+    VinylSetupBlend(_json.blend, _json.sounds, _json[$ "loop"], _json[$ "gain"], _json[$ "animCurve"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "metadata"]);
     
     return _json.blend;
 }
