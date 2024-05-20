@@ -2,103 +2,135 @@
 
 &nbsp;
 
-Vinyl's [configuration file](Config-File) is, basically, written as [JSON](https://en.wikipedia.org/wiki/JSON), a popular data interchange format. However, JSON is a pain in the bum to write by hand so Vinyl uses its own custom JSON-like syntax (which I'm going to call "Loose JSON" in lieu of a snappier name). If you've written JSON before then you'll grasp it very quickly, and I think that Loose JSON is faster and easier to write.
+## Introduction and Simple Examples
 
-?> To match GameMaker's nomenclature, a JavaScript "object" will be referred to as a "struct" throughout Vinyl's documentation.
+Vinyl can import and export JSON which represents the audio setup for your game. You can define JSON that Vinyl should import on boot by editing `__VinylConfigJSON()`. You can also manually import JSON with `VinylSetupImportJSON()` and `VinylSetupExportJSON()` exports a JSON representation of the current configuration if you want to connect Vinyl to external tooling.
 
-!> In order for live updating to work you must ensure that you have disabled the file system sandbox for your target platform. You can find this setting in Game Options in your project.
+JSON import and export is not essential to using Vinyl and is offered as a way to more easily set up live editing. If you don't want to use JSON, you can use the `VinylSetup*()` functions without any loss in functionality (internally, Vinyl JSON executes `VinylSetup*()` functions anyway).
 
-|Rule|                                                                                                                                                                                        |
-|----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|1   |Valid standard JSON is also valid Loose JSON                                                                                                                                            |
-|2   |Loose JSON supports strings, numbers, boolean, and null/undefined as basic value types                                                                                                  |
-|3   |Loose JSON can express structs and arrays like normal JSON                                                                                                                              |
-|4   |You can use either commas or newlines to separate elements in a struct or array                                                                                                         |
-|5   |Trailing commas are fine too                                                                                                                                                            |
-|6   |Strings can be delimited with double quote marks `"` but don't *usually* have to be                                                                                                     |
-|7   |If you'd like to use special symbols inside a string (e.g. `"` `:` `,` etc.), and you don't want to escape those characters, then you'll need to delimit strings with double quote marks|
-|8   |If a string is _not_ delimited then any potential trailing or leading whitespace is automatically clipped off                                                                           |
-|9   |If an undelimited string matches a keyword (`true` `false` `null` `undefined`) then it's converted to the GameMaker equivalent value (`null` is convered to GameMaker's `undefined`)    |
-|10  |If an undelimited string like a number then the Loose JSON parser will try to turn it into a number                                                                                     |
-|11  |Loose JSON supports escaped characters, including [Unicode escapes](https://dencode.com/en/string/unicode-escape)                                                                       |
-|12  |A struct key can be a string or, optionally, an array of strings. Key strings can have spaces in them                                                                                   |
-|13  |If a key is an array of strings, then the value associated with the key array will be duplicated for each member of the key array                                                       |
+Vinyl JSON can define mixes, sound properties, and patterns. The root of a Vinyl JSON should be an array. This array should contain structs with each struct being a definition for a mix, a sound, or a pattern. Sound and pattern definitions are "leaf nodes" insofar that they contain no deeper definitions. However, mix definition structs can further contain definitions for sounds and patterns.
 
-Here's an example of how JSON and Loose JSON compare (click the tabs to switch between formats):
+Here is an example of a simple Vinyl JSON:
 
-<!-- tabs:start -->
-
-#### **Loose JSON**
-
-```loose
-{
-    menu: {
-        id: 4578,
-        value: File
-        popup: {
-            menuitem: [New, Open, Close]
-        }
-    }
-}
 ```
-
-#### **JSON**
-
-```json
-{
-    "menu": {
-        "id": 4578,
-        "value": "File",
-        "popup": {
-            "menuitem": ["New", "Open", "Close"]
-        }
-    }
-}
-```
-
-<!-- tabs:end -->
-
-As mentioned above, arrays of strings can be used in place of a string for struct keys. This will create duplicate key-value pairs for each element in the array. This feature is very helpful for sharing configuration across many assets with fewer lines of text. Here's an example of this:
-
-<!-- tabs:start -->
-
-#### **Loose JSON**
-
-```loose
-{
-    [sndFootstepGrass, sndFootstepMetal, sndFootstepStone]: {
-        gain: 0.9
-        pitch: [0.9, 1.1]
-        effect: footstep reverb
-    }
-}
-```
-
-#### **JSON**
-
-```json
-{
-    "sndFootstepGrass": {
-        "gain": 0.9,
-        "pitch": [0.9, 1.1],
-        "effect": "footstep reverb"
+[
+    {
+        "sound": "sndCat",
+        "gain": 2
     },
-
-    "sndFootstepMetal": {
-        "gain": 0.9,
-        "pitch": [0.9, 1.1],
-        "effect": "footstep reverb"
+    {
+        "sound": "sndBleep1",
+        "pitch": 0.6,
     },
-
-    "sndFootstepStone": {
-        "gain": 0.9,
+    {
+        "shuffle": "Footsteps",
         "pitch": [0.9, 1.1],
-        "effect": "footstep reverb"
+        "sounds": ["sndFootstep0", "sndFootstep1", "sndFootstep2", "sndFootstep3"]
     }
 }
 ```
 
-<!-- tabs:end -->
+In this JSON we see three Vinyl definitions. Two of these resources are sound assets that have been imported to the project's IDE, they are called `sndBleep1` and `sndCat`. `sndCat` is defined to play with a gain of 2 (200% of the original amplitude). sndBleep is defined to play with a pitch of 0.6 (60% of the original pitch). There is additionally a definition for a shuffle pattern called `"Footsteps"`. When played, this pattern will vary the pitch of playback between 90% and 110% and will choose a sound to play from a selection (`sndFootstep0`, `sndFootstep1`, `sndFootstep2`, and `sndFootstep3`).
+
+Sound and patterns definitions can be assigned to a mix by creating a mix definition and placing the sound/pattern definition inside the mix struct. Any sound or pattern not placed inside a mix struct will be assigned to the value of the config macro `VINYL_DEFAULT_MIX` (out of the box, this macro is set to `VINYL_NO_MIX`).
+
+Here is an example of a mix JSON definition:
+
+```
+[
+    {
+        "mix": "music",
+        "baseGain": 1.1,
+        "members": [
+            {
+                "sound": "sndOverworld"
+            },
+            {
+                "sound": "sndBossFight"
+            }
+        ]
+    },
+    {
+        "sound": "sndWarning",
+        "pitch": [0.8, 1.2]
+    }
+]
+```
+
+In this JSON we see four Vinyl definitions: three sounds and one mix. Two of these sounds, `"sndOverworld"` and `"sndBossFight"` are assigned to the `"music"` mix. The `"music"` mix has a slight gain boost of 1.1 so that sounds assigned to this mix are played slightly louder. The third sound is not placed inside a mix definition therefore it is assigned to the default mix.
+
+&nbsp;
+
+## Definition Types
+
+<!--
+Sounds:
+    {
+        "sound": <sound asset>, required
+        "gain": <number> or <2-element array>, defaults to 1
+        "pitch": <number> or <2-element array>, defaults to 1
+        "loop": <boolean>, defaults to false
+        "duckOn": <ducker name>
+        "duckPrio", <number>, default to 0
+        "metadata": <any>
+    }
+
+Shuffle Patterns:
+    {
+        "shuffle": <pattern name>, required
+        "sounds": <array of sound assets, or wildcard pattern to match against>, required
+        "gain": <number> or <2-element array>, defaults to 1
+        "pitch": <number> or <2-element array>, defaults to 1
+        "duckOn": <ducker name>
+        "duckPrio", <number>, default to 0
+        "metadata": <any>
+    }
+
+Head-Loop-Tail Patterns:
+    {
+        "hlt": <pattern name>, required
+        "head": <sound asset>, optional, defaults to no asset
+        "loop": <sound asset>, required
+        "tail": <sound asset>, optional, defaults to no asset
+        "gain": <number>, defaults to 1
+        "duckOn": <ducker name>
+        "duckPrio", <number>, default to 0
+        "metadata": <any>
+    }
+
+Blend Patterns:
+    {
+        "blend": <pattern name>, required
+        "sounds": <array of sound assets>, required
+        "loop": <boolean>, defaults to true
+        "gain": <number>, defaults to 1
+        "duckOn": <ducker name>
+        "duckPrio", <number>, default to 0
+        "metadata": <any>
+    }
+
+Mixes:
+    {
+        "mix": <mix name>, required
+        "baseGain": <number>, defaults to 1
+        "membersLoop": <boolean>, defaults to <undefined>
+        "members": <array of definitions>, defaults to no assets
+        "metadata": <any>
+    }
+
+Duckers:
+    {
+        "ducker": <ducker name>, required
+        "duckedGain": <number>, defaults to 1
+        "rateOfChange": <number>, defaults to 1
+    }
+
+Global Metadata:
+    {
+        "metadata": <mix name>, required
+        "data": <any>, required
+    }
+-->
 
 &nbsp;
 
