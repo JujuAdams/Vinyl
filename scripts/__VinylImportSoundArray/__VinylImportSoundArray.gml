@@ -5,6 +5,7 @@
 
 function __VinylImportSoundArray(_array, _strict)
 {
+    //Support lazy use of strings/handles as single element arrays
     if (not is_array(_array))
     {
         return [__VinylImportSound(_array)];

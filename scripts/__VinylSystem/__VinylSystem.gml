@@ -53,6 +53,8 @@ function __VinylSystem()
         __mixDict      = {};
         __metadataDict = {};
         
+        __compiledSoundArray = [];
+        
         //Array of mixes that need updating every frame
         __mixArray = [];
         

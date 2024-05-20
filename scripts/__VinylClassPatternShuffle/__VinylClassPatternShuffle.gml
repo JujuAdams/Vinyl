@@ -20,7 +20,18 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     
     __patternName = _patternName;
     
-    __soundArray = __VinylImportSoundArray(_soundArray);
+    //Support use of wildcards
+    if (is_string(_soundArray) && (string_pos("*", _soundArray) > 0))
+    {
+        __soundArrayRaw = _soundArray;
+        __soundArray    =  __VinylFindMatchingAudioAssets(_soundArray);
+    }
+    else
+    {
+        __soundArrayRaw = undefined;
+        __soundArray    = __VinylImportSoundArray(_soundArray);
+    }
+    
     __gainMin    = _gainMin;
     __gainMax    = _gainMax;
     __pitchMin   = _pitchMin;
@@ -173,12 +184,19 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     
     static __ExportJSON = function()
     {
-        var _soundArray = [];
-        var _i = 0;
-        repeat(array_length(__soundArray))
+        if (__soundArrayRaw != undefined) //Handle wildcard strings
         {
-            array_push(_soundArray, audio_get_name(__soundArray[_i]));
-            ++_i;
+            _soundArray = __soundArrayRaw;
+        }
+        else
+        {
+            var _soundArray = [];
+            var _i = 0;
+            repeat(array_length(__soundArray))
+            {
+                array_push(_soundArray, audio_get_name(__soundArray[_i]));
+                ++_i;
+            }
         }
         
         var _struct = {
@@ -234,10 +252,18 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         }
         
         buffer_write(_buffer, buffer_text, _indent);
-        buffer_write(_buffer, buffer_text, "    sounds: [");
+        buffer_write(_buffer, buffer_text, "    sounds: ");
         
-        if (array_length(__soundArray) > 0)
+        if (__soundArrayRaw != undefined) //Handle wildcard strings
         {
+            buffer_write(_buffer, buffer_text, "\"");
+            buffer_write(_buffer, buffer_text, __soundArrayRaw);
+            buffer_write(_buffer, buffer_text, "\",\n");
+        }
+        else
+        {
+            buffer_write(_buffer, buffer_text, "[");
+            
             var _i = 0;
             repeat(array_length(__soundArray))
             {
@@ -246,10 +272,10 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
                 ++_i;
             }
             
-            buffer_seek(_buffer, buffer_seek_relative, -2);
+            if (_i > 0) buffer_seek(_buffer, buffer_seek_relative, -2);
+            
+            buffer_write(_buffer, buffer_text, "],\n");
         }
-        
-        buffer_write(_buffer, buffer_text, "],\n");
         
         if ((__gainMin != 1) || (__gainMax != 1))
         {
