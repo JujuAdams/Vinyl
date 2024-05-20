@@ -6,26 +6,17 @@
 
 ---
 
-**Glossary**
-
--    [Overview](Overview)
--    [Assets](Assets)
--    [Basic Patterns](Basic-Patterns)
--    [Shuffle Patterns](Shuffle-Patterns)
--    [Queue Patterns](Queue-Patterns)
--    [Multi Patterns](Multi-Patterns)
--    [Voices](Voices)
--    [Labels](Labels)
--    [Stacks](Stacks)
--    [Gain](Gain)
--    [Pitch](Pitch)
-
----
-
-**Configuration**
+**Features**
 
 -    [Config Macros](Config-Macros)
 -    [Config JSON](Config-JSON)
+-    [Sounds]()
+-    [Shuffle Pattern]()
+-    [Head-Loop-Tail Pattern]()
+-    [Blend Pattern]()
+-    [Queue Pattern]()
+-    [Mixes]()
+-    [Duckers]()
 
 ---
 
@@ -37,5 +28,8 @@
 -    [Pausing](Pausing)
 -    [Gain](Gain-Functions)
 -    [Pitch](Pitch-Functions)
--    [Queue Patterns](Queue-Pattern-Functions)
--    [Multi Patterns](Multi-Pattern-Functions)
+-    [Runtime Setup]()
+-    [Mix Functions]()
+-    [Blend Functions]()
+-    [Queue Functions]()
+-    [Other Functions]()
