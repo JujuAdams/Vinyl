@@ -64,16 +64,6 @@ In this JSON we see four Vinyl definitions: three sounds and one mix. Two of the
 ## Definition Types
 
 <!--
-Sounds:
-    {
-        "sound": <sound asset>, required
-        "gain": <number> or <2-element array>, defaults to 1
-        "pitch": <number> or <2-element array>, defaults to 1
-        "loop": <boolean>, defaults to false
-        "duckOn": <ducker name>
-        "duckPrio", <number>, default to 0
-        "metadata": <any>
-    }
 
 Shuffle Patterns:
     {
@@ -134,291 +124,113 @@ Global Metadata:
 
 &nbsp;
 
-## High-level Structure
-
-The config file must contain a single struct, and each member variable in that struct defines a different component of Vinyl (assets, labels, patterns, and so on). You can read more about the precise meaning of each term [here](Glossary). Not every member variable needs to be present for Vinyl to accept the config file. Each component has its own syntax requirements and behaviours so be sure to read the documentation below closely.
-
-```
-{
-    assets: {
-        ...
-    }
-
-    labels: {
-        ...
-    }
-
-    stacks: {
-        ...
-    }
-    
-    patterns: {
-        ...
-    }
-
-    knobs: {
-        ...
-    }
-
-    effect chains: {
-        ...
-    }
-}
-```
-
-&nbsp;
-
-&nbsp;
-
 # Properties Overview
 
 The following is a cheat sheet of properties that each Vinyl component can have. Following the links underneath each heading to see more detailed information on how each component behaves.
 
 &nbsp;
 
-## Assets
+## Sounds
 
-You can read more about assets [here](Assets).
+You can read more about sound definitions [here](Sounds).
 
-|Property        |Datatype        |Default                             |Notes                                                                                                      |
-|----------------|----------------|------------------------------------|-----------------------------------------------------------------------------------------------------------|
-|`gain`          |number          |`1`                                 |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
-|`pitch`         |number or array |`1`                                 |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
-|`transpose`     |number          |*passthrough*                       |                                                                                                           |
-|`bpm`           |number          |[`VINYL_DEFAULT_BPM`](Config-Macros)|                                                                                                           |
-|`loop`          |boolean         |*passthrough*                       |                                                                                                           |
-|`loop points`   |array of numbers|*passthrough*                       |Array must have two-elements defining the start and end point of a loop, measured in seconds               |
-|`stack`         |string          |*passthrough*                       |[Stack](Stacks) to push voices to                                                                          |
-|`stack priority`|number          |`0`                                 |Priority for voices when pushed to the stack above                                                         |
-|`effect chain`  |string          |*passthrough*                       |                                                                                                           |
-|`label`         |string or array |`[]`                                |Label to assign this asset to. Can be a string for a single label, or an array of label names              |
-|`persistent`    |boolean         |*passthrough*                       |                                                                                                           |
+|Property  |Datatype        |Default    |Notes                                                                                                      |
+|----------|----------------|-----------|-----------------------------------------------------------------------------------------------------------|
+|`sound`   |string or sound |N/A        |**Required.** Should be a sound resource, or the name of a sound resource as a string                      |
+|`gain`    |number          |`1`        |                                                                                                           |
+|`pitch`   |number          |`1`        |                                                                                                           |
+|`loop`    |boolean         |`undefined`|Can inherit from a mix if set to `undefined` and the mix has `.membersLoop` set to either `true` or `false`|
+|`duckOn`  |string          |`undefined`|[Ducker](Ducker) to push voices to                                                                         |
+|`duckPrio`|number          |`0`        |Priority for voices when pushed to the ducker above                                                        |
+|`metadata`|any             |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
 
 &nbsp;
 
-## Labels
+## Shuffle
 
-You can read more about labels [here](Labels).
+You can read more about shuffle patterns [here](Shuffle-Patterns).
 
-|Property        |Datatype        |Default      |Notes                                                                                                      |
-|----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------|
-|`gain`          |number          |`1`          |Defaults to `0` db in [decibel mode](Config-Macros)                                                        |
-|`pitch`         |number or array |`1`          |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)|
-|`transpose`     |number          |*passthrough*|                                                                                                           |
-|`loop`          |boolean         |*passthrough*|                                                                                                           |
-|`stack`         |string          |*passthrough*|[Stack](Stacks) to push voices assigned to this label to                                                   |
-|`stack priority`|number          |`0`          |Priority for voices when pushed to the stack above                                                         |
-|`effect chain`  |string          |*passthrough*|                                                                                                           |
-|`tag`           |string or array |*passthrough*|Links this label to a native GameMaker asset tag. Can be a string for one tag, or an array of tags         |
-|`children`      |array of structs|`[]`         |Must be an array of label structs                                                                          |
+|Property  |Datatype               |Default    |Notes                                                                                                      |
+|----------|-----------------------|-----------|-----------------------------------------------------------------------------------------------------------|
+|`shuffle` |string                 |N/A        |**Required.** Name of the shuffle pattern                                                                  |
+|`sounds`  |array, sound, or string|N/A        |**Required.** Sounds to play                                                                               |
+|`gain`    |number or array        |`1`        |Can be a two-element array for gain variance                                                               |
+|`pitch`   |number or array        |`1`        |Can be a two-element array for pitch variance                                                              |
+|`loop`    |boolean                |`undefined`|Can inherit from a mix if set to `undefined` and the mix has `.membersLoop` set to either `true` or `false`|
+|`duckOn`  |string                 |`undefined`|[Ducker](Ducker) to push voices to                                                                         |
+|`duckPrio`|number                 |`0`        |Priority for voices when pushed to the ducker above                                                        |
+|`metadata`|any                    |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
+
+&nbsp;
+
+## Head-Loop-Tail
+
+You can read more about head-loop-tail patterns [here](Head-Loop-Tail-Patterns).
+
+|Property  |Datatype       |Default    |Notes                                                                              |
+|----------|---------------|-----------|-----------------------------------------------------------------------------------|
+|`shuffle` |string         |N/A        |**Required.** Name of the shuffle pattern                                          |
+|`head`    |sound or string|`undefined`|First sound to play                                                                |
+|`loop`    |sound or string|N/A        |**Required.** Sound to loop until `VinylSetLoop()` is called                       |
+|`tail`    |sound or string|`undefined`|Final sound to play, after the `loop` sound is set to not loop via `VinylSetLoop()`|
+|`gain`    |number         |`1`        |                                                                                   |
+|`duckOn`  |string         |`undefined`|[Ducker](Ducker) to push voices to                                                 |
+|`duckPrio`|number         |`0`        |Priority for voices when pushed to the ducker above                                |
+|`metadata`|any            |`undefined`|Returned by `VinylGetMetadata()`                                                   |
+
+&nbsp;
+
+## Blend
+
+You can read more about head-loop-tail patterns [here](Blend-Patterns).
+
+|Property   |Datatype       |Default    |Notes                                                                                                      |
+|-----------|---------------|-----------|-----------------------------------------------------------------------------------------------------------|
+|`blend`    |string         |N/A        |**Required.** Name of the shuffle pattern                                                                  |
+|`sounds`   |array          |N/A        |**Required.** Sounds to play                                                                               |
+|`gain`     |number         |`1`        |                                                                                                           |
+|`loop`     |boolean        |`undefined`|Can inherit from a mix if set to `undefined` and the mix has `.membersLoop` set to either `true` or `false`|
+|`animCurve`|animation curve|`undefined`|                                                                                                           |
+|`duckOn`   |string         |`undefined`|[Ducker](Ducker) to push voices to                                                                         |
+|`duckPrio` |number         |`0`        |Priority for voices when pushed to the ducker above                                                        |
+|`metadata` |any            |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
+
+&nbsp;
+
+## Mixes
+
+You can read more about mixes [here](Mixes).
+
+?> Mixes cannot be children of other mixes i.e. there are no hierarchical mixes.
+
+|Property       |Datatype|Default    |Notes                                                                         |
+|---------------|--------|-----------|------------------------------------------------------------------------------|
+|`mix`          |string  |N/A        |**Required.** Name of the shuffle pattern                                     |
+|`baseGain`     |number  |`1`        |                                                                              |
+|`membersLoop`  |number  |`undefined`|Will override loop settings for members whose loop value is set to `undefined`|
+|`membersDuckOn`|string  |`undefined`|Will override ducker settings for members whose ducker is set to `undefined`  |
+|`members`      |array   |empty      |                                                                              |
+|`metadata`     |any     |`undefined`|Returned by `VinylGetMetadata()`                                              |
            
 &nbsp;
 
-## Stacks
+## Duckers
 
-You can read more about stacks [here](Stacks).
+You can read more about duckers [here](Duckers).
 
-|Property     |Datatype|Default                                        |Notes                                                                                           |
-|-------------|--------|-----------------------------------------------|------------------------------------------------------------------------------------------------|
-|`ducked gain`|number  |`0`                                            |Defaults to `-60` db in [decibel mode](Config-Macros) (silence)                                 |
-|`rate`       |number  |[`VINYL_DEFAULT_DUCK_GAIN_RATE`](Config-Macros)|Measured in gain units per second                                                               |
-|`pause`      |boolean |`true`                                         |Whether to pause a voice when fully ducked. Must be `false` if `ducked gain` is greater than `0`|
-
+|Property       |Datatype|Default|Notes                                       |
+|---------------|--------|-------|--------------------------------------------|
+|`ducker`       |string  |N/A    |**Required.** Name of the ducker            |
+|`duckedGain`   |number  |`0`    |Gain value to set for voices that are ducked|
+|`rateOfChange` |number  |`1`    |Measured in gain units per second           |
+           
 &nbsp;
 
-## Patterns
+## Metadata
 
-You can read more about patterns by following these links
-- [Basic](Basic-Patterns)
-- [Shuffle](Shuffle-Patterns)
-- [Queue](Queue-Patterns)
-- [Multi](Multi-Patterns)
+You can read more about metadata [here](Metadata).
 
-|Property        |Datatype        |Default      |Notes                                                                                                                        |
-|----------------|----------------|-------------|-----------------------------------------------------------------------------------------------------------------------------|
-|`type`          |string          |*passthrough*|**Required.** Must be one of the following: `basic` `shuffle` `queue` `multi`                                                |
-|`asset`         |string or struct|*passthrough*|**Required.** Can be asset name, a pattern name, or a pattern struct. Must be an array for shuffle, queue, and multi patterns|
-|`gain`          |number          |`1`          |Defaults to `0` db in [decibel mode](Config-Macros)                                                                          |
-|`pitch`         |number or array |`1`          |Can be a two-element array for pitch variance. Defaults to `100`% in [percentage pitch mode](Config-Macros)                  |
-|`transpose`     |number          |*passthrough*|                                                                                                                             |
-|`loop`          |boolean         |*passthrough*|                                                                                                                             |
-|`loop points`   |array of numbers|*passthrough*|Must be a two-element array defining the start and end point of a loop, measured in seconds                                  |
-|`stack`         |string          |*passthrough*|[Stack](Stacks) to push voices to                                                                                            |
-|`stack priority`|number          |`0`          |Priority for voices when pushed to the stack above                                                                           |
-|`effect chain`  |string          |*passthrough*|                                                                                                                             |
-|`label`         |string or array |`[]`         |Label to assign this asset to. Can be a string for a single label, or an array of label names                                |
-|`persistent`    |boolean         |*passthrough*|                                                                                                                             |
-
-The following properties are only relevant for particular pattern types:
-
-|Property     |Datatype|Default                                        |Notes                                                                          |
-|-------------|--------|-----------------------------------------------|-------------------------------------------------------------------------------|
-|`behavior`   |number  |[`VINYL_DEFAULT_QUEUE_BEHAVIOR`](Config-Macros)|**Queue patterns only.** Must be one of the following: `0` `1` `2`             |
-|`sync`       |boolean |[`VINYL_DEFAULT_MULTI_SYNC`](Config-Macros)    |**Multi patterns only**                                                        |
-|`blend`      |number  |[`VINYL_DEFAULT_MULTI_BLEND`](Config-Macros)   |**Multi patterns only.** This is a normalised value from `0` to `1` (inclusive)|
-|`blend curve`|string  |`undefined`                                    |**Multi patterns only.** If not defined, linear crossfades are used            |
-
-?> Animation curves used for Multi patterns are live updated by Vinyl and any changes made to animation curves in the IDE will be reflected at runtime.
-
-&nbsp;
-
-## Knobs
-
-You can read more about knobs [here](Knobs).
-
-|Property      |Datatype        |Default |Notes                                                                                                                           |
-|--------------|----------------|--------|--------------------------------------------------------------------------------------------------------------------------------|
-|`default`     |number          |        |**Required.** Will be clamped between inside of the output range if either the input range or output range is explicitly defined|
-|`input range` |array of numbers|`[0, 1]`|Must be a two-element array                                                                                                     |
-|`output range`|array of numbers|`[0, 1]`|Must be a two-element array                                                                                                     |
-
-&nbsp;
-
-## Effect Chains
-
-You can read more about effect chains [here](Effect-Chains).
-
-An effect chain should be defined as an array with, at most, 8 elements. Each element in the array defines an effect in the chain and must be a struct whose properties depend on what type the effect is.
-
-The effect chain name `main` is special and is used for any voices without a defined effect chain.
-
-<!-- tabs:start -->
-
-#### **Reverb**
-
-Equivalent to `AudioEffectType.Reverb1`.
-
-|Property|Datatype|Description                                                        |
-|--------|--------|-------------------------------------------------------------------|
-|`type`  |string  |**Must be `reverb`**                                               |
-|`bypass`|boolean |Whether the effect should be bypassed (ignored)                    |
-|`size`  |number  |From `0` to `1`. Larger values lead to a longer reverb             |
-|`damp`  |number  |From `0` to `1`. Larger values reduce high frequencies more        |
-|`mix`   |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)|
-
-#### **Delay**
-
-Equivalent to `AudioEffectType.Delay`.
-
-|Property  |Datatype|Description                                                           |
-|----------|--------|----------------------------------------------------------------------|
-|`type`    |string  |**Must be `delay`**                                                   |
-|`bypass`  |boolean |Whether the effect should be bypassed (ignored)                       |
-|`time`    |number  |Length of the delay (in seconds)                                      |
-|`feedback`|number  |From `0` to `1`. Proportion of the signal to pass back into the effect|
-|`mix`     |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)   |
-
-#### **Bitcrusher**
-
-Equivalent to `AudioEffectType.Bitcrusher`.
-
-|Property    |Datatype|Description                                                        |
-|------------|--------|-------------------------------------------------------------------|
-|`type`      |string  |**Must be `bitcrusher`**                                           |
-|`bypass`    |boolean |Whether the effect should be bypassed (ignored)                    |
-|`gain`      |number  |Input gain going into the clipping stage                           |
-|`factor`    |number  |From `0` to `100`. Downsampling factor                             |
-|`resolution`|number  |From `1` to `16`. Bit depth                                        |
-|`mix`       |number  |From `0` to `1`. Proportion of affected signal (`0` is 0% affected)|
-
-#### **Low-pass**
-
-A low-pass filter that reduces high frequencies. Equivalent to `AudioEffectType.LPF2`.
-
-|Property|Datatype|Description                                    |
-|--------|--------|-----------------------------------------------|
-|`type`  |string  |**Must be `lpf`**                              |
-|`bypass`|boolean |Whether the effect should be bypassed (ignored)|
-|`cutoff`|number  |Cutoff frequency, in Hertz                     |
-|`q`     |number  |From `1` to `100`. How sharp the cutoff is     |
-
-#### **Low Shelf**
-
-Increases the gain of frequencies below the filter frequency. Equivalent to `AudioEffectType.LoShelf`.
-
-|Property|Datatype|Description                                                                                                 |
-|--------|--------|------------------------------------------------------------------------------------------------------------|
-|`type`  |string  |**Must be `loshelf`**                                                                                       |
-|`bypass`|boolean |Whether the effect should be bypassed (ignored)                                                             |
-|`freq`  |number  |Filter frequency, in Hertz                                                                                  |
-|`q`     |number  |From `1` to `100`. How sharp the "knee" of the filter is                                                    |
-|`gain`  |number  |Multiplicative gain below the filter frequency. Must be larger than or equal to `0` with `1` being no change|
-
-#### **High-pass**
-
-A high-pass filter that thins out sounds by reducing low frequencies. Equivalent to `AudioEffectType.HPF2`.
-
-|Property|Datatype|Description                                    |
-|--------|--------|-----------------------------------------------|
-|`type`  |string  |**Must be `hpf`**                              |
-|`bypass`|boolean |Whether the effect should be bypassed (ignored)|
-|`cutoff`|number  |Cutoff frequency, in Hertz                     |
-|`q`     |number  |From `1` to `100`. How sharp the cutoff is     |
-
-#### **High Shelf**
-
-Increases the gain of frequencies above the filter frequency. Equivalent to `AudioEffectType.HiShelf`.
-
-|Property|Datatype|Description                                                                                                 |
-|--------|--------|------------------------------------------------------------------------------------------------------------|
-|`type`  |string  |**Must be `hishelf`**                                                                                       |
-|`bypass`|boolean |Whether the effect should be bypassed (ignored)                                                             |
-|`freq`  |number  |Filter frequency, in Hertz                                                                                  |
-|`q`     |number  |From `1` to `100`. How sharp the "knee" of the filter is                                                    |
-|`gain`  |number  |Multiplicative gain above the filter frequency. Must be larger than or equal to `0` with `1` being no change|
-
-#### **Peak EQ**
-
-Increases the gain of frequencies around the filter frequency. Equivalent to `AudioEffectType.PeakEQ`.
-
-|Property|Datatype|Description                                                                                                  |
-|--------|--------|-------------------------------------------------------------------------------------------------------------|
-|`type`  |string  |**Must be `peakeq`**                                                                                         |
-|`bypass`|boolean |Whether the effect should be bypassed (ignored)                                                              |
-|`freq`  |number  |Filter frequency, in Hertz                                                                                   |
-|`q`     |number  |From `1` to `100`. How sharp the filter is                                                                   |
-|`gain`  |number  |Multiplicative gain around the filter frequency. Must be larger than or equal to `0` with `1` being no change|
-
-#### **Multiband EQ**
-
-Shapes the gain of audio using a combined set of filters. Equivalent to `AudioEffectType.EQ`.
-
-Not all of the filters in a multiband EQ need to be used.
-
-|Property |Datatype|Description                                                                                                  |
-|---------|--------|-------------------------------------------------------------------------------------------------------------|
-|`type`   |string  |**Must be `peakeq`**                                                                                         |
-|`bypass` |boolean |Whether the effect should be bypassed (ignored)                                                              |
-|`locut`  |struct  |A high-pass filter. See "High-pass" tab above                                                                |
-|`loshelf`|struct  |A low shelf filter. See "Low Shelf" tab above                                                                |
-|`eq1`    |struct  |A peak EQ filter. See "Peak EQ" tab above                                                                    |
-|`eq2`    |struct  |A peak EQ filter. See "Peak EQ" tab above                                                                    |
-|`eq3`    |struct  |A peak EQ filter. See "Peak EQ" tab above                                                                    |
-|`eq4`    |struct  |A peak EQ filter. See "Peak EQ" tab above                                                                    |
-|`hishelf`|struct  |A low-pass filter. See "Low-pass" tab above                                                                  |
-|`hicut`  |struct  |A high shelf filter. See "High Shelf" tab above                                                              |
-
-#### **Tremolo**
-
-Equivalent to `AudioEffectType.Tremolo`.
-
-|Property    |Datatype|Description                                                                           |
-|------------|--------|--------------------------------------------------------------------------------------|
-|`type`      |string  |**Must be `tremolo`**                                                                 |
-|`bypass`    |boolean |Whether the effect should be bypassed (ignored)                                       |
-|`rate`      |number  |From `0` to `20` Hertz. Frequency of the LFO modulating the gain                      |
-|`intensity` |number  |From `0` to `1`. The depth of the effect. `1` is 100% affected                        |
-|`offset`    |number  |From `0` to `1`. Left/right offset                                                    |
-|`shape`     |string  |Mudt be one of the following: `sine` `square` `triangle` `sawtooth` `inverse sawtooth`|
-
-#### **Gain**
-
-Basic volume control. Equivalent to `AudioEffectType.Gain`.
-
-|Property|Datatype|Description                                    |
-|--------|--------|-----------------------------------------------|
-|`type`  |string  |**Must be `gain`**                             |
-|`bypass`|boolean |Whether the effect should be bypassed (ignored)|
-|`gain`  |number  |From `0` to `1`. Attenuates the signal         |
-
-<!-- tabs:end -->
+|Property  |Datatype|Default|Notes                                                 |
+|----------|--------|-------|------------------------------------------------------|
+|`metadata`|string  |N/A    |**Required.** Name of the metadata                    |
+|`data`    |string  |N/A    |**Required.** Data to associate with the metadata name|
