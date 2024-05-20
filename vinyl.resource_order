@@ -80,6 +80,7 @@
     {"name":"VinylMixFadeOutVoices","order":3,"path":"scripts/VinylMixFadeOutVoices/VinylMixFadeOutVoices.yy",},
     {"name":"VinylMixGetGain","order":5,"path":"scripts/VinylMixGetGain/VinylMixGetGain.yy",},
     {"name":"VinylMixGetMetadata","order":6,"path":"scripts/VinylMixGetMetadata/VinylMixGetMetadata.yy",},
+    {"name":"VinylMixGetVoiceCount","order":7,"path":"scripts/VinylMixGetVoiceCount/VinylMixGetVoiceCount.yy",},
     {"name":"VinylMixPauseVoices","order":1,"path":"scripts/VinylMixPauseVoices/VinylMixPauseVoices.yy",},
     {"name":"VinylMixResumeVoices","order":2,"path":"scripts/VinylMixResumeVoices/VinylMixResumeVoices.yy",},
     {"name":"VinylMixSetGain","order":4,"path":"scripts/VinylMixSetGain/VinylMixSetGain.yy",},
