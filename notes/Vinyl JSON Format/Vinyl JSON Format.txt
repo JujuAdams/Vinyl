@@ -96,7 +96,7 @@ Sounds:
 Shuffle Patterns:
     {
         "shuffle": <pattern name>, required
-        "sounds": <array of sound assets>, required
+        "sounds": <array of sound assets, or wildcard pattern to match against>, required
         "gain": <number> or <2-element array>, defaults to 1
         "pitch": <number> or <2-element array>, defaults to 1
         "duckOn": <ducker name>
