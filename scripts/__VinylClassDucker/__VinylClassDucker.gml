@@ -106,7 +106,7 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange) constructor
     static __Get = function(_priority)
     {
         var _index = array_get_index(__priorityArray, _priority);
-        return (_index < 0)? undefined : __voiceArray[_index]; //TODO - Return a voice index instead of the struct
+        return (_index < 0)? undefined : __voiceArray[_index].__voiceReference;
     }
     
     static __Update = function()

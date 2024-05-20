@@ -21,7 +21,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     
     __inUpdateArray = false;
     
-    __voice           = _voice;
+    __voiceReference  = _voice;
     __gainSound       = _gainSound;
     __gainLocal       = _gainLocal;
     __gainMix         = _gainMix;
@@ -55,27 +55,27 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     
     static __IsPlaying = function()
     {
-        return audio_is_playing(__voice);
+        return audio_is_playing(__voiceReference);
     }
     
     static __Stop = function()
     {
-        audio_stop_sound(__voice);
+        audio_stop_sound(__voiceReference);
     }
     
     static __Pause = function()
     {
-        audio_pause_sound(__voice);
+        audio_pause_sound(__voiceReference);
     }
     
     static __Resume = function()
     {
-        audio_resume_sound(__voice);
+        audio_resume_sound(__voiceReference);
     }
     
     static __IsPaused = function()
     {
-        return audio_is_paused(__voice);
+        return audio_is_paused(__voiceReference);
     }
     
     static __Update = function(_delta)
@@ -102,7 +102,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         
         if (_changed)
         {
-            audio_sound_gain(__voice, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(__voiceReference, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         }
         
         return true;
@@ -139,12 +139,12 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     
     static __SetLoop = function(_state)
     {
-        audio_sound_loop(__voice, _state);
+        audio_sound_loop(__voiceReference, _state);
     }
     
     static __GetLoop = function()
     {
-        return audio_sound_get_loop(__voice);
+        return audio_sound_get_loop(__voiceReference);
     }
     
     static __SetLocalGain = function(_gain, _rateOfChange)
@@ -155,7 +155,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         if (_rateOfChange > 100)
         {
             __gainLocal = _gain;
-            audio_sound_gain(__voice, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(__voiceReference, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         }
         else
         {
@@ -170,7 +170,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     static __SetMixGain = function(_gain)
     {
         __gainMix = _gain;
-        audio_sound_gain(__voice, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        audio_sound_gain(__voiceReference, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
     static __QueueUpdateForSound = function(_sound)
@@ -185,13 +185,13 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         __gainSound  = _pattern.__gain;
         __pitchSound = _pattern.__pitch;
         
-        var _mixStruct = __VinylVoiceMoveMix(__voice, _pattern.__mixName);
+        var _mixStruct = __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
         var _loopMix = (_mixStruct == undefined)? undefined : _mixStruct.__membersLoop;
         
         __VinylVoiceUpdateDucker(_mixStruct);
         
-        audio_sound_loop( __voice, __loopLocal ?? (_pattern.__loop ?? (_loopMix ?? false)));
-        audio_sound_gain( __voice, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
-        audio_sound_pitch(__voice, __VINYL_VOICE_PITCH_SxL);
+        audio_sound_loop( __voiceReference, __loopLocal ?? (_pattern.__loop ?? (_loopMix ?? false)));
+        audio_sound_gain( __voiceReference, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        audio_sound_pitch(__voiceReference, __VINYL_VOICE_PITCH_SxL);
     }
 }

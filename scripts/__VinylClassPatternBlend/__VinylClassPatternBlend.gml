@@ -179,6 +179,8 @@ function __VinylImportBlendJSON(_json)
         if (not struct_exists(_json, "sounds")) __VinylError("Blend pattern \"", _json.blend, "\" property .sounds must be defined");
     }
     
+    //TODO - Add animation curve definition
+    
     VinylSetupBlend(_json.blend, _json.sounds, _json[$ "loop"], _json[$ "gain"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "metadata"]);
     
     return _json.blend;
