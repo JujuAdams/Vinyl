@@ -159,7 +159,18 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             array_push(_toUpdateArray, self);
         }
         
-        __soundArray = __VinylImportSoundArray(_soundArray);
+        //Support use of wildcards
+        if (is_string(_soundArray) && (string_pos("*", _soundArray) > 0))
+        {
+            __soundArrayRaw = _soundArray;
+            __soundArray    =  __VinylFindMatchingAudioAssets(_soundArray);
+        }
+        else
+        {
+            __soundArrayRaw = undefined;
+            __soundArray    = __VinylImportSoundArray(_soundArray);
+        }
+        
         __gainMin    = _gainMin;
         __gainMax    = _gainMax;
         __pitchMin   = _pitchMin;
