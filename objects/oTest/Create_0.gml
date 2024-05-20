@@ -67,6 +67,6 @@ VinylSetupImportJSON([
 if (VINYL_LIVE_EDIT)
 {
     show_debug_message(json_stringify(VinylSetupExportJSON(), true));
-    show_debug_message(__VinylSetupExportGMLMacros());
-    show_debug_message(__VinylSetupExportGML(true));
+    //show_debug_message(__VinylSetupExportGMLMacros());
+    //show_debug_message(__VinylSetupExportGML(true));
 }
