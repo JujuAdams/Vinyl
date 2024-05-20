@@ -24,6 +24,11 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
     __duckerName = _duckerName;
     __duckPrio   = _duckPrio;
     __metadata   = _metadata;
+        
+    if (__VINYL_RUNNING_FROM_IDE && (array_length(_soundArray) <= 0))
+    {
+        __VinylWarning("Shuffle pattern \"", __patternName, "\" has no sounds");
+    }
     
     
     
@@ -49,6 +54,11 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _mixN
         __duckerName = _duckerName;
         __duckPrio   = _duckPrio;
         __metadata   = _metadata;
+        
+        if (__VINYL_RUNNING_FROM_IDE && (array_length(__soundArray) <= 0))
+        {
+            __VinylWarning("Shuffle pattern \"", __patternName, "\" has no sounds");
+        }
     }
     
     static __ClearSetup = function()

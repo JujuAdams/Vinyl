@@ -48,13 +48,22 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     __soundCount = array_length(__soundArray);
     __playIndex  = infinity;
     
+    if (__VINYL_RUNNING_FROM_IDE && (__soundCount <= 0))
+    {
+        __VinylWarning("Shuffle pattern \"", _patternName, "\" has no sounds");
+    }
+    
     
     
     
     
     static __Play = function(_loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)
     {
-        if (__soundCount == 1)
+        if (__soundCount < 1)
+        {
+            return undefined;
+        }
+        else if (__soundCount == 1)
         {
             var _sound = __soundArray[0];
         }
@@ -186,6 +195,11 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         
         __soundCount = array_length(__soundArray);
         __playIndex  = infinity;
+        
+        if (__VINYL_RUNNING_FROM_IDE && (__soundCount <= 0))
+        {
+            __VinylWarning("Shuffle pattern \"", __patternName, "\" has no sounds");
+        }
     }
     
     static __ClearSetup = function()
