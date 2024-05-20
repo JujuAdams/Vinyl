@@ -13,11 +13,13 @@
 function VinylCallbackOnStop(_voice, _method, _metadata)
 {
     static _callbackArray = __VinylSystem().__callbackArray;
+    static _nullVoice     = __VinylSystem().__nullVoice;
     
     if (_voice == undefined) return;
     
     //Ensure we have a struct for this voice
     var _voiceStruct = __VinylEnsureSoundVoice(_voice);
+    if (_voiceStruct == _nullVoice) return;
     
     if (_method == undefined)
     {

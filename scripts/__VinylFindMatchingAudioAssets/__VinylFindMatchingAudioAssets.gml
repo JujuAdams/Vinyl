@@ -6,9 +6,7 @@ function __VinylFindMatchingAudioAssets(_searchString)
 {
     static _soundNameArray = __VinylCompiledSoundArrayEnsure();
     
-    static _result = [];
-    array_resize(_result, 0);
-    
+    var _result = [];
     var _subArray = string_split(_searchString, "*", true);
     
     var _i = 0;

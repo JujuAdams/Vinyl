@@ -8,14 +8,14 @@ function __VinylEnsureSoundVoice(_voice)
     static _voiceToSoundMap  = __VinylSystem().__voiceToSoundMap;
     static _soundDict        = __VinylSystem().__soundDict;
     static _mixDict          = __VinylSystem().__mixDict;
+    static _nullVoice        = __VinylSystem().__nullVoice;
     
     var _voiceStruct = _voiceToStructMap[? _voice];
     if (_voiceStruct == undefined)
     {
-        if (VINYL_LIVE_EDIT)
+        if ((_voice <= 0xFFFFFFFF) && (not audio_is_playing(_voice)))
         {
-            __VinylError("Could not find Vinyl voice for ", _voice, "\nPlease report this error");
-            return;
+            return _nullVoice;
         }
         
         var _sound = _voiceToSoundMap[? _voice];
@@ -37,7 +37,7 @@ function __VinylEnsureSoundVoice(_voice)
         
         _voiceStruct = new __VinylClassVoiceSound(_voice,
                                                   audio_sound_get_loop(_voice),
-                                                  _gainSound, _pitchLocal, _gainMix,
+                                                  _gainSound, _pitchLocal, _gainMix, 1,
                                                   _pitchSound, _pitchLocal,
                                                   undefined, 0, _pattern);
     }

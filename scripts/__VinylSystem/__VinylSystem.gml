@@ -85,6 +85,17 @@ function __VinylSystem()
         //operation is called on them.
         __voiceUpdateArray = [];
         
+        //Create a null voice struct that can be returned when we can't find a voice but need to
+        //be able to call a method that fails silently.
+        __nullVoice = {};
+        with(__nullVoice)
+        {
+            __IsPlaying    = function() { return false; };
+            __SetLocalGain = function() {};
+            __FadeOut      = function() {};
+            __SetMixGain   = function() {};
+        }
+        
         //Set the master gain to 1. The actual gain value we pass into GameMaker's native function
         //is some multiple of this value so we want to initialize early to ensure the native gain
         //is set properly for unity gain.
