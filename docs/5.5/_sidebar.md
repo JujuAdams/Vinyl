@@ -17,6 +17,7 @@
 -    [Queue Pattern]()
 -    [Mixes]()
 -    [Duckers]()
+-    [Metadata]()
 
 ---
 
@@ -32,4 +33,5 @@
 -    [Mix Functions]()
 -    [Blend Functions]()
 -    [Queue Functions]()
+-    [Metadata Functions]()
 -    [Other Functions]()
