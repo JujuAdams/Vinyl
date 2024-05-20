@@ -17,20 +17,15 @@
 -    [Voices](Voices)
 -    [Labels](Labels)
 -    [Stacks](Stacks)
--    [Effect Chains](Effect-Chains)
--    [Knobs](Knobs)
 -    [Gain](Gain)
 -    [Pitch](Pitch)
--    [Transposition](Transposition)
--    [Emitters](Emitters)
 
 ---
 
 **Configuration**
 
 -    [Config Macros](Config-Macros)
--    [Debug Macros](Debug-Macros)
--    [Config File](Config-File)
+-    [Config JSON](Config-JSON)
 
 ---
 
@@ -40,15 +35,7 @@
 -    [Stopping Audio](Stopping-Audio)
 -    [Looping](Looping)
 -    [Pausing](Pausing)
--    [Persistence](Persistence)
 -    [Gain](Gain-Functions)
 -    [Pitch](Pitch-Functions)
--    [Transposition](Transposition-Functions)
--    [BPM](BPM)
--    [Panning](Panning)
--    [Emitters](Emitter-Functions)
 -    [Queue Patterns](Queue-Pattern-Functions)
 -    [Multi Patterns](Multi-Pattern-Functions)
--    [Stacks](Stack-Functions)
--    [Knobs](Knob-Functions)
--    [Other Functions](Other-Functions)
