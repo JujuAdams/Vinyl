@@ -21,7 +21,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _anim
     __soundArray = __VinylImportSoundArray(_soundArray);
     __loop       = _loop;
     __gain       = _gain;
-    __animCurve  = _animCurve;
+    __animCurve  = __VinylImportAnimCurve(_animCurve);
     __mixName    = _mixName;
     __duckerName = _duckerName;
     __duckPrio   = _duckPrio;
@@ -52,7 +52,7 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _anim
         __soundArray = __VinylImportSoundArray(_soundArray);
         __loop       = _loop;
         __gain       = _gain;
-        __animCurve  = _animCurve;
+        __animCurve  = __VinylImportAnimCurve(_animCurve);
         __mixName    = _mixName;
         __duckerName = _duckerName;
         __duckPrio   = _duckPrio;
@@ -91,6 +91,9 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _anim
         
         if (not __loop) _struct.loop = false;
         if (__gain != 1) _struct.gain = __gain;
+        if (__animCurve != undefined) _struct.animCurve = animcurve_get(__animCurve).name;
+        
+        //TODO - Write ducker and ducker priority
         
         return _struct;
     }
@@ -146,6 +149,8 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _anim
             buffer_write(_buffer, buffer_text, __gain);
             buffer_write(_buffer, buffer_text, ",\n");
         }
+        
+        //TODO - Write ducker and ducker priority
         
         buffer_write(_buffer, buffer_text, _indent);
         buffer_write(_buffer, buffer_text, "},\n");
