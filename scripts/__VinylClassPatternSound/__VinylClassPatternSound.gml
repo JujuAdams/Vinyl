@@ -130,6 +130,8 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         if (__pitch != 1) _struct.pitch = __pitch;
         if (__loop) _struct.loop = true;
         
+        //TODO - Write ducker and ducker priority
+        
         return _struct;
     }
     
@@ -171,6 +173,8 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
             buffer_write(_buffer, buffer_text, _indent);
             buffer_write(_buffer, buffer_text, "    loop: true,\n");
         }
+        
+        //TODO - Write ducker and ducker priority
         
         buffer_write(_buffer, buffer_text, _indent);
         buffer_write(_buffer, buffer_text, "},\n");

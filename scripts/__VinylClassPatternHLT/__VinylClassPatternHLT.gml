@@ -82,6 +82,8 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         
         if (__gain != 1) _struct.gain = __gain;
         
+        //TODO - Write ducker and ducker priority
+        
         return _struct;
     }
     
@@ -136,6 +138,8 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
             buffer_write(_buffer, buffer_text, __gain);
             buffer_write(_buffer, buffer_text, ",\n");
         }
+        
+        //TODO - Write ducker and ducker priority
         
         buffer_write(_buffer, buffer_text, _indent);
         buffer_write(_buffer, buffer_text, "},\n");

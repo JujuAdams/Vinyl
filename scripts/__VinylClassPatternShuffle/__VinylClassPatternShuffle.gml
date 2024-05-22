@@ -253,6 +253,8 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             }
         }
         
+        //TODO - Write ducker and ducker priority
+        
         return _struct;
     }
     
@@ -341,6 +343,8 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
                 buffer_write(_buffer, buffer_text, "],\n");
             }
         }
+        
+        //TODO - Write ducker and ducker priority
         
         buffer_write(_buffer, buffer_text, _indent);
         buffer_write(_buffer, buffer_text, "},\n");
