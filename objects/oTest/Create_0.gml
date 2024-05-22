@@ -35,6 +35,8 @@ VinylSetupImportJSON([
             },
             {
                 blend: "Blend",
+                loop: true,
+                animCurve: acTest,
                 sounds: [sndSync0, sndSync1, sndSync2, sndSync3,],
             },
         ],
