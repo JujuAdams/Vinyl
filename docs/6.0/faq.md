@@ -12,7 +12,7 @@ Live updating is only supported when running your game from the IDE on the same 
 
 **What versions of GameMaker does Vinyl support?**
 
-Version 5 of Vinyl primarily supports GameMaker 2023.2, and in theory supports every version of GameMaker later than that. Later versions of GameMaker may change functionality in a way that Vinyl is not forwards-compatible with, but Vinyl uses only native GameMaker audio functions so is in the best possible position for long-term compatibility.
+Version 6 of Vinyl primarily supports GameMaker 2024.4, and in theory supports every version of GameMaker later than that. Later versions of GameMaker may change functionality in a way that Vinyl is not forwards-compatible with, but Vinyl uses only native GameMaker audio functions so is in the best possible position for long-term compatibility.
 
 &nbsp;
 

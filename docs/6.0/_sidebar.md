@@ -2,14 +2,11 @@
 -    [Alternatives](Alternatives)
 -    [FAQ](faq)
 -    [Introduction](Introduction)
--    [Quick Start Guide](Quick-Start-Guide)
 
 ---
 
 **Features**
 
--    [Config Macros](Config-Macros)
--    [Config JSON](Config-JSON)
 -    [Sounds](Sounds)
 -    [Shuffle Pattern](Pattern-Shuffle)
 -    [Head-Loop-Tail Pattern](Pattern-Head-Loop-Tail)
@@ -23,6 +20,8 @@
 
 **API**
 
+-    [Config Macros](Config-Macros)
+-    [Config JSON](Config-JSON)
 -    [Playing Audio](Playing-Audio)
 -    [Stopping Audio](Stopping-Audio)
 -    [Looping](Looping)
