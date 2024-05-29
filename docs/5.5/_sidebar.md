@@ -6,18 +6,31 @@
 
 ---
 
-**Features**
+**Glossary**
+
+-    [Overview](Overview)
+-    [Assets](Assets)
+-    [Basic Patterns](Basic-Patterns)
+-    [Shuffle Patterns](Shuffle-Patterns)
+-    [Queue Patterns](Queue-Patterns)
+-    [Multi Patterns](Multi-Patterns)
+-    [Voices](Voices)
+-    [Labels](Labels)
+-    [Stacks](Stacks)
+-    [Effect Chains](Effect-Chains)
+-    [Knobs](Knobs)
+-    [Gain](Gain)
+-    [Pitch](Pitch)
+-    [Transposition](Transposition)
+-    [Emitters](Emitters)
+
+---
+
+**Configuration**
 
 -    [Config Macros](Config-Macros)
--    [Config JSON](Config-JSON)
--    [Sounds](Sounds)
--    [Shuffle Pattern](Pattern-Shuffle)
--    [Head-Loop-Tail Pattern](Pattern-Head-Loop-Tail)
--    [Blend Pattern](Pattern-Blend)
--    [Queue Pattern](Pattern-Queue)
--    [Mixes](Mixes)
--    [Duckers](Duckers)
--    [Metadata](Metadata)
+-    [Debug Macros](Debug-Macros)
+-    [Config File](Config-File)
 
 ---
 
@@ -27,12 +40,15 @@
 -    [Stopping Audio](Stopping-Audio)
 -    [Looping](Looping)
 -    [Pausing](Pausing)
--    [Gain](Functions-Gain)
--    [Pitch](Functions-Pitch)
--    [Runtime Setup](Functions-Runtime-Setup)
--    [Mix Functions](Functions-Mix)
--    [Blend Functions](Functions-Blend)
--    [Queue Functions](Functions-Queue)
--    [Ducker Functions](Functions-Ducker)
--    [Metadata Functions](Functions-Metadata)
--    [Other Functions](Functions-Other)
+-    [Persistence](Persistence)
+-    [Gain](Gain-Functions)
+-    [Pitch](Pitch-Functions)
+-    [Transposition](Transposition-Functions)
+-    [BPM](BPM)
+-    [Panning](Panning)
+-    [Emitters](Emitter-Functions)
+-    [Queue Patterns](Queue-Pattern-Functions)
+-    [Multi Patterns](Multi-Pattern-Functions)
+-    [Stacks](Stack-Functions)
+-    [Knobs](Knob-Functions)
+-    [Other Functions](Other-Functions)
