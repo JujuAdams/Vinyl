@@ -34,4 +34,3 @@
 -    [Queue Functions](Functions-Queue)
 -    [Ducker Functions](Functions-Ducker)
 -    [Metadata Functions](Functions-Metadata)
--    [Other Functions](Functions-Other)
