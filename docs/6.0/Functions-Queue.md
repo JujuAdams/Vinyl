@@ -2,9 +2,9 @@
 
 &nbsp;
 
-## `VinylQueuePush`
+## `VinylQueueCreate`
 
-`VinylQueuePush(target, asset, [dontRepeatLast=false])`
+`VinylQueueCreate(behaviour, loopQueue, [gain=1])`
 
 <!-- tabs:start -->
 
@@ -12,18 +12,287 @@
 
 *Returns:* N/A (`undefined`)
 
-|Name              |Datatype|Purpose                                                           |
-|------------------|--------|------------------------------------------------------------------|
-|`target`          |voice   |The Queue pattern voice to target                                 |
-|`asset`           |sound   |The sound to push to the end of the queue                         |
-|`[dontRepeatLast]`|boolean |Whether to allow sequential, identical assets. Defaults to `false`|
-
-Pushes an asset onto a Queue pattern voice for playback. If `dontRepeatLast` is set to `false` then you may push the same asset to the end of the queue multiple times. If `dontRepeatLast` is set to `true`, only one copy of a particular asset can be at the end of the queue.
+|Name       |Datatype          |Purpose                  |
+|-----------|------------------|-------------------------|
+|`behaviour`|`VINYL_QUEUE` enum|                         |
+|`loopQueue`|boolean           |                         |
+|`[gain]`   |number            |                         |
 
 #### **Example**
 
 ```gml
-//TODO lol
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueueSetBehaviour`
+
+`VinylQueueSetBehaviour(voice, behaviour, [setForPlaying=true])`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name             |Datatype          |Purpose                  |
+|-----------------|------------------|-------------------------|
+|`voice`          |voice             |                         |
+|`behaviour`      |`VINYL_QUEUE` enum|                         |
+|`[setForPlaying]`|boolean           |                         |
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueueGetBehaviour`
+
+`VinylQueueGetBehaviour(voice)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name   |Datatype|Purpose                  |
+|-------|--------|-------------------------|
+|`voice`|voice   |                         |
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueueSetLoop`
+
+`VinylQueueSetLoop(voice, state)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name   |Datatype|Purpose                  |
+|-------|--------|-------------------------|
+|`voice`|voice   |                         |
+|`state`|boolean |                         |
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueueGetLoop`
+
+`VinylQueueSetLoop(voice)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name   |Datatype|Purpose                  |
+|-------|--------|-------------------------|
+|`voice`|voice   |                         |
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueueSetArray`
+
+`VinylQueueSetArray(voice, soundArray)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name        |Datatype       |Purpose                  |
+|------------|---------------|-------------------------|
+|`voice`     |voice          |                         |
+|`soundArray`|array of sounds|                         |
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueueGetArray`
+
+`VinylQueueGetArray(voice)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name   |Datatype|Purpose                  |
+|-------|--------|-------------------------|
+|`voice`|voice   |                         |
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueuePushBottom`
+
+`VinylQueuePushBottom(voice, sound)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name   |Datatype|Purpose                  |
+|-------|--------|-------------------------|
+|`voice`|voice   |                         |
+|`sound`|sound   |                         |
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueuePushTop`
+
+`VinylQueuePushTop(voice, sound)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name   |Datatype|Purpose                  |
+|-------|--------|-------------------------|
+|`voice`|voice   |                         |
+|`sound`|sound   |                         |
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueueContains`
+
+`VinylQueueContains(voice, sound)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name   |Datatype|Purpose                  |
+|-------|--------|-------------------------|
+|`voice`|voice   |                         |
+|`sound`|sound   |                         |
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueueClear`
+
+`VinylQueueClear(voice)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name   |Datatype|Purpose                  |
+|-------|--------|-------------------------|
+|`voice`|voice   |                         |
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueueDestroy`
+
+`VinylQueueDestroy(voice)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name   |Datatype|Purpose                  |
+|-------|--------|-------------------------|
+|`voice`|voice   |                         |
+
+#### **Example**
+
+```gml
+No example provided.
 ```
 
 <!-- tabs:end -->
