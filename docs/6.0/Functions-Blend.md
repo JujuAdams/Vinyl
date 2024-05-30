@@ -20,7 +20,7 @@
 #### **Example**
 
 ```gml
-//TODO lol
+No example provided.
 ```
 
 <!-- tabs:end -->
@@ -44,7 +44,7 @@
 #### **Example**
 
 ```gml
-//TODO lol
+No example provided.
 ```
 
 <!-- tabs:end -->
@@ -70,7 +70,7 @@
 #### **Example**
 
 ```gml
-//TODO lol
+No example provided.
 ```
 
 <!-- tabs:end -->
@@ -94,7 +94,7 @@
 #### **Example**
 
 ```gml
-//TODO lol
+No example provided.
 ```
 
 <!-- tabs:end -->
