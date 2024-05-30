@@ -27,7 +27,6 @@
 -    [Looping](Looping)
 -    [Pausing](Pausing)
 -    [Gain](Functions-Gain)
--    [Pitch](Functions-Pitch)
 -    [Runtime Setup](Functions-Runtime-Setup)
 -    [Mix Functions](Functions-Mix)
 -    [Blend Functions](Functions-Blend)
