@@ -36,7 +36,7 @@ You can combine these in any way you want but for the sake of simplicity I'd sti
 
 &nbsp;
 
-## `VinylSetup*()` functions
+## `VinylSetup*()`
 
 If you've been making your own audio system previously then the most natural point of entry is probably to use the `VinylSetup*()` functions. These are straight-forward global function calls that set up sounds, mixes, and patterns. You can technically call them at any point but you should try to call these functions once on boot, or at least very soon after boot. Each function has their own description in the script themselves.
 
@@ -44,7 +44,7 @@ However, if you opt to use `VinylSetup*()` functions then you will be missing ou
 
 &nbsp;
 
-## Edit `__VinylConfigJSON()`
+## `__VinylConfigJSON()`
 
 If you're a JSON sicko like myself then you'll likely enjoy the option of using `__VinylConfigJSON()` to set up Vinyl. This JSON expects a specific format. Please read the "Vinyl JSON Format" note included with the library for more information.
 
