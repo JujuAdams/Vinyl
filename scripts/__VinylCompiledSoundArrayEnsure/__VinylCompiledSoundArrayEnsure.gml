@@ -2,18 +2,13 @@
 
 function __VinylCompiledSoundArrayEnsure()
 {
-    static _array = __VinylGlobalData().__compiledSoundArray;
+    static _array = asset_get_ids(asset_sound);
     
-    //Build an array of all audio asset names on demand
-    if (array_length(_array) <= 0)
+    var _i = 0;
+    repeat(array_length(_array))
     {
-        var _j = 0;
-        repeat(1000000)
-        {
-            if (not audio_exists(_j)) break;
-            array_push(_array, audio_get_name(_j));
-            ++_j;
-        }
+        _array[_i] = audio_get_name(_array[_i]);
+        ++_i;
     }
     
     return _array;

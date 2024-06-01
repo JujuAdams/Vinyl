@@ -1,10 +1,10 @@
-// Feather disable all
 /// @param [x=self.x]
 /// @param [y=self.y]
 /// @param [padding=3]
 /// @param [minLineHeight]
+/// @param [textBackground=false]
 
-function UIStart(_x = x, _y = y, _padding = 3, _minLineHeight = string_height("\n"))
+function UIStart(_x = x, _y = y, _padding = 3, _minLineHeight = string_height("\n"), _textBackground = false)
 {
     global.__uiPadding = _padding;
     
@@ -14,4 +14,5 @@ function UIStart(_x = x, _y = y, _padding = 3, _minLineHeight = string_height("\
     
     global.__uiMinLineHeight = _minLineHeight + 2*global.__uiPadding;
     global.__uiLineHeight = global.__uiMinLineHeight;
+    global.__uiTextBackground = _textBackground;
 }

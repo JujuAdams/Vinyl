@@ -1,250 +1,142 @@
-UIStart(10, 10, 8);
+shader_set(shdJujuverse);
+shader_set_uniform_f(shader_get_uniform(shdJujuverse, "u_fTime"), current_time/11000);
+draw_primitive_begin(pr_trianglestrip);
+draw_vertex_texture_color(0, 0, 0, 0, c_white, 0.1);
+draw_vertex_texture_color(room_width, 0, -room_width/room_height, 0, c_white, 0.1);
+draw_vertex_texture_color(0, room_height, 0, 1, c_black, 0.23);
+draw_vertex_texture_color(room_width, room_height, -room_width/room_height, 1, c_black, 0.23);
+draw_primitive_end();
+shader_reset();
 
-UIText("Vinyl " + __VINYL_VERSION + ", " + __VINYL_DATE + "\nLibrary by @jujuadams, music \"Chicken Nuggets\" by @WangleLine");
-UIText("Top Level Active = " + string(VinylSystemGetTopLevelVoiceCount()) + " / Total Active = " + string(VinylSystemGetTotalVoiceCount()) + " / Inactive = " + string(VinylSystemGetPoolInactiveCount()));
+draw_set_font(fntText);
 
-UITextInline("System gain = " + string_format(VinylSystemGainGet(), 0, 1));
-
-UIButtonInline("System gain up", function()
-{
-    VinylSystemGainSet(VinylSystemGainGet() + 0.1);
-});
-
-UIButtonInline("System gain down", function()
-{
-    VinylSystemGainSet(VinylSystemGainGet() - 0.1);
-});
-
-UIButtonInline("Stop all", function()
-{
-    VinylStopAll();
-});
-
-UIButtonInline("Stop all non-persistent", function()
-{
-    VinylStopAllNonPersistent();
-});
-
-UIButtonInline("Test tone", function()
-{
-    music = VinylPlay(snd1KHz, true);
-});
-
+UIStart(10, 10, undefined, undefined, true);
+UITextInline(string_concat("Vinyl ", __VINYL_VERSION, ", ", __VINYL_DATE, " by Juju Adams\nChicken Nuggets by Wangle Line"));
 UINewline();
-
-UITextInline("Global transpose = " + string(VinylGlobalTransposeGet()));
-
-UIButtonInline("Tranpose up", function()
-{
-    VinylGlobalTransposeSet(VinylGlobalTransposeGet() + 1);
-});
-
-UIButtonInline("Tranpose down", function()
-{
-    VinylGlobalTransposeSet(VinylGlobalTransposeGet() -1);
-});
-
-UISpace(30);
-UITextInline("@delay time = " + string_format(VinylKnobGet("delay time"), 2, 2) + " -> " + string_format(VinylKnobOutputGet("delay time"), 2, 2));
-
-UIButtonInline("Delay up", function()
-{
-    VinylKnobSet("delay time", VinylKnobGet("delay time") + 0.1);
-});
-
-UIButtonInline("Delay down", function()
-{
-    VinylKnobSet("delay time", VinylKnobGet("delay time") - 0.1);
-});
-
-UIButtonInline("Delay target 0", function()
-{
-    VinylKnobTargetSet("delay time", 0, 0.1);
-});
-
-UIButtonInline("Delay target 1", function()
-{
-    VinylKnobTargetSet("delay time", 1, 0.5);
-});
-
 UINewline();
-
-UIText("music: VinylExists() = " + string(VinylExists(music))
-     + ", VinylShutdownGet() = " + string(VinylShutdownGet(music))
-     + ", VinylLoopGet() = " + string(VinylLoopGet(music))
-     + ", VinylPersistentGet() = " + string(VinylPersistentGet(music))
-     + ", VinylPatternGet() = " + string(VinylPatternGet(music)));
-
-UIButtonInline("Play music", function()
-{
-    if (VinylStackPatternGet("music", 0) != sndChickenNuggets)
-    {
-        music = VinylPlay(sndChickenNuggets);
-        VinylStopCallbackSet(music,
-                             function(_data, _id)
-                             {
-                                 show_message(string(_id) + " said \"" + string(_data) + "\" on stop");
-                             },
-                             "boop");
-    }
-});
-
-UIButtonInline("Stop music", function()
-{
-    VinylStop(music);
-});
-
-UIButtonInline("Fade in music", function()
-{
-    music = VinylPlayFadeIn(sndChickenNuggets);
-});
-
-UIButtonInline("Fade out music", function()
-{
-     VinylFadeOut(music);
-});
-
-UIButtonInline("Loop toggle", function()
-{
-     VinylLoopSet(music, !VinylLoopGet(music));
-});
-
-UIButtonInline("Persistent toggle", function()
-{
-     VinylPersistentSet(music, !VinylPersistentGet(music));
-});
-
+UITextInline(string_concat("\"Test\" mix gain = ", VinylMixGetGain("Test")));
 UINewline();
-
-UITextInline("\"music\" label count = " + string(VinylLabelVoiceCountGet("music")));
-
-UIButtonInline("Stop \"music\" label", function()
+UIButtonInline("Mix gain -", function()
 {
-     VinylStop("music");
+    VinylMixSetGain("Test", VinylMixGetGain("Test") - 0.05);
 });
-
-UIButtonInline("Fade out \"music\" label", function()
+UISpace(20);
+UIButtonInline("Mix gain +", function()
 {
-     VinylFadeOut("music");
+    VinylMixSetGain("Test", VinylMixGetGain("Test") + 0.05);
 });
-
-UIButtonInline("Pause \"music\" label", function()
+UISpace(20);
+UIButtonInline("Mix slow 0", function()
 {
-    VinylPause("music");
+    VinylMixSetGain("Test", 0, 0.05);
 });
-
-UIButtonInline("Resume \"music\" label", function()
+UISpace(20);
+UIButtonInline("Mix slow 1", function()
 {
-    VinylResume("music");
+    VinylMixSetGain("Test", 1, 0.05);
 });
-
 UINewline();
-
-UIButtonInline("Bonk left", function()
-{
-    VinylPlay(sndBonk, false, 1, 1, -1);
-});
-
-UIButtonInline("Bonk centre", function()
-{
-    VinylPlay(sndBonk, false, 1, 1, 0);
-});
-
-UIButtonInline("Bonk right", function()
-{
-    VinylPlay(sndBonk, false, 1, 1, 1);
-});
-
-UIButtonInline("Ow!", function()
-{
-    VinylPlay(sndOw);
-});
-
-UIButtonInline("Ow! but simple", function()
-{
-    VinylPlaySimple(sndOw);
-});
-
-UIButtonInline("Normal cat", function()
-{
-    VinylPlay(sndCat);
-});
-
-UIButtonInline("Space cat", function()
-{
-    VinylPlay("space cat", false, 1, 1, random_range(-1, 1));
-});
-
-UIButtonInline("Bleep shuffle (standard)", function()
-{
-    VinylPlay("bleep shuffle");
-});
-
-UIButtonInline("Bleep shuffle (simple)", function()
-{
-    VinylPlaySimple("bleep shuffle");
-});
-
-UIButtonInline("Bleep wildcard shuffle", function()
-{
-    VinylPlaySimple("bleep wildcard shuffle");
-});
-
 UINewline();
-
-UIButtonInline("Music sync test", function()
+UIButtonInline("1KHz", function()
 {
-    if (VinylStackPatternGet("music", 1) != sndChickenNuggets)
-    {
-        music = VinylPlay("music sync test");
-    }
+    VinylPlay(snd1KHz);
 });
-
-UIButtonInline("Queue test", function()
+UISpace(20);
+UIButtonInline("Shuffle Bleeps", function()
 {
-    VinylPlay("queue test");
+    VinylPlay("Shuffle");
 });
-
+UISpace(20);
+UIButtonInline("Blast Start", function()
+{
+    alarm[0] = 4;
+});
+UISpace(20);
+UIButtonInline("Blast End", function()
+{
+    alarm[0] = -1;
+});
 UINewline();
-
-UIButtonInline("Queue loop test", function()
-{
-    VinylPlay("queue loop test");
-});
-
 UINewline();
-
-UIButtonInline("500hz Peak EQ test", function()
+UIButtonInline("HLT Test", function()
 {
-    VinylKnobSet("peak freq", 0);
-    VinylPlay("cat peak eq");
+    hltVoice = VinylPlay("HLT");
 });
-
-UIButtonInline("1Khz Peak EQ test", function()
+UISpace(20);
+UIButtonInline("HLT End Loop", function()
 {
-    VinylKnobSet("peak freq", 0.5);
-    VinylPlay("cat peak eq");
+    VinylSetLoop(hltVoice, false);
 });
-
-UIButtonInline("1.5Khz Peak EQ test", function()
-{
-    VinylKnobSet("peak freq", 1);
-    VinylPlay("cat peak eq");
-});
-
-UIButtonInline("Low Shelf EQ test", function()
-{
-    VinylPlay("cat low shelf");
-});
-
-UIButtonInline("High Shelf EQ test", function()
-{
-    VinylPlay("cat high shelf");
-});
-
-UIButtonInline("Mulitband EQ test", function()
-{
-    VinylPlay("music multiband eq");
-});
-
 UINewline();
+UINewline();
+UITextInline(string_concat("Blend factor = ", VinylGetBlendFactor(blendVoice)));
+UINewline();
+UIButtonInline("Blend Test", function()
+{
+    blendVoice = VinylPlay("Blend");
+});
+UISpace(20);
+UIButtonInline("Factor -", function()
+{
+    VinylSetBlendFactor(blendVoice, (VinylGetBlendFactor(blendVoice) ?? 0) - 0.05);
+});
+UISpace(20);
+UIButtonInline("Factor +", function()
+{
+    VinylSetBlendFactor(blendVoice, (VinylGetBlendFactor(blendVoice) ?? 0) + 0.05);
+});
+UINewline();
+UINewline();
+UIButtonInline("Set 1KHz gain high", function()
+{
+    VinylSetupSound(snd1KHz, 1.3, undefined, true);
+});
+UISpace(20);
+UIButtonInline("Set 1KHz gain low", function()
+{
+    VinylSetupSound(snd1KHz, 0.7, undefined, true);
+});
+UINewline();
+UIButtonInline("Set 1KHz no mix", function()
+{
+    VinylSetupSound(snd1KHz, undefined, undefined, true, VINYL_NO_MIX);
+});
+UISpace(20);
+UIButtonInline("Set 1KHz \"Test\" mix", function()
+{
+    VinylSetupSound(snd1KHz, undefined, undefined, true, "Test");
+});
+UINewline();
+UINewline();
+UIButtonInline("Ducker prio 0", function()
+{
+    duckPrio0 = VinylPlay(sndSync0, true);
+});
+UISpace(20);
+UIButtonInline("Ducker prio 1", function()
+{
+    duckPrio1 = VinylPlay(sndSync1, true);
+});
+UISpace(20);
+UIButtonInline("Ducker prio 2", function()
+{
+    duckPrio2 = VinylPlay(sndSync2, true);
+});
+UINewline();
+UIButtonInline("Fade out prio 0", function()
+{
+    VinylFadeOut(duckPrio0);
+    duckPrio0 = undefined;
+});
+UISpace(20);
+UIButtonInline("Fade out prio 1", function()
+{
+    VinylFadeOut(duckPrio1);
+    duckPrio1 = undefined;
+});
+UISpace(20);
+UIButtonInline("Fade out prio 2", function()
+{
+    VinylFadeOut(duckPrio2);
+    duckPrio2 = undefined;
+});

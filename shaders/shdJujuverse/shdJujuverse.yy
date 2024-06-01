@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"shdJujuverse",
+  "name":"shdJujuverse",
+  "parent":{
+    "name":"vinyl",
+    "path":"vinyl.yyp",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

@@ -20,6 +20,9 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"sndCat.wav",
+  "tags":[
+    "cat",
+  ],
   "type":0,
   "volume":1.0,
 }
