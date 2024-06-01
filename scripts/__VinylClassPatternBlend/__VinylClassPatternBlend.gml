@@ -36,9 +36,9 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _anim
     
     
     
-    static __Play = function(_loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)
+    static __Play = function(_emitter, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)
     {
-        return (new __VinylClassVoiceBlend(self, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal, __mixName)).__voiceReference;
+        return (new __VinylClassVoiceBlend(_emitter, self, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal, __mixName)).__voiceReference;
     }
     
     static __UpdateSetup = function(_soundArray, _loop, _gain, _animCurve, _mixName, _duckerName, _duckPrio, _metadata)

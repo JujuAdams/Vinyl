@@ -22,8 +22,9 @@
 /// @oaram behaviour
 /// @param loopQueue
 /// @param [gain=1]
+/// @param [emitter]
 
-function VinylQueueCreate(_behaviour, _loopQueue, _gain = 1)
+function VinylQueueCreate(_behaviour, _loopQueue, _gain = 1, _emitter = undefined)
 {
-    return (new __VinylClassVoiceQueue(_behaviour, _loopQueue, _gain)).__voiceReference;
+    return (new __VinylClassVoiceQueue(_behaviour, _loopQueue, _gain, _emitter)).__voiceReference;
 }

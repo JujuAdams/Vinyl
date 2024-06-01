@@ -30,9 +30,9 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     
     
     
-    static __Play = function(_loopLocal__UNUSED, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)
+    static __Play = function(_emitter, _loopLocal__UNUSED, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)
     {
-        return (new __VinylClassVoiceHLT(self, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)).__voiceReference;
+        return (new __VinylClassVoiceHLT(_emitter, self, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)).__voiceReference;
     }
     
     static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckerName, _duckPrio, _metadata)

@@ -11,6 +11,7 @@
 /// This function returns a voice index which can be used with other Vinyl functions to adjust
 /// playback and trigger pattern behaviours where relevant.
 /// 
+/// @param emitter
 /// @param sound/pattern
 /// @param [loop]
 /// @param [gain=1]
@@ -18,21 +19,21 @@
 /// @param [duckerName]
 /// @param [duckPriority=0]
 
-function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1, _duckerName = undefined, _duckPrio = undefined)
+function VinylPlayOn(_emitter, _pattern, _loop = undefined, _gain = 1, _pitch = 1, _duckerName = undefined, _duckPrio = undefined)
 {
     static _soundDict   = __VinylSystem().__soundDict;
     static _patternDict = __VinylSystem().__patternDict;
     
     if (is_handle(_pattern))
     {
-        return struct_get_from_hash(_soundDict, int64(_pattern)).__Play(undefined, _loop, _gain, _pitch, _duckerName, _duckPrio);
+        return struct_get_from_hash(_soundDict, int64(_pattern)).__Play(_emitter, _loop, _gain, _pitch, _duckerName, _duckPrio);
     }
     else if (is_string(_pattern))
     {
         var _patternStruct = _patternDict[$ _pattern];
         if (_patternStruct != undefined)
         {
-            return _patternStruct.__Play(undefined, _loop, _gain, _pitch, _duckerName, _duckPrio);
+            return _patternStruct.__Play(_emitter, _loop, _gain, _pitch, _duckerName, _duckPrio);
         }
         else
         {

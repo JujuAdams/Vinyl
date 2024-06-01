@@ -29,7 +29,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
     
     
     
-    static __Play = function(_loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)
+    static __Play = function(_emitter, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)
     {
         var _sound      = __sound;
         var _gainSound  = __gain;
@@ -75,7 +75,14 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
             var _gainDuck   = 1;
         }
         
-        var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainSound*_gainLocal*_gainMix*_gainDuck/VINYL_MAX_VOICE_GAIN, 0, _pitchSound*_pitchLocal);
+        if (_emitter == undefined)
+        {
+            var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainSound*_gainLocal*_gainMix*_gainDuck/VINYL_MAX_VOICE_GAIN, 0, _pitchSound*_pitchLocal);
+        }
+        else
+        {
+            var _voice = audio_play_sound_on(_emitter, _sound, _loopFinal, 0, _gainSound*_gainLocal*_gainMix*_gainDuck/VINYL_MAX_VOICE_GAIN, 0, _pitchSound*_pitchLocal);
+        }
         
         //If we're in live edit mode then always create a struct representation
         if (VINYL_LIVE_EDIT || (_duckerNameFinal != undefined))

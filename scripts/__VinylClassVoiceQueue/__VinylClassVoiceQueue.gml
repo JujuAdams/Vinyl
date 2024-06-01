@@ -3,8 +3,9 @@
 /// @param behaviour
 /// @param loopQueue
 /// @param localGain
+/// @param emitter
 
-function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
+function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal, _emitter) constructor
 {
     static _queueCount = 0;
     
@@ -40,6 +41,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
     __soundArray   = [];
     __behaviour    = _behaviour;
     __loopQueue    = _loopQueue;
+    __emitter      = _emitter;
     
     __voiceReference = 0x66606660_00000000 | _queueCount;
     ++_queueCount;
@@ -51,6 +53,18 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
     
     
     
+    
+    static __PlaySound = function(_sound, _loop, _gain, _pitch)
+    {
+        if (__emitter == undefined)
+        {
+            return audio_play_sound(_sound, 0, _loop, _gain, 0, _pitch);
+        }
+        else
+        {
+            return audio_play_sound_on(__emitter, _sound, _loop, 0, _gain, 0, _pitch);
+        }
+    }
     
     static __Destroy = function()
     {
@@ -147,7 +161,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
                 __pitchSound = _pattern.__pitch;
                 
                 __soundCurrent = _sound;
-                __voiceCurrent = audio_play_sound(_sound, 0, _loop, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, 0, __pitchLocal);
+                __voiceCurrent = __PlaySound(_sound, _loop, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, __pitchLocal);
             }
             else
             {
