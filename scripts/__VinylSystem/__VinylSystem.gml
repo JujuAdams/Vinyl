@@ -1,6 +1,6 @@
 // Feather disable all
 
-#macro __VINYL_VERSION  "6.0.6 (beta)"
+#macro __VINYL_VERSION  "6.0.7 (beta)"
 #macro __VINYL_DATE     "2024-06-01"
 
 #macro __VINYL_RUNNING_FROM_IDE  (GM_build_type == "run")
