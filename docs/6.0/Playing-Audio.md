@@ -58,3 +58,29 @@ No example provided.
 ```
 
 <!-- tabs:end -->
+
+&nbsp;
+
+## `VinylIsPlaying`
+
+`VinylIsPlaying(voice)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Boolean
+
+|Name   |Datatype|Purpose                     |
+|-------|--------|----------------------------|
+|`voice`|voice   |Voice to target             |
+
+Returns if the target voice is currently playing.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
