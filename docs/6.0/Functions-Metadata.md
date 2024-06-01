@@ -4,7 +4,7 @@
 
 ## `VinylGetMetadata`
 
-`VinylGetMetadata(pattern, [default])`
+`VinylGetMetadata(sound/pattern, [default])`
 
 <!-- tabs:start -->
 
