@@ -56,4 +56,4 @@ Using `__VinylConfigJSON()` opens up the possibility of live editing audio prope
 
 ## External JSON
 
-If you'd like to write some external tooling or make the JSON file used to determine audio setup externally available then you can use `VinylSetupImportJSON()` and `VinylSetupExportJSON()` to move JSON in and out of the game at runtime. Live updating will work if you use external JSON, though of course you are responsible for importing JSON yourself if something changes. For information on what format JSON Vinyl expects, please see the "Vinyl JSON Format" note included with the library.
+If you'd like to write some external tooling or make the JSON file used to determine audio setup externally available then you can use `VinylSetupImportJSON()` and `VinylSetupExportJSON()` to move JSON in and out of the game at runtime. Live updating will work if you use external JSON, though of course you are responsible for importing JSON yourself if something changes. For information on what format JSON Vinyl expects, please see the the [configuration JSON page](https://www.jujuadams.com/Vinyl/#/6.0/Config-JSON).
