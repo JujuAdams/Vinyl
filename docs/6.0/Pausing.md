@@ -2,33 +2,9 @@
 
 &nbsp;
 
-## `VinylPause`
+## `VinylSetPause`
 
-`VinylPause(voice)`
-
-<!-- tabs:start -->
-
-#### **Description**
-
-*Returns:* N/A (`undefined`)
-
-|Name   |Datatype|Purpose                     |
-|-------|--------|----------------------------|
-|`voice`|voice   |                            |
-
-#### **Example**
-
-```gml
-No example provided.
-```
-
-<!-- tabs:end -->
-
-&nbsp;
-
-## `VinylResume`
-
-`VinylResume(voice)`
+`VinylPause(voice, state)`
 
 <!-- tabs:start -->
 
@@ -39,6 +15,7 @@ No example provided.
 |Name   |Datatype|Purpose                     |
 |-------|--------|----------------------------|
 |`voice`|voice   |                            |
+|`state`|boolean |                            |
 
 #### **Example**
 
