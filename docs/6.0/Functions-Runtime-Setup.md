@@ -134,7 +134,7 @@ No example provided.
 |`[duckPriority]`|number  |Optional, defaults to 0. What ducker priority to play sounds with     |
 |`[metadata]`    |any     |Optional. Metadata to attach to the pattern                           |
 
-Sets up a head-loop-tail pattern for playback with Vinyl. When played, an HLT pattern will first play the "head" sound. Once that sound has finished, the loop sound will be played. If VinylSetLoop() is called on the HLT voice to stop looping then the tail sound will be played after the loop sound has finished.
+Sets up a head-loop-tail pattern for playback with Vinyl. When played, an HLT pattern will first play the "head" sound. Once that sound has finished, the loop sound will be played. If `VinylSetLoop()` is called on the HLT voice to stop looping then the tail sound will be played after the loop sound has finished.
 
 !> You should typically only call this function once on boot or if you're reloading configuration data due to the presence of mods. Subsequent calls to this function will only affect audio that is already playing if `VINYL_LIVE_EDIT` is set to `true`, and even then calls to this function whilst audio is playing is expensive.
 
