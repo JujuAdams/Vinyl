@@ -1,5 +1,6 @@
 // Feather disable all
 
+/// @param emitter
 /// @param pattern
 /// @param loopLocal
 /// @param gainLocal
@@ -8,7 +9,7 @@
 /// @param duckPrioLocal
 /// @param mixName
 
-function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal, _mixName) constructor
+function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal, _mixName) constructor
 {
     static _soundDict        = __VinylSystem().__soundDict;
     static _mixDict          = __VinylSystem().__mixDict;
@@ -19,6 +20,7 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
     
     __inUpdateArray = false;
     
+    __emitter         = _emitter;
     __pattern         = _pattern;
     __gainLocal       = _gainLocal;
     __pitchLocal      = _pitchLocal;
@@ -103,7 +105,7 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
         var _i = 0;
         repeat(__voiceCount)
         {
-            __voiceArray[_i] = audio_play_sound(_soundArray[_i], 0, _loopFinal, __gainArray[_i]*_gainShared, 0, __pitchArray[_i]*_pitchShared);
+            __voiceArray[_i] = __PlaySound(_soundArray[_i], _loopFinal, __gainArray[_i]*_gainShared, __pitchArray[_i]*_pitchShared);
             ++_i;
         }
         
@@ -127,6 +129,18 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
     
     
     
+    
+    static __PlaySound = function(_sound, _loop, _gain, _pitch)
+    {
+        if (__emitter == undefined)
+        {
+            return audio_play_sound(_sound, 0, _loop, _gain, 0, _pitch);
+        }
+        else
+        {
+            return audio_play_sound_on(__emitter, _sound, _loop, 0, _gain, 0, _pitch);
+        }
+    }
     
     static __Update = function(_delta)
     {
@@ -434,7 +448,7 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
                 var _i = 0;
                 repeat(__voiceCount)
                 {
-                    __voiceArray[_i] = audio_play_sound(_soundArray[_i], 0, _loop, _gainShared*__gainArray[_i]/VINYL_MAX_VOICE_GAIN, 0, _pitchShared*__pitchArray[_i]);
+                    __voiceArray[_i] = __PlaySound(_soundArray[_i], _loop, _gainShared*__gainArray[_i]/VINYL_MAX_VOICE_GAIN, _pitchShared*__pitchArray[_i]);
                     ++_i;
                 }
                 
