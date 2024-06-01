@@ -63,14 +63,16 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         audio_stop_sound(__voiceReference);
     }
     
-    static __Pause = function()
+    static __SetPause = function(_state)
     {
-        audio_pause_sound(__voiceReference);
-    }
-    
-    static __Resume = function()
-    {
-        audio_resume_sound(__voiceReference);
+        if (_state)
+        {
+            audio_pause_sound(__voiceReference);
+        }
+        else
+        {
+            audio_resume_sound(__voiceReference);
+        }
     }
     
     static __IsPaused = function()

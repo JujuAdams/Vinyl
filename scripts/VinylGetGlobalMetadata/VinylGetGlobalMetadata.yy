@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylGetGlobalMetadata",
   "parent":{
-    "name":"Other Stuff",
-    "path":"folders/Vinyl/Other Stuff.yy",
+    "name":"Metadata",
+    "path":"folders/Vinyl/Metadata.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

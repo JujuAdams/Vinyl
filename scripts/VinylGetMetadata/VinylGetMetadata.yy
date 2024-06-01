@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylGetMetadata",
   "parent":{
-    "name":"Playback",
-    "path":"folders/Vinyl/Playback.yy",
+    "name":"Metadata",
+    "path":"folders/Vinyl/Metadata.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

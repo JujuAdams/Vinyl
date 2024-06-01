@@ -92,7 +92,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
         if (_index >= 0) array_delete(__voiceArray, _index, 1);
     }
     
-    static __StopVoices = function()
+    static __VoicesStop = function()
     {
         var _i = 0;
         repeat(array_length(__voiceArray))
@@ -102,7 +102,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
         }
     }
     
-    static __FadeOutVoices = function(_rateOfChange)
+    static __VoicesFadeOut = function(_rateOfChange)
     {
         var _i = 0;
         repeat(array_length(__voiceArray))
@@ -112,23 +112,25 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
         }
     }
     
-    static __PauseVoices = function()
+    static __VoicesSetPause = function(_state)
     {
-        var _i = 0;
-        repeat(array_length(__voiceArray))
+        if (_state)
         {
-            VinylPause(__voiceArray[_i]);
-            ++_i;
+            var _i = 0;
+            repeat(array_length(__voiceArray))
+            {
+                VinylSetPause(__voiceArray[_i], _state);
+                ++_i;
+            }
         }
-    }
-    
-    static __ResumeVoices = function()
-    {
-        var _i = 0;
-        repeat(array_length(__voiceArray))
+        else
         {
-            VinylResume(__voiceArray[_i]);
-            ++_i;
+            var _i = 0;
+            repeat(array_length(__voiceArray))
+            {
+                VinylResume(__voiceArray[_i]);
+                ++_i;
+            }
         }
     }
     

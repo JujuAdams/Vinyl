@@ -207,23 +207,25 @@ function __VinylClassVoiceBlend(_pattern, _loopLocal, _gainLocal, _pitchLocal, _
         }
     }
     
-    static __Pause = function()
+    static __SetPause = function(_state)
     {
-        var _i = 0;
-        repeat(array_length(__voiceArray))
+        if (_state)
         {
-            audio_pause_sound(__voiceArray[_i]);
-            ++_i;
+            var _i = 0;
+            repeat(array_length(__voiceArray))
+            {
+                audio_pause_sound(__voiceArray[_i]);
+                ++_i;
+            }
         }
-    }
-    
-    static __Resume = function()
-    {
-        var _i = 0;
-        repeat(array_length(__voiceArray))
+        else
         {
-            audio_resume_sound(__voiceArray[_i]);
-            ++_i;
+            var _i = 0;
+            repeat(array_length(__voiceArray))
+            {
+                audio_resume_sound(__voiceArray[_i]);
+                ++_i;
+            }
         }
     }
     

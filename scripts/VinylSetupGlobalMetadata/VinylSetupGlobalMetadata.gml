@@ -1,5 +1,9 @@
 // Feather disable all
 
+/// Sets a global metadata value inside Vinyl. This value isn't used by Vinyl but can be helpful to
+/// add extra rules or behaviours to audio playback. Global metadata can be retrieved by calling the
+/// VinylGetGlobalMetadata() function.
+/// 
 /// @param metadataName
 /// @param data
 

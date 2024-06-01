@@ -16,7 +16,7 @@
 //increase audio levels if they're too quiet.
 #macro VINYL_MASTER_GAIN_BOOST  1
 
-//The default rate for VinylPlayFadeIn(), VinylFadeOut(), and VinylMixFadeOutVoices() operations.
+//The default rate for VinylPlayFadeIn(), VinylFadeOut(), and VinylMixVoicesFadeOut() operations.
 //These two macros are measured in "gain units per second".
 #macro VINYL_DEFAULT_FADE_IN_RATE   1
 #macro VINYL_DEFAULT_FADE_OUT_RATE  1

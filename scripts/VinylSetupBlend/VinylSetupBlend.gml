@@ -4,9 +4,10 @@
 /// multiple sounds whose balance can be adjusted by setting the blend factor with the
 /// VinylSetBlendFactor() and VinylSetBlendAnimCurve() functions.
 /// 
-/// You should typically only call this function once on boot. Subsequent calls to this function
-/// will only affect audio that is already playing if VINYL_LIVE_EDIT is set to <true>, and even
-/// then calls to this function whilst audio is playing is expensive.
+/// You should typically only call this function once on boot or if you're reloading configuration
+/// data due to the presence of mods. Subsequent calls to this function will only affect audio that
+/// is already playing if VINYL_LIVE_EDIT is set to <true>, and even then calls to this function
+/// whilst audio is playing is expensive.
 /// 
 /// @param patternName
 /// @param soundArray

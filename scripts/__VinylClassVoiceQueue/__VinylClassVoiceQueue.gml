@@ -176,14 +176,16 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal) constructor
         audio_stop_sound(__voiceCurrent);
     }
     
-    static __Pause = function()
+    static __SetPause = function(_state)
     {
-        audio_pause_sound(__voiceCurrent);
-    }
-    
-    static __Resume = function()
-    {
-        audio_resume_sound(__voiceCurrent);
+        if (_state)
+        {
+            audio_pause_sound(__voiceCurrent);
+        }
+        else
+        {
+            audio_resume_sound(__voiceCurrent);
+        }
     }
     
     static __IsPaused = function()

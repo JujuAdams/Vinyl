@@ -5,7 +5,7 @@
 /// 
 /// @param duckerName
 
-function VinylDuckerGetMaxPriority(_name)
+function VinylDuckerGetMaxPriority(_duckerName)
 {
     static _duckerDict = __VinylSystem().__duckerDict;
     

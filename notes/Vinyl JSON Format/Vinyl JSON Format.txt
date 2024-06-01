@@ -23,21 +23,21 @@ patterns.
 
 Here is an example of a simple Vinyl JSON:
 
-    [
-        {
-            "sound": "sndCat",
-            "gain": 2
-        },
-        {
-            "sound": "sndBleep1",
-            "pitch": 0.6,
-        },
-        {
-            "shuffle": "Footsteps",
-            "pitch": [0.9, 1.1],
-            "sounds": ["sndFootstep0", "sndFootstep1", "sndFootstep2", "sndFootstep3"]
-        }
+[
+    {
+        "sound": "sndCat",
+        "gain": 2
+    },
+    {
+        "sound": "sndBleep1",
+        "pitch": 0.6,
+    },
+    {
+        "shuffle": "Footsteps",
+        "pitch": [0.9, 1.1],
+        "sounds": ["sndFootstep0", "sndFootstep1", "sndFootstep2", "sndFootstep3"]
     }
+}
 
 In this JSON we see three Vinyl definitions. Two of these resources are sound assets that have been
 imported to the project's IDE, they are called sndBleep1 and sndCat. sndCat is defined to play with
@@ -54,24 +54,24 @@ macro is set to VINYL_NO_MIX).
 
 Here is an example of a mix JSON definition:
 
-    [
-        {
-            "mix": "music",
-            "baseGain": 1.1,
-            "members": [
-                {
-                    "sound": "sndOverworld"
-                },
-                {
-                    "sound": "sndBossFight"
-                }
-            ]
-        },
-        {
-            "sound": "sndWarning",
-            "pitch": [0.8, 1.2]
-        }
-    ]
+[
+    {
+        "mix": "music",
+        "baseGain": 1.1,
+        "members": [
+            {
+                "sound": "sndOverworld"
+            },
+            {
+                "sound": "sndBossFight"
+            }
+        ]
+    },
+    {
+        "sound": "sndWarning",
+        "pitch": [0.8, 1.2]
+    }
+]
 
 In this JSON we see four Vinyl definitions: three sounds and one mix. Two of these sounds,
 "sndOverworld" and "sndBossFight" are assigned to the "music" mix. The "music" mix has a slight
@@ -83,38 +83,38 @@ is not placed inside a mix definition therefore it is assigned to the default mi
 === Definition Types ===
 
 Sounds:
-    {
-        "sound": <sound asset>, required
-        "gain": <number> or <2-element array>, defaults to 1
-        "pitch": <number> or <2-element array>, defaults to 1
-        "loop": <boolean>, defaults to false
-        "duckOn": <ducker name>
-        "duckPrio", <number>, default to 0
-        "metadata": <any>
-    }
+{
+    "sound": <sound asset>, required
+    "gain": <number> or <2-element array>, defaults to 1
+    "pitch": <number> or <2-element array>, defaults to 1
+    "loop": <boolean>, defaults to false
+    "duckOn": <ducker name>
+    "duckPrio", <number>, default to 0
+    "metadata": <any>
+}
 
 Shuffle Patterns:
-    {
-        "shuffle": <pattern name>, required
-        "sounds": <array of sound assets, or wildcard pattern to match against>, required
-        "gain": <number> or <2-element array>, defaults to 1
-        "pitch": <number> or <2-element array>, defaults to 1
-        "duckOn": <ducker name>
-        "duckPrio", <number>, default to 0
-        "metadata": <any>
-    }
+{
+    "shuffle": <pattern name>, required
+    "sounds": <array of sound assets, or wildcard pattern to match against>, required
+    "gain": <number> or <2-element array>, defaults to 1
+    "pitch": <number> or <2-element array>, defaults to 1
+    "duckOn": <ducker name>
+    "duckPrio", <number>, default to 0
+    "metadata": <any>
+}
 
 Head-Loop-Tail Patterns:
-    {
-        "hlt": <pattern name>, required
-        "head": <sound asset>, optional, defaults to no asset
-        "loop": <sound asset>, required
-        "tail": <sound asset>, optional, defaults to no asset
-        "gain": <number>, defaults to 1
-        "duckOn": <ducker name>
-        "duckPrio", <number>, default to 0
-        "metadata": <any>
-    }
+{
+    "hlt": <pattern name>, required
+    "head": <sound asset>, optional, defaults to no asset
+    "loop": <sound asset>, required
+    "tail": <sound asset>, optional, defaults to no asset
+    "gain": <number>, defaults to 1
+    "duckOn": <ducker name>
+    "duckPrio", <number>, default to 0
+    "metadata": <any>
+}
 
 Blend Patterns:
     {
@@ -128,23 +128,23 @@ Blend Patterns:
     }
 
 Mixes:
-    {
-        "mix": <mix name>, required
-        "baseGain": <number>, defaults to 1
-        "membersLoop": <boolean>, defaults to <undefined>
-        "members": <array of definitions>, defaults to no assets
-        "metadata": <any>
-    }
+{
+    "mix": <mix name>, required
+    "baseGain": <number>, defaults to 1
+    "membersLoop": <boolean>, defaults to <undefined>
+    "members": <array of definitions>, defaults to no assets
+    "metadata": <any>
+}
 
 Duckers:
-    {
-        "ducker": <ducker name>, required
-        "duckedGain": <number>, defaults to 1
-        "rateOfChange": <number>, defaults to 1
-    }
+{
+    "ducker": <ducker name>, required
+    "duckedGain": <number>, defaults to 1
+    "rateOfChange": <number>, defaults to 1
+}
 
 Global Metadata:
-    {
-        "metadata": <mix name>, required
-        "data": <any>, required
-    }
+{
+    "metadata": <mix name>, required
+    "data": <any>, required
+}

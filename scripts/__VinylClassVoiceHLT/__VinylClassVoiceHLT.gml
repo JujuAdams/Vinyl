@@ -240,14 +240,16 @@ function __VinylClassVoiceHLT(_pattern, _gainLocal, _pitchLocal, _duckerNameLoca
         }
     }
     
-    static __Pause = function()
+    static __SetPause = function(_state)
     {
-        audio_pause_sound(__voiceCurrent);
-    }
-    
-    static __Resume = function()
-    {
-        audio_resume_sound(__voiceCurrent);
+        if (_state)
+        {
+            audio_pause_sound(__voiceCurrent);
+        }
+        else
+        {
+            audio_resume_sound(__voiceCurrent);
+        }
     }
     
     static __IsPaused = function()

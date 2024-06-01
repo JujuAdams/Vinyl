@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylMixStopVoices",
+  "%Name":"VinylMixVoicesSetPause",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylMixStopVoices",
+  "name":"VinylMixVoicesSetPause",
   "parent":{
     "name":"Mixes",
     "path":"folders/Vinyl/Mixes.yy",

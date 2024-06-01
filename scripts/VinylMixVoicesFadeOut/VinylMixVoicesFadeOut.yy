@@ -1,9 +1,9 @@
 {
   "$GMScript":"",
-  "%Name":"VinylMixResumeVoices",
+  "%Name":"VinylMixVoicesFadeOut",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylMixResumeVoices",
+  "name":"VinylMixVoicesFadeOut",
   "parent":{
     "name":"Mixes",
     "path":"folders/Vinyl/Mixes.yy",

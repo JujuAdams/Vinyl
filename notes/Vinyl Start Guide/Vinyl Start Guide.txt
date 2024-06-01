@@ -60,8 +60,8 @@ great for quickly fixing problems without having to reboot the game.
 
 N.B. The parser that I wrote to handle live update for __VinylConfigJSON() is very simple and
      cannot handle most GML syntax. If you intend to use the live updating feature you should
-     treat the JSON written in this file as "pure JSON" and you should not use conditionals or
-     if-statements or any logic at all.
+     treat the JSON written in this file as "pure JSON" and you should not use functions,
+     conditionals, if-statements, or any logic at all.
 
 
 
