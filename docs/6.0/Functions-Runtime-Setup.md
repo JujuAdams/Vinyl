@@ -2,7 +2,7 @@
 
 &nbsp;
 
-?> Vinyl is inteded to be used with the [configuration JSON](https://www.jujuadams.com/Vinyl/#/6.0/Config-JSON) rather than the functions on this page which interact with Vinyl's configuration at runtime. You may wish to use these functions for compatibility with another system, to support audio modding for your game, or simply because you prefer to use functions.
+?> Vinyl is inteded to be used with the [configuration JSON](https://www.jujuadams.com/Vinyl/#/6.0/Config-JSON) rather than the functions on this page which interact with Vinyl's configuration at runtime. Having said that, you may still wish to use these functions for compatibility with another system, to support audio modding for your game, or simply because you prefer to use functions.
 
 ?> You should typically only call these functions once on boot, or if you're reloading configuration data due to the presence of mods.
 
