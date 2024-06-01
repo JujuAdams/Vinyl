@@ -12,11 +12,13 @@
 
 *Returns:* N/A (`undefined`)
 
-|Name            |Datatype|Purpose                     |
-|----------------|--------|----------------------------|
-|`voice`         |voice   |                            |
-|`gain`          |number  |                            |
-|`[rateOfChange]`|number  |                            |
+|Name            |Datatype|Purpose                                                               |
+|----------------|--------|----------------------------------------------------------------------|
+|`voice`         |voice   |Voice to target                                                       |
+|`gain`          |number  |Gain target to set                                                    |
+|`[rateOfChange]`|number  |Optional, defaults to instant. Rate of change to reach the gain target|
+
+Sets the local gain for a voice. This is multipled with the sound/pattern gain set by the corresponding setup function, the mix gain (if a mix is set for the voice), and the fade-out gain to give the final playback gain for the voice. The rate of change for this function is measured in "gain units per second".
 
 #### **Example**
 
@@ -40,7 +42,9 @@ No example provided.
 
 |Name   |Datatype|Purpose                     |
 |-------|--------|----------------------------|
-|`voice`|voice   |                            |
+|`voice`|voice   |Voice to target             |
+
+Returns the local gain for a voice.
 
 #### **Example**
 
@@ -64,7 +68,9 @@ No example provided.
 
 |Name  |Datatype|Purpose                     |
 |------|--------|----------------------------|
-|`gain`|number  |                            |
+|`gain`|number  |Gain to set                 |
+
+Sets the master (global) gain for all audio, including audio not played with Vinyl.
 
 #### **Example**
 
@@ -89,6 +95,8 @@ No example provided.
 |Name   |Datatype|Purpose                     |
 |-------|--------|----------------------------|
 |N/A    |        |                            |
+
+Returns the master (global) gain for Vinyl.
 
 #### **Example**
 
