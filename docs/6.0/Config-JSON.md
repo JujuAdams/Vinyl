@@ -61,78 +61,13 @@ In this JSON we see four Vinyl definitions: three sounds and one mix. Two of the
 
 &nbsp;
 
-## Definition Types
+# Definition Types
 
-<!--
-
-Shuffle Patterns:
-    {
-        "shuffle": <pattern name>, required
-        "sounds": <array of sound assets, or wildcard pattern to match against>, required
-        "gain": <number> or <2-element array>, defaults to 1
-        "pitch": <number> or <2-element array>, defaults to 1
-        "duckOn": <ducker name>
-        "duckPrio", <number>, default to 0
-        "metadata": <any>
-    }
-
-Head-Loop-Tail Patterns:
-    {
-        "hlt": <pattern name>, required
-        "head": <sound asset>, optional, defaults to no asset
-        "loop": <sound asset>, required
-        "tail": <sound asset>, optional, defaults to no asset
-        "gain": <number>, defaults to 1
-        "duckOn": <ducker name>
-        "duckPrio", <number>, default to 0
-        "metadata": <any>
-    }
-
-Blend Patterns:
-    {
-        "blend": <pattern name>, required
-        "sounds": <array of sound assets>, required
-        "loop": <boolean>, defaults to true
-        "gain": <number>, defaults to 1
-        "duckOn": <ducker name>
-        "duckPrio", <number>, default to 0
-        "metadata": <any>
-    }
-
-Mixes:
-    {
-        "mix": <mix name>, required
-        "baseGain": <number>, defaults to 1
-        "membersLoop": <boolean>, defaults to <undefined>
-        "members": <array of definitions>, defaults to no assets
-        "metadata": <any>
-    }
-
-Duckers:
-    {
-        "ducker": <ducker name>, required
-        "duckedGain": <number>, defaults to 1
-        "rateOfChange": <number>, defaults to 1
-    }
-
-Global Metadata:
-    {
-        "metadata": <mix name>, required
-        "data": <any>, required
-    }
--->
-
-&nbsp;
-
-# Properties Overview
-
-The following is a cheat sheet of properties that each Vinyl component can have. Following the links underneath each heading to see more detailed information on how each component behaves.
+The following is a cheat sheet of properties that each Vinyl component can have.
 
 &nbsp;
 
 ## Sounds
-
-You can read more about sound definitions [here](Sounds).
 
 |Property  |Datatype        |Default    |Notes                                                                                                      |
 |----------|----------------|-----------|-----------------------------------------------------------------------------------------------------------|
@@ -144,11 +79,11 @@ You can read more about sound definitions [here](Sounds).
 |`duckPrio`|number          |`0`        |Priority for voices when pushed to the ducker above                                                        |
 |`metadata`|any             |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
 
+Sets up a sound asset for playback with Vinyl. Any sound asset without a Vinyl definition will be played at a gain of 1, without any pitch shifting, and on the default mix.
+
 &nbsp;
 
 ## Shuffle
-
-You can read more about shuffle patterns [here](Shuffle-Patterns).
 
 |Property  |Datatype               |Default    |Notes                                                                                                      |
 |----------|-----------------------|-----------|-----------------------------------------------------------------------------------------------------------|
@@ -160,6 +95,8 @@ You can read more about shuffle patterns [here](Shuffle-Patterns).
 |`duckOn`  |string                 |`undefined`|[Ducker](Ducker) to push voices to                                                                         |
 |`duckPrio`|number                 |`0`        |Priority for voices when pushed to the ducker above                                                        |
 |`metadata`|any                    |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
+
+Sets up a shuffle pattern for playback with Vinyl. When played, a shuffle pattern will randomly choose a sound from an array of sounds when played.
 
 &nbsp;
 
@@ -178,11 +115,11 @@ You can read more about head-loop-tail patterns [here](Head-Loop-Tail-Patterns).
 |`duckPrio`|number         |`0`        |Priority for voices when pushed to the ducker above                                |
 |`metadata`|any            |`undefined`|Returned by `VinylGetMetadata()`                                                   |
 
+Sets up a head-loop-tail pattern for playback with Vinyl. When played, an HLT pattern will first play the "head" sound. Once that sound has finished, the loop sound will be played. If `VinylSetLoop()` is called on the HLT voice to stop looping then the tail sound will be played after the loop sound has finished.
+
 &nbsp;
 
 ## Blend
-
-You can read more about head-loop-tail patterns [here](Blend-Patterns).
 
 |Property   |Datatype       |Default    |Notes                                                                                                      |
 |-----------|---------------|-----------|-----------------------------------------------------------------------------------------------------------|
@@ -195,11 +132,11 @@ You can read more about head-loop-tail patterns [here](Blend-Patterns).
 |`duckPrio` |number         |`0`        |Priority for voices when pushed to the ducker above                                                        |
 |`metadata` |any            |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
 
+Sets up a blend pattern for playback with Vinyl. When played, a blend pattern will play multiple sounds whose balance can be adjusted by setting the blend factor with the `VinylSetBlendFactor()` and `VinylSetBlendAnimCurve()` functions.
+
 &nbsp;
 
 ## Mixes
-
-You can read more about mixes [here](Mixes).
 
 ?> Mixes cannot be children of other mixes i.e. there are no hierarchical mixes.
 
@@ -211,26 +148,34 @@ You can read more about mixes [here](Mixes).
 |`membersDuckOn`|string  |`undefined`|Will override ducker settings for members whose ducker is set to `undefined`  |
 |`members`      |array   |empty      |                                                                              |
 |`metadata`     |any     |`undefined`|Returned by `VinylGetMetadata()`                                              |
-           
+ 
+Sets up a mix that can be used to control multiple sounds, patterns, and voices all at the same time. Mixes should be defined before sounds and patterns.
+
 &nbsp;
 
 ## Duckers
-
-You can read more about duckers [here](Duckers).
 
 |Property       |Datatype|Default|Notes                                       |
 |---------------|--------|-------|--------------------------------------------|
 |`ducker`       |string  |N/A    |**Required.** Name of the ducker            |
 |`duckedGain`   |number  |`0`    |Gain value to set for voices that are ducked|
 |`rateOfChange` |number  |`1`    |Measured in gain units per second           |
-           
+
+Sets up a ducker that can be used to control dynamically control the gain of sounds depending on their priority relative to the currently playing sound:
+
+- Incoming audio with a lower priority will have its gain reduced
+- Incoming audio with the same priority will fade out the old audio and replace it
+- Incoming audio with a higher priority will reduce the gain of the old audio
+
+When a sound stops playing, sounds with a lower priority (if any exist) will have their gain increased.
+
 &nbsp;
 
 ## Metadata
-
-You can read more about metadata [here](Metadata).
 
 |Property  |Datatype|Default|Notes                                                 |
 |----------|--------|-------|------------------------------------------------------|
 |`metadata`|string  |N/A    |**Required.** Name of the metadata                    |
 |`data`    |string  |N/A    |**Required.** Data to associate with the metadata name|
+
+Sets a global metadata value inside Vinyl. This value isn't used by Vinyl but can be helpful to add extra rules or behaviours to audio playback.
