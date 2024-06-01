@@ -63,10 +63,6 @@ In this JSON we see four Vinyl definitions: three sounds and one mix. Two of the
 
 # Definition Types
 
-The following is a cheat sheet of properties that each Vinyl component can have.
-
-&nbsp;
-
 ## Sounds
 
 |Property  |Datatype        |Default    |Notes                                                                                                      |
