@@ -5,22 +5,16 @@
 Vinyl supports a wide range of feature that cover the most common use cases for audio:
 
 - Easy functions for fade in, fade out, and playback control
-
 - Shuffle patterns to choose random sounds, pitches, and gains for playback
-
 - Head-loop-tail patterns to implement smoother background music
-
 - Blend patterns to mix between multiple sounds at the same time with a single parameter
-
 - Queues to create in-game playlists or dynamic scores
-
 - Mix groups to easily adjust the gain of multiple sounds and patterns at the same time
-
 - Duckers to handle crossfades and ducking
-
 - Live update of all the above using a simple JSON format
-
 - Easier gain control that allow you to exceed GameMaker's normal maximum gain
+
+&nbsp;
 
 But at its core, Vinyl is a wrapper around GameMaker's native audio functions. Vinyl saves the hassle of setting up data structures that you'd typically use to adjust gains, set up pitch randomisation, create audio queues, etc.  Its main job is to take configuration data and make sense of that when you want to play some audio.
 
