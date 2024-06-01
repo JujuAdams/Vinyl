@@ -2,7 +2,11 @@
 
 &nbsp;
 
-!> Vinyl is inteded to be used with the [configuration JSON](https://www.jujuadams.com/Vinyl/#/6.0/Config-JSON) rather than the functions on this page which interact with Vinyl's configuration at runtime. You may wish to use these functions for compatibility with another system, to support audio modding for your game, or simply because you prefer to use functions.
+?> Vinyl is inteded to be used with the [configuration JSON](https://www.jujuadams.com/Vinyl/#/6.0/Config-JSON) rather than the functions on this page which interact with Vinyl's configuration at runtime. You may wish to use these functions for compatibility with another system, to support audio modding for your game, or simply because you prefer to use functions.
+
+?> You should typically only call these functions once on boot, or if you're reloading configuration data due to the presence of mods.
+
+?> Subsequent calls to this function will only affect audio that is already playing if `VINYL_LIVE_EDIT` is set to `true`, and even then calls to this function whilst audio is playing is expensive. If `VINYL_LIVE_EDIT` is set to `false` then sounds and patterns will need to be replayed for changes to be audible.
 
 &nbsp;
 
@@ -28,8 +32,6 @@
 |`[metadata]`    |any     |Optional. Metadata to attach to the sound                                |
 
 Sets up a sound asset for playback with Vinyl. This is an optional function and any sound asset without a Vinyl definition will be played at a gain of 1, without any pitch shifting, and on the default mix.
-
-!> You should typically only call this function once on boot or if you're reloading configuration data due to the presence of mods. Subsequent calls to this function will only affect audio that is already playing if `VINYL_LIVE_EDIT` is set to `true`, and even then calls to this function whilst audio is playing is expensive.
 
 #### **Example**
 
@@ -65,8 +67,6 @@ No example provided.
 
 Sets up a shuffle pattern for playback with Vinyl. When played, a shuffle pattern will randomly choose a sound from an array of sounds when played.
 
-!> You should typically only call this function once on boot or if you're reloading configuration data due to the presence of mods. Subsequent calls to this function will only affect audio that is already playing if `VINYL_LIVE_EDIT` is set to `true`, and even then calls to this function whilst audio is playing is expensive.
-
 #### **Example**
 
 ```gml
@@ -101,8 +101,6 @@ No example provided.
 
 Sets up a blend pattern for playback with Vinyl. When played, a blend pattern will play multiple sounds whose balance can be adjusted by setting the blend factor with the `VinylSetBlendFactor()` and `VinylSetBlendAnimCurve()` functions.
 
-!> You should typically only call this function once on boot or if you're reloading configuration data due to the presence of mods. Subsequent calls to this function will only affect audio that is already playing if `VINYL_LIVE_EDIT` is set to `true`, and even then calls to this function whilst audio is playing is expensive.
-
 #### **Example**
 
 ```gml
@@ -136,8 +134,6 @@ No example provided.
 
 Sets up a head-loop-tail pattern for playback with Vinyl. When played, an HLT pattern will first play the "head" sound. Once that sound has finished, the loop sound will be played. If `VinylSetLoop()` is called on the HLT voice to stop looping then the tail sound will be played after the loop sound has finished.
 
-!> You should typically only call this function once on boot or if you're reloading configuration data due to the presence of mods. Subsequent calls to this function will only affect audio that is already playing if `VINYL_LIVE_EDIT` is set to `true`, and even then calls to this function whilst audio is playing is expensive.
-
 #### **Example**
 
 ```gml
@@ -167,8 +163,6 @@ No example provided.
 |`[metadata]`     |any     |Optional. Metadata to attach to the mix                         |
 
 Sets up a mix that can be used to control multiple sounds, patterns, and voices all at the same time. Mixes should be defined before sounds and patterns.
-
-!> You should typically only call this function once on boot or if you're reloading configuration data due to the presence of mods. Subsequent calls to this function will only affect audio that is already playing if `VINYL_LIVE_EDIT` is set to `true`, and even then calls to this function whilst audio is playing is expensive.
 
 #### **Example**
 
@@ -203,8 +197,6 @@ Sets up a ducker that can be used to control dynamically control the gain of sou
 - Incoming audio with a higher priority will reduce the gain of the old audio
 
 When a sound stops playing, sounds with a lower priority (if any exist) will have their gain increased.
-
-!> You should typically only call this function once on boot or if you're reloading configuration data due to the presence of mods. Subsequent calls to this function will only affect audio that is already playing if `VINYL_LIVE_EDIT` is set to `true`, and even then calls to this function whilst audio is playing is expensive.
 
 #### **Example**
 
