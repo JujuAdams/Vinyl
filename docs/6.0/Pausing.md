@@ -12,10 +12,12 @@
 
 *Returns:* N/A (`undefined`)
 
-|Name   |Datatype|Purpose                     |
-|-------|--------|----------------------------|
-|`voice`|voice   |                            |
-|`state`|boolean |                            |
+|Name   |Datatype|Purpose                                       |
+|-------|--------|----------------------------------------------|
+|`voice`|voice   |Voice to target                               |
+|`state`|boolean |Whether the voice should be paused or unpaused|
+
+Pauses or unpauses the target voice.
 
 #### **Example**
 
@@ -35,11 +37,13 @@ No example provided.
 
 #### **Description**
 
-*Returns:* N/A (`undefined`)
+*Returns:* Boolean
 
 |Name   |Datatype|Purpose                     |
 |-------|--------|----------------------------|
-|`voice`|voice   |                            |
+|`voice`|voice   |Voice to target             |
+
+Returns whether the target voice is paused or unpaused.
 
 #### **Example**
 
