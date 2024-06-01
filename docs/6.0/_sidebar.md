@@ -5,19 +5,6 @@
 
 ---
 
-**Features**
-
--    [Sounds](Sounds)
--    [Shuffle Pattern](Pattern-Shuffle)
--    [Head-Loop-Tail Pattern](Pattern-Head-Loop-Tail)
--    [Blend Pattern](Pattern-Blend)
--    [Queue Pattern](Pattern-Queue)
--    [Mixes](Mixes)
--    [Duckers](Duckers)
--    [Metadata](Metadata)
-
----
-
 **API**
 
 -    [Config Macros](Config-Macros)
