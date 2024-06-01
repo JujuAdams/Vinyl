@@ -83,5 +83,3 @@ Length of moment-to-moment gain adjustments, in milliseconds. Choose lower value
 *Typical value: `20`*
 
 How far from the end of an audio asset to determine the audio as finishing, measured in milliseconds. This is used for audio scheduling for head-loop-tail and queue voices.
-
-&nbsp;
