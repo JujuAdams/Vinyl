@@ -5,6 +5,7 @@
 
 &nbsp;
 
+- ### Got questions? [Make a new issue!](https://github.com/JujuAdams/Vinyl/issues/new)
 - ### [Download the .yymps](https://github.com/JujuAdams/Vinyl/releases/)
 - ### Read the [documentation](http://jujuadams.github.io/Vinyl)
 - ### You may also like [Bard Audio](https://github.com/gl326/bard-audio), [LineAudio](https://github.com/WangleLine/LineAudio), and [Sonus](https://github.com/tabularelf/Sonus)
