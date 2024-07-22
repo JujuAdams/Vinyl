@@ -239,10 +239,14 @@ function __VinylSystem()
                 if (not _callbackArray[_i].__voiceStruct.__IsPlaying())
                 {
                     var _callbackData = _callbackArray[_i];
+                    array_delete(_callbackArray, _i, 1);
+                    
                     _callbackData.__method(_callbackData.__metadata);
                 }
-                
-                ++_i;
+                else
+                {
+                    ++_i;
+                }
             }
         }, [], -1));
     }
