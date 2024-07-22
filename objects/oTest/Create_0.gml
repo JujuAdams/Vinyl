@@ -1,3 +1,5 @@
+global.callbackTestVoice = undefined;
+
 hltVoice   = undefined;
 blendVoice = undefined;
 

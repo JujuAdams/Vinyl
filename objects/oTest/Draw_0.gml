@@ -140,3 +140,17 @@ UIButtonInline("Fade out prio 2", function()
     VinylFadeOut(duckPrio2);
     duckPrio2 = undefined;
 });
+UINewline();
+UINewline();
+UIButtonInline("Start callback test", function()
+{
+    global.callbackTestVoice = VinylPlay(sndSync0, true);
+    VinylCallbackOnStop(global.callbackTestVoice, function()
+    {
+        show_debug_message("Callback triggered");
+    });
+});
+UIButtonInline("Stop callback test", function()
+{
+    VinylStop(global.callbackTestVoice);
+});
