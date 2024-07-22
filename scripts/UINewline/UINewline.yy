@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"UINewline",
   "isCompatibility":false,
   "isDnD":false,

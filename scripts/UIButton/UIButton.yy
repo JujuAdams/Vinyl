@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"UIButton",
   "isCompatibility":false,
   "isDnD":false,

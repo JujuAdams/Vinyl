@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"UISpace",
   "isCompatibility":false,
   "isDnD":false,
