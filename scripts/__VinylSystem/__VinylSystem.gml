@@ -236,7 +236,7 @@ function __VinylSystem()
             var _i = 0;
             repeat(array_length(_callbackArray))
             {
-                if (not _callbackArray[_i].__IsPlaying())
+                if (not _callbackArray[_i].__voiceStruct.__IsPlaying())
                 {
                     var _callbackData = _callbackArray[_i];
                     _callbackData.__method(_callbackData.__metadata);
