@@ -26,7 +26,7 @@ function VinylPlayOn(_emitter, _pattern, _loop = undefined, _gain = 1, _pitch = 
     
     if (is_handle(_pattern))
     {
-        return struct_get_from_hash(_soundDict, int64(_pattern)).__Play(_emitter, _loop, _gain, _pitch, _duckerName, _duckPrio);
+        __VinylEnsurePatternSound(_pattern).__Play(_emitter, _loop, _gain, _pitch, _duckerName, _duckPrio);
     }
     else if (is_string(_pattern))
     {

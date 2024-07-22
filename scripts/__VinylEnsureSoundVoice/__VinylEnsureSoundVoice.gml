@@ -24,7 +24,7 @@ function __VinylEnsureSoundVoice(_voice)
             return;
         }
         
-        var _pattern = struct_get_from_hash(_soundDict, _sound);
+        var _pattern = __VinylEnsurePatternSound(_sound);
         var _mixStruct = _mixDict[$ _pattern.__mixName];
         
         var _gainSound = _pattern.__gain;

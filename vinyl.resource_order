@@ -30,6 +30,7 @@
     {"name":"__VinylClassPatternBlend","order":4,"path":"scripts/__VinylClassPatternBlend/__VinylClassPatternBlend.yy",},
     {"name":"__VinylClassPatternHLT","order":3,"path":"scripts/__VinylClassPatternHLT/__VinylClassPatternHLT.yy",},
     {"name":"__VinylClassPatternShuffle","order":2,"path":"scripts/__VinylClassPatternShuffle/__VinylClassPatternShuffle.yy",},
+    {"name":"__VinylClassPatternSound","order":1,"path":"scripts/__VinylClassPatternSound/__VinylClassPatternSound.yy",},
     {"name":"__VinylClassVoiceBlend","order":4,"path":"scripts/__VinylClassVoiceBlend/__VinylClassVoiceBlend.yy",},
     {"name":"__VinylClassVoiceHLT","order":3,"path":"scripts/__VinylClassVoiceHLT/__VinylClassVoiceHLT.yy",},
     {"name":"__VinylClassVoiceQueue","order":5,"path":"scripts/__VinylClassVoiceQueue/__VinylClassVoiceQueue.yy",},

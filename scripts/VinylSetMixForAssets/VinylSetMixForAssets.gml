@@ -34,7 +34,7 @@ function VinylSetMixForAssets()
             
             if (is_handle(_input))
             {
-                var _pattern = struct_get_from_hash(_soundDict, int64(_input));
+                var _pattern = __VinylEnsurePatternSound(_input);
                 _pattern.__mixName = _mixName;
                 
                 if (VINYL_LIVE_EDIT) array_push(_toUpdateArray, _pattern);

@@ -99,14 +99,11 @@ function __VinylSystem()
         VinylMasterSetGain(1);
         
         //Build sound patterns for every single sound in the project. This saves extra work later.
-        var _defaultMix = (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX;
-        var _soundDict = __soundDict;
         var _assetArray = asset_get_ids(asset_sound);
         var _i = 0;
         repeat(array_length(_assetArray))
         {
-            var _sound = _assetArray[_i];
-            struct_set_from_hash(_soundDict, int64(_sound), new __VinylClassPatternSound(_sound, 1, 1, undefined, _defaultMix));
+            __VinylEnsurePatternSound(_assetArray[_i]);
             ++_i;
         }
         

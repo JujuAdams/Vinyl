@@ -23,8 +23,7 @@ function VinylSetupSound(_sound, _gain = 1, _pitch = 1, _loop = undefined, _mixN
     static _soundDict = _system.__soundDict;
     
     if (_mixName == VINYL_NO_MIX) _mixName = undefined;
-    
-    struct_get_from_hash(_soundDict, int64(_sound)).__UpdateSetup(_gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _metadata);
+    __VinylEnsurePatternSound(_sound).__UpdateSetup(_gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _metadata);
     
     if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
     {

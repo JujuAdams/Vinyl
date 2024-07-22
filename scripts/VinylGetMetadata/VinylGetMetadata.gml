@@ -13,7 +13,7 @@ function VinylGetMetadata(_pattern, _default = undefined)
     
     if (is_handle(_pattern))
     {
-        return struct_get_from_hash(_soundDict, int64(_pattern)).__metadata ?? _default;
+        return __VinylEnsurePatternSound(_pattern).__metadata ?? _default;
     }
     else if (is_string(_pattern))
     {

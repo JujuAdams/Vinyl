@@ -150,6 +150,7 @@ UIButtonInline("Start callback test", function()
         show_debug_message("Callback triggered");
     });
 });
+UISpace(20);
 UIButtonInline("Stop callback test", function()
 {
     VinylStop(global.callbackTestVoice);

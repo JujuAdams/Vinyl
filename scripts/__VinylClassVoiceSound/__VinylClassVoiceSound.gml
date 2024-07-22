@@ -182,7 +182,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     
     static __UpdateFromPattern = function()
     {
-        var _pattern = struct_get_from_hash(_soundDict, int64(__sound));
+        var _pattern = __VinylEnsurePatternSound(__sound);
         
         __gainSound  = _pattern.__gain;
         __pitchSound = _pattern.__pitch;
