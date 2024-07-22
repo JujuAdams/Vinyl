@@ -14,9 +14,8 @@
 
 function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName, _duckerName, _duckPrio, _metadata) constructor
 {
-    static _mixDict         = __VinylSystem().__mixDict;
-    static _toUpdateArray   = __VinylSystem().__toUpdateArray;
-    static _voiceToSoundMap = __VinylSystem().__voiceToSoundMap;
+    static _mixDict       = __VinylSystem().__mixDict;
+    static _toUpdateArray = __VinylSystem().__toUpdateArray;
     
     __patternName = _patternName;
     
@@ -162,8 +161,6 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         
         if (_duckerStruct != undefined) _duckerStruct.__Push(_voiceStruct, _duckPrioFinal, false);
         if (_mixStruct    != undefined) _mixStruct.__Add(_voice);
-        
-        _voiceToSoundMap[? _voice] = _sound;
         
         return _voice;
     }
