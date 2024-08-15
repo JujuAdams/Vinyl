@@ -5,7 +5,6 @@
 <p align="center">Live updating audio system for GameMaker 2024.4 by <a href="https://www.jujuadams.com/" target="_blank">Juju Adams</a></p>
 
 <p align="center"><a href="https://github.com/JujuAdams/Vinyl/releases/" target="_blank">Download the .yymps</a></p>
-<p align="center">Talk about Vinyl on the <a href="https://discord.gg/BXPYvu4v8u" target="_blank">Discord server</a></p>
 
 &nbsp;
 
