@@ -102,7 +102,7 @@ You can read more about head-loop-tail patterns [here](Head-Loop-Tail-Patterns).
 
 |Property  |Datatype       |Default    |Notes                                                                              |
 |----------|---------------|-----------|-----------------------------------------------------------------------------------|
-|`shuffle` |string         |N/A        |**Required.** Name of the shuffle pattern                                          |
+|`hlt`     |string         |N/A        |**Required.** Name of the head-loop-tail pattern                                   |
 |`head`    |sound or string|`undefined`|First sound to play                                                                |
 |`loop`    |sound or string|N/A        |**Required.** Sound to loop until `VinylSetLoop()` is called                       |
 |`tail`    |sound or string|`undefined`|Final sound to play, after the `loop` sound is set to not loop via `VinylSetLoop()`|
@@ -119,7 +119,7 @@ Sets up a head-loop-tail pattern for playback with Vinyl. When played, an HLT pa
 
 |Property   |Datatype       |Default    |Notes                                                                                                      |
 |-----------|---------------|-----------|-----------------------------------------------------------------------------------------------------------|
-|`blend`    |string         |N/A        |**Required.** Name of the shuffle pattern                                                                  |
+|`blend`    |string         |N/A        |**Required.** Name of the blend pattern                                                                    |
 |`sounds`   |array          |N/A        |**Required.** Sounds to play                                                                               |
 |`gain`     |number         |`1`        |                                                                                                           |
 |`loop`     |boolean        |`undefined`|Can inherit from a mix if set to `undefined` and the mix has `.membersLoop` set to either `true` or `false`|
@@ -138,7 +138,7 @@ Sets up a blend pattern for playback with Vinyl. When played, a blend pattern wi
 
 |Property       |Datatype|Default    |Notes                                                                         |
 |---------------|--------|-----------|------------------------------------------------------------------------------|
-|`mix`          |string  |N/A        |**Required.** Name of the shuffle pattern                                     |
+|`mix`          |string  |N/A        |**Required.** Name of the mix                                                 |
 |`baseGain`     |number  |`1`        |                                                                              |
 |`membersLoop`  |number  |`undefined`|Will override loop settings for members whose loop value is set to `undefined`|
 |`membersDuckOn`|string  |`undefined`|Will override ducker settings for members whose ducker is set to `undefined`  |
