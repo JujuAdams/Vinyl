@@ -17,7 +17,7 @@
 /// @param [gain=1]
 /// @param [pitch=1]
 /// @param [duckerName]
-/// @param [duckPriority=0]
+/// @param [duckPriority]
 
 function VinylPlayOn(_emitter, _pattern, _loop = undefined, _gain = 1, _pitch = 1, _duckerName = undefined, _duckPrio = undefined)
 {
