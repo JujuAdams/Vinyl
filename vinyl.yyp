@@ -133,6 +133,7 @@
     {"id":{"name":"VinylQueueSetArray","path":"scripts/VinylQueueSetArray/VinylQueueSetArray.yy",},},
     {"id":{"name":"VinylQueueSetBehaviour","path":"scripts/VinylQueueSetBehaviour/VinylQueueSetBehaviour.yy",},},
     {"id":{"name":"VinylQueueSetLoop","path":"scripts/VinylQueueSetLoop/VinylQueueSetLoop.yy",},},
+    {"id":{"name":"VinylRegisterEmitter","path":"scripts/VinylRegisterEmitter/VinylRegisterEmitter.yy",},},
     {"id":{"name":"VinylResume","path":"scripts/VinylResume/VinylResume.yy",},},
     {"id":{"name":"VinylSetBlendAnimCurve","path":"scripts/VinylSetBlendAnimCurve/VinylSetBlendAnimCurve.yy",},},
     {"id":{"name":"VinylSetBlendFactor","path":"scripts/VinylSetBlendFactor/VinylSetBlendFactor.yy",},},

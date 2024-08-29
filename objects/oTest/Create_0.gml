@@ -16,6 +16,10 @@ VinylSetupImportJSON([
         mix: "Test",
         members: [
             {
+                sound: VinylFallbackSound,
+                emitter: "echo",
+            },
+            {
                 sound: sndBleep0,
             },
             {
@@ -74,3 +78,10 @@ if (VINYL_LIVE_EDIT)
     //show_debug_message(__VinylSetupExportGMLMacros());
     //show_debug_message(__VinylSetupExportGML(true));
 }
+
+emitter = audio_emitter_create();
+audioBus = audio_bus_create();
+audio_emitter_bus(emitter, audioBus);
+audioBus.effects[0] = audio_effect_create(AudioEffectType.Delay);
+audioBus.effects[1] = audio_effect_create(AudioEffectType.Reverb1);
+VinylRegisterEmitter(emitter, "echo");

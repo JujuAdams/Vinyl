@@ -98,6 +98,7 @@
     {"name":"VinylQueueSetArray","order":5,"path":"scripts/VinylQueueSetArray/VinylQueueSetArray.yy",},
     {"name":"VinylQueueSetBehaviour","order":1,"path":"scripts/VinylQueueSetBehaviour/VinylQueueSetBehaviour.yy",},
     {"name":"VinylQueueSetLoop","order":3,"path":"scripts/VinylQueueSetLoop/VinylQueueSetLoop.yy",},
+    {"name":"VinylRegisterEmitter","order":11,"path":"scripts/VinylRegisterEmitter/VinylRegisterEmitter.yy",},
     {"name":"VinylResume","order":13,"path":"scripts/VinylResume/VinylResume.yy",},
     {"name":"VinylSetBlendAnimCurve","order":3,"path":"scripts/VinylSetBlendAnimCurve/VinylSetBlendAnimCurve.yy",},
     {"name":"VinylSetBlendFactor","order":1,"path":"scripts/VinylSetBlendFactor/VinylSetBlendFactor.yy",},

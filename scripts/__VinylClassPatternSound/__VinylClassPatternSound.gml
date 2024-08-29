@@ -7,22 +7,25 @@
 /// @param mix
 /// @param ducker
 /// @param duckPriority
+/// @param emitterAlias
 /// @param metadata
 
-function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _metadata) constructor
+function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata) constructor
 {
     static _mixDict       = __VinylSystem().__mixDict;
     static _duckerDict    = __VinylSystem().__duckerDict;
+    static _emitterMap    = __VinylSystem().__emitterMap;
     static _toUpdateArray = __VinylSystem().__toUpdateArray;
     
-    __sound      = _sound;
-    __gain       = _gain;
-    __pitch      = _pitch;
-    __loop       = _loop;
-    __mixName    = _mixName;
-    __duckerName = _duckerName;
-    __duckPrio   = _duckPrio;
-    __metadata   = _metadata;
+    __sound        = _sound;
+    __gain         = _gain;
+    __pitch        = _pitch;
+    __loop         = _loop;
+    __mixName      = _mixName;
+    __duckerName   = _duckerName;
+    __duckPrio     = _duckPrio;
+    __emitterAlias = _emitterAlias;
+    __metadata     = _metadata;
     
     
     
@@ -76,6 +79,11 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         
         if (_emitter == undefined)
         {
+            _emitter = _emitterMap[? __emitterAlias];
+        }
+        
+        if (_emitter == undefined)
+        {
             var _voice = audio_play_sound(_sound, 0, _loopFinal, _gainSound*_gainLocal*_gainMix*_gainDuck/VINYL_MAX_VOICE_GAIN, 0, _pitchSound*_pitchLocal);
         }
         else
@@ -95,20 +103,21 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         return _voice;
     }
     
-    static __UpdateSetup = function(_gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _metadata)
+    static __UpdateSetup = function(_gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata)
     {
         if (VINYL_LIVE_EDIT)
         {
             array_push(_toUpdateArray, self);
         }
         
-        __gain     = _gain;
-        __pitch    = _pitch;
-        __loop     = _loop;
-        __mixName  = _mixName;
-        __duckerName = _duckerName;
-        __duckPrio = _duckPrio;
-        __metadata = _metadata;
+        __gain         = _gain;
+        __pitch        = _pitch;
+        __loop         = _loop;
+        __mixName      = _mixName;
+        __duckerName   = _duckerName;
+        __duckPrio     = _duckPrio;
+        __emitterAlias = _emitterAlias;
+        __metadata     = _metadata;
     }
     
     static __ClearSetup = function()
@@ -201,6 +210,7 @@ function __VinylImportSoundJSON(_json)
                 case "pitch":
                 case "duckOn":
                 case "duckPrio":
+                case "emitter":
                 case "metadata":
                 break;
                 
@@ -228,7 +238,7 @@ function __VinylImportSoundJSON(_json)
         __VinylError("Sound specified with incorrect datatype (", typeof(_sound), ")");
     }
     
-    VinylSetupSound(_json.sound, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "metadata"]);
+    VinylSetupSound(_json.sound, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "emitter"], _json[$ "metadata"]);
     
     return _json.sound;
 }

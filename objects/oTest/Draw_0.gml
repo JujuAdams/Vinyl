@@ -155,3 +155,14 @@ UIButtonInline("Stop callback test", function()
 {
     VinylStop(global.callbackTestVoice);
 });
+UINewline();
+UINewline();
+UIButtonInline("Play bleep on echo emitter", function()
+{
+    VinylPlayOn(emitter, sndBleep0);
+});
+UISpace(20);
+UIButtonInline("Play using defined emitter", function()
+{
+    VinylPlay(VinylFallbackSound);
+});

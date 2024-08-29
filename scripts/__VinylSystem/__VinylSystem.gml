@@ -53,6 +53,8 @@ function __VinylSystem()
         __mixDict      = {};
         __metadataDict = {};
         
+        __emitterMap = ds_map_create();
+        
         __compiledSoundArray = [];
         
         //Array of mixes that need updating every frame
