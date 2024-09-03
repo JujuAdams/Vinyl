@@ -223,22 +223,7 @@ function __VinylImportSoundJSON(_json)
         }
     }
     
-    var _sound = _json.sound;
-    if (is_string(_sound))
-    {
-        var _handle = asset_get_index(_sound);
-        if (not audio_exists(_handle))
-        {
-            __VinylTrace("Warning! Sound with name \"", _sound, "\" not found");
-            return;
-        }
-    }
-    else if (not is_handle(_sound))
-    {
-        __VinylError("Sound specified with incorrect datatype (", typeof(_sound), ")");
-    }
-    
-    VinylSetupSound(_json.sound, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "emitter"], _json[$ "metadata"]);
-    
-    return _json.sound;
+    var _sound = __VinylImportSound(_json.sound);
+    VinylSetupSound(_sound, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "emitter"], _json[$ "metadata"]);
+    return _sound;
 }
