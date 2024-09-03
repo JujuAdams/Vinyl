@@ -19,7 +19,7 @@ function __VinylVoiceUpdateDucker(_mixStruct)
         if (_duckerStruct == undefined)
         {
             __VinylWarning("Ducker \"", _duckerNameFinal, "\" not recognised");
-            __Duck(1, __VINYL_DEFAULT_DUCK_RATE_OF_GAIN, __VINYL_DUCK.__DO_NOTHING);
+            __Duck(1, __VINYL_DEFAULT_DUCK_RATE_OF_GAIN);
             return;
         }
         
@@ -27,6 +27,6 @@ function __VinylVoiceUpdateDucker(_mixStruct)
     }
     else
     {
-        __Duck(1, __VINYL_DEFAULT_DUCK_RATE_OF_GAIN, __VINYL_DUCK.__DO_NOTHING);
+        __Duck(1, __VINYL_DEFAULT_DUCK_RATE_OF_GAIN);
     }
 }

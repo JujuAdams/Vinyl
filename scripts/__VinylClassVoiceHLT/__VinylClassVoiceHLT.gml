@@ -70,9 +70,8 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         __gainDuck = 1;
     }
     
-    __gainDuckTarget    = __gainDuck;
-    __gainDuckSpeed     = undefined;
-    __gainDuckBehaviour = __VINYL_DUCK.__DO_NOTHING;
+    __gainDuckTarget = __gainDuck;
+    __gainDuckSpeed  = undefined;
     
     //Manage which sound to play to begin with
     var _soundHead = _pattern.__soundHead;
@@ -154,13 +153,6 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         if (__gainDuckSpeed != undefined)
         {
             __gainDuck += clamp(__gainDuckTarget - __gainDuck, -_delta*__gainDuckSpeed, _delta*__gainDuckSpeed);
-            
-            if ((__gainDuckBehaviour == __VINYL_DUCK.__STOP) && (__gainDuck <= 0))
-            {
-                __Stop();
-                return false;
-            }
-            
             _changed = true;
         }
         
@@ -273,19 +265,14 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
     
     static __FadeOut = function(_rateOfChange)
     {
-        __gainDuckSpeed     = _rateOfChange;
-        __gainDuckTarget    = 0;
-        __gainDuckBehaviour = __VINYL_DUCK.__STOP;
+        __gainDuckSpeed  = _rateOfChange;
+        __gainDuckTarget = 0;
     }
     
-    static __Duck = function(_targetGain, _rateOfChange, _behaviour)
+    static __Duck = function(_targetGain, _rateOfChange)
     {
-        if (__gainDuckBehaviour != __VINYL_DUCK.__STOP)
-        {
-            __gainDuckSpeed     = _rateOfChange;
-            __gainDuckTarget    = _targetGain;
-            __gainDuckBehaviour = _behaviour;
-        }
+        __gainDuckSpeed  = _rateOfChange;
+        __gainDuckTarget = _targetGain;
     }
     
     static __SetLocalGain = function(_gain, _rateOfChange)

@@ -26,10 +26,9 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal, _emitter) co
     
     __duckerName = undefined;
     
-    __gainDuck          = 1;
-    __gainDuckTarget    = 1;
-    __gainDuckSpeed     = undefined;
-    __gainDuckBehaviour = __VINYL_DUCK.__DO_NOTHING;
+    __gainDuck       = 1;
+    __gainDuckTarget = 1;
+    __gainDuckSpeed  = undefined;
     
     __destroyed = false;
     
@@ -81,13 +80,6 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal, _emitter) co
         if (__gainDuckSpeed != undefined)
         {
             __gainDuck += clamp(__gainDuckTarget - __gainDuck, -_delta*__gainDuckSpeed, _delta*__gainDuckSpeed);
-            
-            if ((__gainDuckBehaviour == __VINYL_DUCK.__STOP) && (__gainDuck <= 0))
-            {
-                __Destroy();
-                return false;
-            }
-            
             _changed = true;
         }
         
@@ -153,9 +145,8 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal, _emitter) co
                 }
                 
                 //Reset ducker variables
-                __gainDuckTarget    = __gainDuck;
-                __gainDuckSpeed     = undefined;
-                __gainDuckBehaviour = __VINYL_DUCK.__DO_NOTHING;
+                __gainDuckTarget = __gainDuck;
+                __gainDuckSpeed  = undefined;
                 
                 __gainSound  = _pattern.__gain;
                 __pitchSound = _pattern.__pitch;
@@ -209,19 +200,14 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal, _emitter) co
     
     static __FadeOut = function(_rateOfChange)
     {
-        __gainDuckSpeed     = _rateOfChange;
-        __gainDuckTarget    = 0;
-        __gainDuckBehaviour = __VINYL_DUCK.__STOP;
+        __gainDuckSpeed  = _rateOfChange;
+        __gainDuckTarget = 0;
     }
     
-    static __Duck = function(_targetGain, _rateOfChange, _behaviour)
+    static __Duck = function(_targetGain, _rateOfChange)
     {
-        if (__gainDuckBehaviour != __VINYL_DUCK.__STOP)
-        {
-            __gainDuckSpeed     = _rateOfChange;
-            __gainDuckTarget    = _targetGain;
-            __gainDuckBehaviour = _behaviour;
-        }
+        __gainDuckSpeed  = _rateOfChange;
+        __gainDuckTarget = _targetGain;
     }
     
     static __SetLoop = function(_state)
@@ -298,7 +284,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal, _emitter) co
             if (_duckerStruct == undefined)
             {
                 __VinylWarning("Ducker \"", _duckerNameFinal, "\" not recognised");
-                __Duck(1, __VINYL_DEFAULT_DUCK_RATE_OF_GAIN, __VINYL_DUCK.__DO_NOTHING);
+                __Duck(1, __VINYL_DEFAULT_DUCK_RATE_OF_GAIN);
                 return;
             }
         
@@ -306,7 +292,7 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal, _emitter) co
         }
         else
         {
-            __Duck(1, __VINYL_DEFAULT_DUCK_RATE_OF_GAIN, __VINYL_DUCK.__DO_NOTHING);
+            __Duck(1, __VINYL_DEFAULT_DUCK_RATE_OF_GAIN);
         }
         
         audio_sound_gain( __voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);

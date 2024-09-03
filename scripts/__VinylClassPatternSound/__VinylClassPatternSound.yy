@@ -6,7 +6,7 @@
   "name":"__VinylClassPatternSound",
   "parent":{
     "name":"Patterns",
-    "path":"folders/Vinyl/(Internals)/Classes/Patterns.yy",
+    "path":"folders/Patterns.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

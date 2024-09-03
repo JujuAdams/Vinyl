@@ -84,7 +84,7 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _samePriori
             
             if (_priority < __maxPriority)
             {
-                if (_doDuck) _voiceStruct.__Duck(__duckedGain, __rateOfChange, __VINYL_DUCK.__DO_NOTHING);
+                if (_doDuck) _voiceStruct.__Duck(__duckedGain, __rateOfChange);
                 
                 //Try to find an existing voice to replace
                 var _index = array_get_index(_priorityArray, _priority);
@@ -105,7 +105,7 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _samePriori
             {
                 __maxPriority = _priority;
                 
-                if (_doDuck) _voiceStruct.__Duck(1, __rateOfChange, __VINYL_DUCK.__DO_NOTHING);
+                if (_doDuck) _voiceStruct.__Duck(1, __rateOfChange);
                 
                 var _i = 0;
                 repeat(array_length(_priorityArray))
@@ -114,7 +114,7 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _samePriori
                     if (_existingPriority < _priority)
                     {
                         //We found an existing voice with a lower priority - duck the existing voice
-                        _voiceArray[_i].__Duck(__duckedGain, __rateOfChange, __VINYL_DUCK.__DO_NOTHING);
+                        _voiceArray[_i].__Duck(__duckedGain, __rateOfChange);
                     }
                     else if (_existingPriority == _priority)
                     {
@@ -137,13 +137,13 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _samePriori
             
             if (_priority < __maxPriority)
             {
-                if (_doDuck) _voiceStruct.__Duck(__duckedGain, __rateOfChange, __VINYL_DUCK.__DO_NOTHING);
+                if (_doDuck) _voiceStruct.__Duck(__duckedGain, __rateOfChange);
             }
             else if (_priority > __maxPriority)
             {
                 __maxPriority = _priority;
                 
-                if (_doDuck) _voiceStruct.__Duck(1, __rateOfChange, __VINYL_DUCK.__DO_NOTHING);
+                if (_doDuck) _voiceStruct.__Duck(1, __rateOfChange);
                 
                 var _i = 0;
                 repeat(array_length(_priorityArray))
@@ -152,7 +152,7 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _samePriori
                     if (_existingPriority < _priority)
                     {
                         //We found an existing voice with a lower priority - duck the existing voice
-                        _voiceArray[_i].__Duck(__duckedGain, __rateOfChange, __VINYL_DUCK.__DO_NOTHING);
+                        _voiceArray[_i].__Duck(__duckedGain, __rateOfChange);
                     }
                     
                     ++_i;
@@ -233,7 +233,7 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _samePriori
             //Activate whatever voice is now the highest priority
             if (_maxVoice != undefined)
             {
-                _maxVoice.__Duck(1, __rateOfChange, __VINYL_DUCK.__DO_NOTHING);
+                _maxVoice.__Duck(1, __rateOfChange);
             }
         }
         else
@@ -252,7 +252,7 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _samePriori
             {
                 if (_priorityArray[_i] >= __maxPriority)
                 {
-                    _voiceArray[_i].__Duck(1, __rateOfChange, __VINYL_DUCK.__DO_NOTHING);
+                    _voiceArray[_i].__Duck(1, __rateOfChange);
                 }
                 
                 ++_i;

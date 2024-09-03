@@ -79,9 +79,8 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         __gainDuck = 1;
     }
     
-    __gainDuckTarget    = __gainDuck;
-    __gainDuckSpeed     = undefined;
-    __gainDuckBehaviour = __VINYL_DUCK.__DO_NOTHING;
+    __gainDuckTarget = __gainDuck;
+    __gainDuckSpeed  = undefined;
     
     __blendFactor    = 0;
     __blendAnimCurve = _pattern.__animCurve;
@@ -149,13 +148,6 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         if (__gainDuckSpeed != undefined)
         {
             __gainDuck += clamp(__gainDuckTarget - __gainDuck, -_delta*__gainDuckSpeed, _delta*__gainDuckSpeed);
-            
-            if ((__gainDuckBehaviour == __VINYL_DUCK.__STOP) && (__gainDuck <= 0))
-            {
-                __Stop();
-                return false;
-            }
-            
             _changed = true;
         }
         
@@ -257,14 +249,13 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
             array_push(_voiceUpdateArray, self);
         }
         
-        __gainDuckSpeed     = _rateOfChange;
-        __gainDuckTarget    = 0;
-        __gainDuckBehaviour = __VINYL_DUCK.__STOP;
+        __gainDuckSpeed  = _rateOfChange;
+        __gainDuckTarget = 0;
     }
     
-    static __Duck = function(_targetGain, _rateOfChange, _behaviour)
+    static __Duck = function(_targetGain, _rateOfChange)
     {
-        if ((__gainDuckBehaviour != __VINYL_DUCK.__STOP) && (_targetGain != __gainDuckTarget))
+        if (_targetGain != __gainDuckTarget)
         {
             if (not __inUpdateArray)
             {
@@ -272,9 +263,8 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
                 array_push(_voiceUpdateArray, self);
             }
             
-            __gainDuckSpeed     = _rateOfChange;
-            __gainDuckTarget    = _targetGain;
-            __gainDuckBehaviour = _behaviour;
+            __gainDuckSpeed  = _rateOfChange;
+            __gainDuckTarget = _targetGain;
         }
     }
     
