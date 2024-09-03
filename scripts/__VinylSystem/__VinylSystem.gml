@@ -49,8 +49,6 @@ function __VinylSystem()
         
         __emitterMap = ds_map_create();
         
-        __compiledSoundArray = [];
-        
         //Array of mixes that need updating every frame
         __mixArray = [];
         
