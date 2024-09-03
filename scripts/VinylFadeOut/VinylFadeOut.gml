@@ -5,9 +5,11 @@
 /// 
 /// @param voice
 /// @param [rateOfChange]
+/// @param [pause=false]
 
-function VinylFadeOut(_voice, _rateOfChange = VINYL_DEFAULT_FADE_OUT_RATE)
+function VinylFadeOut(_voice, _rateOfChange = VINYL_DEFAULT_FADE_OUT_RATE, _pause = false)
 {
     if (_voice == undefined) return;
-    __VinylEnsureSoundVoice(_voice).__FadeOut(max(0.001, _rateOfChange));
+    
+    __VinylEnsureSoundVoice(_voice).__FadeOut(max(0.001, _rateOfChange), _pause);
 }

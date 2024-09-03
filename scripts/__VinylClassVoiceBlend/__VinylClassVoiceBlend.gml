@@ -82,6 +82,10 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     __gainDuckTarget = __gainDuck;
     __gainDuckSpeed  = undefined;
     
+    __gainFadeOut      = 1;
+    __gainFadeOutSpeed = undefined;
+    __gainFadeOutStop  = false;
+    
     __blendFactor    = 0;
     __blendAnimCurve = _pattern.__animCurve;
     __blendAnimCurveOverride = false;
@@ -98,7 +102,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     if (__voiceCount > 0)
     {
         var _loopFinal   = _loopLocal ?? (_pattern.__loop ?? (_mixLoop ?? false));
-        var _gainShared  = __VINYL_VOICE_GAIN_PxLxMxD/VINYL_MAX_VOICE_GAIN;
+        var _gainShared  = __VINYL_VOICE_GAIN_PxLxMxDxF/VINYL_MAX_VOICE_GAIN;
         var _pitchShared = __pitchLocal;
         
         var _i = 0;
@@ -145,16 +149,37 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     {
         var _changed = false;
         
+        if (__gainLocal != __gainLocalTarget)
+        {
+            _changed = true;
+            __gainLocal += clamp(__gainLocalTarget - __gainLocal, -_delta*__gainLocalSpeed, _delta*__gainLocalSpeed);
+        }
+        
         if (__gainDuckSpeed != undefined)
         {
             __gainDuck += clamp(__gainDuckTarget - __gainDuck, -_delta*__gainDuckSpeed, _delta*__gainDuckSpeed);
             _changed = true;
         }
         
-        if (__gainLocal != __gainLocalTarget)
+        if (__gainFadeOutSpeed != undefined)
         {
+            __gainFadeOut -= _delta*__gainFadeOutSpeed;
             _changed = true;
-            __gainLocal += clamp(__gainLocalTarget - __gainLocal, -_delta*__gainLocalSpeed, _delta*__gainLocalSpeed);
+            
+            if (__gainFadeOut <= 0)
+            {
+                if (__gainFadeOutStop)
+                {
+                    __Stop();
+                    return;
+                }
+                else
+                {
+                    __gainFadeOut      = 1;
+                    __gainFadeOutSpeed = undefined;
+                    __SetPause(true);
+                }
+            }
         }
         
         if (_changed)
@@ -169,7 +194,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     {
         var _voiceArray = __voiceArray;
         var _gainArray  = __gainArray;
-        var _gainShared = __VINYL_VOICE_GAIN_PxLxMxD;
+        var _gainShared = __VINYL_VOICE_GAIN_PxLxMxDxF;
         
         var _i = 0;
         repeat(__voiceCount)
@@ -241,16 +266,19 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         return audio_is_paused(__voiceTop);
     }
     
-    static __FadeOut = function(_rateOfChange)
+    static __FadeOut = function(_rateOfChange, _pause)
     {
-        if (not __inUpdateArray)
+        if (__gainFadeOutStop != true)
         {
-            __inUpdateArray = true;
-            array_push(_voiceUpdateArray, self);
+            if (not __inUpdateArray)
+            {
+                __inUpdateArray = true;
+                array_push(_voiceUpdateArray, self);
+            }
+            
+            __gainFadeOutSpeed = _rateOfChange;
+            __gainFadeOutStop  = not _pause;
         }
-        
-        __gainDuckSpeed  = _rateOfChange;
-        __gainDuckTarget = 0;
     }
     
     static __Duck = function(_targetGain, _rateOfChange)
@@ -432,7 +460,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
                 __SetMemberGains();
                 __SetMemberPitches();
                 
-                var _gainShared  = __VINYL_VOICE_GAIN_PxLxMxD;
+                var _gainShared  = __VINYL_VOICE_GAIN_PxLxMxDxF;
                 var _pitchShared = __pitchLocal;
                 
                 var _i = 0;

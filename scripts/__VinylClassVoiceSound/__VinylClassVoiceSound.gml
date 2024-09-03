@@ -22,10 +22,12 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     __inUpdateArray = false;
     
     __voiceReference  = _voice;
-    __gainSound       = _gainSound;
-    __gainLocal       = _gainLocal;
-    __gainMix         = _gainMix;
-    __gainDuck        = _gainDuck;
+    
+    __gainSound   = _gainSound;
+    __gainLocal   = _gainLocal;
+    __gainMix     = _gainMix;
+    __gainDuck    = _gainDuck;
+    
     __pitchSound      = _pitchSound;
     __pitchLocal      = _pitchLocal;
     __duckerNameLocal = _duckerNameLocal;
@@ -45,6 +47,10 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     
     __gainDuckTarget = _gainDuck;
     __gainDuckSpeed  = undefined;
+    
+    __gainFadeOut      = 1;
+    __gainFadeOutSpeed = undefined;
+    __gainFadeOutStop  = false;
     
     _voiceToStructMap[? _voice] = self;
     
@@ -83,36 +89,60 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     {
         var _changed = false;
         
-        if (__gainDuckSpeed != undefined)
-        {
-            _changed = true;
-            __gainDuck += clamp(__gainDuckTarget - __gainDuck, -_delta*__gainDuckSpeed, _delta*__gainDuckSpeed);
-        }
-        
         if (__gainLocal != __gainLocalTarget)
         {
-            _changed = true;
             __gainLocal += clamp(__gainLocalTarget - __gainLocal, -_delta*__gainLocalSpeed, _delta*__gainLocalSpeed);
+            _changed = true;
+        }
+        
+        if (__gainDuckSpeed != undefined)
+        {
+            __gainDuck += clamp(__gainDuckTarget - __gainDuck, -_delta*__gainDuckSpeed, _delta*__gainDuckSpeed);
+            _changed = true;
+        }
+        
+        if (__gainFadeOutSpeed != undefined)
+        {
+            __gainFadeOut -= _delta*__gainFadeOutSpeed;
+            _changed = true;
+            
+            if (__gainFadeOut <= 0)
+            {
+                if (__gainFadeOutStop)
+                {
+                    __Stop();
+                    return;
+                }
+                else
+                {
+                    __gainFadeOut      = 1;
+                    __gainFadeOutSpeed = undefined;
+                    __SetPause(true);
+                }
+            }
         }
         
         if (_changed)
         {
-            audio_sound_gain(__voiceReference, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(__voiceReference, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         }
         
         return true;
     }
     
-    static __FadeOut = function(_rateOfChange)
+    static __FadeOut = function(_rateOfChange, _pause)
     {
-        if (not __inUpdateArray)
+        if (__gainFadeOutStop != true)
         {
-            __inUpdateArray = true;
-            array_push(_voiceUpdateArray, self);
+            if (not __inUpdateArray)
+            {
+                __inUpdateArray = true;
+                array_push(_voiceUpdateArray, self);
+            }
+            
+            __gainFadeOutSpeed = _rateOfChange;
+            __gainFadeOutStop  = not _pause;
         }
-        
-        __gainDuckSpeed  = _rateOfChange;
-        __gainDuckTarget = 0;
     }
     
     static __Duck = function(_targetGain, _rateOfChange)
@@ -148,7 +178,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         if (_rateOfChange > 100)
         {
             __gainLocal = _gain;
-            audio_sound_gain(__voiceReference, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(__voiceReference, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         }
         else
         {
@@ -163,7 +193,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     static __SetMixGain = function(_gain)
     {
         __gainMix = _gain;
-        audio_sound_gain(__voiceReference, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        audio_sound_gain(__voiceReference, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
     static __QueueUpdateForSound = function(_sound)
@@ -184,7 +214,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         __VinylVoiceUpdateDucker(_mixStruct);
         
         audio_sound_loop( __voiceReference, __loopLocal ?? (_pattern.__loop ?? (_loopMix ?? false)));
-        audio_sound_gain( __voiceReference, __VINYL_VOICE_GAIN_SxLxMxD/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        audio_sound_gain( __voiceReference, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         audio_sound_pitch(__voiceReference, __VINYL_VOICE_PITCH_SxL);
     }
 }
