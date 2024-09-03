@@ -34,6 +34,11 @@ function VinylSetupDucker(_duckerName, _duckedGain = 0, _rateOfChange = __VINYL_
     static _duckerDict  = _system.__duckerDict;
     static _duckerArray = _system.__duckerArray;
     
+    if (is_array(_duckedGain))
+    {
+        __VinylError("Cannot use an array as the ducked gain");
+    }
+    
     //Update an existing pattern if possible, otherwise make a new pattern
     var _existingPattern = _duckerDict[$ _duckerName];
     if (_existingPattern != undefined)

@@ -23,6 +23,16 @@ function VinylSetupSound(_sound, _gain = 1, _pitch = 1, _loop = undefined, _mixN
     static _system    = __VinylSystem();
     static _soundDict = _system.__soundDict;
     
+    if (is_array(_gain))
+    {
+        __VinylError("Cannot use an array as a sound gain");
+    }
+    
+    if (is_array(_pitch))
+    {
+        __VinylError("Cannot use an array as a sound pitch");
+    }
+    
     if (_mixName == VINYL_NO_MIX) _mixName = undefined;
     __VinylEnsurePatternSound(_sound).__UpdateSetup(_gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata);
     

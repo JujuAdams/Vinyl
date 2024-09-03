@@ -25,6 +25,11 @@ function VinylSetupHLT(_patternName, _soundHead = undefined, _soundLoop, _soundT
     static _system      = __VinylSystem();
     static _patternDict = _system.__patternDict;
     
+    if (is_array(_gain))
+    {
+        __VinylError("Cannot use an array as a blend pattern gain");
+    }
+    
     if (_mixName == VINYL_NO_MIX) _mixName = undefined;
     
     //Update an existing pattern if possible, otherwise make a new pattern
