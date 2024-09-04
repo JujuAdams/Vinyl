@@ -50,7 +50,7 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _samePriori
                 var _priority = _priorityArray[_i];
                 if (ds_map_exists(_priorityMap, _priority))
                 {
-                    _voiceArray[_i].__FadeOut(__rateOfChange);
+                    _voiceArray[_i].__FadeOut(__rateOfChange, false);
                     
                     array_delete(_voiceArray,    _i, 1);
                     array_delete(_priorityArray, _i, 1);
@@ -91,7 +91,7 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _samePriori
                 if (_index >= 0)
                 {
                     //We found an existing voice with the same priority - fade out the existing voice and replace with ourselves
-                    _voiceArray[_i].__FadeOut(__rateOfChange);
+                    _voiceArray[_i].__FadeOut(__rateOfChange, false);
                     _voiceArray[_i] = _voiceStruct;
                 }
                 else
@@ -119,7 +119,7 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _samePriori
                     else if (_existingPriority == _priority)
                     {
                         //We found an existing voice with the same priority - fade out the existing voice and replace with ourselves
-                        _voiceArray[_i].__FadeOut(__rateOfChange);
+                        _voiceArray[_i].__FadeOut(__rateOfChange, false);
                         _voiceArray[_i] = _voiceStruct;
                     }
                     
