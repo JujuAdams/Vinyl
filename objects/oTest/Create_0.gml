@@ -7,6 +7,8 @@ duckPrio0 = undefined;
 duckPrio1 = undefined;
 duckPrio2 = undefined;
 
+fadeOutPauseTest = undefined;
+
 ///*
 VinylSetupImportJSON([
     {

@@ -161,8 +161,29 @@ UIButtonInline("Play bleep on echo emitter", function()
 {
     VinylPlayOn(emitter, sndBleep0);
 });
-UISpace(20);
-UIButtonInline("Play using defined emitter", function()
+UINewline();
+UIButtonInline("Play fallback sound using defined emitter", function()
 {
     VinylPlay(VinylFallbackSound);
+});
+UINewline();
+UINewline();
+UIButtonInline("Play fade out test", function()
+{
+    fadeOutPauseTest = VinylPlay(sndChickenNuggets, true);
+});
+UISpace(20);
+UIButtonInline("Fade out to pause", function()
+{
+    VinylFadeOut(fadeOutPauseTest, undefined, true);
+});
+UINewline();
+UIButtonInline("Unpause test", function()
+{
+    VinylSetPause(fadeOutPauseTest, false);
+});
+UISpace(20);
+UIButtonInline("Stop Test", function()
+{
+    VinylStop(fadeOutPauseTest);
 });
