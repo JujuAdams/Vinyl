@@ -107,6 +107,8 @@ No example provided.
 
 Returns if the target voice is currently playing.
 
+?> This function only works with voices and will not work with patterns or sound assets.
+
 #### **Example**
 
 ```gml
