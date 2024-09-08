@@ -102,12 +102,12 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
         }
     }
     
-    static __VoicesFadeOut = function(_rateOfChange)
+    static __VoicesFadeOut = function(_rateOfChange, _pause)
     {
         var _i = 0;
         repeat(array_length(__voiceArray))
         {
-            VinylFadeOut(__voiceArray[_i], _rateOfChange);
+            VinylFadeOut(__voiceArray[_i], _rateOfChange, _pause);
             ++_i;
         }
     }
