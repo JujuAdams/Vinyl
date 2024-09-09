@@ -14,7 +14,6 @@
 
 function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _gainDuck, _pitchSound, _pitchLocal, _duckerNameLocal, _duckPrioLocal, _pattern) constructor
 {
-    static _soundDict        = __VinylSystem().__soundDict;
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
     static _toUpdateArray    = __VinylSystem().__toUpdateArray;

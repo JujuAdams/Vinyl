@@ -12,7 +12,6 @@
 
 function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _animCurve, _mixName, _duckerName, _duckPrio, _metadata) constructor
 {
-    static _soundDict     = __VinylSystem().__soundDict;
     static _toUpdateArray = __VinylSystem().__toUpdateArray;
     
     

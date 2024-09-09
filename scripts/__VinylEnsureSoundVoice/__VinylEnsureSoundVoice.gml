@@ -5,7 +5,6 @@
 function __VinylEnsureSoundVoice(_voice)
 {
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
-    static _soundDict        = __VinylSystem().__soundDict;
     static _mixDict          = __VinylSystem().__mixDict;
     static _nullVoice        = __VinylSystem().__nullVoice;
     

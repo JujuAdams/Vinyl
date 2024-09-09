@@ -11,7 +11,6 @@
 
 function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal, _mixName) constructor
 {
-    static _soundDict        = __VinylSystem().__soundDict;
     static _mixDict          = __VinylSystem().__mixDict;
     static _duckerDict       = __VinylSystem().__duckerDict;
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;

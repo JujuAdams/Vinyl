@@ -8,7 +8,6 @@
 
 function VinylGetMetadata(_pattern, _default = undefined)
 {
-    static _soundDict   = __VinylSystem().__soundDict;
     static _patternDict = __VinylSystem().__patternDict;
     
     if (is_handle(_pattern))

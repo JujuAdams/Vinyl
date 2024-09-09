@@ -10,7 +10,6 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal, _emitter) co
     static _queueCount = 0;
     
     static _duckerDict       = __VinylSystem().__duckerDict;
-    static _soundDict        = __VinylSystem().__soundDict;
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
     static _toUpdateArray    = __VinylSystem().__toUpdateArray;

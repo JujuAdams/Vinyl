@@ -11,7 +11,6 @@ function VinylSetMixForAssets()
 {
     static _system        = __VinylSystem();
     static _toUpdateArray = _system.__toUpdateArray;
-    static _soundDict     = _system.__soundDict;
     static _patternDict   = _system.__patternDict;
     
     var _mixName = argument[0];

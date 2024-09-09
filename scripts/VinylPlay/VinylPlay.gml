@@ -20,7 +20,6 @@
 
 function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1, _duckerName = undefined, _duckPrio = undefined)
 {
-    static _soundDict   = __VinylSystem().__soundDict;
     static _patternDict = __VinylSystem().__patternDict;
     
     if (is_handle(_pattern))

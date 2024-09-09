@@ -20,8 +20,7 @@
 
 function VinylSetupSound(_sound, _gain = 1, _pitch = 1, _loop = undefined, _mixName = VINYL_DEFAULT_MIX, _duckerName = undefined, _duckPrio = undefined, _emitterAlias = undefined, _metadata = undefined)
 {
-    static _system    = __VinylSystem();
-    static _soundDict = _system.__soundDict;
+    static _system = __VinylSystem();
     
     if (is_array(_gain))
     {
