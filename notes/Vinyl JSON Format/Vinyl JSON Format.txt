@@ -90,6 +90,7 @@ Sounds:
     "loop": <boolean>, defaults to false
     "duckOn": <ducker name>
     "duckPrio", <number>, default to 0
+    "emitter", <string>, default to <undefined>, emitter must have been registered with VinylRegisterEmitter()
     "metadata": <any>
 }
 
@@ -101,6 +102,7 @@ Shuffle Patterns:
     "pitch": <number> or <2-element array>, defaults to 1
     "duckOn": <ducker name>
     "duckPrio", <number>, default to 0
+    "emitter", <string>, default to <undefined>, emitter must have been registered with VinylRegisterEmitter()
     "metadata": <any>
 }
 

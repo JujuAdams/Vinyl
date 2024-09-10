@@ -4,7 +4,8 @@
 /// without a Vinyl definition will be played at unity gain and on the default mix.
 /// 
 /// If the `emitterAlias` parameter is defined, Vinyl will attempt to play the sound on the
-/// specified emitter. You can register an emitter with `VinylRegisterEmitter()`.
+/// specified emitter if the sound is played directly (i.e. not played via another pattern). You
+/// can register an emitter with `VinylRegisterEmitter()`.
 /// 
 /// You should typically only call this function once on boot or if you're reloading configuration
 /// data due to the presence of mods. Subsequent calls to this function will only affect audio that
