@@ -151,19 +151,28 @@ Sets up a mix that can be used to control multiple sounds, patterns, and voices 
 
 ## Duckers
 
-|Property       |Datatype|Default|Notes                                       |
-|---------------|--------|-------|--------------------------------------------|
-|`ducker`       |string  |N/A    |**Required.** Name of the ducker            |
-|`duckedGain`   |number  |`0`    |Gain value to set for voices that are ducked|
-|`rateOfChange` |number  |`1`    |Measured in gain units per second           |
+|Property               |Datatype|Default|Notes                                                                            |
+|-----------------------|--------|-------|---------------------------------------------------------------------------------|
+|`ducker`               |string  |N/A    |**Required.** Name of the ducker                                                 |
+|`duckedGain`           |number  |`0`    |Gain value to set for voices that are ducked                                     |
+|`rateOfChange`         |number  |`1`    |Measured in gain units per second                                                |
+|`samePriorityInterrupt`|boolean |`true` |Whether sounds of the same priority will interrupt (fade out and stop) each other|
 
-Sets up a ducker that can be used to control dynamically control the gain of sounds depending on their priority relative to the currently playing sound:
+Sets up a ducker that can be used to control dynamically control the gain of sounds depending on their priority relative to the currently playing sound.
+
+If the `samePriorityInterrupt` parameter is set to `true` (the default) then the following behaviour will occur:
 
 - Incoming audio with a lower priority will have its gain reduced
 - Incoming audio with the same priority will fade out the old audio and replace it
 - Incoming audio with a higher priority will reduce the gain of the old audio
 
-When a sound stops playing, sounds with a lower priority (if any exist) will have their gain increased.
+If the `samePriorityInterrupt` parameter is set to `false` then the following behaviour will occur:
+
+- Incoming audio with a lower priority will have its gain reduced
+- Incoming audio with the same priority will play as normal
+- Incoming audio with a higher priority will reduce the gain of the old audio
+
+Regardless, when a sound stops playing, sounds with a lower priority (if any exist) will have their gain increased.
 
 &nbsp;
 

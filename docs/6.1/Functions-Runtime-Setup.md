@@ -176,7 +176,7 @@ No example provided.
 
 ## `VinylSetupDucker`
 
-`VinylSetupDucker(duckerName, [duckedGain=0], [rateOfChange=1])`
+`VinylSetupDucker(duckerName, [duckedGain=0], [rateOfChange=1], [samePriorityInterrupt=true])`
 
 <!-- tabs:start -->
 
@@ -184,19 +184,30 @@ No example provided.
 
 *Returns:* N/A (`undefined`)
 
-|Name            |Datatype|Purpose                                                                                                 |
-|----------------|--------|--------------------------------------------------------------------------------------------------------|
-|`duckerName`    |string  |Name of the ducker                                                                                      |
-|`[duckedGain]`  |number  |Optional, defaults to 0. Gain to set for ducked sounds                                                  |
-|`[rateOfChange]`|number  |Optional, defaults to 1. Rate of change in gain when ducking a sound, measured in gains units per second|
+|Name                     |Datatype|Purpose                                                                                                        |
+|-------------------------|--------|---------------------------------------------------------------------------------------------------------------|
+|`duckerName`             |string  |Name of the ducker                                                                                             |
+|`[duckedGain]`           |number  |Optional, defaults to `0`. Gain to set for ducked sounds                                                       |
+|`[rateOfChange]`         |number  |Optional, defaults to `1`. Rate of change in gain when ducking a sound, measured in gains units per second     |
+|`[samePriorityInterrupt]`|boolean |Optional, defaults to `true`. Whether sounds of the same priority will interrupt (fade out and stop) each other|
 
-Sets up a ducker that can be used to control dynamically control the gain of sounds depending on their priority relative to the currently playing sound:
+Sets up a ducker that can be used to control dynamically control the gain of sounds depending on their priority relative to the currently playing sound.
+
+If the `samePriorityInterrupt` parameter is set to `true` (the default) then the following behaviour will occur:
 
 - Incoming audio with a lower priority will have its gain reduced
 - Incoming audio with the same priority will fade out the old audio and replace it
 - Incoming audio with a higher priority will reduce the gain of the old audio
 
-When a sound stops playing, sounds with a lower priority (if any exist) will have their gain increased.
+If the `samePriorityInterrupt` parameter is set to `false` then the following behaviour will occur:
+
+- Incoming audio with a lower priority will have its gain reduced
+- Incoming audio with the same priority will play as normal
+- Incoming audio with a higher priority will reduce the gain of the old audio
+
+Regardless, when a sound stops playing, sounds with a lower priority (if any exist) will have their gain increased.
+
+You should typically only call this function once on boot. Subsequent calls to this function will only affect audio that is already playing if `VINYL_LIVE_EDIT` is set to `true`, and even then calls to this function whilst audio is playing is expensive.
 
 #### **Example**
 
