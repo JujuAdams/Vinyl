@@ -3,7 +3,7 @@
 /// Fades out all voices currently playing in a given mix. Once a voice is set to fade out, it
 /// cannot be stopped. The rate of change for this function is measured in "gain units per second".
 /// If the optional `pause` parameter is set to `false` (the default) then mix voices will stop
-/// once faded out. If the `pause` parameter is set to `true` then miz voices will be paused
+/// once faded out. If the `pause` parameter is set to `true` then mix voices will be paused
 /// instead and can be unpaused using the `VinylMixVoicesSetPause()` or `VinylSetPause()` functions.
 /// When resuming playback of mix voices, it will *not* fade in.
 /// 
