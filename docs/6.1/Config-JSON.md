@@ -77,25 +77,28 @@ In this JSON we see four Vinyl definitions: three sounds and one mix. Two of the
 |`metadata`    |any             |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
 
 Sets up a sound asset for playback with Vinyl. Any sound asset without a Vinyl definition will be played at a gain of 1, without any pitch shifting, and on the default mix.
-
-If the `emitterAlias` property is defined, Vinyl will attempt to play the sound on the specified emitter. You can register an emitter with `VinylRegisterEmitter()`.
+ 
+If the `emitterAlias` parameter is defined, Vinyl will attempt to play the sound on the specified emitter if the sound is played directly (i.e. not played via another pattern). You can register an emitter with `VinylRegisterEmitter()`.
 
 &nbsp;
 
 ## Shuffle
 
-|Property  |Datatype               |Default    |Notes                                                                                                      |
-|----------|-----------------------|-----------|-----------------------------------------------------------------------------------------------------------|
-|`shuffle` |string                 |N/A        |**Required.** Name of the shuffle pattern                                                                  |
-|`sounds`  |array, sound, or string|N/A        |**Required.** Sounds to play                                                                               |
-|`gain`    |number or array        |`1`        |Can be a two-element array for gain variance                                                               |
-|`pitch`   |number or array        |`1`        |Can be a two-element array for pitch variance                                                              |
-|`loop`    |boolean                |`undefined`|Can inherit from a mix if set to `undefined` and the mix has `.membersLoop` set to either `true` or `false`|
-|`duckOn`  |string                 |`undefined`|[Ducker](Ducker) to push voices to                                                                         |
-|`duckPrio`|number                 |`0`        |Priority for voices when pushed to the ducker above                                                        |
-|`metadata`|any                    |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
+|Property      |Datatype               |Default    |Notes                                                                                                      |
+|--------------|-----------------------|-----------|-----------------------------------------------------------------------------------------------------------|
+|`shuffle`     |string                 |N/A        |**Required.** Name of the shuffle pattern                                                                  |
+|`sounds`      |array, sound, or string|N/A        |**Required.** Sounds to play                                                                               |
+|`gain`        |number or array        |`1`        |Can be a two-element array for gain variance                                                               |
+|`pitch`       |number or array        |`1`        |Can be a two-element array for pitch variance                                                              |
+|`loop`        |boolean                |`undefined`|Can inherit from a mix if set to `undefined` and the mix has `.membersLoop` set to either `true` or `false`|
+|`duckOn`      |string                 |`undefined`|[Ducker](Ducker) to push voices to                                                                         |
+|`duckPrio`    |number                 |`0`        |Priority for voices when pushed to the ducker above                                                        |
+|`emitterAlias`|string                 |`undefined`|Name of a registered emitter to play sounds on by default                                                  |
+|`metadata`    |any                    |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
 
 Sets up a shuffle pattern for playback with Vinyl. When played, a shuffle pattern will randomly choose a sound from an array of sounds when played.
+
+If the `emitterAlias` parameter is defined, Vinyl will attempt to play sounds defined for the pattern on the specified emitter. You can register an emitter with `VinylRegisterEmitter()`.
 
 &nbsp;
 
