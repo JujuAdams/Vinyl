@@ -57,7 +57,7 @@ No example provided.
 
 ## `VinylMixVoicesFadeOut`
 
-`VinylMixVoicesFadeOut(mixName, [rateOfChange])`
+`VinylMixVoicesFadeOut(mixName, [rateOfChange], [pause=false])`
 
 <!-- tabs:start -->
 
@@ -69,8 +69,9 @@ No example provided.
 |----------------|--------|-------------------------------------------------------------------------------------------------------------------|
 |`mixName`       |string  |Name of the mix to target                                                                                          |
 |`[rateOfChange]`|number  |Optional, defaults to `VINYL_DEFAULT_FADE_OUT_RATE`. How fast to reach zero gain, measured in gain units per second|
+|`[pause]`       |boolean |Optional, defaults to `false`. Whether mix voices should pause when faded out                                      |
 
-Fades out all voices currently playing in a given mix. Once a voice is set to fade out, it cannot be stopped. The rate of change for this function is measured in "gain units per second".
+Fades out all voices currently playing in a given mix. Once a voice is set to fade out, it cannot be stopped. The rate of change for this function is measured in "gain units per second". If the optional `pause` parameter is set to `false` (the default) then mix voices will stop once faded out. If the `pause` parameter is set to `true` then mix voices will be paused instead and can be unpaused using the `VinylMixVoicesSetPause()` or `VinylSetPause()` functions. When resuming playback of mix voices, it will *not* fade in.
 
 #### **Example**
 

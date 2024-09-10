@@ -65,17 +65,20 @@ In this JSON we see four Vinyl definitions: three sounds and one mix. Two of the
 
 ## Sounds
 
-|Property  |Datatype        |Default    |Notes                                                                                                      |
-|----------|----------------|-----------|-----------------------------------------------------------------------------------------------------------|
-|`sound`   |string or sound |N/A        |**Required.** Should be a sound resource, or the name of a sound resource as a string                      |
-|`gain`    |number          |`1`        |                                                                                                           |
-|`pitch`   |number          |`1`        |                                                                                                           |
-|`loop`    |boolean         |`undefined`|Can inherit from a mix if set to `undefined` and the mix has `.membersLoop` set to either `true` or `false`|
-|`duckOn`  |string          |`undefined`|[Ducker](Ducker) to push voices to                                                                         |
-|`duckPrio`|number          |`0`        |Priority for voices when pushed to the ducker above                                                        |
-|`metadata`|any             |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
+|Property      |Datatype        |Default    |Notes                                                                                                      |
+|--------------|----------------|-----------|-----------------------------------------------------------------------------------------------------------|
+|`sound`       |string or sound |N/A        |**Required.** Should be a sound resource, or the name of a sound resource as a string                      |
+|`gain`        |number          |`1`        |                                                                                                           |
+|`pitch`       |number          |`1`        |                                                                                                           |
+|`loop`        |boolean         |`undefined`|Can inherit from a mix if set to `undefined` and the mix has `.membersLoop` set to either `true` or `false`|
+|`duckOn`      |string          |`undefined`|[Ducker](Ducker) to push voices to                                                                         |
+|`duckPrio`    |number          |`0`        |Priority for voices when pushed to the ducker above                                                        |
+|`emitterAlias`|string          |`undefined`|Name of a registered emitter to play the sound on by default                                               |
+|`metadata`    |any             |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
 
 Sets up a sound asset for playback with Vinyl. Any sound asset without a Vinyl definition will be played at a gain of 1, without any pitch shifting, and on the default mix.
+
+If the `emitterAlias` property is defined, Vinyl will attempt to play the sound on the specified emitter. You can register an emitter with `VinylRegisterEmitter()`.
 
 &nbsp;
 

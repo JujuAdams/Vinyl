@@ -45,6 +45,8 @@ No example provided.
 
 Returns whether the target voice is paused or unpaused.
 
+!> This function only works with **voices** and will not work with patterns or sound assets.
+
 #### **Example**
 
 ```gml

@@ -20,18 +20,21 @@
 
 *Returns:* N/A (`undefined`)
 
-|Name            |Datatype|Purpose                                                                  |
-|----------------|--------|-------------------------------------------------------------------------|
-|`sound`         |sound   |Sound asset to target                                                    |
-|`[gain]`        |number  |Optional, defaults to 1. Gain for the sound                              |
-|`[pitch]`       |number  |Optional, defaults to 1. Pitch multiplier for the sound                  |
-|`[loop]`        |boolean |Optional. Whether the sound loops                                        |
-|`[mix]`         |string  |Optional, defaults to `VINYL_DEFAULT_MIX`. Which mix to play the sound on|
-|`[duckerName]`  |string  |Optional. Which ducker to play the sound on                              |
-|`[duckPriority]`|number  |Optional, defaults to 0. What ducker priority to play the sound with     |
-|`[metadata]`    |any     |Optional. Metadata to attach to the sound                                |
+|Name            |Datatype|Purpose                                                                                        |
+|----------------|--------|-----------------------------------------------------------------------------------------------|
+|`sound`         |sound   |Sound asset to target                                                                          |
+|`[gain]`        |number  |Optional, defaults to 1. Gain for the sound                                                    |
+|`[pitch]`       |number  |Optional, defaults to 1. Pitch multiplier for the sound                                        |
+|`[loop]`        |boolean |Optional. Whether the sound loops                                                              |
+|`[mix]`         |string  |Optional, defaults to `VINYL_DEFAULT_MIX`. Which mix to play the sound on                      |
+|`[duckerName]`  |string  |Optional. Which ducker to play the sound on                                                    |
+|`[duckPriority]`|number  |Optional, defaults to 0. What ducker priority to play the sound with                           |
+|`emitterAlias`  |string  |Optional, defaults to `undefined`. Name of a registered emitter to play the sound on by default|
+|`[metadata]`    |any     |Optional. Metadata to attach to the sound                                                      |
 
 Sets up a sound asset for playback with Vinyl. This is an optional function and any sound asset without a Vinyl definition will be played at a gain of 1, without any pitch shifting, and on the default mix.
+
+If the `emitterAlias` parameter is defined, Vinyl will attempt to play the sound on the specified emitter. You can register an emitter with `VinylRegisterEmitter()`.
 
 #### **Example**
 
@@ -320,7 +323,7 @@ No example provided.
 
 Imports a JSON that contains definitions for mixes, sounds, and patterns. This is sometimes more convenient than writing lines of code.
 
-?> You can read more about [configuration JSON here](https://www.jujuadams.com/Vinyl/#/6.0/Config-JSON).
+?> You can read more about [configuration JSON here](Config-JSON).
 
 #### **Example**
 
@@ -348,7 +351,7 @@ No example provided.
 
 Exports the current Vinyl setup as JSON. The root node of this JSON is always an array. JSON can be used to communicate the Vinyl setup to other tools or can be saved to disk for reference later.
 
-?> You can read more about [configuration JSON here](https://www.jujuadams.com/Vinyl/#/6.0/Config-JSON).
+?> You can read more about [configuration JSON here](Config-JSON).
 
 #### **Example**
 
@@ -357,3 +360,53 @@ No example provided.
 ```
 
 <!-- tabs:end -->
+
+&nbsp;
+
+## `VinylRegisterEmitter`
+
+`VinylPatternExists(semitter, alias)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name     |Datatype|Purpose                                    |
+|---------|--------|-------------------------------------------|
+|`emitter`|emitter |Emitter to register                        |
+|`alias`  |string  |Name of the emitter for use when setting up|
+
+Registers an emitter for use with the `emitter` property on patterns. You should call this function once, ideally on boot. This emitter should further exist for the lifetime of the game and is intended for use with audio effect buses.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+&nbsp;
+
+## `VinylPatternExists`
+
+`VinylPatternExists(sound/pattern, [explicit=false])`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Boolean, whether the sound asset or pattern exists
+
+|Name           |Datatype     |Purpose                                                                                 |
+|---------------|-------------|----------------------------------------------------------------------------------------|
+|`sound/pattern`|sound/pattern|Sound asset or pattern to target                                                        |
+|`[explicit]`   |boolean      |Whether sound assets require an explicit pattern definition to be considering "existing"|
+
+Returns whether a pattern exists i.e. has been defined by a `VinylSetup*()` function (including JSON variants). If the `explicit` parameter is set to `false` (the default) then this function will always return `true` if a sound asset is passed as the parameter for this function regardless of whether a pattern has explicitly been created for the sound asset or not.
+
+#### **Example**
+
+```gml
+No example provided.
+```

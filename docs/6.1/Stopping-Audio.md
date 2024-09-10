@@ -56,7 +56,7 @@ No example provided.
 
 ## `VinylFadeOut`
 
-`VinylFadeOut(voice, [rateOfChange])`
+`VinylFadeOut(voice, [rateOfChange], [pause=false])`
 
 <!-- tabs:start -->
 
@@ -64,12 +64,13 @@ No example provided.
 
 *Returns:* N/A (`undefined`)
 
-|Name            |Datatype|Purpose                                                                                   |
-|----------------|--------|------------------------------------------------------------------------------------------|
-|`voice`         |voice   |Voice to target                                                                           |
-|`[rateOfChange]`|number  |Optional, defaults to 1. How fast to fade out the voice, measured in gain units per second|
+|Name            |Datatype|Purpose                                                                                     |
+|----------------|--------|--------------------------------------------------------------------------------------------|
+|`voice`         |voice   |Voice to target                                                                             |
+|`[rateOfChange]`|number  |Optional, defaults to `1`. How fast to fade out the voice, measured in gain units per second|
+|`[pause]`       |boolean |Optional, defaults to `false`. Whether the voice should pause when faded out                |
 
-Fades out out a voice. Once a voice is set to fade out, it cannot be stopped.
+Fades out out a voice. Once a voice is set to fade out, it cannot be stopped. The rate of change for this function is measured in "gain units per second". If the optional `pause` parameter is set to `false` (the default) then the voice will stop once faded out. If the `pause` parameter is set to `true` then the voice will be paused instead and can be unpaused using the `VinylSetPause()` function. When resuming playback of the voice, it will *not* fade in.
 
 #### **Example**
 
