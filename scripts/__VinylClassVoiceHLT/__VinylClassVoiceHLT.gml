@@ -12,6 +12,7 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
     static _mixDict          = __VinylSystem().__mixDict;
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
+    static _duckerDict       = __VinylSystem().__duckerDict;
     static _toUpdateArray    = __VinylSystem().__toUpdateArray;
     
     __emitter    = _emitter;
