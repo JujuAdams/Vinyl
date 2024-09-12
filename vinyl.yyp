@@ -68,6 +68,7 @@
     {"id":{"name":"__VinylFindMatchingAudioAssets","path":"scripts/__VinylFindMatchingAudioAssets/__VinylFindMatchingAudioAssets.yy",},},
     {"id":{"name":"__VinylGetMixMacro","path":"scripts/__VinylGetMixMacro/__VinylGetMixMacro.yy",},},
     {"id":{"name":"__VinylGetPatternMacro","path":"scripts/__VinylGetPatternMacro/__VinylGetPatternMacro.yy",},},
+    {"id":{"name":"__VinylGetQueueTemplateMacro","path":"scripts/__VinylGetQueueTemplateMacro/__VinylGetQueueTemplateMacro.yy",},},
     {"id":{"name":"__VinylImportAnimCurve","path":"scripts/__VinylImportAnimCurve/__VinylImportAnimCurve.yy",},},
     {"id":{"name":"__VinylImportSound","path":"scripts/__VinylImportSound/__VinylImportSound.yy",},},
     {"id":{"name":"__VinylImportSoundArray","path":"scripts/__VinylImportSoundArray/__VinylImportSoundArray.yy",},},

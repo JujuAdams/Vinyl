@@ -126,14 +126,12 @@ function __VinylClassQueueTemplate(_queueTemplateName, _soundArray, _behaviour, 
         buffer_write(_buffer, buffer_text, _indent);
         buffer_write(_buffer, buffer_text, "    queueTemplate: ");
         
-        //TODO
-        
-        //if (_useMacros)
-        //{
-        //    buffer_write(_buffer, buffer_text, __VinylGetPatternMacro(__patternName));
-        //    buffer_write(_buffer, buffer_text, ",\n");
-        //}
-        //else
+        if (_useMacros)
+        {
+            buffer_write(_buffer, buffer_text, __VinylGetQueueTemplateMacro(__templateName));
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        else
         {
             buffer_write(_buffer, buffer_text, "\"");
             buffer_write(_buffer, buffer_text, __templateName);
