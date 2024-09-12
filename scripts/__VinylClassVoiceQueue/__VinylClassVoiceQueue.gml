@@ -121,7 +121,7 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         {
             if (array_length(__soundArray) > 0)
             {
-                var _sound = array_pop(__soundArray);
+                var _sound = array_shift(__soundArray);
                 
                 switch(__behaviour)
                 {
@@ -146,7 +146,7 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
                 //Remove this voice from the old ducker
                 if (__duckerName != undefined)
                 {
-                    var _duckerStruct = _duckerDict[$ _duckerNameFinal];
+                    var _duckerStruct = _duckerDict[$ __duckerName];
                     if (_duckerStruct != undefined) _duckerStruct.__Remove(self);
                 }
                 
@@ -320,15 +320,19 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
                 {
                     //TODO - Insert proper logic here. For now, we just restart the whole queue
                     
-                    array_copy(__soundArray, 0, _queueTemplate.__soundArray, 0, array_length(_queueTemplate.__soundArray));
-                    
+                    __soundArray = variable_clone(_queueTemplate.__soundArray);
                     if ((array_length(__soundArray) > 0) && (__soundCurrent == __soundArray[0]))
                     {
                         array_shift(__soundArray);
                     }
                     else
                     {
+                        //Pretend like this voice never happened at all
                         audio_stop_sound(__voiceCurrent);
+                        
+                        __voiceCurrent = -1;
+                        __soundCurrent = undefined;
+                        
                         __Update(0);
                     }
                 }
@@ -342,6 +346,7 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         var _mixStruct = __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
         //Loop behaviour is determined by the queue's behaviour so we don't want to tamper with it here
         
+        //Add to the new ducker
         var _duckerNameFinal = (_mixStruct == undefined)? _pattern.__duckerName : (_pattern.__duckerName ?? _mixStruct.__membersDuckOn);
         if (_duckerNameFinal != undefined)
         {
@@ -361,6 +366,6 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         }
         
         audio_sound_gain( __voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
-        audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxPxL);
+        audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxL);
     }
 }
