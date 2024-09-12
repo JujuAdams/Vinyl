@@ -34,7 +34,7 @@ function __VinylClassQueueTemplate(_queueTemplateName, _soundArray, _behaviour, 
     __prevBehaviour = undefined;
     __prevLoopQueue = undefined;
     
-    if (__VINYL_RUNNING_FROM_IDE && (__soundCount <= 0))
+    if (__VINYL_RUNNING_FROM_IDE && (array_length(__soundArray) <= 0))
     {
         __VinylWarning("Queue template \"", _queueTemplateName, "\" has no sounds");
     }
@@ -49,7 +49,10 @@ function __VinylClassQueueTemplate(_queueTemplateName, _soundArray, _behaviour, 
             _emitter = _emitterMap[? __emitterAlias];
         }
         
-        return (new __VinylClassVoiceQueue(__templateName, __behaviour, __loopQueue, _gain, _emitter)).__voiceReference;
+        var _voice = (new __VinylClassVoiceQueue(__templateName, __behaviour, __loopQueue, _gain, _emitter)).__voiceReference;
+        VinylQueueSetArray(_voice, __soundArray);
+        
+        return _voice;
     }
     
     static __UpdateSetup = function(_soundArray, _behaviour, _loopQueue, _gain = 0, _emitterAlias = undefined)
