@@ -34,7 +34,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.8.0.169",
+    "IDEVersion":"2024.8.1.171",
   },
   "name":"vinyl",
   "resources":[
@@ -53,6 +53,7 @@
     {"id":{"name":"__VinylClassPatternHLT","path":"scripts/__VinylClassPatternHLT/__VinylClassPatternHLT.yy",},},
     {"id":{"name":"__VinylClassPatternShuffle","path":"scripts/__VinylClassPatternShuffle/__VinylClassPatternShuffle.yy",},},
     {"id":{"name":"__VinylClassPatternSound","path":"scripts/__VinylClassPatternSound/__VinylClassPatternSound.yy",},},
+    {"id":{"name":"__VinylClassQueueTemplate","path":"scripts/__VinylClassQueueTemplate/__VinylClassQueueTemplate.yy",},},
     {"id":{"name":"__VinylClassVoiceBlend","path":"scripts/__VinylClassVoiceBlend/__VinylClassVoiceBlend.yy",},},
     {"id":{"name":"__VinylClassVoiceHLT","path":"scripts/__VinylClassVoiceHLT/__VinylClassVoiceHLT.yy",},},
     {"id":{"name":"__VinylClassVoiceQueue","path":"scripts/__VinylClassVoiceQueue/__VinylClassVoiceQueue.yy",},},
@@ -123,6 +124,7 @@
     {"id":{"name":"VinylQueueClear","path":"scripts/VinylQueueClear/VinylQueueClear.yy",},},
     {"id":{"name":"VinylQueueContains","path":"scripts/VinylQueueContains/VinylQueueContains.yy",},},
     {"id":{"name":"VinylQueueCreate","path":"scripts/VinylQueueCreate/VinylQueueCreate.yy",},},
+    {"id":{"name":"VinylQueueCreateFromTemplate","path":"scripts/VinylQueueCreateFromTemplate/VinylQueueCreateFromTemplate.yy",},},
     {"id":{"name":"VinylQueueDestroy","path":"scripts/VinylQueueDestroy/VinylQueueDestroy.yy",},},
     {"id":{"name":"VinylQueueGetArray","path":"scripts/VinylQueueGetArray/VinylQueueGetArray.yy",},},
     {"id":{"name":"VinylQueueGetBehaviour","path":"scripts/VinylQueueGetBehaviour/VinylQueueGetBehaviour.yy",},},
@@ -148,6 +150,7 @@
     {"id":{"name":"VinylSetupHLT","path":"scripts/VinylSetupHLT/VinylSetupHLT.yy",},},
     {"id":{"name":"VinylSetupImportJSON","path":"scripts/VinylSetupImportJSON/VinylSetupImportJSON.yy",},},
     {"id":{"name":"VinylSetupMix","path":"scripts/VinylSetupMix/VinylSetupMix.yy",},},
+    {"id":{"name":"VinylSetupQueueTemplate","path":"scripts/VinylSetupQueueTemplate/VinylSetupQueueTemplate.yy",},},
     {"id":{"name":"VinylSetupShuffle","path":"scripts/VinylSetupShuffle/VinylSetupShuffle.yy",},},
     {"id":{"name":"VinylSetupSound","path":"scripts/VinylSetupSound/VinylSetupSound.yy",},},
     {"id":{"name":"VinylStop","path":"scripts/VinylStop/VinylStop.yy",},},

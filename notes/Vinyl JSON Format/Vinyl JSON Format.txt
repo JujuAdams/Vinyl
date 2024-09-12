@@ -119,15 +119,24 @@ Head-Loop-Tail Patterns:
 }
 
 Blend Patterns:
-    {
-        "blend": <pattern name>, required
-        "sounds": <array of sound assets>, required
-        "loop": <boolean>, defaults to true
-        "gain": <number>, defaults to 1
-        "duckOn": <ducker name>
-        "duckPrio", <number>, default to 0
-        "metadata": <any>
-    }
+{
+    "blend": <pattern name>, required
+    "sounds": <array of sound assets>, required
+    "loop": <boolean>, defaults to true
+    "gain": <number>, defaults to 1
+    "duckOn": <ducker name>
+    "duckPrio", <number>, default to 0
+    "metadata": <any>
+}
+
+Queue Templates:
+{
+    "queueTemplate": <template name>, required
+    "sounds": <array of sound assets, or wildcard pattern to match against>, required
+    "behavior": <integer>, default to 0 (VINYL_QUEUE.DONT_LOOP)
+    "loopQueue": <boolean>, default to <false>
+    "emitter", <string>, default to <undefined>, emitter must have been registered with VinylRegisterEmitter()
+}
 
 Mixes:
 {

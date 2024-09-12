@@ -42,10 +42,11 @@ function __VinylSystem()
         __importingJSON = false;
         
         //Lookup dictionaries for sound/pattern/mix definitions.
-        __soundDict    = {};
-        __patternDict  = {};
-        __mixDict      = {};
-        __metadataDict = {};
+        __soundDict         = {};
+        __patternDict       = {};
+        __mixDict           = {};
+        __metadataDict      = {};
+        __queueTemplateDict = {};
         
         __emitterMap = ds_map_create();
         

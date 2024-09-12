@@ -1,18 +1,22 @@
 // Feather disable all
 
+/// @param templateName
 /// @param behaviour
 /// @param loopQueue
 /// @param localGain
 /// @param emitter
 
-function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal, _emitter) constructor
+function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLocal, _emitter) constructor
 {
     static _queueCount = 0;
     
-    static _duckerDict       = __VinylSystem().__duckerDict;
-    static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
-    static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
-    static _toUpdateArray    = __VinylSystem().__toUpdateArray;
+    static _duckerDict        = __VinylSystem().__duckerDict;
+    static _voiceToStructMap  = __VinylSystem().__voiceToStructMap;
+    static _voiceUpdateArray  = __VinylSystem().__voiceUpdateArray;
+    static _queueTemplateDict = __VinylSystem().__queueTemplateDict;
+    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
+    
+    __templateName = _templateName;
     
     __gainSound   = 1;
     __gainLocal   = _gainLocal;
@@ -296,6 +300,40 @@ function __VinylClassVoiceQueue(_behaviour, _loopQueue, _gainLocal, _emitter) co
     static __UpdateFromPattern = function()
     {
         if (__soundCurrent == undefined) return;
+        
+        if (__templateName != undefined)
+        {
+            var _queueTemplate = _queueTemplateDict[$ __templateName];
+            if (_queueTemplate != undefined)
+            {
+                if (__behaviour == _queueTemplate.__prevBehaviour)
+                {
+                    __behaviour = _queueTemplate.__behaviour;
+                }
+                
+                if (__loopQueue == _queueTemplate.__prevLoopQueue)
+                {
+                    __loopQueue = _queueTemplate.__loopQueue;
+                }
+                
+                if (_queueTemplate.__loopQueue)
+                {
+                    //TODO - Insert proper logic here. For now, we just restart the whole queue
+                    
+                    array_copy(__soundArray, 0, _queueTemplate.__soundArray, 0, array_length(_queueTemplate.__soundArray));
+                    
+                    if ((array_length(__soundArray) > 0) && (__soundCurrent == __soundArray[0]))
+                    {
+                        array_shift(__soundArray);
+                    }
+                    else
+                    {
+                        audio_stop_sound(__voiceCurrent);
+                        __Update(0);
+                    }
+                }
+            }
+        }
         
         var _pattern = __VinylEnsurePatternSound(__soundCurrent);
         __gainSound  = _pattern.__gain;
