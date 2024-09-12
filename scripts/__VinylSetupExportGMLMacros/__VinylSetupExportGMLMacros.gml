@@ -22,6 +22,8 @@ function __VinylSetupExportGMLMacros()
     var _queueTemplateArray = struct_get_names(_queueTemplateDict);
     array_sort(_queueTemplateArray, true);
     
+    
+    
     if (array_length(_mixArray))
     {
         buffer_write(_buffer, buffer_text, "//Mix macros\n");
@@ -61,6 +63,8 @@ function __VinylSetupExportGMLMacros()
     
     buffer_write(_buffer, buffer_text, "\n");
     
+    
+    
     if (array_length(_patternArray))
     {
         buffer_write(_buffer, buffer_text, "//Pattern macros\n");
@@ -98,6 +102,10 @@ function __VinylSetupExportGMLMacros()
         buffer_write(_buffer, buffer_text, "//No pattern macros\n");
     }
     
+    buffer_write(_buffer, buffer_text, "\n");
+    
+    
+    
     if (array_length(_queueTemplateArray))
     {
         buffer_write(_buffer, buffer_text, "//Queue template macros\n");
@@ -134,6 +142,8 @@ function __VinylSetupExportGMLMacros()
     {
         buffer_write(_buffer, buffer_text, "//No queue template macros\n");
     }
+    
+    
     
     buffer_seek(_buffer, buffer_seek_relative, -1);
     buffer_write(_buffer, buffer_u8, 0x00);
