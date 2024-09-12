@@ -389,6 +389,8 @@ Registers an emitter for use with the `emitter` property on patterns. You should
 No example provided.
 ```
 
+<!-- tabs:end -->
+
 &nbsp;
 
 ## `VinylPatternExists`
@@ -413,3 +415,5 @@ Returns whether a pattern exists i.e. has been defined by a `VinylSetup*()` func
 ```gml
 No example provided.
 ```
+
+<!-- tabs:end -->
