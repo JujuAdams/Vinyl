@@ -161,7 +161,10 @@ function __VinylSystem()
                                 __VinylTrace("Warning! Failed to read GML");
                             }
                             
-                            buffer_delete(_buffer);
+                            if (buffer_exists(_buffer))
+                            {
+                                buffer_delete(_buffer);
+                            }
                             
                             if (is_struct(_gml))
                             {
