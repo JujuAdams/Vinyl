@@ -34,7 +34,7 @@
 
 Sets up a sound asset for playback with Vinyl. This is an optional function and any sound asset without a Vinyl definition will be played at a gain of 1, without any pitch shifting, and on the default mix.
 
-If the `emitterAlias` parameter is defined, Vinyl will attempt to play the sound on the specified emitter. You can register an emitter with `VinylRegisterEmitter()`.
+If the `emitterAlias` parameter is defined, Vinyl will attempt to play the sound on the specified emitter **when playing the sound asset directly** using `VinylPlay()`. You can register an emitter with `VinylRegisterEmitter()`. Emitter aliases will not affect audio played using a pattern or a queue.
 
 #### **Example**
 
@@ -66,9 +66,12 @@ No example provided.
 |`[mix]`         |string         |Optional, defaults to `VINYL_DEFAULT_MIX`. Which mix to play sounds on                                                    |
 |`[duckerName]`  |string         |Optional. Which ducker to play sounds on                                                                                  |
 |`[duckPriority]`|number         |Optional, defaults to 0. What ducker priority to play sounds with                                                         |
+|`emitterAlias`  |string         |Optional, defaults to `undefined`. Name of a registered emitter to play sounds on by default                              |
 |`[metadata]`    |any            |Optional. Metadata to attach to the pattern                                                                               |
 
 Sets up a shuffle pattern for playback with Vinyl. When played, a shuffle pattern will randomly choose a sound from an array of sounds when played.
+
+If the `emitterAlias` parameter is defined, Vinyl will attempt to play the sound on the specified emitter when playing the pattern using `VinylPlay()`. You can register an emitter with `VinylRegisterEmitter()`.
 
 #### **Example**
 
