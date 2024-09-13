@@ -19,7 +19,7 @@
 - Duckers to handle crossfades and ducking
 - Live update of all the above using a simple JSON format
 - Easier gain control that allow you to exceed GameMaker's normal maximum gain
-- 
+
 ## Updating
 
 Releases go out once in while, typically expedited if there is a serious bug. This library uses [semantic versioning](https://semver.org/). In short, if the left-most number in the version is increased then this is a "major version increase". Major version increases introduce breaking changes and you'll almost certainly have to rewrite some code. However, if the middle or right-most number in the version is increased then you probably won't have to rewrite any code. For example, moving from `1.1.0` to `2.0.0` is a major version increase but moving from `1.1.0` to `1.2.0` isn't.
