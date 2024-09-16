@@ -19,6 +19,7 @@
 -    [Looping](Looping)
 -    [Pausing](Pausing)
 -    [Gain](Functions-Gain)
+-    [Pitch](Functions-Pitch)
 -    [Mix Functions](Functions-Mix)
 -    [Blend Functions](Functions-Blend)
 -    [Queue Functions](Functions-Queue)

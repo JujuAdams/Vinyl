@@ -137,6 +137,60 @@ No example provided.
 
 &nbsp;
 
+## `VinylMixSetPitch`
+
+`VinylMixSetPitch(mixName, pitch, [rateOfChange])`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+           
+|Name            |Datatype|Purpose                                                                                              |
+|----------------|--------|-----------------------------------------------------------------------------------------------------|
+|`mixName`       |string  |Name of the mix to target                                                                            |
+|`pitch`         |number  |Target pitch                                                                                         |
+|`[rateOfChange]`|number  |Optional, defaults to instant. How fast to reach the target pitch, measured in pitch units per second|
+
+Sets the local pitch for the mix which is then applied to all audio played on this mix. Setting the local pitch for a mix will affect all current and future audio played on the mix. The rate of change for this function is measured in "pitch units per second".
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylMixGetPitch`
+
+`VinylMixGetPitch(mixName)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Number
+
+|Name     |Datatype|Purpose                     |
+|---------|--------|----------------------------|
+|`mixName`|string  |Name of the mix to target   |
+
+Returns the local pitch for the mix.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
 ## `VinylMixGetMetadata`
 
 `VinylMixGetMetadata(mixName, [default])`
