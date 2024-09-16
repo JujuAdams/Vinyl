@@ -17,6 +17,7 @@
     {"$GMFolder":"","%Name":"Classes","folderPath":"folders/Vinyl/(Internals)/Classes.yy","name":"Classes","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Patterns","folderPath":"folders/Vinyl/(Internals)/Classes/Patterns.yy","name":"Patterns","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Voice","folderPath":"folders/Vinyl/(Internals)/Classes/Voice.yy","name":"Voice","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Deprecated","folderPath":"folders/Vinyl/(Internals)/Deprecated.yy","name":"Deprecated","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"PRNG","folderPath":"folders/Vinyl/(Internals)/PRNG.yy","name":"PRNG","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Blend Voices","folderPath":"folders/Vinyl/Blend Voices.yy","name":"Blend Voices","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Config","folderPath":"folders/Vinyl/Config.yy","name":"Config","resourceType":"GMFolder","resourceVersion":"2.0",},
