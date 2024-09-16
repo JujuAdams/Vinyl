@@ -328,7 +328,7 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
     static __SetMixGain = function(_gain)
     {
         __gainMix = max(0, _gain);
-        audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+        audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_SxPxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
     static __SetLocalPitch = function(_pitch, _rateOfChange)
@@ -352,12 +352,6 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
     static __GetLoop = function()
     {
         return audio_sound_get_loop(__voiceCurrent);
-    }
-    
-    static __SetMixGain = function(_gain)
-    {
-        __gainMix = max(0, _gain);
-        audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_SxPxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
     static __QueueUpdateForSound = function(_sound)
