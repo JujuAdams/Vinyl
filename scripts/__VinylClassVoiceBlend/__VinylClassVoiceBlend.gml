@@ -336,6 +336,11 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         __UpdateVoiceGains();
     }
     
+    static __SetLocalPitch = function(_pitch, _rateOfChange)
+    {
+        //TODO
+    }
+    
     static __SetBlend = function(_factor)
     {
         _factor = clamp(_factor, 0, 1);

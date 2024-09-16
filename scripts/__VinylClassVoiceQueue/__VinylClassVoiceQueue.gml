@@ -269,6 +269,11 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
+    static __SetLocalPitch = function(_pitch, _rateOfChange)
+    {
+        //TODO
+    }
+    
     static __SetBehaviour = function(_behaviour, _setForPlaying)
     {
         __behaviour = _behaviour;

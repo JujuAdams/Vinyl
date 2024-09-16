@@ -322,6 +322,11 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
+    static __SetLocalPitch = function(_pitch, _rateOfChange)
+    {
+        //TODO
+    }
+    
     static __SetLoop = function(_state)
     {
         __doLoop = _state;

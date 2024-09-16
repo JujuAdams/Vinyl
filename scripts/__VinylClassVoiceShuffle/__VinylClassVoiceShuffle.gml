@@ -199,6 +199,11 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
         audio_sound_gain(__voiceReference, __VINYL_VOICE_GAIN_SxPxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
     }
     
+    static __SetLocalPitch = function(_pitch, _rateOfChange)
+    {
+        //TODO
+    }
+    
     static __QueueUpdateForSound = function(_sound)
     {
         if (__sound == _sound) array_push(_toUpdateArray, self);

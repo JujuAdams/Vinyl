@@ -146,6 +146,11 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
         }
     }
     
+    static __SetLocalPitch = function(_pitch, _rateOfChange)
+    {
+        //TODO
+    }
+    
     static __ExportJSON = function(_soundExportedDict, _patternExportedDict, _ignoreEmpty)
     {
         static _methodContext = {
