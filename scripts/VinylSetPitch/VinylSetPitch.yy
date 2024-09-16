@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylSetGain",
+  "%Name":"VinylSetPitch",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylSetGain",
+  "name":"VinylSetPitch",
   "parent":{
     "name":"Gain & Pitch",
     "path":"folders/Vinyl/Gain & Pitch.yy",
