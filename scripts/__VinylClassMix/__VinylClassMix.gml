@@ -24,6 +24,10 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
     __gainLocalTarget = 1;
     __gainLocalSpeed  = infinity;
     
+    __pitchLocal       = 1;
+    __pitchLocalTarget = _pitchLocal;
+    __pitchLocalSpeed  = infinity;
+    
     __cleanUpIndex = 0;
     __voiceArray   = [];
     
@@ -37,6 +41,12 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
         {
             __gainLocal += clamp(__gainLocalTarget - __gainLocal, -_delta*__gainLocalSpeed, _delta*__gainLocalSpeed);
             __UpdateMemberGain();
+        }
+        
+        if (__pitchLocal != __pitchLocalTarget)
+        {
+            __pitchLocal += clamp(__pitchLocalTarget - __pitchLocal, -_delta*__pitchLocalSpeed, _delta*__pitchLocalSpeed);
+            __UpdateMemberPitch();
         }
         
         var _array = __voiceArray;
@@ -72,6 +82,19 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
         repeat(array_length(_array))
         {
             __VinylEnsureSoundVoice(_array[_i]).__SetMixGain(_gainFinal);
+            ++_i;
+        }
+    }
+    
+    static __UpdateMemberPitch = function()
+    {
+        var _pitchFinal = __pitchLocal;
+        
+        var _array = __voiceArray;
+        var _i = 0;
+        repeat(array_length(_array))
+        {
+            __VinylEnsureSoundVoice(_array[_i]).__SetMixPitch(_pitchFinal);
             ++_i;
         }
     }
@@ -148,7 +171,14 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
     
     static __SetLocalPitch = function(_pitch, _rateOfChange)
     {
-        //TODO
+        __pitchLocalTarget = _pitch;
+        __pitchLocalSpeed  = _rateOfChange;
+        
+        if (_rateOfChange > 100)
+        {
+            __pitchLocal = _pitch;
+            __UpdateMemberPitch();
+        }
     }
     
     static __ExportJSON = function(_soundExportedDict, _patternExportedDict, _ignoreEmpty)

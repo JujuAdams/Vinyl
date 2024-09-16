@@ -25,6 +25,9 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
     __gainLocalTarget = _gainLocal;
     __gainLocalSpeed  = infinity;
     
+    __pitchLocalTarget = _pitchLocal;
+    __pitchLocalSpeed  = infinity;
+    
     __gainPattern = _pattern.__gain;
     
     if (VINYL_LIVE_EDIT)
@@ -188,6 +191,12 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
             }
         }
         
+        if (__pitchLocal != __pitchLocalTarget)
+        {
+            __pitchLocal += clamp(__pitchLocalTarget - __pitchLocal, -_delta*__pitchLocalSpeed, _delta*__pitchLocalSpeed);
+            audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxL);
+        }
+        
         if (VinylWillStop(__voiceCurrent))
         {
             var _pattern = __pattern;
@@ -324,7 +333,14 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
     
     static __SetLocalPitch = function(_pitch, _rateOfChange)
     {
-        //TODO
+        __pitchLocalTarget = _pitch;
+        __pitchLocalSpeed  = _rateOfChange;
+        
+        if (_rateOfChange > 100)
+        {
+            __pitchLocal = _pitch;
+            audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxL);
+        }
     }
     
     static __SetLoop = function(_state)

@@ -37,6 +37,9 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
     __gainFadeOutSpeed = undefined;
     __gainFadeOutStop  = false;
     
+    __pitchLocalTarget = 1;
+    __pitchLocalSpeed  = infinity;
+    
     __destroyed = false;
     
     __pitchSound = 1;
@@ -115,6 +118,12 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
                     __SetPause(true);
                 }
             }
+        }
+        
+        if (__pitchLocal != __pitchLocalTarget)
+        {
+            __pitchLocal += clamp(__pitchLocalTarget - __pitchLocal, -_delta*__pitchLocalSpeed, _delta*__pitchLocalSpeed);
+            audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxL);
         }
         
         if (VinylWillStop(__voiceCurrent))
@@ -271,7 +280,14 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
     
     static __SetLocalPitch = function(_pitch, _rateOfChange)
     {
-        //TODO
+        __pitchLocalTarget = _pitch;
+        __pitchLocalSpeed  = _rateOfChange;
+        
+        if (_rateOfChange > 100)
+        {
+            __pitchLocal = _pitch;
+            audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxL);
+        }
     }
     
     static __SetBehaviour = function(_behaviour, _setForPlaying)
