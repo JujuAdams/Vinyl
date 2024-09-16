@@ -1,9 +1,8 @@
 // Feather disable all
 
-/// Sets the local pitch for the mix. This is multipled with the base pitch (see VinylSetupMix())
-/// to give a pitch factor applied to all audio played on this mix. Setting the local pitch for a
-/// mix will affect all current and future audio played on the mix. The rate of change for this
-/// function is measured in "pitch units per second".
+/// Sets the local pitch for the mix which is then applied to all audio played on this mix. Setting
+/// the local pitch for a mix will affect all current and future audio played on the mix. The rate
+/// of change for this function is measured in "pitch units per second".
 /// 
 /// @param mixName
 /// @param pitch
