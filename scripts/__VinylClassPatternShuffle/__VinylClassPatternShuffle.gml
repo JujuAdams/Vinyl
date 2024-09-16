@@ -113,6 +113,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         {
             var _mixStruct       = undefined;
             var _gainMix         = 1;
+            var _pitchMix        = 1;
             var _loopFinal       = _loopLocal ?? __loop;
             var _duckerNameFinal = _duckerNameLocal ?? __duckerName;
         }
@@ -126,6 +127,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             }
             
             var _gainMix         = _mixStruct.__gainFinal;
+            var _pitchMix        = _mixStruct.__pitchLocal;
             var _loopFinal       = _loopLocal ?? (__loop ?? (_mixStruct.__membersLoop ?? false));
             var _duckerNameFinal = _duckerNameLocal ?? (__duckerName ?? _mixStruct.__membersDuckOn);
         }
@@ -165,7 +167,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         //If we're in live edit mode then always create a struct representation
         if (VINYL_LIVE_EDIT || (_duckerNameFinal != undefined))
         {
-            var _voiceStruct = new __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _gainDuck, _pitchPattern, _pitchLocal, _duckerNameLocal, _duckPrioLocal, self, _gainFactor, _pitchFactor);
+            var _voiceStruct = new __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _gainDuck, _pitchPattern, _pitchLocal, _pitchMix, _duckerNameLocal, _duckPrioLocal, self, _gainFactor, _pitchFactor);
         }
         
         if (_duckerStruct != undefined) _duckerStruct.__Push(_voiceStruct, _duckPrioFinal, false);

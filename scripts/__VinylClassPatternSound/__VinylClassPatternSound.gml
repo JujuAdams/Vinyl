@@ -40,9 +40,10 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         
         if (__mixName == undefined)
         {
-            var _mixStruct     = undefined;
-            var _gainMix       = 1;
-            var _loopFinal     = _loopLocal ?? __loop;
+            var _mixStruct       = undefined;
+            var _gainMix         = 1;
+            var _pitchMix        = 1;
+            var _loopFinal       = _loopLocal ?? __loop;
             var _duckerNameFinal = _duckerNameLocal ?? __duckerName;
         }
         else
@@ -54,8 +55,9 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
                 return;
             }
             
-            var _gainMix       = _mixStruct.__gainFinal;
-            var _loopFinal     = _loopLocal ?? (__loop ?? (_mixStruct.__membersLoop ?? false));
+            var _gainMix         = _mixStruct.__gainFinal;
+            var _pitchMix        = _mixStruct.__pitchLocal;
+            var _loopFinal       = _loopLocal ?? (__loop ?? (_mixStruct.__membersLoop ?? false));
             var _duckerNameFinal = _duckerNameLocal ?? (__duckerName ?? _mixStruct.__membersDuckOn);
         }
         
@@ -94,7 +96,10 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         //If we're in live edit mode then always create a struct representation
         if (VINYL_LIVE_EDIT || (_duckerNameFinal != undefined))
         {
-            var _voiceStruct = new __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _gainDuck, _pitchSound, _pitchLocal, _duckerNameLocal, _duckPrioLocal, self);
+            var _voiceStruct = new __VinylClassVoiceSound(_voice, _loopLocal,
+                                                          _gainSound, _gainLocal, _gainMix, _gainDuck,
+                                                          _pitchSound, _pitchLocal, _pitchMix,
+                                                          _duckerNameLocal, _duckPrioLocal, self);
         }
         
         if (_duckerStruct != undefined) _duckerStruct.__Push(_voiceStruct, _duckPrioFinal, false);

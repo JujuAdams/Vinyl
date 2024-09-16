@@ -41,7 +41,8 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     {
         var _mixStruct = undefined;
         var _mixLoop   = undefined;
-        __gainMix = 1;
+        __gainMix  = 1;
+        __pitchMix = 1;
         
         var _duckerNameFinal = _duckerNameLocal ?? _pattern.__duckerName;
     }
@@ -55,7 +56,8 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         }
         
         var _mixLoop = _mixStruct.__membersLoop;
-        __gainMix = _mixStruct.__gainFinal;
+        __gainMix  = _mixStruct.__gainFinal;
+        __pitchMix = _mixStruct.__pitchLocal;
         
         var _duckerNameFinal = _duckerNameLocal ?? (_pattern.__duckerName ?? _mixStruct.__membersDuckOn);
     }
@@ -102,7 +104,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     {
         var _loopFinal   = _loopLocal ?? (_pattern.__loop ?? (_mixLoop ?? false));
         var _gainShared  = __VINYL_VOICE_GAIN_PxLxMxDxF/VINYL_MAX_VOICE_GAIN;
-        var _pitchShared = __pitchLocal;
+        var _pitchShared = __pitchLocal*__pitchMix;
         
         var _i = 0;
         repeat(__voiceCount)
@@ -354,6 +356,12 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
                 array_push(_voiceUpdateArray, self);
             }
         }
+    }
+    
+    static __SetMixPitch = function(_pitch)
+    {
+        __pitchMix = _pitch;
+        __UpdateVoicePitches();
     }
     
     static __SetBlend = function(_factor)

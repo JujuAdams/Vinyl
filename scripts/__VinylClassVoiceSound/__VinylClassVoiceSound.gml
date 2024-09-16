@@ -8,11 +8,12 @@
 /// @param gainDuck
 /// @param pitchSound
 /// @param pitchLocal
+/// @param pitchMix
 /// @param duckerNameLocal
 /// @param duckPrioLocal
 /// @param pattern
 
-function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _gainDuck, _pitchSound, _pitchLocal, _duckerNameLocal, _duckPrioLocal, _pattern) constructor
+function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _gainDuck, _pitchSound, _pitchLocal, _pitchMix, _duckerNameLocal, _duckPrioLocal, _pattern) constructor
 {
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
@@ -27,8 +28,10 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     __gainMix     = _gainMix;
     __gainDuck    = _gainDuck;
     
-    __pitchSound      = _pitchSound;
-    __pitchLocal      = _pitchLocal;
+    __pitchSound = _pitchSound;
+    __pitchLocal = _pitchLocal;
+    __pitchMix   = _pitchMix;
+    
     __duckerNameLocal = _duckerNameLocal;
     __duckPrioLocal   = _duckPrioLocal;
     
@@ -132,7 +135,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         if (__pitchLocal != __pitchLocalTarget)
         {
             __pitchLocal += clamp(__pitchLocalTarget - __pitchLocal, -_delta*__pitchLocalSpeed, _delta*__pitchLocalSpeed);
-            audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxL);
+            audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxLxM);
         }
         
         return true;
@@ -212,8 +215,14 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         if (_rateOfChange > 100)
         {
             __pitchLocal = _pitch;
-            audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxL);
+            audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxLxM);
         }
+    }
+    
+    static __SetMixPitch = function(_pitch)
+    {
+        __pitchMix = _pitch;
+        audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxLxM);
     }
     
     static __QueueUpdateForSound = function(_sound)
@@ -235,6 +244,6 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         
         audio_sound_loop( __voiceReference, __loopLocal ?? (_pattern.__loop ?? (_loopMix ?? false)));
         audio_sound_gain( __voiceReference, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
-        audio_sound_pitch(__voiceReference, __VINYL_VOICE_PITCH_SxL);
+        audio_sound_pitch(__voiceReference, __VINYL_VOICE_PITCH_SxLxM);
     }
 }

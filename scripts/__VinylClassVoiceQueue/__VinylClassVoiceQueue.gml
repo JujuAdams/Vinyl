@@ -27,6 +27,10 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
     __gainLocalTarget = _gainLocal;
     __gainLocalSpeed  = infinity;
     
+    __pitchSound = 1;
+    __pitchLocal = 1;
+    __pitchMix   = 1;
+    
     __duckerName = undefined;
     
     __gainDuck       = 1;
@@ -41,9 +45,6 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
     __pitchLocalSpeed  = infinity;
     
     __destroyed = false;
-    
-    __pitchSound = 1;
-    __pitchLocal = 1;
     
     __voiceCurrent = -1;
     __soundCurrent = undefined;
@@ -123,7 +124,7 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         if (__pitchLocal != __pitchLocalTarget)
         {
             __pitchLocal += clamp(__pitchLocalTarget - __pitchLocal, -_delta*__pitchLocalSpeed, _delta*__pitchLocalSpeed);
-            audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxL);
+            audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxLxM);
         }
         
         if (VinylWillStop(__voiceCurrent))
@@ -286,8 +287,14 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         if (_rateOfChange > 100)
         {
             __pitchLocal = _pitch;
-            audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxL);
+            audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxLxM);
         }
+    }
+    
+    static __SetMixPitch = function(_pitch)
+    {
+        __pitchMix = max(0, _pitch);
+        audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxLxM);
     }
     
     static __SetBehaviour = function(_behaviour, _setForPlaying)
@@ -387,6 +394,6 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         }
         
         audio_sound_gain( __voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
-        audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxL);
+        audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxLxM);
     }
 }
