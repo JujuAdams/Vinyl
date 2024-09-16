@@ -138,7 +138,7 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
         if (__pitchLocal != __pitchLocalTarget)
         {
             __pitchLocal += clamp(__pitchLocalTarget - __pitchLocal, -_delta*__pitchLocalSpeed, _delta*__pitchLocalSpeed);
-            audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxPxLxM);
+            audio_sound_pitch(__voiceReference, __VINYL_VOICE_PITCH_SxPxLxM);
         }
         
         return true;
@@ -218,14 +218,22 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
         if (_rateOfChange > 100)
         {
             __pitchLocal = _pitch;
-            audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxPxLxM);
+            audio_sound_pitch(__voiceReference, __VINYL_VOICE_PITCH_SxPxLxM);
+        }
+        else
+        {
+            if (not __inUpdateArray)
+            {
+                __inUpdateArray = true;
+                array_push(_voiceUpdateArray, self);
+            }
         }
     }
     
     static __SetMixPitch = function(_pitch)
     {
         __pitchMix = _pitch;
-        audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxPxLxM);
+        audio_sound_pitch(__voiceReference, __VINYL_VOICE_PITCH_SxPxLxM);
     }
     
     static __QueueUpdateForSound = function(_sound)

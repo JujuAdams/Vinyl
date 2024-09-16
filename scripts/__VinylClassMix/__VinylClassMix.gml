@@ -25,7 +25,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
     __gainLocalSpeed  = infinity;
     
     __pitchLocal       = 1;
-    __pitchLocalTarget = _pitchLocal;
+    __pitchLocalTarget = __pitchLocal;
     __pitchLocalSpeed  = infinity;
     
     __cleanUpIndex = 0;
