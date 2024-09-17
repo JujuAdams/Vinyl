@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylPatternExists",
   "parent":{
-    "name":"Runtime Setup",
-    "path":"folders/Vinyl/Runtime Setup.yy",
+    "name":"Miscellaneous",
+    "path":"folders/Vinyl/Miscellaneous.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

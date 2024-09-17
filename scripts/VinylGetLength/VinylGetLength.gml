@@ -2,7 +2,7 @@
 
 /// Returns the length of a sound asset that is currently being played by the target voice. If a
 /// blend voice is targeted then this function will return the length of the first (0th index)
-/// sound. If the voice is invalid then this function will return `0`. Setting the optionl
+/// sound. If the voice is invalid then this function will return `0`. Setting the optional
 /// `adjustForPitch` parameter to `true` will correct the returned value for the current pitch
 /// of the voice (a higher pitch will reduce the playback time).
 /// 
