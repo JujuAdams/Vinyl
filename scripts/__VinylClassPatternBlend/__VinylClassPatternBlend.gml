@@ -149,7 +149,21 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _anim
             buffer_write(_buffer, buffer_text, ",\n");
         }
         
-        //TODO - Write ducker and ducker priority
+        if (__duckerName != undefined)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    duckOn: \"");
+            buffer_write(_buffer, buffer_text, __duckerName);
+            buffer_write(_buffer, buffer_text, "\",\n");
+        }
+        
+        if (__duckPrio != 0)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    duckPrio: ");
+            buffer_write(_buffer, buffer_text, string(__duckPrio));
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
         
         buffer_write(_buffer, buffer_text, _indent);
         buffer_write(_buffer, buffer_text, "},\n");
