@@ -191,6 +191,22 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         return true;
     }
     
+    static __GetAsset = function()
+    {
+        static _result = [];
+        array_resize(_result, 0);
+        
+        var _voiceArray = __voiceArray;
+        var _i = 0;
+        repeat(array_length(_voiceArray))
+        {
+            _result[_i] = audio_sound_get_asset(_voiceArray[_i]);
+            ++_i;
+        }
+        
+        return _result;
+    }
+    
     static __UpdateVoiceGains = function()
     {
         var _voiceArray = __voiceArray;

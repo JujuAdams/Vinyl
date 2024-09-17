@@ -64,6 +64,11 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
     
     
     
+    static __GetAsset = function()
+    {
+        return __soundCurrent;
+    }
+    
     static __PlaySound = function(_sound, _loop, _gain, _pitch)
     {
         if (__emitter == undefined)

@@ -63,6 +63,11 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     
     
     
+    static __GetAsset = function()
+    {
+        return audio_sound_get_asset(__voiceReference);
+    }
+    
     static __IsPlaying = function()
     {
         return audio_is_playing(__voiceReference);
