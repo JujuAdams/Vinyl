@@ -269,7 +269,8 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             }
         }
         
-        //TODO - Write ducker and ducker priority
+        if (__duckerName != undefined) _struct.duckOn = __duckerName;
+        if (__duckPrio != 0) _struct.duckPrio = __duckPrio;
         
         return _struct;
     }

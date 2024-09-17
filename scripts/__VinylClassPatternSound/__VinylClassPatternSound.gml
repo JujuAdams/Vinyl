@@ -147,8 +147,8 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         if (__gain != 1) _struct.gain = __gain;
         if (__pitch != 1) _struct.pitch = __pitch;
         if (__loop) _struct.loop = true;
-        
-        //TODO - Write ducker and ducker priority
+        if (__duckerName != undefined) _struct.duckOn = __duckerName;
+        if (__duckPrio != 0) _struct.duckPrio = __duckPrio;
         
         return _struct;
     }

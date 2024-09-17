@@ -91,8 +91,8 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _anim
         if (not __loop) _struct.loop = false;
         if (__gain != 1) _struct.gain = __gain;
         if (__animCurve != undefined) _struct.animCurve = animcurve_get(__animCurve).name;
-        
-        //TODO - Write ducker and ducker priority
+        if (__duckerName != undefined) _struct.duckOn = __duckerName;
+        if (__duckPrio != 0) _struct.duckPrio = __duckPrio;
         
         return _struct;
     }

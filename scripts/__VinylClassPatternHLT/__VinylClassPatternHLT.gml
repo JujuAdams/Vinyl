@@ -81,8 +81,8 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         if (__soundTail != undefined) _struct.tail = audio_get_name(__soundTail);
         
         if (__gain != 1) _struct.gain = __gain;
-        
-        //TODO - Write ducker and ducker priority
+        if (__duckerName != undefined) _struct.duckOn = __duckerName;
+        if (__duckPrio != 0) _struct.duckPrio = __duckPrio;
         
         return _struct;
     }
