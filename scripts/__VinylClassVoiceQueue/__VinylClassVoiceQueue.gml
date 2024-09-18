@@ -356,12 +356,15 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
                 
                 if (_queueTemplate.__loopQueue)
                 {
-                    //TODO - Insert proper logic here. For now, we just restart the whole queue
-                    
                     __soundArray = variable_clone(_queueTemplate.__soundArray);
-                    if ((array_length(__soundArray) > 0) && (__soundCurrent == __soundArray[0]))
+                    
+                    var _i = array_get_index(__soundArray, __soundCurrent);
+                    if (_i >= 0)
                     {
-                        array_shift(__soundArray);
+                        //We found the currently playing sound in the array
+                        //We reorganise the array so that we respect the sound ordering
+                        array_copy(__soundArray, array_length(__soundArray), __soundArray, 0, _i+1);
+                        array_delete(__soundArray, 0, _i+1);
                     }
                     else
                     {
