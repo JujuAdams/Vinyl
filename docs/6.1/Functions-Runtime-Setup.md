@@ -390,30 +390,3 @@ No example provided.
 ```
 
 <!-- tabs:end -->
-
-&nbsp;
-
-## `VinylPatternExists`
-
-`VinylPatternExists(sound/pattern, [explicit=false])`
-
-<!-- tabs:start -->
-
-#### **Description**
-
-*Returns:* Boolean, whether the sound asset or pattern exists
-
-|Name           |Datatype     |Purpose                                                                                 |
-|---------------|-------------|----------------------------------------------------------------------------------------|
-|`sound/pattern`|sound/pattern|Sound asset or pattern to target                                                        |
-|`[explicit]`   |boolean      |Whether sound assets require an explicit pattern definition to be considering "existing"|
-
-Returns whether a pattern exists i.e. has been defined by a `VinylSetup*()` function (including JSON variants). If the `explicit` parameter is set to `false` (the default) then this function will always return `true` if a sound asset is passed as the parameter for this function regardless of whether a pattern has explicitly been created for the sound asset or not.
-
-#### **Example**
-
-```gml
-No example provided.
-```
-
-<!-- tabs:end -->
