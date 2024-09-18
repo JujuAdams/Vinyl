@@ -89,6 +89,7 @@
     {"id":{"name":"__VinylVoiceMoveMix","path":"scripts/__VinylVoiceMoveMix/__VinylVoiceMoveMix.yy",},},
     {"id":{"name":"__VinylVoiceUpdateDucker","path":"scripts/__VinylVoiceUpdateDucker/__VinylVoiceUpdateDucker.yy",},},
     {"id":{"name":"__VinylWarning","path":"scripts/__VinylWarning/__VinylWarning.yy",},},
+    {"id":{"name":"__VinylWillStop","path":"scripts/__VinylWillStop/__VinylWillStop.yy",},},
     {"id":{"name":"UIButton","path":"scripts/UIButton/UIButton.yy",},},
     {"id":{"name":"UIButtonInline","path":"scripts/UIButtonInline/UIButtonInline.yy",},},
     {"id":{"name":"UINewline","path":"scripts/UINewline/UINewline.yy",},},

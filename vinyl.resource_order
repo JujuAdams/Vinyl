@@ -63,6 +63,7 @@
     {"name":"__VinylVoiceMoveMix","order":14,"path":"scripts/__VinylVoiceMoveMix/__VinylVoiceMoveMix.yy",},
     {"name":"__VinylVoiceUpdateDucker","order":15,"path":"scripts/__VinylVoiceUpdateDucker/__VinylVoiceUpdateDucker.yy",},
     {"name":"__VinylWarning","order":4,"path":"scripts/__VinylWarning/__VinylWarning.yy",},
+    {"name":"__VinylWillStop","order":27,"path":"scripts/__VinylWillStop/__VinylWillStop.yy",},
     {"name":"UIButtonInline","order":1,"path":"scripts/UIButtonInline/UIButtonInline.yy",},
     {"name":"UINewline","order":2,"path":"scripts/UINewline/UINewline.yy",},
     {"name":"UISpace","order":3,"path":"scripts/UISpace/UISpace.yy",},

@@ -279,6 +279,11 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         return (__voiceCurrent >= 0);
     }
     
+    static __WillStop = function()
+    {
+        return ((__state == __VINYL_HLT_STATE.__TAIL) && __VinylWillStop(__voiceCurrent));
+    }
+    
     static __Stop = function()
     {
         if (__voiceCurrent >= 0)

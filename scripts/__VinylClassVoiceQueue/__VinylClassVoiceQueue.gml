@@ -219,6 +219,11 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         return (__voiceCurrent >= 0);
     }
     
+    static __WillStop = function()
+    {
+        return ((__voiceCurrent < 0) || ((not __loopQueue) && (__behaviour == VINYL_QUEUE.DONT_LOOP) && __VinylWillStop(__voiceCurrent)));
+    }
+    
     static __Stop = function()
     {
         audio_stop_sound(__voiceCurrent);

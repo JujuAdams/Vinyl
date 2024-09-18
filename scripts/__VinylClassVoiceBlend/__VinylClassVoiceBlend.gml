@@ -240,6 +240,11 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         return audio_is_playing(__voiceTop);
     }
     
+    static __WillStop = function()
+    {
+        return __VinylWillStop(__voiceTop);
+    }
+    
     static __Stop = function()
     {
         if (__voiceTop >= 0)

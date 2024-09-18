@@ -73,6 +73,11 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         return audio_is_playing(__voiceReference);
     }
     
+    static __WillStop = function()
+    {
+        return __VinylWillStop(__voiceReference);
+    }
+    
     static __Stop = function()
     {
         audio_stop_sound(__voiceReference);
