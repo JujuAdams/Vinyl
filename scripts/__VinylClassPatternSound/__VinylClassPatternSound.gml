@@ -150,6 +150,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         if (__loop) _struct.loop = true;
         if (__duckerName != undefined) _struct.duckOn = __duckerName;
         if (__duckPrio != 0) _struct.duckPrio = __duckPrio;
+        if (__emitterAlias != undefined) _struct.emitter = __emitterAlias;
         
         return _struct;
     }
@@ -207,6 +208,14 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
             buffer_write(_buffer, buffer_text, "    duckPrio: ");
             buffer_write(_buffer, buffer_text, string(__duckPrio));
             buffer_write(_buffer, buffer_text, ",\n");
+        }
+        
+        if (__emitterAlias != undefined)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    emitter: \"");
+            buffer_write(_buffer, buffer_text, __emitterAlias);
+            buffer_write(_buffer, buffer_text, "\",\n");
         }
         
         buffer_write(_buffer, buffer_text, _indent);

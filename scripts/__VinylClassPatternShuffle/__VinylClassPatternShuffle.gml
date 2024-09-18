@@ -275,6 +275,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         
         if (__duckerName != undefined) _struct.duckOn = __duckerName;
         if (__duckPrio != 0) _struct.duckPrio = __duckPrio;
+        if (__emitterAlias != undefined) _struct.emitter = __emitterAlias;
         
         return _struct;
     }
@@ -379,6 +380,14 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
             buffer_write(_buffer, buffer_text, "    duckPrio: ");
             buffer_write(_buffer, buffer_text, string(__duckPrio));
             buffer_write(_buffer, buffer_text, ",\n");
+        }
+        
+        if (__emitterAlias != undefined)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    emitter: \"");
+            buffer_write(_buffer, buffer_text, __emitterAlias);
+            buffer_write(_buffer, buffer_text, "\",\n");
         }
         
         buffer_write(_buffer, buffer_text, _indent);
