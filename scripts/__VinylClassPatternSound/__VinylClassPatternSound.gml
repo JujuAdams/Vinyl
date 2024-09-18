@@ -45,6 +45,11 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
             var _pitchMix        = 1;
             var _loopFinal       = _loopLocal ?? __loop;
             var _duckerNameFinal = _duckerNameLocal ?? __duckerName;
+            
+            if (_emitter == undefined)
+            {
+                _emitter = _emitterMap[? __emitterAlias];
+            }
         }
         else
         {
@@ -59,6 +64,11 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
             var _pitchMix        = _mixStruct.__pitchLocal;
             var _loopFinal       = _loopLocal ?? (__loop ?? (_mixStruct.__membersLoop ?? false));
             var _duckerNameFinal = _duckerNameLocal ?? (__duckerName ?? _mixStruct.__membersDuckOn);
+            
+            if (_emitter == undefined)
+            {
+                _emitter = _emitterMap[? __emitterAlias ?? _mixStruct.__membersEmitterAlias];
+            }
         }
         
         if (_duckerNameFinal != undefined)
@@ -77,11 +87,6 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         {
             var _duckerStruct = undefined;
             var _gainDuck   = 1;
-        }
-        
-        if (_emitter == undefined)
-        {
-            _emitter = _emitterMap[? __emitterAlias];
         }
         
         if (_emitter == undefined)

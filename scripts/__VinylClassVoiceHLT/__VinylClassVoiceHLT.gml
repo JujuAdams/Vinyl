@@ -42,6 +42,11 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         __pitchMix = 1;
         
         __duckerNameFinal = _duckerNameLocal ?? _pattern.__duckerName;
+        
+        if (__emitter == undefined)
+        {
+            __emitter = _emitterMap[? _pattern.__emitterAlias];
+        }
     }
     else
     {
@@ -56,6 +61,11 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         __pitchMix = _mixStruct.__pitchLocal;
         
         __duckerNameFinal = _duckerNameLocal ?? (_pattern.__duckerName ?? _mixStruct.__membersDuckOn);
+        
+        if (__emitter == undefined)
+        {
+            __emitter = _emitterMap[? _pattern.__emitterAlias ?? _mixStruct.__membersEmitterAlias];
+        }
     }
     
     if (__duckerNameFinal != undefined)

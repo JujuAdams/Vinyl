@@ -35,15 +35,10 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     
     static __Play = function(_emitter, _loopLocal__UNUSED, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)
     {
-        if (_emitter == undefined)
-        {
-            _emitter = _emitterMap[? __emitterAlias];
-        }
-        
         return (new __VinylClassVoiceHLT(_emitter, self, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)).__voiceReference;
     }
     
-    static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckerName, _duckPrio, _metadata)
+    static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata)
     {
         var _newSoundHead = __VinylImportSound(_soundHead);
         var _newSoundLoop = __VinylImportSound(_soundLoop);
@@ -58,14 +53,15 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
             array_push(_toUpdateArray, self);
         }
         
-        __soundHead  = _newSoundHead;
-        __soundLoop  = _newSoundLoop;
-        __soundTail  = _newSoundTail;
-        __gain       = _gain;
-        __mixName    = _mixName;
-        __duckerName = _duckerName;
-        __duckPrio   = _duckPrio;
-        __metadata   = _metadata;
+        __soundHead    = _newSoundHead;
+        __soundLoop    = _newSoundLoop;
+        __soundTail    = _newSoundTail;
+        __gain         = _gain;
+        __mixName      = _mixName;
+        __duckerName   = _duckerName;
+        __duckPrio     = _duckPrio;
+        __emitterAlias = _emitterAlias;
+        __metadata     = _metadata;
     }
     
     static __ClearSetup = function()

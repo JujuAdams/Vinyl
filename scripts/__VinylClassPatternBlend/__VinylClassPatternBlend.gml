@@ -39,15 +39,10 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _anim
     
     static __Play = function(_emitter, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)
     {
-        if (_emitter == undefined)
-        {
-            _emitter = _emitterMap[? __emitterAlias];
-        }
-        
         return (new __VinylClassVoiceBlend(_emitter, self, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal, __mixName)).__voiceReference;
     }
     
-    static __UpdateSetup = function(_soundArray, _loop, _gain, _animCurve, _mixName, _duckerName, _duckPrio, _metadata)
+    static __UpdateSetup = function(_soundArray, _loop, _gain, _animCurve, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata)
     {
         if (VINYL_LIVE_EDIT)
         {
@@ -55,14 +50,15 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _anim
             array_push(_toUpdateArray, self);
         }
         
-        __soundArray = __VinylImportSoundArray(_soundArray);
-        __loop       = _loop;
-        __gain       = _gain;
-        __animCurve  = __VinylImportAnimCurve(_animCurve);
-        __mixName    = _mixName;
-        __duckerName = _duckerName;
-        __duckPrio   = _duckPrio;
-        __metadata   = _metadata;
+        __soundArray   = __VinylImportSoundArray(_soundArray);
+        __loop         = _loop;
+        __gain         = _gain;
+        __animCurve    = __VinylImportAnimCurve(_animCurve);
+        __mixName      = _mixName;
+        __duckerName   = _duckerName;
+        __duckPrio     = _duckPrio;
+        __emitterAlias = _emitterAlias;
+        __metadata     = _metadata;
         
         if (__VINYL_RUNNING_FROM_IDE && (array_length(__soundArray) <= 0))
         {

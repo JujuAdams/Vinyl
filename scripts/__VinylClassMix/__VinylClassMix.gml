@@ -4,19 +4,21 @@
 /// @param baseGain
 /// @param membersLoop
 /// @param membersDuckOn
+/// @param membersEmitterAlias
 /// @param metadata
 
-function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _metadata) constructor
+function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _membersEmitterAlias, _metadata) constructor
 {
     static _toUpdateArray = __VinylSystem().__toUpdateArray;
     static _soundDict     = __VinylSystem().__soundDict;
     static _patternDict   = __VinylSystem().__patternDict;
     
-    __mixName       = _mixName;
-    __gainPattern   = _gainPattern;
-    __membersLoop   = _membersLoop;
-    __membersDuckOn = _membersDuckOn;
-    __metadata      = _metadata;
+    __mixName             = _mixName;
+    __gainPattern         = _gainPattern;
+    __membersLoop         = _membersLoop;
+    __membersDuckOn       = _membersDuckOn;
+    __membersEmitterAlias = _membersEmitterAlias;
+    __metadata            = _metadata;
     
     __gainLocal = 1;
     __gainFinal = _gainPattern;
@@ -360,6 +362,7 @@ function __VinylImportMixGroupJSON(_json)
                 case "baseGain":
                 case "membersLoop":
                 case "membersDuckOn":
+                case "membersEmitter":
                 case "members":
                 case "metadata":
                 break;
@@ -373,7 +376,7 @@ function __VinylImportMixGroupJSON(_json)
         }
     }
     
-    VinylSetupMix(_json.mix, _json[$ "baseGain"], _json[$ "membersLoop"], _json[$ "membersDuckOn"], _json[$ "metadata"]);
+    VinylSetupMix(_json.mix, _json[$ "baseGain"], _json[$ "membersLoop"], _json[$ "membersDuckOn"], _json[$ "membersEmitter"], _json[$ "metadata"]);
     
     var _membersArray = _json[$ "members"];
     if (is_array(_membersArray))

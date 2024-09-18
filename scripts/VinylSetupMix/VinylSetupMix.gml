@@ -11,9 +11,10 @@
 /// @param [baseGain=1]
 /// @param [membersLoop]
 /// @param [membersDuckOn]
+/// @param [membersEmitterAlias]
 /// @param [metadata]
 
-function VinylSetupMix(_mixName, _baseGain = 1, _membersLoop = undefined, _membersDuckOn = undefined, _metadata = undefined)
+function VinylSetupMix(_mixName, _baseGain = 1, _membersLoop = undefined, _membersDuckOn = undefined, _membersEmitterAlias = undefined, _metadata = undefined)
 {
     static _system   = __VinylSystem();
     static _mixDict  = _system.__mixDict;
@@ -37,7 +38,7 @@ function VinylSetupMix(_mixName, _baseGain = 1, _membersLoop = undefined, _membe
     }
     else
     {
-        var _mixStruct = new __VinylClassMix(_mixName, _baseGain, _membersLoop, _membersDuckOn, _metadata);
+        var _mixStruct = new __VinylClassMix(_mixName, _baseGain, _membersLoop, _membersDuckOn, _membersEmitterAlias, _metadata);
         _mixDict[$ _mixName] = _mixStruct;
         array_push(_mixArray, _mixStruct);
     }
