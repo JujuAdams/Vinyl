@@ -1,8 +1,5 @@
 // Feather disable all
 
-#macro __VINYL_VERSION  "6.1.3"
-#macro __VINYL_DATE     "2024-09-16"
-
 #macro __VINYL_RUNNING_FROM_IDE  (GM_build_type == "run")
 
 #macro __VINYL_DEFAULT_DUCK_RATE_OF_GAIN  1
@@ -35,7 +32,7 @@ function __VinylSystem()
     {
         if (__VINYL_DEBUG_SHOW_FRAMES) __frame = 0;
         
-        __VinylTrace("Welcome to Vinyl! This is version ", __VINYL_VERSION, ", ", __VINYL_DATE);
+        __VinylTrace("Welcome to Vinyl! This is version ", VINYL_VERSION, ", ", VINYL_DATE);
         if (__VINYL_RUNNING_FROM_IDE) global.Vinyl = self;
         
         __toUpdateArray = VINYL_LIVE_EDIT? [] : undefined;

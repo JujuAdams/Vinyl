@@ -11,7 +11,7 @@ shader_reset();
 draw_set_font(fntText);
 
 UIStart(10, 10, undefined, undefined, true);
-UITextInline(string_concat("Vinyl ", __VINYL_VERSION, ", ", __VINYL_DATE, " by Juju Adams\nChicken Nuggets by Wangle Line"));
+UITextInline(string_concat("Vinyl ", VINYL_VERSION, ", ", VINYL_DATE, " by Juju Adams\nChicken Nuggets by Wangle Line"));
 UINewline();
 UINewline();
 UITextInline(string_concat("\"Test\" mix gain = ", VinylMixGetGain("Test")));
