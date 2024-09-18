@@ -118,13 +118,13 @@ No example provided.
 
 #### **Description**
 
-*Returns:* Boolean
+*Returns:* Boolean, whether the target voice will stop playing imminently
 
 |Name   |Datatype|Purpose                     |
 |-------|--------|----------------------------|
 |`voice`|voice   |Voice to target             |
 
-Returns whether the target voice will stop playing imminently. The tolerance for this test is set by the `VINYL_WILL_STOP_TOLERANCE` macro (see `__VinylConfigMacros()`).
+Returns whether the target voice will stop playing imminently. The tolerance for this test is set by the `VINYL_WILL_STOP_TOLERANCE` macro (see `__VinylConfigMacros()`). If a voice is paused then this function will return `false`. If a voice has already been stopped, this function will return `true`. A looping voice will return `false` (this includes queues that are set to loop).
 
 #### **Example**
 
