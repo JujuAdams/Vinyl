@@ -15,12 +15,12 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
     static _duckerDict       = __VinylSystem().__duckerDict;
     static _toUpdateArray    = __VinylSystem().__toUpdateArray;
     
-    __emitter    = _emitter;
-    __pattern    = _pattern;
-    __gainLocal  = _gainLocal;
-    __pitchLocal = _pitchLocal;
-    __duckerName = _duckerNameLocal;
-    __duckPrio   = _duckPrioLocal;
+    __emitter         = _emitter;
+    __pattern         = _pattern;
+    __gainLocal       = _gainLocal;
+    __pitchLocal      = _pitchLocal;
+    __duckerNameLocal = _duckerNameLocal;
+    __duckPrio        = _duckPrioLocal;
     
     __gainLocalTarget = _gainLocal;
     __gainLocalSpeed  = infinity;
@@ -41,7 +41,7 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         __gainMix  = 1;
         __pitchMix = 1;
         
-        var _duckerNameFinal = _duckerNameLocal ?? _pattern.__duckerName;
+        __duckerNameFinal = _duckerNameLocal ?? _pattern.__duckerName;
     }
     else
     {
@@ -55,15 +55,15 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         __gainMix  = _mixStruct.__gainFinal;
         __pitchMix = _mixStruct.__pitchLocal;
         
-        var _duckerNameFinal = _duckerNameLocal ?? (_pattern.__duckerName ?? _mixStruct.__membersDuckOn);
+        __duckerNameFinal = _duckerNameLocal ?? (_pattern.__duckerName ?? _mixStruct.__membersDuckOn);
     }
     
-    if (_duckerNameFinal != undefined)
+    if (__duckerNameFinal != undefined)
     {
-        var _duckerStruct = _duckerDict[$ _duckerNameFinal];
+        var _duckerStruct = _duckerDict[$ __duckerNameFinal];
         if (_duckerStruct == undefined)
         {
-            __VinylError("Ducker \"", _duckerNameFinal, "\" not recognised");
+            __VinylError("Ducker \"", __duckerNameFinal, "\" not recognised");
             return;
         }
         

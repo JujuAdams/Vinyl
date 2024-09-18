@@ -99,7 +99,8 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
             var _voiceStruct = new __VinylClassVoiceSound(_voice, _loopLocal,
                                                           _gainSound, _gainLocal, _gainMix, _gainDuck,
                                                           _pitchSound, _pitchLocal, _pitchMix,
-                                                          _duckerNameLocal, _duckPrioLocal, self);
+                                                          _duckerNameFinal, _duckerNameLocal, _duckPrioLocal,
+                                                          self);
         }
         
         if (_duckerStruct != undefined) _duckerStruct.__Push(_voiceStruct, _duckPrioFinal, false);

@@ -9,11 +9,12 @@
 /// @param pitchSound
 /// @param pitchLocal
 /// @param pitchMix
+/// @param duckerNameFinal
 /// @param duckerNameLocal
 /// @param duckPrioLocal
 /// @param pattern
 
-function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _gainDuck, _pitchSound, _pitchLocal, _pitchMix, _duckerNameLocal, _duckPrioLocal, _pattern) constructor
+function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _gainDuck, _pitchSound, _pitchLocal, _pitchMix, _duckerNameFinal, _duckerNameLocal, _duckPrioLocal, _pattern) constructor
 {
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
@@ -32,6 +33,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     __pitchLocal = _pitchLocal;
     __pitchMix   = _pitchMix;
     
+    __duckerNameFinal = _duckerNameFinal;
     __duckerNameLocal = _duckerNameLocal;
     __duckPrioLocal   = _duckPrioLocal;
     

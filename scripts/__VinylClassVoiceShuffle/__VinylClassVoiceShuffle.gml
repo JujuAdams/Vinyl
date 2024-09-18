@@ -10,13 +10,14 @@
 /// @param pitchPattern
 /// @param pitchLocal
 /// @param pitchMix
+/// @param duckerNameFinal
 /// @param duckerNameLocal
 /// @param duckPrioLocal
 /// @param pattern
 /// @param gainFactor
 /// @param pitchFactor
 
-function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _gainDuck, _pitchPattern, _pitchLocal, _pitchMix, _duckerNameLocal, _duckPrioLocal, _pattern, _gainFactor, _pitchFactor) constructor
+function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _gainDuck, _pitchPattern, _pitchLocal, _pitchMix, _duckerNameFinal, _duckerNameLocal, _duckPrioLocal, _pattern, _gainFactor, _pitchFactor) constructor
 {
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
@@ -39,6 +40,7 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
     __pitchLocal   = _pitchLocal;
     __pitchMix     = _pitchMix;
     
+    __duckerNameFinal = _duckerNameFinal;
     __duckerNameLocal = _duckerNameLocal;
     __duckPrioLocal   = _duckPrioLocal;
     

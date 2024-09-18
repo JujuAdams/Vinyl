@@ -44,7 +44,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         __gainMix  = 1;
         __pitchMix = 1;
         
-        var _duckerNameFinal = _duckerNameLocal ?? _pattern.__duckerName;
+        __duckerNameFinal = _duckerNameLocal ?? _pattern.__duckerName;
     }
     else
     {
@@ -59,15 +59,15 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         __gainMix  = _mixStruct.__gainFinal;
         __pitchMix = _mixStruct.__pitchLocal;
         
-        var _duckerNameFinal = _duckerNameLocal ?? (_pattern.__duckerName ?? _mixStruct.__membersDuckOn);
+        __duckerNameFinal = _duckerNameLocal ?? (_pattern.__duckerName ?? _mixStruct.__membersDuckOn);
     }
     
-    if (_duckerNameFinal != undefined)
+    if (__duckerNameFinal != undefined)
     {
-        var _duckerStruct = _duckerDict[$ _duckerNameFinal];
+        var _duckerStruct = _duckerDict[$ __duckerNameFinal];
         if (_duckerStruct == undefined)
         {
-            __VinylError("Ducker \"", _duckerNameFinal, "\" not recognised");
+            __VinylError("Ducker \"", __duckerNameFinal, "\" not recognised");
             return;
         }
         

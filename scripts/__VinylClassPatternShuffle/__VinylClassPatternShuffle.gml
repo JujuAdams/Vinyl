@@ -167,7 +167,11 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         //If we're in live edit mode then always create a struct representation
         if (VINYL_LIVE_EDIT || (_duckerNameFinal != undefined))
         {
-            var _voiceStruct = new __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gainLocal, _gainMix, _gainDuck, _pitchPattern, _pitchLocal, _pitchMix, _duckerNameLocal, _duckPrioLocal, self, _gainFactor, _pitchFactor);
+            var _voiceStruct = new __VinylClassVoiceShuffle(_sound, _voice, _loopLocal,
+                                                            _gainPattern, _gainLocal, _gainMix, _gainDuck,
+                                                            _pitchPattern, _pitchLocal, _pitchMix,
+                                                            _duckerNameFinal, _duckerNameLocal, _duckPrioLocal,
+                                                            self, _gainFactor, _pitchFactor);
         }
         
         if (_duckerStruct != undefined) _duckerStruct.__Push(_voiceStruct, _duckPrioFinal, false);

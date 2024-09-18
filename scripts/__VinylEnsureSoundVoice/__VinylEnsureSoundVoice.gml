@@ -38,7 +38,7 @@ function __VinylEnsureSoundVoice(_voice)
                                                   audio_sound_get_loop(_voice),
                                                   _gainSound, _gainLocal, _gainMix, 1,
                                                   _pitchSound, _pitchLocal, _pitchMix,
-                                                  undefined, 0, _pattern);
+                                                  undefined, undefined, 0, _pattern);
     }
     
     return _voiceStruct;
