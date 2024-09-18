@@ -160,7 +160,7 @@ No example provided.
 
 ## `VinylSetupMix`
 
-`VinylSetupMix(mixName, [baseGain=1], [membersLoop], [membersDuckOn], [metadata])`
+`VinylSetupMix(mixName, [baseGain=1], [membersLoop], [membersDuckOn], [membersEmitterAlias], [metadata])`
 
 <!-- tabs:start -->
 
@@ -168,15 +168,18 @@ No example provided.
 
 *Returns:* N/A (`undefined`)
 
-|Name             |Datatype|Purpose                                                         |
-|-----------------|--------|----------------------------------------------------------------|
-|`mixName`        |string  |Name of the mix                                                 |
-|`[baseGain]`     |number  |Optional, defaults to 1. Base gain for the mix                  |
-|`[membersLoop]`  |boolean |Optional. Whether members played on this mix default to looping |
-|`[membersDuckOn]`|string  |Optional. Which ducker to use by default for members of this mix|
-|`[metadata]`     |any     |Optional. Metadata to attach to the mix                         |
+|Name                   |Datatype|Purpose                                                                     |
+|-----------------------|--------|----------------------------------------------------------------------------|
+|`mixName`              |string  |Name of the mix                                                             |
+|`[baseGain]`           |number  |Optional, defaults to 1. Base gain for the mix                              |
+|`[membersLoop]`        |boolean |Optional. Whether members played on this mix default to looping             |
+|`[membersDuckOn]`      |string  |Optional. Which ducker to use by default for members of this mix            |
+|`[membersEmitterAlias]`|string  |Optional. Which registered emitter to use by default for members of this mix|
+|`[metadata]`           |any     |Optional. Metadata to attach to the mix                                     |
 
-Sets up a mix that can be used to control multiple sounds, patterns, and voices all at the same time. Mixes should be defined before sounds and patterns.
+Sets up a mix that can be used to control multiple sounds, patterns, and voices all at the same time.
+
+!> Mixes must be defined before sounds and patterns.
 
 #### **Example**
 
