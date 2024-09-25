@@ -115,9 +115,12 @@ You can read more about head-loop-tail patterns [here](Head-Loop-Tail-Patterns).
 |`gain`    |number         |`1`        |                                                                                   |
 |`duckOn`  |string         |`undefined`|[Ducker](Ducker) to push voices to                                                 |
 |`duckPrio`|number         |`0`        |Priority for voices when pushed to the ducker above                                |
+|`emitter` |string         |`undefined`|Name of a registered emitter to play sounds on by default                          |
 |`metadata`|any            |`undefined`|Returned by `VinylGetMetadata()`                                                   |
 
 Sets up a head-loop-tail pattern for playback with Vinyl. When played, an HLT pattern will first play the "head" sound. Once that sound has finished, the loop sound will be played. If `VinylSetLoop()` is called on the HLT voice to stop looping then the tail sound will be played after the loop sound has finished.
+
+If the `emitter` parameter is defined, Vinyl will attempt to play sounds defined for the pattern on the specified emitter. You can register an emitter with `VinylRegisterEmitter()`.
 
 &nbsp;
 
@@ -132,9 +135,12 @@ Sets up a head-loop-tail pattern for playback with Vinyl. When played, an HLT pa
 |`animCurve`|animation curve|`undefined`|                                                                                                           |
 |`duckOn`   |string         |`undefined`|[Ducker](Ducker) to push voices to                                                                         |
 |`duckPrio` |number         |`0`        |Priority for voices when pushed to the ducker above                                                        |
+|`emitter`  |string         |`undefined`|Name of a registered emitter to play sounds on by default                                                  |
 |`metadata` |any            |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
 
 Sets up a blend pattern for playback with Vinyl. When played, a blend pattern will play multiple sounds whose balance can be adjusted by setting the blend factor with the `VinylSetBlendFactor()` and `VinylSetBlendAnimCurve()` functions.
+
+If the `emitter` parameter is defined, Vinyl will attempt to play sounds defined for the pattern on the specified emitter. You can register an emitter with `VinylRegisterEmitter()`.
 
 &nbsp;
 
@@ -142,16 +148,19 @@ Sets up a blend pattern for playback with Vinyl. When played, a blend pattern wi
 
 ?> Mixes cannot be children of other mixes i.e. there are no hierarchical mixes.
 
-|Property       |Datatype|Default    |Notes                                                                         |
-|---------------|--------|-----------|------------------------------------------------------------------------------|
-|`mix`          |string  |N/A        |**Required.** Name of the mix                                                 |
-|`baseGain`     |number  |`1`        |                                                                              |
-|`membersLoop`  |number  |`undefined`|Will override loop settings for members whose loop value is set to `undefined`|
-|`membersDuckOn`|string  |`undefined`|Will override ducker settings for members whose ducker is set to `undefined`  |
-|`members`      |array   |empty      |                                                                              |
-|`metadata`     |any     |`undefined`|Returned by `VinylGetMetadata()`                                              |
+|Property        |Datatype|Default    |Notes                                                                         |
+|----------------|--------|-----------|------------------------------------------------------------------------------|
+|`mix`           |string  |N/A        |**Required.** Name of the mix                                                 |
+|`members`       |array   |empty      |                                                                              |
+|`baseGain`      |number  |`1`        |                                                                              |
+|`membersLoop`   |number  |`undefined`|Will override loop settings for members whose loop value is set to `undefined`|
+|`membersDuckOn` |string  |`undefined`|Will override ducker settings for members whose ducker is set to `undefined`  |
+|`membersEmitter`|string  |`undefined`|Name of a registered emitter to play members sounds/patterns on by default    |
+|`metadata`      |any     |`undefined`|Returned by `VinylGetMetadata()`                                              |
  
 Sets up a mix that can be used to control multiple sounds, patterns, and voices all at the same time. Mixes should be defined before sounds and patterns.
+
+If the `membersEmitter` parameter is defined, Vinyl will attempt to play sounds and patterns that are member of the mix on the specified emitter. You can register an emitter with `VinylRegisterEmitter()`. Individual sounds and patterns can override the members' emitter by defining their own `emitter` property.
 
 &nbsp;
 
