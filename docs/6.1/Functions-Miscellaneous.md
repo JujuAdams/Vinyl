@@ -28,6 +28,32 @@ No example provided.
 
 &nbsp;
 
+## `VinylGetGMVoice`
+
+`VinylGetGMVoice(voice)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Voice index, the native GameMaker voice that the Vinyl voice is currently playing
+
+|Name   |Datatype|Purpose                     |
+|-------|--------|----------------------------|
+|`voice`|voice   |Voice to target             |
+
+Returns the native GameMaker voice index that is currently being played by the target Vinyl voice. If a blend voice is targeted then this function will return an array of GameMaker voice indexes; otherwise, this function will return a GameMaker voice index. If the voice is invalid then this function will return `undefined`.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
 ## `VinylGetLength`
 
 `VinylGetLength(voice)`
