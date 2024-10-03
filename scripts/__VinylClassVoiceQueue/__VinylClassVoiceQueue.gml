@@ -69,6 +69,11 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         return __soundCurrent;
     }
     
+    static __GetGameMakerVoice = function()
+    {
+        return __voiceCurrent;
+    }
+    
     static __PlaySound = function(_sound, _loop, _gain, _pitch)
     {
         if (__emitter == undefined)

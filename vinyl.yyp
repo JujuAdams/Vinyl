@@ -110,6 +110,7 @@
     {"id":{"name":"VinylGetBlendFactor","path":"scripts/VinylGetBlendFactor/VinylGetBlendFactor.yy",},},
     {"id":{"name":"VinylGetGain","path":"scripts/VinylGetGain/VinylGetGain.yy",},},
     {"id":{"name":"VinylGetGlobalMetadata","path":"scripts/VinylGetGlobalMetadata/VinylGetGlobalMetadata.yy",},},
+    {"id":{"name":"VinylGetGMVoice","path":"scripts/VinylGetGMVoice/VinylGetGMVoice.yy",},},
     {"id":{"name":"VinylGetLength","path":"scripts/VinylGetLength/VinylGetLength.yy",},},
     {"id":{"name":"VinylGetLoop","path":"scripts/VinylGetLoop/VinylGetLoop.yy",},},
     {"id":{"name":"VinylGetMetadata","path":"scripts/VinylGetMetadata/VinylGetMetadata.yy",},},

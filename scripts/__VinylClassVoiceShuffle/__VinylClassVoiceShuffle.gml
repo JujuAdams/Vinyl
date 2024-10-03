@@ -73,6 +73,11 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
         return audio_sound_get_asset(__voiceReference);
     }
     
+    static __GetGameMakerVoice = function()
+    {
+        return __voiceReference;
+    }
+    
     static __IsPlaying = function()
     {
         return audio_is_playing(__voiceReference);

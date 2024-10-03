@@ -217,6 +217,11 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         return _result;
     }
     
+    static __GetGameMakerVoice = function()
+    {
+        return __voiceArray;
+    }
+    
     static __UpdateVoiceGains = function()
     {
         var _voiceArray = __voiceArray;
