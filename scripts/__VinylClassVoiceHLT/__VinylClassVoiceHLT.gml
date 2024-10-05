@@ -210,7 +210,7 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
             audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxLxM);
         }
         
-        if (VinylWillStop(__voiceCurrent))
+        if (__VinylWillStop(__voiceCurrent))
         {
             var _pattern = __pattern;
             

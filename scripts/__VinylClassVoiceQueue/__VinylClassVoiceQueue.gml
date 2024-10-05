@@ -137,7 +137,7 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
             audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxLxM);
         }
         
-        if (VinylWillStop(__voiceCurrent))
+        if (__VinylWillStop(__voiceCurrent))
         {
             if (array_length(__soundArray) > 0)
             {
