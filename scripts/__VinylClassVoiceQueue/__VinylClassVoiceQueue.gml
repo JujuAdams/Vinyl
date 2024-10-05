@@ -221,7 +221,7 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
     
     static __IsPlaying = function()
     {
-        return (__voiceCurrent >= 0);
+        return audio_is_playing(__voiceCurrent);
     }
     
     static __WillStop = function()
