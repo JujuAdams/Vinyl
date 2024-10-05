@@ -146,6 +146,7 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         
         _voiceToStructMap[? __voiceReference] = self;
         
+        if (_duckerStruct != undefined) _duckerStruct.__Push(self, _duckPrioFinal, false);
         if (_mixStruct != undefined) _mixStruct.__Add(__voiceReference);
     }
     
