@@ -236,11 +236,6 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         {
             if (_changed)
             {
-                var _currentGain = audio_sound_get_gain(__voiceCurrent);
-                var _gain = __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN;
-                
-                __VinylTrace($"{_currentGain} -> {_gain}");
-                
                 audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, 0);
             }
         }

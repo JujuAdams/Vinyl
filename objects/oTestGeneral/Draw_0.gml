@@ -1,17 +1,14 @@
-shader_set(shdJujuverse);
-shader_set_uniform_f(shader_get_uniform(shdJujuverse, "u_fTime"), current_time/11000);
-draw_primitive_begin(pr_trianglestrip);
-draw_vertex_texture_color(0, 0, 0, 0, c_white, 0.1);
-draw_vertex_texture_color(room_width, 0, -room_width/room_height, 0, c_white, 0.1);
-draw_vertex_texture_color(0, room_height, 0, 1, c_black, 0.23);
-draw_vertex_texture_color(room_width, room_height, -room_width/room_height, 1, c_black, 0.23);
-draw_primitive_end();
-shader_reset();
-
 draw_set_font(fntText);
 
 UIStart(10, 10, undefined, undefined, true);
 UITextInline(string_concat("Vinyl ", VINYL_VERSION, ", ", VINYL_DATE, " by Juju Adams\nChicken Nuggets by Wangle Line"));
+UINewline();
+UINewline();
+UIButtonInline("Queue Test", function()
+{
+    instance_destroy();
+    instance_create_layer(0, 0, "Instances", oTestQueues);
+});
 UINewline();
 UINewline();
 UITextInline(string_concat("\"Test\" mix gain = ", VinylMixGetGain("Test")));
@@ -159,7 +156,7 @@ UINewline();
 UINewline();
 UIButtonInline("Play bleep on echo emitter", function()
 {
-    VinylPlayOn(emitter, sndBleep0);
+    VinylPlayOn(oBackground.emitter, sndBleep0);
 });
 UINewline();
 UIButtonInline("Play fallback sound using defined emitter", function()
