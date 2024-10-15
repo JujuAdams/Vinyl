@@ -3,8 +3,9 @@
 /// @param queueTemplateName
 /// @param [gain=1]
 /// @param [emitter]
+/// @param [fadeInRate=infinity]
 
-function VinylQueueCreateFromTemplate(_queueTemplateName, _gain = 1, _emitter = undefined)
+function VinylQueueCreateFromTemplate(_queueTemplateName, _gain = 1, _emitter = undefined, _fadeInRate = infinity)
 {
     static _system = __VinylSystem();
     static _queueTemplateDict = _system.__queueTemplateDict;
@@ -15,5 +16,5 @@ function VinylQueueCreateFromTemplate(_queueTemplateName, _gain = 1, _emitter = 
         __VinylError($"Queue template with name \"{_queueTemplateName}\" not found");
     }
     
-    return _queueTemplate.__CreateFrom(_gain, _emitter);
+    return _queueTemplate.__CreateFrom(_gain, _emitter, _fadeInRate);
 }

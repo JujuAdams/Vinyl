@@ -5,8 +5,9 @@
 /// @param loopQueue
 /// @param localGain
 /// @param emitter
+/// @param fadeInRate
 
-function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLocal, _emitter) constructor
+function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLocal, _emitter, _fadeInRate) constructor
 {
     static _queueCount = 0;
     
@@ -32,6 +33,8 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
     __pitchMix   = 1;
     
     __duckerName = undefined;
+    
+    __fadeInRate = _fadeInRate;
     
     __gainDuck       = 1;
     __gainDuckTarget = 1;
@@ -76,14 +79,32 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
     
     static __PlaySound = function(_sound, _loop, _gain, _pitch)
     {
-        if (__emitter == undefined)
+        if (is_infinity(__fadeInRate))
         {
-            return audio_play_sound(_sound, 0, _loop, _gain, 0, _pitch);
+            if (__emitter == undefined)
+            {
+                var _voice = audio_play_sound(_sound, 0, _loop, _gain, 0, _pitch);
+            }
+            else
+            {
+                var _voice = audio_play_sound_on(__emitter, _sound, _loop, 0, _gain, 0, _pitch);
+            }
         }
         else
         {
-            return audio_play_sound_on(__emitter, _sound, _loop, 0, _gain, 0, _pitch);
+            if (__emitter == undefined)
+            {
+                var _voice = audio_play_sound(_sound, 0, _loop, 0, 0, _pitch);
+            }
+            else
+            {
+                var _voice = audio_play_sound_on(__emitter, _sound, _loop, 0, 0, 0, _pitch);
+            }
+            
+            VinylSetGain(_voice, _gain, __fadeInRate);
         }
+        
+        return _voice;
     }
     
     static __Destroy = function()

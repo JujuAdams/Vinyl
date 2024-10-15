@@ -42,14 +42,14 @@ function __VinylClassQueueTemplate(_queueTemplateName, _soundArray, _behaviour, 
     
     
     
-    static __CreateFrom = function(_gain, _emitter)
+    static __CreateFrom = function(_gain, _emitter, _fadeInRate)
     {
         if (_emitter == undefined)
         {
             _emitter = _emitterMap[? __emitterAlias];
         }
         
-        var _voice = (new __VinylClassVoiceQueue(__templateName, __behaviour, __loopQueue, _gain, _emitter)).__voiceReference;
+        var _voice = (new __VinylClassVoiceQueue(__templateName, __behaviour, __loopQueue, _gain, _emitter, _fadeInRate)).__voiceReference;
         VinylQueueSetArray(_voice, __soundArray);
         
         return _voice;

@@ -23,8 +23,9 @@
 /// @param loopQueue
 /// @param [gain=1]
 /// @param [emitter]
+/// @param [fadeInRate=infinity]
 
-function VinylQueueCreate(_behaviour, _loopQueue, _gain = 1, _emitter = undefined)
+function VinylQueueCreate(_behaviour, _loopQueue, _gain = 1, _emitter = undefined, _fadeInRate = infinity)
 {
-    return (new __VinylClassVoiceQueue(undefined, _behaviour, _loopQueue, _gain, _emitter)).__voiceReference;
+    return (new __VinylClassVoiceQueue(undefined, _behaviour, _loopQueue, _gain, _emitter, _fadeInRate)).__voiceReference;
 }

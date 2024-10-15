@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylQueueGetFadeIn",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylQueueGetFadeIn",
+  "parent":{
+    "name":"Queues",
+    "path":"folders/Vinyl/Queues.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
