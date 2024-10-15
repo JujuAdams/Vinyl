@@ -101,7 +101,9 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
                 var _voice = audio_play_sound_on(__emitter, _sound, _loop, 0, 0, 0, _pitch);
             }
             
-            VinylSetGain(_voice, _gain, __fadeInRate);
+            var _gainLocal = __gainLocal;
+            __gainLocal = 0;
+            VinylSetGain(__voiceReference, _gainLocal, __fadeInRate);
         }
         
         return _voice;
@@ -121,8 +123,8 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         
         if (__gainLocal != __gainLocalTarget)
         {
-            _changed = true;
             __gainLocal += clamp(__gainLocalTarget - __gainLocal, -_delta*__gainLocalSpeed, _delta*__gainLocalSpeed);
+            _changed = true;
         }
         
         if (__gainDuckSpeed != undefined)
@@ -141,14 +143,15 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
                 if (__gainFadeOutStop)
                 {
                     __Stop();
-                    return;
                 }
                 else
                 {
-                    __gainFadeOut      = 1;
-                    __gainFadeOutSpeed = undefined;
                     __SetPause(true);
                 }
+                
+                __gainFadeOut      = 1;
+                __gainFadeOutSpeed = undefined;
+                __gainFadeOutStop  = undefined;
             }
         }
         
@@ -233,7 +236,12 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         {
             if (_changed)
             {
-                audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+                var _currentGain = audio_sound_get_gain(__voiceCurrent);
+                var _gain = __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN;
+                
+                __VinylTrace($"{_currentGain} -> {_gain}");
+                
+                audio_sound_gain(__voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, 0);
             }
         }
         
@@ -274,7 +282,7 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
     
     static __FadeOut = function(_rateOfChange, _pause)
     {
-        if (__gainFadeOutStop != true)
+        if (__IsPlaying() && (__gainFadeOutStop != true))
         {
             __gainFadeOutSpeed = _rateOfChange;
             __gainFadeOutStop  = not _pause;

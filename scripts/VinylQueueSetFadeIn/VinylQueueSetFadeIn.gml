@@ -4,9 +4,9 @@
 /// played without fading in.
 /// 
 /// @param voice
-/// @param fadeInRate
+/// @param [fadeInRate=VINYL_DEFAULT_FADE_IN_RATE]
 
-function VinylQueueSetFadeIn(_voice, _fadeInRate)
+function VinylQueueSetFadeIn(_voice, _fadeInRate = VINYL_DEFAULT_FADE_IN_RATE)
 {
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     

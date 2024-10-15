@@ -219,7 +219,8 @@ function __VinylSystem()
             __voiceToStructLastKey = _voice;
             
             var _voice = ds_map_find_first(_voiceToStructMap);
-            if ((_voice != undefined) && (not _voiceToStructMap[? _voice].__IsPlaying()))
+            var _struct = _voiceToStructMap[? _voice];
+            if ((_voice != undefined) && (not is_instanceof(_struct, __VinylClassVoiceQueue)) && (not _struct.__IsPlaying()))
             {
                 ds_map_delete(_voiceToStructMap, _voice);
             }

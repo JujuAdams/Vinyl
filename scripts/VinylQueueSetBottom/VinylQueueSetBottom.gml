@@ -6,7 +6,7 @@
 /// @param voice
 /// @param sound
 
-function VinylQueuePushBottom(_voice, _sound)
+function VinylQueueSetBottom(_voice, _sound)
 {
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     
