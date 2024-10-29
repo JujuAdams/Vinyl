@@ -14,5 +14,12 @@ function VinylQueueSetBottom(_voice, _sound)
     if (not is_instanceof(_voiceStruct, __VinylClassVoiceQueue)) return undefined;
     
     var _array = _voiceStruct.__soundArray;
-    _array[max(0, array_length(_array)-1)] = _sound;
+    if (array_length(_array) <= 0)
+    {
+        array_push(_array, _sound);
+    }
+    else
+    {
+        _array[array_length(_array)-1] = _sound;
+    }
 }
