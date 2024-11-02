@@ -81,6 +81,8 @@ No example provided.
 |`[duckerName]`  |string                |Ducker to use for the voice. This **overrides** the ducker name defined when setting up the sound/pattern      |
 |`[duckPriority]`|number                |Ducker priority to use for the voice. This **overrides** the priority defined when setting up the sound/pattern|
 
+?> You **don't** need to register the emitter with `VinylRegisterEmitter()`. You can use any native GameMaker emitter.
+
 #### **Example**
 
 ```gml

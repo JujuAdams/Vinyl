@@ -392,7 +392,7 @@ No example provided.
 |`emitter`|emitter |Emitter to register                        |
 |`alias`  |string  |Name of the emitter for use when setting up|
 
-Registers an emitter for use with the `emitter` property on patterns. You should call this function once, ideally on boot. This emitter should further exist for the lifetime of the game and is intended for use with audio effect buses.
+Registers an emitter for use with the `emitter` property on patterns in config JSON. You **don't** need to register emitters unless you want to reference the emitter in config JSON. You should call this function once, ideally on boot. This emitter should further exist for the lifetime of the game and is intended for use with audio effect buses.
 
 #### **Example**
 
