@@ -4,7 +4,7 @@
 
 ## `VinylQueueCreate`
 
-`VinylQueueCreate(behaviour, loopQueue, [gain=1], [fadeInRate=infinity])`
+`VinylQueueCreate(behaviour, loopQueue, [gain=1], [emitter])`
 
 <!-- tabs:start -->
 
@@ -12,28 +12,58 @@
 
 *Returns:* Queue voice
 
-|Name          |Datatype          |Purpose                                                                                                    |
-|--------------|------------------|-----------------------------------------------------------------------------------------------------------|
-|`behaviour`   |`VINYL_QUEUE` enum|Behaviour to use for the queue, see below                                                                  |
-|`loopQueue`   |boolean           |Whether to loop the queue by pushing stopping sounds to the bottom of the queue                            |
-|`[gain]`      |number            |Local gain to set for the queue                                                                            |
-|`[fadeInRate]`|number            |Rate of change for the gain during the fade in. Defaults to `infinity`, playing the audio without a fade in|
+|Name          |Datatype          |Purpose                                                                        |
+|--------------|------------------|-------------------------------------------------------------------------------|
+|`behaviour`   |`VINYL_QUEUE` enum|Behaviour to use for the queue, see below                                      |
+|`loopQueue`   |boolean           |Whether to loop the queue by pushing stopping sounds to the bottom of the queue|
+|`[gain]`      |number            |Local gain to set for the queue                                                |
+|`[emitter]`   |GameMaker emitter |GameMaker emitter to play sounds on                                            |
+|`[fadeInRate]`|number            |Rate of change for the gain during the fade in of the queue as a whole. Defaults to `infinity`, playing the audio without a fade in|
 
-Create a new sound queue. A sound queue is used to play audio in a particular sequence which is useful to set up dynamix soundtracks, in-game radio stations etc.  This function returns a queue index which can be used like the voice index returned by `VinylPlay()`. This means you can call `VinylFadeOut()`, `VinylPause()`, `VinylSetGain()` etc. targeting a queue and the queue will behave appropriately.
+Create a new sound queue. A sound queue is used to play audio in a particular sequence which is useful to set up dynamic soundtracks, in-game radio stations etc.  This function returns a queue index which can be used like the voice index returned by `VinylPlay()`. This means you can call `VinylFadeOut()`, `VinylPause()`, `VinylSetGain()` etc. targeting a queue and the queue will behave appropriately.
 
 There are three behaviours that a sound queue can use, found in `VINYL_QUEUE` enum:
 
-|Enum Member    |Behaviour                                                              |
-|---------------|-----------------------------------------------------------------------|
-|`.DONT_LOOP`   |Play each sound in the queue once                                      |
-|`.LOOP_ON_LAST`|Play each sound in the queue once until the last sound, which is looped|
-|`.LOOP_EACH`   |Loop each sound                                                        |
+|Enum Member    |Value|Behaviour                                                              |
+|---------------|-----|-----------------------------------------------------------------------|
+|`.DONT_LOOP`   |`0`  |Play each sound in the queue once                                      |
+|`.LOOP_ON_LAST`|`1`  |Play each sound in the queue once until the last sound, which is looped|
+|`.LOOP_EACH`   |`2`  |Loop each sound                                                        |
 
 The currently playing sound can be manually set to loop or not loop by calling `VinylSetLoop()` targeting the queue. If a sound is not looping and completes playing then the next sound in the queue will be played.
 
 ?> If you push a new sound to a `.LOOP_ON_LAST` queue Vinyl will **not** automatically set a currently looping sound to stop looping. You will need to call `VinylSetLoop(..., false)` to stop a loop in all cases.
 
 The queue itself can be set to loop as well. Internally this is achieved by pushing stopping sounds to the bottom of the queue. A queue that is itself set to loop will never trigger `.LOOP_ON_LAST`.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueueCreateFromTemplate`
+
+`VinylQueueCreateFromTemplate(queueTemplateName, [gain=1], [emitter], [fadeInRate=infinity])`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Queue voice
+
+|Name               |Datatype         |Purpose                                                                        |
+|-------------------|-----------------|-------------------------------------------------------------------------------|
+|`queueTemplateName`|string           |Name of the template to use                                                    |
+|`[gain]`           |number           |Local gain to set for the queue                                                |
+|`[emitter]`        |GameMaker emitter|GameMaker emitter to play sounds on                                            |
+|`[fadeInRate]`     |number           |Rate of change for the gain during the fade in of the queue as a whole. Defaults to `infinity`, playing the audio without a fade in|
+
+Create a new sound queue using parameters previously defined by a queue template, either in the [Config JSON](Config-JSON?id=queue-template) or by using the `VinylSetupQueueTemplate()` function. The `emitter` parameter for this function, if specified, will override the emitter defined in the queue template.
 
 #### **Example**
 

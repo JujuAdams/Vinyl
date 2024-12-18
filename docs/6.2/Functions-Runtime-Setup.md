@@ -85,6 +85,42 @@ No example provided.
 
 &nbsp;
 
+## `VinylSetupHLT`
+
+`VinylSetupHLT(patternName, [soundHead], soundLoop, [soundTail], [gain=1], [mix=VINYL_DEFAULT_MIX], [duckerName], [duckPriority=0], [emitterAlias], [metadata])`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name            |Datatype|Purpose                                                                                     |
+|----------------|--------|--------------------------------------------------------------------------------------------|
+|`patternName`   |string  |Name of the pattern                                                                         |
+|`[soundHead]`   |sound   |Optional. Sound to play first                                                               |
+|`soundLoop`     |sound   |Sound to loop on                                                                            |
+|`[soundTail]`   |sound   |Optional. Sound to play last                                                                |
+|`[mix]`         |string  |Optional, defaults to `VINYL_DEFAULT_MIX`. Which mix to play sounds on                      |
+|`[duckerName]`  |string  |Optional. Which ducker to play sounds on                                                    |
+|`[duckPriority]`|number  |Optional, defaults to 0. What ducker priority to play sounds with                           |
+|`[emitterAlias]`|string  |Optional, defaults to `undefined`. Name of a registered emitter to play sounds on by default|
+|`[metadata]`    |any     |Optional. Metadata to attach to the pattern                                                 |
+
+Sets up a head-loop-tail pattern for playback with Vinyl. When played, an HLT pattern will first play the "head" sound. Once that sound has finished, the loop sound will be played. If `VinylSetLoop()` is called on the HLT voice to stop looping then the tail sound will be played after the loop sound has finished.
+
+If the `emitterAlias` parameter is defined, Vinyl will attempt to play the sound on the specified emitter when playing the pattern using `VinylPlay()`. You can register an emitter with `VinylRegisterEmitter()`.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
 ## `VinylSetupBlend`
 
 `VinylSetupBlend(patternName, soundArray, [loop], [gain=1], [animCurve], [mix=VINYL_DEFAULT_MIX], [duckerName], [duckPriority=0], [emitterAlias], [metadata])`
@@ -122,9 +158,9 @@ No example provided.
 
 &nbsp;
 
-## `VinylSetupHLT`
+## `VinylSetupQueueTemplate`
 
-`VinylSetupHLT(patternName, [soundHead], soundLoop, [soundTail], [gain=1], [mix=VINYL_DEFAULT_MIX], [duckerName], [duckPriority=0], [emitterAlias], [metadata])`
+`VinylSetupQueueTemplate(queueTemplateName, soundArray, behaviour, loopQueue, [emitterAlias])`
 
 <!-- tabs:start -->
 
@@ -132,21 +168,17 @@ No example provided.
 
 *Returns:* N/A (`undefined`)
 
-|Name            |Datatype|Purpose                                                                                     |
-|----------------|--------|--------------------------------------------------------------------------------------------|
-|`patternName`   |string  |Name of the pattern                                                                         |
-|`[soundHead]`   |sound   |Optional. Sound to play first                                                               |
-|`soundLoop`     |sound   |Sound to loop on                                                                            |
-|`[soundTail]`   |sound   |Optional. Sound to play last                                                                |
-|`[mix]`         |string  |Optional, defaults to `VINYL_DEFAULT_MIX`. Which mix to play sounds on                      |
-|`[duckerName]`  |string  |Optional. Which ducker to play sounds on                                                    |
-|`[duckPriority]`|number  |Optional, defaults to 0. What ducker priority to play sounds with                           |
-|`[emitterAlias]`|string  |Optional, defaults to `undefined`. Name of a registered emitter to play sounds on by default|
-|`[metadata]`    |any     |Optional. Metadata to attach to the pattern                                                 |
+|Name               |Datatype          |Purpose                                                                                            |
+|-------------------|------------------|---------------------------------------------------------------------------------------------------|
+|`queueTemplateName`|string            |Name of the queue template                                                                         |
+|`soundArray`       |array of sounds   |Array of sounds to play in queue when using this template                                          |
+|`behaviour`        |`VINYL_QUEUE` enum|Behaviour to use for the queue. See [`VinylQueueCreate`](Functions-Queue?id=vinylqueuecreate)      |
+|`loopQueue`        |boolean           |Whether to loop the queue by pushing stopping sounds to the bottom of the queue                    |
+|`[emitterAlias]`   |string            |Optional, defaults to `undefined`. Name of a registered emitter to play sounds on by default       |
 
-Sets up a head-loop-tail pattern for playback with Vinyl. When played, an HLT pattern will first play the "head" sound. Once that sound has finished, the loop sound will be played. If `VinylSetLoop()` is called on the HLT voice to stop looping then the tail sound will be played after the loop sound has finished.
+Sets up a queue template that can be used to create a queue at runtime using the `VinylQueueCreateFromTemplate()` function (which effectively calls `VinylQueueCreate()` for you using parameters defined in the template).
 
-If the `emitterAlias` parameter is defined, Vinyl will attempt to play the sound on the specified emitter when playing the pattern using `VinylPlay()`. You can register an emitter with `VinylRegisterEmitter()`.
+If the `emitterAlias` parameter is defined, Vinyl will attempt to play sounds in the queue on the specified emitter. You can register an emitter with `VinylRegisterEmitter()`.
 
 #### **Example**
 
