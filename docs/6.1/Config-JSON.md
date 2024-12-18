@@ -144,6 +144,22 @@ If the `emitter` parameter is defined, Vinyl will attempt to play sounds defined
 
 &nbsp;
 
+## Queue Template
+
+|Property       |Datatype       |Default                |Notes                                                                                          |
+|---------------|---------------|-----------------------|-----------------------------------------------------------------------------------------------|
+|`queueTemplate`|string         |N/A                    |**Required.** Name of the queue template                                                       |
+|`sounds`       |array          |N/A                    |**Required.** Sounds to populate the queue with                                                |
+|`behavior`     |integer        |`VINYL_QUEUE.DONT_LOOP`|                                                                                               |
+|`loopQueue`    |boolean        |`false`                |                                                                                               |
+|`emitter`      |string         |`undefined`            |Name of a registered emitter to play sounds on by default                                      |
+
+Sets up a queue template that can be used to create a queue at runtime using the `VinylQueueCreateFromTemplate()` function (which effectively calls `VinylQueueCreate()` for you using parameters defined in the template).
+
+If the `emitter` parameter is defined, Vinyl will attempt to play sounds in the queue on the specified emitter. You can register an emitter with `VinylRegisterEmitter()`.
+
+&nbsp;
+
 ## Mixes
 
 ?> Mixes cannot be children of other mixes i.e. there are no hierarchical mixes.
