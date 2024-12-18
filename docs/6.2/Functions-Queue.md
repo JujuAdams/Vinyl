@@ -4,7 +4,7 @@
 
 ## `VinylQueueCreate`
 
-`VinylQueueCreate(behaviour, loopQueue, [gain=1])`
+`VinylQueueCreate(behaviour, loopQueue, [gain=1], [fadeInRate=infinity])`
 
 <!-- tabs:start -->
 
@@ -12,11 +12,12 @@
 
 *Returns:* Queue voice
 
-|Name       |Datatype          |Purpose                                                                        |
-|-----------|------------------|-------------------------------------------------------------------------------|
-|`behaviour`|`VINYL_QUEUE` enum|Behaviour to use for the queue, see below                                      |
-|`loopQueue`|boolean           |Whether to loop the queue by pushing stopping sounds to the bottom of the queue|
-|`[gain]`   |number            |Local gain to set for the queue                                                |
+|Name          |Datatype          |Purpose                                                                                                    |
+|--------------|------------------|-----------------------------------------------------------------------------------------------------------|
+|`behaviour`   |`VINYL_QUEUE` enum|Behaviour to use for the queue, see below                                                                  |
+|`loopQueue`   |boolean           |Whether to loop the queue by pushing stopping sounds to the bottom of the queue                            |
+|`[gain]`      |number            |Local gain to set for the queue                                                                            |
+|`[fadeInRate]`|number            |Rate of change for the gain during the fade in. Defaults to `infinity`, playing the audio without a fade in|
 
 Create a new sound queue. A sound queue is used to play audio in a particular sequence which is useful to set up dynamix soundtracks, in-game radio stations etc.  This function returns a queue index which can be used like the voice index returned by `VinylPlay()`. This means you can call `VinylFadeOut()`, `VinylPause()`, `VinylSetGain()` etc. targeting a queue and the queue will behave appropriately.
 
