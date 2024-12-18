@@ -17,6 +17,7 @@
 |`behaviour`|`VINYL_QUEUE` enum|Behaviour to use for the queue, see below                                      |
 |`loopQueue`|boolean           |Whether to loop the queue by pushing stopping sounds to the bottom of the queue|
 |`[gain]`   |number            |Local gain to set for the queue                                                |
+|`[emitter]`|GameMaker emitter |GameMaker emitter to play sounds on                                            |
 
 Create a new sound queue. A sound queue is used to play audio in a particular sequence which is useful to set up dynamic soundtracks, in-game radio stations etc.  This function returns a queue index which can be used like the voice index returned by `VinylPlay()`. This means you can call `VinylFadeOut()`, `VinylPause()`, `VinylSetGain()` etc. targeting a queue and the queue will behave appropriately.
 
