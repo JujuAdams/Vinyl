@@ -18,7 +18,7 @@
 |`loopQueue`   |boolean           |Whether to loop the queue by pushing stopping sounds to the bottom of the queue|
 |`[gain]`      |number            |Local gain to set for the queue                                                |
 |`[emitter]`   |GameMaker emitter |GameMaker emitter to play sounds on                                            |
-|`[fadeInRate]`|number            |Rate of change for the gain during the fade in of the queue as a whole. Defaults to `infinity`, playing the audio without a fade in|
+|`[fadeInRate]`|number            |Rate of change for the gain during the fade in of the queue as a whole. Defaults to `infinity`, playing the queue without a fade in|
 
 Create a new sound queue. A sound queue is used to play audio in a particular sequence which is useful to set up dynamic soundtracks, in-game radio stations etc.  This function returns a queue index which can be used like the voice index returned by `VinylPlay()`. This means you can call `VinylFadeOut()`, `VinylPause()`, `VinylSetGain()` etc. targeting a queue and the queue will behave appropriately.
 
@@ -61,9 +61,35 @@ No example provided.
 |`queueTemplateName`|string           |Name of the template to use                                                    |
 |`[gain]`           |number           |Local gain to set for the queue                                                |
 |`[emitter]`        |GameMaker emitter|GameMaker emitter to play sounds on                                            |
-|`[fadeInRate]`     |number           |Rate of change for the gain during the fade in of the queue as a whole. Defaults to `infinity`, playing the audio without a fade in|
+|`[fadeInRate]`     |number           |Rate of change for the gain during the fade in of the queue as a whole. Defaults to `infinity`, playing the queue without a fade in|
 
 Create a new sound queue using parameters previously defined by a queue template, either in the [Config JSON](Config-JSON?id=queue-template) or by using the `VinylSetupQueueTemplate()` function. The `emitter` parameter for this function, if specified, will override the emitter defined in the queue template.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueueDestroy`
+
+`VinylQueueDestroy(voice)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name   |Datatype|Purpose              |
+|-------|--------|---------------------|
+|`voice`|voice   |Queue voice to target|
+
+Destroys a Vinyl queue. This stops any currently playing audio and renders the queue inoperable. This function is provided for convenience and you don't have to call this function to manage memory.
 
 #### **Example**
 
@@ -160,7 +186,7 @@ No example provided.
 
 ## `VinylQueueGetLoop`
 
-`VinylQueueSetLoop(voice)`
+`VinylQueueGetLoop(voice)`
 
 <!-- tabs:start -->
 
@@ -175,6 +201,59 @@ No example provided.
 Returns whether the queue itself is set to loop.
 
 ?> If you'd like to return the loop state of the currently playing sound then use `VinylGetLoop()`.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueueSetFadeIn`
+
+`VinylQueueSetFadeIn(voice, fadeInRate)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name        |Datatype|Purpose                  |
+|------------|--------|-------------------------|
+|`voice`     |voice   |Queue voice to target    |
+|`fadeInRate`|number |Rate of change for the gain during the fade in of the queue as a whole. Defaults to `infinity`, playing the queue without a fade in|
+
+Sets the fade in rate for the queue as a whole. A value of `infinity` will cause the queue to be played without fading in.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylQueueGetFadeIn`
+
+`VinylQueueGetFadeIn(voice)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Number
+
+|Name   |Datatype|Purpose                  |
+|-------|--------|-------------------------|
+|`voice`|voice   |Queue voice to target    |
+
+Returns the fade-in rate for the queue.
 
 #### **Example**
 
@@ -239,6 +318,33 @@ No example provided.
 
 &nbsp;
 
+## `VinylQueueSetBottom`
+
+`VinylQueueSetBottom(voice, sound)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name   |Datatype|Purpose                                 |
+|-------|--------|----------------------------------------|
+|`voice`|voice   |Queue voice to target                   |
+|`sound`|sound   |Sound to push to the bottom of the queue|
+
+Sets the sound that's on the bottom of a queue's array of sounds, overwriting the sound that was already there (if any). If the queue is empty then this sound will be played at the start of the next frame.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
 ## `VinylQueuePushBottom`
 
 `VinylQueuePushBottom(voice, sound)`
@@ -254,7 +360,7 @@ No example provided.
 |`voice`|voice   |Queue voice to target                   |
 |`sound`|sound   |Sound to push to the bottom of the queue|
 
-Pushes a sound to the bottom of a queue's array of sounds. If the queue is empty then the next sound will be played at the start of the next frame.
+Pushes a sound to the bottom of a queue's array of sounds. If the queue is empty then this sound will be played at the start of the next frame.
 
 #### **Example**
 
@@ -337,32 +443,6 @@ No example provided.
 Clears all sounds in a queue's array of sounds.
 
 !> This function won't stop the currently playing sound. Use `VinylStop()` to stop the currently playing sound in a queue.
-
-#### **Example**
-
-```gml
-No example provided.
-```
-
-<!-- tabs:end -->
-
-&nbsp;
-
-## `VinylQueueDestroy`
-
-`VinylQueueDestroy(voice)`
-
-<!-- tabs:start -->
-
-#### **Description**
-
-*Returns:* N/A (`undefined`)
-
-|Name   |Datatype|Purpose              |
-|-------|--------|---------------------|
-|`voice`|voice   |Queue voice to target|
-
-Destroys a Vinyl queue. This stops any currently playing audio and renders the queue inoperable. This function is provided for convenience and you don't have to call this function to manage memory.
 
 #### **Example**
 
