@@ -9,6 +9,11 @@ UIButtonInline("Queue Test", function()
     instance_destroy();
     instance_create_layer(0, 0, "Instances", oTestQueues);
 });
+UIButtonInline("Effects Test", function()
+{
+    instance_destroy();
+    instance_create_layer(0, 0, "Instances", oTestEffects);
+});
 UINewline();
 UINewline();
 UITextInline(string_concat("\"Test\" mix gain = ", VinylMixGetGain("Test")));
@@ -151,17 +156,6 @@ UISpace(20);
 UIButtonInline("Stop callback test", function()
 {
     VinylStop(global.callbackTestVoice);
-});
-UINewline();
-UINewline();
-UIButtonInline("Play bleep on echo emitter", function()
-{
-    VinylPlayOn(oBackground.emitter, sndBleep0);
-});
-UINewline();
-UIButtonInline("Play fallback sound using defined emitter", function()
-{
-    VinylPlay(VinylFallbackSound);
 });
 UINewline();
 UINewline();

@@ -74,5 +74,5 @@ emitter = audio_emitter_create();
 audioBus = audio_bus_create();
 audio_emitter_bus(emitter, audioBus);
 audioBus.effects[0] = audio_effect_create(AudioEffectType.Delay);
-audioBus.effects[1] = audio_effect_create(AudioEffectType.Reverb1);
+audioBus.effects[1] = audio_effect_create(AudioEffectType.Reverb1, {size: 0.6, damp: 0.5, mix: 1.0});
 VinylRegisterEmitter(emitter, "echo");
