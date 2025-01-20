@@ -102,7 +102,7 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         __pitchSound = __VinylSoundGetPitch(_soundHead);
         
         __voiceCurrent = __PlaySound(_soundHead, false, __VINYL_VOICE_GAIN_SxPxLxMxDxF/VINYL_MAX_VOICE_GAIN, __VINYL_VOICE_PITCH_SxLxM);
-        __state = __VINYL_HLT_STATE.__HEAD;
+        __state = __VINYL_HLT_STATE_HEAD;
     }
     else
     {
@@ -113,11 +113,11 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
             __pitchSound = __VinylSoundGetPitch(_soundLoop);
             
             __voiceCurrent = __PlaySound(_soundLoop, true, __VINYL_VOICE_GAIN_SxPxLxMxDxF/VINYL_MAX_VOICE_GAIN, __VINYL_VOICE_PITCH_SxLxM);
-            __state = __VINYL_HLT_STATE.__LOOP;
+            __state = __VINYL_HLT_STATE_LOOP;
         }
         else
         {
-            __state = __VINYL_HLT_STATE.__TAIL;
+            __state = __VINYL_HLT_STATE_TAIL;
             
             var _soundTail = _pattern.__soundTail;
             if (_soundTail != undefined)
@@ -217,18 +217,18 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
             
             switch(__state)
             {
-                case __VINYL_HLT_STATE.__HEAD:
+                case __VINYL_HLT_STATE_HEAD:
                     if (__doLoop && (_pattern.__soundLoop != undefined))
                     {
                         __gainSound  = __VinylSoundGetGain(_pattern.__soundLoop);
                         __pitchSound = __VinylSoundGetPitch(_pattern.__soundLoop);
                         
                         __voiceCurrent = __PlaySound(_pattern.__soundLoop, true, __VINYL_VOICE_GAIN_SxPxLxMxDxF/VINYL_MAX_VOICE_GAIN, __VINYL_VOICE_PITCH_SxLxM);
-                        __state = __VINYL_HLT_STATE.__LOOP;
+                        __state = __VINYL_HLT_STATE_LOOP;
                     }
                     else
                     {
-                        __state = __VINYL_HLT_STATE.__TAIL;
+                        __state = __VINYL_HLT_STATE_TAIL;
                         
                         if (_pattern.__soundTail != undefined)
                         {
@@ -245,8 +245,8 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
                     }
                 break;
                 
-                case __VINYL_HLT_STATE.__LOOP:
-                    __state = __VINYL_HLT_STATE.__TAIL;
+                case __VINYL_HLT_STATE_LOOP:
+                    __state = __VINYL_HLT_STATE_TAIL;
                     
                     if (_pattern.__soundTail != undefined)
                     {
@@ -262,7 +262,7 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
                     }
                 break;
                 
-                case __VINYL_HLT_STATE.__TAIL:
+                case __VINYL_HLT_STATE_TAIL:
                     ds_map_delete(_voiceToStructMap, __voiceReference);
                     
                     __voiceCurrent = -1;
@@ -293,12 +293,12 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
     
     static __IsPlaying = function()
     {
-        return ((__state != __VINYL_HLT_STATE.__TAIL) || audio_is_playing(__voiceCurrent));
+        return ((__state != __VINYL_HLT_STATE_TAIL) || audio_is_playing(__voiceCurrent));
     }
     
     static __WillStop = function()
     {
-        return ((__state == __VINYL_HLT_STATE.__TAIL) && __VinylWillStop(__voiceCurrent));
+        return ((__state == __VINYL_HLT_STATE_TAIL) && __VinylWillStop(__voiceCurrent));
     }
     
     static __Stop = function()
@@ -306,7 +306,7 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         if (__voiceCurrent >= 0)
         {
             audio_stop_sound(__voiceCurrent);
-            __state = __VINYL_HLT_STATE.__TAIL;
+            __state = __VINYL_HLT_STATE_TAIL;
         }
     }
     
@@ -381,7 +381,7 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
     static __SetLoop = function(_state)
     {
         __doLoop = _state;
-        if (__state == __VINYL_HLT_STATE.__LOOP) audio_sound_loop(__voiceCurrent, _state);
+        if (__state == __VINYL_HLT_STATE_LOOP) audio_sound_loop(__voiceCurrent, _state);
     }
     
     static __GetLoop = function()
@@ -405,7 +405,7 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         
         switch(__state)
         {
-            case __VINYL_HLT_STATE.__HEAD:
+            case __VINYL_HLT_STATE_HEAD:
                 __gainSound  = __VinylSoundGetGain( _pattern.__soundHead);
                 __pitchSound = __VinylSoundGetPitch(_pattern.__soundHead);
                 
@@ -421,7 +421,7 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
                 }
             break;
             
-            case __VINYL_HLT_STATE.__LOOP:
+            case __VINYL_HLT_STATE_LOOP:
                 __gainSound  = __VinylSoundGetGain( _pattern.__soundLoop);
                 __pitchSound = __VinylSoundGetPitch(_pattern.__soundLoop);
                 
@@ -438,7 +438,7 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
                 }
             break;
             
-            case __VINYL_HLT_STATE.__TAIL:
+            case __VINYL_HLT_STATE_TAIL:
                 __gainSound  = __VinylSoundGetGain( _pattern.__soundTail);
                 __pitchSound = __VinylSoundGetPitch(_pattern.__soundTail);
                 

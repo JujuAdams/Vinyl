@@ -13,3 +13,10 @@
 
 #macro VINYL_VERSION  "6.2.1 (beta)"
 #macro VINYL_DATE     "2024-12-18"
+
+enum VINYL_QUEUE
+{
+    DONT_LOOP,
+    LOOP_EACH,
+    LOOP_ON_LAST,
+}

@@ -7,19 +7,9 @@
 //Whether to show the frame number in debug messages
 #macro __VINYL_DEBUG_SHOW_FRAMES  false
 
-enum __VINYL_HLT_STATE
-{
-    __HEAD,
-    __LOOP,
-    __TAIL,
-}
-
-enum VINYL_QUEUE
-{
-    DONT_LOOP,
-    LOOP_EACH,
-    LOOP_ON_LAST,
-}
+#macro __VINYL_HLT_STATE_HEAD  0
+#macro __VINYL_HLT_STATE_LOOP  1
+#macro __VINYL_HLT_STATE_TAIL  2
 
 __VinylSystem();
 function __VinylSystem()
