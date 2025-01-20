@@ -442,6 +442,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     
     static __SetMemberGain = function(_index, _gain)
     {
+        
         __blendMode = __VINYL_BLEND_MODE_MANUAL;
         
         if ((_index < 0) || (_index >= __voiceCount))
@@ -449,7 +450,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
             return;
         }
         
-        __gainArray[_index] = __VinylSoundGetGain(__soundArray[_index])*_gain;
+        __gainArray[_index] = __VinylSoundGetGain(__pattern.__soundArray[_index])*_gain;
         __gainArrayDirty = true;
     }
     
@@ -460,7 +461,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
             return 0;
         }
         
-        return (__gainArray[_index] / __VinylSoundGetGain(__soundArray[_index]));
+        return (__gainArray[_index] / __VinylSoundGetGain(__pattern.__soundArray[_index]));
     }
     
     static __SetMemberGains = function()

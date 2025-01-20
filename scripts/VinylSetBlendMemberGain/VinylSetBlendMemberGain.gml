@@ -7,7 +7,7 @@
 /// @param index
 /// @param gain
 
-function VinylSetBlendFactor(_voice, _index, _gain)
+function VinylSetBlendMemberGain(_voice, _index, _gain)
 {
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     
