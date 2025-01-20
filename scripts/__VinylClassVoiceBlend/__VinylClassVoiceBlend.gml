@@ -101,12 +101,15 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     __blendFactor    = 0;
     __blendAnimCurve = _pattern.__animCurve;
     __blendAnimCurveOverride = false;
+    __blendMode      = (__blendAnimCurve == undefined)? __VINYL_BLEND_MODE_FACTOR : __VINYL_BLEND_MODE_CURVE;
     
     var _soundArray = _pattern.__soundArray;
     __voiceCount = array_length(_soundArray);
     __voiceArray = array_create(__voiceCount, -1);
     __gainArray  = array_create(__voiceCount,  1);
     __pitchArray = array_create(__voiceCount,  1);
+    
+    __gainArrayDirty = false;
     
     __SetMemberGains();
     __SetMemberPitches();
@@ -159,24 +162,22 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     
     static __Update = function(_delta)
     {
-        var _changed = false;
-        
         if (__gainLocal != __gainLocalTarget)
         {
-            _changed = true;
+            __gainArrayDirty = true;
             __gainLocal += clamp(__gainLocalTarget - __gainLocal, -_delta*__gainLocalSpeed, _delta*__gainLocalSpeed);
         }
         
         if (__gainDuckSpeed != undefined)
         {
+            __gainArrayDirty = true;
             __gainDuck += clamp(__gainDuckTarget - __gainDuck, -_delta*__gainDuckSpeed, _delta*__gainDuckSpeed);
-            _changed = true;
         }
         
         if (__gainFadeOutSpeed != undefined)
         {
+            __gainArrayDirty = true;
             __gainFadeOut -= _delta*__gainFadeOutSpeed;
-            _changed = true;
             
             if (__gainFadeOut <= 0)
             {
@@ -194,8 +195,9 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
             }
         }
         
-        if (_changed)
+        if (__gainArrayDirty)
         {
+            __gainArrayDirty = false;
             __UpdateVoiceGains();
         }
         
@@ -403,6 +405,12 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     
     static __SetBlend = function(_factor)
     {
+        //Swap to factor mode if we're currently in manual mode
+        if (__blendMode == __VINYL_BLEND_MODE_MANUAL)
+        {
+            __blendMode = __VINYL_BLEND_MODE_FACTOR;
+        }
+        
         _factor = clamp(_factor, 0, 1);
         
         if (_factor != __blendFactor)
@@ -419,6 +427,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         {
             if (_factor != undefined) __blendFactor = clamp(_factor, 0, 1);
             
+            __blendMode = __VINYL_BLEND_MODE_CURVE;
             __blendAnimCurve = _animCurve;
             __blendAnimCurveOverride = true;
             
@@ -431,6 +440,29 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         }
     }
     
+    static __SetMemberGain = function(_index, _gain)
+    {
+        __blendMode = __VINYL_BLEND_MODE_MANUAL;
+        
+        if ((_index < 0) || (_index >= __voiceCount))
+        {
+            return;
+        }
+        
+        __gainArray[_index] = __VinylSoundGetGain(__soundArray[_index])*_gain;
+        __gainArrayDirty = true;
+    }
+    
+    static __GetMemberGain = function(_index)
+    {
+        if ((_index < 0) || (_index >= __voiceCount))
+        {
+            return 0;
+        }
+        
+        return (__gainArray[_index] / __VinylSoundGetGain(__soundArray[_index]));
+    }
+    
     static __SetMemberGains = function()
     {
         var _soundArray = __pattern.__soundArray;
@@ -438,7 +470,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         var _gainArray   = __gainArray;
         var _blendFactor = __blendFactor;
         
-        if (__blendAnimCurve == undefined)
+        if (__blendMode == __VINYL_BLEND_MODE_FACTOR)
         {
             //Scale up the blend factor to match the number of channels we have
             var _factor = clamp(__blendFactor, 0, 1)*(__voiceCount - 1);
@@ -451,7 +483,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
                 ++_i;
             }
         }
-        else
+        else if (__blendMode == __VINYL_BLEND_MODE_CURVE)
         {
             var _animCurve = __blendAnimCurve;
             
@@ -497,8 +529,11 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         
         __gainPattern = _pattern.__gain;
         
-        //If we haven't manually set the blend curve then update that from the pattern
-        if (not __blendAnimCurveOverride) __blendAnimCurve = _pattern.__animCurve;
+        //If we haven't manually set the blend curve or individual gains then update that from the pattern
+        if (__blendMode != __VINYL_BLEND_MODE_MANUAL)
+        {
+            if (not __blendAnimCurveOverride) __blendAnimCurve = _pattern.__animCurve;
+        }
         
         var _mixStruct = __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
         var _loopMix = (_mixStruct == undefined)? undefined : _mixStruct.__membersLoop;

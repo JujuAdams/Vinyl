@@ -13,5 +13,5 @@ function VinylGetBlendAnimCurve(_voice)
     var _voiceStruct = _voiceToStructMap[? _voice];
     if (not is_instanceof(_voiceStruct, __VinylClassVoiceBlend)) return undefined;
     
-    return _voiceStruct.__blendAnimCurve;
+    return (_voiceStruct.__blendMode == __VINYL_BLEND_MODE_CURVE)? _voiceStruct.__blendAnimCurve : undefined;
 }

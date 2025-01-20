@@ -11,6 +11,10 @@
 #macro __VINYL_HLT_STATE_LOOP  1
 #macro __VINYL_HLT_STATE_TAIL  2
 
+#macro __VINYL_BLEND_MODE_MANUAL  0
+#macro __VINYL_BLEND_MODE_FACTOR  1
+#macro __VINYL_BLEND_MODE_CURVE   2
+
 __VinylSystem();
 function __VinylSystem()
 {
