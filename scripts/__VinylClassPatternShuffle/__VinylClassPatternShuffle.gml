@@ -70,6 +70,11 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         {
             var _sound = __soundArray[0];
         }
+        else if (__soundCount == 2)
+        {
+            //Special case for two sounds - randomly choose either of them
+            var _sound = __soundArray[__VinylIRandom(1)];
+        }
         else
         {
             if (__playIndex >= __soundCount) //If we've played through our bank of sounds, reshuffle
