@@ -455,4 +455,14 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
             break;
         }
     }
+    
+    static __GetFinalGain = function()
+    {
+        return __VINYL_VOICE_GAIN_SxPxLxMxDxF/VINYL_MAX_VOICE_GAIN;
+    }
+    
+    static __GetFinalPitch = function()
+    {
+        return __VINYL_VOICE_PITCH_SxLxM;
+    }
 }

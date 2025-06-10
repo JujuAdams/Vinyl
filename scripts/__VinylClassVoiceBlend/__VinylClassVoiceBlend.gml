@@ -589,4 +589,14 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
             __UpdateVoicePitches();
         }
     }
+    
+    static __GetFinalGain = function()
+    {
+        return __VINYL_VOICE_GAIN_PxLxMxDxF/VINYL_MAX_VOICE_GAIN;
+    }
+    
+    static __GetFinalPitch = function()
+    {
+        return __VINYL_VOICE_PITCH_LxM;
+    }
 }

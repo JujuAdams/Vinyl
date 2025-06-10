@@ -448,4 +448,14 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         audio_sound_gain( __voiceCurrent, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         audio_sound_pitch(__voiceCurrent, __VINYL_VOICE_PITCH_SxLxM);
     }
+    
+    static __GetFinalGain = function()
+    {
+        return __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN;
+    }
+    
+    static __GetFinalPitch = function()
+    {
+        return __VINYL_VOICE_PITCH_SxLxM;
+    }
 }

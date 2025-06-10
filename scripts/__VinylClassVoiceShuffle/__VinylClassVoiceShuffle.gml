@@ -277,4 +277,14 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
         audio_sound_gain( __voiceReference, __VINYL_VOICE_GAIN_SxPxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         audio_sound_pitch(__voiceReference, __VINYL_VOICE_PITCH_SxPxLxM);
     }
+    
+    static __GetFinalGain = function()
+    {
+        return __VINYL_VOICE_GAIN_SxPxLxMxDxF/VINYL_MAX_VOICE_GAIN;
+    }
+    
+    static __GetFinalPitch = function()
+    {
+        return __VINYL_VOICE_PITCH_SxPxLxM;
+    }
 }

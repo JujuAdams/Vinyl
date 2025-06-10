@@ -22,7 +22,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     
     __inUpdateArray = false;
     
-    __voiceReference  = _voice;
+    __voiceReference = _voice;
     
     __gainSound   = _gainSound;
     __gainLocal   = _gainLocal;
@@ -270,5 +270,15 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         audio_sound_loop( __voiceReference, __loopLocal ?? (_pattern.__loop ?? (_loopMix ?? false)));
         audio_sound_gain( __voiceReference, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         audio_sound_pitch(__voiceReference, __VINYL_VOICE_PITCH_SxLxM);
+    }
+    
+    static __GetFinalGain = function()
+    {
+        return __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN;
+    }
+    
+    static __GetFinalPitch = function()
+    {
+        return __VINYL_VOICE_PITCH_SxLxM;
     }
 }
