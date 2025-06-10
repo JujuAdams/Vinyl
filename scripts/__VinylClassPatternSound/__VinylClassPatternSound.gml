@@ -196,7 +196,9 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         if (__loop)
         {
             buffer_write(_buffer, buffer_text, _indent);
-            buffer_write(_buffer, buffer_text, "    loop: true,\n");
+            buffer_write(_buffer, buffer_text, "    loop: ");
+            buffer_write(_buffer, buffer_text, __loop? "true" : "false");
+            buffer_write(_buffer, buffer_text, ",\n");
         }
         
         if (__duckerName != undefined)
