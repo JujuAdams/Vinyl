@@ -118,7 +118,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     {
         var _loopFinal   = _loopLocal ?? (_pattern.__loop ?? (_mixLoop ?? false));
         var _gainShared  = __VINYL_VOICE_GAIN_PxLxMxDxF/VINYL_MAX_VOICE_GAIN;
-        var _pitchShared = __pitchLocal*__pitchMix;
+        var _pitchShared = __VINYL_VOICE_PITCH_LxM;
         
         var _i = 0;
         repeat(__voiceCount)
@@ -243,7 +243,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     {
         var _voiceArray  = __voiceArray;
         var _pitchArray  = __pitchArray;
-        var _pitchShared = __pitchLocal;
+        var _pitchShared = __VINYL_VOICE_PITCH_LxM;
         
         var _i = 0;
         repeat(__voiceCount)
@@ -561,7 +561,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
                 __SetMemberPitches();
                 
                 var _gainShared  = __VINYL_VOICE_GAIN_PxLxMxDxF;
-                var _pitchShared = __pitchLocal;
+                var _pitchShared = __VINYL_VOICE_PITCH_LxM;
                 
                 var _i = 0;
                 repeat(__voiceCount)
