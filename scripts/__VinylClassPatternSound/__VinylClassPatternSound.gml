@@ -114,6 +114,11 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         return _voice;
     }
     
+    static __IsSoundPlaying = function()
+    {
+        return audio_is_playing(__sound);
+    }
+    
     static __UpdateSetup = function(_gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata)
     {
         if (VINYL_LIVE_EDIT)

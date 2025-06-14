@@ -38,6 +38,11 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         return (new __VinylClassVoiceHLT(_emitter, self, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)).__voiceReference;
     }
     
+    static __IsSoundPlaying = function()
+    {
+        return audio_is_playing(__soundHead) || audio_is_playing(__soundLoop) || audio_is_playing(__soundTail);
+    }
+    
     static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata)
     {
         var _newSoundHead = __VinylImportSound(_soundHead);

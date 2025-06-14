@@ -42,6 +42,23 @@ function __VinylClassPatternBlend(_patternName, _soundArray, _loop, _gain, _anim
         return (new __VinylClassVoiceBlend(_emitter, self, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal, __mixName)).__voiceReference;
     }
     
+    static __IsSoundPlaying = function()
+    {
+        var _array = __soundArray;
+        var _i = 0;
+        repeat(array_length(_array))
+        {
+            if (audio_is_playing(_array[_i]))
+            {
+                return true;
+            }
+            
+            ++_i;
+        }
+        
+        return false;
+    }
+    
     static __UpdateSetup = function(_soundArray, _loop, _gain, _animCurve, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata)
     {
         if (VINYL_LIVE_EDIT)

@@ -190,6 +190,23 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         return _voice;
     }
     
+    static __IsSoundPlaying = function()
+    {
+        var _array = __soundArray;
+        var _i = 0;
+        repeat(array_length(_array))
+        {
+            if (audio_is_playing(_array[_i]))
+            {
+                return true;
+            }
+            
+            ++_i;
+        }
+        
+        return false;
+    }
+    
     static __UpdateSetup = function(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata)
     {
         if (VINYL_LIVE_EDIT)
