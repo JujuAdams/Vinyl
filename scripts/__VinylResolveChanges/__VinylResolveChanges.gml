@@ -89,6 +89,19 @@ function __VinylResolveChanges(_replace, _oldSoundNameArray = undefined, _oldPat
                 }
             break;
             
+            case "__VinylClassPatternAbstract":
+                var _j = 0;
+                repeat(array_length(_voiceUpdateArray))
+                {
+                    if (_voiceUpdateArray[_j][$ "__pattern"] == _pattern)
+                    {
+                        array_push(_toUpdateArray, _voiceUpdateArray[_j]);
+                    }
+                    
+                    ++_j;
+                }
+            break;
+            
             case "__VinylClassMix":
                 var _array = _pattern.__voiceArray;
                 var _j = 0;
@@ -151,6 +164,7 @@ function __VinylResolveChanges(_replace, _oldSoundNameArray = undefined, _oldPat
             case "__VinylClassVoiceHLT":
             case "__VinylClassVoiceBlend":
             case "__VinylClassVoiceQueue":
+            case "__VinylClassVoiceAbstract":
                 _voice.__UpdateFromPattern();
             break;
             

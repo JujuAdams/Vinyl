@@ -2,6 +2,8 @@
 
 /// Returns whether any voice exists for the given sound or pattern.
 /// 
+/// N.B. This function will always return `false` if an abstract pattern is targeted.
+/// 
 /// @param sound/pattern
 
 function VinylPatternIsPlaying(_pattern)

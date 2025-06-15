@@ -1,47 +1,110 @@
 // Feather disable all
 
-/// @param voice
+/// @param pattern
 /// @param loopLocal
 /// @param gainLocal
-/// @param gainMix
-/// @param gainDuck
 /// @param pitchLocal
-/// @param pitchMix
+/// @param duckerNameLocal
+/// @param duckPrioLocal
+/// @param mixNameLocal
 
-function __VinylClassVoiceAbstract(_voice, _loopLocal, _gainLocal, _gainMix, _gainDuck, _pitchLocal, _pitchMix) constructor
+function __VinylClassVoiceAbstract(_pattern, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal, _mixNameLocal) constructor
 {
+    static _mixDict          = __VinylSystem().__mixDict;
+    static _duckerDict       = __VinylSystem().__duckerDict;
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
+    static _toUpdateArray    = __VinylSystem().__toUpdateArray;
+    
+    static _count = 0;
+    __voiceReference = 0xFF00_0000_0000 | _count;
+    ++_count;
     
     __inUpdateArray = false;
     
-    __voiceReference = _voice;
     __playing = true;
     __paused  = false;
-    __looping = _loopLocal;
     
-    __gainLocal = _gainLocal;
-    __gainMix   = _gainMix;
-    __gainDuck  = _gainDuck;
+    __loopLocal    = _loopLocal;
+    __gainLocal    = _gainLocal;
+    __pitchLocal   = _pitchLocal;
+    __mixNameLocal = _mixNameLocal;
     
-    __pitchLocal = _pitchLocal;
-    __pitchMix   = _pitchMix;
+    //Resolve values inherited from the pattern
+    if (_pattern == undefined)
+    {
+        __looping      = _loopLocal;
+        __gainPattern  = 1;
+        __pitchPattern = 1;
+        __mixName      = _mixNameLocal;
+    }
+    else
+    {
+        __looping      = _loopLocal ?? _pattern.__loop;
+        __gainPattern  = _pattern.__gain;
+        __pitchPattern = _pattern.__pitch;
+        __mixName      = _mixNameLocal ?? _pattern.__mixName;
+    }
     
-    __gainLocalTarget = _gainLocal;
-    __gainLocalSpeed  = infinity;
+    //Resolve values inherited from the mix
+    if (__mixName == undefined)
+    {
+        var _mixStruct = undefined;
+        __gainMix  = 1;
+        __pitchMix = 1;
+        
+        __duckerNameFinal = _duckerNameLocal ?? ((_pattern != undefined)? _pattern.__duckerName : undefined);
+    }
+    else
+    {
+        var _mixStruct = _mixDict[$ __mixName];
+        if (_mixStruct == undefined)
+        {
+            __VinylError("Mix \"", __mixName, "\" not recognised");
+            return;
+        }
+        
+        __gainMix  = _mixStruct.__gainFinal;
+        __pitchMix = _mixStruct.__pitchLocal;
+        
+        __duckerNameFinal = _duckerNameLocal ?? (((_pattern != undefined)? _pattern.__duckerName : undefined) ?? _mixStruct.__membersDuckOn);
+    }
     
-    __gainDuckTarget = _gainDuck;
-    __gainDuckSpeed  = undefined;
+    //Resolve values inherited from the ducker
+    if (__duckerNameFinal != undefined)
+    {
+        var _duckerStruct = _duckerDict[$ __duckerNameFinal];
+        if (_duckerStruct == undefined)
+        {
+            __VinylError("Ducker \"", __duckerNameFinal, "\" not recognised");
+            return;
+        }
+        
+        var _duckPrioFinal = _duckPrioLocal ?? (((_pattern != undefined)? _pattern.__duckPrio : undefined) ?? 0);
+        __gainDuck = (_duckerStruct.__maxPriority <= _duckPrioFinal)? 1 : _duckerStruct.__duckedGain;
+    }
+    else
+    {
+        var _duckerStruct = undefined;
+        __gainDuck = 1;
+    }
     
     __gainFadeOut      = 1;
     __gainFadeOutSpeed = undefined;
     __gainFadeOutStop  = false;
     
-    __pitchLocalTarget = _pitchLocal;
+    __gainLocalTarget = __gainLocal;
+    __gainLocalSpeed  = infinity;
+    
+    __gainDuckTarget = __gainDuck;
+    __gainDuckSpeed  = undefined;
+    
+    __pitchLocalTarget = __pitchLocal;
     __pitchLocalSpeed  = infinity;
     
-    _voiceToStructMap[? _voice] = self;
-    array_push(_voiceUpdateArray, self);
+    _voiceToStructMap[? __voiceReference] = self;
+    if (_duckerStruct != undefined) _duckerStruct.__Push(self, _duckPrioFinal, false);
+    if (_mixStruct != undefined) _mixStruct.__Add(__voiceReference);
     
     
     
@@ -103,7 +166,7 @@ function __VinylClassVoiceAbstract(_voice, _loopLocal, _gainLocal, _gainMix, _ga
                 if (__gainFadeOutStop)
                 {
                     __Stop();
-                    return;
+                    return false;
                 }
                 else
                 {
@@ -154,12 +217,12 @@ function __VinylClassVoiceAbstract(_voice, _loopLocal, _gainLocal, _gainMix, _ga
     
     static __SetLoop = function(_state)
     {
-        __looping = _state;
+        __looping = _state ?? false;
     }
     
     static __GetLoop = function()
     {
-        return __looping;
+        return __looping ?? false;
     }
     
     static __SetLocalGain = function(_gain, _rateOfChange)
@@ -210,13 +273,31 @@ function __VinylClassVoiceAbstract(_voice, _loopLocal, _gainLocal, _gainMix, _ga
         __pitchMix = _pitch;
     }
     
+    static __UpdateFromPattern = function()
+    {
+        if (__pattern == undefined) return;
+        
+        var _pattern = __pattern;
+        
+        __gainPattern  = _pattern.__gain;
+        __pitchPattern = _pattern.__pitch;
+        
+        if (__looping == undefined)
+        {
+            __looping = __loopLocal ?? _pattern.__loop;
+        }
+        
+        var _mixStruct = __VinylVoiceMoveMix(__voiceReference, __mixNameLocal ?? _pattern.__mixName);
+        __VinylVoiceUpdateDucker(_mixStruct);
+    }
+    
     static __GetFinalGain = function()
     {
-        return __VINYL_VOICE_GAIN_LxMxDxF/VINYL_MAX_VOICE_GAIN;
+        return __VINYL_VOICE_GAIN_PxLxMxDxF/VINYL_MAX_VOICE_GAIN;
     }
     
     static __GetFinalPitch = function()
     {
-        return __VINYL_VOICE_PITCH_LxM;
+        return __VINYL_VOICE_PITCH_PxLxM;
     }
 }
