@@ -12,13 +12,12 @@
 /// @param patternName
 /// @param [gain=1]
 /// @param [pitch=1]
-/// @param [loop]
 /// @param [mix=VINYL_DEFAULT_MIX]
 /// @param [duckerName]
 /// @param [duckPriority=0]
 /// @param [metadata]
 
-function VinylSetupAbstract(_patternName, _gain = 1, _pitch = 1, _loop = undefined, _mixName = VINYL_DEFAULT_MIX, _duckerName = undefined, _duckPrio = undefined, _metadata = undefined)
+function VinylSetupAbstract(_patternName, _gain = 1, _pitch = 1, _mixName = VINYL_DEFAULT_MIX, _duckerName = undefined, _duckPrio = undefined, _metadata = undefined)
 {
     static _system      = __VinylSystem();
     static _patternDict = _system.__patternDict;
@@ -43,7 +42,7 @@ function VinylSetupAbstract(_patternName, _gain = 1, _pitch = 1, _loop = undefin
     }
     else
     {
-        _patternDict[$ _patternName] = new __VinylClassPatternAbstract(_patternName, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _metadata);
+        _patternDict[$ _patternName] = new __VinylClassPatternAbstract(_patternName, _gain, _pitch, _mixName, _duckerName, _duckPrio, _metadata);
     }
     
     if (VINYL_LIVE_EDIT && (not _system.__importingJSON))

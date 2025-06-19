@@ -1,14 +1,13 @@
 // Feather disable all
 
 /// @param pattern
-/// @param loopLocal
 /// @param gainLocal
 /// @param pitchLocal
 /// @param duckerNameLocal
 /// @param duckPrioLocal
 /// @param mixNameLocal
 
-function __VinylClassVoiceAbstract(_pattern, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal, _mixNameLocal) constructor
+function __VinylClassVoiceAbstract(_pattern, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal, _mixNameLocal) constructor
 {
     static _mixDict          = __VinylSystem().__mixDict;
     static _duckerDict       = __VinylSystem().__duckerDict;
@@ -25,7 +24,6 @@ function __VinylClassVoiceAbstract(_pattern, _loopLocal, _gainLocal, _pitchLocal
     __playing = true;
     __paused  = false;
     
-    __loopLocal    = _loopLocal;
     __gainLocal    = _gainLocal;
     __pitchLocal   = _pitchLocal;
     __mixNameLocal = _mixNameLocal;
@@ -33,14 +31,12 @@ function __VinylClassVoiceAbstract(_pattern, _loopLocal, _gainLocal, _pitchLocal
     //Resolve values inherited from the pattern
     if (_pattern == undefined)
     {
-        __looping      = _loopLocal;
         __gainPattern  = 1;
         __pitchPattern = 1;
         __mixName      = _mixNameLocal;
     }
     else
     {
-        __looping      = _loopLocal ?? _pattern.__loop;
         __gainPattern  = _pattern.__gain;
         __pitchPattern = _pattern.__pitch;
         __mixName      = _mixNameLocal ?? _pattern.__mixName;
@@ -215,14 +211,14 @@ function __VinylClassVoiceAbstract(_pattern, _loopLocal, _gainLocal, _pitchLocal
         }
     }
     
-    static __SetLoop = function(_state)
+    static __SetLoop = function(_state_UNUSED)
     {
-        __looping = _state ?? false;
+        //Abstract voices always loop
     }
     
     static __GetLoop = function()
     {
-        return __looping ?? false;
+        return true;
     }
     
     static __SetLocalGain = function(_gain, _rateOfChange)
@@ -281,11 +277,6 @@ function __VinylClassVoiceAbstract(_pattern, _loopLocal, _gainLocal, _pitchLocal
         
         __gainPattern  = _pattern.__gain;
         __pitchPattern = _pattern.__pitch;
-        
-        if (__looping == undefined)
-        {
-            __looping = __loopLocal ?? _pattern.__loop;
-        }
         
         var _mixStruct = __VinylVoiceMoveMix(__voiceReference, __mixNameLocal ?? _pattern.__mixName);
         __VinylVoiceUpdateDucker(_mixStruct);

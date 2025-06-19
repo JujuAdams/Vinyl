@@ -3,13 +3,12 @@
 /// @param patternName
 /// @param gain
 /// @param pitch
-/// @param loop
 /// @param mix
 /// @param ducker
 /// @param duckPriority
 /// @param metadata
 
-function __VinylClassPatternAbstract(_patternName, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _metadata) constructor
+function __VinylClassPatternAbstract(_patternName, _gain, _pitch, _mixName, _duckerName, _duckPrio, _metadata) constructor
 {
     static _mixDict       = __VinylSystem().__mixDict;
     static _duckerDict    = __VinylSystem().__duckerDict;
@@ -18,7 +17,6 @@ function __VinylClassPatternAbstract(_patternName, _gain, _pitch, _loop, _mixNam
     __patternName = _patternName;
     __gain        = _gain;
     __pitch       = _pitch;
-    __loop        = _loop;
     __mixName     = _mixName;
     __duckerName  = _duckerName;
     __duckPrio    = _duckPrio;
@@ -28,9 +26,9 @@ function __VinylClassPatternAbstract(_patternName, _gain, _pitch, _loop, _mixNam
     
     
     
-    static __Play = function(_emitter_UNUSED, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)
+    static __Play = function(_emitter_UNUSED, _loopLocal_UNUSED, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)
     {
-        return (new __VinylClassVoiceAbstract(self, _loopLocal, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)).__voiceReference;
+        return (new __VinylClassVoiceAbstract(self, _gainLocal, _pitchLocal, _duckerNameLocal, _duckPrioLocal)).__voiceReference;
     }
     
     static __IsSoundPlaying = function()
@@ -47,7 +45,6 @@ function __VinylClassPatternAbstract(_patternName, _gain, _pitch, _loop, _mixNam
         
         __gain       = _gain;
         __pitch      = _pitch;
-        __loop       = _loop;
         __mixName    = _mixName;
         __duckerName = _duckerName;
         __duckPrio   = _duckPrio;
@@ -63,7 +60,7 @@ function __VinylClassPatternAbstract(_patternName, _gain, _pitch, _loop, _mixNam
     {
         if (_ignoreEmpty)
         {
-            if ((__gain == 1) && (__pitch == 1) && (not __loop))
+            if ((__gain == 1) && (__pitch == 1))
             {
                 return undefined;
             }
@@ -75,7 +72,6 @@ function __VinylClassPatternAbstract(_patternName, _gain, _pitch, _loop, _mixNam
         
         if (__gain != 1) _struct.gain = __gain;
         if (__pitch != 1) _struct.pitch = __pitch;
-        if (__loop) _struct.loop = true;
         if (__duckerName != undefined) _struct.duckOn = __duckerName;
         if (__duckPrio != 0) _struct.duckPrio = __duckPrio;
         
@@ -86,7 +82,7 @@ function __VinylClassPatternAbstract(_patternName, _gain, _pitch, _loop, _mixNam
     {
         if (_ignoreEmpty)
         {
-            if ((__gain == 1) && (__pitch == 1) && (not __loop))
+            if ((__gain == 1) && (__pitch == 1))
             {
                 return undefined;
             }
@@ -112,14 +108,6 @@ function __VinylClassPatternAbstract(_patternName, _gain, _pitch, _loop, _mixNam
             buffer_write(_buffer, buffer_text, _indent);
             buffer_write(_buffer, buffer_text, "    pitch: ");
             buffer_write(_buffer, buffer_text, __pitch);
-            buffer_write(_buffer, buffer_text, ",\n");
-        }
-        
-        if (__loop)
-        {
-            buffer_write(_buffer, buffer_text, _indent);
-            buffer_write(_buffer, buffer_text, "    loop: ");
-            buffer_write(_buffer, buffer_text, __loop? "true" : "false");
             buffer_write(_buffer, buffer_text, ",\n");
         }
         
@@ -155,7 +143,6 @@ function __VinylImportAbstractJSON(_json)
             switch(_variableNames[_i])
             {
                 case "abstract":
-                case "loop":
                 case "gain":
                 case "pitch":
                 case "duckOn":
@@ -172,7 +159,7 @@ function __VinylImportAbstractJSON(_json)
         }
     }
     
-    VinylSetupSound(_json.abstract, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "metadata"]);
+    VinylSetupAbstract(_json.abstract, _json[$ "gain"], _json[$ "pitch"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "metadata"]);
     
     return _json.abstract;
 }
