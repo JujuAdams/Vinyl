@@ -101,6 +101,7 @@ No example provided.
 |`[soundHead]`   |sound   |Optional. Sound to play first                                                               |
 |`soundLoop`     |sound   |Sound to loop on                                                                            |
 |`[soundTail]`   |sound   |Optional. Sound to play last                                                                |
+|`[gain]`        |number  |Optional, defaults to 1. Gain to apply to all three sounds                                  |
 |`[mix]`         |string  |Optional, defaults to `VINYL_DEFAULT_MIX`. Which mix to play sounds on                      |
 |`[duckerName]`  |string  |Optional. Which ducker to play sounds on                                                    |
 |`[duckPriority]`|number  |Optional, defaults to 0. What ducker priority to play sounds with                           |
@@ -147,6 +148,39 @@ No example provided.
 Sets up a blend pattern for playback with Vinyl. When played, a blend pattern will play multiple sounds whose balance can be adjusted by setting the blend factor with the `VinylSetBlendFactor()` and `VinylSetBlendAnimCurve()` functions.
 
 If the `emitterAlias` parameter is defined, Vinyl will attempt to play the sound on the specified emitter when playing the pattern using `VinylPlay()`. You can register an emitter with `VinylRegisterEmitter()`.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylSetupAbstract`
+
+`VinylSetupAbstract(patternName, [gain=1], [pitch=1], [mix=VINYL_DEFAULT_MIX], [duckerName], [duckPriority=0], [metadata])`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* N/A (`undefined`)
+
+|Name            |Datatype|Purpose                                                                               |
+|----------------|--------|--------------------------------------------------------------------------------------|
+|`[gain]`        |number  |Optional, defaults to 1. Gain for this pattern                                        |
+|`[pitch]`       |number  |Optional, defaults to 1. Pitch multiplier for this pattern                            |
+|`[mix]`         |string  |Optional, defaults to `VINYL_DEFAULT_MIX`. Which mix to play voices of this pattern on|
+|`[duckerName]`  |string  |Optional. Which ducker to play voices of this pattern on                              |
+|`[duckPriority]`|number  |Optional, defaults to 0. What ducker priority to use for voices                       |
+|`[metadata]`    |any     |Optional. Metadata to attach to the pattern                                           |
+
+Sets up a pattern that can be used to create abstract voices. You can use `VinylAbstract()` to create one-off abstract voices, but by calling `VinylSetupAbstract()` you can instead use `VinylPlay()` to create abstract voices instead.
+
+You should typically only call this function once on boot or if you're reloading configuration data due to the presence of mods. Subsequent calls to this function will only affect audio that is already playing if `VINYL_LIVE_EDIT` is set to `true`, and even then calls to this function whilst audio is playing is expensive.
 
 #### **Example**
 
