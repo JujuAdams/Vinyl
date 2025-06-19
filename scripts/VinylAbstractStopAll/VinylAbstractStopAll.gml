@@ -1,5 +1,7 @@
 // Feather disable all
 
+/// Stops all abstract voices, freeing up memory associated with them.
+
 function VinylAbstractStopAll()
 {
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
