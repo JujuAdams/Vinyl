@@ -144,7 +144,7 @@ function __VinylClassPatternAbstract(_patternName, _gain, _pitch, _loop, _mixNam
     }
 }
 
-function __VinylImportSoundJSON(_json)
+function __VinylImportAbstractJSON(_json)
 {
     if (VINYL_SAFE_JSON_IMPORT)
     {
