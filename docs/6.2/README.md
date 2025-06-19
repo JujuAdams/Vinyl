@@ -2,7 +2,7 @@
 
 <img src="https://raw.githubusercontent.com/JujuAdams/Vinyl/master/LOGO.png" width="50%" style="display: block; margin: auto;" />
 <h1 align="center">Vinyl 6.2</h1>
-<p align="center">Live updating audio system for GameMaker 2024.8 (and later)</p>
+<p align="center">Live updating audio system for GameMaker 2024.11 (and later)</p>
 
 <p align="center"><a href="https://github.com/JujuAdams/Vinyl/releases/" target="_blank">Download the .yymps</a></p>
 
