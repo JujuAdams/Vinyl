@@ -10,7 +10,7 @@
 
 #### **Description**
 
-*Returns:*
+*Returns:* N/A (`undefined`)
 
 |Name    |Datatype|Purpose                          |
 |--------|--------|---------------------------------|
@@ -37,7 +37,7 @@ No example provided.
 
 #### **Description**
 
-*Returns:*
+*Returns:* Number
 
 |Name   |Datatype|Purpose                          |
 |-------|--------|---------------------------------|
@@ -63,7 +63,7 @@ No example provided.
 
 #### **Description**
 
-*Returns:*
+*Returns:* N/A (`undefined`)
 
 |Name       |Datatype       |Purpose                                        |
 |-----------|---------------|-----------------------------------------------|
@@ -91,13 +91,94 @@ No example provided.
 
 #### **Description**
 
-*Returns:*
+*Returns:* Animation curve
 
 |Name   |Datatype|Purpose                          |
 |-------|--------|---------------------------------|
 |`voice`|voice   |Voice to target                  |
 
 Returns the animation curve set for a blend voice. If no animation curve has been set then this function will return `undefined`. If the target voice is not a blend voice then this function will return `undefined`.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylSetBlendMemberGain`
+
+`VinylSetBlendMemberGain(voice, index, gain)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:*
+
+|Name   |Datatype|Purpose                            |
+|-------|--------|-----------------------------------|
+|`voice`|voice   |Voice to target                    |
+|`index`|integer |Member of the blend voice to target|
+|`gain` |number  |Gain to set for the member         |
+
+Sets the local gain for a sound being played on a blend voice. This gain value is relative to the gain for the blend voice as a whole, any mix gain etc.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylGetBlendMemberGain`
+
+`VinylGetBlendMemberGain(voice, index)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Number
+
+|Name   |Datatype|Purpose                            |
+|-------|--------|-----------------------------------|
+|`voice`|voice   |Voice to target                    |
+|`index`|integer |Member of the blend voice to target|
+
+Returns the local gain for a sound being played on a blend voice. The returned value will not take into account the gain of the blend voice, any mix gain etc. If an invalid index is accessed (less than `0`, more than the total number of sounds) then this function returns `0`.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
+## `VinylGetBlendMemberCount`
+
+`VinylGetBlendMemberCount(voice)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Integer
+
+|Name   |Datatype|Purpose        |
+|-------|--------|---------------|
+|`voice`|voice   |Voice to target|
+
+Returns the number of sounds that are being played by a blend pattern voice. If the target voice is not a blend pattern, this function returns `0`.
 
 #### **Example**
 
