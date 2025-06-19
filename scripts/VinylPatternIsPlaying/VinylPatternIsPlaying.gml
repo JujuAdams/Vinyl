@@ -1,6 +1,8 @@
 // Feather disable all
 
-/// Returns whether any voice exists for the given sound or pattern.
+/// Returns whether any voice exists that is playing the given sound, or playing any sound from a
+/// pattern. If a pattern contains multiple sounds then this function will return `true` if a voice
+/// exists that is playing any of those sounds.
 /// 
 /// N.B. This function will always return `false` if an abstract pattern is targeted.
 /// 

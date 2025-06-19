@@ -1,6 +1,9 @@
 // Feather disable all
 
-/// Returns the final output gain for a voice.
+/// Returns the final output gain for a voice. This value will include the correction made for
+/// `VINYL_MAX_VOICE_GAIN`. For example, if you set the maximum voice gain to `2` then the final
+/// gain for voices will be halved to accommodate the greater gain range. If the voice doesn't
+/// exist, this function will return `0`.
 /// 
 /// @param voice
 

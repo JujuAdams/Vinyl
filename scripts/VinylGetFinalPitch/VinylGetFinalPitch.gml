@@ -1,6 +1,7 @@
 // Feather disable all
 
-/// Returns the final output pitch for a voice.
+/// Returns the final output pitch for a voice. If the voice doesn't exist then this function will
+/// return `1`.
 /// 
 /// @param voice
 

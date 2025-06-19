@@ -1,6 +1,8 @@
 // Feather disable all
 
-/// Sets up a pattern that can be used to create abstract voices.
+/// Sets up a pattern that can be used to create abstract voices. You can use `VinylAbstract()`
+/// to create one-off abstract voices, but by calling `VinylSetupAbstract()` you can instead use
+/// `VinylPlay()` to create abstract voices instead.
 /// 
 /// You should typically only call this function once on boot or if you're reloading configuration
 /// data due to the presence of mods. Subsequent calls to this function will only affect audio that
