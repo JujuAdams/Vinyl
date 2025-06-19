@@ -17,7 +17,7 @@ function __VinylClassVoiceAbstract(_pattern, _loopLocal, _gainLocal, _pitchLocal
     static _toUpdateArray    = __VinylSystem().__toUpdateArray;
     
     static _count = 0;
-    __voiceReference = 0xFF00_0000_0000 | _count;
+    __voiceReference = __VINYL_ABSTRACT_VOICE | _count;
     ++_count;
     
     __inUpdateArray = false;

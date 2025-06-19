@@ -16,6 +16,11 @@ function __VinylEnsureSoundVoice(_voice)
             return _nullVoice;
         }
         
+        if (_voice >= __VINYL_ABSTRACT_VOICE)
+        {
+            return _nullVoice;
+        }
+        
         var _sound = audio_sound_get_asset(_voice);
         if (not audio_exists(_sound))
         {

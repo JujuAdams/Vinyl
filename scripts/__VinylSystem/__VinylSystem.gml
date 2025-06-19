@@ -15,6 +15,8 @@
 #macro __VINYL_BLEND_MODE_FACTOR  1
 #macro __VINYL_BLEND_MODE_CURVE   2
 
+#macro __VINYL_ABSTRACT_VOICE  0xFF00_0000_0000
+
 __VinylSystem();
 function __VinylSystem()
 {

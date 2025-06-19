@@ -12,7 +12,7 @@ function VinylGetFinalPitch(_voice)
     var _voiceStruct = _voiceToStructMap[? _voice];
     if (_voiceStruct == undefined)
     {
-        return ((_voice != undefined) && (real(_voice) < 0xFF00_0000_0000))? audio_sound_get_pitch(_voice) : 1;
+        return ((_voice != undefined) && (real(_voice) < __VINYL_ABSTRACT_VOICE))? audio_sound_get_pitch(_voice) : 1;
     }
     else
     {
