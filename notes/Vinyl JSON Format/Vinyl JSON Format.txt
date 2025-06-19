@@ -129,6 +129,16 @@ Blend Patterns:
     "metadata": <any>
 }
 
+Abstract Patterns:
+{
+    "abstract": <pattern name>, required
+    "gain": <number>, defaults to 1
+    "pitch": <number>, defaults to 1
+    "duckOn": <ducker name>
+    "duckPrio", <number>, default to 0
+    "metadata": <any>
+}
+
 Queue Templates:
 {
     "queueTemplate": <template name>, required
