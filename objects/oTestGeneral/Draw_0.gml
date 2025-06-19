@@ -14,6 +14,11 @@ UIButtonInline("Effects Test", function()
     instance_destroy();
     instance_create_layer(0, 0, "Instances", oTestEffects);
 });
+UIButtonInline("Abstract Test", function()
+{
+    instance_destroy();
+    instance_create_layer(0, 0, "Instances", oTestAbstract);
+});
 UINewline();
 UINewline();
 UITextInline(string_concat("\"Test\" mix gain = ", VinylMixGetGain("Test")));

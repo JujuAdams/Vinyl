@@ -1,0 +1,3 @@
+VinylSetupAbstract("abstractPattern");
+
+voice = undefined;

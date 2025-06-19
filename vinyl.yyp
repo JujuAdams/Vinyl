@@ -45,6 +45,7 @@
     {"id":{"name":"Vinyl JSON Format","path":"notes/Vinyl JSON Format/Vinyl JSON Format.yy",},},
     {"id":{"name":"Vinyl Start Guide","path":"notes/Vinyl Start Guide/Vinyl Start Guide.yy",},},
     {"id":{"name":"oBackground","path":"objects/oBackground/oBackground.yy",},},
+    {"id":{"name":"oTestAbstract","path":"objects/oTestAbstract/oTestAbstract.yy",},},
     {"id":{"name":"oTestEffects","path":"objects/oTestEffects/oTestEffects.yy",},},
     {"id":{"name":"oTestGeneral","path":"objects/oTestGeneral/oTestGeneral.yy",},},
     {"id":{"name":"oTestQueues","path":"objects/oTestQueues/oTestQueues.yy",},},
