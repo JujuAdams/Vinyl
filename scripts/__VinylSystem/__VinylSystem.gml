@@ -224,8 +224,6 @@ function __VinylSystem()
             //Clean up voice-to-struct ds_map
             var _voice = (__voiceToStructLastKey == undefined)? ds_map_find_first(_voiceToStructMap) : ds_map_find_next(_voiceToStructMap, __voiceToStructLastKey);
             __voiceToStructLastKey = _voice;
-            
-            var _voice = ds_map_find_first(_voiceToStructMap);
             var _struct = _voiceToStructMap[? _voice];
             if ((_voice != undefined) && (not is_instanceof(_struct, __VinylClassVoiceQueue)) && (not _struct.__IsPlaying()))
             {
