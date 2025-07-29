@@ -77,6 +77,11 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         return __voiceCurrent;
     }
     
+    static __GetEmitter = function()
+    {
+        return __emitter;
+    }
+    
     static __PlaySound = function(_sound, _loop, _gain, _pitch)
     {
         if (is_infinity(__fadeInRate))

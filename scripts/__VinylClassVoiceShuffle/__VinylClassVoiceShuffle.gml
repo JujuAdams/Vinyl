@@ -78,6 +78,11 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
         return __voiceReference;
     }
     
+    static __GetEmitter = function()
+    {
+        return undefined;
+    }
+    
     static __IsPlaying = function()
     {
         return audio_is_playing(__voiceReference);

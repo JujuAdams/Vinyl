@@ -75,6 +75,11 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         return __voiceReference;
     }
     
+    static __GetEmitter = function()
+    {
+        return undefined;
+    }
+    
     static __IsPlaying = function()
     {
         return audio_is_playing(__voiceReference);

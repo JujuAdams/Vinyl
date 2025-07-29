@@ -55,7 +55,7 @@ function __VinylSystem()
         //to efficiently find Vinyl's addition voice data using voice references. We use a map
         //instead of a struct because struct_remove_from_hash() doesn't exist yet and it's easier
         //to incrementally 
-        __voiceToStructMap = ds_map_create();
+        __voiceToStructMap     = ds_map_create();
         __voiceToStructLastKey = undefined;
         
         //Contains structs that describe callbacks to be executed when a voice stops playing.
@@ -64,7 +64,9 @@ function __VinylSystem()
         __duckerDict  = {};
         __duckerArray = [];
         
-        __volatileEmitterArray = [];
+        __voiceToEmitterMap     = ds_map_create();
+        __voiceToEmitterLastKey = undefined;
+        __volatileEmitterArray  = [];
         
         //An array of voices that are in the lookup dictionary. This will never include HLT voices
         //as they are managed in the update array (see below). Blend voices will automatically be
@@ -110,6 +112,7 @@ function __VinylSystem()
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, function()
         {
             static _voiceToStructMap     = __voiceToStructMap;
+            static _voiceToEmitterMap    = __voiceToEmitterMap;
             static _volatileEmitterArray = __volatileEmitterArray;
             static _callbackArray        = __callbackArray;
             static _bootSetupTimer       = 0;
@@ -227,6 +230,14 @@ function __VinylSystem()
             if ((_voice != undefined) && (not is_instanceof(_struct, __VinylClassVoiceQueue)) && (not _struct.__IsPlaying()))
             {
                 ds_map_delete(_voiceToStructMap, _voice);
+            }
+            
+            //Clean up voice-to-emitter ds_map
+            var _voice = (__voiceToEmitterLastKey == undefined)? ds_map_find_first(_voiceToEmitterMap) : ds_map_find_next(_voiceToEmitterMap, __voiceToEmitterLastKey);
+            __voiceToEmitterLastKey = _voice;
+            if ((_voice != undefined) && (not VinylIsPlaying(_voice)))
+            {
+                ds_map_delete(_voiceToEmitterMap, _voice);
             }
             
             //Free volatile emitter as necessary. We don't need to iterate over every single volatile emitter all at once

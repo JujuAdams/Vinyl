@@ -291,6 +291,11 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         return __voiceCurrent;
     }
     
+    static __GetEmitter = function()
+    {
+        return __emitter;
+    }
+    
     static __IsPlaying = function()
     {
         return ((__state != __VINYL_HLT_STATE_TAIL) || audio_is_playing(__voiceCurrent));

@@ -225,6 +225,11 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         return __voiceArray;
     }
     
+    static __GetEmitter = function()
+    {
+        return __emitter;
+    }
+    
     static __UpdateVoiceGains = function()
     {
         var _voiceArray = __voiceArray;

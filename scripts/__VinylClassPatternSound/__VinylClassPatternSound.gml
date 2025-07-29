@@ -12,10 +12,11 @@
 
 function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata) constructor
 {
-    static _mixDict       = __VinylSystem().__mixDict;
-    static _duckerDict    = __VinylSystem().__duckerDict;
-    static _emitterMap    = __VinylSystem().__emitterMap;
-    static _toUpdateArray = __VinylSystem().__toUpdateArray;
+    static _mixDict           = __VinylSystem().__mixDict;
+    static _duckerDict        = __VinylSystem().__duckerDict;
+    static _emitterMap        = __VinylSystem().__emitterMap;
+    static _toUpdateArray     = __VinylSystem().__toUpdateArray;
+    static _voiceToEmitterMap = __VinylSystem().__voiceToEmitterMap;
     
     __sound        = _sound;
     __gain         = _gain;
@@ -96,6 +97,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         else
         {
             var _voice = audio_play_sound_on(_emitter, _sound, _loopFinal, 0, _gainSound*_gainLocal*_gainMix*_gainDuck/VINYL_MAX_VOICE_GAIN, 0, _pitchSound*_pitchLocal);
+            _voiceToEmitterMap[? _voice] = _emitter;
         }
         
         //If we're in live edit mode then always create a struct representation
