@@ -1,6 +1,11 @@
 // Feather disable all
 
-function __VinylClassVolatileEmitter(_x, _y, _z) constructor
+/// @param x
+/// @param y
+/// @param z
+/// @param effectBus
+
+function __VinylClassVolatileEmitter(_x, _y, _z, _effectBus) constructor
 {
     static _volatileEmitterArray = __VinylSystem().__volatileEmitterArray;
     
@@ -12,6 +17,11 @@ function __VinylClassVolatileEmitter(_x, _y, _z) constructor
     
     __emitter = audio_emitter_create();
     audio_emitter_position(__emitter, _x, _y, _z);
+    
+    if (_effectBus != undefined)
+    {
+        audio_emitter_bus(__emitter, _effectBus);
+    }
     
     __voice = undefined;
 }
