@@ -33,7 +33,7 @@ function __VinylSystem()
         
         if (VINYL_SET_LISTENER_ORIENTATION)
         {
-            audio_listener_set_orientation(0, 0, 0, 1, 0, -1, 0);
+            audio_listener_set_orientation(0,   0, 0, 1,   0, -1, 0);
         }
         
         __toUpdateArray = VINYL_LIVE_EDIT? [] : undefined;
