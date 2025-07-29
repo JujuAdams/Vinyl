@@ -31,6 +31,11 @@ function __VinylSystem()
         __VinylTrace("Welcome to Vinyl! This is version ", VINYL_VERSION, ", ", VINYL_DATE);
         if (__VINYL_RUNNING_FROM_IDE) global.Vinyl = self;
         
+        if (VINYL_SET_LISTENER_ORIENTATION)
+        {
+            audio_listener_set_orientation(0, 0, 0, 1, 0, -1, 0);
+        }
+        
         __toUpdateArray = VINYL_LIVE_EDIT? [] : undefined;
         __importingJSON = false;
         

@@ -1,13 +1,5 @@
 // Feather disable all
 
-//The name to use to indicate no mix. This should be a unique string and cannot be used for the
-//name of mixes when calling VinylSetupMix() or VinylSetupImportJSON().
-#macro VINYL_NO_MIX  "no mix"
-
-//The default mix to use for all sounds and patterns unless otherwise specified. If you set this
-//macro to <VINYL_NO_MIX> then no mix will be set by default.
-#macro VINYL_DEFAULT_MIX  VINYL_NO_MIX
-
 //Maximum final gain for audio voices. Must be greater than or equal to zero. Setting this value
 //higher will allow for higher gain values throughout Vinyl but may lead to degraded audio quality.
 #macro VINYL_MAX_VOICE_GAIN  2
@@ -15,6 +7,22 @@
 //Boost to global master gain. This is helpful to tame audio levels if they're too loud or to
 //increase audio levels if they're too quiet.
 #macro VINYL_MASTER_GAIN_BOOST  1
+
+//Whether to set a more helpful listener orientation at the start of the game. This improves on the
+//frankly bizarre default listener orientation that GameMaker uses. If this macro is set to `true`
+//the following code will be executed when the game starts:
+//
+//  `audio_listener_set_orientation(0,   0, 0, 1,   0, -1, 0);`
+// 
+#macro VINYL_SET_LISTENER_ORIENTATION  true
+
+//The name to use to indicate no mix. This should be a unique string and cannot be used for the
+//name of mixes when calling VinylSetupMix() or VinylSetupImportJSON().
+#macro VINYL_NO_MIX  "no mix"
+
+//The default mix to use for all sounds and patterns unless otherwise specified. If you set this
+//macro to <VINYL_NO_MIX> then no mix will be set by default.
+#macro VINYL_DEFAULT_MIX  VINYL_NO_MIX
 
 //The default rate for VinylPlayFadeIn(), VinylFadeOut(), and VinylMixVoicesFadeOut() operations.
 //These two macros are measured in "gain units per second".
