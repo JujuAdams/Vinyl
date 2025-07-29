@@ -1,8 +1,12 @@
 // Feather disable all
 
-/// Plays a sound or pattern. Sound playback works the same as native GameMaker functions. If you
-/// are playing a pattern, the exact playback behaviour will change depending on the type of
-/// pattern:
+/// Plays a sound or pattern at a specific coordinate. This function creates a temporary emitter
+/// that is cleaned up for you once the sound finishes playing. This emitter will override any
+/// emitter set for the pattern itself. You can return this emitter using `VinylGetEmitter()` and
+/// you can also set an effect bus for the temporary emitter via this function by setting the
+/// optional `effectBus` parameter. Otherwise, sound playback works the same as native GameMaker
+/// functions. If you are playing a pattern, the exact playback behaviour will change depending on
+/// the type of pattern:
 /// 
 ///   - Shuffle chooses a random sound from an array of sounds
 ///   - Blend plays multiple sounds whose balance can be adjusted by setting the blend factor
