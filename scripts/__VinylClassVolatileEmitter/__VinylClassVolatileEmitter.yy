@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__VinylClassVolatileEmitter",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__VinylClassVolatileEmitter",
+  "parent":{
+    "name":"Classes",
+    "path":"folders/Vinyl/(Internals)/Classes.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

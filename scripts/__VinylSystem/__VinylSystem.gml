@@ -64,6 +64,8 @@ function __VinylSystem()
         __duckerDict  = {};
         __duckerArray = [];
         
+        __volatileEmitterArray = [];
+        
         //An array of voices that are in the lookup dictionary. This will never include HLT voices
         //as they are managed in the update array (see below). Blend voices will automatically be
         //put into this array. Sound voices will automatically be put into this array in Live Edit
@@ -107,11 +109,12 @@ function __VinylSystem()
         //Set up an update function that executes one every frame forever.
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, function()
         {
-            static _voiceToStructMap = __voiceToStructMap;
-            static _callbackArray    = __callbackArray;
-            static _bootSetupTimer   = 0;
-            static _bootSetupPath    = VINYL_LIVE_EDIT? filename_dir(GM_project_filename) + "/scripts/__VinylConfigJSON/__VinylConfigJSON.gml" : undefined;
-            static _bootSetupHash    = undefined;
+            static _voiceToStructMap     = __voiceToStructMap;
+            static _volatileEmitterArray = __volatileEmitterArray;
+            static _callbackArray        = __callbackArray;
+            static _bootSetupTimer       = 0;
+            static _bootSetupPath        = VINYL_LIVE_EDIT? filename_dir(GM_project_filename) + "/scripts/__VinylConfigJSON/__VinylConfigJSON.gml" : undefined;
+            static _bootSetupHash        = undefined;
             
             if (__VINYL_DEBUG_SHOW_FRAMES) __frame++;
             
@@ -224,6 +227,21 @@ function __VinylSystem()
             if ((_voice != undefined) && (not is_instanceof(_struct, __VinylClassVoiceQueue)) && (not _struct.__IsPlaying()))
             {
                 ds_map_delete(_voiceToStructMap, _voice);
+            }
+            
+            //Free volatile emitter as necessary. We don't need to iterate over every single volatile emitter all at once
+            static _volatileEmitterIndex = 0;
+            if (array_length(_volatileEmitterArray) > 0)
+            {
+                _volatileEmitterIndex = (_volatileEmitterIndex + 1) mod array_length(_volatileEmitterArray);
+                with(_volatileEmitterArray[_volatileEmitterIndex])
+                {
+                    if (not VinylIsPlaying(__voice))
+                    {
+                        audio_emitter_free(__emitter);
+                        array_delete(_volatileEmitterArray, _volatileEmitterIndex, 1);
+                    }
+                }
             }
             
             //Check for callback execution
