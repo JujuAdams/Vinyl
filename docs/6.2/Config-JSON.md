@@ -71,7 +71,7 @@ In this JSON we see four Vinyl definitions: three sounds and one mix. Two of the
 |`gain`    |number          |`1`        |                                                                                                           |
 |`pitch`   |number          |`1`        |                                                                                                           |
 |`loop`    |boolean         |`undefined`|Can inherit from a mix if set to `undefined` and the mix has `.membersLoop` set to either `true` or `false`|
-|`duckOn`  |string          |`undefined`|[Ducker](Ducker) to push voices to                                                                         |
+|`duckOn`  |string          |`undefined`|[Ducker](Config-JSON?id=duckers) to push voices to                                                         |
 |`duckPrio`|number          |`0`        |Priority for voices when pushed to the ducker above                                                        |
 |`emitter` |string          |`undefined`|Name of a registered emitter to play the sound on by default                                               |
 |`metadata`|any             |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
@@ -91,7 +91,7 @@ If the `emitter` parameter is defined, Vinyl will attempt to play the sound on t
 |`gain`    |number or array        |`1`        |Can be a two-element array for gain variance                                                               |
 |`pitch`   |number or array        |`1`        |Can be a two-element array for pitch variance                                                              |
 |`loop`    |boolean                |`undefined`|Can inherit from a mix if set to `undefined` and the mix has `.membersLoop` set to either `true` or `false`|
-|`duckOn`  |string                 |`undefined`|[Ducker](Ducker) to push voices to                                                                         |
+|`duckOn`  |string                 |`undefined`|[Ducker](Config-JSON?id=duckers) to push voices to                                                         |
 |`duckPrio`|number                 |`0`        |Priority for voices when pushed to the ducker above                                                        |
 |`emitter` |string                 |`undefined`|Name of a registered emitter to play sounds on by default                                                  |
 |`metadata`|any                    |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
@@ -113,7 +113,7 @@ You can read more about head-loop-tail patterns [here](Head-Loop-Tail-Patterns).
 |`loop`    |sound or string|N/A        |**Required.** Sound to loop until `VinylSetLoop()` is called                       |
 |`tail`    |sound or string|`undefined`|Final sound to play, after the `loop` sound is set to not loop via `VinylSetLoop()`|
 |`gain`    |number         |`1`        |                                                                                   |
-|`duckOn`  |string         |`undefined`|[Ducker](Ducker) to push voices to                                                 |
+|`duckOn`  |string         |`undefined`|[Ducker](Config-JSON?id=duckers) to push voices to                                 |
 |`duckPrio`|number         |`0`        |Priority for voices when pushed to the ducker above                                |
 |`emitter` |string         |`undefined`|Name of a registered emitter to play sounds on by default                          |
 |`metadata`|any            |`undefined`|Returned by `VinylGetMetadata()`                                                   |
@@ -133,7 +133,7 @@ If the `emitter` parameter is defined, Vinyl will attempt to play sounds defined
 |`gain`     |number         |`1`        |                                                                                                           |
 |`loop`     |boolean        |`undefined`|Can inherit from a mix if set to `undefined` and the mix has `.membersLoop` set to either `true` or `false`|
 |`animCurve`|animation curve|`undefined`|                                                                                                           |
-|`duckOn`   |string         |`undefined`|[Ducker](Ducker) to push voices to                                                                         |
+|`duckOn`   |string         |`undefined`|[Ducker](Config-JSON?id=duckers) to push voices to                                                         |
 |`duckPrio` |number         |`0`        |Priority for voices when pushed to the ducker above                                                        |
 |`emitter`  |string         |`undefined`|Name of a registered emitter to play sounds on by default                                                  |
 |`metadata` |any            |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
