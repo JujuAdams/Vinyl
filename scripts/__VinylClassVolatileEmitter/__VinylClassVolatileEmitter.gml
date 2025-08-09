@@ -3,9 +3,12 @@
 /// @param x
 /// @param y
 /// @param z
+/// @param falloffDist
+/// @param falloffMaxDist
+/// @param falloffFactor
 /// @param effectBus
 
-function __VinylClassVolatileEmitter(_x, _y, _z, _effectBus) constructor
+function __VinylClassVolatileEmitter(_x, _y, _z, _falloffDist, _falloffMaxDist, _falloffFactor, _effectBus) constructor
 {
     static _volatileEmitterArray = __VinylSystem().__volatileEmitterArray;
     
@@ -15,8 +18,13 @@ function __VinylClassVolatileEmitter(_x, _y, _z, _effectBus) constructor
     __y = _y;
     __z = _z;
     
+    __falloffDist    = _falloffDist;
+    __falloffMaxDist = _falloffMaxDist;
+    __falloffFactor  = _falloffFactor;
+    
     __emitter = audio_emitter_create();
     audio_emitter_position(__emitter, _x, _y, _z);
+    audio_emitter_falloff(__emitter, _falloffDist, _falloffMaxDist, _falloffFactor);
     
     if (_effectBus != undefined)
     {

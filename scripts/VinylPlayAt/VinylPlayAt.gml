@@ -19,6 +19,9 @@
 /// @param x
 /// @param y
 /// @param z
+/// @param falloffDist
+/// @param falloffMaxDist
+/// @param falloffFactor
 /// @param [loop]
 /// @param [gain=1]
 /// @param [pitch=1]
@@ -26,11 +29,11 @@
 /// @param [duckPriority]
 /// @param [effectBus]
 
-function VinylPlayAt(_pattern, _x, _y, _z, _loop = undefined, _gain = 1, _pitch = 1, _duckerName = undefined, _duckPrio = undefined, _effectBus = undefined)
+function VinylPlayAt(_pattern, _x, _y, _z, _falloffDist, _falloffMaxDist, _falloffFactor, _loop = undefined, _gain = 1, _pitch = 1, _duckerName = undefined, _duckPrio = undefined, _effectBus = undefined)
 {
     static _patternDict = __VinylSystem().__patternDict;
     
-    var _volatileEmitter = new __VinylClassVolatileEmitter(_x, _y, _z, _effectBus);
+    var _volatileEmitter = new __VinylClassVolatileEmitter(_x, _y, _z, _falloffDist, _falloffMaxDist, _falloffFactor, _effectBus);
     var _voice = VinylPlayOn(_volatileEmitter.__emitter, _pattern, _loop, _gain, _pitch, _duckerName, _duckPrio);
     _volatileEmitter.__voice = _voice;
     
