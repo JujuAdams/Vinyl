@@ -53,3 +53,29 @@ No example provided.
 ```
 
 <!-- tabs:end -->
+
+&nbsp;
+
+## `VinylGetFinalPitch`
+
+`VinylGetFinalPitch(voice)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Number
+
+|Name   |Datatype|Purpose                     |
+|-------|--------|----------------------------|
+|`voice`|voice   |Voice to target             |
+
+Returns the final output pitch for a voice. If the voice doesn't exist then this function will return `1`.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
