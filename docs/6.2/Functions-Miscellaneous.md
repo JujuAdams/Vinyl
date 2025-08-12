@@ -106,9 +106,9 @@ No example provided.
 
 &nbsp;
 
-## `VinylGetPitch`
+## `VinylGetFinalPitch`
 
-`VinylGetPitch(voice)`
+`VinylGetFinalPitch(voice)`
 
 <!-- tabs:start -->
 
