@@ -17,7 +17,8 @@
 #macro VINYL_SET_LISTENER_ORIENTATION  true
 
 //Falloff model to set on boot. See GameMaker documentation for `audio_falloff_set_model()` more
-//information.
+//information. Set this macro to `undefined` to not set a falloff model on boot (at the time of
+//writing, GameMaker's default model is `audio_falloff_none` which isn't very helpful).
 #macro VINYL_AUDIO_FALLOFF_MODEL  audio_falloff_linear_distance_clamped
 
 //Default values to use for `VinylPlayAt()`. See GameMaker documentation for `audio_play_sound_at()`

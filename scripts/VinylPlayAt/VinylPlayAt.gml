@@ -12,6 +12,10 @@
 ///   - Blend plays multiple sounds whose balance can be adjusted by setting the blend factor
 ///   - Head-Loop-Tail plays a head, then a loop (until the end loop function is called), then a tail
 /// 
+/// You may also choose to give specific falloff values. These work the same as GameMaker's native
+/// `audio_play_sound_at()`. Default values are defined by setting the `VINYL_DEFAULT_FALLOFF*`
+/// macros.
+/// 
 /// This function returns a voice index which can be used with other Vinyl functions to adjust
 /// playback and trigger pattern behaviours where relevant.
 /// 
