@@ -144,6 +144,25 @@ If the `emitter` parameter is defined, Vinyl will attempt to play sounds defined
 
 &nbsp;
 
+## Abstract
+
+|Property   |Datatype       |Default    |Notes                                                                                                      |
+|-----------|---------------|-----------|-----------------------------------------------------------------------------------------------------------|
+|`abstract` |string         |N/A        |**Required.** Name of the abstract pattern                                                                 |
+|`gain`     |number         |`1`        |                                                                                                           |
+|`loop`     |boolean        |`undefined`|Can inherit from a mix if set to `undefined` and the mix has `.membersLoop` set to either `true` or `false`|
+|`duckOn`   |string         |`undefined`|[Ducker](Config-JSON?id=duckers) to push voices to                                                         |
+|`duckPrio` |number         |`0`        |Priority for voices when pushed to the ducker above                                                        |
+|`metadata` |any            |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
+
+Sets up an abstract pattern for playback with Vinyl. When played, an abstract pattern will create an abstract voice. Abstract voices do not inherently play any audio but can be controlled as though they were standard voices. Abstract voices are helpful for creating custom audio behaviors that Vinyl doesn't natively support whilst also allowing Vinyl to control their gain and pitch.
+
+Abstract voices are always considered looping and `VinylSetLoop()` will not set state on an abstract voice. `VinylGetLoop()` will always return `true`. You may use `VinylGetFinalGain()` and `VinylGetFinalPitch()` to get final output values for the voice.
+
+!> Abstract voices have no "duration" and won't stop playing by themselves. You must call `VinylStop()` on the voice when you're done with the abstract voice or else you will create a memory leak. You may also use `VinylAbstractStopAll()` to stop all current abstract voices.
+
+&nbsp;
+
 ## Queue Template
 
 |Property       |Datatype       |Default                |Notes                                                                                          |
