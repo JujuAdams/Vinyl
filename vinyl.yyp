@@ -26,9 +26,11 @@
     {"$GMFolder":"","%Name":"Metadata","folderPath":"folders/Vinyl/Metadata.yy","name":"Metadata","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Miscellaneous","folderPath":"folders/Vinyl/Miscellaneous.yy","name":"Miscellaneous","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Mixes","folderPath":"folders/Vinyl/Mixes.yy","name":"Mixes","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Playback","folderPath":"folders/Vinyl/Playback.yy","name":"Playback","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Playing Audio","folderPath":"folders/Vinyl/Playing Audio.yy","name":"Playing Audio","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Looping & Pausing","folderPath":"folders/Vinyl/Looping & Pausing.yy","name":"Looping & Pausing","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Queues","folderPath":"folders/Vinyl/Queues.yy","name":"Queues","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Runtime Setup","folderPath":"folders/Vinyl/Runtime Setup.yy","name":"Runtime Setup","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Stopping Audio","folderPath":"folders/Vinyl/Stopping Audio.yy","name":"Stopping Audio","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"vinyl_license.txt","CopyToMask":-1,"filePath":"datafiles","name":"vinyl_license.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
