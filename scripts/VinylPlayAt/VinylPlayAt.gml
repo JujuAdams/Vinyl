@@ -19,9 +19,9 @@
 /// @param x
 /// @param y
 /// @param z
-/// @param falloffDist
-/// @param falloffMaxDist
-/// @param falloffFactor
+/// @param [falloffDist]
+/// @param [falloffMaxDist]
+/// @param [falloffFactor]
 /// @param [loop]
 /// @param [gain=1]
 /// @param [pitch=1]
@@ -29,7 +29,7 @@
 /// @param [duckPriority]
 /// @param [effectBus]
 
-function VinylPlayAt(_pattern, _x, _y, _z, _falloffDist, _falloffMaxDist, _falloffFactor, _loop = undefined, _gain = 1, _pitch = 1, _duckerName = undefined, _duckPrio = undefined, _effectBus = undefined)
+function VinylPlayAt(_pattern, _x, _y, _z, _falloffDist = VINYL_DEFAULT_FALLOFF_DIST, _falloffMaxDist = VINYL_DEFAULT_FALLOFF_MAX_DIST, _falloffFactor = VINYL_DEFAULT_FALLOFF_FACTOR, _loop = undefined, _gain = 1, _pitch = 1, _duckerName = undefined, _duckPrio = undefined, _effectBus = undefined)
 {
     static _patternDict = __VinylSystem().__patternDict;
     

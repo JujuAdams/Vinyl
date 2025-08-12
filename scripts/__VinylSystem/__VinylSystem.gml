@@ -28,12 +28,23 @@ function __VinylSystem()
     {
         if (__VINYL_DEBUG_SHOW_FRAMES) __frame = 0;
         
-        __VinylTrace("Welcome to Vinyl! This is version ", VINYL_VERSION, ", ", VINYL_DATE);
-        if (__VINYL_RUNNING_FROM_IDE) global.Vinyl = self;
+        __VinylTrace("Welcome to Vinyl! This is version ", VINYL_VERSION, ", ", VINYL_DATE, " (GM version", GM_runtime_version, ")");
+        if (__VINYL_RUNNING_FROM_IDE)
+        {
+            __VinylTrace("Running from IDE");
+            global.Vinyl = self;
+        }
         
         if (VINYL_SET_LISTENER_ORIENTATION)
         {
+            if (__VINYL_RUNNING_FROM_IDE) __VinylTrace("Setting listener orientation");
             audio_listener_set_orientation(0,   0, 0, 1,   0, -1, 0);
+        }
+        
+        if (VINYL_AUDIO_FALLOFF_MODEL != undefined)
+        {
+            if (__VINYL_RUNNING_FROM_IDE) __VinylTrace("Setting listener model to ", VINYL_AUDIO_FALLOFF_MODEL);
+            audio_falloff_set_model(VINYL_AUDIO_FALLOFF_MODEL);
         }
         
         __toUpdateArray = VINYL_LIVE_EDIT? [] : undefined;
