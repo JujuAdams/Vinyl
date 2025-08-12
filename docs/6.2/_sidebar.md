@@ -23,6 +23,7 @@
 -    [Mix Functions](Functions-Mix)
 -    [Blend Functions](Functions-Blend)
 -    [Queue Functions](Functions-Queue)
+-    [Abstract Functions](Functions-Abstract)
 -    [Ducker Functions](Functions-Ducker)
 -    [Metadata Functions](Functions-Metadata)
 -    [Miscellaneous](Functions-Miscellaneous)
