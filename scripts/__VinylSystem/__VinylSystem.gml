@@ -95,10 +95,14 @@ function __VinylSystem()
         __nullVoice = {};
         with(__nullVoice)
         {
-            __IsPlaying    = function() { return false; };
-            __SetLocalGain = function() {};
-            __FadeOut      = function() {};
-            __SetMixGain   = function() {};
+            __IsPlaying         = function() { return false; };
+            __GetAsset          = function() { return -1; };
+            __GetGameMakerVoice = function() { return undefined; };
+            __SetLocalGain      = function() {};
+            __SetLocalPitch     = function() {};
+            __FadeOut           = function() {};
+            __SetMixGain        = function() {};
+            __SetMixPitch       = function() {};
         }
         
         //Set the master gain to 1. The actual gain value we pass into GameMaker's native function
