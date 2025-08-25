@@ -29,6 +29,8 @@ function __VinylClassPatternExternal(_path, _patternName, _sound, _gain, _pitch,
     
     static __FreeCommon = function()
     {
+        //FIXME - What happens if you're using this sound in other patterns?
+        
         audio_stop_sound(__sound);
         
         var _patternName = __GetPatternName();
