@@ -11,11 +11,17 @@ UINewline();
 UIButtonInline("Load bleep", function()
 {
     VinylSetupExternal("sndBleepExternal.wav");
+    VinylSetupShuffle("external shuffle", "sndBleepExternal.wav", undefined, [1/1.5, 1.5]);
 });
 UIButtonInline("Play bleep", function()
 {
     VinylStop(voice);
     voice = VinylPlay("sndBleepExternal.wav");
+});
+UIButtonInline("Play bleep shuffle", function()
+{
+    VinylStop(voice);
+    voice = VinylPlay("external shuffle");
 });
 UIButtonInline("Unload bleep", function()
 {
