@@ -1,5 +1,31 @@
 // Feather disable all
 
+/// Sets up an external sound for playback with Vinyl. External sounds may be either WAV files or
+/// OGG files. Vinyl uses its own WAV loader for the former and VInyl uses GameMaker's native OGG
+/// streaming playback for the latter (`audio_create_stream`).
+/// 
+/// N.B. This function will reserve memory for loaded audio. Once you are done with the audio in
+///      question, you should call `VinylUnloadExternal()` to free up that memory.
+/// 
+/// It is strongly recommended that you ensure each externally loaded asset has a unique pattern
+/// name to avoid conflicts and confusion. You may, however, choose to leave the pattern name
+/// undefined in which case the filename for the sound will be used as the pattern name instead.
+/// For example, the path `audio/slime/slime_jump.wav` will be given a pattern name of
+/// `"slime_jump.wav"`.
+/// 
+/// If the `emitterAlias` parameter is defined, Vinyl will attempt to play the sound on the
+/// specified emitter if the sound is played directly (i.e. not played via another pattern). You
+/// can register an emitter with `VinylRegisterEmitter()`.
+/// 
+/// You should typically only call this function once on boot or if you're reloading configuration
+/// data due to the presence of mods. Subsequent calls to this function will only affect audio that
+/// is already playing if VINYL_LIVE_EDIT is set to <true>, and even then calls to this function
+/// whilst audio is playing is expensive.
+/// 
+/// Vinyl may fail to detect the type of file being loaded. If you are sure the file you are trying
+/// to load is of a particular type then you may force a type to ensure Vinyl loads the file. Use a
+/// value of `1` to load a file as a WAV file or use a value of `2` to load a file as an OGG file.
+/// 
 /// @param path
 /// @param [patternName=filename]
 /// @param [gain=1]
@@ -25,9 +51,8 @@ function VinylSetupExternal(_path, _inPatternName = undefined, _gain = 1, _pitch
     }
     
     if (_mixName == VINYL_NO_MIX) _mixName = undefined;
-    var _patternName = _inPatternName ?? filename_name(_path);
     
-    var _existingPattern = _patternDict[$ _patternName];
+    var _existingPattern = _patternDict[$ _inPatternName ?? filename_name(_path)]; //Must match .__GetPatternName()
     if (_existingPattern != undefined)
     {
         //TODO - Update sound maybe?
@@ -92,7 +117,7 @@ function VinylSetupExternal(_path, _inPatternName = undefined, _gain = 1, _pitch
             var _pattern = new __VinylClassPatternExternalOGG(_path, _inPatternName, _sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata);
         }
         
-        _patternDict[$ _patternName] = _pattern;
+        _patternDict[$ _pattern.__GetPatternName()] = _pattern;
         struct_set_from_hash(_soundDict, int64(_sound), _pattern);
     }
     
