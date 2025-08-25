@@ -63,6 +63,10 @@ function __VinylSetupImportJSONInner(_json)
         {
             return __VinylImportSoundJSON(_json);
         }
+        else if (struct_exists(_json, "external"))
+        {
+            return __VinylImportExternalJSON(_json);
+        }
         else if (struct_exists(_json, "abstract"))
         {
             return __VinylImportAbstractJSON(_json);

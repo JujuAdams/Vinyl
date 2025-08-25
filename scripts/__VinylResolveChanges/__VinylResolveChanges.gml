@@ -45,6 +45,7 @@ function __VinylResolveChanges(_replace, _oldSoundNameArray = undefined, _oldPat
         switch(instanceof(_pattern))
         {
             case "__VinylClassPatternSound":
+            case "__VinylClassPatternExternal":
                 var _sound = _pattern.__sound;
                 
                 var _j = 0;

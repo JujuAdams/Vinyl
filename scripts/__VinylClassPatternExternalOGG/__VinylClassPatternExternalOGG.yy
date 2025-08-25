@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__VinylClassPatternExternalOGG",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__VinylClassPatternExternalOGG",
+  "parent":{
+    "name":"External",
+    "path":"folders/Vinyl/(Internals)/Classes/Patterns/External.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
