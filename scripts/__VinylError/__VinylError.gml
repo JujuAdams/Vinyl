@@ -12,5 +12,5 @@ function __VinylError()
     }
     
     show_debug_message("Vinyl " + VINYL_VERSION + ": " + string_replace_all(_string, "\n", "\n             "));
-    show_error("Vinyl:\n" + _string + "\n ", true);
+    show_error(" \nVinyl " + VINYL_VERSION + ":\n" + _string + "\n ", true);
 }

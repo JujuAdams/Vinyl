@@ -28,7 +28,7 @@ function __VinylSystem()
     {
         if (__VINYL_DEBUG_SHOW_FRAMES) __frame = 0;
         
-        __VinylTrace("Welcome to Vinyl! This is version ", VINYL_VERSION, ", ", VINYL_DATE, " (GM version", GM_runtime_version, ")");
+        __VinylTrace("Welcome to Vinyl! This is version ", VINYL_VERSION, ", ", VINYL_DATE, " (GM version ", GM_runtime_version, ")");
         if (__VINYL_RUNNING_FROM_IDE)
         {
             __VinylTrace("Running from IDE");
