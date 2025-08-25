@@ -24,7 +24,7 @@ function __VinylClassPatternExternal(_path, _patternName, _sound, _gain, _pitch,
     
     static __GetPatternName = function()
     {
-        return __patternName ?? filename_name(__path);
+        return __patternName ?? __path;
     }
     
     static __FreeCommon = function()

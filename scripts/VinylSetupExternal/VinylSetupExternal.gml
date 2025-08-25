@@ -9,9 +9,8 @@
 /// 
 /// It is strongly recommended that you ensure each externally loaded asset has a unique pattern
 /// name to avoid conflicts and confusion. You may, however, choose to leave the pattern name
-/// undefined in which case the filename for the sound will be used as the pattern name instead.
-/// For example, the path `audio/slime/slime_jump.wav` will be given a pattern name of
-/// `"slime_jump.wav"`.
+/// `undefined` in which case the path you gave for the sound will be used as the pattern name
+/// instead.
 /// 
 /// If the `emitterAlias` parameter is defined, Vinyl will attempt to play the sound on the
 /// specified emitter if the sound is played directly (i.e. not played via another pattern). You
@@ -52,7 +51,7 @@ function VinylSetupExternal(_path, _inPatternName = undefined, _gain = 1, _pitch
     
     if (_mixName == VINYL_NO_MIX) _mixName = undefined;
     
-    var _existingPattern = _patternDict[$ _inPatternName ?? filename_name(_path)]; //Must match .__GetPatternName()
+    var _existingPattern = _patternDict[$ _inPatternName ?? _path]; //Must match .__GetPatternName()
     if (_existingPattern != undefined)
     {
         //TODO - Update sound maybe?
