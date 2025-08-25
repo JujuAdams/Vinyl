@@ -4,14 +4,14 @@
 
 function UIButtonInline(_text, _callback, _data = undefined)
 {
-    var _l = global.__uiX - global.__uiPadding;
-    var _t = global.__uiY - global.__uiPadding;
+    var _l = global.__uiX;
+    var _t = global.__uiY;
     
     global.__uiX += global.__uiPadding;
     UITextInline(_text);
     global.__uiX += global.__uiPadding;
     
-    var _r = global.__uiX + global.__uiPadding;
+    var _r = global.__uiX;
     var _b = _t + global.__uiLineHeight;
     
     var _inside = point_in_rectangle(mouse_x, mouse_y, _l, _t, _r, _b);

@@ -29,6 +29,7 @@
     {"name":"oBackground","order":3,"path":"objects/oBackground/oBackground.yy",},
     {"name":"oTestAbstract","order":6,"path":"objects/oTestAbstract/oTestAbstract.yy",},
     {"name":"oTestEffects","order":5,"path":"objects/oTestEffects/oTestEffects.yy",},
+    {"name":"oTestExternal","order":8,"path":"objects/oTestExternal/oTestExternal.yy",},
     {"name":"oTestGeneral","order":4,"path":"objects/oTestGeneral/oTestGeneral.yy",},
     {"name":"oTestPlayAt","order":7,"path":"objects/oTestPlayAt/oTestPlayAt.yy",},
     {"name":"oTestQueues","order":9,"path":"objects/oTestQueues/oTestQueues.yy",},

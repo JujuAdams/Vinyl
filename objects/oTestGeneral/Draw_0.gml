@@ -25,6 +25,12 @@ UIButtonInline("PlayAt Test", function()
     instance_create_layer(0, 0, "Instances", oTestPlayAt);
 });
 UINewline();
+UIButtonInline("External Test", function()
+{
+    instance_destroy();
+    instance_create_layer(0, 0, "Instances", oTestExternal);
+});
+UINewline();
 UINewline();
 UITextInline(string_concat("\"Test\" mix gain = ", VinylMixGetGain("Test")));
 UINewline();
