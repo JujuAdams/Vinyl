@@ -14,10 +14,36 @@
 
 function __VinylClassPatternExternal(_path, _patternName, _sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata) : __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata) constructor
 {
+    static _patternDict = __VinylSystem().__patternDict;
+    static _soundDict   = __VinylSystem().__soundDict;
+    
     __path         = _path;
     __patternName  = _patternName;
     
     
+    
+    static __GetPatternName = function()
+    {
+        return __patternName ?? filename_name(__path);
+    }
+    
+    static __FreeCommon = function()
+    {
+        audio_stop_sound(__sound);
+        
+        var _patternName = __GetPatternName();
+        var _existingPattern = _patternDict[$ _patternName];
+        if (_existingPattern == self)
+        {
+            variable_struct_remove(_patternDict, _patternName);
+        }
+        
+        var _existingPattern = struct_get_from_hash(_soundDict, int64(__sound));
+        if (_existingPattern == self)
+        {
+            struct_remove_from_hash(_soundDict, int64(__sound));
+        }
+    }
     
     static __ExportJSON = function(_ignoreEmpty_UNUSED)
     {

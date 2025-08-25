@@ -16,8 +16,7 @@ function __VinylClassPatternExternalOGG(_path, _patternName, _sound, _gain, _pit
 {
     static __Free = function()
     {
-        //FIXME - Call this at some point
-        //        Don't forget to also clean up voices that use this pattern
+        __FreeCommon();
         
         if (__sound != undefined)
         {

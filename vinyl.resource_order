@@ -158,6 +158,7 @@
     {"name":"VinylSetupQueueTemplate","order":8,"path":"scripts/VinylSetupQueueTemplate/VinylSetupQueueTemplate.yy",},
     {"name":"VinylSetupShuffle","order":3,"path":"scripts/VinylSetupShuffle/VinylSetupShuffle.yy",},
     {"name":"VinylStopAll","order":1,"path":"scripts/VinylStopAll/VinylStopAll.yy",},
+    {"name":"VinylUnloadExternal","order":15,"path":"scripts/VinylUnloadExternal/VinylUnloadExternal.yy",},
     {"name":"VinylWillStop","order":3,"path":"scripts/VinylWillStop/VinylWillStop.yy",},
     {"name":"shdJujuverse","order":11,"path":"shaders/shdJujuverse/shdJujuverse.yy",},
     {"name":"snd1KHz","order":5,"path":"sounds/snd1KHz/snd1KHz.yy",},

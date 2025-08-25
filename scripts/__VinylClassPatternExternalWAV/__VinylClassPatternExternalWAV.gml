@@ -21,8 +21,7 @@ function __VinylClassPatternExternalWAV(_buffer, _path, _patternName, _sound, _g
     
     static __Free = function()
     {
-        //FIXME - Call this at some point
-        //        Don't forget to also clean up voices that use this pattern
+        __FreeCommon();
         
         if (__sound != undefined)
         {

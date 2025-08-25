@@ -200,6 +200,7 @@
     {"id":{"name":"VinylSetupSound","path":"scripts/VinylSetupSound/VinylSetupSound.yy",},},
     {"id":{"name":"VinylStop","path":"scripts/VinylStop/VinylStop.yy",},},
     {"id":{"name":"VinylStopAll","path":"scripts/VinylStopAll/VinylStopAll.yy",},},
+    {"id":{"name":"VinylUnloadExternal","path":"scripts/VinylUnloadExternal/VinylUnloadExternal.yy",},},
     {"id":{"name":"VinylWillStop","path":"scripts/VinylWillStop/VinylWillStop.yy",},},
     {"id":{"name":"shdJujuverse","path":"shaders/shdJujuverse/shdJujuverse.yy",},},
     {"id":{"name":"snd1KHz","path":"sounds/snd1KHz/snd1KHz.yy",},},

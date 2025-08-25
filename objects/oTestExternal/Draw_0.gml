@@ -8,13 +8,30 @@ UIButtonInline("External Test", function()
 });
 UINewline();
 UINewline();
-UIButtonInline("Play external bleep", function()
+UIButtonInline("Load bleep", function()
+{
+    VinylSetupExternal("sndBleepExternal.wav");
+});
+UIButtonInline("Play bleep", function()
 {
     VinylStop(voice);
     voice = VinylPlay("sndBleepExternal.wav");
 });
-UIButtonInline("Play external music", function()
+UIButtonInline("Unload bleep", function()
+{
+    VinylUnloadExternal("sndBleepExternal.wav");
+});
+UINewline();
+UIButtonInline("Load music", function()
+{
+    VinylSetupExternal("sndChickenNuggetsExternal.ogg");
+});
+UIButtonInline("Play music", function()
 {
     VinylStop(voice);
     voice = VinylPlay("sndChickenNuggetsExternal.ogg");
+});
+UIButtonInline("Unload music", function()
+{
+    VinylUnloadExternal("sndChickenNuggetsExternal.ogg");
 });
