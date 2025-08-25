@@ -5,10 +5,27 @@
 
 function __VinylImportSound(_sound, _strict = true)
 {
+    static _patternDict = __VinylSystem().__patternDict;
+    
     if (is_string(_sound))
     {
         var _newSound = asset_get_index(_sound);
-        if (_strict && (not audio_exists(_newSound))) __VinylError("Sound \"", _sound, "\" not found");
+        
+        if (not audio_exists(_newSound))
+        {
+            var _existingPattern = _patternDict[$ _sound];
+            
+            if (is_instanceof(_existingPattern, __VinylClassPatternExternalWAV)
+            ||  is_instanceof(_existingPattern, __VinylClassPatternExternalOGG))
+            {
+                _newSound = _existingPattern.__sound;
+            }
+            else
+            {
+                if (_strict) __VinylError("Sound \"", _sound, "\" not found or this external sound hasn't been loaded");
+            }
+        }
+        
         return _newSound;
     }
     else if ((_sound == undefined) || (_sound == pointer_null))
