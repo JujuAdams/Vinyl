@@ -17,6 +17,8 @@
 
 #macro __VINYL_ABSTRACT_VOICE  0xFF00_0000_0000
 
+#macro __VINYL_HIGH_PRESSURE_THRESHOLD  100
+
 __VinylSystem();
 function __VinylSystem()
 {

@@ -106,6 +106,7 @@
     {"name":"VinylGetLoop","order":1,"path":"scripts/VinylGetLoop/VinylGetLoop.yy",},
     {"name":"VinylGetPitch","order":1,"path":"scripts/VinylGetPitch/VinylGetPitch.yy",},
     {"name":"VinylGetPosition","order":9,"path":"scripts/VinylGetPosition/VinylGetPosition.yy",},
+    {"name":"VinylGetSystemPressure","order":11,"path":"scripts/VinylGetSystemPressure/VinylGetSystemPressure.yy",},
     {"name":"VinylIsPaused","order":3,"path":"scripts/VinylIsPaused/VinylIsPaused.yy",},
     {"name":"VinylIsPlaying","order":7,"path":"scripts/VinylIsPlaying/VinylIsPlaying.yy",},
     {"name":"VinylMasterGetGain","order":5,"path":"scripts/VinylMasterGetGain/VinylMasterGetGain.yy",},
