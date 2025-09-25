@@ -7,6 +7,7 @@ UIButtonInline("General Test", function()
     instance_create_layer(0, 0, "Instances", oTestGeneral);
 });
 UINewline();
+UIText($"system pressure = {VinylGetSystemPressure()}");
 UINewline();
 UIText($"voice={voice}, playing={VinylIsPlaying(voice)}");
 UIText($"gain={VinylGetGain(voice)}, f.gain={VinylGetFinalGain(voice)}");

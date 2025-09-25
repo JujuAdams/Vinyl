@@ -7,10 +7,10 @@ UIButtonInline("General Test", function()
     instance_create_layer(0, 0, "Instances", oTestGeneral);
 });
 UINewline();
+UIText($"system pressure = {VinylGetSystemPressure()}");
 UINewline();
 UIButton("Test 1", function()
 {
-    VinylPlayAt(sndBleep0, 0, 0, 0,   0, 100);
 });
 UIButton("Test Left", function()
 {
