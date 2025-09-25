@@ -68,8 +68,7 @@ function __VinylSystem()
         //to efficiently find Vinyl's addition voice data using voice references. We use a map
         //instead of a struct because struct_remove_from_hash() doesn't exist yet and it's easier
         //to incrementally 
-        __voiceToStructMap     = ds_map_create();
-        __voiceToStructLastKey = undefined;
+        __voiceToStructMap = ds_map_create();
         
         //Contains structs that describe callbacks to be executed when a voice stops playing.
         __callbackArray = [];
@@ -78,7 +77,6 @@ function __VinylSystem()
         __duckerArray = [];
         
         __voiceToEmitterMap     = ds_map_create();
-        __voiceToEmitterLastKey = undefined;
         __volatileEmitterArray  = [];
         
         //An array of voices that are in the lookup dictionary. This will never include HLT voices
@@ -238,37 +236,58 @@ function __VinylSystem()
                 ++_i;
             }
             
+            //Figure out how much work we need to do to keep the system from overloading
+            var _pressure = min(1, VinylGetSystemPressure());
+            
             //Clean up voice-to-struct ds_map
-            var _voice = (__voiceToStructLastKey == undefined)? ds_map_find_first(_voiceToStructMap) : ds_map_find_next(_voiceToStructMap, __voiceToStructLastKey);
-            __voiceToStructLastKey = _voice;
-            var _struct = _voiceToStructMap[? _voice];
-            if ((_voice != undefined) && (not is_instanceof(_struct, __VinylClassVoiceQueue)) && (not _struct.__IsPlaying()))
+            static _voiceToStructLastVoice = undefined;
+            var _map = _voiceToStructMap;
+            var _voice = _voiceToStructLastVoice;
+            repeat(lerp(1, ds_map_size(_map), _pressure))
             {
-                ds_map_delete(_voiceToStructMap, _voice);
+                var _voice = (_voice == undefined)? ds_map_find_first(_map) : ds_map_find_next(_map, _voice);
+                var _struct = _map[? _voice];
+                if ((_voice != undefined) && (not is_instanceof(_struct, __VinylClassVoiceQueue)) && (not _struct.__IsPlaying()))
+                {
+                    ds_map_delete(_map, _voice);
+                }
             }
+            _voiceToStructLastVoice = _voice;
             
             //Clean up voice-to-emitter ds_map
-            var _voice = (__voiceToEmitterLastKey == undefined)? ds_map_find_first(_voiceToEmitterMap) : ds_map_find_next(_voiceToEmitterMap, __voiceToEmitterLastKey);
-            __voiceToEmitterLastKey = _voice;
-            if ((_voice != undefined) && (not VinylIsPlaying(_voice)))
+            static _voiceToEmitterLastVoice = undefined;
+            var _map = _voiceToEmitterMap;
+            var _voice = _voiceToEmitterLastVoice;
+            repeat(lerp(1, ds_map_size(_map), _pressure))
             {
-                ds_map_delete(_voiceToEmitterMap, _voice);
+                var _voice = (_voice == undefined)? ds_map_find_first(_map) : ds_map_find_next(_map, _voice);
+                if ((_voice != undefined) && (not VinylIsPlaying(_voice)))
+                {
+                    ds_map_delete(_map, _voice);
+                }
             }
+            _voiceToEmitterLastVoice = _voice;
             
             //Free volatile emitter as necessary. We don't need to iterate over every single volatile emitter all at once
             static _volatileEmitterIndex = 0;
-            if (array_length(_volatileEmitterArray) > 0)
+            var _array = _volatileEmitterArray;
+            var _length = array_length(_array);
+            var _index = _volatileEmitterIndex;
+            repeat(lerp(min(1, _length), _length, _pressure))
             {
-                _volatileEmitterIndex = (_volatileEmitterIndex + 1) mod array_length(_volatileEmitterArray);
-                with(_volatileEmitterArray[_volatileEmitterIndex])
+                _index = (_index + 1) mod _length;
+                with(_array[_index])
                 {
                     if (not VinylIsPlaying(__voice))
                     {
                         audio_emitter_free(__emitter);
-                        array_delete(_volatileEmitterArray, _volatileEmitterIndex, 1);
+                        array_delete(_array, _index, 1);
+                        --_length;
                     }
                 }
             }
+            _volatileEmitterIndex = _index;
+            
             
             //Check for callback execution
             var _i = 0;
