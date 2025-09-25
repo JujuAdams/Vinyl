@@ -52,13 +52,19 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
         }
         
         var _array = __voiceArray;
+        var _index = __cleanUpIndex;
         var _length = array_length(_array);
-        if (_length > 0)
+        repeat(lerp(min(1, _length), _length, min(1, VinylGetSystemPressure())))
         {
-            var _index = (__cleanUpIndex + 1) mod _length;
-            if (not VinylIsPlaying(_array[_index])) array_delete(_array, _index, 1);
-            __cleanUpIndex = _index;
+            var _index = (_index + 1) mod _length;
+            if (not VinylIsPlaying(_array[_index]))
+            {
+                array_delete(_array, _index, 1);
+                --_length;
+            }
         }
+        
+        __cleanUpIndex = _index;
     }
     
     static __UpdateSetup = function(_gainPattern, _membersLoop, _membersDuckOn)
