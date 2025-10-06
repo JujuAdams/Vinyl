@@ -91,8 +91,8 @@ function __VinylClassDucker(_duckerName, _duckedGain, _rateOfChange, _samePriori
                 if (_index >= 0)
                 {
                     //We found an existing voice with the same priority - fade out the existing voice and replace with ourselves
-                    _voiceArray[_i].__FadeOut(__rateOfChange, false);
-                    _voiceArray[_i] = _voiceStruct;
+                    _voiceArray[_index].__FadeOut(__rateOfChange, false);
+                    _voiceArray[_index] = _voiceStruct;
                 }
                 else
                 {
