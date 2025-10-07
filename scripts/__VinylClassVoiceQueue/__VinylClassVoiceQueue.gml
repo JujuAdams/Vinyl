@@ -302,7 +302,7 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
     
     static __GetLoop = function()
     {
-        return audio_sound_get_loop(__voiceCurrent);
+        return audio_exists(__voiceCurrent)? audio_sound_get_loop(__voiceCurrent) : false;
     }
     
     static __SetLocalGain = function(_gain, _rateOfChange)
