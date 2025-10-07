@@ -14,5 +14,13 @@ function VinylQueuePushTop(_voice, _sound)
     var _voiceStruct = _voiceToStructMap[? _voice];
     if (not is_instanceof(_voiceStruct, __VinylClassVoiceQueue)) return undefined;
     
-    array_insert(_voiceStruct.__soundArray, 0, _sound);
+    with(_voiceStruct)
+    {
+        array_insert(__soundArray, 0, _sound);
+        
+        if (__behaviour == VINYL_QUEUE.LOOP_ON_LAST)
+        {
+            audio_sound_loop(__voiceCurrent, (array_length(__soundArray) <= 0));
+        }
+    }
 }

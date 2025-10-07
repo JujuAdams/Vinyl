@@ -1,7 +1,7 @@
 // Feather disable all
 
 /// Sets whether the queue itself should loop. If you'd like to alter the loop state of the
-/// currently playing sound then use VinylGetLoop().
+/// currently playing sound then use `VinylSetLoop()`.
 /// 
 /// @param voice
 /// @param state

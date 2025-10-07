@@ -13,13 +13,13 @@ function VinylQueueSetBottom(_voice, _sound)
     var _voiceStruct = _voiceToStructMap[? _voice];
     if (not is_instanceof(_voiceStruct, __VinylClassVoiceQueue)) return undefined;
     
-    var _array = _voiceStruct.__soundArray;
-    if (array_length(_array) <= 0)
+    with(_voiceStruct)
     {
-        array_push(_array, _sound);
-    }
-    else
-    {
-        _array[array_length(_array)-1] = _sound;
+        __soundArray[@ max(0, array_length(__soundArray)-1)] = _sound;
+        
+        if (__behaviour == VINYL_QUEUE.LOOP_ON_LAST)
+        {
+            audio_sound_loop(__voiceCurrent, (array_length(__soundArray) <= 0));
+        }
     }
 }

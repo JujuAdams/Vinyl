@@ -9,8 +9,8 @@
 /// There are three behaviours that a sound queue can use, found in VINYL_QUEUE enum.
 /// 
 ///   - .DONT_LOOP will play each sound in the queue once
-///   - .LOOP_ON_LAST will play each sound in the queue once until the last sound, which is looped
 ///   - .LOOP_EACH will loop each sound
+///   - .LOOP_ON_LAST will play each sound in the queue once until the last sound, which is looped
 /// 
 /// The currently playing sound can be manually set to loop or not loop by calling VinylSetLoop()
 /// targeting the queue. If a sound is not looping and completes playing then the next sound in the
