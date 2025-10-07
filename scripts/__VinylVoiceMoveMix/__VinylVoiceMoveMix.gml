@@ -1,7 +1,7 @@
 // Feather disable all
 
 /// @param voiceReference
-/// @oaram newMixName
+/// @param newMixName
 
 function __VinylVoiceMoveMix(_voiceReference, _newMixName)
 {

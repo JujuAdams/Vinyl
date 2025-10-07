@@ -6,7 +6,7 @@
 /// @param sound/pattern
 /// @param [loop]
 /// @param [targetGain=1]
-/// @oaram [rateOfChange]
+/// @param [rateOfChange]
 /// @param [pitch=1]
 /// @param [duckerName]
 /// @param [duckPriority]
