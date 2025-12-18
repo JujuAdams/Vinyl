@@ -28,6 +28,7 @@
     {"name":"Vinyl JSON Format","order":1,"path":"notes/Vinyl JSON Format/Vinyl JSON Format.yy",},
     {"name":"oBackground","order":3,"path":"objects/oBackground/oBackground.yy",},
     {"name":"oTestAbstract","order":6,"path":"objects/oTestAbstract/oTestAbstract.yy",},
+    {"name":"oTestDucker","order":10,"path":"objects/oTestDucker/oTestDucker.yy",},
     {"name":"oTestEffects","order":5,"path":"objects/oTestEffects/oTestEffects.yy",},
     {"name":"oTestExternal","order":8,"path":"objects/oTestExternal/oTestExternal.yy",},
     {"name":"oTestGeneral","order":4,"path":"objects/oTestGeneral/oTestGeneral.yy",},
