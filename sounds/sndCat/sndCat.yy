@@ -1,15 +1,17 @@
 {
-  "$GMSound":"",
+  "$GMSound":"v2",
   "%Name":"sndCat",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
   },
   "bitDepth":1,
-  "bitRate":128,
+  "channelFormat":0,
   "compression":0,
+  "compressionQuality":4,
   "conversionMode":0,
   "duration":0.586091,
+  "exportDir":"",
   "name":"sndCat",
   "parent":{
     "name":"Sounds",
@@ -23,6 +25,5 @@
   "tags":[
     "cat",
   ],
-  "type":0,
   "volume":1.0,
 }

@@ -1,8 +1,8 @@
 {
-  "$GMProject":"",
+  "$GMProject":"v1",
   "%Name":"vinyl",
   "AudioGroups":[
-    {"$GMAudioGroup":"","%Name":"audiogroup_default","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
+    {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
   "configs":{
     "children":[],
@@ -33,6 +33,7 @@
     {"$GMFolder":"","%Name":"Runtime Setup","folderPath":"folders/Vinyl/Runtime Setup.yy","name":"Runtime Setup","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Stopping Audio","folderPath":"folders/Vinyl/Stopping Audio.yy","name":"Stopping Audio","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
+  "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"sndBleepExternal.wav","CopyToMask":-1,"filePath":"datafiles","name":"sndBleepExternal.wav","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"sndChickenNuggetsExternal.ogg","CopyToMask":-1,"filePath":"datafiles","name":"sndChickenNuggetsExternal.ogg","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
@@ -41,7 +42,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.11.0.179",
+    "IDEVersion":"2024.14.1.210",
   },
   "name":"vinyl",
   "resources":[

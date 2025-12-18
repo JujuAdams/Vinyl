@@ -1,15 +1,17 @@
 {
-  "$GMSound":"",
+  "$GMSound":"v2",
   "%Name":"sndBleep8",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
   },
   "bitDepth":1,
-  "bitRate":128,
+  "channelFormat":0,
   "compression":0,
+  "compressionQuality":4,
   "conversionMode":0,
   "duration":0.258957,
+  "exportDir":"",
   "name":"sndBleep8",
   "parent":{
     "name":"Sounds",
@@ -23,6 +25,5 @@
   "tags":[
     "bleep",
   ],
-  "type":0,
   "volume":1.0,
 }

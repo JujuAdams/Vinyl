@@ -1,15 +1,17 @@
 {
-  "$GMSound":"",
+  "$GMSound":"v2",
   "%Name":"sndChickenNuggets",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
   },
   "bitDepth":1,
-  "bitRate":128,
+  "channelFormat":2,
   "compression":1,
+  "compressionQuality":4,
   "conversionMode":0,
   "duration":58.607143,
+  "exportDir":"",
   "name":"sndChickenNuggets",
   "parent":{
     "name":"Sounds",
@@ -20,6 +22,5 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"sndChickenNuggets.wav",
-  "type":2,
   "volume":1.0,
 }
