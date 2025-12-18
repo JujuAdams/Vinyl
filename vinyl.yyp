@@ -222,6 +222,8 @@
     {"id":{"name":"sndBonk","path":"sounds/sndBonk/sndBonk.yy",},},
     {"id":{"name":"sndCat","path":"sounds/sndCat/sndCat.yy",},},
     {"id":{"name":"sndChickenNuggets","path":"sounds/sndChickenNuggets/sndChickenNuggets.yy",},},
+    {"id":{"name":"sndDucker1KHz","path":"sounds/sndDucker1KHz/sndDucker1KHz.yy",},},
+    {"id":{"name":"sndDuckerBleep","path":"sounds/sndDuckerBleep/sndDuckerBleep.yy",},},
     {"id":{"name":"sndOw","path":"sounds/sndOw/sndOw.yy",},},
     {"id":{"name":"sndPop","path":"sounds/sndPop/sndPop.yy",},},
     {"id":{"name":"sndSync0","path":"sounds/sndSync0/sndSync0.yy",},},

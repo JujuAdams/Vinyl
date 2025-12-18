@@ -1,6 +1,6 @@
 {
   "$GMSound":"v2",
-  "%Name":"sndBleep1",
+  "%Name":"sndDuckerBleep",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -10,9 +10,9 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.09142857,
+  "duration":0.6460771,
   "exportDir":"",
-  "name":"sndBleep1",
+  "name":"sndDuckerBleep",
   "parent":{
     "name":"Sounds",
     "path":"folders/Sounds.yy",
@@ -21,7 +21,7 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"sndBleep1.wav",
+  "soundFile":"sndDuckerBleep.wav",
   "tags":[
     "bleep",
   ],

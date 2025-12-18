@@ -8,6 +8,19 @@ UIButtonInline("General Test", function()
 });
 UINewline();
 UINewline();
+UIText($"duckPrio0 playing = {VinylIsPlaying(duckPrio0)}");
+UIText($"duckPrio1 playing = {VinylIsPlaying(duckPrio1)}");
+UINewline();
+UIButtonInline("Ducker bleep", function()
+{
+    duckPrio0 = VinylPlay(sndDucker1KHz);
+});
+UIButtonInline("Ducker 1KHz", function()
+{
+    duckPrio1 = VinylPlay(sndDucker1KHz);
+});
+UINewline();
+UINewline();
 UIButtonInline("Ducker prio 0", function()
 {
     duckPrio0 = VinylPlay(sndSync0, true);

@@ -58,6 +58,14 @@ VinylSetupImportJSON([
                 sound: sndSync3,
                 duckPrio: 3,
             },
+            {
+                sound: sndDuckerBleep,
+                duckPrio: 0,
+            },
+            {
+                sound: sndDucker1KHz,
+                duckPrio: 0,
+            },
         ],
     },
 ]);

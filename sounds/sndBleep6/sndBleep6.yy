@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.261134,
+  "duration":0.2611338,
   "exportDir":"",
   "name":"sndBleep6",
   "parent":{
