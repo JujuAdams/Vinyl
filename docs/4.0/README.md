@@ -6,6 +6,7 @@
 
 <p align="center"><a href="https://github.com/JujuAdams/Vinyl/releases/" target="_blank">Download the .yymps</a></p>
 <p align="center">Talk about Vinyl on the <a href="https://discord.gg/8krYCqr" target="_blank">Discord server</a></p>
+<p align="center"><a href="hotglue://install=http://www.github.com/jujuadams/Vinyl">Add with Hotglue</a></p>
 
 &nbsp;
 
