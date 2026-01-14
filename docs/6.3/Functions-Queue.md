@@ -428,7 +428,7 @@ No example provided.
 
 ## `VinylQueueClear`
 
-`VinylQueueClear(voice)`
+`VinylQueueClear(voice, [stopCurrent=false])`
 
 <!-- tabs:start -->
 
@@ -436,13 +436,12 @@ No example provided.
 
 *Returns:* N/A (`undefined`)
 
-|Name   |Datatype|Purpose              |
-|-------|--------|---------------------|
-|`voice`|voice   |Queue voice to target|
+|Name           |Datatype|Purpose                                                         |
+|---------------|--------|----------------------------------------------------------------|
+|`voice`        |voice   |Queue voice to target                                           |
+|`[stopCurrent]`|boolean |Defaults to `false`. Whether to stop the currently playing sound|
 
-Clears all sounds in a queue's array of sounds.
-
-!> This function won't stop the currently playing sound. Use `VinylStop()` to stop the currently playing sound in a queue.
+Clears all sounds in a queue's array of sounds. If the optional parameter `stopCurrent` is set to `true` then the currently playing sound will be stopped as well. However, by default, this isn't the case and the currently playing sound for the queue will continue to play.
 
 #### **Example**
 
