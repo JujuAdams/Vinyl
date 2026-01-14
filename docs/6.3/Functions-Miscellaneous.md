@@ -2,6 +2,32 @@
 
 &nbsp;
 
+## `VinylGetSystemPressure`
+
+`VinylGetSystemPressure()`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Number, representing how hard Vinyl is working
+
+|Name   |Datatype|Purpose                     |
+|-------|--------|----------------------------|
+|N/A    |        |                            |
+
+Returns how hard Vinyl is working to play audio. A value of `0` will be shown when Vinyl is not performing any processing. A value of `1` indicates that Vinyl has reached saturation and audio playback issues may occur.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
+
+&nbsp;
+
 ## `VinylGetAsset`
 
 `VinylGetAsset(voice)`
