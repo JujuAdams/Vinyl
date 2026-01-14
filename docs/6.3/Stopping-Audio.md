@@ -30,7 +30,7 @@ No example provided.
 
 ## `VinylStopAll`
 
-`VinylStopAll()`
+`VinylStopAll([clearQueues=true])`
 
 <!-- tabs:start -->
 
@@ -38,11 +38,11 @@ No example provided.
 
 *Returns:* N/A (`undefined`)
 
-|Name   |Datatype|Purpose                     |
-|-------|--------|----------------------------|
-|N/A    |        |                            |
+|Name           |Datatype|Purpose                                                       |
+|---------------|--------|--------------------------------------------------------------|
+|`[clearQueues]`|boolean |Optional, defaults to `true`. Whether queues should be cleared|
 
-Convenience function to stop all audio currently playing.
+Convenience function to stop all audio currently playing. If the optional parameter `clearQueues` is set to `true` then all queues will have their contents cleared which will prevent queues from playing their next track after all audio has been stopped.
 
 #### **Example**
 
