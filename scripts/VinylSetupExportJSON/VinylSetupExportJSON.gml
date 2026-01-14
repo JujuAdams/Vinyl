@@ -13,7 +13,7 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
 {
     static _duckerArray  = __VinylSystem().__duckerArray;
     static _mixDict      = __VinylSystem().__mixDict;
-    static _patternDict  = __VinylSystem().__patternDict;
+    static _patternMap   = __VinylSystem().__patternMap;
     static _soundMap     = __VinylSystem().__soundMap;
     static _metadataDict = __VinylSystem().__metadataDict;
     
@@ -55,7 +55,7 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
     
     
     //Export pattern definitions that aren't in mixes
-    var _namesArray = struct_get_names(_patternDict);
+    var _namesArray = ds_map_keys_to_array(_patternMap);
     array_sort(_namesArray, true);
     
     var _i = 0;
@@ -65,7 +65,7 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
         
         if (not struct_exists(_patternExportedDict, _name))
         {
-            var _struct = _patternDict[$ _name].__ExportJSON();
+            var _struct = _patternMap[? _name].__ExportJSON();
             if (_struct != undefined) array_push(_outArray, _struct);
         }
         

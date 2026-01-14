@@ -8,7 +8,7 @@
 
 function VinylGetMetadata(_pattern, _default = undefined)
 {
-    static _patternDict = __VinylSystem().__patternDict;
+    static _patternMap = __VinylSystem().__patternMap;
     
     if (is_handle(_pattern))
     {
@@ -16,7 +16,7 @@ function VinylGetMetadata(_pattern, _default = undefined)
     }
     else if (is_string(_pattern))
     {
-        var _patternStruct = _patternDict[$ _pattern];
+        var _patternStruct = _patternMap[? _pattern];
         if (_patternStruct != undefined)
         {
             return _patternStruct.__metadata ?? _default;

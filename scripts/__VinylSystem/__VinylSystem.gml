@@ -52,9 +52,12 @@ function __VinylSystem()
         __toUpdateArray = VINYL_LIVE_EDIT? [] : undefined;
         __importingJSON = false;
         
+        //Try to catch mistakes that people make where they clear/destroy ds_map 0
+        __nullMap = ds_map_create();
+        
         //Lookup dictionaries for sound/pattern/mix definitions.
         __soundMap          = ds_map_create();
-        __patternDict       = {};
+        __patternMap        = ds_map_create();
         __mixDict           = {};
         __metadataDict      = {};
         __queueTemplateDict = {};

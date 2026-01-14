@@ -39,9 +39,9 @@
 
 function VinylSetupExternal(_path, _inPatternName = undefined, _gain = 1, _pitch = 1, _loop = undefined, _mixName = VINYL_DEFAULT_MIX, _duckerName = undefined, _duckPrio = undefined, _emitterAlias = undefined, _metadata = undefined, _filetype = undefined)
 {
-    static _system      = __VinylSystem();
-    static _patternDict = _system.__patternDict;
-    static _soundMap    = _system.__soundMap;
+    static _system     = __VinylSystem();
+    static _patternMap = _system.__patternMap;
+    static _soundMap   = _system.__soundMap;
     
     if (not file_exists(_path))
     {
@@ -51,7 +51,7 @@ function VinylSetupExternal(_path, _inPatternName = undefined, _gain = 1, _pitch
     
     if (_mixName == VINYL_NO_MIX) _mixName = undefined;
     
-    var _existingPattern = _patternDict[$ _inPatternName ?? _path]; //Must match .__GetPatternName()
+    var _existingPattern = _patternMap[? _inPatternName ?? _path]; //Must match .__GetPatternName()
     if (_existingPattern != undefined)
     {
         //TODO - Update sound maybe?
@@ -116,7 +116,7 @@ function VinylSetupExternal(_path, _inPatternName = undefined, _gain = 1, _pitch
             var _pattern = new __VinylClassPatternExternalOGG(_path, _inPatternName, _sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata);
         }
         
-        _patternDict[$ _pattern.__GetPatternName()] = _pattern;
+        _patternMap[? _pattern.__GetPatternName()] = _pattern;
         _soundMap[? int64(_sound)] = _pattern;
     }
     

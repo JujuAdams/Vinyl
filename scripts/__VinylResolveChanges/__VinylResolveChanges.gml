@@ -10,7 +10,7 @@ function __VinylResolveChanges(_replace, _oldSoundNameArray = undefined, _oldPat
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
     static _soundMap         = __VinylSystem().__soundMap;
-    static _patternDict      = __VinylSystem().__patternDict;
+    static _patternMap       = __VinylSystem().__patternMap;
     
     var _voiceToStructArray = ds_map_values_to_array(_voiceToStructMap);
     
@@ -46,7 +46,7 @@ function __VinylResolveChanges(_replace, _oldSoundNameArray = undefined, _oldPat
             repeat(array_length(_oldPatternNameArray))
             {
                 var _name = _oldPatternNameArray[_i];
-                var _pattern = _patternDict[$ _name];
+                var _pattern = _patternMap[? _name];
                 
                 if (not is_struct(_pattern))
                 {

@@ -14,11 +14,11 @@
 
 function __VinylClassPatternExternal(_path, _patternName, _sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata) : __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata) constructor
 {
-    static _patternDict = __VinylSystem().__patternDict;
-    static _soundMap    = __VinylSystem().__soundMap;
+    static _soundMap   = __VinylSystem().__soundMap;
+    static _patternMap = __VinylSystem().__patternMap;
     
-    __path         = _path;
-    __patternName  = _patternName;
+    __path        = _path;
+    __patternName = _patternName;
     
     
     
@@ -34,10 +34,11 @@ function __VinylClassPatternExternal(_path, _patternName, _sound, _gain, _pitch,
         audio_stop_sound(__sound);
         
         var _patternName = __GetPatternName();
-        var _existingPattern = _patternDict[$ _patternName];
+        
+        var _existingPattern = _patternMap[? _patternName];
         if (_existingPattern == self)
         {
-            variable_struct_remove(_patternDict, _patternName);
+            ds_map_delete(_patternMap, _patternName);
         }
         
         var _existingPattern = _soundMap[? int64(__sound)];

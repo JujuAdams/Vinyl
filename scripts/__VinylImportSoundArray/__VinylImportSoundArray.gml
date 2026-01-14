@@ -5,7 +5,7 @@
 
 function __VinylImportSoundArray(_array, _strict)
 {
-    static _patternDict = __VinylSystem().__patternDict;
+    static _patternMap = __VinylSystem().__patternMap;
     
     //Support lazy use of strings/handles as single element arrays
     if (not is_array(_array))
@@ -26,7 +26,7 @@ function __VinylImportSoundArray(_array, _strict)
             
             if (not audio_exists(_newSound))
             {
-                var _existingPattern = _patternDict[$ _sound];
+                var _existingPattern = _patternMap[? _sound];
                 
                 if (is_instanceof(_existingPattern, __VinylClassPatternExternalWAV)
                 ||  is_instanceof(_existingPattern, __VinylClassPatternExternalOGG))

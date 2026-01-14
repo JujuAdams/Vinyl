@@ -5,7 +5,7 @@
 
 function __VinylImportSound(_sound, _strict = true)
 {
-    static _patternDict = __VinylSystem().__patternDict;
+    static _patternMap = __VinylSystem().__patternMap;
     
     if (is_string(_sound))
     {
@@ -13,7 +13,7 @@ function __VinylImportSound(_sound, _strict = true)
         
         if (not audio_exists(_newSound))
         {
-            var _existingPattern = _patternDict[$ _sound];
+            var _existingPattern = _patternMap[? _sound];
             
             if (is_instanceof(_existingPattern, __VinylClassPatternExternalWAV)
             ||  is_instanceof(_existingPattern, __VinylClassPatternExternalOGG))

@@ -15,7 +15,7 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
 {
     static _duckerDict   = __VinylSystem().__duckerDict;
     static _mixDict      = __VinylSystem().__mixDict;
-    static _patternDict  = __VinylSystem().__patternDict;
+    static _patternMap   = __VinylSystem().__patternMap;
     static _soundMap     = __VinylSystem().__soundMap;
     static _metadataDict = __VinylSystem().__metadataDict;
     
@@ -62,7 +62,7 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
     
     
     //Export pattern definitions
-    var _namesArray = struct_get_names(_patternDict);
+    var _namesArray = ds_map_keys_to_array(_patternMap);
     array_sort(_namesArray, true);
     
     var _i = 0;
@@ -72,7 +72,7 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
         
         if (not struct_exists(_patternExportedDict, _name))
         {
-            _patternDict[$ _name].__ExportGML(_buffer, "    ", _useMacros);
+            _patternMap[? _name].__ExportGML(_buffer, "    ", _useMacros);
         }
         
         ++_i;

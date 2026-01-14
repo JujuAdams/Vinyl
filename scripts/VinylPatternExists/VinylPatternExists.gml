@@ -10,8 +10,8 @@
 
 function VinylPatternExists(_pattern, _explicit = false)
 {
-    static _soundMap    = __VinylSystem().__soundMap;
-    static _patternDict = __VinylSystem().__patternDict;
+    static _soundMap   = __VinylSystem().__soundMap;
+    static _patternMap = __VinylSystem().__patternMap;
     
     if (is_handle(_pattern))
     {
@@ -21,7 +21,7 @@ function VinylPatternExists(_pattern, _explicit = false)
     }
     else if (is_string(_pattern))
     {
-        return (_patternDict[$ _pattern] != undefined);
+        return (_patternMap[? _pattern] != undefined);
     }
     
     return false;

@@ -8,7 +8,7 @@
 function __VinylSetupExportGMLMacros()
 {
     static _mixDict           = __VinylSystem().__mixDict;
-    static _patternDict       = __VinylSystem().__patternDict;
+    static _patternMap        = __VinylSystem().__patternMap;
     static _queueTemplateDict = __VinylSystem().__queueTemplateDict;
     
     var _buffer = buffer_create(1024, buffer_grow, 1);
@@ -16,7 +16,7 @@ function __VinylSetupExportGMLMacros()
     var _mixArray = struct_get_names(_mixDict);
     array_sort(_mixArray, true);
     
-    var _patternArray = struct_get_names(_patternDict);
+    var _patternArray = ds_map_keys_to_array(_patternMap);
     array_sort(_patternArray, true);
     
     var _queueTemplateArray = struct_get_names(_queueTemplateDict);

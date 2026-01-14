@@ -35,7 +35,7 @@
 
 function VinylPlayAt(_pattern, _x, _y, _z, _falloffDist = VINYL_DEFAULT_FALLOFF_DIST, _falloffMaxDist = VINYL_DEFAULT_FALLOFF_MAX_DIST, _falloffFactor = VINYL_DEFAULT_FALLOFF_FACTOR, _loop = undefined, _gain = 1, _pitch = 1, _duckerName = undefined, _duckPrio = undefined, _effectBus = undefined)
 {
-    static _patternDict = __VinylSystem().__patternDict;
+    static _patternMap = __VinylSystem().__patternMap;
     
     var _volatileEmitter = new __VinylClassVolatileEmitter(_x, _y, _z, _falloffDist, _falloffMaxDist, _falloffFactor, _effectBus);
     var _voice = VinylPlayOn(_volatileEmitter.__emitter, _pattern, _loop, _gain, _pitch, _duckerName, _duckPrio);

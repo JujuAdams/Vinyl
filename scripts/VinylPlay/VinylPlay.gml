@@ -20,7 +20,7 @@
 
 function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1, _duckerName = undefined, _duckPrio = undefined)
 {
-    static _patternDict = __VinylSystem().__patternDict;
+    static _patternMap = __VinylSystem().__patternMap;
     
     if (is_handle(_pattern))
     {
@@ -28,7 +28,7 @@ function VinylPlay(_pattern, _loop = undefined, _gain = 1, _pitch = 1, _duckerNa
     }
     else if (is_string(_pattern))
     {
-        var _patternStruct = _patternDict[$ _pattern];
+        var _patternStruct = _patternMap[? _pattern];
         if (_patternStruct != undefined)
         {
             return _patternStruct.__Play(undefined, _loop, _gain, _pitch, _duckerName, _duckPrio);

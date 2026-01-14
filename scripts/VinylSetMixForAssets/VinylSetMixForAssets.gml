@@ -11,7 +11,7 @@ function VinylSetMixForAssets()
 {
     static _system        = __VinylSystem();
     static _toUpdateArray = _system.__toUpdateArray;
-    static _patternDict   = _system.__patternDict;
+    static _patternMap    = _system.__patternMap;
     
     var _mixName = argument[0];
     if (_mixName == VINYL_NO_MIX) _mixName = undefined;
@@ -40,7 +40,7 @@ function VinylSetMixForAssets()
             }
             else if (is_string(_input))
             {
-                var _pattern = _patternDict[$ _input];
+                var _pattern = _patternMap[? _input];
                 if (_pattern == undefined)
                 {
                     __VinylError("Pattern \"", _input, "\" not found");

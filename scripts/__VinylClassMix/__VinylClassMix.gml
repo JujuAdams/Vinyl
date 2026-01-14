@@ -11,7 +11,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
 {
     static _toUpdateArray = __VinylSystem().__toUpdateArray;
     static _soundMap      = __VinylSystem().__soundMap;
-    static _patternDict   = __VinylSystem().__patternDict;
+    static _patternMap    = __VinylSystem().__patternMap;
     
     __mixName             = _mixName;
     __gainPattern         = _gainPattern;
@@ -191,47 +191,29 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
     
     static __ExportJSON = function(_soundExportedDict, _patternExportedDict, _ignoreEmpty)
     {
+        var _membersArray = [];
         var _mixName = __mixName;
         
-        static _methodContext = {
-            __mixName:    undefined,
-            __namesArray: undefined,
-        };
-        
-        static _method = method(_methodContext,
-        function(_name, _value)
-        {
-            if (_value.__mixName == __mixName) array_push(__namesArray, _name);
-        });
-        
-        
-        
-        var _membersArray = [];
-        _methodContext.__mixName = __mixName;
-        
-        
-        
-        var _namesArray = [];
-        _methodContext.__namesArray = _namesArray;
-        
-        struct_foreach(_patternDict, _method);
+        //Add patterns to the mix members
+        var _namesArray = ds_map_keys_to_array(_patternMap);
         array_sort(_namesArray, true);
         
         var _i = 0;
         repeat(array_length(_namesArray))
         {
             var _name = _namesArray[_i];
-            _patternExportedDict[$ _name] = true;
-            array_push(_membersArray, _patternDict[$ _name].__ExportJSON());
+            
+            var _pattern = _patternMap[? _name];
+            if (_pattern.__mixName == _mixName)
+            {
+                _patternExportedDict[$ _name] = true;
+                array_push(_membersArray, _pattern.__ExportJSON());
+            }
+            
             ++_i;
         }
         
-        
-        
-        ///////
-        // Add sounds to the mix members
-        ///////
-        
+        //Add sounds to the mix members
         var _namesArray = ds_map_keys_to_array(_soundMap);
         array_sort(_namesArray, true);
         
@@ -252,8 +234,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
             ++_i;
         }
         
-        
-        
+        //Finalize the output struct
         var _struct = {
             mix:      __mixName,
             members:  _membersArray,
@@ -274,19 +255,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
     
     static __ExportGML = function(_buffer, _useMacros, _soundExportedDict, _patternExportedDict, _ignoreEmpty)
     {
-        static _methodContext = {
-            __mixName:    undefined,
-            __namesArray: undefined,
-        };
-        
-        static _method = method(_methodContext,
-        function(_name, _value)
-        {
-            if (_value.__mixName == __mixName) array_push(__namesArray, _name);
-        });
-        
-        
-        
+        //Write basic mix info
         buffer_write(_buffer, buffer_text, "    {\n");
         buffer_write(_buffer, buffer_text, "        mix: ");
         
@@ -318,33 +287,29 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
         
         buffer_write(_buffer, buffer_text, "        members: [\n");
         
-        
-        
-        _methodContext.__mixName = __mixName;
-        
-        
-        
         var _namesArray = [];
-        _methodContext.__namesArray = _namesArray;
+        var _mixName = __mixName;
         
-        struct_foreach(_patternDict, _method);
+        //Add patterns to the mix members
+        var _namesArray = ds_map_keys_to_array(_patternMap);
         array_sort(_namesArray, true);
         
         var _i = 0;
         repeat(array_length(_namesArray))
         {
             var _name = _namesArray[_i];
-            _patternExportedDict[$ _name] = true;
-            _patternDict[$ _name].__ExportGML(_buffer, "            ", _useMacros);
+            
+            var _pattern = _patternMap[? _name];
+            if (_pattern.__mixName == _mixName)
+            {
+                _patternExportedDict[$ _name] = true;
+                _pattern.__ExportGML(_buffer, "            ", _useMacros);
+            }
+            
             ++_i;
         }
         
-        
-        
-        ///////
-        // Add sounds to the mix members
-        ///////
-        
+        //Add sounds to the mix members
         var _namesArray = ds_map_keys_to_array(_soundMap);
         array_sort(_namesArray, true);
         
@@ -352,8 +317,8 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
         repeat(array_length(_namesArray))
         {
             var _name = _namesArray[_i];
-            var _pattern = _soundMap[? _name];
             
+            var _pattern = _soundMap[? _name];
             if (_pattern.__mixName == _mixName)
             {
                 _soundExportedDict[$ _name] = true;
@@ -363,8 +328,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
             ++_i;
         }
         
-        
-        
+        //And done!
         buffer_write(_buffer, buffer_text, "        ],\n    },\n");
     }
 }
