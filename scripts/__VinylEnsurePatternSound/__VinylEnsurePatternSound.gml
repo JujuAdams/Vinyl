@@ -4,13 +4,13 @@
 
 function __VinylEnsurePatternSound(_sound)
 {
-    static _soundDict = __VinylSystem().__soundDict;
+    static _soundMap = __VinylSystem().__soundMap;
     
-    var _pattern = struct_get_from_hash(_soundDict, int64(_sound));
+    var _pattern = _soundMap[? int64(_sound)];
     if (_pattern == undefined)
     {
         _pattern = new __VinylClassPatternSound(_sound, 1, 1, undefined, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX, undefined, undefined, undefined, undefined);
-        struct_set_from_hash(_soundDict, int64(_sound), _pattern);
+        _soundMap[? int64(_sound)] = _pattern;
     }
     
     return _pattern;

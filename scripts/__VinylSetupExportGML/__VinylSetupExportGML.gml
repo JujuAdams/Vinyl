@@ -16,7 +16,7 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
     static _duckerDict   = __VinylSystem().__duckerDict;
     static _mixDict      = __VinylSystem().__mixDict;
     static _patternDict  = __VinylSystem().__patternDict;
-    static _soundDict    = __VinylSystem().__soundDict;
+    static _soundMap     = __VinylSystem().__soundMap;
     static _metadataDict = __VinylSystem().__metadataDict;
     
     if (not VINYL_LIVE_EDIT)
@@ -81,7 +81,7 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
     
     
     //Export sound definitions
-    var _namesArray = struct_get_names(_soundDict);
+    var _namesArray = ds_map_keys_to_array(_soundMap);
     array_sort(_namesArray, true);
     
     var _i = 0;
@@ -91,7 +91,7 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
         
         if (not struct_exists(_soundExportedDict, _name))
         {
-            _soundDict[$ _namesArray[_i]].__ExportGML(_buffer, "    ", _ignoreEmpty);
+            _soundMap[? _name].__ExportGML(_buffer, "    ", _ignoreEmpty);
         }
         
         ++_i;

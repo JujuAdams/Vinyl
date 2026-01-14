@@ -12,14 +12,14 @@
 function VinylSetupImportJSON(_json, _replace = true)
 {
     static _system      = __VinylSystem();
-    static _soundDict   = __VinylSystem().__soundDict;
+    static _soundMap    = __VinylSystem().__soundMap;
     static _patternDict = __VinylSystem().__patternDict;
     
     if (VINYL_LIVE_EDIT)
     {
         _system.__importingJSON = true;
         
-        var _oldSoundNameArray   = struct_get_names(_soundDict);
+        var _oldSoundNameArray   = ds_map_keys_to_array(_soundMap);
         var _oldPatternNameArray = struct_get_names(_patternDict);
     }
     

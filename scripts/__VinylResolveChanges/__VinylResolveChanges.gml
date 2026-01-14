@@ -9,7 +9,7 @@ function __VinylResolveChanges(_replace, _oldSoundNameArray = undefined, _oldPat
     static _toUpdateArray    = __VinylSystem().__toUpdateArray;
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
-    static _soundDict        = __VinylSystem().__soundDict;
+    static _soundMap         = __VinylSystem().__soundMap;
     static _patternDict      = __VinylSystem().__patternDict;
     
     var _voiceToStructArray = ds_map_values_to_array(_voiceToStructMap);
@@ -19,20 +19,46 @@ function __VinylResolveChanges(_replace, _oldSoundNameArray = undefined, _oldPat
     
     if (_replace)
     {
-        var _i = 0;
-        repeat(array_length(_oldSoundNameArray))
+        if (is_array(_oldSoundNameArray))
         {
-            var _pattern = _soundDict[$ _oldSoundNameArray[_i]];
-            if (not array_contains(_toUpdateArray, _pattern)) _pattern.__ClearSetup();
-            ++_i;
+            var _i = 0;
+            repeat(array_length(_oldSoundNameArray))
+            {
+                var _name = _oldSoundNameArray[_i];
+                var _pattern = _soundMap[? _name];
+                
+                if (not is_struct(_pattern))
+                {
+                    __VinylTrace("Warning! Could not find pattern for old sound name \"", _name, "\"");
+                }
+                else if (not array_contains(_toUpdateArray, _pattern))
+                {
+                    _pattern.__ClearSetup();
+                }
+                
+                ++_i;
+            }
         }
         
-        var _i = 0;
-        repeat(array_length(_oldPatternNameArray))
+        if (is_array(_oldPatternNameArray))
         {
-            var _pattern = _patternDict[$ _oldPatternNameArray[_i]];
-            if (not array_contains(_toUpdateArray, _pattern)) _pattern.__ClearSetup();
-            ++_i;
+            var _i = 0;
+            repeat(array_length(_oldPatternNameArray))
+            {
+                var _name = _oldPatternNameArray[_i];
+                var _pattern = _patternDict[$ _name];
+                
+                if (not is_struct(_pattern))
+                {
+                    __VinylTrace("Warning! Could not find pattern for old pattern name \"", _name, "\"");
+                }
+                else if (not array_contains(_toUpdateArray, _pattern))
+                {
+                    _pattern.__ClearSetup();
+                }
+                
+                ++_i;
+            }
         }
     }
     

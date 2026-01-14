@@ -15,7 +15,7 @@
 function __VinylClassPatternExternal(_path, _patternName, _sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata) : __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata) constructor
 {
     static _patternDict = __VinylSystem().__patternDict;
-    static _soundDict   = __VinylSystem().__soundDict;
+    static _soundMap    = __VinylSystem().__soundMap;
     
     __path         = _path;
     __patternName  = _patternName;
@@ -40,10 +40,10 @@ function __VinylClassPatternExternal(_path, _patternName, _sound, _gain, _pitch,
             variable_struct_remove(_patternDict, _patternName);
         }
         
-        var _existingPattern = struct_get_from_hash(_soundDict, int64(__sound));
+        var _existingPattern = _soundMap[? int64(__sound)];
         if (_existingPattern == self)
         {
-            struct_remove_from_hash(_soundDict, int64(__sound));
+            ds_map_delete(_soundMap, int64(__sound));
         }
     }
     

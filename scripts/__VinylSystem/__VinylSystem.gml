@@ -53,7 +53,7 @@ function __VinylSystem()
         __importingJSON = false;
         
         //Lookup dictionaries for sound/pattern/mix definitions.
-        __soundDict         = {};
+        __soundMap          = ds_map_create();
         __patternDict       = {};
         __mixDict           = {};
         __metadataDict      = {};

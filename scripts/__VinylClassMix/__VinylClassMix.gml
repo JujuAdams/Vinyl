@@ -10,7 +10,7 @@
 function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _membersEmitterAlias, _metadata) constructor
 {
     static _toUpdateArray = __VinylSystem().__toUpdateArray;
-    static _soundDict     = __VinylSystem().__soundDict;
+    static _soundMap      = __VinylSystem().__soundMap;
     static _patternDict   = __VinylSystem().__patternDict;
     
     __mixName             = _mixName;
@@ -191,6 +191,8 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
     
     static __ExportJSON = function(_soundExportedDict, _patternExportedDict, _ignoreEmpty)
     {
+        var _mixName = __mixName;
+        
         static _methodContext = {
             __mixName:    undefined,
             __namesArray: undefined,
@@ -226,20 +228,26 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
         
         
         
-        var _namesArray = [];
-        _methodContext.__namesArray = _namesArray;
+        ///////
+        // Add sounds to the mix members
+        ///////
         
-        struct_foreach(_soundDict, _method);
+        var _namesArray = ds_map_keys_to_array(_soundMap);
         array_sort(_namesArray, true);
         
         var _i = 0;
         repeat(array_length(_namesArray))
         {
             var _name = _namesArray[_i];
-            _soundExportedDict[$ _name] = true;
             
-            var _struct = _soundDict[$ _name].__ExportJSON(_ignoreEmpty);
-            if (_struct != undefined) array_push(_membersArray, _struct);
+            var _pattern = _soundMap[? _name];
+            if (_pattern.__mixName == _mixName)
+            {
+                _soundExportedDict[$ _name] = true;
+                
+                var _struct = _pattern.__ExportJSON(_ignoreEmpty);
+                if (_struct != undefined) array_push(_membersArray, _struct);
+            }
             
             ++_i;
         }
@@ -333,18 +341,25 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
         
         
         
-        var _namesArray = [];
-        _methodContext.__namesArray = _namesArray;
+        ///////
+        // Add sounds to the mix members
+        ///////
         
-        struct_foreach(_soundDict, _method);
+        var _namesArray = ds_map_keys_to_array(_soundMap);
         array_sort(_namesArray, true);
         
         var _i = 0;
         repeat(array_length(_namesArray))
         {
             var _name = _namesArray[_i];
-            _soundExportedDict[$ _name] = true;
-            _soundDict[$ _name].__ExportGML(_buffer, "            ", _ignoreEmpty);
+            var _pattern = _soundMap[? _name];
+            
+            if (_pattern.__mixName == _mixName)
+            {
+                _soundExportedDict[$ _name] = true;
+                _pattern.__ExportGML(_buffer, "            ", _ignoreEmpty);
+            }
+            
             ++_i;
         }
         

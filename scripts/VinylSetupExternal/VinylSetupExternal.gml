@@ -41,7 +41,7 @@ function VinylSetupExternal(_path, _inPatternName = undefined, _gain = 1, _pitch
 {
     static _system      = __VinylSystem();
     static _patternDict = _system.__patternDict;
-    static _soundDict   = _system.__soundDict;
+    static _soundMap    = _system.__soundMap;
     
     if (not file_exists(_path))
     {
@@ -117,7 +117,7 @@ function VinylSetupExternal(_path, _inPatternName = undefined, _gain = 1, _pitch
         }
         
         _patternDict[$ _pattern.__GetPatternName()] = _pattern;
-        struct_set_from_hash(_soundDict, int64(_sound), _pattern);
+        _soundMap[? int64(_sound)] = _pattern;
     }
     
     if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
