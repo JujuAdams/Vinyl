@@ -19,10 +19,10 @@
 
 function __VinylBufferWriteGML(_buffer, _struct, _alphabetise = false, _indent = "")
 {
-    ____VinylBufferWriteGMLInner(_buffer, _struct, _alphabetise, 1, _indent);
+    __VinylBufferWriteGMLInner(_buffer, _struct, _alphabetise, 1, _indent);
 }
 
-function ____VinylBufferWriteGMLInner(_buffer, _value, _alphabetise, _depth, _indent)
+function __VinylBufferWriteGMLInner(_buffer, _value, _alphabetise, _depth, _indent)
 {
     if (is_method(_value)) //Implicitly also a struct so we have to check this first
     {
@@ -63,7 +63,7 @@ function ____VinylBufferWriteGMLInner(_buffer, _value, _alphabetise, _depth, _in
                     buffer_write(_buffer, buffer_text, _indent);
                     buffer_write(_buffer, buffer_text, string(_name));
                     buffer_write(_buffer, buffer_text, " = ");
-                    ____VinylBufferWriteGMLInner(_buffer, _struct[$ _name], _alphabetise, _depth+1, _indent);
+                    __VinylBufferWriteGMLInner(_buffer, _struct[$ _name], _alphabetise, _depth+1, _indent);
                     buffer_write(_buffer, buffer_text, ";\n");
                 }
                 else
@@ -71,7 +71,7 @@ function ____VinylBufferWriteGMLInner(_buffer, _value, _alphabetise, _depth, _in
                     buffer_write(_buffer, buffer_text, _indent);
                     buffer_write(_buffer, buffer_text, string(_name));
                     buffer_write(_buffer, buffer_text, ": ");
-                    ____VinylBufferWriteGMLInner(_buffer, _struct[$ _name], _alphabetise, _depth+1, _indent);
+                    __VinylBufferWriteGMLInner(_buffer, _struct[$ _name], _alphabetise, _depth+1, _indent);
                     buffer_write(_buffer, buffer_text, ",\n");
                 }
                 
@@ -105,7 +105,7 @@ function ____VinylBufferWriteGMLInner(_buffer, _value, _alphabetise, _depth, _in
             repeat(_count)
             {
                 buffer_write(_buffer, buffer_text, _indent);
-                ____VinylBufferWriteGMLInner(_buffer, _array[_i], _alphabetise, _depth+1, _indent);
+                __VinylBufferWriteGMLInner(_buffer, _array[_i], _alphabetise, _depth+1, _indent);
                 buffer_write(_buffer, buffer_text, ",\n");
                 ++_i;
             }
