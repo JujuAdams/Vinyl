@@ -25,15 +25,11 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
         return;
     }
     
-    
-    
     var _buffer = buffer_create(1024, buffer_grow, 1);
     buffer_write(_buffer, buffer_text, "[\n");
     
-    var _patternExportedDict = {};
-    var _soundExportedDict   = {};
-    
-    
+    var _patternExportedMap = ds_map_create();
+    var _soundExportedMap   = ds_map_create();
     
     //Export ducker definitions
     var _namesArray = struct_get_names(_duckerDict);
@@ -46,8 +42,6 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
         ++_i;
     }
     
-    
-    
     //Export mix definitions
     var _namesArray = struct_get_names(_mixDict);
     array_sort(_namesArray, true);
@@ -55,11 +49,9 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
     var _i = 0;
     repeat(array_length(_namesArray))
     {
-        _mixDict[$ _namesArray[_i]].__ExportGML(_buffer, _useMacros, _soundExportedDict, _patternExportedDict, _ignoreEmpty);
+        _mixDict[$ _namesArray[_i]].__ExportGML(_buffer, _useMacros, _soundExportedMap, _patternExportedMap, _ignoreEmpty);
         ++_i;
     }
-    
-    
     
     //Export pattern definitions
     var _namesArray = ds_map_keys_to_array(_patternMap);
@@ -70,15 +62,13 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
     {
         var _name = _namesArray[_i];
         
-        if (not struct_exists(_patternExportedDict, _name))
+        if (not ds_map_exists(_patternExportedMap, _name))
         {
             _patternMap[? _name].__ExportGML(_buffer, "    ", _useMacros);
         }
         
         ++_i;
     }
-    
-    
     
     //Export sound definitions
     var _namesArray = ds_map_keys_to_array(_soundMap);
@@ -89,15 +79,13 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
     {
         var _name = _namesArray[_i];
         
-        if (not struct_exists(_soundExportedDict, _name))
+        if (not ds_map_exists(_soundExportedMap, _name))
         {
             _soundMap[? _name].__ExportGML(_buffer, "    ", _ignoreEmpty);
         }
         
         ++_i;
     }
-    
-    
     
     //Export metadata definitions
     var _namesArray = struct_get_names(_metadataDict);
@@ -121,12 +109,15 @@ function __VinylSetupExportGML(_useMacros = false, _ignoreEmpty = true)
         ++_i;
     }
     
-    
-    
     buffer_write(_buffer, buffer_text, "]");
     
+    //Get the string
     var _string = buffer_peek(_buffer, 0, buffer_string);
     buffer_delete(_buffer);
+    
+    //Clean up
+    ds_map_destroy(_patternExportedMap);
+    ds_map_destroy(_soundExportedMap);
     
     return _string;
 }

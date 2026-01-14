@@ -23,13 +23,9 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
         return;
     }
     
-    
-    
-    var _outArray            = [];
-    var _patternExportedDict = {};
-    var _soundExportedDict   = {};
-    
-    
+    var _outArray           = [];
+    var _patternExportedMap = ds_map_create();
+    var _soundExportedMap   = ds_map_create();
     
     //Export ducker definitions
     var _i = 0;
@@ -39,8 +35,6 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
         ++_i;
     }
     
-    
-    
     //Export mix definitions
     var _namesArray = struct_get_names(_mixDict);
     array_sort(_namesArray, true);
@@ -48,11 +42,9 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
     var _i = 0;
     repeat(array_length(_namesArray))
     {
-        array_push(_outArray, _mixDict[$ _namesArray[_i]].__ExportJSON(_soundExportedDict, _patternExportedDict, _ignoreEmpty));
+        array_push(_outArray, _mixDict[$ _namesArray[_i]].__ExportJSON(_soundExportedMap, _patternExportedMap, _ignoreEmpty));
         ++_i;
     }
-    
-    
     
     //Export pattern definitions that aren't in mixes
     var _namesArray = ds_map_keys_to_array(_patternMap);
@@ -63,7 +55,7 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
     {
         var _name = _namesArray[_i];
         
-        if (not struct_exists(_patternExportedDict, _name))
+        if (not ds_map_exists(_patternExportedMap, _name))
         {
             var _struct = _patternMap[? _name].__ExportJSON();
             if (_struct != undefined) array_push(_outArray, _struct);
@@ -71,8 +63,6 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
         
         ++_i;
     }
-    
-    
     
     //Export sound definitions that aren't in mixes
     var _namesArray = ds_map_keys_to_array(_soundMap);
@@ -83,7 +73,7 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
     {
         var _name = _namesArray[_i];
         
-        if (not struct_exists(_soundExportedDict, _name))
+        if (not ds_map_exists(_soundExportedMap, _name))
         {
             var _struct = _soundMap[? _name].__ExportJSON(_ignoreEmpty);
             if (_struct != undefined) array_push(_outArray, _struct);
@@ -91,8 +81,6 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
         
         ++_i;
     }
-    
-    
     
     //Export metadata definitions
     var _namesArray = struct_get_names(_metadataDict);
@@ -111,7 +99,9 @@ function VinylSetupExportJSON(_ignoreEmpty = true)
         ++_i;
     }
     
-    
+    //Clean up
+    ds_map_destroy(_patternExportedMap);
+    ds_map_destroy(_soundExportedMap);
     
     return _outArray;
 }

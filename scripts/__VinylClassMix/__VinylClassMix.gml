@@ -189,7 +189,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
         }
     }
     
-    static __ExportJSON = function(_soundExportedDict, _patternExportedDict, _ignoreEmpty)
+    static __ExportJSON = function(_soundExportedMap, _patternExportedMap, _ignoreEmpty)
     {
         var _membersArray = [];
         var _mixName = __mixName;
@@ -206,7 +206,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
             var _pattern = _patternMap[? _name];
             if (_pattern.__mixName == _mixName)
             {
-                _patternExportedDict[$ _name] = true;
+                _patternExportedMap[? _name] = true;
                 array_push(_membersArray, _pattern.__ExportJSON());
             }
             
@@ -225,7 +225,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
             var _pattern = _soundMap[? _name];
             if (_pattern.__mixName == _mixName)
             {
-                _soundExportedDict[$ _name] = true;
+                _soundExportedMap[? _name] = true;
                 
                 var _struct = _pattern.__ExportJSON(_ignoreEmpty);
                 if (_struct != undefined) array_push(_membersArray, _struct);
@@ -253,7 +253,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
         return _struct;
     }
     
-    static __ExportGML = function(_buffer, _useMacros, _soundExportedDict, _patternExportedDict, _ignoreEmpty)
+    static __ExportGML = function(_buffer, _useMacros, _soundExportedMap, _patternExportedMap, _ignoreEmpty)
     {
         //Write basic mix info
         buffer_write(_buffer, buffer_text, "    {\n");
@@ -302,7 +302,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
             var _pattern = _patternMap[? _name];
             if (_pattern.__mixName == _mixName)
             {
-                _patternExportedDict[$ _name] = true;
+                _patternExportedMap[? _name] = true;
                 _pattern.__ExportGML(_buffer, "            ", _useMacros);
             }
             
@@ -321,7 +321,7 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
             var _pattern = _soundMap[? _name];
             if (_pattern.__mixName == _mixName)
             {
-                _soundExportedDict[$ _name] = true;
+                _soundExportedMap[? _name] = true;
                 _pattern.__ExportGML(_buffer, "            ", _ignoreEmpty);
             }
             
