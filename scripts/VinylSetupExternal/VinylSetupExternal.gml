@@ -26,7 +26,7 @@
 /// value of `1` to load a file as a WAV file or use a value of `2` to load a file as an OGG file.
 /// 
 /// @param path
-/// @param [patternName=filename]
+/// @param [patternName=path]
 /// @param [gain=1]
 /// @param [pitch=1]
 /// @param [loop]

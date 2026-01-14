@@ -10,7 +10,3 @@
 - ### [Download the .yymps](https://github.com/JujuAdams/Vinyl/releases/)
 - ### Read the [documentation](http://jujuadams.github.io/Vinyl)
 - ### You may also like [Bard Audio](https://github.com/gl326/bard-audio), [LineAudio](https://github.com/WangleLine/LineAudio), and [Sonus](https://github.com/tabularelf/Sonus)
-
-&nbsp;
-
-- [Background shader](https://www.shadertoy.com/view/3sccD8/) by [Xor](https://xor.graphics/)
