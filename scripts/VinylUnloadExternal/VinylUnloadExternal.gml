@@ -1,5 +1,8 @@
 // Feather disable all
 
+/// Unloads a pattern that has been added using `VinylSetupExternal()`. This frees memory
+/// associated with the audio.
+/// 
 /// @param patternName
 
 function VinylUnloadExternal(_patternName)

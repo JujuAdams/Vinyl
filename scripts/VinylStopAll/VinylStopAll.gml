@@ -1,7 +1,7 @@
 // Feather disable all
 
 /// Convenience function to stop all audio currently playing. If the optional parameter
-/// `clearQueues` is set to `true` then all queues will have their contents cleared whichh will
+/// `clearQueues` is set to `true` then all queues will have their contents cleared which will
 /// prevent queues from playing their next track after all audio has been stopped.
 /// 
 /// @param [clearQueues=true]
