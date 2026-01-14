@@ -121,7 +121,7 @@ function __VinylSystem()
         
         //Import the boot setup JSON
         __VinylConfigJSON();
-        __VinylSetupImportJSONInner(global.VinylConfigSON);
+        __VinylSetupImportJSONInner(global.VinylConfigJSON);
         
         //Set up an update function that executes one every frame forever.
         time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, function()
@@ -189,7 +189,7 @@ function __VinylSystem()
                             {
                                 try
                                 {
-                                    VinylSetupImportJSON(_gml[$ "global.VinylConfigSON"] ?? []);
+                                    VinylSetupImportJSON(_gml[$ "global.VinylConfigJSON"] ?? []);
                                     __VinylTrace("Successfully loaded config JSON from disk (", date_datetime_string(date_current_datetime()), ")");
                                 }
                                 catch(_error)

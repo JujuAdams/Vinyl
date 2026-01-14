@@ -10,7 +10,7 @@
 /// parser used to power live updating is very simple. You should treat the JSON written in this
 /// file as "pure JSON" and you should not use conditionals or if-statements or any logic at all.
 
-global.VinylConfigSON = [
+global.VinylConfigJSON = [
     
     /*
     Here are some examples of different resources you can create using JSON. This is not an
