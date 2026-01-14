@@ -26,4 +26,5 @@
 -    [Abstract Functions](Functions-Abstract)
 -    [Ducker Functions](Functions-Ducker)
 -    [Metadata Functions](Functions-Metadata)
+-    [External Audio](Functions-External)
 -    [Miscellaneous](Functions-Miscellaneous)
