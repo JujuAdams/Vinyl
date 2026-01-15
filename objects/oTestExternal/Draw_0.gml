@@ -41,3 +41,37 @@ UIButtonInline("Unload music", function()
 {
     VinylUnloadExternal("sndChickenNuggetsExternal.ogg");
 });
+UINewline();
+UINewline();
+UIButtonInline("Load low bitrate cat (should error)", function()
+{
+    VinylSetupExternal("sndCatLowBitrateExternal.wav");
+});
+UINewline();
+UIButtonInline("Load cat (8-bit)", function()
+{
+    VinylSetupExternal("sndCat8External.wav");
+});
+UIButtonInline("Play cat (8)", function()
+{
+    VinylStop(voice);
+    voice = VinylPlay("sndCat8External.wav");
+});
+UIButtonInline("Unload cat (8)", function()
+{
+    VinylUnloadExternal("sndCat8External.wav");
+});
+UINewline();
+UIButtonInline("Load cat (16-bit)", function()
+{
+    VinylSetupExternal("sndCat16External.wav");
+});
+UIButtonInline("Play cat (16)", function()
+{
+    VinylStop(voice);
+    voice = VinylPlay("sndCat16External.wav");
+});
+UIButtonInline("Unload cat (16)", function()
+{
+    VinylUnloadExternal("sndCat16External.wav");
+});

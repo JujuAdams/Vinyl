@@ -36,6 +36,9 @@
   "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"sndBleepExternal.wav","CopyToMask":-1,"filePath":"datafiles","name":"sndBleepExternal.wav","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"sndCat16External.wav","CopyToMask":-1,"filePath":"datafiles","name":"sndCat16External.wav","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"sndCat8External.wav","CopyToMask":-1,"filePath":"datafiles","name":"sndCat8External.wav","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"sndCatLowBitrateExternal.wav","CopyToMask":-1,"filePath":"datafiles","name":"sndCatLowBitrateExternal.wav","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"sndChickenNuggetsExternal.ogg","CopyToMask":-1,"filePath":"datafiles","name":"sndChickenNuggetsExternal.ogg","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"vinyl_license.txt","CopyToMask":-1,"filePath":"datafiles","name":"vinyl_license.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
