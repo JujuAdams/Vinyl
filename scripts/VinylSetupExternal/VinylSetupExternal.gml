@@ -178,9 +178,9 @@ function __VinylSetupExternalLoadWAV(_path, _buffer = undefined)
         return _result;
     }
     
-    if (_blockAlignment != buffer_sizeof(_dataFormat))
+    if (_blockAlignment != _channels*buffer_sizeof(_dataFormat))
     {
-        __VinylError("Mismatch between block alignment (", _blockAlignment, ") and data format (", buffer_sizeof(_dataFormat));
+        __VinylError("Mismatch between block alignment (", _blockAlignment, ") and data format (", buffer_sizeof(_dataFormat), ")");
         return _result;
     }
     
