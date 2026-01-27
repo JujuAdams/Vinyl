@@ -6,5 +6,5 @@
 
 function VinylGetBPM(_voice)
 {
-    return __VinylEnsureSoundVoice(_voice).__bpm;
+    return __VinylEnsureSoundVoice(_voice).__GetBPM();
 }

@@ -12,7 +12,7 @@ UIButtonInline("Play", function()
 {
     VinylStop(voice);
     voice = VinylPlay(sndSync1, true);
-    VinylSetPitch(voice, 0.2);
+    VinylSetPitch(voice, 0.5);
 });
 UIButtonInline("Pause", function()
 {

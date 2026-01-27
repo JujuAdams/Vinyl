@@ -12,10 +12,9 @@
 /// @param duckerNameFinal
 /// @param duckerNameLocal
 /// @param duckPrioLocal
-/// @param bpm
 /// @param pattern
 
-function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _gainDuck, _pitchSound, _pitchLocal, _pitchMix, _duckerNameFinal, _duckerNameLocal, _duckPrioLocal, _bpm, _pattern) constructor
+function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gainMix, _gainDuck, _pitchSound, _pitchLocal, _pitchMix, _duckerNameFinal, _duckerNameLocal, _duckPrioLocal, _pattern) constructor
 {
     static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
@@ -38,12 +37,10 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     __duckerNameLocal = _duckerNameLocal;
     __duckPrioLocal   = _duckPrioLocal;
     
-    __bpm = _bpm;
+    __pattern = _pattern;
     
     if (VINYL_LIVE_EDIT)
     {
-        __pattern = _pattern;
-        
         __loopLocal = _loopLocal;
         __sound     = _pattern.__sound;
         __mixName   = _pattern.__mixName;
@@ -81,6 +78,11 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     static __GetEmitter = function()
     {
         return undefined;
+    }
+    
+    static __GetBPM = function()
+    {
+        return __pattern.__bpm;
     }
     
     static __IsPlaying = function()
@@ -276,7 +278,6 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         
         __gainSound  = _pattern.__gain;
         __pitchSound = _pattern.__pitch;
-        __bpm        = _pattern.__bpm;
         
         var _mixStruct = __VinylVoiceMoveMix(__voiceReference, _pattern.__mixName);
         var _loopMix = (_mixStruct == undefined)? undefined : _mixStruct.__membersLoop;

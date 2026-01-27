@@ -28,7 +28,7 @@ function __VinylClassBeatTracker(_voice, _voiceStruct) constructor
             return;
         }
         
-        var _bpm = _voiceStruct.__bpm;
+        var _bpm = _voiceStruct.__GetBPM();
         if (_bpm == undefined)
         {
             __beatThisStep = false;

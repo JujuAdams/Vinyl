@@ -44,7 +44,6 @@ function __VinylEnsureSoundVoice(_voice)
                                                   _gainSound, _gainLocal, _gainMix, 1,
                                                   _pitchSound, _pitchLocal, _pitchMix,
                                                   undefined, undefined, 0,
-                                                  _pattern.__bpm,
                                                   _pattern);
     }
     

@@ -109,7 +109,6 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
                                                           _gainSound, _gainLocal, _gainMix, _gainDuck,
                                                           _pitchSound, _pitchLocal, _pitchMix,
                                                           _duckerNameFinal, _duckerNameLocal, _duckPrioLocal,
-                                                          __bpm,
                                                           self);
         }
         

@@ -101,10 +101,9 @@ function __VinylSystem()
         __nullVoice = {};
         with(__nullVoice)
         {
-            __bpm = undefined;
-            
             __IsPlaying         = function() { return false; };
             __GetAsset          = function() { return -1; };
+            __GetBPM            = function() { return undefined; };
             __GetGameMakerVoice = function() { return undefined; };
             __SetLocalGain      = function() {};
             __SetLocalPitch     = function() {};
