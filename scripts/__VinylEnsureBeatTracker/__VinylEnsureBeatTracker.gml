@@ -13,17 +13,10 @@ function __VinylEnsureBeatTracker(_voice, _beginOnBeat)
         return _nullTracker;
     }
     
-    var _voiceStruct = __VinylEnsureSoundVoice(_voice);
-    
-    if (not is_instanceof(_voiceStruct, __VinylClassVoiceSound))
-    {
-        return _nullTracker;
-    }
-    
     var _trackerStruct = _voiceToTrackerMap[? _voice];
     if (_trackerStruct == undefined)
     {
-        _trackerStruct = new __VinylClassBeatTracker(_voice, _voiceStruct, _beginOnBeat);
+        _trackerStruct = new __VinylClassBeatTracker(_voice, __VinylEnsureSoundVoice(_voice), _beginOnBeat);
         _voiceToTrackerMap[? _voice] = _trackerStruct;
     }
     

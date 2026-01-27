@@ -87,6 +87,11 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
         return __VinylGetSoundBPM(__GetAsset());
     }
     
+    static __GetTrackPosition = function()
+    {
+        return audio_sound_get_track_position(__voiceCurrent);
+    }
+    
     static __PlaySound = function(_sound, _loop, _gain, _pitch)
     {
         if (is_infinity(__fadeInRate))

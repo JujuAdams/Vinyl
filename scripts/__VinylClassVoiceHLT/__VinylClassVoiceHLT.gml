@@ -301,6 +301,11 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         return __pattern.__bpm ?? __VinylGetSoundBPM(__GetAsset());
     }
     
+    static __GetTrackPosition = function()
+    {
+        return audio_sound_get_track_position(__voiceCurrent);
+    }
+    
     static __IsPlaying = function()
     {
         return ((__state != __VINYL_HLT_STATE_TAIL) || audio_is_playing(__voiceCurrent));

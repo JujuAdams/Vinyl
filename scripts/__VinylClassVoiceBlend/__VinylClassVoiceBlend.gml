@@ -232,7 +232,12 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     
     static __GetBPM = function()
     {
-        return __pattern.__bpm ?? __VinylGetSoundBPM(__GetAsset());
+        return (__voiceCount == 0)? undefined : (__pattern.__bpm ?? __VinylGetSoundBPM(audio_sound_get_asset(__voiceArray[0])));
+    }
+    
+    static __GetTrackPosition = function()
+    {
+        return (__voiceCount == 0)? 0 : audio_sound_get_track_position(__voiceArray[0]);
     }
     
     static __UpdateVoiceGains = function()

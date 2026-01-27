@@ -35,20 +35,16 @@ function __VinylClassBeatTracker(_voice, _voiceStruct, _beginOnBeat) constructor
             __beatThisStep = false;
             __beatIndex    = 0;
             __beatDistance = 0;
-            return;
         }
-        
-        var _gmVoice = _voiceStruct.__GetGameMakerVoice(); //The GameMaker voice can change
-        var _time = audio_sound_get_track_position(_gmVoice);
-        
-        var _secondsPerBeat = 60 / _bpm;
-        
-        var _beat = _time / _secondsPerBeat;
-        var _beatIndex = floor(_beat);
-        
-        __beatThisStep = (__beatIndex != _beatIndex);
-        __beatIndex    = _beatIndex;
-        __beatDistance = -((((_beat - _beatIndex) + 0.5) mod 1) - 0.5);
+        else
+        {
+            var _beat = _voiceStruct.__GetTrackPosition() * (_bpm / 60);
+            var _beatIndex = floor(_beat);
+            
+            __beatThisStep = (__beatIndex != _beatIndex);
+            __beatIndex    = _beatIndex;
+            __beatDistance = -((((_beat - _beatIndex) + 0.5) mod 1) - 0.5);
+        }
         
     },
     [], -1);

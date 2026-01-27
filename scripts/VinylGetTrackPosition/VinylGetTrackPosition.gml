@@ -9,6 +9,13 @@
 
 function VinylGetTrackPosition(_voice)
 {
-    var _gmVoice = VinylGetGMVoice(_voice);
-    return (_gmVoice == undefined)? 0 : audio_sound_get_track_position(_gmVoice);
+    static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
+    
+    if ((_voice == undefined) || ((_voice <= 0xFFFFFFFF) && (not audio_is_playing(_voice))))
+    {
+        return 0;
+    }
+    
+    var _voiceStruct = _voiceToStructMap[? _voice];
+    return (_voiceStruct == undefined)? audio_sound_get_track_position(_voice) : _voiceStruct.__GetTrackPosition();
 }

@@ -85,6 +85,11 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         return __pattern.__bpm;
     }
     
+    static __GetTrackPosition = function()
+    {
+        return audio_sound_get_track_position(__voiceReference);
+    }
+    
     static __IsPlaying = function()
     {
         return audio_is_playing(__voiceReference);

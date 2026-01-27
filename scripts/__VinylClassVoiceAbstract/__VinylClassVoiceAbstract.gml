@@ -126,6 +126,11 @@ function __VinylClassVoiceAbstract(_pattern, _gainLocal, _pitchLocal, _duckerNam
         return undefined;
     }
     
+    static __GetTrackPosition = function()
+    {
+        return 0;
+    }
+    
     static __IsPlaying = function()
     {
         return __playing;
