@@ -128,6 +128,7 @@
     {"id":{"name":"UITextWrap","path":"scripts/UITextWrap/UITextWrap.yy",},},
     {"id":{"name":"VinylAbstract","path":"scripts/VinylAbstract/VinylAbstract.yy",},},
     {"id":{"name":"VinylAbstractStopAll","path":"scripts/VinylAbstractStopAll/VinylAbstractStopAll.yy",},},
+    {"id":{"name":"VinylAttachBeatTracker","path":"scripts/VinylAttachBeatTracker/VinylAttachBeatTracker.yy",},},
     {"id":{"name":"VinylCallbackOnStop","path":"scripts/VinylCallbackOnStop/VinylCallbackOnStop.yy",},},
     {"id":{"name":"VinylDuckerCheck","path":"scripts/VinylDuckerCheck/VinylDuckerCheck.yy",},},
     {"id":{"name":"VinylDuckerGetMaxPriority","path":"scripts/VinylDuckerGetMaxPriority/VinylDuckerGetMaxPriority.yy",},},

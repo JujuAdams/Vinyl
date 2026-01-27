@@ -11,7 +11,7 @@
 
 function VinylGetBeatDistance(_voice, _realtime = true)
 {
-    var _trackerStruct = __VinylEnsureBeatTracker(_voice);
+    var _trackerStruct = __VinylEnsureBeatTracker(_voice, false);
     
     var _distance = _trackerStruct.__beatDistance;
     

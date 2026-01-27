@@ -94,6 +94,7 @@
     {"name":"UITextWrap","order":7,"path":"scripts/UITextWrap/UITextWrap.yy",},
     {"name":"VinylAbstract","order":5,"path":"scripts/VinylAbstract/VinylAbstract.yy",},
     {"name":"VinylAbstractStopAll","order":6,"path":"scripts/VinylAbstractStopAll/VinylAbstractStopAll.yy",},
+    {"name":"VinylAttachBeatTracker","order":6,"path":"scripts/VinylAttachBeatTracker/VinylAttachBeatTracker.yy",},
     {"name":"VinylCallbackOnStop","order":4,"path":"scripts/VinylCallbackOnStop/VinylCallbackOnStop.yy",},
     {"name":"VinylDuckerGetMaxPriority","order":2,"path":"scripts/VinylDuckerGetMaxPriority/VinylDuckerGetMaxPriority.yy",},
     {"name":"VinylDuckerGetMaxVoice","order":3,"path":"scripts/VinylDuckerGetMaxVoice/VinylDuckerGetMaxVoice.yy",},

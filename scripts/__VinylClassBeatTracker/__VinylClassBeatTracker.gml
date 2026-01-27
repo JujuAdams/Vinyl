@@ -2,15 +2,16 @@
 
 /// @param voice
 /// @param voiceStruct
+/// @param beginOnBeat
 
-function __VinylClassBeatTracker(_voice, _voiceStruct) constructor
+function __VinylClassBeatTracker(_voice, _voiceStruct, _beginOnBeat) constructor
 {
     static _voiceToTrackerMap = __VinylSystem().__voiceToTrackerMap;
     
     __voice       = _voice;
     __voiceStruct = _voiceStruct;
     
-    __beatThisStep = false;
+    __beatThisStep = _beginOnBeat;
     __beatIndex    = 0;
     __beatDistance = 0;
     

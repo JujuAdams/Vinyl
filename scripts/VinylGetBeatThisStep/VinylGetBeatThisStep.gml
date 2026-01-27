@@ -6,5 +6,5 @@
 
 function VinylGetBeatThisStep(_voice)
 {
-    return __VinylEnsureBeatTracker(_voice).__beatThisStep;
+    return __VinylEnsureBeatTracker(_voice, false).__beatThisStep;
 }

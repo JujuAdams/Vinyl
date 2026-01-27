@@ -6,5 +6,5 @@
 
 function VinylGetBeatCount(_voice)
 {
-    return __VinylEnsureBeatTracker(_voice).__beatIndex;
+    return __VinylEnsureBeatTracker(_voice, false).__beatIndex;
 }
