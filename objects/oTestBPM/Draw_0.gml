@@ -30,7 +30,13 @@ UIButtonInline("Blend", function()
 {
     VinylStop(voice);
     voice = VinylPlay("bpmBlend", true);
-    VinylSetPitch(voice, 0.5);
+    
+    var _i = 0;
+    repeat(VinylGetBlendMemberCount(voice))
+    {
+        VinylSetBlendMemberGain(voice, _i, 1);
+        ++_i;
+    }
 });
 UINewline();
 UIButtonInline("Pause", function()
@@ -40,6 +46,10 @@ UIButtonInline("Pause", function()
 UIButtonInline("Resume", function()
 {
     VinylSetPause(voice, false);
+});
+UIButtonInline("End Loop", function()
+{
+    VinylSetLoop(voice, false);
 });
 UIButtonInline("Stop", function()
 {

@@ -1,6 +1,8 @@
 // Feather disable all
 
-/// Immediately stops playback of a voice.
+/// Immediately stops playback of a voice. Calling this function targeting an HLT voice will stop
+/// the HLT voice entirely. If you'd like to move from the "loop" sound to the "tail" sound then
+/// call `VinylSetLoop(..., false)`.
 /// 
 /// @param voice
 
