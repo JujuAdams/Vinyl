@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylGetBeatCount",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylGetBeatCount",
+  "parent":{
+    "name":"BPM",
+    "path":"folders/Vinyl/BPM.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

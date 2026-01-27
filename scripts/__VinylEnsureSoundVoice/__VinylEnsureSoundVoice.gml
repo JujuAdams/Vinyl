@@ -8,7 +8,7 @@ function __VinylEnsureSoundVoice(_voice)
     static _mixDict          = __VinylSystem().__mixDict;
     static _nullVoice        = __VinylSystem().__nullVoice;
     
-    if ((_voice <= 0xFFFFFFFF) && (not audio_is_playing(_voice)))
+    if ((_voice == undefined) || ((_voice <= 0xFFFFFFFF) && (not audio_is_playing(_voice))))
     {
         return _nullVoice;
     }

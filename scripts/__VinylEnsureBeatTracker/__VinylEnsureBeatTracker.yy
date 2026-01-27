@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__VinylEnsureBeatTracker",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__VinylEnsureBeatTracker",
+  "parent":{
+    "name":"(Internals)",
+    "path":"folders/Vinyl/(Internals).yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -73,6 +73,9 @@ function __VinylSystem()
         //to incrementally 
         __voiceToStructMap = ds_map_create();
         
+        //Maps voices to a tracker struct, if one exists
+        __voiceToTrackerMap = ds_map_create();
+        
         //Contains structs that describe callbacks to be executed when a voice stops playing.
         __callbackArray = [];
         
@@ -98,6 +101,8 @@ function __VinylSystem()
         __nullVoice = {};
         with(__nullVoice)
         {
+            __bpm = undefined;
+            
             __IsPlaying         = function() { return false; };
             __GetAsset          = function() { return -1; };
             __GetGameMakerVoice = function() { return undefined; };
@@ -108,6 +113,15 @@ function __VinylSystem()
             __SetMixPitch       = function() {};
         }
         
+        //Create a null tracker struct in a similar vein to above
+        __nullTracker = {};
+        with(__nullTracker)
+        {
+            __beatThisStep = false;
+            __beatIndex    = 0;
+            __beatDistance = 0;
+        }
+                
         //Set the master gain to 1. The actual gain value we pass into GameMaker's native function
         //is some multiple of this value so we want to initialize early to ensure the native gain
         //is set properly for unity gain.

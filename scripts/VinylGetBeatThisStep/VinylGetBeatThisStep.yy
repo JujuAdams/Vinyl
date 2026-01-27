@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylGetBeatThisStep",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylGetBeatThisStep",
+  "parent":{
+    "name":"BPM",
+    "path":"folders/Vinyl/BPM.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

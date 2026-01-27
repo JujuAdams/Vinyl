@@ -142,6 +142,16 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         __metadata     = _metadata;
     }
     
+    static __UpdateBPM = function(_bpm)
+    {
+        if (VINYL_LIVE_EDIT)
+        {
+            array_push(_toUpdateArray, self);
+        }
+        
+        __bpm = _bpm;
+    }
+    
     static __ClearSetup = function()
     {
         __UpdateSetup(1, 1, false, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX, undefined, 0, undefined);
