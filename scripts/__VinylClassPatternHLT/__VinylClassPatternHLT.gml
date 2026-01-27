@@ -9,9 +9,10 @@
 /// @param ducker
 /// @param duckPriority
 /// @param emitterAlias
+/// @param bpm
 /// @param metadata
 
-function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata) constructor
+function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckerName, _duckPrio, _emitterAlias, _bpm, _metadata) constructor
 {
     static _voiceUpdateArray = __VinylSystem().__voiceUpdateArray;
     static _emitterMap       = __VinylSystem().__emitterMap;
@@ -27,6 +28,7 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
     __duckerName   = _duckerName;
     __duckPrio     = _duckPrio;
     __emitterAlias = _emitterAlias;
+    __bpm          = _bpm;
     __metadata     = _metadata;
     
     
@@ -43,7 +45,7 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         return audio_is_playing(__soundHead) || audio_is_playing(__soundLoop) || audio_is_playing(__soundTail);
     }
     
-    static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata)
+    static __UpdateSetup = function(_soundHead, _soundLoop, _soundTail, _gain, _mixName, _duckerName, _duckPrio, _emitterAlias, _bpm, _metadata)
     {
         var _newSoundHead = __VinylImportSound(_soundHead);
         var _newSoundLoop = __VinylImportSound(_soundLoop);
@@ -66,12 +68,13 @@ function __VinylClassPatternHLT(_patternName, _soundHead, _soundLoop, _soundTail
         __duckerName   = _duckerName;
         __duckPrio     = _duckPrio;
         __emitterAlias = _emitterAlias;
+        __bpm          = _bpm;
         __metadata     = _metadata;
     }
     
     static __ClearSetup = function()
     {
-        __UpdateSetup(__soundHead, __soundLoop, __soundTail, 1, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX, undefined, 0, undefined);
+        __UpdateSetup(__soundHead, __soundLoop, __soundTail, 1, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX, undefined, 0, undefined, undefined, undefined);
     }
     
     static __UsesSound = function(_sound)

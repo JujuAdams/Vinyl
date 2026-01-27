@@ -230,6 +230,11 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         return __emitter;
     }
     
+    static __GetBPM = function()
+    {
+        return __pattern.__bpm ?? __VinylGetSoundBPM(__GetAsset());
+    }
+    
     static __UpdateVoiceGains = function()
     {
         var _voiceArray = __voiceArray;

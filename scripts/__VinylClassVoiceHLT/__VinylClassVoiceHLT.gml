@@ -296,6 +296,11 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
         return __emitter;
     }
     
+    static __GetBPM = function()
+    {
+        return __pattern.__bpm ?? __VinylGetSoundBPM(__GetAsset());
+    }
+    
     static __IsPlaying = function()
     {
         return ((__state != __VINYL_HLT_STATE_TAIL) || audio_is_playing(__voiceCurrent));

@@ -116,6 +116,16 @@ function __VinylClassVoiceAbstract(_pattern, _gainLocal, _pitchLocal, _duckerNam
         return undefined;
     }
     
+    static __GetEmitter = function()
+    {
+        return undefined;
+    }
+    
+    static __GetBPM = function()
+    {
+        return undefined;
+    }
+    
     static __IsPlaying = function()
     {
         return __playing;

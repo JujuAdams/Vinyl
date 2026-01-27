@@ -83,6 +83,11 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
         return undefined;
     }
     
+    static __GetBPM = function()
+    {
+        return __pattern.__bpm ?? __VinylGetSoundBPM(__GetAsset());
+    }
+    
     static __IsPlaying = function()
     {
         return audio_is_playing(__voiceReference);

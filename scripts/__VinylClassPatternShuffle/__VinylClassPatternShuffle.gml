@@ -11,9 +11,10 @@
 /// @param ducker
 /// @param duckPriority
 /// @param emitterAlias
+/// @param bpm
 /// @param metadata
 
-function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata) constructor
+function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _bpm, _metadata) constructor
 {
     static _mixDict           = __VinylSystem().__mixDict;
     static _duckerDict        = __VinylSystem().__duckerDict;
@@ -44,6 +45,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     __duckerName   = _duckerName;
     __duckPrio     = _duckPrio;
     __emitterAlias = _emitterAlias;
+    __bpm          = _bpm;
     __metadata     = _metadata;
     
     __gainRandomize  = (_gainMin != _gainMax);
@@ -209,7 +211,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         return false;
     }
     
-    static __UpdateSetup = function(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata)
+    static __UpdateSetup = function(_soundArray, _gainMin, _gainMax, _pitchMin, _pitchMax, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _bpm, _metadata)
     {
         if (VINYL_LIVE_EDIT)
         {
@@ -237,6 +239,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
         __duckerName   = _duckerName;
         __duckPrio     = _duckPrio;
         __emitterAlias = _emitterAlias;
+        __bpm          = _bpm;
         __metadata     = _metadata;
         
         __gainRandomize  = (_gainMin != _gainMax);
@@ -253,7 +256,7 @@ function __VinylClassPatternShuffle(_patternName, _soundArray, _gainMin, _gainMa
     
     static __ClearSetup = function()
     {
-        __UpdateSetup(__soundArray, 1, 1, 1, 1, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX, undefined, 0, undefined);
+        __UpdateSetup(__soundArray, 1, 1, 1, 1, false, (VINYL_DEFAULT_MIX == VINYL_NO_MIX)? undefined : VINYL_DEFAULT_MIX, undefined, 0, undefined, undefined, undefined);
     }
     
     static __ExportJSON = function()

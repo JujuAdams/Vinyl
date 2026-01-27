@@ -38,6 +38,7 @@ function VinylSetupAbstract(_patternName, _gain = 1, _pitch = 1, _mixName = VINY
     var _existingPattern = _patternMap[? _patternName];
     if (_existingPattern != undefined)
     {
+        //FIXME - `_loop` is not used
         _existingPattern.__UpdateSetup(_gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _metadata);
     }
     else
