@@ -8,9 +8,10 @@
 /// @param ducker
 /// @param duckPriority
 /// @param emitterAlias
+/// @param bpm
 /// @param metadata
 
-function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata) constructor
+function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _bpm, _metadata) constructor
 {
     static _mixDict           = __VinylSystem().__mixDict;
     static _duckerDict        = __VinylSystem().__duckerDict;
@@ -26,6 +27,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
     __duckerName   = _duckerName;
     __duckPrio     = _duckPrio;
     __emitterAlias = _emitterAlias;
+    __bpm          = _bpm;
     __metadata     = _metadata;
     
     
@@ -107,6 +109,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
                                                           _gainSound, _gainLocal, _gainMix, _gainDuck,
                                                           _pitchSound, _pitchLocal, _pitchMix,
                                                           _duckerNameFinal, _duckerNameLocal, _duckPrioLocal,
+                                                          __bpm,
                                                           self);
         }
         
@@ -121,7 +124,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         return audio_is_playing(__sound);
     }
     
-    static __UpdateSetup = function(_gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata)
+    static __UpdateSetup = function(_gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _bpm, _metadata)
     {
         if (VINYL_LIVE_EDIT)
         {
@@ -135,6 +138,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         __duckerName   = _duckerName;
         __duckPrio     = _duckPrio;
         __emitterAlias = _emitterAlias;
+        __bpm          = _bpm;
         __metadata     = _metadata;
     }
     
@@ -162,6 +166,7 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
         if (__loop) _struct.loop = true;
         if (__duckerName != undefined) _struct.duckOn = __duckerName;
         if (__duckPrio != 0) _struct.duckPrio = __duckPrio;
+        if (__bpm != undefined) _struct.bpm = __bpm;
         if (__emitterAlias != undefined) _struct.emitter = __emitterAlias;
         
         return _struct;
@@ -232,6 +237,14 @@ function __VinylClassPatternSound(_sound, _gain, _pitch, _loop, _mixName, _ducke
             buffer_write(_buffer, buffer_text, "\",\n");
         }
         
+        if (__emitterAlias != undefined)
+        {
+            buffer_write(_buffer, buffer_text, _indent);
+            buffer_write(_buffer, buffer_text, "    bpm: ");
+            buffer_write(_buffer, buffer_text, string(__bpm));
+            buffer_write(_buffer, buffer_text, ",\n");
+        }
+        
         buffer_write(_buffer, buffer_text, _indent);
         buffer_write(_buffer, buffer_text, "},\n");
     }
@@ -254,6 +267,7 @@ function __VinylImportSoundJSON(_json)
                 case "duckOn":
                 case "duckPrio":
                 case "emitter":
+                case "bpm":
                 case "metadata":
                 break;
                 
@@ -267,6 +281,6 @@ function __VinylImportSoundJSON(_json)
     }
     
     var _sound = __VinylImportSound(_json.sound);
-    VinylSetupSound(_sound, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "emitter"], _json[$ "metadata"]);
+    VinylSetupSound(_sound, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "emitter"], _json[$ "bpm"], _json[$ "metadata"]);
     return _sound;
 }

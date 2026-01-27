@@ -20,9 +20,10 @@
 /// @param [duckerName]
 /// @param [duckPriority=0]
 /// @param [emitterAlias]
+/// @param [bpm]
 /// @param [metadata]
 
-function VinylSetupSound(_sound, _gain = 1, _pitch = 1, _loop = undefined, _mixName = VINYL_DEFAULT_MIX, _duckerName = undefined, _duckPrio = undefined, _emitterAlias = undefined, _metadata = undefined)
+function VinylSetupSound(_sound, _gain = 1, _pitch = 1, _loop = undefined, _mixName = VINYL_DEFAULT_MIX, _duckerName = undefined, _duckPrio = undefined, _emitterAlias = undefined, _bpm = undefined, _metadata = undefined)
 {
     static _system = __VinylSystem();
     
@@ -37,7 +38,7 @@ function VinylSetupSound(_sound, _gain = 1, _pitch = 1, _loop = undefined, _mixN
     }
     
     if (_mixName == VINYL_NO_MIX) _mixName = undefined;
-    __VinylEnsurePatternSound(_sound).__UpdateSetup(_gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _metadata);
+    __VinylEnsurePatternSound(_sound).__UpdateSetup(_gain, _pitch, _loop, _mixName, _duckerName, _duckPrio, _emitterAlias, _bpm, _metadata);
     
     if (VINYL_LIVE_EDIT && (not _system.__importingJSON))
     {
