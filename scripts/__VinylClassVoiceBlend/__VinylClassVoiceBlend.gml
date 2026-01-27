@@ -457,7 +457,6 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     
     static __SetMemberGain = function(_index, _gain)
     {
-        
         __blendMode = __VINYL_BLEND_MODE_MANUAL;
         
         if ((_index < 0) || (_index >= __voiceCount))
@@ -466,7 +465,15 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
         }
         
         __gainArray[_index] = __VinylSoundGetGain(__pattern.__soundArray[_index])*_gain;
-        __gainArrayDirty = true;
+        
+        if (__inUpdateArray)
+        {
+            __gainArrayDirty = true;
+        }
+        else
+        {
+            __UpdateVoiceGains();
+        }
     }
     
     static __GetMemberGain = function(_index)
