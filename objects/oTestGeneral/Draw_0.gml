@@ -36,6 +36,11 @@ UIButtonInline("Ducker Test", function()
     instance_destroy();
     instance_create_layer(0, 0, "Instances", oTestDucker);
 });
+UIButtonInline("BPM Test", function()
+{
+    instance_destroy();
+    instance_create_layer(0, 0, "Instances", oTestBPM);
+});
 UINewline();
 UINewline();
 UITextInline(string_concat("\"Test\" mix gain = ", VinylMixGetGain("Test")));
