@@ -117,6 +117,13 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
     
     static __Update = function(_delta)
     {
+        var _voiceReference = __voiceReference;
+        
+        if (not audio_is_playing(_voiceReference))
+        {
+            return false;
+        }
+        
         var _changed = false;
         
         if (__gainLocal != __gainLocalTarget)
@@ -154,13 +161,13 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
         
         if (_changed)
         {
-            audio_sound_gain(__voiceReference, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
+            audio_sound_gain(_voiceReference, __VINYL_VOICE_GAIN_SxLxMxDxF/VINYL_MAX_VOICE_GAIN, VINYL_STEP_DURATION);
         }
         
         if (__pitchLocal != __pitchLocalTarget)
         {
             __pitchLocal += clamp(__pitchLocalTarget - __pitchLocal, -_delta*__pitchLocalSpeed, _delta*__pitchLocalSpeed);
-            audio_sound_pitch(__voiceReference, __VINYL_VOICE_PITCH_SxLxM);
+            audio_sound_pitch(_voiceReference, __VINYL_VOICE_PITCH_SxLxM);
         }
         
         return true;
