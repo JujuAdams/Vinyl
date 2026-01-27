@@ -8,12 +8,31 @@ UIButtonInline("General Test", function()
 });
 UINewline();
 UINewline();
-UIButtonInline("Play", function()
+UIButtonInline("Simple", function()
 {
     VinylStop(voice);
     voice = VinylPlay(sndSync1, true);
     VinylSetPitch(voice, 0.5);
 });
+UIButtonInline("Shuffle", function()
+{
+    VinylStop(voice);
+    voice = VinylPlay("bpmShuffle", true);
+    VinylSetPitch(voice, 0.5);
+});
+UIButtonInline("HLT", function()
+{
+    VinylStop(voice);
+    voice = VinylPlay("bpmHLT", true);
+    VinylSetPitch(voice, 0.5);
+});
+UIButtonInline("Blend", function()
+{
+    VinylStop(voice);
+    voice = VinylPlay("bpmBlend", true);
+    VinylSetPitch(voice, 0.5);
+});
+UINewline();
 UIButtonInline("Pause", function()
 {
     VinylSetPause(voice, true);
@@ -31,5 +50,5 @@ UIText($"track position   = {VinylGetTrackPosition(voice)}\nbeat this step   = {
 
 if (VinylGetBeatThisStep(voice))
 {
-    VinylPlay("Shuffle");
+    VinylPlay(sndBleep0);
 }
