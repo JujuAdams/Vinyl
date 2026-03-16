@@ -141,7 +141,7 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
                 if (__gainFadeOutStop)
                 {
                     __Stop();
-                    return;
+                    return false;
                 }
                 else
                 {

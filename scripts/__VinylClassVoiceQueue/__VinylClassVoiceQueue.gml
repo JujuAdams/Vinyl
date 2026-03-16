@@ -207,7 +207,7 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
                     if (_duckerStruct == undefined)
                     {
                         __VinylError("Ducker \"", _duckerNameFinal, "\" not recognised");
-                        return;
+                        return false;
                     }
                     
                     __duckerName = _duckerNameFinal;

@@ -184,7 +184,7 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
                 if (__gainFadeOutStop)
                 {
                     __Stop();
-                    return;
+                    return false;
                 }
                 else
                 {
