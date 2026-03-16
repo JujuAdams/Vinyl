@@ -194,7 +194,7 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
                 if (__gainFadeOutStop)
                 {
                     __Stop();
-                    return;
+                    return false;
                 }
                 else
                 {

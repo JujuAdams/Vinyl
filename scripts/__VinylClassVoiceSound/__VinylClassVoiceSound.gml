@@ -155,7 +155,7 @@ function __VinylClassVoiceSound(_voice, _loopLocal, _gainSound, _gainLocal, _gai
                 if (__gainFadeOutStop)
                 {
                     __Stop();
-                    return;
+                    return false;
                 }
                 else
                 {
