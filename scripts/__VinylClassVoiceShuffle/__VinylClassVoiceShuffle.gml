@@ -110,13 +110,16 @@ function __VinylClassVoiceShuffle(_sound, _voice, _loopLocal, _gainPattern, _gai
     
     static __SetPause = function(_state)
     {
-        if (_state)
+        if (audio_is_playing(__voiceReference))
         {
-            audio_pause_sound(__voiceReference);
-        }
-        else
-        {
-            audio_resume_sound(__voiceReference);
+            if (_state)
+            {
+                audio_pause_sound(__voiceReference);
+            }
+            else
+            {
+                audio_resume_sound(__voiceReference);
+            }
         }
     }
     

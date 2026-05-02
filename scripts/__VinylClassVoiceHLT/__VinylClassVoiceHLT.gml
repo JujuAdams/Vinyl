@@ -327,13 +327,16 @@ function __VinylClassVoiceHLT(_emitter, _pattern, _gainLocal, _pitchLocal, _duck
     
     static __SetPause = function(_state)
     {
-        if (_state)
+        if (audio_is_playing(__voiceCurrent))
         {
-            audio_pause_sound(__voiceCurrent);
-        }
-        else
-        {
-            audio_resume_sound(__voiceCurrent);
+            if (_state)
+            {
+                audio_pause_sound(__voiceCurrent);
+            }
+            else
+            {
+                audio_resume_sound(__voiceCurrent);
+            }
         }
     }
     

@@ -275,13 +275,16 @@ function __VinylClassVoiceQueue(_templateName, _behaviour, _loopQueue, _gainLoca
     
     static __SetPause = function(_state)
     {
-        if (_state)
+        if (audio_is_playing(__voiceCurrent))
         {
-            audio_pause_sound(__voiceCurrent);
-        }
-        else
-        {
-            audio_resume_sound(__voiceCurrent);
+            if (_state)
+            {
+                audio_pause_sound(__voiceCurrent);
+            }
+            else
+            {
+                audio_resume_sound(__voiceCurrent);
+            }
         }
     }
     

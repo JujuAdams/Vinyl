@@ -145,23 +145,12 @@ function __VinylClassMix(_mixName, _gainPattern, _membersLoop, _membersDuckOn, _
     
     static __VoicesSetPause = function(_state)
     {
-        if (_state)
+        var _voiceArray = __voiceArray;
+        var _i = 0;
+        repeat(array_length(_voiceArray))
         {
-            var _i = 0;
-            repeat(array_length(__voiceArray))
-            {
-                VinylSetPause(__voiceArray[_i], _state);
-                ++_i;
-            }
-        }
-        else
-        {
-            var _i = 0;
-            repeat(array_length(__voiceArray))
-            {
-                VinylResume(__voiceArray[_i]);
-                ++_i;
-            }
+            VinylSetPause(_voiceArray[_i], _state);
+            ++_i;
         }
     }
     

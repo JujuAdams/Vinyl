@@ -295,23 +295,25 @@ function __VinylClassVoiceBlend(_emitter, _pattern, _loopLocal, _gainLocal, _pit
     
     static __SetPause = function(_state)
     {
-        if (_state)
+        var _voiceArray = __voiceArray;
+        var _i = 0;
+        repeat(array_length(_voiceArray))
         {
-            var _i = 0;
-            repeat(array_length(__voiceArray))
+            var _voice = _voiceArray[_i];
+            
+            if (audio_is_playing(_voice))
             {
-                audio_pause_sound(__voiceArray[_i]);
-                ++_i;
+                if (_state)
+                {
+                    audio_pause_sound(_voice);
+                }
+                else
+                {
+                    audio_resume_sound(_voice);
+                }
             }
-        }
-        else
-        {
-            var _i = 0;
-            repeat(array_length(__voiceArray))
-            {
-                audio_resume_sound(__voiceArray[_i]);
-                ++_i;
-            }
+            
+            ++_i;
         }
     }
     
