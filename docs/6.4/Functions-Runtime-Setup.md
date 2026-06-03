@@ -12,7 +12,7 @@
 
 ## `VinylSetupSound`
 
-`VinylSetupSound(sound, [gain=1], [pitch=1], [loop], [mix=VINYL_DEFAULT_MIX], [duckerName], [duckPriority=0], [emitterAlias], [metadata])`
+`VinylSetupSound(sound, [gain=1], [pitch=1], [loop], [mix=VINYL_DEFAULT_MIX], [duckerName], [duckPriority=0], [emitterAlias], [bpm], [metadata])`
 
 <!-- tabs:start -->
 
@@ -30,6 +30,7 @@
 |`[duckerName]`  |string  |Optional. Which ducker to play the sound on                                                    |
 |`[duckPriority]`|number  |Optional, defaults to 0. What ducker priority to play the sound with                           |
 |`[emitterAlias]`|string  |Optional, defaults to `undefined`. Name of a registered emitter to play the sound on by default|
+|`[bpm]`         |number  |Optional, defaults to `undefined`. Beats-per-minute for the sound                              |
 |`[metadata]`    |any     |Optional. Metadata to attach to the sound                                                      |
 
 Sets up a sound asset for playback with Vinyl. This is an optional function and any sound asset without a Vinyl definition will be played at a gain of 1, without any pitch shifting, and on the default mix.
@@ -50,7 +51,7 @@ No example provided.
 
 ## `VinylSetupShuffle`
 
-`VinylSetupShuffle(patternName, soundArray, [gain=1], [pitch=1], [loop], [mix=VINYL_DEFAULT_MIX], [duckerName], [duckPriority=0], [emitterAlias], [metadata])`
+`VinylSetupShuffle(patternName, soundArray, [gain=1], [pitch=1], [loop], [mix=VINYL_DEFAULT_MIX], [duckerName], [duckPriority=0], [emitterAlias], [bpm], [metadata])`
 
 <!-- tabs:start -->
 
@@ -69,6 +70,7 @@ No example provided.
 |`[duckerName]`  |string         |Optional. Which ducker to play sounds on                                                                                  |
 |`[duckPriority]`|number         |Optional, defaults to 0. What ducker priority to play sounds with                                                         |
 |`[emitterAlias]`|string         |Optional, defaults to `undefined`. Name of a registered emitter to play sounds on by default                              |
+|`[bpm]`         |number         |Optional, defaults to `undefined`. Beats-per-minute for the sound                                                         |
 |`[metadata]`    |any            |Optional. Metadata to attach to the pattern                                                                               |
 
 Sets up a shuffle pattern for playback with Vinyl. When played, a shuffle pattern will randomly choose a sound from an array of sounds when played.
@@ -87,7 +89,7 @@ No example provided.
 
 ## `VinylSetupHLT`
 
-`VinylSetupHLT(patternName, [soundHead], soundLoop, [soundTail], [gain=1], [mix=VINYL_DEFAULT_MIX], [duckerName], [duckPriority=0], [emitterAlias], [metadata])`
+`VinylSetupHLT(patternName, [soundHead], soundLoop, [soundTail], [gain=1], [mix=VINYL_DEFAULT_MIX], [duckerName], [duckPriority=0], [emitterAlias], [bpm], [metadata])`
 
 <!-- tabs:start -->
 
@@ -106,6 +108,7 @@ No example provided.
 |`[duckerName]`  |string  |Optional. Which ducker to play sounds on                                                    |
 |`[duckPriority]`|number  |Optional, defaults to 0. What ducker priority to play sounds with                           |
 |`[emitterAlias]`|string  |Optional, defaults to `undefined`. Name of a registered emitter to play sounds on by default|
+|`[bpm]`         |number  |Optional, defaults to `undefined`. Beats-per-minute for the sound                           |
 |`[metadata]`    |any     |Optional. Metadata to attach to the pattern                                                 |
 
 Sets up a head-loop-tail pattern for playback with Vinyl. When played, an HLT pattern will first play the "head" sound. Once that sound has finished, the loop sound will be played. If `VinylSetLoop()` is called on the HLT voice to stop looping then the tail sound will be played after the loop sound has finished.
@@ -124,7 +127,7 @@ No example provided.
 
 ## `VinylSetupBlend`
 
-`VinylSetupBlend(patternName, soundArray, [loop], [gain=1], [animCurve], [mix=VINYL_DEFAULT_MIX], [duckerName], [duckPriority=0], [emitterAlias], [metadata])`
+`VinylSetupBlend(patternName, soundArray, [loop], [gain=1], [animCurve], [mix=VINYL_DEFAULT_MIX], [duckerName], [duckPriority=0], [emitterAlias], [bpm], [metadata])`
 
 <!-- tabs:start -->
 
@@ -143,6 +146,7 @@ No example provided.
 |`[duckerName]`  |string         |Optional. Which ducker to play sounds on                                                           |
 |`[duckPriority]`|number         |Optional, defaults to 0. What ducker priority to play sounds with                                  |
 |`[emitterAlias]`|string         |Optional, defaults to `undefined`. Name of a registered emitter to play sounds on by default       |
+|`[bpm]`         |number         |Optional, defaults to `undefined`. Beats-per-minute for the sound                                  |
 |`[metadata]`    |any            |Optional. Metadata to attach to the pattern                                                        |
 
 Sets up a blend pattern for playback with Vinyl. When played, a blend pattern will play multiple sounds whose balance can be adjusted by setting the blend factor with the `VinylSetBlendFactor()` and `VinylSetBlendAnimCurve()` functions.
