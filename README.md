@@ -1,5 +1,5 @@
 <p align="center"><img src="https://raw.githubusercontent.com/JujuAdams/vinyl/master/LOGO.png" style="display:block; margin:auto; width:300px"></p>
-<h1 align="center">Vinyl 6.4.1-alpha</h1>
+<h1 align="center">Vinyl 6.4.2-beta</h1>
 
 <p align="center">Audio tooling for GameMaker LTS 2026</p>
 
