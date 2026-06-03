@@ -70,7 +70,7 @@ No example provided.
 |`[duckerName]`  |string         |Optional. Which ducker to play sounds on                                                                                  |
 |`[duckPriority]`|number         |Optional, defaults to 0. What ducker priority to play sounds with                                                         |
 |`[emitterAlias]`|string         |Optional, defaults to `undefined`. Name of a registered emitter to play sounds on by default                              |
-|`[bpm]`         |number         |Optional, defaults to `undefined`. Beats-per-minute for the sound                                                         |
+|`[bpm]`         |number         |Optional, defaults to `undefined`. Beats-per-minute for the pattern                                                       |
 |`[metadata]`    |any            |Optional. Metadata to attach to the pattern                                                                               |
 
 Sets up a shuffle pattern for playback with Vinyl. When played, a shuffle pattern will randomly choose a sound from an array of sounds when played.
@@ -108,7 +108,7 @@ No example provided.
 |`[duckerName]`  |string  |Optional. Which ducker to play sounds on                                                    |
 |`[duckPriority]`|number  |Optional, defaults to 0. What ducker priority to play sounds with                           |
 |`[emitterAlias]`|string  |Optional, defaults to `undefined`. Name of a registered emitter to play sounds on by default|
-|`[bpm]`         |number  |Optional, defaults to `undefined`. Beats-per-minute for the sound                           |
+|`[bpm]`         |number  |Optional, defaults to `undefined`. Beats-per-minute for the pattern                         |
 |`[metadata]`    |any     |Optional. Metadata to attach to the pattern                                                 |
 
 Sets up a head-loop-tail pattern for playback with Vinyl. When played, an HLT pattern will first play the "head" sound. Once that sound has finished, the loop sound will be played. If `VinylSetLoop()` is called on the HLT voice to stop looping then the tail sound will be played after the loop sound has finished.
@@ -146,7 +146,7 @@ No example provided.
 |`[duckerName]`  |string         |Optional. Which ducker to play sounds on                                                           |
 |`[duckPriority]`|number         |Optional, defaults to 0. What ducker priority to play sounds with                                  |
 |`[emitterAlias]`|string         |Optional, defaults to `undefined`. Name of a registered emitter to play sounds on by default       |
-|`[bpm]`         |number         |Optional, defaults to `undefined`. Beats-per-minute for the sound                                  |
+|`[bpm]`         |number         |Optional, defaults to `undefined`. Beats-per-minute for the pattern                                |
 |`[metadata]`    |any            |Optional. Metadata to attach to the pattern                                                        |
 
 Sets up a blend pattern for playback with Vinyl. When played, a blend pattern will play multiple sounds whose balance can be adjusted by setting the blend factor with the `VinylSetBlendFactor()` and `VinylSetBlendAnimCurve()` functions.
