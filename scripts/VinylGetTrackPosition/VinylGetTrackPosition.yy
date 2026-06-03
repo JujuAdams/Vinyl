@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylGetTrackPosition",
   "parent":{
-    "name":"BPM",
-    "path":"folders/Vinyl/BPM.yy",
+    "name":"Miscellaneous",
+    "path":"folders/Vinyl/Miscellaneous.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
