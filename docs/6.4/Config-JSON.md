@@ -74,6 +74,7 @@ In this JSON we see four Vinyl definitions: three sounds and one mix. Two of the
 |`duckOn`  |string          |`undefined`|[Ducker](Config-JSON?id=duckers) to push voices to                                                         |
 |`duckPrio`|number          |`0`        |Priority for voices when pushed to the ducker above                                                        |
 |`emitter` |string          |`undefined`|Name of a registered emitter to play the sound on by default                                               |
+|`bpm`     |number          |`undefined`|Beats-per-minute for the sound                                                                             |
 |`metadata`|any             |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
 
 Sets up a sound asset for playback with Vinyl. Any sound asset without a Vinyl definition will be played at a gain of 1, without any pitch shifting, and on the default mix.
@@ -94,6 +95,7 @@ If the `emitter` parameter is defined, Vinyl will attempt to play the sound on t
 |`duckOn`  |string                 |`undefined`|[Ducker](Config-JSON?id=duckers) to push voices to                                                         |
 |`duckPrio`|number                 |`0`        |Priority for voices when pushed to the ducker above                                                        |
 |`emitter` |string                 |`undefined`|Name of a registered emitter to play sounds on by default                                                  |
+|`bpm`     |number                 |`undefined`|Beats-per-minute for the pattern                                                                           |
 |`metadata`|any                    |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
 
 Sets up a shuffle pattern for playback with Vinyl. When played, a shuffle pattern will randomly choose a sound from an array of sounds when played.
@@ -116,6 +118,7 @@ You can read more about head-loop-tail patterns [here](Head-Loop-Tail-Patterns).
 |`duckOn`  |string         |`undefined`|[Ducker](Config-JSON?id=duckers) to push voices to                                 |
 |`duckPrio`|number         |`0`        |Priority for voices when pushed to the ducker above                                |
 |`emitter` |string         |`undefined`|Name of a registered emitter to play sounds on by default                          |
+|`bpm`     |number         |`undefined`|Beats-per-minute for the pattern                                                   |
 |`metadata`|any            |`undefined`|Returned by `VinylGetMetadata()`                                                   |
 
 Sets up a head-loop-tail pattern for playback with Vinyl. When played, an HLT pattern will first play the "head" sound. Once that sound has finished, the loop sound will be played. If `VinylSetLoop()` is called on the HLT voice to stop looping then the tail sound will be played after the loop sound has finished.
@@ -136,6 +139,7 @@ If the `emitter` parameter is defined, Vinyl will attempt to play sounds defined
 |`duckOn`   |string         |`undefined`|[Ducker](Config-JSON?id=duckers) to push voices to                                                         |
 |`duckPrio` |number         |`0`        |Priority for voices when pushed to the ducker above                                                        |
 |`emitter`  |string         |`undefined`|Name of a registered emitter to play sounds on by default                                                  |
+|`bpm`      |number         |`undefined`|Beats-per-minute for the pattern                                                                           |
 |`metadata` |any            |`undefined`|Returned by `VinylGetMetadata()`                                                                           |
 
 Sets up a blend pattern for playback with Vinyl. When played, a blend pattern will play multiple sounds whose balance can be adjusted by setting the blend factor with the `VinylSetBlendFactor()` and `VinylSetBlendAnimCurve()` functions.
