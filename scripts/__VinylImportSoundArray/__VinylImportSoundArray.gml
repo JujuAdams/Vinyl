@@ -56,7 +56,7 @@ function __VinylImportSoundArray(_array, _strict)
     if (array_length(_newArray) <= 0)
     {
         if (_strict) __VinylError("Sound array must have at least one sound in array (length=", array_length(_newArray), ")");
-        array_push(_newArray, VinylFallbackSound);
+        array_push(_newArray, __VINYL_RUNNING_FROM_IDE? VinylFallbackSoundIDE : VinylFallbackSoundProduction);
     }
     
     return _newArray;

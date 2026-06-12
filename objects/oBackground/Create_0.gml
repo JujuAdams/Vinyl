@@ -7,7 +7,7 @@ VinylSetupImportJSON([
         mix: "Test",
         members: [
             {
-                sound: VinylFallbackSound,
+                sound: VinylFallbackSoundIDE,
                 emitter: "echo",
             },
             {
