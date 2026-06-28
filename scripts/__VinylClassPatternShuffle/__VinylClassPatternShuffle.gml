@@ -446,6 +446,7 @@ function __VinylImportShuffleJSON(_json)
                 case "duckOn":
                 case "duckPrio":
                 case "emitter":
+                case "bpm":
                 case "metadata":
                 break;
                 
@@ -464,7 +465,7 @@ function __VinylImportShuffleJSON(_json)
     }
     
     var _sounds = _json[$ "sounds"] ?? _json[$ "sound"];
-    VinylSetupShuffle(_json.shuffle, _sounds, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "emitter"], _json[$ "metadata"]);
+    VinylSetupShuffle(_json.shuffle, _sounds, _json[$ "gain"], _json[$ "pitch"], _json[$ "loop"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "emitter"], _json[$ "bpm"], _json[$ "metadata"]);
     
     return _json.shuffle;
 }

@@ -220,6 +220,7 @@ function __VinylImportBlendJSON(_json)
                 case "duckPrio":
                 case "animCurve":
                 case "emitter":
+                case "bpm":
                 case "metadata":
                 break;
                 
@@ -234,7 +235,7 @@ function __VinylImportBlendJSON(_json)
         if (not struct_exists(_json, "sounds")) __VinylError("Blend pattern \"", _json.blend, "\" property .sounds must be defined");
     }
     
-    VinylSetupBlend(_json.blend, _json.sounds, _json[$ "loop"], _json[$ "gain"], _json[$ "animCurve"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "emitter"], _json[$ "metadata"]);
+    VinylSetupBlend(_json.blend, _json.sounds, _json[$ "loop"], _json[$ "gain"], _json[$ "animCurve"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "emitter"], _json[$ "bpm"], _json[$ "metadata"]);
     
     return _json.blend;
 }

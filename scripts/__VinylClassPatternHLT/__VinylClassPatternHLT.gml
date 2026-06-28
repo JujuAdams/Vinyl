@@ -199,6 +199,7 @@ function __VinylImportHLTJSON(_json)
                 case "duckOn":
                 case "duckPrio":
                 case "emitter":
+                case "bpm":
                 case "metadata":
                 break;
                 
@@ -213,7 +214,7 @@ function __VinylImportHLTJSON(_json)
         if (not struct_exists(_json, "loop")) __VinylError("Head-Loop-Tail pattern \"", _json.hlt, "\" property .loop must be defined");
     }
     
-    VinylSetupHLT(_json.hlt, _json[$ "head"], _json.loop, _json[$ "tail"], _json[$ "gain"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "emitter"], _json[$ "metadata"]);
+    VinylSetupHLT(_json.hlt, _json[$ "head"], _json.loop, _json[$ "tail"], _json[$ "gain"], undefined, _json[$ "duckOn"], _json[$ "duckPrio"], _json[$ "emitter"], _json[$ "bpm"], _json[$ "metadata"]);
     
     return _json.hlt;
 }
