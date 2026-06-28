@@ -75,7 +75,7 @@ UIButtonInline("Change BPM", function()
     VinylSetPitch(voice, _pitchMultiplier, 100);
 });
 UINewline();
-UIText($"track position   = {VinylGetTrackPosition(voice)}\nbeat this step   = {VinylGetBeatThisStep(voice)}\nbeat count       = {VinylGetBeatCount(voice)}\nbeat distance    = {VinylGetBeatDistance(voice, false)}\nbeat dist (secs) = {VinylGetBeatDistance(voice)}\ncurrent bpm = {bpm}\ncurrent pitch = {VinylGetPitch(voice)}");
+UIText($"track position   = {VinylGetTrackPosition(voice)}\nbeat this step   = {VinylGetBeatThisStep(voice)}\nbeat count       = {VinylGetBeatCount(voice)}\nbeat distance    = {VinylGetBeatDistance(voice, false)}\nbeat dist (secs) = {VinylGetBeatDistance(voice)}\ncurrent bpm      = {bpm}\ncurrent pitch    = {VinylGetPitch(voice)}");
 
 if (VinylGetBeatThisStep(voice))
 {
