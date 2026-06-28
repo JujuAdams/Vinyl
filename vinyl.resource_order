@@ -115,6 +115,7 @@
     {"name":"VinylGetLength","order":2,"path":"scripts/VinylGetLength/VinylGetLength.yy",},
     {"name":"VinylGetLoop","order":1,"path":"scripts/VinylGetLoop/VinylGetLoop.yy",},
     {"name":"VinylGetPitch","order":1,"path":"scripts/VinylGetPitch/VinylGetPitch.yy",},
+    {"name":"VinylGetPitchForBPM","order":7,"path":"scripts/VinylGetPitchForBPM/VinylGetPitchForBPM.yy",},
     {"name":"VinylGetPosition","order":7,"path":"scripts/VinylGetPosition/VinylGetPosition.yy",},
     {"name":"VinylGetSystemPressure","order":9,"path":"scripts/VinylGetSystemPressure/VinylGetSystemPressure.yy",},
     {"name":"VinylGetTrackPosition","order":10,"path":"scripts/VinylGetTrackPosition/VinylGetTrackPosition.yy",},

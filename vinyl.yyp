@@ -154,6 +154,7 @@
     {"id":{"name":"VinylGetLoop","path":"scripts/VinylGetLoop/VinylGetLoop.yy",},},
     {"id":{"name":"VinylGetMetadata","path":"scripts/VinylGetMetadata/VinylGetMetadata.yy",},},
     {"id":{"name":"VinylGetPitch","path":"scripts/VinylGetPitch/VinylGetPitch.yy",},},
+    {"id":{"name":"VinylGetPitchForBPM","path":"scripts/VinylGetPitchForBPM/VinylGetPitchForBPM.yy",},},
     {"id":{"name":"VinylGetPosition","path":"scripts/VinylGetPosition/VinylGetPosition.yy",},},
     {"id":{"name":"VinylGetSystemPressure","path":"scripts/VinylGetSystemPressure/VinylGetSystemPressure.yy",},},
     {"id":{"name":"VinylGetTrackPosition","path":"scripts/VinylGetTrackPosition/VinylGetTrackPosition.yy",},},
