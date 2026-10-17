@@ -8,7 +8,7 @@ function __VinylEnsureSoundVoice(_voice)
     static _mixDict          = __VinylSystem().__mixDict;
     static _nullVoice        = __VinylSystem().__nullVoice;
     
-    if ((_voice == undefined) || ((_voice <= 0xFFFFFFFF) && (not audio_is_playing(_voice))))
+    if (_voice == undefined)
     {
         return _nullVoice;
     }
@@ -16,11 +16,15 @@ function __VinylEnsureSoundVoice(_voice)
     var _voiceStruct = _voiceToStructMap[? _voice];
     if (_voiceStruct == undefined)
     {
-        if (_voice >= __VINYL_ABSTRACT_VOICE)
+		if ((_voice <= 0xFFFFFFFF) && (not audio_is_playing(_voice))) {
+			return _nullVoice;
+		}
+
+		if (_voice >= __VINYL_ABSTRACT_VOICE)
         {
             return _nullVoice;
         }
-        
+		
         var _sound = audio_sound_get_asset(_voice);
         if (not audio_exists(_sound))
         {
