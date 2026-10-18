@@ -9,11 +9,13 @@ function VinylBrainLimit(_maxCount) : VinylBrainParentConstructor(false) constru
     {
         if (GetAllowed())
         {
-            Push(_voice);
+            array_push(__watchArray, _voice);
+            return _voice;
         }
         else
         {
             VinylStop(_voice);
+            return -1;
         }
     }
     
