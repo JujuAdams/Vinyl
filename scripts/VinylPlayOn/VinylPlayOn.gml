@@ -1,9 +1,10 @@
 /// @param soundOrArray
 /// @param emitter
+/// @param [loop=false]
 /// @param [gain=1]
 /// @param [pitch=1]
 
-function VinylPlayOn(_soundOrArray, _emitter, _gain = 1, _pitch = 1)
+function VinylPlayOn(_soundOrArray, _emitter, _loop = false, _gain = 1, _pitch = 1)
 {
     static _soundDefMap = __VinylSystem().__soundDefMap;
     
@@ -19,7 +20,7 @@ function VinylPlayOn(_soundOrArray, _emitter, _gain = 1, _pitch = 1)
         var _i = 0;
         repeat(array_length(_soundOrArray))
         {
-            _voiceArray[@ _i] = VinylPlayOn(_soundOrArray[_i], _emitter, _gain, _pitch);
+            _voiceArray[@ _i] = VinylPlayOn(_soundOrArray[_i], _emitter, _loop, _gain, _pitch);
             ++_i;
         }
         
@@ -27,7 +28,7 @@ function VinylPlayOn(_soundOrArray, _emitter, _gain = 1, _pitch = 1)
     }
     else if (is_struct(_soundOrArray))
     {
-        return _soundOrArray.__ImplPlayOn(_emitter);
+        return _soundOrArray.__ImplPlayOn(_emitter, _loop, _gain, _pitch);
     }
     else if (_soundOrArray != undefined)
     {
@@ -45,7 +46,7 @@ function VinylPlayOn(_soundOrArray, _emitter, _gain = 1, _pitch = 1)
                 return -1;
             }
             
-            return audio_play_sound_on(_gmEmitter, _sound, false, 0, _gain*_soundDef.__gain, 0, _pitch);
+            return audio_play_sound_on(_gmEmitter, _sound, _loop, 0, _gain*_soundDef.__gain, 0, _pitch);
         }
         else
         {

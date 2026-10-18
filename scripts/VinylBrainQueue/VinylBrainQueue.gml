@@ -144,74 +144,37 @@ function VinylBrainQueue(_soundArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeIn
     
     
     
-    static __ImplPlayOmni = function(_gain_UNUSED, _pitch_UNUSED)
+    static __ImplPlayOmni = function(_loop, _gain_UNUSED, _pitch_UNUSED)
     {
         __playType = __VINYL_PLAY_OMNI;
         
-        __loopQueue = false;
+        __loopQueue = _loop;
         
         __Update();
         
         return self;
     }
     
-    static __ImplPlayLoopOmni = function(_gain_UNUSED, _pitch_UNUSED)
-    {
-        __playType = __VINYL_PLAY_OMNI;
-        
-        __loopQueue = true;
-        
-        __Update();
-        
-        return self;
-    }
-    
-    static __ImplPlayAt = function(_x, _y, _z, _gain_UNUSED, _pitch_UNUSED)
+    static __ImplPlayAt = function(_x, _y, _z, _loop, _gain_UNUSED, _pitch_UNUSED)
     {
         __playType = __VINYL_PLAY_AT;
         __playX    = _x;
         __playY    = _y;
         __playZ    = _z;
         
-        __loopQueue = false;
+        __loopQueue = _loop;
         
         __Update();
         
         return self;
     }
     
-    static __ImplPlayLoopAt = function(_x, _y, _z, _gain_UNUSED, _pitch_UNUSED)
-    {
-        __playType = __VINYL_PLAY_AT;
-        __playX    = _x;
-        __playY    = _y;
-        __playZ    = _z;
-        
-        __loopQueue = true;
-        
-        __Update();
-        
-        return self;
-    }
-    
-    static __ImplPlayOn = function(_emitter, _gain_UNUSED, _pitch_UNUSED)
+    static __ImplPlayOn = function(_emitter, _loop, _gain_UNUSED, _pitch_UNUSED)
     {
         __playType    = __VINYL_PLAY_ON;
         __playEmitter = _emitter;
         
-        __loopQueue = false;
-        
-        __Update();
-        
-        return self;
-    }
-    
-    static __ImplPlayLoopOn = function(_emitter, _gain_UNUSED, _pitch_UNUSED)
-    {
-        __playType    = __VINYL_PLAY_ON;
-        __playEmitter = _emitter;
-        
-        __loopQueue = true;
+        __loopQueue = _loop;
         
         __Update();
         
@@ -222,7 +185,7 @@ function VinylBrainQueue(_soundArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeIn
     {
         var _voice = __voice;
         __voice = undefined;
-        return VinylStop(__voice);
+        return VinylStop(_voice);
     }
     
     static __ImplGetAnyPlaying = function()

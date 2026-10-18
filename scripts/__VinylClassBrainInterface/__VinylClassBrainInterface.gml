@@ -1,33 +1,18 @@
 function __VinylClassBrainInterface() constructor
 {
-    static __ImplPlayOmni = function(_gain, _pitch)
+    static __ImplPlayOmni = function(_loop, _gain, _pitch)
     {
         __VinylDevError($"`VinylPlayOmni()` not supported this struct type ({instanceof(self)})");
     }
     
-    static __ImplPlayLoopOmni = function(_gain, _pitch)
-    {
-        __VinylDevError($"`VinylPlayLoopOmni()` not supported this struct type ({instanceof(self)})");
-    }
-    
-    static __ImplPlayAt = function(_x, _y, _z, _gain, _pitch)
+    static __ImplPlayAt = function(_x, _y, _z, _loop, _gain, _pitch)
     {
         __VinylDevError($"`VinylPlayAt()` not supported this struct type ({instanceof(self)})");
     }
     
-    static __ImplPlayLoopAt = function(_x, _y, _z, _gain, _pitch)
-    {
-        __VinylDevError($"`VinylPlayLoopAt()` not supported this struct type ({instanceof(self)})");
-    }
-    
-    static __ImplPlayOn = function(_emitter, _gain, _pitch)
+    static __ImplPlayOn = function(_emitter, _loop, _gain, _pitch)
     {
         __VinylDevError($"`VinylPlayOn()` not supported this struct type ({instanceof(self)})");
-    }
-    
-    static __ImplPlayLoopOn = function(_emitter, _gain, _pitch)
-    {
-        __VinylDevError($"`VinylPlayLoopOn()` not supported this struct type ({instanceof(self)})");
     }
     
     static __ImplStop = function()

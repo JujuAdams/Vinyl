@@ -2,10 +2,11 @@
 /// @param x
 /// @param y
 /// @param z
+/// @param [loop=false]
 /// @param [gain=1]
 /// @param [pitch=1]
 
-function VinylPlayAt(_soundOrArray, _x, _y, _z, _gain = 1, _pitch = 1)
+function VinylPlayAt(_soundOrArray, _x, _y, _z, _loop = false, _gain = 1, _pitch = 1)
 {
     static _mixGroupArray = __VinylSystem().__mixGroupArray;
     static _soundDefMap   = __VinylSystem().__soundDefMap;
@@ -17,7 +18,7 @@ function VinylPlayAt(_soundOrArray, _x, _y, _z, _gain = 1, _pitch = 1)
         var _i = 0;
         repeat(array_length(_soundOrArray))
         {
-            _voiceArray[@ _i] = VinylPlayAt(_soundOrArray[_i], _x, _y, _z, _gain, _pitch);
+            _voiceArray[@ _i] = VinylPlayAt(_soundOrArray[_i], _x, _y, _z, _loop, _gain, _pitch);
             ++_i;
         }
         
@@ -25,7 +26,7 @@ function VinylPlayAt(_soundOrArray, _x, _y, _z, _gain = 1, _pitch = 1)
     }
     else if (is_struct(_soundOrArray))
     {
-        return _soundOrArray.__ImplPlayAt(_x, _y, _z, _gain, _pitch);
+        return _soundOrArray.__ImplPlayAt(_x, _y, _z, _loop, _gain, _pitch);
     }
     else if (_soundOrArray != undefined)
     {
@@ -36,7 +37,7 @@ function VinylPlayAt(_soundOrArray, _x, _y, _z, _gain = 1, _pitch = 1)
         {
             var _voice = audio_play_sound_at(_sound, _x, _y, _z,
                                              VINYL_FALLOFF_REF_DIST, VINYL_FALLOFF_MAX_DIST, VINYL_FALLOFF_FACTOR,
-                                             false, 0,
+                                             _loop, 0,
                                              _gain*_soundDef.__gain*_mixGroupArray[_soundDef.__mixGroupIndex].__gain, 0, _pitch);
         }
         else
@@ -44,7 +45,7 @@ function VinylPlayAt(_soundOrArray, _x, _y, _z, _gain = 1, _pitch = 1)
             __VinylTrace($"Warning! Sound \"{audio_get_name(_sound)}\" has not been assigned to a mix group, sound playing on master bus");
             var _voice = audio_play_sound_at(_sound, _x, _y, _z,
                                              VINYL_FALLOFF_REF_DIST, VINYL_FALLOFF_MAX_DIST, VINYL_FALLOFF_FACTOR,
-                                             false, 0,
+                                             _loop, 0,
                                              _gain, 0, _pitch);
         }
         
