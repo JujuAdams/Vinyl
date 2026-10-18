@@ -11,8 +11,8 @@
 //                                                                        //
 ////////////////////////////////////////////////////////////////////////////
 
-#macro VINYL_VERSION  "6.4.2-beta"
-#macro VINYL_DATE     "2026-06-03"
+#macro VINYL_VERSION  "6.4.3"
+#macro VINYL_DATE     "2026-10-18"
 
 enum VINYL_QUEUE
 {
