@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylPlayLoopOn",
   "parent":{
-    "name":"Playing & Stopping",
-    "path":"folders/Vinyl/Playing & Stopping.yy",
+    "name":"Playing",
+    "path":"folders/Vinyl/Playing.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

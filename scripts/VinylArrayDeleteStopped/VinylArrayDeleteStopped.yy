@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylArrayDeleteStopped",
   "parent":{
-    "name":"Miscellaneous",
-    "path":"folders/Vinyl/Miscellaneous.yy",
+    "name":"Stopping",
+    "path":"folders/Vinyl/Stopping.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylStop",
   "parent":{
-    "name":"Playing & Stopping",
-    "path":"folders/Vinyl/Playing & Stopping.yy",
+    "name":"Stopping",
+    "path":"folders/Vinyl/Stopping.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -25,7 +25,8 @@
     {"$GMFolder":"","%Name":"Miscellaneous","folderPath":"folders/Vinyl/Miscellaneous.yy","name":"Miscellaneous","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Mix Groups","folderPath":"folders/Vinyl/Mix Groups.yy","name":"Mix Groups","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Pause & Resume","folderPath":"folders/Vinyl/Pause & Resume.yy","name":"Pause & Resume","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Playing & Stopping","folderPath":"folders/Vinyl/Playing & Stopping.yy","name":"Playing & Stopping","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Playing","folderPath":"folders/Vinyl/Playing.yy","name":"Playing","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Stopping","folderPath":"folders/Vinyl/Stopping.yy","name":"Stopping","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[
