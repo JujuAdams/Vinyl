@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylRandom",
+  "%Name":"VinylUtilRandom",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylRandom",
+  "name":"VinylUtilRandom",
   "parent":{
-    "name":"Miscellaneous",
-    "path":"folders/Vinyl/Miscellaneous.yy",
+    "name":"Utilities",
+    "path":"folders/Vinyl/Utilities.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

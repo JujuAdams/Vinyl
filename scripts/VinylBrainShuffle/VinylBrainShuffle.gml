@@ -6,7 +6,7 @@
 
 function VinylBrainShuffle(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1, _pitchRange = 0) : VinylBrainCommonConstructor(false) constructor
 {
-    _playableArray = VinylEnsureArray(_playableArray);
+    _playableArray = VinylUtilEnsureArray(_playableArray);
     VinylAssertPlayable(_playableArray);
     
     __playableArray = _playableArray;
@@ -27,7 +27,7 @@ function VinylBrainShuffle(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1
         else if (_playableCount == 2)
         {
             //Special case for two sounds - randomly choose either of them
-            return __playableArray[VinylIRandom(1)];
+            return __playableArray[VinylUtilIRandom(1)];
         }
         else
         {
@@ -36,7 +36,7 @@ function VinylBrainShuffle(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1
                 __playIndex = 0;
                 var _last = __playableArray[_playableCount-1];
                 array_delete(__playableArray, _playableCount-1, 1); //Make sure we don't reshuffle in the last played sound...
-                VinylArrayShuffle(__playableArray);
+                VinylUtilArrayShuffle(__playableArray);
                 array_insert(__playableArray, _playableCount div 2, _last); //...and stick it somewhere in the middle instead
             }
             
@@ -46,12 +46,12 @@ function VinylBrainShuffle(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1
     
     static PopPlayable = function()
     {
-        return VinylRandomRange(__gain - __gainRange, __gain + __gainRange);
+        return VinylUtilRandomRange(__gain - __gainRange, __gain + __gainRange);
     }
     
     static PopPitch = function()
     {
-        return VinylRandomRange(__pitch - __pitchRange, __pitch + __pitchRange);
+        return VinylUtilRandomRange(__pitch - __pitchRange, __pitch + __pitchRange);
     }
     
     static ImplPlayOmni = function(_loop, _gain, _pitch)

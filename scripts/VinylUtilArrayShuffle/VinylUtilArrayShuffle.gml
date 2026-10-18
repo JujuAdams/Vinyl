@@ -1,11 +1,11 @@
 /// @param array
 
-function VinylArrayShuffle(_array)
+function VinylUtilArrayShuffle(_array)
 {
     var _i = array_length(_array) - 1;
     repeat(_i)
     {
-        var _index = VinylIRandom(_i);
+        var _index = VinylUtilIRandom(_i);
         
         var _oldValue = _array[_index];
         _array[@ _index] = _array[_i];

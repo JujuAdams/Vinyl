@@ -6,7 +6,7 @@
 
 function VinylBrainRandom(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1, _pitchRange = 0) : VinylBrainCommonConstructor(false) constructor
 {
-    _playableArray = VinylEnsureArray(_playableArray);
+    _playableArray = VinylUtilEnsureArray(_playableArray);
     VinylAssertPlayable(_playableArray);
     
     __playableArray = _playableArray;
@@ -18,17 +18,17 @@ function VinylBrainRandom(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1,
     
     static PopPlayable = function()
     {
-        return __playableArray[VinylIRandom(__soundCount-1)];
+        return __playableArray[VinylUtilIRandom(__soundCount-1)];
     }
     
     static PopGain = function()
     {
-        return VinylRandomRange(__gain - __gainRange, __gain + __gainRange);
+        return VinylUtilRandomRange(__gain - __gainRange, __gain + __gainRange);
     }
     
     static PopPitch = function()
     {
-        return VinylRandomRange(__pitch - __pitchRange, __pitch + __pitchRange);
+        return VinylUtilRandomRange(__pitch - __pitchRange, __pitch + __pitchRange);
     }
     
     static ImplPlayOmni = function(_loop, _gain, _pitch)

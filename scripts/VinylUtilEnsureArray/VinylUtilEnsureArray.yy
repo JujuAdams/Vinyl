@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylIRandom",
+  "%Name":"VinylUtilEnsureArray",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylIRandom",
+  "name":"VinylUtilEnsureArray",
   "parent":{
-    "name":"Miscellaneous",
-    "path":"folders/Vinyl/Miscellaneous.yy",
+    "name":"Utilities",
+    "path":"folders/Vinyl/Utilities.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

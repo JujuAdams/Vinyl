@@ -31,7 +31,7 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
             if (VinylGetAllStopped(__voice))
             {
                 __voice = undefined;
-                __nextPlay = __loop? (current_time + VinylRandomRange(__minDelay, __maxDelay) / 1000) : infinity;
+                __nextPlay = __loop? (current_time + VinylUtilRandomRange(__minDelay, __maxDelay) / 1000) : infinity;
             }
         }
         else if (current_time >= __nextPlay)
@@ -65,7 +65,7 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         }
         else
         {
-            __nextPlay = current_time + VinylRandomRange(__minDelay, __maxDelay) / 1000;
+            __nextPlay = current_time + VinylUtilRandomRange(__minDelay, __maxDelay) / 1000;
             __voice = -1;
         }
         
@@ -89,7 +89,7 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         }
         else
         {
-            __nextPlay = current_time + VinylRandomRange(__minDelay, __maxDelay) / 1000;
+            __nextPlay = current_time + VinylUtilRandomRange(__minDelay, __maxDelay) / 1000;
             __voice = -1;
         }
         
@@ -111,7 +111,7 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         }
         else
         {
-            __nextPlay = current_time + VinylRandomRange(__minDelay, __maxDelay) / 1000;
+            __nextPlay = current_time + VinylUtilRandomRange(__minDelay, __maxDelay) / 1000;
             __voice = -1;
         }
         

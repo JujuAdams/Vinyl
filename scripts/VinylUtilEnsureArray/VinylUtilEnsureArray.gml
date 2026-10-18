@@ -1,6 +1,6 @@
 /// @param value
 
-function VinylEnsureArray(_value)
+function VinylUtilEnsureArray(_value)
 {
     return is_array(_value)? _value : [_value];
 }
