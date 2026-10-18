@@ -19,7 +19,7 @@ function VinylGetAnyLoop(_voiceOrArray)
     }
     else if (is_struct(_voiceOrArray))
     {
-        return _voiceOrArray.__ImplGetAnyLoop();
+        return _voiceOrArray.ImplGetAnyLoop();
     }
     else if (_voiceOrArray != undefined)
     {

@@ -19,7 +19,7 @@ function VinylGetAnyPaused(_voiceOrArray)
     }
     else if (is_struct(_voiceOrArray))
     {
-        return _voiceOrArray.__ImplGetAnyPaused();
+        return _voiceOrArray.ImplGetAnyPaused();
     }
     else if (_voiceOrArray != undefined)
     {

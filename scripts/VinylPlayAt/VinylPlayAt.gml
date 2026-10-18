@@ -26,7 +26,7 @@ function VinylPlayAt(_playable, _x, _y, _z, _loop = false, _gain = 1, _pitch = 1
     }
     else if (is_struct(_playable))
     {
-        return _playable.__ImplPlayAt(_x, _y, _z, _loop, _gain, _pitch);
+        return _playable.ImplPlayAt(_x, _y, _z, _loop, _gain, _pitch);
     }
     else if (_playable != undefined)
     {

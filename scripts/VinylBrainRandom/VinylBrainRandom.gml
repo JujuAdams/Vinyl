@@ -4,9 +4,9 @@
 /// @param [pitch=1]
 /// @param [pitchRange=0]
 
-function VinylBrainRandom(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1, _pitchRange = 0) : __VinylClassBrainInterface() constructor
+function VinylBrainRandom(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1, _pitchRange = 0) : VinylBrainCommonConstructor(false) constructor
 {
-    if (not is_array(_playableArray)) _playableArray = [_playableArray];
+    _playableArray = VinylEnsureArray(_playableArray);
     VinylAssertPlayable(_playableArray);
     
     __playableArray = _playableArray;
@@ -31,17 +31,17 @@ function VinylBrainRandom(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1,
         return VinylRandomRange(__pitch - __pitchRange, __pitch + __pitchRange);
     }
     
-    static __ImplPlayOmni = function(_loop, _gain, _pitch)
+    static ImplPlayOmni = function(_loop, _gain, _pitch)
     {
         VinylPlayOmni(PopPlayable(), _loop, _gain*PopGain(), _pitch*PopPitch());
     }
     
-    static __ImplPlayAt = function(_x, _y, _z, _loop, _gain, _pitch)
+    static ImplPlayAt = function(_x, _y, _z, _loop, _gain, _pitch)
     {
         VinylPlayAt(PopPlayable(), _x, _y, _z, _loop, _gain*PopGain(), _pitch*PopPitch());
     }
     
-    static __ImplPlayOn = function(_emitter, _loop, _gain, _pitch)
+    static ImplPlayOn = function(_emitter, _loop, _gain, _pitch)
     {
         VinylPlayOn(PopPlayable(), _emitter, _loop, _gain*PopGain(), _pitch*PopPitch());
     }

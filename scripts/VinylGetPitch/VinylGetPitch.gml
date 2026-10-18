@@ -17,7 +17,7 @@ function VinylGetPitch(_voiceOrArray)
     }
     else if (is_struct(_voiceOrArray))
     {
-        return _voiceOrArray.__ImplGetPitch();
+        return _voiceOrArray.ImplGetPitch();
     }
     else if (_voiceOrArray != undefined)
     {

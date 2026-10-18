@@ -17,7 +17,7 @@ function VinylGetGain(_voiceOrArray)
     }
     else if (is_struct(_voiceOrArray))
     {
-        return _voiceOrArray.__ImplGetGain();
+        return _voiceOrArray.ImplGetGain();
     }
     else if (_voiceOrArray != undefined)
     {

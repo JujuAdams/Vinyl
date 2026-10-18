@@ -3,11 +3,9 @@
 /// @param maxDelay
 /// @param [playImmediate=false]
 
-function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = false) : __VinylClassBrainInterface() constructor
+function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = false) : VinylBrainCommonConstructor(true) constructor
 {
     VinylAssertPlayable(_playable);
-    
-    array_push(__VinylSystem().__weakUpdateArray, weak_ref_create(self));
     
     __playable      = _playable;
     __minDelay      = _minDelay;
@@ -26,7 +24,7 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
     
     
     
-    static __Update = function()
+    static ImplUpdate = function()
     {
         if (__voice != undefined)
         {
@@ -53,7 +51,7 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         }
     }
     
-    static __ImplPlayOmni = function(_loop, _gain_UNUSED, _pitch_UNUSED)
+    static ImplPlayOmni = function(_loop, _gain_UNUSED, _pitch_UNUSED)
     {
         __playType = __VINYL_PLAY_OMNI;
         
@@ -63,7 +61,7 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         {
             __voice = undefined;
             __nextPlay = -infinity;
-            __Update();
+            ImplUpdate();
         }
         else
         {
@@ -74,7 +72,7 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         return __voice;
     }
     
-    static __ImplPlayAt = function(_x, _y, _z, _loop, _gain_UNUSED, _pitch_UNUSED)
+    static ImplPlayAt = function(_x, _y, _z, _loop, _gain_UNUSED, _pitch_UNUSED)
     {
         __playType = __VINYL_PLAY_AT;
         __playX    = _x;
@@ -87,7 +85,7 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         {
             __voice = undefined;
             __nextPlay = -infinity;
-            __Update();
+            ImplUpdate();
         }
         else
         {
@@ -98,7 +96,7 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         return __voice;
     }
     
-    static __ImplPlayOn = function(_emitter, _loop, _gain_UNUSED, _pitch_UNUSED)
+    static ImplPlayOn = function(_emitter, _loop, _gain_UNUSED, _pitch_UNUSED)
     {
         __playType    = __VINYL_PLAY_ON;
         __playEmitter = _emitter;
@@ -109,7 +107,7 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         {
             __voice = undefined;
             __nextPlay = -infinity;
-            __Update();
+            ImplUpdate();
         }
         else
         {

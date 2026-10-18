@@ -13,7 +13,7 @@ function VinylPause(_voiceOrArray)
     }
     else if (is_struct(_voiceOrArray))
     {
-        _voiceOrArray.__ImplPause();
+        _voiceOrArray.ImplPause();
     }
     else if (_voiceOrArray != undefined)
     {

@@ -17,7 +17,7 @@ function VinylSetGain(_voiceOrArray, _gain, _time = 0)
     }
     else if (is_struct(_voiceOrArray))
     {
-        _voiceOrArray.__ImplSetGain(_gain, _time);
+        _voiceOrArray.ImplSetGain(_gain, _time);
     }
     else if (_voiceOrArray != undefined)
     {

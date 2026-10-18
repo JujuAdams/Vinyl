@@ -41,7 +41,7 @@ function __VinylSystem()
                     var _weakRef = _updateArray[_i];
                     if (weak_ref_alive(_weakRef))
                     {
-                        _weakRef.ref.__Update();
+                        _weakRef.ref.ImplUpdate();
                         ++_i;
                     }
                     else

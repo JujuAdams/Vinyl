@@ -22,7 +22,7 @@ function VinylGetAllPlaying(_voiceOrArray)
     }
     else if (is_struct(_voiceOrArray))
     {
-        return _voiceOrArray.__ImplGetAllPlaying();
+        return _voiceOrArray.ImplGetAllPlaying();
     }
     else if (_voiceOrArray != undefined)
     {

@@ -17,7 +17,7 @@ function VinylGetAnyPlaying(_voiceOrArray)
     }
     else if (is_struct(_voiceOrArray))
     {
-        return _voiceOrArray.__ImplGetAnyPlaying();
+        return _voiceOrArray.ImplGetAnyPlaying();
     }
     else if (_voiceOrArray != undefined)
     {

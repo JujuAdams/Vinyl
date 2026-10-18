@@ -16,7 +16,7 @@ function VinylSetPitch(_voiceOrArray, _pitch)
     }
     else if (is_struct(_voiceOrArray))
     {
-        _voiceOrArray.__ImplSetPitch(_pitch);
+        _voiceOrArray.ImplSetPitch(_pitch);
     }
     else if (_voiceOrArray != undefined)
     {

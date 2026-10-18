@@ -13,7 +13,7 @@ function VinylResume(_voiceOrArray)
     }
     else if (is_struct(_voiceOrArray))
     {
-        _voiceOrArray.__ImplResume();
+        _voiceOrArray.ImplResume();
     }
     else if (_voiceOrArray != undefined)
     {

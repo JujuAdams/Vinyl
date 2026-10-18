@@ -19,7 +19,7 @@ function VinylGetWillStop(_voiceOrArray)
     }
     else if (is_struct(_voiceOrArray))
     {
-        return _voiceOrArray.__ImplGetWillStop();
+        return _voiceOrArray.ImplGetWillStop();
     }
     else if (_voiceOrArray != undefined)
     {

@@ -24,7 +24,7 @@ function VinylGetAllLoop(_voiceOrArray)
     }
     else if (is_struct(_voiceOrArray))
     {
-        return _voiceOrArray.__ImplGetAllLoop();
+        return _voiceOrArray.ImplGetAllLoop();
     }
     else if (_voiceOrArray != undefined)
     {

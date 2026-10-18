@@ -1,99 +1,111 @@
-function __VinylClassBrainInterface() constructor
+/// @param [update=false]
+
+function VinylBrainCommonConstructor(_update = false) constructor
 {
-    static __brainInterface = true;
+    static ImplUpdate = function()
+    {
+        __VinylDevError($"No update function has been defined for this struct type ({instanceof(self)})");
+    }
     
-    static __ImplPlayOmni = function(_loop, _gain, _pitch)
+    static ImplPlayOmni = function(_loop, _gain, _pitch)
     {
         __VinylDevError($"`VinylPlayOmni()` not supported this struct type ({instanceof(self)})");
     }
     
-    static __ImplPlayAt = function(_x, _y, _z, _loop, _gain, _pitch)
+    static ImplPlayAt = function(_x, _y, _z, _loop, _gain, _pitch)
     {
         __VinylDevError($"`VinylPlayAt()` not supported this struct type ({instanceof(self)})");
     }
     
-    static __ImplPlayOn = function(_emitter, _loop, _gain, _pitch)
+    static ImplPlayOn = function(_emitter, _loop, _gain, _pitch)
     {
         __VinylDevError($"`VinylPlayOn()` not supported this struct type ({instanceof(self)})");
     }
     
-    static __ImplStop = function()
+    static ImplStop = function()
     {
         __VinylDevError($"`VinylStop()` not supported this struct type ({instanceof(self)})");
     }
     
-    static __ImplGetAnyPlaying = function()
+    static ImplGetAnyPlaying = function()
     {
         __VinylDevError($"`VinylGetAnyPlaying()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplGetAllPlaying = function()
+    static ImplGetAllPlaying = function()
     {
         __VinylDevError($"`VinylGetAllPlaying()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplGetWillStop = function()
+    static ImplGetWillStop = function()
     {
         __VinylDevError($"`VinylGetWillStop()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplGetVoiceForFadeOut = function()
+    static ImplGetVoiceForFadeOut = function()
     {
         __VinylDevError($"`VinylFadeOut()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplSetGain = function(_gain, _time)
+    static ImplSetGain = function(_gain, _time)
     {
         __VinylDevError($"`VinylSetGain()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplGetGain = function()
+    static ImplGetGain = function()
     {
         __VinylDevError($"`VinylGetGain()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplSetPitch = function(_pitch)
+    static ImplSetPitch = function(_pitch)
     {
         __VinylDevError($"`VinylSetPitch()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplGetPitch = function()
+    static ImplGetPitch = function()
     {
         __VinylDevError($"`VinylGetPitch()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplSetLoop = function(_state)
+    static ImplSetLoop = function(_state)
     {
         __VinylDevError($"`VinylSetLoop()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplGetAnyLoop = function()
+    static ImplGetAnyLoop = function()
     {
         __VinylDevError($"`VinylGetAnyLoop()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplGetAllLoop = function()
+    static ImplGetAllLoop = function()
     {
         __VinylDevError($"`VinylGetAllLoop()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplPause = function()
+    static ImplPause = function()
     {
         __VinylDevError($"`VinylGetPause()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplResume = function()
+    static ImplResume = function()
     {
         __VinylDevError($"`VinylGetResume()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplGetAllPaused = function()
+    static ImplGetAllPaused = function()
     {
         __VinylDevError($"`VinylGetAllPaused()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplGetAnyPaused = function()
+    static ImplGetAnyPaused = function()
     {
         __VinylDevError($"`VinylGetAnyPaused()` not supported for this struct type ({instanceof(self)})");
+    }
+    
+    static __brainInterface = true;
+    
+    if (_update)
+    {
+        array_push(__VinylSystem().__weakUpdateArray, weak_ref_create(self));
     }
 }

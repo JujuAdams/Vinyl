@@ -14,7 +14,7 @@ function VinylSetLoop(_voiceOrArray, _state)
     }
     else if (is_struct(_voiceOrArray))
     {
-        return _voiceOrArray.__ImplSetLoop(_state);
+        return _voiceOrArray.ImplSetLoop(_state);
     }
     else if (_voiceOrArray != undefined)
     {

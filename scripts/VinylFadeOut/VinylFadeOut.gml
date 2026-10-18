@@ -31,7 +31,7 @@ function VinylFadeOut(_voiceOrArray, _fadeTime, _callback = undefined)
     }
     else if (is_struct(_voiceOrArray))
     {
-        VinylFadeOut(_voiceOrArray.__ImplGetVoiceForFadeOut(), _fadeTime, _callback);
+        VinylFadeOut(_voiceOrArray.ImplGetVoiceForFadeOut(), _fadeTime, _callback);
     }
     else if (_voiceOrArray != undefined)
     {

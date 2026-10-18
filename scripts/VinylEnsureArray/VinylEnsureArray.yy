@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylEnsureArray",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylEnsureArray",
+  "parent":{
+    "name":"Miscellaneous",
+    "path":"folders/Vinyl/Miscellaneous.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

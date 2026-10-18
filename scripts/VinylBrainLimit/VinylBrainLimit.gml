@@ -1,6 +1,6 @@
 /// @param maxCount
 
-function VinylBrainLimit(_maxCount) : __VinylClassBrainInterface() constructor
+function VinylBrainLimit(_maxCount) : VinylBrainCommonConstructor(false) constructor
 {
     __maxCount = _maxCount;
     __watchArray = [];
