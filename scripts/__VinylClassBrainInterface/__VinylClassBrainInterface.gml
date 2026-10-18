@@ -45,9 +45,9 @@ function __VinylClassBrainInterface() constructor
         __VinylDevError($"`VinylGetAllPlaying()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static __ImplGetVoice = function()
+    static __ImplGetVoiceForFadeOut = function()
     {
-        __VinylDevError($"Voice getter not supported for this struct type ({instanceof(self)})");
+        __VinylDevError($"`VinylFadeOut()` not supported for this struct type ({instanceof(self)})");
     }
     
     static __ImplSetGain = function(_gain, _time)

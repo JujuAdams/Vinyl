@@ -8,8 +8,14 @@ function VinylMixGroupGetAnyPlaying(_mixGroupIndex)
         var _i = 0;
         repeat(array_length(_soundArray))
         {
-            audio_is_playing(_soundArray[_i]);
+            if (audio_is_playing(_soundArray[_i]))
+            {
+                return true;
+            }
+            
             ++_i;
         }
     }
+    
+    return false;
 }

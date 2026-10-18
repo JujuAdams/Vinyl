@@ -27,7 +27,7 @@ function VinylPlayLoopAt(_soundOrArray, _x, _y, _z, _gain = 1, _pitch = 1)
     {
         return _soundOrArray.__ImplPlayLoopAt(_x, _y, _z, _gain, _pitch);
     }
-    else
+    else if (_soundOrArray != undefined)
     {
         var _sound = _soundOrArray;
         
@@ -50,4 +50,6 @@ function VinylPlayLoopAt(_soundOrArray, _x, _y, _z, _gain = 1, _pitch = 1)
         
         return _voice;
     }
+    
+    return -1;
 }

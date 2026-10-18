@@ -19,7 +19,7 @@ function VinylSetGain(_voiceOrArray, _gain, _time = 0)
     {
         _voiceOrArray.__ImplSetGain(_gain, _time);
     }
-    else
+    else if (_voiceOrArray != undefined)
     {
         if (audio_is_playing(_voiceOrArray))
         {

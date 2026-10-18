@@ -16,8 +16,11 @@ function VinylSetLoop(_voiceOrArray, _state)
     {
         return _voiceOrArray.__ImplSetLoop(_state);
     }
-    else
+    else if (_voiceOrArray != undefined)
     {
-        audio_sound_loop(_voiceOrArray, _state);
+        if (audio_is_playing(_voiceOrArray))
+        {
+            audio_sound_loop(_voiceOrArray, _state);
+        }
     }
 }

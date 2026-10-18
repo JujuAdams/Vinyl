@@ -13,34 +13,36 @@ function VinylBrainExclusive(_fadeTime) : __VinylClassBrainInterface() construct
     
     static Push = function(_voice)
     {
-        if ((_voice == undefined) || (not audio_is_playing(_voice))) return;
+        if ((_voice == undefined) || (not VinylGetAnyPlaying(_voice))) return;
         VinylFadeOut(__voice, __fadeTime);
         __voice = _voice;
+        
+        return self;
     }
     
     static __ImplStop = function()
     {
-        VinylStop(__voice);
+        return VinylStop(__voice);
     }
     
     static __ImplGetAnyPlaying = function()
     {
-        VinylGetAnyPlaying(__voice);
+        return VinylGetAnyPlaying(__voice);
     }
     
     static __ImplGetAllPlaying = function()
     {
-        VinylGetAllPlaying(__voice);
+        return VinylGetAllPlaying(__voice);
     }
     
-    static __ImplGetVoice = function()
+    static __ImplGetVoiceForFadeOut = function()
     {
         return __voice;
     }
     
     static __ImplSetGain = function(_gain, _time)
     {
-        VinylSetGain(__voice, _gain, _time);
+        return VinylSetGain(__voice, _gain, _time);
     }
     
     static __ImplGetGain = function()
@@ -50,7 +52,7 @@ function VinylBrainExclusive(_fadeTime) : __VinylClassBrainInterface() construct
     
     static __ImplSetPitch = function(_pitch)
     {
-        VinylSetPitch(__voice, _pitch);
+        return VinylSetPitch(__voice, _pitch);
     }
     
     static __ImplGetPitch = function()
@@ -60,7 +62,7 @@ function VinylBrainExclusive(_fadeTime) : __VinylClassBrainInterface() construct
     
     static __ImplSetLoop = function(_state)
     {
-        VinylSetLoop(__voice, _state);
+        return VinylSetLoop(__voice, _state);
     }
     
     static __ImplGetAnyLoop = function()
@@ -75,21 +77,21 @@ function VinylBrainExclusive(_fadeTime) : __VinylClassBrainInterface() construct
     
     static __ImplPause = function()
     {
-        VinylPause(__voice);
+        return VinylPause(__voice);
     }
     
     static __ImplResume = function()
     {
-        VinylResume(__voice);
+        return VinylResume(__voice);
     }
     
     static __ImplGetAllPaused = function()
     {
-        VinylGetAllPaused(__voice);
+        return VinylGetAllPaused(__voice);
     }
     
     static __ImplGetAnyPaused = function()
     {
-        VinylGetAnyPaused(__voice);
+        return VinylGetAnyPaused(__voice);
     }
 }

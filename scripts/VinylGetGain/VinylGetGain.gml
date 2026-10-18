@@ -19,8 +19,10 @@ function VinylGetGain(_voiceOrArray)
     {
         return _voiceOrArray.__ImplGetGain();
     }
-    else
+    else if (_voiceOrArray != undefined)
     {
         return audio_sound_get_gain(_voiceOrArray);
     }
+    
+    return 0;
 }

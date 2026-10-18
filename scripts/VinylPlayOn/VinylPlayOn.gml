@@ -7,6 +7,11 @@ function VinylPlayOn(_soundOrArray, _emitter, _gain = 1, _pitch = 1)
 {
     static _soundDefMap = __VinylSystem().__soundDefMap;
     
+    if (_emitter == undefined)
+    {
+        return -1;
+    }
+    
     if (is_array(_soundOrArray))
     {
         var _voiceArray = array_create(array_length(_soundOrArray), -1);
@@ -24,14 +29,11 @@ function VinylPlayOn(_soundOrArray, _emitter, _gain = 1, _pitch = 1)
     {
         return _soundOrArray.__ImplPlayOn(_emitter);
     }
-    else
+    else if (_soundOrArray != undefined)
     {
-        if (_emitter == undefined)
-        {
-            return -1;
-        }
-        
         var _sound = _soundOrArray;
+        
+        //TODO - Check sound exists
         
         var _soundDef = _soundDefMap[? _sound];
         if (_soundDef != undefined)
@@ -51,4 +53,6 @@ function VinylPlayOn(_soundOrArray, _emitter, _gain = 1, _pitch = 1)
             return -1;
         }
     }
+    
+    return -1;
 }

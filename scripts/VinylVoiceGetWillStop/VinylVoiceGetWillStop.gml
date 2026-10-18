@@ -17,8 +17,10 @@ function VinylVoiceGetWillStop(_voiceOrArray)
         
         return true;
     }
-    else
+    else //TODO
     {
+        var _voice = _voiceOrArray;
+        
         if (_voice == undefined) return true;
         if (not audio_is_playing(_voice)) return true;
         if (audio_sound_get_loop(_voice)) return false;

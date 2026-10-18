@@ -23,8 +23,10 @@ function VinylGetAllPaused(_voiceOrArray)
     {
         return _voiceOrArray.__ImplGetAllPaused();
     }
-    else
+    else if (_voiceOrArray != undefined)
     {
         return audio_is_paused(_voiceOrArray);
     }
+    
+    return false;
 }

@@ -11,7 +11,7 @@ function VinylBrainLimit(_maxCount) : __VinylClassBrainInterface() constructor
         var _i = array_length(_watchArray)-1;
         repeat(_i+1)
         {
-            if (not audio_is_playing(_watchArray[_i]))
+            if (not VinylGetAnyPlaying(_watchArray[_i]))
             {
                 array_delete(_watchArray, _i, 1);
             }

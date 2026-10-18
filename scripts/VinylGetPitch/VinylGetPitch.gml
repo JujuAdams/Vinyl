@@ -19,8 +19,10 @@ function VinylGetPitch(_voiceOrArray)
     {
         return _voiceOrArray.__ImplGetPitch();
     }
-    else
+    else if (_voiceOrArray != undefined)
     {
         return audio_sound_get_pitch(_voiceOrArray);
     }
+    
+    return 1;
 }

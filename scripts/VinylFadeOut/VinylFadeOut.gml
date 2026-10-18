@@ -32,13 +32,13 @@ function VinylFadeOut(_voiceOrArray, _fadeTime, _callback = undefined)
     }
     else if (is_struct(_voiceOrArray))
     {
-        VinylFadeOut(_voiceOrArray.__ImplGetVoice(), _fadeTime, _callback);
+        VinylFadeOut(_voiceOrArray.__ImplGetVoiceForFadeOut(), _fadeTime, _callback);
     }
-    else
+    else if (_voiceOrArray != undefined)
     {
         var _voice = _voiceOrArray;
         
-        if ((_voice == undefined) || (not audio_is_playing(_voice))) return;
+        if (not audio_is_playing(_voice)) return;
         
         //We use a timer to control the forced fade out to avoid other gain
         //setter operations interfering

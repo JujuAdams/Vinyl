@@ -24,7 +24,7 @@ function VinylPlayLoopOmni(_soundOrArray, _gain = 1, _pitch = 1)
     {
         return _soundOrArray.__ImplPlayLoopOmni(_soundOrArray, _gain, _pitch);
     }
-    else
+    else if (_soundOrArray != undefined)
     {
         var _sound = _soundOrArray;
         
@@ -41,4 +41,6 @@ function VinylPlayLoopOmni(_soundOrArray, _gain = 1, _pitch = 1)
         
         return _voice;
     }
+    
+    return -1;
 }

@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylBrainExclusive",
   "parent":{
-    "name":"Brain",
-    "path":"folders/Vinyl/Brain.yy",
+    "name":"Brains",
+    "path":"folders/Vinyl/Brains.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

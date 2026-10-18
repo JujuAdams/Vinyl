@@ -18,7 +18,7 @@ function VinylSetPitch(_voiceOrArray, _pitch)
     {
         _voiceOrArray.__ImplSetPitch(_pitch);
     }
-    else
+    else if (_voiceOrArray != undefined)
     {
         if (audio_is_playing(_voiceOrArray))
         {

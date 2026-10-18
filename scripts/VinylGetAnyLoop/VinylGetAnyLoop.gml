@@ -21,8 +21,10 @@ function VinylGetAnyLoop(_voiceOrArray)
     {
         return _voiceOrArray.__ImplGetAnyLoop();
     }
-    else
+    else if (_voiceOrArray != undefined)
     {
         return audio_sound_get_loop(_voiceOrArray);
     }
+    
+    return false;
 }

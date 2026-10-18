@@ -23,8 +23,10 @@ function VinylGetAllPlaying(_voiceOrArray)
     {
         return _voiceOrArray.__ImplGetAllPlaying();
     }
-    else
+    else if (_voiceOrArray != undefined)
     {
         return audio_is_playing(_voiceOrArray);
     }
+    
+    return false;
 }

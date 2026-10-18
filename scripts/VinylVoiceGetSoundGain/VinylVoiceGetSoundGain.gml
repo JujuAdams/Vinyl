@@ -4,6 +4,8 @@ function VinylVoiceGetSoundGain(_voice)
 {
     static _soundDefMap = __VinylSystem().__soundDefMap;
     
+    //TODO
+    
     if ((_voice == undefined) || (_voice < 0) || (not audio_is_playing(_voice)))
     {
         return 1;

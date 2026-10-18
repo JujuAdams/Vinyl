@@ -15,8 +15,11 @@ function VinylResume(_voiceOrArray)
     {
         _voiceOrArray.__ImplResume();
     }
-    else
+    else if (_voiceOrArray != undefined)
     {
-        audio_resume_sound(_voiceOrArray);
+        if (audio_is_playing(_voiceOrArray))
+        {
+            audio_resume_sound(_voiceOrArray);
+        }
     }
 }
