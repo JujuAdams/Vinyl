@@ -35,7 +35,7 @@ function VinylFadeOut(_voiceOrArray, _fadeTime, _callback = undefined)
     }
     else if (_voiceOrArray != undefined)
     {
-        VinylAttachMethod(_voiceOrArray, {
+        VinylAttachUpdateMethod(_voiceOrArray, {
             __startTime: current_time,
             __duration:  max(1, 1000*_fadeTime*audio_sound_get_gain(_voice)),
             __callback:  _callback,
