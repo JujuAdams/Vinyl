@@ -18,11 +18,11 @@ function VinylMixGroupSetMute(_mixGroupIndex, _state)
                 
                 var _setGain = _state? 0 : __gain;
                 
-                var _emitbusArray = __emitbusArray;
+                var _gmEmitterAndBusArray = __gmEmitterAndBusArray;
                 var _i = 0;
-                repeat(array_length(_emitbusArray))
+                repeat(array_length(_gmEmitterAndBusArray))
                 {
-                    _emitbusArray[_i].__bus.gain = _setGain;
+                    _gmEmitterAndBusArray[_i].__bus.gain = _setGain;
                     ++_i;
                 }
             }

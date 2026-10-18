@@ -37,7 +37,7 @@ function VinylPlayOn(_playable, _emitter, _loop = false, _gain = 1, _pitch = 1)
         var _soundDef = _soundDefMap[? _playable];
         if (_soundDef != undefined)
         {
-            var _gmEmitter = _emitter.__emitbusArray[_soundDef.__mixGroupIndex].__gmEmitter;
+            var _gmEmitter = _emitter.__gmEmitterAndBusArray[_soundDef.__mixGroupIndex].__gmEmitter;
             if (_gmEmitter == undefined)
             {
                 __VinylTrace($"Warning! Mix group is set as omnidirectional only, sounds in this mix group cannot be used with emitters");

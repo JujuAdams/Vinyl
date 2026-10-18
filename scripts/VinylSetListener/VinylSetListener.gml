@@ -19,7 +19,7 @@ function VinylSetListener(_x, _y, _z,   _xForward, _yForward, _zForward,   _xUp,
     var _i = 0;
     repeat(array_length(_mixGroupArray))
     {
-        audio_emitter_position(_mixGroupArray[_i].__globalEmitbus.__gmEmitter, _x, _y, _z);
+        audio_emitter_position(_mixGroupArray[_i].__globalGMEmitterAndBus.__gmEmitter, _x, _y, _z);
         ++_i;
     }
     

@@ -18,11 +18,11 @@ function VinylMixGroupSetGain(_mixGroupIndex, _gain)
                 __gain = _gain;
                 _result = true;
                 
-                var _emitbusArray = __emitbusArray;
+                var _gmEmitterAndBusArray = __gmEmitterAndBusArray;
                 var _i = 0;
-                repeat(array_length(_emitbusArray))
+                repeat(array_length(_gmEmitterAndBusArray))
                 {
-                    _emitbusArray[_i].__bus.gain = __gain;
+                    _gmEmitterAndBusArray[_i].__bus.gain = __gain;
                     ++_i;
                 }
             }

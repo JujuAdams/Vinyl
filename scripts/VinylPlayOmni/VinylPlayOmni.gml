@@ -30,7 +30,7 @@ function VinylPlayOmni(_playable, _loop = false, _gain = 1, _pitch = 1)
         var _soundDef = _soundDefMap[? _playable];
         if (_soundDef != undefined)
         {
-            var _voice = audio_play_sound_on(_mixGroupArray[_soundDef.__mixGroupIndex].__globalEmitbus.__gmEmitter, _playable, _loop, 0, _gain*_soundDef.__gain, 0, _pitch);
+            var _voice = audio_play_sound_on(_mixGroupArray[_soundDef.__mixGroupIndex].__globalGMEmitterAndBus.__gmEmitter, _playable, _loop, 0, _gain*_soundDef.__gain, 0, _pitch);
         }
         else
         {

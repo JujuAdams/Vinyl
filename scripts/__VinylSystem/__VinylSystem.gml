@@ -23,8 +23,8 @@ function __VinylSystem()
             __mixGroupArray = [];
             __soundDefMap = ds_map_create();
             
-            __emitbusMap = ds_map_create();
-            __emitbusArray = [];
+            __gmEmitterAndBusMap = ds_map_create();
+            __gmEmitterAndBusArray = [];
             
             __masterGain = 1;
             __masterMute = false;

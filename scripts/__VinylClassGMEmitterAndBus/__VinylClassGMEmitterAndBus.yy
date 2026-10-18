@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"__VinylClassEmitbus",
+  "%Name":"__VinylClassGMEmitterAndBus",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__VinylClassEmitbus",
+  "name":"__VinylClassGMEmitterAndBus",
   "parent":{
     "name":"(System)",
     "path":"folders/Vinyl/(System).yy",

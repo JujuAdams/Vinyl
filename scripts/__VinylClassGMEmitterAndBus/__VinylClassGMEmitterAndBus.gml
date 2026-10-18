@@ -1,6 +1,6 @@
 /// @param mixGroup
 
-function __VinylClassEmitbus(_mixGroup) constructor
+function __VinylClassGMGMEmitterAndBus(_mixGroup) constructor
 {
     __mixGroup = _mixGroup;
     
