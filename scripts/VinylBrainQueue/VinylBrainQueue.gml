@@ -1,14 +1,16 @@
 /// @param playableArray
 /// @param [behavior=DONT_LOOP]
 /// @param [fadeInTime=0]
+/// @param [playCallback]
 
-function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeInTime = 0) : VinylBrainCommonConstructor(true) constructor
+function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeInTime = 0, _playCallback = undefined) : VinylBrainCommonConstructor(true) constructor
 {
     __playableArray = variable_clone(_playableArray);
     __voice         = undefined;
     __loopQueue     = false;
     __behavior      = _behavior;
     __fadeInTime    = _fadeInTime;
+    __playCallback  = _playCallback;
     
     __playType    = __VINYL_PLAY_NONE;
     __playEmitter = undefined;
@@ -130,10 +132,19 @@ function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fad
             {
                 __voice = VinylPlayOn(__playableArray[0], __playEmitter, _loop, _gain);
             }
+            else
+            {
+                __VinylError($"Play type `{__playType}` unhandled");
+            }
             
             if (__fadeInTime > 0)
             {
                 VinylSetGain(__voice, 1, __fadeInTime);
+            }
+            
+            if (is_callable(__playCallback))
+            {
+                __playCallback(self, __voice);
             }
         }
     }
