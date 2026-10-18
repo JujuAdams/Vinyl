@@ -1,25 +1,22 @@
-// Feather disable all
+/// @param voiceOrArray
 
-/// Immediately stops playback of a voice. Calling this function targeting an HLT voice will stop
-/// the HLT voice entirely. If you'd like to move from the "loop" sound to the "tail" sound then
-/// call `VinylSetLoop(..., false)`.
-/// 
-/// @param voice
-
-function VinylStop(_voice)
+function VinylStop(_voiceOrArray)
 {
-    static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
-    
-    var _voiceStruct = _voiceToStructMap[? _voice];
-    if (_voiceStruct == undefined)
+    if (is_array(_voiceOrArray))
     {
-        if (_voice != undefined)
+        var _i = 0;
+        repeat(array_length(_voiceOrArray))
         {
-            audio_stop_sound(_voice);
+            VinylStop(_voiceOrArray[_i]);
+            ++_i;
         }
     }
-    else
+    else if (is_struct(_voiceOrArray))
     {
-        _voiceStruct.__Stop();
+        _voiceOrArray.__ImplStop();
+    }
+    else if (_voiceOrArray != undefined)
+    {
+        audio_stop_sound(_voiceOrArray);
     }
 }

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylRequestInitialize",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylRequestInitialize",
+  "parent":{
+    "name":"Initialization",
+    "path":"folders/Vinyl/Initialization.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

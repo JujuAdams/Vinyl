@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylPlayAt",
   "parent":{
-    "name":"Playing Audio",
-    "path":"folders/Vinyl/Playing Audio.yy",
+    "name":"Playing & Stopping",
+    "path":"folders/Vinyl/Playing & Stopping.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

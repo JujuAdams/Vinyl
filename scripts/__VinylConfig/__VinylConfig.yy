@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__VinylConfig",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__VinylConfig",
+  "parent":{
+    "name":"Vinyl",
+    "path":"folders/Vinyl.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

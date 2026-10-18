@@ -1,15 +1,11 @@
-// Feather disable all
-
-/// Sets the master (global) gain for all audio, including audio not played with Vinyl.
-/// 
 /// @param gain
 
 function VinylMasterSetGain(_gain)
 {
     static _system = __VinylSystem();
     
-    _gain = max(_gain, 0);
+    if (_gain == undefined) return;
     
-    audio_master_gain(VINYL_MASTER_GAIN_BOOST*VINYL_MAX_VOICE_GAIN*_gain);
     _system.__masterGain = _gain;
+    audio_set_master_gain(0, _system.__masterMute? 0 : _gain);
 }

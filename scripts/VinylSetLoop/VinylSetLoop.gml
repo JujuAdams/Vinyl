@@ -1,26 +1,23 @@
-// Feather disable all
-
-/// Sets the target voice to loop or not loop. If a head-loop-tail voice is targeted then it is
-/// not possible to change the loop behaviour of the head or tail sound. If the loop sound is set
-/// to not loop then the tail sound will play after the loop sound has played through.
-/// 
-/// @param voice
+/// @param voiceOrArray
 /// @param state
 
-function VinylSetLoop(_voice, _state)
+function VinylSetLoop(_voiceOrArray, _state)
 {
-    static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
-    
-    var _voiceStruct = _voiceToStructMap[? _voice];
-    if (_voiceStruct == undefined)
+    if (is_array(_voiceOrArray))
     {
-        if (_voice != undefined)
+        var _i = 0;
+        repeat(array_length(_voiceOrArray))
         {
-            return audio_sound_loop(_voice, _state);
+            VinylSetLoop(_voiceOrArray[_i], _state);
+            ++_i;
         }
+    }
+    else if (is_struct(_voiceOrArray))
+    {
+        return _voiceOrArray.__ImplSetLoop(_state);
     }
     else
     {
-        return _voiceStruct.__SetLoop(_state);
+        audio_sound_loop(_voiceOrArray, _state);
     }
 }

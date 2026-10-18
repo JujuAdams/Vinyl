@@ -1,20 +1,26 @@
-// Feather disable all
+/// @param voiceOrArray
 
-/// Returns the local pitch for a voice.
-/// 
-/// @param voice
-
-function VinylGetPitch(_voice)
+function VinylGetPitch(_voiceOrArray)
 {
-    static _voiceToStructMap = __VinylSystem().__voiceToStructMap;
-    
-    var _voiceStruct = _voiceToStructMap[? _voice];
-    if (_voiceStruct == undefined)
+    if (is_array(_voiceOrArray))
     {
-        return (_voice != undefined)? audio_sound_get_pitch(_voice) : 0;
+        var _result = array_create(array_length(_voiceOrArray), 1);
+        
+        var _i = 0;
+        repeat(array_length(_voiceOrArray))
+        {
+            _result[@ _i] = VinylGetPitch(_voiceOrArray[_i]);
+            ++_i;
+        }
+        
+        return _result;
+    }
+    else if (is_struct(_voiceOrArray))
+    {
+        return _voiceOrArray.__ImplGetPitch();
     }
     else
     {
-        return _voiceStruct.__pitchLocal;
+        return audio_sound_get_pitch(_voiceOrArray);
     }
 }

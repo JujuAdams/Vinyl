@@ -1,19 +1,71 @@
-// Feather disable all
+/// @param voiceOrArray
+/// @param fadeTime
+/// @param [callback]
 
-/// Fades out out a voice. Once a voice is set to fade out, it cannot be stopped. The rate of
-/// change for this function is measured in "gain units per second". If the optional `pause`
-/// parameter is set to `false` (the default) then the voice will stop once faded out. If the
-/// `pause` parameter is set to `true` then the voice will be paused instead and can be unpaused
-/// using the `VinylSetPause()` function. When resuming playback of the voice, it will *not* fade
-/// in.
-/// 
-/// @param voice
-/// @param [rateOfChange]
-/// @param [pause=false]
-
-function VinylFadeOut(_voice, _rateOfChange = VINYL_DEFAULT_FADE_OUT_RATE, _pause = false)
+function VinylFadeOut(_voiceOrArray, _fadeTime, _callback = undefined)
 {
-    if (_voice == undefined) return;
+    static _strongUpdateArray = __VinylSystem().__strongUpdateArray;
+    array_push(_strongUpdateArray, weak_ref_create(self));
     
-    __VinylEnsureSoundVoice(_voice).__FadeOut(max(0.001, _rateOfChange), _pause);
+    if (is_array(_voiceOrArray))
+    {
+        if (_callback != undefined)
+        {
+            if (VINYL_RUNNING_FROM_IDE)
+            {
+                __VinylDevError("Cannot use a callback with an array of voices");
+            }
+            else
+            {
+                __VinylTrace("Warning! Cannot use a callback with an array of voices");
+            }
+            
+            return;
+        }
+        
+        var _i = 0;
+        repeat(array_length(_voiceOrArray))
+        {
+            VinylFadeOut(_voiceOrArray[_i], _fadeTime);
+            ++_i;
+        }
+    }
+    else if (is_struct(_voiceOrArray))
+    {
+        VinylFadeOut(_voiceOrArray.__ImplGetVoice(), _fadeTime, _callback);
+    }
+    else
+    {
+        var _voice = _voiceOrArray;
+        
+        if ((_voice == undefined) || (not audio_is_playing(_voice))) return;
+        
+        //We use a timer to control the forced fade out to avoid other gain
+        //setter operations interfering
+        array_push(_strongUpdateArray, method({
+            __voice:     _voice,
+            __startTime: current_time,
+            __duration:  max(1, 1000*_fadeTime*audio_sound_get_gain(_voice)),
+            __callback:  _callback,
+        },
+        function()
+        {
+            if (audio_is_playing(__voice))
+            {
+                var _gain = (current_time - __startTime) / __duration;
+                if (_gain >= 0)
+                {
+                    audio_sound_gain(__voice, _gain, VINYL_STEP_DURATION);
+                    return true;
+                }
+            }
+            
+            if (is_callable(__callback))
+            {
+                __callback();
+            }
+            
+            return false;
+        }));
+    }
 }

@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylSetLoop",
   "parent":{
-    "name":"Looping & Pausing",
-    "path":"folders/Vinyl/Looping & Pausing.yy",
+    "name":"Loop",
+    "path":"folders/Vinyl/Loop.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

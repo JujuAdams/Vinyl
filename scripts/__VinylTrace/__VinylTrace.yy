@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"__VinylTrace",
   "parent":{
-    "name":"(Internals)",
-    "path":"folders/Vinyl/(Internals).yy",
+    "name":"(System)",
+    "path":"folders/Vinyl/(System).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

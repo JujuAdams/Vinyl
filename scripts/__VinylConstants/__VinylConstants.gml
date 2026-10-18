@@ -1,22 +1,5 @@
-// Feather disable all
+#macro VINYL_QUEUE_DONT_LOOP     0
+#macro VINYL_QUEUE_LOOP_ON_LAST  1
+#macro VINYL_QUEUE_LOOP_EACH     2
 
-////////////////////////////////////////////////////////////////////////////
-//                                                                        //
-// You're welcome to use any of the following macros in your game but ... //
-//                                                                        //
-//                       DO NOT EDIT THIS SCRIPT                          //
-//                       Bad things might happen.                         //
-//                                                                        //
-//    Customisation options can be found in the Config folder scripts.    //
-//                                                                        //
-////////////////////////////////////////////////////////////////////////////
-
-#macro VINYL_VERSION  "6.4.3"
-#macro VINYL_DATE     "2026-10-18"
-
-enum VINYL_QUEUE
-{
-    DONT_LOOP,
-    LOOP_EACH,
-    LOOP_ON_LAST,
-}
+#macro VINYL_RUNNING_FROM_IDE  (GM_build_type == "run")

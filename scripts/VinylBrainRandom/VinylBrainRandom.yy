@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylBrainRandom",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylBrainRandom",
+  "parent":{
+    "name":"Brain",
+    "path":"folders/Vinyl/Brain.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

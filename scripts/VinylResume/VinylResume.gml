@@ -1,17 +1,22 @@
-// Feather disable all
+/// @param voiceOrArray
 
-/// Resumes playback of a paused voice.
-/// 
-/// @param voice
-
-function VinylResume(_voice)
+function VinylResume(_voiceOrArray)
 {
-    static _seen = false;
-    if (not _seen)
+    if (is_array(_voiceOrArray))
     {
-        __VinylWarning("VinylResume() has been deprecated. Please use VinylSetPause() instead");
-        _seen = true;
+        var _i = 0;
+        repeat(array_length(_voiceOrArray))
+        {
+            VinylResume(_voiceOrArray[_i]);
+            ++_i;
+        }
     }
-    
-    VinylSetPause(_voice, false);
+    else if (is_struct(_voiceOrArray))
+    {
+        _voiceOrArray.__ImplResume();
+    }
+    else
+    {
+        audio_resume_sound(_voiceOrArray);
+    }
 }

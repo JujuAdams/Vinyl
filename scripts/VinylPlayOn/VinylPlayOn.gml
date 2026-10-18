@@ -1,46 +1,54 @@
-// Feather disable all
-
-/// Plays a sound or pattern. Sound playback works the same as native GameMaker functions. If you
-/// are playing a pattern, the exact playback behaviour will change depending on the type of
-/// pattern:
-/// 
-///   - Shuffle chooses a random sound from an array of sounds
-///   - Blend plays multiple sounds whose balance can be adjusted by setting the blend factor
-///   - Head-Loop-Tail plays a head, then a loop (until the end loop function is called), then a tail
-/// 
-/// This function returns a voice index which can be used with other Vinyl functions to adjust
-/// playback and trigger pattern behaviours where relevant.
-/// 
+/// @param soundOrArray
 /// @param emitter
-/// @param sound/pattern
-/// @param [loop]
 /// @param [gain=1]
 /// @param [pitch=1]
-/// @param [duckerName]
-/// @param [duckPriority]
 
-function VinylPlayOn(_emitter, _pattern, _loop = undefined, _gain = 1, _pitch = 1, _duckerName = undefined, _duckPrio = undefined)
+function VinylPlayOn(_soundOrArray, _emitter, _gain = 1, _pitch = 1)
 {
-    static _patternMap = __VinylSystem().__patternMap;
+    static _soundDefMap = __VinylSystem().__soundDefMap;
     
-    if (is_handle(_pattern))
+    if (is_array(_soundOrArray))
     {
-        return __VinylEnsurePatternSound(_pattern).__Play(_emitter, _loop, _gain, _pitch, _duckerName, _duckPrio);
+        var _voiceArray = array_create(array_length(_soundOrArray), -1);
+        
+        var _i = 0;
+        repeat(array_length(_soundOrArray))
+        {
+            _voiceArray[@ _i] = VinylPlayOn(_soundOrArray[_i], _emitter, _gain, _pitch);
+            ++_i;
+        }
+        
+        return _voiceArray;
     }
-    else if (is_string(_pattern))
+    else if (is_struct(_soundOrArray))
     {
-        var _patternStruct = _patternMap[? _pattern];
-        if (_patternStruct != undefined)
-        {
-            return _patternStruct.__Play(_emitter, _loop, _gain, _pitch, _duckerName, _duckPrio);
-        }
-        else
-        {
-            __VinylError("Pattern \"", _pattern, "\" not found");
-        }
+        return _soundOrArray.__ImplPlayOn(_emitter);
     }
     else
     {
-        __VinylError("Datatype not supported (", typeof(_pattern), ")");
+        if (_emitter == undefined)
+        {
+            return -1;
+        }
+        
+        var _sound = _soundOrArray;
+        
+        var _soundDef = _soundDefMap[? _sound];
+        if (_soundDef != undefined)
+        {
+            var _gmEmitter = _emitter.__emitbusArray[_soundDef.__mixGroupIndex].__gmEmitter;
+            if (_gmEmitter == undefined)
+            {
+                __VinylTrace($"Warning! Mix group is set as omnidirectional only, sounds in this mix group cannot be used with emitters");
+                return -1;
+            }
+            
+            return audio_play_sound_on(_gmEmitter, _sound, false, 0, _gain*_soundDef.__gain, 0, _pitch);
+        }
+        else
+        {
+            __VinylTrace($"Warning! Sound \"{audio_get_name(_sound)}\" has not been assigned to a mix group, sound cannot play");
+            return -1;
+        }
     }
 }

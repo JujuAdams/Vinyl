@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylResume",
   "parent":{
-    "name":"Deprecated",
-    "path":"folders/Vinyl/(Internals)/Deprecated.yy",
+    "name":"Pause & Resume",
+    "path":"folders/Vinyl/Pause & Resume.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

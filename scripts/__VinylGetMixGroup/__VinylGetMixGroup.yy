@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__VinylGetMixGroup",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__VinylGetMixGroup",
+  "parent":{
+    "name":"(System)",
+    "path":"folders/Vinyl/(System).yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

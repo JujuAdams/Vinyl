@@ -1,3 +1,4 @@
+/// @param array
 
 function __VinylArrayShuffle(_array)
 {

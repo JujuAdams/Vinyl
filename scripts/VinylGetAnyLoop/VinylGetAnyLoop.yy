@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylGetAnyLoop",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylGetAnyLoop",
+  "parent":{
+    "name":"Loop",
+    "path":"folders/Vinyl/Loop.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

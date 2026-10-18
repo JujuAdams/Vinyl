@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylMasterSetMute",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylMasterSetMute",
+  "parent":{
+    "name":"Master",
+    "path":"folders/Vinyl/Master.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

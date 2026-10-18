@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylVoiceGetWillStop",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylVoiceGetWillStop",
+  "parent":{
+    "name":"Miscellaneous",
+    "path":"folders/Vinyl/Miscellaneous.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
