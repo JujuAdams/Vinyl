@@ -131,3 +131,30 @@ No example provided.
 ```
 
 <!-- tabs:end -->
+
+&nbsp;
+
+## `…GetPitchForBPM`
+
+`VinylGetPitchForBPM(voiceOrPattern, newBPM)`
+
+<!-- tabs:start -->
+
+#### **Description**
+
+*Returns:* Number
+
+|Name            |Datatype|Purpose                            |
+|----------------|--------|-----------------------------------|
+|`voiceOrPattern`|voice   |Vinyl voice or pattern to target   |
+|`newBPM`        |number  |Target BPM to calculate a pitch for|
+
+Returns a pitch multiplier for a new BPM based on the base BPM of the voice or pattern.
+
+#### **Example**
+
+```gml
+No example provided.
+```
+
+<!-- tabs:end -->
