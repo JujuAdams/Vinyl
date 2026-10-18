@@ -18,17 +18,17 @@ function VinylBrainRandom(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1,
     
     static PopPlayable = function()
     {
-        return __playableArray[__VinylIRandom(__soundCount-1)];
+        return __playableArray[VinylIRandom(__soundCount-1)];
     }
     
     static PopGain = function()
     {
-        return __VinylRandomRange(__gain - __gainRange, __gain + __gainRange);
+        return VinylRandomRange(__gain - __gainRange, __gain + __gainRange);
     }
     
     static PopPitch = function()
     {
-        return __VinylRandomRange(__pitch - __pitchRange, __pitch + __pitchRange);
+        return VinylRandomRange(__pitch - __pitchRange, __pitch + __pitchRange);
     }
     
     static __ImplPlayOmni = function(_loop, _gain, _pitch)

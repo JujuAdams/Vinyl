@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"__VinylIRandom",
+  "%Name":"VinylArrayShuffle",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__VinylIRandom",
+  "name":"VinylArrayShuffle",
   "parent":{
-    "name":"PRNG",
-    "path":"folders/Vinyl/(System)/PRNG.yy",
+    "name":"Miscellaneous",
+    "path":"folders/Vinyl/Miscellaneous.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

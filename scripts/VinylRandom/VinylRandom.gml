@@ -2,7 +2,7 @@
 /// 
 /// @param value
 
-function __VinylIRandom(_value)
+function VinylRandom(_value)
 {
     static _state = floor(1000000*date_current_datetime() + display_mouse_get_x() + display_get_width()*display_mouse_get_y());
     
@@ -12,10 +12,10 @@ function __VinylIRandom(_value)
         _state ^=            _state >> 17;
         _state  = (_state ^ (_state <<  5)) & 0xFFFFFFFF; //Limit to 32 bits
         
-        return abs(real(_state)) mod (_value+1);
+        return _value * (real(_state) / 4294967296);
     }
     else
     {
-        return irandom(_value);
+        return random(_value);
     }
 }
