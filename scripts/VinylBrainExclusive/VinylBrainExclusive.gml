@@ -41,6 +41,11 @@ function VinylBrainExclusive(_fadeTime) : VinylBrainCommonConstructor(false) con
         return __voice;
     }
     
+    static ImplGetTrackPosition = function()
+    {
+        return VinylGetTrackPosition(__voice);
+    }
+    
     static ImplSetGain = function(_gain, _time)
     {
         return VinylSetGain(__voice, _gain, _time);

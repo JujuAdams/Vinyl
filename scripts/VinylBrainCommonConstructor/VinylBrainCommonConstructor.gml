@@ -47,6 +47,11 @@ function VinylBrainCommonConstructor(_update = false) constructor
         __VinylDevError($"`VinylFadeOut()` not supported for this struct type ({instanceof(self)})");
     }
     
+    static ImplGetTrackPosition = function()
+    {
+        __VinylDevError($"`VinylGetTrackPosition()` not supported for this struct type ({instanceof(self)})");
+    }
+    
     static ImplSetGain = function(_gain, _time)
     {
         __VinylDevError($"`VinylSetGain()` not supported for this struct type ({instanceof(self)})");

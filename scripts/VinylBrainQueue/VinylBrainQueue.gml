@@ -201,6 +201,11 @@ function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fad
         return __voice;
     }
     
+    static ImplGetTrackPosition = function()
+    {
+        return VinylGetTrackPosition(__voice);
+    }
+    
     static ImplSetLoop = function(_state)
     {
         __loopQueue = _state;

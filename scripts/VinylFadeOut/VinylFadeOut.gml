@@ -35,21 +35,14 @@ function VinylFadeOut(_voiceOrArray, _fadeTime, _callback = undefined)
     }
     else if (_voiceOrArray != undefined)
     {
-        var _voice = _voiceOrArray;
-        
-        if (not audio_is_playing(_voice)) return;
-        
-        //We use a timer to control the forced fade out to avoid other gain
-        //setter operations interfering
-        array_push(_strongUpdateArray, method({
-            __voice:     _voice,
+        VinylAttachMethod(_voiceOrArray, {
             __startTime: current_time,
             __duration:  max(1, 1000*_fadeTime*audio_sound_get_gain(_voice)),
             __callback:  _callback,
         },
-        function()
+        function(_data, _voiceOrArray, _playing)
         {
-            if (audio_is_playing(__voice))
+            if (_playing)
             {
                 var _gain = (current_time - __startTime) / __duration;
                 if (_gain >= 0)
@@ -63,8 +56,6 @@ function VinylFadeOut(_voiceOrArray, _fadeTime, _callback = undefined)
             {
                 __callback();
             }
-            
-            return false;
-        }));
+        });
     }
 }
