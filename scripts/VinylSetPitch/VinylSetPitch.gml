@@ -11,8 +11,6 @@ function VinylSetPitch(_voiceOrArray, _pitch)
             VinylSetPitch(_voiceOrArray[_i], _pitch);
             ++_i;
         }
-        
-        return;
     }
     else if (is_struct(_voiceOrArray))
     {

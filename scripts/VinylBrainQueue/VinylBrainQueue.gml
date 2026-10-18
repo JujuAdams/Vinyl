@@ -3,10 +3,9 @@
 /// @param [fadeInTime=0]
 /// @param [playCallback]
 
-function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeInTime = 0, _playCallback = undefined) : VinylBrainCommonConstructor(true) constructor
+function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeInTime = 0, _playCallback = undefined) : VinylBrainVoicedConstructor(true) constructor
 {
     __playableArray = variable_clone(_playableArray);
-    __voice         = undefined;
     __loopQueue     = false;
     __behavior      = _behavior;
     __fadeInTime    = _fadeInTime;
@@ -17,13 +16,6 @@ function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fad
     __playX       = undefined;
     __playY       = undefined;
     __playZ       = undefined;
-    
-    
-    
-    static GetVoice = function()
-    {
-        return __voice;
-    }
     
     static SetFadeIn = function(_time)
     {
@@ -110,6 +102,8 @@ function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fad
     
     
     
+    
+    
     static ImplUpdate = function()
     {
         if ((__playType != __VINYL_PLAY_NONE) && (array_length(__playableArray) > 0) && VinylGetWillStop(__voice))
@@ -132,7 +126,7 @@ function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fad
             {
                 __voice = VinylPlayOn(__playableArray[0], __playEmitter, _loop, _gain);
             }
-            else
+            else if (__playType != __VINYL_PLAY_NONE)
             {
                 __VinylError($"Play type `{__playType}` unhandled");
             }
@@ -148,10 +142,6 @@ function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fad
             }
         }
     }
-    
-    
-    
-    
     
     static ImplPlayOmni = function(_loop, _gain_UNUSED, _pitch_UNUSED)
     {
@@ -194,27 +184,7 @@ function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fad
     {
         var _voice = __voice;
         __voice = undefined;
-        return VinylStop(_voice);
-    }
-    
-    static ImplGetAnyPlaying = function()
-    {
-        return VinylGetAnyPlaying(__voice);
-    }
-    
-    static ImplGetAllPlaying = function()
-    {
-        return VinylGetAllPlaying(__voice);
-    }
-    
-    static ImplGetFlatVoiceArray = function(_resultArray)
-    {
-        array_push(_resultArray, __voice);
-    }
-    
-    static ImplGetTrackPosition = function()
-    {
-        return VinylGetTrackPosition(__voice);
+        VinylStop(_voice);
     }
     
     static ImplSetLoop = function(_state)
@@ -232,25 +202,5 @@ function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fad
     static ImplGetAllLoop = function()
     {
         return __loopQueue;
-    }
-    
-    static ImplPause = function()
-    {
-        return VinylPause(__voice);
-    }
-    
-    static ImplResume = function()
-    {
-        return VinylResume(__voice);
-    }
-    
-    static ImplGetAllPaused = function()
-    {
-        return VinylGetAllPaused(__voice);
-    }
-    
-    static ImplGetAnyPaused = function()
-    {
-        return VinylGetAnyPaused(__voice);
     }
 }

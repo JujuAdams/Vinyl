@@ -1,6 +1,6 @@
 /// @param [update=false]
 
-function VinylBrainCommonConstructor(_update = false) constructor
+function VinylBrainParentConstructor(_update = false) constructor
 {
     static ImplUpdate = function()
     {

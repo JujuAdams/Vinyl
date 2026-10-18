@@ -1,9 +1,21 @@
 /// @param maxCount
 
-function VinylBrainLimit(_maxCount) : VinylBrainCommonConstructor(false) constructor
+function VinylBrainLimit(_maxCount) : VinylBrainParentConstructor(false) constructor
 {
     __maxCount = _maxCount;
     __watchArray = [];
+    
+    static Push = function(_voice)
+    {
+        if (GetAllowed())
+        {
+            Push(_voice);
+        }
+        else
+        {
+            VinylStop(_voice);
+        }
+    }
     
     static GetAllowed = function()
     {
@@ -22,51 +34,9 @@ function VinylBrainLimit(_maxCount) : VinylBrainCommonConstructor(false) constru
         return (array_length(_watchArray) < __maxCount);
     }
     
-    static Push = function(_voice)
+    static ForcePush = function(_voice)
     {
         array_push(__watchArray, _voice);
         return _voice;
-    }
-    
-    static PlayOmni = function(_sound, _gain = 1, _pitch = 1)
-    {
-        if (GetAllowed())
-        {
-            var _voice =  VinylPlayOmni(_sound, _gain, _pitch);
-            array_push(__watchArray, _voice);
-            return _voice;
-        }
-        else
-        {
-            return -1;
-        }
-    }
-    
-    static PlayAt = function(_sound, _x, _y, _z, _gain = 1, _pitch = 1)
-    {
-        if (GetAllowed())
-        {
-            var _voice =  VinylPlayAt(_sound, _x, _y, _z, _gain, _pitch);
-            array_push(__watchArray, _voice);
-            return _voice;
-        }
-        else
-        {
-            return -1;
-        }
-    }
-    
-    static PlayOn = function(_emitter, _sound, _gain = 1, _pitch = 1)
-    {
-        if (GetAllowed())
-        {
-            var _voice =  VinylPlayOn(_sound, _emitter, _gain, _pitch);
-            array_push(__watchArray, _voice);
-            return _voice;
-        }
-        else
-        {
-            return -1;
-        }
     }
 }

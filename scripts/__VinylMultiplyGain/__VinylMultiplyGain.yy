@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__VinylMultiplyGain",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__VinylMultiplyGain",
+  "parent":{
+    "name":"(System)",
+    "path":"folders/Vinyl/(System).yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -2,7 +2,7 @@
 /// @param bpm
 /// @param beginOnBeat
 
-function VinylBrainBPM(_voice, _bpm, _beginOnBeat) : VinylBrainCommonConstructor(false) constructor
+function VinylBrainBPM(_voice, _bpm, _beginOnBeat) : VinylBrainParentConstructor(false) constructor
 {
     __voice = _voice;
     __bpm   = _bpm;

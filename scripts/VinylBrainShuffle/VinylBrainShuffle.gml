@@ -4,7 +4,7 @@
 /// @param [pitch=1]
 /// @param [pitchRange=0]
 
-function VinylBrainShuffle(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1, _pitchRange = 0) : VinylBrainCommonConstructor(false) constructor
+function VinylBrainShuffle(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1, _pitchRange = 0) : VinylBrainParentConstructor(false) constructor
 {
     _playableArray = VinylUtilEnsureArray(_playableArray);
     VinylAssertPlayable(_playableArray);
@@ -53,6 +53,10 @@ function VinylBrainShuffle(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1
     {
         return VinylUtilRandomRange(__pitch - __pitchRange, __pitch + __pitchRange);
     }
+    
+    
+    
+    
     
     static ImplPlayOmni = function(_loop, _gain, _pitch)
     {

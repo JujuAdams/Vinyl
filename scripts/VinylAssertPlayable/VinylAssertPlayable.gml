@@ -19,7 +19,7 @@ function VinylAssertPlayable(_value)
         }
         catch(_error)
         {
-            throw $"Struct type \"{instanceof(_value)}\" does not inherit from `VinylBrainCommonConstructor`";
+            throw $"Struct type \"{instanceof(_value)}\" does not inherit from `VinylBrainParentConstructor`";
         }
     }
     else if (is_handle(_value) || is_numeric(_value))

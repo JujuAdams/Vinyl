@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylBrainCommonConstructor",
+  "%Name":"__VinylMultiplyPitch",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylBrainCommonConstructor",
+  "name":"__VinylMultiplyPitch",
   "parent":{
-    "name":"Brains",
-    "path":"folders/Vinyl/Brains.yy",
+    "name":"(System)",
+    "path":"folders/Vinyl/(System).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
