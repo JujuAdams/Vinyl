@@ -6,56 +6,57 @@ function VinylFadeOut(_voiceOrArray, _fadeTime, _callback = undefined)
 {
     static _strongUpdateArray = __VinylSystem().__strongUpdateArray;
     
-    if (is_array(_voiceOrArray))
+    var _flatArray = VinylGetFlatVoiceArray(_voiceOrArray);
+    
+    var _maxGain = 0;
+    var _gainArray = array_create(array_length(_flatArray), 1);
+    var _i = 0;
+    repeat(array_length(_flatArray))
     {
-        if (_callback != undefined)
+        var _gain = audio_sound_get_gain(_flatArray[_i]);
+        _gainArray[@ _i] = _gain;
+        _maxGain = max(_gain, _maxGain);
+        ++_i;
+    }
+    
+    VinylCreateUpdateMethod(_voiceOrArray, {
+        __startTime: current_time,
+        __flatArray: _flatArray,
+        __gainArray: _gainArray,
+        __duration:  max(1, 1000*_fadeTime*_maxGain),
+        __callback:  _callback,
+    },
+    function(_data, _voiceOrArray, _playing)
+    {
+        if (_playing)
         {
-            if (VINYL_RUNNING_FROM_IDE)
-            {
-                __VinylDevError("Cannot use a callback with an array of voices");
-            }
-            else
-            {
-                __VinylTrace("Warning! Cannot use a callback with an array of voices");
-            }
+            var _flatArray = _data.__flatArray;
             
-            return;
-        }
-        
-        var _i = 0;
-        repeat(array_length(_voiceOrArray))
-        {
-            VinylFadeOut(_voiceOrArray[_i], _fadeTime);
-            ++_i;
-        }
-    }
-    else if (is_struct(_voiceOrArray))
-    {
-        VinylFadeOut(_voiceOrArray.ImplGetVoiceForFadeOut(), _fadeTime, _callback);
-    }
-    else if (_voiceOrArray != undefined)
-    {
-        VinylAttachUpdateMethod(_voiceOrArray, {
-            __startTime: current_time,
-            __duration:  max(1, 1000*_fadeTime*audio_sound_get_gain(_voice)),
-            __callback:  _callback,
-        },
-        function(_data, _voiceOrArray, _playing)
-        {
-            if (_playing)
+            var _factor = (current_time - __startTime) / __duration;
+            if (_factor >= 0)
             {
-                var _gain = (current_time - __startTime) / __duration;
-                if (_gain >= 0)
+                var _gainArray = _data.__gainArray;
+                var _i = 0;
+                repeat(array_length(_flatArray))
                 {
-                    audio_sound_gain(__voice, _gain, VINYL_STEP_DURATION);
-                    return true;
+                    audio_sound_gain(_flatArray[_i], _factor*_gainArray[_i], VINYL_STEP_DURATION);
+                    ++_i;
                 }
+                
+                return true;
             }
             
-            if (is_callable(__callback))
+            var _i = 0;
+            repeat(array_length(_flatArray))
             {
-                __callback();
+                audio_stop_sound(_flatArray[_i]);
+                ++_i;
             }
-        });
-    }
+        }
+            
+        if (is_callable(__callback))
+        {
+            __callback();
+        }
+    });
 }

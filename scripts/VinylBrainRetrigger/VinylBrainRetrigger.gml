@@ -16,6 +16,8 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
     __loop = true;
     __nextPlay = infinity;
     
+    //TODO - Add gain & pitch
+    
     __playType    = __VINYL_PLAY_NONE;
     __playEmitter = undefined;
     __playX       = undefined;

@@ -2,7 +2,7 @@
 /// @param data
 /// @param method
 
-function VinylAttachUpdateMethod(_voiceOrArray, _data, _method)
+function VinylCreateStopCallback(_voiceOrArray, _data, _method)
 {
     static _strongUpdateArray = __VinylSystem().__strongUpdateArray;
     
@@ -15,11 +15,11 @@ function VinylAttachUpdateMethod(_voiceOrArray, _data, _method)
     {
         if (VinylGetAnyPlaying(__voiceOrArray))
         {
-            return __method(__data, __voiceOrArray, true);
+            return true;
         }
         else
         {
-            __method(__data, __voiceOrArray, false);
+            __method(__data, __voiceOrArray);
             return false;
         }
     }));

@@ -36,9 +36,9 @@ function VinylBrainExclusive(_fadeTime) : VinylBrainCommonConstructor(false) con
         return VinylGetAllPlaying(__voice);
     }
     
-    static ImplGetVoiceForFadeOut = function()
+    static ImplGetFlatVoiceArray = function(_resultArray)
     {
-        return __voice;
+        array_push(_resultArray, __voice);
     }
     
     static ImplGetTrackPosition = function()

@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylAttachStopCallback",
+  "%Name":"VinylCreateUpdateMethod",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylAttachStopCallback",
+  "name":"VinylCreateUpdateMethod",
   "parent":{
     "name":"Miscellaneous",
     "path":"folders/Vinyl/Miscellaneous.yy",

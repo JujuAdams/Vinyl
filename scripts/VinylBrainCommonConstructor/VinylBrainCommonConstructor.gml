@@ -42,9 +42,9 @@ function VinylBrainCommonConstructor(_update = false) constructor
         __VinylDevError($"`VinylGetWillStop()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static ImplGetVoiceForFadeOut = function()
+    static ImplGetFlatVoiceArray = function()
     {
-        __VinylDevError($"`VinylFadeOut()` not supported for this struct type ({instanceof(self)})");
+        __VinylDevError($"`VinylGetFlatVoiceArray()` not supported for this struct type ({instanceof(self)})");
     }
     
     static ImplGetTrackPosition = function()

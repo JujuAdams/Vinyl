@@ -207,9 +207,9 @@ function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fad
         return VinylGetAllPlaying(__voice);
     }
     
-    static ImplGetVoiceForFadeOut = function()
+    static ImplGetFlatVoiceArray = function(_resultArray)
     {
-        return __voice;
+        array_push(_resultArray, __voice);
     }
     
     static ImplGetTrackPosition = function()
