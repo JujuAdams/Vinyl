@@ -4,20 +4,21 @@ function VinylGetAllPlaying(_voiceOrArray)
 {
     if (is_array(_voiceOrArray))
     {
-        if (array_length(_voiceOrArray) <= 0) return false;
-        
-        var _i = 0;
-        repeat(array_length(_voiceOrArray))
+        if (array_length(_voiceOrArray) > 0)
         {
-            if (not audio_is_playing(_voiceOrArray[_i]))
+            var _i = 0;
+            repeat(array_length(_voiceOrArray))
             {
-                return false;
+                if (not VinylGetAllPlaying(_voiceOrArray[_i]))
+                {
+                    return false;
+                }
+                
+                ++_i;
             }
-        
-            ++_i;
+            
+            return true;
         }
-        
-        return true;
     }
     else if (is_struct(_voiceOrArray))
     {

@@ -13,7 +13,8 @@ function VinylBrainExclusive(_fadeTime) : __VinylClassBrainInterface() construct
     
     static Push = function(_voice)
     {
-        if ((_voice == undefined) || (not VinylGetAnyPlaying(_voice))) return;
+        if (VinylGetAllStopped(_voice)) return;
+        
         VinylFadeOut(__voice, __fadeTime);
         __voice = _voice;
         

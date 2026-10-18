@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylGetAllStopped",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylGetAllStopped",
+  "parent":{
+    "name":"Stopping",
+    "path":"folders/Vinyl/Stopping.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -14,8 +14,6 @@ function VinylGetAnyPlaying(_voiceOrArray)
             
             ++_i;
         }
-        
-        return false;
     }
     else if (is_struct(_voiceOrArray))
     {
