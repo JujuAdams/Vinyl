@@ -48,6 +48,19 @@ function VinylSettingsAssertValid(_inputData)
         return false;
     }
     
+    var _assertNumberNormalized = function(_value, _throwMessage)
+    {
+        if ((_value >= 0) || (_value <= 1))
+        {
+            return true;
+        }
+        else
+        {
+            throw $"{_throwMessage} (was \"{typeof(_value)}\")";
+            return false;
+        }
+    }
+    
     //Convert to raw data if we're a string
     if (is_string(_inputData))
     {
@@ -69,6 +82,9 @@ function VinylSettingsAssertValid(_inputData)
     {
         _assertNumericOrNull(_inputData.master[$ "gain"], "`.master.gain` must be a number");
         _assertNumericOrNull(_inputData.master[$ "mute"], "`.master.mute` must be a number");
+        
+        _assertNumberNormalized(_inputData.master.gain, $"`.master.gain` must be between 0 and 1 (inclusive)");
+        _assertNumberNormalized(_inputData.master.mute, $"`.master.mute` must be `true` or `false`");
     }
     else
     {
@@ -88,6 +104,9 @@ function VinylSettingsAssertValid(_inputData)
             {
                 _assertNumericOrNull(_inputMixGroupData[$ "gain"], $"`.mixGroup.{_exportName}.gain` must be a number");
                 _assertNumericOrNull(_inputMixGroupData[$ "mute"], $"`.mixGroup.{_exportName}.mute` must be a number");
+                
+                _assertNumberNormalized(_inputMixGroupData.gain, $"`.mixGroup.{_exportName}.gain` must be between 0 and 1 (inclusive)");
+                _assertNumberNormalized(_inputMixGroupData.mute, $"`.mixGroup.{_exportName}.mute` must be `true` or `false`");
             }
             else
             {
