@@ -112,7 +112,7 @@ function VinylBrainQueue(_soundArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeIn
     
     static __Update = function()
     {
-        if ((__playType != __VINYL_PLAY_NONE) && (array_length(__soundArray) > 0) && VinylVoiceGetWillStop(__voice))
+        if ((__playType != __VINYL_PLAY_NONE) && (array_length(__soundArray) > 0) && VinylGetWillStop(__voice))
         {
             var _sound = array_shift(__soundArray);
             if (__loopQueue) array_push(__soundArray, _sound);

@@ -7,5 +7,7 @@
 #macro VINYL_STEP_DURATION  50 //milliseconds
 
 // How far from the end of an audio asset to determine the audio as finishing. This is used in the
-// `VinylVoiceGetWillStop()` function.
+// `VinylGetWillStop()` function.
 #macro VINYL_WILL_STOP_TOLERANCE  20 //milliseconds
+
+#macro VINYL_USE_INTERNAL_PRNG  true

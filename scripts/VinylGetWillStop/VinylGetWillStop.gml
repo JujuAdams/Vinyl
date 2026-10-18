@@ -1,13 +1,13 @@
 /// @param voiceOrArray
 
-function VinylVoiceGetWillStop(_voiceOrArray)
+function VinylGetWillStop(_voiceOrArray)
 {
     if (is_array(_voiceOrArray))
     {
         var _i = 0;
         repeat(array_length(_voiceOrArray))
         {
-            if (not VinylVoiceGetWillStop(_voiceOrArray[_i]))
+            if (not VinylGetWillStop(_voiceOrArray[_i]))
             {
                 return false;
             }
@@ -17,11 +17,14 @@ function VinylVoiceGetWillStop(_voiceOrArray)
         
         return true;
     }
-    else //TODO
+    else if (is_struct(_voiceOrArray))
+    {
+        return _voiceOrArray.__ImplGetWillStop();
+    }
+    else if (_voiceOrArray != undefined)
     {
         var _voice = _voiceOrArray;
         
-        if (_voice == undefined) return true;
         if (not audio_is_playing(_voice)) return true;
         if (audio_sound_get_loop(_voice)) return false;
         if (audio_is_paused(_voice)) return false;
@@ -36,4 +39,6 @@ function VinylVoiceGetWillStop(_voiceOrArray)
             return (audio_sound_get_track_position(_voice) >= audio_sound_get_loop_end(_voice) - audio_sound_get_pitch(_voice)*VINYL_WILL_STOP_TOLERANCE/1000);
         }
     }
+    
+    return true;
 }

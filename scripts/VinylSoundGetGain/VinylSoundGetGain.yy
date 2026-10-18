@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylVoiceGetSoundGain",
+  "%Name":"VinylSoundGetGain",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylVoiceGetSoundGain",
+  "name":"VinylSoundGetGain",
   "parent":{
     "name":"Miscellaneous",
     "path":"folders/Vinyl/Miscellaneous.yy",

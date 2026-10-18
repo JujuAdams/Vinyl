@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylVoiceGetWillStop",
+  "%Name":"VinylSoundGetOtherData",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylVoiceGetWillStop",
+  "name":"VinylSoundGetOtherData",
   "parent":{
     "name":"Miscellaneous",
     "path":"folders/Vinyl/Miscellaneous.yy",
