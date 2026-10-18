@@ -1,5 +1,7 @@
 function __VinylClassBrainInterface() constructor
 {
+    static __brainInterface = true;
+    
     static __ImplPlayOmni = function(_loop, _gain, _pitch)
     {
         __VinylDevError($"`VinylPlayOmni()` not supported this struct type ({instanceof(self)})");

@@ -1,10 +1,10 @@
-/// @param soundOrArray
+/// @param playable
 /// @param emitter
 /// @param [loop=false]
 /// @param [gain=1]
 /// @param [pitch=1]
 
-function VinylPlayOn(_soundOrArray, _emitter, _loop = false, _gain = 1, _pitch = 1)
+function VinylPlayOn(_playable, _emitter, _loop = false, _gain = 1, _pitch = 1)
 {
     static _soundDefMap = __VinylSystem().__soundDefMap;
     
@@ -13,30 +13,28 @@ function VinylPlayOn(_soundOrArray, _emitter, _loop = false, _gain = 1, _pitch =
         return -1;
     }
     
-    if (is_array(_soundOrArray))
+    if (is_array(_playable))
     {
-        var _voiceArray = array_create(array_length(_soundOrArray), -1);
+        var _voiceArray = array_create(array_length(_playable), -1);
         
         var _i = 0;
-        repeat(array_length(_soundOrArray))
+        repeat(array_length(_playable))
         {
-            _voiceArray[@ _i] = VinylPlayOn(_soundOrArray[_i], _emitter, _loop, _gain, _pitch);
+            _voiceArray[@ _i] = VinylPlayOn(_playable[_i], _emitter, _loop, _gain, _pitch);
             ++_i;
         }
         
         return _voiceArray;
     }
-    else if (is_struct(_soundOrArray))
+    else if (is_struct(_playable))
     {
-        return _soundOrArray.__ImplPlayOn(_emitter, _loop, _gain, _pitch);
+        return _playable.__ImplPlayOn(_emitter, _loop, _gain, _pitch);
     }
-    else if (_soundOrArray != undefined)
+    else if (_playable != undefined)
     {
-        var _sound = _soundOrArray;
-        
         //TODO - Check sound exists
         
-        var _soundDef = _soundDefMap[? _sound];
+        var _soundDef = _soundDefMap[? _playable];
         if (_soundDef != undefined)
         {
             var _gmEmitter = _emitter.__emitbusArray[_soundDef.__mixGroupIndex].__gmEmitter;
@@ -46,11 +44,11 @@ function VinylPlayOn(_soundOrArray, _emitter, _loop = false, _gain = 1, _pitch =
                 return -1;
             }
             
-            return audio_play_sound_on(_gmEmitter, _sound, _loop, 0, _gain*_soundDef.__gain, 0, _pitch);
+            return audio_play_sound_on(_gmEmitter, _playable, _loop, 0, _gain*_soundDef.__gain, 0, _pitch);
         }
         else
         {
-            __VinylTrace($"Warning! Sound \"{audio_get_name(_sound)}\" has not been assigned to a mix group, sound cannot play");
+            __VinylTrace($"Warning! Sound \"{audio_get_name(_playable)}\" has not been assigned to a mix group, sound cannot play");
             return -1;
         }
     }

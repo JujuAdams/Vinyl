@@ -1,9 +1,9 @@
-/// @param sound
+/// @param soundAsset
 
-function VinylSoundGetGain(_sound)
+function VinylSoundGetGain(_soundAsset)
 {
     static _soundDefMap = __VinylSystem().__soundDefMap;
     
-    var _soundDef = _soundDefMap[? _sound];
+    var _soundDef = _soundDefMap[? _soundAsset];
     return (_soundDef == undefined)? 1 : _soundDef.__gain;
 }

@@ -1,21 +1,24 @@
-/// @param soundArray
+/// @param playableArray
 /// @param [gain=1]
 /// @param [gainRange=0]
 /// @param [pitch=1]
 /// @param [pitchRange=0]
 
-function VinylBrainRandom(_soundArray, _gain = 1, _gainRange = 0, _pitch = 1, _pitchRange = 0) : __VinylClassBrainInterface() constructor
+function VinylBrainRandom(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1, _pitchRange = 0) : __VinylClassBrainInterface() constructor
 {
-    __soundArray = _soundArray;
-    __gain       = _gain;
-    __gainRange  = _gainRange;
-    __pitch      = _pitch;
-    __pitchRange = _pitchRange;
-    __soundCount = array_length(__soundArray);
+    if (not is_array(_playableArray)) _playableArray = [_playableArray];
+    VinylAssertPlayable(_playableArray);
     
-    static PopSound = function()
+    __playableArray = _playableArray;
+    __gain          = _gain;
+    __gainRange     = _gainRange;
+    __pitch         = _pitch;
+    __pitchRange    = _pitchRange;
+    __soundCount    = array_length(__playableArray);
+    
+    static PopPlayable = function()
     {
-        return __soundArray[__VinylIRandom(__soundCount-1)];
+        return __playableArray[__VinylIRandom(__soundCount-1)];
     }
     
     static PopGain = function()
@@ -30,16 +33,16 @@ function VinylBrainRandom(_soundArray, _gain = 1, _gainRange = 0, _pitch = 1, _p
     
     static __ImplPlayOmni = function(_loop, _gain, _pitch)
     {
-        VinylPlayOmni(PopSound(), _loop, _gain*PopGain(), _pitch*PopPitch());
+        VinylPlayOmni(PopPlayable(), _loop, _gain*PopGain(), _pitch*PopPitch());
     }
     
     static __ImplPlayAt = function(_x, _y, _z, _loop, _gain, _pitch)
     {
-        VinylPlayAt(PopSound(), _x, _y, _z, _loop, _gain*PopGain(), _pitch*PopPitch());
+        VinylPlayAt(PopPlayable(), _x, _y, _z, _loop, _gain*PopGain(), _pitch*PopPitch());
     }
     
     static __ImplPlayOn = function(_emitter, _loop, _gain, _pitch)
     {
-        VinylPlayOn(PopSound(), _emitter, _loop, _gain*PopGain(), _pitch*PopPitch());
+        VinylPlayOn(PopPlayable(), _emitter, _loop, _gain*PopGain(), _pitch*PopPitch());
     }
 }

@@ -1,6 +1,6 @@
-/// @param sound
+/// @param soundAsset
 
-function __VinylClassSoundDef(_sound) constructor
+function __VinylClassSoundDef(_soundAsset) constructor
 {
     static _system = __VinylSystem();
     

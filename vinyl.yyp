@@ -81,6 +81,7 @@
     {"id":{"name":"UITextInline","path":"scripts/UITextInline/UITextInline.yy",},},
     {"id":{"name":"UITextWrap","path":"scripts/UITextWrap/UITextWrap.yy",},},
     {"id":{"name":"VinylArrayDeleteStopped","path":"scripts/VinylArrayDeleteStopped/VinylArrayDeleteStopped.yy",},},
+    {"id":{"name":"VinylAssertPlayable","path":"scripts/VinylAssertPlayable/VinylAssertPlayable.yy",},},
     {"id":{"name":"VinylBrainExclusive","path":"scripts/VinylBrainExclusive/VinylBrainExclusive.yy",},},
     {"id":{"name":"VinylBrainLimit","path":"scripts/VinylBrainLimit/VinylBrainLimit.yy",},},
     {"id":{"name":"VinylBrainQueue","path":"scripts/VinylBrainQueue/VinylBrainQueue.yy",},},

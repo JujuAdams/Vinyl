@@ -1,16 +1,16 @@
-/// @param soundArray
+/// @param playableArray
 /// @param [behavior=DONT_LOOP]
 /// @param [fadeInTime=0]
 
-function VinylBrainQueue(_soundArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeInTime = 0) : __VinylClassBrainInterface() constructor
+function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeInTime = 0) : __VinylClassBrainInterface() constructor
 {
     array_push(__VinylSystem().__weakUpdateArray, weak_ref_create(self));
     
-    __soundArray = variable_clone(_soundArray);
-    __voice      = undefined;
-    __loopQueue  = false;
-    __behavior   = _behavior;
-    __fadeInTime = _fadeInTime;
+    __playableArray = variable_clone(_playableArray);
+    __voice         = undefined;
+    __loopQueue     = false;
+    __behavior      = _behavior;
+    __fadeInTime    = _fadeInTime;
     
     __playType    = __VINYL_PLAY_NONE;
     __playEmitter = undefined;
@@ -37,52 +37,54 @@ function VinylBrainQueue(_soundArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeIn
         return __fadeInTime;
     }
     
-    static SetSoundArray = function(_soundArray)
+    static SetPlayableArray = function(_playableArray)
     {
-        __soundArray = variable_clone(_soundArray);
+        VinylAssertPlayable(_playableArray);
+        
+        __playableArray = variable_clone(_playableArray);
         
         if ((__behavior == VINYL_QUEUE_LOOP_ON_LAST) && VinylGetAnyPlaying(__voice))
         {
-            VinylSetLoop(__voice, (array_length(__soundArray) <= 0));
+            VinylSetLoop(__voice, (array_length(__playableArray) <= 0));
         }
         
         return self;
     }
     
-    static GetSoundArray = function()
+    static GetPlayableArray = function()
     {
-        return variable_clone(__soundArray);
+        return variable_clone(__playableArray);
     }
     
-    static SetBottom = function(_sound)
+    static SetBottom = function(_playable)
     {
-        __soundArray[@ max(0, array_length(__soundArray)-1)] = variable_clone(_sound);
+        __playableArray[@ max(0, array_length(__playableArray)-1)] = variable_clone(_playable);
         
         return self;
     }
     
-    static PushBottom = function(_sound)
+    static PushBottom = function(_playable)
     {
-        array_push(__soundArray, variable_clone(_sound));
+        array_push(__playableArray, variable_clone(_playable));
         
         return self;
     }
     
-    static PushTop = function(_sound)
+    static PushTop = function(_playable)
     {
-        array_insert(__soundArray, 0, variable_clone(_sound));
+        array_insert(__playableArray, 0, variable_clone(_playable));
         
         return self;
     }
     
-    static GetContains = function(_sound)
+    static GetContains = function(_playable)
     {
-        return array_contains(__soundArray, _sound);
+        return array_contains(__playableArray, _playable);
     }
     
     static Clear = function(_stopCurrent = false)
     {
-        array_resize(__soundArray, 0);
+        array_resize(__playableArray, 0);
         if (_stopCurrent) VinylStop(__voice);
         
         return self;
@@ -94,7 +96,7 @@ function VinylBrainQueue(_soundArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeIn
         
         if (VinylGetAnyPlaying(__voice))
         {
-            var _loop = (__behavior == VINYL_QUEUE_LOOP_ON_LAST)? (array_length(__soundArray) <= 0) : (__behavior == VINYL_QUEUE_LOOP_EACH);
+            var _loop = (__behavior == VINYL_QUEUE_LOOP_ON_LAST)? (array_length(__playableArray) <= 0) : (__behavior == VINYL_QUEUE_LOOP_EACH);
             VinylSetLoop(__voice, _loop);
         }
         
@@ -110,25 +112,25 @@ function VinylBrainQueue(_soundArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeIn
     
     static __Update = function()
     {
-        if ((__playType != __VINYL_PLAY_NONE) && (array_length(__soundArray) > 0) && VinylGetWillStop(__voice))
+        if ((__playType != __VINYL_PLAY_NONE) && (array_length(__playableArray) > 0) && VinylGetWillStop(__voice))
         {
-            var _sound = array_shift(__soundArray);
-            if (__loopQueue) array_push(__soundArray, _sound);
+            var _playable = array_shift(__playableArray);
+            if (__loopQueue) array_push(__playableArray, _playable);
             
             var _gain = (__fadeInTime > 0)? 0 : 1;
-            var _loop = (__behavior == VINYL_QUEUE_LOOP_ON_LAST)? (array_length(__soundArray) <= 1) : (__behavior == VINYL_QUEUE_LOOP_EACH);
+            var _loop = (__behavior == VINYL_QUEUE_LOOP_ON_LAST)? (array_length(__playableArray) <= 1) : (__behavior == VINYL_QUEUE_LOOP_EACH);
             
             if (__playType == __VINYL_PLAY_OMNI)
             {
-                __voice = VinylPlayOmni(__soundArray[0], _loop, _gain);
+                __voice = VinylPlayOmni(__playableArray[0], _loop, _gain);
             }
             else if (__playType == __VINYL_PLAY_AT)
             {
-                __voice = VinylPlayAt(__soundArray[0], __playX, __playY, __playZ, _loop, _gain);
+                __voice = VinylPlayAt(__playableArray[0], __playX, __playY, __playZ, _loop, _gain);
             }
             else if (__playType == __VINYL_PLAY_ON)
             {
-                __voice = VinylPlayOn(__soundArray[0], __playEmitter, _loop, _gain);
+                __voice = VinylPlayOn(__playableArray[0], __playEmitter, _loop, _gain);
             }
             
             if (__fadeInTime > 0)

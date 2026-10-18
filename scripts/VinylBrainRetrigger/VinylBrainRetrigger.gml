@@ -1,13 +1,15 @@
-/// @param sound
+/// @param playable
 /// @param minDelay
 /// @param maxDelay
 /// @param [playImmediate=false]
 
-function VinylBrainRetrigger(_sound, _minDelay, _maxDelay, _playImmediate = false) : __VinylClassBrainInterface() constructor
+function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = false) : __VinylClassBrainInterface() constructor
 {
+    VinylAssertPlayable(_playable);
+    
     array_push(__VinylSystem().__weakUpdateArray, weak_ref_create(self));
     
-    __sound         = _sound;
+    __playable      = _playable;
     __minDelay      = _minDelay;
     __maxDelay      = _maxDelay;
     __playImmediate = _playImmediate;
@@ -26,28 +28,27 @@ function VinylBrainRetrigger(_sound, _minDelay, _maxDelay, _playImmediate = fals
     
     static __Update = function()
     {
-        if (current_time >= __nextPlay)
+        if (__voice != undefined)
+        {
+            if (not VinylGetAnyPlaying(__voice))
+            {
+                __voice = undefined;
+                __nextPlay = __loop? (current_time + __VinylRandomRange(__minDelay, __maxDelay) / 1000) : infinity;
+            }
+        }
+        else if (current_time >= __nextPlay)
         {
             if (__playType == __VINYL_PLAY_OMNI)
             {
-                __voice = VinylPlayOmni(__sound, false);
+                __voice = VinylPlayOmni(__playable, false);
             }
             else if (__playType == __VINYL_PLAY_AT)
             {
-                __voice = VinylPlayAt(__sound, __playX, __playY, __playZ, false);
+                __voice = VinylPlayAt(__playable, __playX, __playY, __playZ, false);
             }
             else if (__playType == __VINYL_PLAY_ON)
             {
-                __voice = VinylPlayOn(__sound, __playEmitter, false);
-            }
-            
-            if (__loop)
-            {
-                __nextPlay = current_time + __VinylRandomRange(__minDelay, __maxDelay) / 1000;
-            }
-            else
-            {
-                __nextPlay = infinity;
+                __voice = VinylPlayOn(__playable, __playEmitter, false);
             }
         }
     }
@@ -60,6 +61,7 @@ function VinylBrainRetrigger(_sound, _minDelay, _maxDelay, _playImmediate = fals
         
         if (__playImmediate)
         {
+            __voice = undefined;
             __nextPlay = -infinity;
             __Update();
         }
@@ -83,6 +85,7 @@ function VinylBrainRetrigger(_sound, _minDelay, _maxDelay, _playImmediate = fals
         
         if (__playImmediate)
         {
+            __voice = undefined;
             __nextPlay = -infinity;
             __Update();
         }
@@ -104,6 +107,7 @@ function VinylBrainRetrigger(_sound, _minDelay, _maxDelay, _playImmediate = fals
         
         if (__playImmediate)
         {
+            __voice = undefined;
             __nextPlay = -infinity;
             __Update();
         }
