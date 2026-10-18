@@ -82,6 +82,7 @@
     {"id":{"name":"VinylAssertPlayable","path":"scripts/VinylAssertPlayable/VinylAssertPlayable.yy",},},
     {"id":{"name":"VinylBrainBPM","path":"scripts/VinylBrainBPM/VinylBrainBPM.yy",},},
     {"id":{"name":"VinylBrainExclusive","path":"scripts/VinylBrainExclusive/VinylBrainExclusive.yy",},},
+    {"id":{"name":"VinylBrainHLT","path":"scripts/VinylBrainHLT/VinylBrainHLT.yy",},},
     {"id":{"name":"VinylBrainLimit","path":"scripts/VinylBrainLimit/VinylBrainLimit.yy",},},
     {"id":{"name":"VinylBrainParentConstructor","path":"scripts/VinylBrainParentConstructor/VinylBrainParentConstructor.yy",},},
     {"id":{"name":"VinylBrainQueue","path":"scripts/VinylBrainQueue/VinylBrainQueue.yy",},},
