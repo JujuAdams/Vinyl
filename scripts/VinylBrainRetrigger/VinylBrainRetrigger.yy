@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylBrainRetrigger",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylBrainRetrigger",
+  "parent":{
+    "name":"Brains",
+    "path":"folders/Vinyl/Brains.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

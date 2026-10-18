@@ -85,6 +85,7 @@
     {"id":{"name":"VinylBrainLimit","path":"scripts/VinylBrainLimit/VinylBrainLimit.yy",},},
     {"id":{"name":"VinylBrainQueue","path":"scripts/VinylBrainQueue/VinylBrainQueue.yy",},},
     {"id":{"name":"VinylBrainRandom","path":"scripts/VinylBrainRandom/VinylBrainRandom.yy",},},
+    {"id":{"name":"VinylBrainRetrigger","path":"scripts/VinylBrainRetrigger/VinylBrainRetrigger.yy",},},
     {"id":{"name":"VinylBrainShuffle","path":"scripts/VinylBrainShuffle/VinylBrainShuffle.yy",},},
     {"id":{"name":"VinylDefineMixGroup","path":"scripts/VinylDefineMixGroup/VinylDefineMixGroup.yy",},},
     {"id":{"name":"VinylDefineSound","path":"scripts/VinylDefineSound/VinylDefineSound.yy",},},

@@ -5,7 +5,6 @@
 function VinylFadeOut(_voiceOrArray, _fadeTime, _callback = undefined)
 {
     static _strongUpdateArray = __VinylSystem().__strongUpdateArray;
-    array_push(_strongUpdateArray, weak_ref_create(self));
     
     if (is_array(_voiceOrArray))
     {

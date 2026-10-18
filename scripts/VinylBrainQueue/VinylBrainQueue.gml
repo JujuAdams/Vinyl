@@ -4,7 +4,7 @@
 
 function VinylBrainQueue(_soundArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeInTime = 0) : __VinylClassBrainInterface() constructor
 {
-    static _weakUpdateArray = __VinylSystem().__weakUpdateArray;
+    array_push(__VinylSystem().__weakUpdateArray, weak_ref_create(self));
     
     __soundArray = variable_clone(_soundArray);
     __voice      = undefined;
@@ -17,8 +17,6 @@ function VinylBrainQueue(_soundArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeIn
     __playX       = undefined;
     __playY       = undefined;
     __playZ       = undefined;
-    
-    array_push(_weakUpdateArray, self)
     
     
     
@@ -122,15 +120,15 @@ function VinylBrainQueue(_soundArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeIn
             
             if (__playType == __VINYL_PLAY_OMNI)
             {
-                __voice = _loop? VinylPlayLoopOmni(__soundArray[0], _gain) : VinylPlayOmni(__soundArray[0], _gain);
+                __voice = VinylPlayOmni(__soundArray[0], _loop, _gain);
             }
             else if (__playType == __VINYL_PLAY_AT)
             {
-                __voice = _loop? VinylPlayLoopAt(__soundArray[0], __playX, __playY, __playZ, _gain) : VinylPlayAt(__soundArray[0], __playX, __playY, __playZ, _gain);
+                __voice = VinylPlayAt(__soundArray[0], __playX, __playY, __playZ, _loop, _gain);
             }
             else if (__playType == __VINYL_PLAY_ON)
             {
-                __voice = _loop? VinylPlayLoopOn(__soundArray[0], __playEmitter, _gain) : VinylPlayOn(__soundArray[0], __playEmitter, _gain);
+                __voice = VinylPlayOn(__soundArray[0], __playEmitter, _loop, _gain);
             }
             
             if (__fadeInTime > 0)

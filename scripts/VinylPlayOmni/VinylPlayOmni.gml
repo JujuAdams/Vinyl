@@ -15,7 +15,7 @@ function VinylPlayOmni(_soundOrArray, _loop = false, _gain = 1, _pitch = 1)
         var _i = 0;
         repeat(array_length(_soundOrArray))
         {
-            _voiceArray[@ _i] = VinylPlayLoopOmni(_soundOrArray[_i], _loop, _gain, _pitch);
+            _voiceArray[@ _i] = VinylPlayOmni(_soundOrArray[_i], _loop, _gain, _pitch);
             ++_i;
         }
         

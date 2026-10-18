@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylFadeOut",
   "parent":{
-    "name":"Gain & Pitch",
-    "path":"folders/Vinyl/Gain & Pitch.yy",
+    "name":"Stopping",
+    "path":"folders/Vinyl/Stopping.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
