@@ -58,7 +58,7 @@
     {"name":"VinylBrainRetrigger","order":5,"path":"scripts/VinylBrainRetrigger/VinylBrainRetrigger.yy",},
     {"name":"VinylBrainShuffle","order":4,"path":"scripts/VinylBrainShuffle/VinylBrainShuffle.yy",},
     {"name":"VinylBrainVoicedConstructor","order":1,"path":"scripts/VinylBrainVoicedConstructor/VinylBrainVoicedConstructor.yy",},
-    {"name":"VinylCreateStopCallback","order":4,"path":"scripts/VinylCreateStopCallback/VinylCreateStopCallback.yy",},
+    {"name":"VinylCreateStopCallback","order":8,"path":"scripts/VinylCreateStopCallback/VinylCreateStopCallback.yy",},
     {"name":"VinylCreateUpdateMethod","order":3,"path":"scripts/VinylCreateUpdateMethod/VinylCreateUpdateMethod.yy",},
     {"name":"VinylDefineSound","order":1,"path":"scripts/VinylDefineSound/VinylDefineSound.yy",},
     {"name":"VinylEmitterDestroy","order":1,"path":"scripts/VinylEmitterDestroy/VinylEmitterDestroy.yy",},

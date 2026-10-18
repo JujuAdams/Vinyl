@@ -1,13 +1,14 @@
 /// @param playableArray
 /// @param [behavior=DONT_LOOP]
+/// @param [loopQueue=false]
 /// @param [fadeInTime=0]
 /// @param [playCallback]
 
-function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _fadeInTime = 0, _playCallback = undefined) : VinylBrainVoicedConstructor(true) constructor
+function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _loopQueue = false, _fadeInTime = 0, _playCallback = undefined) : VinylBrainVoicedConstructor(true) constructor
 {
     __playableArray = variable_clone(_playableArray);
-    __loopQueue     = false;
     __behavior      = _behavior;
+    __loopQueue     = _loopQueue;
     __fadeInTime    = _fadeInTime;
     __playCallback  = _playCallback;
     
