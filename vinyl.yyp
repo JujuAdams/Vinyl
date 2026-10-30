@@ -94,6 +94,7 @@
     {"id":{"name":"VinylCreateUpdateMethod","path":"scripts/VinylCreateUpdateMethod/VinylCreateUpdateMethod.yy",},},
     {"id":{"name":"VinylDefineMixGroup","path":"scripts/VinylDefineMixGroup/VinylDefineMixGroup.yy",},},
     {"id":{"name":"VinylDefineSound","path":"scripts/VinylDefineSound/VinylDefineSound.yy",},},
+    {"id":{"name":"VinylDefineSoundFromAssetTag","path":"scripts/VinylDefineSoundFromAssetTag/VinylDefineSoundFromAssetTag.yy",},},
     {"id":{"name":"VinylEmitterCreate","path":"scripts/VinylEmitterCreate/VinylEmitterCreate.yy",},},
     {"id":{"name":"VinylEmitterDestroy","path":"scripts/VinylEmitterDestroy/VinylEmitterDestroy.yy",},},
     {"id":{"name":"VinylEmitterSetFalloff","path":"scripts/VinylEmitterSetFalloff/VinylEmitterSetFalloff.yy",},},

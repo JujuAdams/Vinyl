@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylDefineSoundFromAssetTag",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylDefineSoundFromAssetTag",
+  "parent":{
+    "name":"Initialization",
+    "path":"folders/Vinyl/Initialization.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
