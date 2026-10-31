@@ -3,7 +3,7 @@
 /// @param [time=0]
 /// @param [sharedGain=1]
 
-function VinylSetBlendGain(_voiceOrArray, _factor, _time = 0, _sharedGain = 1)
+function VinylBlendGain(_voiceOrArray, _factor, _time = 0, _sharedGain = 1)
 {
     static _soundDefMap = __VinylSystem().__soundDefMap;
     

@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylCreateStopCallback",
+  "%Name":"VinylBrainTick",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylCreateStopCallback",
+  "name":"VinylBrainTick",
   "parent":{
-    "name":"Stopping",
-    "path":"folders/Vinyl/Stopping.yy",
+    "name":"Brains",
+    "path":"folders/Vinyl/Brains.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

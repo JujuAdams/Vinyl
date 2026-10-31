@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylSetBlendGain",
+  "%Name":"VinylBrainOnStop",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylSetBlendGain",
+  "name":"VinylBrainOnStop",
   "parent":{
-    "name":"Gain & Pitch",
-    "path":"folders/Vinyl/Gain & Pitch.yy",
+    "name":"Brains",
+    "path":"folders/Vinyl/Brains.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

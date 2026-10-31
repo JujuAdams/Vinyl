@@ -4,8 +4,6 @@
 
 function VinylFadeOut(_voiceOrArray, _fadeTime, _callback = undefined)
 {
-    static _strongUpdateArray = __VinylSystem().__strongUpdateArray;
-    
     var _flatArray = VinylGetFlatVoiceArray(_voiceOrArray);
     
     var _maxGain = 0;
@@ -19,7 +17,7 @@ function VinylFadeOut(_voiceOrArray, _fadeTime, _callback = undefined)
         ++_i;
     }
     
-    VinylCreateUpdateMethod(_voiceOrArray, {
+    new VinylBrainTick(_voiceOrArray, {
         __startTime: current_time,
         __flatArray: _flatArray,
         __gainArray: _gainArray,

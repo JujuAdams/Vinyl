@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylCreateUpdateMethod",
+  "%Name":"VinylGetIsPlayable",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylCreateUpdateMethod",
+  "name":"VinylGetIsPlayable",
   "parent":{
     "name":"Miscellaneous",
     "path":"folders/Vinyl/Miscellaneous.yy",
