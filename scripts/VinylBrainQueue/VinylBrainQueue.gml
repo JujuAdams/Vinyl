@@ -1,3 +1,5 @@
+/// Manages a queue of playables stored in an array.
+/// 
 /// @param playableArray
 /// @param [behavior=DONT_LOOP]
 /// @param [loopQueue=false]

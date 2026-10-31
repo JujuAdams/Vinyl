@@ -1,3 +1,8 @@
+/// Imports master/mix group settings. This can be a JSON string or a struct. Typically you will
+/// have created the input data using `VinylSettingsExport()`. Before importing any data, you
+/// should check whether the input data is valid by calling `VinylSettingsAssertValid()` in a
+/// `try...catch` block.
+/// 
 /// @param stringOrData
 
 function VinylSettingsImport(_inputData)

@@ -1,3 +1,16 @@
+/// Allows playback from an array of playables. When popped, this brain will choose a random
+/// playable from its array. This means the same sound can play twice in a row (or, indeed, three
+/// times or more). The random choice of sound uses Vinyl's own internal random number system and
+/// this brain will not impact GameMaker's native random functions.
+/// 
+/// Example:
+///     ///Create Event
+///     coinBrain = new VinylBrainRandom([sndCoin1, sndCoin2, sndCoin3]);
+///     
+///     ///Collision with objCoin
+///     score += 100;
+///     VinylPlayOmni(coinBrain);
+/// 
 /// @param playableArray
 /// @param [gain=1]
 /// @param [gainRange=0]

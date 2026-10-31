@@ -1,3 +1,6 @@
+/// Tracks the progress of a voice and provides an interface for tracking beats relative to the
+/// playing time for the voice.
+/// 
 /// @param voice
 /// @param bpm
 /// @param beginOnBeat

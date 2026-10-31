@@ -1,3 +1,21 @@
+/// Allows playback from an array of playables. When popped, this brain will choose a playable from
+/// its array, guaranteeing that a sound cannot be heard twice in a row. The random choice of sound
+/// uses Vinyl's own internal random number system and this brain will not impact GameMaker's
+/// native random functions.
+/// 
+/// Example:
+///     ///Create Event
+///     footstepBrain = new VinylBrainShuffle([sndFootstep1, sndFootstep2, sndFootstep3], 1, 0, 1, 0.2);
+///     footstepTimer = 0;
+///     
+///     ///Step Event
+///     --footstepTimer;
+///     if (moved && (footstepTimer <= 0))
+///     {
+///         footstepTimer = 24;
+///         VinylPlayOmni(footstepBrain);
+///     }
+/// 
 /// @param playableArray
 /// @param [gain=1]
 /// @param [gainRange=0]

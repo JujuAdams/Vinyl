@@ -1,0 +1,35 @@
+Brain:
+
+A special Vinyl concept, "brains" are chunks of code that manage audio for you. Each type of brain
+does something different, please refer to individual documentation for details. Some brains will
+run an update function every frame, some brains will only do something when you execute a method.
+Other brains act as playable audio. There's a lot of variety. Brains can be used together or
+separately as the situation demands.
+
+
+
+Voice:
+
+There are two kinds of voice that Vinyl uses. The simplest is a number that GameMaker uses to
+identify each individual playing sound. As an analogy, a voice is an "instance" of a sound asset
+"object". Voices are what is returned by `audio_play_sound()`.
+
+The second type of voice that is unique to Vinyl is a brain voice. Some brains can be used directly
+with Vinyl functions that otherwise require native GameMaker voices.
+
+
+
+Playable:
+
+Data that can be played by Vinyl's audio functions. The most type of "playable" is a sound asset
+added to your game via the IDE. Other playables include certain brains, such as `VinylBrainHLT()`.
+Most functions can also handle an array of playables.
+
+
+
+Mix Group:
+
+A collection of sound assets that can be manipulated together. Mix groups are usually used for
+controlling gain of specific types of sound. For example, all ambient sounds might be in an
+"ambient" mix group. It's common to give players the option to adjust the gain of individual types
+of audio separately and mix groups gives you that option.

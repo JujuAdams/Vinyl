@@ -1,3 +1,8 @@
+/// Updates a callback once every frame for as long as a voice is playing. When the voice stops
+/// playing, the callback is executed one last time and then the callback is never called again.
+/// If an array of voices is provided, the callback will be executed for as long as any of the
+/// voices are playing.
+/// 
 /// @param voiceOrArray
 /// @param data
 /// @param callback

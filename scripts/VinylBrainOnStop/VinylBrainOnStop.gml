@@ -1,3 +1,6 @@
+/// Executes a callback when a voice stops playing. If an array of voices is provided the callback
+/// will be executed when all of the voices have stopped playing.
+/// 
 /// @param voiceOrArray
 /// @param data
 /// @param callback

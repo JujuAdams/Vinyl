@@ -1,3 +1,13 @@
+/// Starts audio on a timer. The time between audio is randomly chosen between the minimum and
+/// maximum delays. The audio that is played does not have to be a sound asset and could be another
+/// playable such as `VinylBrainShuffle()`.
+/// 
+/// Example:
+///     ///Create Event
+///     shuffleBrain = new VinylBrainShuffle([sndBird1, sndBird2, sndBird3, sndFrog]);
+///     retriggerBrain = new VinylBrainRetrigger(shuffleBrain, 1, 2);
+///     VinylPlayOmni(retriggerBrain);
+/// 
 /// @param playable
 /// @param minDelay
 /// @param maxDelay

@@ -20,6 +20,7 @@
   "ResourceOrderSettings":[
     {"name":"acTest","order":21,"path":"animcurves/acTest/acTest.yy",},
     {"name":"fntText","order":20,"path":"fonts/fntText/fntText.yy",},
+    {"name":"Vinyl Terminology","order":16,"path":"notes/Vinyl Terminology/Vinyl Terminology.yy",},
     {"name":"oBackground","order":8,"path":"objects/oBackground/oBackground.yy",},
     {"name":"oTestAbstract","order":12,"path":"objects/oTestAbstract/oTestAbstract.yy",},
     {"name":"oTestBPM","order":17,"path":"objects/oTestBPM/oTestBPM.yy",},

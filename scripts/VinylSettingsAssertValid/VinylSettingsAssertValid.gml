@@ -1,3 +1,6 @@
+/// Throws an error if the input data is not a valid settings struct or settings JSON string. You
+/// should wrap this function call in a `try...catch` block to detect errors in production.
+/// 
 /// @param stringOrData
 
 function VinylSettingsAssertValid(_inputData)

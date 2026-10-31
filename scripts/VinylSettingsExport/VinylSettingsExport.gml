@@ -1,7 +1,10 @@
-/// `mode` parameter can be one of the following values:
-/// `0` = Output raw data (structs)
-/// `1` = Output JSON
-/// `2` = Output pretty JSON
+/// Exports the current master and mix group settings as a struct or JSON string. This data can
+/// then be imported later to restore the current settings.
+/// 
+/// The `mode` parameter control what datatype is exported. It can be one of the following values:
+/// `0` = Output raw data (struct\s)
+/// `1` = Output JSON as a string
+/// `2` = Output pretty JSON as a string
 /// 
 /// @param mode
 

@@ -1,3 +1,12 @@
+/// Manages sounds organised as a "Head loop tail". This is also known as "intro loop outro".
+/// The head will be played first, if specified, then the loop sound will be played. When you'd
+/// like the loop to stop, call `VinylSetLoop(brain, false)` targeting the brain. Once the loop
+/// sound has stopped, the tail will play.
+/// 
+/// This brain is considered a playable and can be nested inside of other brains. Similarly, each
+/// of the playables for this brain (head, loop, tail) can be any other form of playable. This
+/// means you could use a queue brain for the loop playable.
+/// 
 /// @param [head]
 /// @param loop
 /// @param [tail]
@@ -56,7 +65,7 @@ function VinylBrainHLT(_head, _loop, _tail) : VinylBrainVoicedConstructor(true) 
             }
             else if (__stage <= 1)
             {
-                _funcPlay(__loop, false);
+                _funcPlay(__loop, true);
                 __stage = 2;
             }
             else if (__stage == 2)
