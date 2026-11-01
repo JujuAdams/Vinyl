@@ -1,3 +1,7 @@
+/// Sets the gain for a voice. If an array is provided then the gain will be set for every voice
+/// equally. The per-sound gains, set by `VinylDefineSound()`, will be respected by this function.
+/// The time parameter is measured in milliseconds.
+/// 
 /// @param voiceOrArray
 /// @param gain
 /// @param [time=0]

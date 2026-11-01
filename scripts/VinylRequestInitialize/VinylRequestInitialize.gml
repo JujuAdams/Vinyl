@@ -1,3 +1,13 @@
+/// Requests initialization for Vinyl. This function will return `true` if Vinyl is able to be
+/// initialized and `false` otherwise.
+/// 
+/// Example:
+///     if (VinylRequestInitialize())
+///     {
+///         VinylDefineMixGroup(MIX_GROUP_SFX, "sfx", false);
+///         VinylDefineSoundFromAssetTag("sfx", MIX_GROUP_SFX);
+///     }
+
 function VinylRequestInitialize()
 {
     static _system = __VinylSystem();

@@ -1,3 +1,5 @@
+/// Sets up Vinyl-specific properties for all sounds that use the given asset tag.
+/// 
 /// @param assetTag
 /// @param mixGroupIndex
 /// @param [gain=1]

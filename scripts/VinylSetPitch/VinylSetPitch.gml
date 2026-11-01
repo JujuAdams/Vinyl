@@ -1,3 +1,6 @@
+/// Sets the pitch for a voice. If an array is provided then the pitch will be set for every voice
+/// equally.
+/// 
 /// @param voiceOrArray
 /// @param pitch
 

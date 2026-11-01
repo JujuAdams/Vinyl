@@ -1,3 +1,10 @@
+/// Sets up Vinyl-specific properties for a sound or an array of sounds. This function should be
+/// called for all sounds to ensure that they are playing on a valid mix group. You may
+/// additionally set a static gain per sound to help balance audio using the optional `gain`
+/// parameter. You can also attach additional data to a sound for retrieval using
+/// `VinylSoundGetOtherData()`. If an array is provided then this function will set the same values
+/// for all sounds in the array.
+/// 
 /// @param soundAssetOrArray
 /// @param mixGroupIndex
 /// @param [gain=1]

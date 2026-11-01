@@ -1,3 +1,5 @@
+/// Sets up Vinyl-specific properties for all sounds whose name matches the provided mask string.
+/// 
 /// @param mask
 /// @param mixGroupIndex
 /// @param [gain=1]

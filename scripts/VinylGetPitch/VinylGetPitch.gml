@@ -1,3 +1,6 @@
+/// Returns the pitch for a voice. If an array of pitches is provided then this function returns
+/// an array of pitches that correlate with the input voices.
+/// 
 /// @param voiceOrArray
 
 function VinylGetPitch(_voiceOrArray)
