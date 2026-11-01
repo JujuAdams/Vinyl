@@ -4,12 +4,12 @@ function __VinylClassSoundDef(_soundAsset) constructor
 {
     static _system = __VinylSystem();
     
-    __sound         = _sound;
+    __sound         = _soundAsset;
     __mixGroupIndex = undefined;
     __gain          = undefined;
     __otherData     = undefined;
     
-    static ImplUpdate = function(_mixGroupIndex, _gain, _otherData)
+    static __Update = function(_mixGroupIndex, _gain, _otherData)
     {
         with(__VinylGetMixGroup(__mixGroupIndex))
         {

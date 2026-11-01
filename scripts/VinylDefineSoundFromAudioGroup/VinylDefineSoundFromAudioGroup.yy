@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylDefineSoundFromAudioGroup",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylDefineSoundFromAudioGroup",
+  "parent":{
+    "name":"Initialization",
+    "path":"folders/Vinyl/Initialization.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

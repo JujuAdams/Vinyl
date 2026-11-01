@@ -37,7 +37,7 @@ function VinylDefineSound(_soundAssetOrArray, _mixGroupIndex, _gain = 1, _otherD
             _soundDefMap[? _soundAssetOrArray] = _soundDef;
         }
         
-        _soundDef.ImplUpdate(_mixGroupIndex, _gain, _otherData);
+        _soundDef.__Update(_mixGroupIndex, _gain, _otherData);
     }
     else
     {

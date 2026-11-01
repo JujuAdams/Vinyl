@@ -8,14 +8,14 @@
 function VinylDefineSoundFromAssetTag(_assetTag, _mixGroupIndex, _gain = 1, _otherData = undefined)
 {
     var _array = tag_get_asset_ids(_assetTag, asset_sound);
-    if (is_array(_assetTag) && (array_length(_array) > 0))
+    if (is_array(_array) && (array_length(_array) > 0))
     {
         VinylDefineSound(_array, _mixGroupIndex, _gain, _otherData);
         return _array;
     }
     else
     {
-        __VinylTrace($"Warning! No sound assets found for tag \"{_assetTag}\"");
+        __VinylTrace($"Warning! No sound assets found for asset tag \"{_assetTag}\"");
         return [];
     }
 }
