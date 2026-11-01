@@ -1,3 +1,8 @@
+/// Sets a voice to loop or not loop. If an array of voices is provided then this function will set
+/// the looping state for all voices in that array. This function can be used to target an HLT
+/// brain (`VinylBrainHLT()`) to advance beyond the "loop" playable. Please see that function's
+/// documentation for more details.
+/// 
 /// @param voiceOrArray
 /// @param state
 

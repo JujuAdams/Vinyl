@@ -1,3 +1,5 @@
+/// Sets the master mute state for Vinyl.
+/// 
 /// @param state
 
 function VinylMasterSetMute(_state)

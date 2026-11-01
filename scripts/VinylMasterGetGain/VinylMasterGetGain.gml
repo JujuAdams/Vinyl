@@ -1,3 +1,5 @@
+/// Returns the master gain for Vinyl.
+
 function VinylMasterGetGain()
 {
     static _system = __VinylSystem();

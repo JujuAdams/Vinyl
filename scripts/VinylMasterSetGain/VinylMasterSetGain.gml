@@ -1,3 +1,5 @@
+/// Sets the master gain for Vinyl.
+/// 
 /// @param gain
 
 function VinylMasterSetGain(_gain)

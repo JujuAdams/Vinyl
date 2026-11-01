@@ -1,3 +1,5 @@
+/// Returns the master mute state for Vinyl.
+
 function VinylMasterGetMute()
 {
     static _system = __VinylSystem();
