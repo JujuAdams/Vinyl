@@ -1,3 +1,9 @@
+/// Plays a "playable". This sound will not be panned relative the listener and will appear to come
+/// from all around the player's head.
+/// 
+/// Please see `Vinyl Terminology` for information on what counts as a "playable". Typically, a
+/// playable is just a sound asset that you've added to the GameMaker IDE.
+/// 
 /// @param playable
 /// @param [loop=false]
 /// @param [gain=1]

@@ -1,3 +1,10 @@
+/// Plays a "playable" on an emitter. Only Vinyl emitters are supported (`VinylEmitterCreate()`).
+/// The sound will be panned relative to the listener position, which can be set with
+/// `VinylSetListener()`.
+/// 
+/// Please see `Vinyl Terminology` for information on what counts as a "playable". Typically, a
+/// playable is just a sound asset that you've added to the GameMaker IDE.
+/// 
 /// @param playable
 /// @param emitter
 /// @param [loop=false]

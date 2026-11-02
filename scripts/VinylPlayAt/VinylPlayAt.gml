@@ -1,3 +1,10 @@
+/// Plays a "playable" at a point in space. If you are making a 2D game, the `z` parameter should
+/// usually be set to `0`. The sound will be panned relative to the listener position, which can
+/// be set with `VinylSetListener()`.
+/// 
+/// Please see `Vinyl Terminology` for information on what counts as a "playable". Typically, a
+/// playable is just a sound asset that you've added to the GameMaker IDE.
+/// 
 /// @param playable
 /// @param x
 /// @param y
