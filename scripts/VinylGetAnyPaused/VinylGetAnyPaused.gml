@@ -28,7 +28,10 @@ function VinylGetAnyPaused(_voiceOrArray)
     }
     else if (_voiceOrArray != undefined)
     {
-        return audio_is_paused(_voiceOrArray);
+        if (audio_is_playing(_voiceOrArray))
+        {
+            return audio_is_paused(_voiceOrArray);
+        }
     }
     
     return false;

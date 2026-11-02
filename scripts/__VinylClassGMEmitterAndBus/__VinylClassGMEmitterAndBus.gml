@@ -9,8 +9,6 @@ function __VinylClassGMEmitterAndBus(_mixGroup) constructor
     __bus.gain = __mixGroup.__mute? 0 : __mixGroup.__gain;
     audio_emitter_bus(__gmEmitter, __bus);
     
-    show_debug_message(json_stringify(__bus, true));
-    
     static __SetFalloff = function(_refDist, _maxDist, _factor)
     {
         audio_emitter_falloff(__gmEmitter, _refDist, _maxDist, _factor);

@@ -46,11 +46,11 @@ UIButtonInline("Blend", function()
 UINewline();
 UIButtonInline("Pause", function()
 {
-    VinylSetPause(voice, true);
+    VinylSetPaused(voice, true);
 });
 UIButtonInline("Resume", function()
 {
-    VinylSetPause(voice, false);
+    VinylSetPaused(voice, false);
 });
 UIButtonInline("End Loop", function()
 {

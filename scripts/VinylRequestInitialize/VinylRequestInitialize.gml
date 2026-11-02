@@ -21,7 +21,7 @@ function VinylRequestInitialize()
             audio_falloff_set_model(VINYL_FALLOFF_MODEL);
             
             //Known good default, albeit for 2D games
-            VinylSetListener(0, 0, 0,   0, 0, 1,   0, 1, 0);
+            VinylSetListener2D(0, 0);
         }
         
         return _result;

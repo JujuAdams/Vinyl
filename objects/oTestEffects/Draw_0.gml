@@ -7,8 +7,6 @@ UIButtonInline("General Test", function()
     instance_create_layer(0, 0, "Instances", oTestGeneral);
 });
 UINewline();
-UIText($"system pressure = {VinylGetSystemPressure()}");
-UINewline();
 UIButtonInline("Play On", function()
 {
     VinylPlayOn(reverbEmitter, sndOw);
@@ -21,5 +19,5 @@ UIButtonInline("Play bleep on echo emitter", function()
 UINewline();
 UIButtonInline("Play fallback sound using defined emitter", function()
 {
-    VinylPlay(VinylFallbackSoundIDE);
+    VinylPlayOmni(VinylFallbackSoundIDE);
 });

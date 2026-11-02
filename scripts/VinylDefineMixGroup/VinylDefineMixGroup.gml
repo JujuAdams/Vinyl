@@ -15,10 +15,10 @@
 /// 
 /// `trimGain` applies a multiplicative gain to the mix group regardless of other settings. This is
 /// useful to tweak relative volumes of different kinds of audio without having to adjust how
-/// `VinylMixGroupSetGain()` affects each individual mix group.
+/// `VinylMixSetGain()` affects each individual mix group.
 /// 
 /// To add miscellaneous data to a mix group, use the `otherData` parameter. You can later retrieve
-/// this data by calling `VinylMixGroupGetOtherData()`.
+/// this data by calling `VinylMixGetOtherData()`.
 /// 
 /// @param mixGroupIndex
 /// @param exportName

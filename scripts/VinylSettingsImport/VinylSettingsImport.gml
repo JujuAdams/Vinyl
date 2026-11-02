@@ -43,8 +43,8 @@ function VinylSettingsImport(_inputData)
             var _mixGroupData = _mixGroupsData[$ _mixGroup.__exportName];
             if (_mixGroupData != undefined)
             {
-                VinylMixGroupSetGain(_i, _mixGroupData[$ "gain"]);
-                VinylMixGroupSetMute(_i, _mixGroupData[$ "mute"]);
+                VinylMixSetGain(_i, _mixGroupData[$ "gain"]);
+                VinylMixSetMute(_i, _mixGroupData[$ "mute"]);
             }
             
             ++_i;

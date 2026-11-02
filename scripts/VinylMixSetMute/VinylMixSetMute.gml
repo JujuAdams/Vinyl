@@ -1,0 +1,33 @@
+/// Sets the mute state for the mix group.
+/// 
+/// @param mixGroupIndex
+/// @param state
+
+function VinylMixSetMute(_mixGroupIndex, _state)
+{
+    var _mixGroup = __VinylGetMixGroup(_mixGroupIndex);
+    
+    var _result = false;
+    
+    if (_state != undefined)
+    {
+        with(_mixGroup)
+        {
+            if (_state != __mute)
+            {
+                __mute = _state;
+                _result = true;
+                
+                var _setGain = _state? 0 : __gain;
+                
+                var _gmEmitterAndBusArray = __gmEmitterAndBusArray;
+                var _i = 0;
+                repeat(array_length(_gmEmitterAndBusArray))
+                {
+                    _gmEmitterAndBusArray[_i].__bus.gain = _setGain;
+                    ++_i;
+                }
+            }
+        }
+    }
+}
