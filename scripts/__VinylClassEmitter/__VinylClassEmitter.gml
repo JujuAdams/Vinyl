@@ -8,6 +8,14 @@ function __VinylClassEmitter(_x, _y, _z) constructor
 {
     static _mixGroupArray = __VinylSystem().__mixGroupArray;
     
+    x = _x;
+    y = _y;
+    z = _z;
+    
+    __refDist = VINYL_FALLOFF_REF_DIST;
+    __maxDist = VINYL_FALLOFF_MAX_DIST;
+    __factor  = VINYL_FALLOFF_FACTOR;
+    
     __gmEmitterAndBusArray = array_create(array_length(_mixGroupArray), undefined);
     
     var _i = 0;
@@ -26,12 +34,34 @@ function __VinylClassEmitter(_x, _y, _z) constructor
     
     static __SetPosition = function(_x, _y, _z)
     {
+        x = _x;
+        y = _y;
+        z = _z;
+        
         var _i = 0;
         repeat(array_length(__gmEmitterAndBusArray))
         {
             with(__gmEmitterAndBusArray[_i])
             {
                 __SetPosition(_x, _y, _z);
+            }
+            
+            ++_i;
+        }
+    }
+    
+    static __SetFalloff = function(_refDist, _maxDist, _factor)
+    {
+        __refDist = _refDist;
+        __maxDist = _maxDist;
+        __factor  = _factor;
+        
+        var _i = 0;
+        repeat(array_length(__gmEmitterAndBusArray))
+        {
+            with(__gmEmitterAndBusArray[_i])
+            {
+                __SetFalloff(_refDist, _maxDist, _factor);
             }
             
             ++_i;
