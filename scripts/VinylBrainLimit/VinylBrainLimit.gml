@@ -56,7 +56,7 @@ function VinylBrainLimit(_maxCount) : VinylBrainParentConstructor(false) constru
         var _i = array_length(_watchArray)-1;
         repeat(_i+1)
         {
-            if (VinylGetAllStopped(_watchArray[_i]))
+            if (VinylGetStopped(_watchArray[_i]))
             {
                 array_delete(_watchArray, _i, 1);
             }

@@ -5,14 +5,14 @@
 /// 
 /// @param voiceOrArray
 
-function VinylGetAnyPlaying(_voiceOrArray)
+function VinylGetPlaying(_voiceOrArray)
 {
     if (is_array(_voiceOrArray))
     {
         var _i = 0;
         repeat(array_length(_voiceOrArray))
         {
-            if (VinylGetAnyPlaying(_voiceOrArray[_i]))
+            if (VinylGetPlaying(_voiceOrArray[_i]))
             {
                 return true;
             }
@@ -22,7 +22,7 @@ function VinylGetAnyPlaying(_voiceOrArray)
     }
     else if (is_struct(_voiceOrArray))
     {
-        return _voiceOrArray.ImplGetAnyPlaying();
+        return _voiceOrArray.ImplGetPlaying ();
     }
     else if (_voiceOrArray != undefined)
     {

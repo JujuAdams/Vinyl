@@ -10,7 +10,7 @@ function VinylGetTrackPosition(_voiceOrArray)
         var _i = 0;
         repeat(array_length(_voiceOrArray))
         {
-            if (VinylGetAnyPlaying(_voiceOrArray))
+            if (VinylGetPlaying(_voiceOrArray))
             {
                 return VinylGetTrackPosition(_voiceOrArray[0]);
             }

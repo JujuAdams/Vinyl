@@ -17,7 +17,7 @@ function VinylBrainBPM(_voice, _bpm, _beginOnBeat) : VinylBrainParentConstructor
     array_push(__VinylSystem().__strongUpdateArray, function()
     {
         //Self-destruct if the sound is no longer playing
-        if (VinylGetAllStopped(__voice))
+        if (VinylGetStopped(__voice))
         {
             return false;
         }

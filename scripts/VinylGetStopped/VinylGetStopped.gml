@@ -5,7 +5,7 @@
 /// 
 /// @param voiceOrArray
 
-function VinylGetAllStopped(_voiceOrArray)
+function VinylGetStopped(_voiceOrArray)
 {
-    return not VinylGetAnyPlaying(_voiceOrArray);
+    return not VinylGetPlaying(_voiceOrArray);
 }

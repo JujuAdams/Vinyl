@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylGetAnyLoop",
+  "%Name":"VinylGetLoop",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylGetAnyLoop",
+  "name":"VinylGetLoop",
   "parent":{
     "name":"Loop",
     "path":"folders/Vinyl/Loop.yy",

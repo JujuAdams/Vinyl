@@ -15,7 +15,7 @@ function VinylBrainOnStop(_voiceOrArray, _data, _callback) : VinylBrainParentCon
     
     __method = function()
     {
-        if (VinylGetAnyPlaying(__voiceOrArray))
+        if (VinylGetPlaying(__voiceOrArray))
         {
             return true;
         }

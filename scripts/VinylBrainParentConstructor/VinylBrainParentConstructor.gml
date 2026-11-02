@@ -27,9 +27,9 @@ function VinylBrainParentConstructor(_update = false) constructor
         __VinylDevError($"`VinylStop()` not supported this struct type ({instanceof(self)})");
     }
     
-    static ImplGetAnyPlaying = function()
+    static ImplGetPlaying  = function()
     {
-        __VinylDevError($"`VinylGetAnyPlaying()` not supported for this struct type ({instanceof(self)})");
+        __VinylDevError($"`VinylGetPlaying()` not supported for this struct type ({instanceof(self)})");
     }
     
     static ImplGetAllPlaying = function()
@@ -77,9 +77,9 @@ function VinylBrainParentConstructor(_update = false) constructor
         __VinylDevError($"`VinylSetLoop()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static ImplGetAnyLoop = function()
+    static ImplGetLoop = function()
     {
-        __VinylDevError($"`VinylGetAnyLoop()` not supported for this struct type ({instanceof(self)})");
+        __VinylDevError($"`VinylGetLoop()` not supported for this struct type ({instanceof(self)})");
     }
     
     static ImplGetAllLoop = function()
@@ -92,9 +92,9 @@ function VinylBrainParentConstructor(_update = false) constructor
         __VinylDevError($"`VinylSetPaused()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static ImplGetAllPaused = function()
+    static ImplGetPaused = function()
     {
-        __VinylDevError($"`VinylGetAllPaused()` not supported for this struct type ({instanceof(self)})");
+        __VinylDevError($"`VinylGetPaused()` not supported for this struct type ({instanceof(self)})");
     }
     
     static ImplGetAnyPaused = function()

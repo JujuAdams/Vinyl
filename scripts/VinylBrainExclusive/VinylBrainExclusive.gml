@@ -31,7 +31,7 @@ function VinylBrainExclusive(_fadeTime) : VinylBrainVoicedConstructor(false) con
     
     static Push = function(_voice)
     {
-        if (VinylGetAllStopped(_voice)) return;
+        if (VinylGetStopped(_voice)) return;
         
         VinylFadeOut(__voice, __fadeTime);
         __voice = _voice;

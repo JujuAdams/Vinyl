@@ -42,7 +42,7 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
     {
         if (__voice != undefined)
         {
-            if (VinylGetAllStopped(__voice))
+            if (VinylGetStopped(__voice))
             {
                 __voice = undefined;
                 __nextPlay = __loop? (current_time + VinylUtilRandomRange(__minDelay, __maxDelay) / 1000) : infinity;

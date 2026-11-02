@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylGetAllStopped",
+  "%Name":"VinylGetPaused",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylGetAllStopped",
+  "name":"VinylGetPaused",
   "parent":{
-    "name":"Stopping",
-    "path":"folders/Vinyl/Stopping.yy",
+    "name":"Pause & Resume",
+    "path":"folders/Vinyl/Pause & Resume.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

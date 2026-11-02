@@ -17,7 +17,7 @@ function VinylBrainTick(_voiceOrArray, _data, _callback) : VinylBrainParentConst
     
     __method = function()
     {
-        if (VinylGetAnyPlaying(__voiceOrArray))
+        if (VinylGetPlaying(__voiceOrArray))
         {
             return __callback(__data, __voiceOrArray, true);
         }

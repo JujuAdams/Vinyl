@@ -40,7 +40,7 @@ UIButtonInline("Stop loop", function()
     VinylStop(loopVoice);
 });
 UINewline();
-UITextInline($"playing = {VinylGetAnyPlaying(loopVoice)? "true" : "false"} / stopped = {VinylGetAllStopped(loopVoice)? "true" : "false"}");
+UITextInline($"playing = {VinylGetPlaying(loopVoice)? "true" : "false"} / stopped = {VinylGetStopped(loopVoice)? "true" : "false"}");
 UINewline();
 UITextInline($"Gain = {VinylGetGain(loopVoice)}");
 UISpace(30);
@@ -64,16 +64,16 @@ UIButtonInline("+ pitch", function()
     VinylSetPitch(loopVoice, VinylGetPitch(loopVoice) + 0.1);
 });
 UINewline();
-UITextInline($"Loop = {VinylGetAnyLoop(loopVoice)? "true" : "false"}");
+UITextInline($"Loop = {VinylGetLoop(loopVoice)? "true" : "false"}");
 UISpace(30);
 UIButtonInline("Toggle loop", function()
 {
-    VinylSetLoop(loopVoice, not VinylGetAnyLoop(loopVoice));
+    VinylSetLoop(loopVoice, not VinylGetLoop(loopVoice));
 });
 UINewline();
-UITextInline($"Paused = {VinylGetAllPaused(loopVoice)? "true" : "false"}");
+UITextInline($"Paused = {VinylGetPaused(loopVoice)? "true" : "false"}");
 UISpace(30);
 UIButtonInline("Toggle paused", function()
 {
-    VinylSetPaused(loopVoice, not VinylGetAllPaused(loopVoice));
+    VinylSetPaused(loopVoice, not VinylGetPaused(loopVoice));
 });

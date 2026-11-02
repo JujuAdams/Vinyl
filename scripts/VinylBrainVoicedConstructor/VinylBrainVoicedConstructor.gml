@@ -14,9 +14,9 @@ function VinylBrainVoicedConstructor(_update = false) : VinylBrainParentConstruc
         VinylStop(__voice);
     }
     
-    static ImplGetAnyPlaying = function()
+    static ImplGetPlaying  = function()
     {
-        return VinylGetAnyPlaying(__voice);
+        return VinylGetPlaying(__voice);
     }
     
     static ImplGetAllPlaying = function()
@@ -64,9 +64,9 @@ function VinylBrainVoicedConstructor(_update = false) : VinylBrainParentConstruc
         VinylSetLoop(__voice, _state);
     }
     
-    static ImplGetAnyLoop = function()
+    static ImplGetLoop = function()
     {
-        return VinylGetAnyLoop(__voice);
+        return VinylGetLoop(__voice);
     }
     
     static ImplGetAllLoop = function()
@@ -79,9 +79,9 @@ function VinylBrainVoicedConstructor(_update = false) : VinylBrainParentConstruc
         VinylSetPaused(__voice, _state);
     }
     
-    static ImplGetAllPaused = function()
+    static ImplGetPaused = function()
     {
-        return VinylGetAllPaused(__voice);
+        return VinylGetPaused(__voice);
     }
     
     static ImplGetAnyPaused = function()

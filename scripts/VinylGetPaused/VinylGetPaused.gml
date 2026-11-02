@@ -5,7 +5,7 @@
 /// 
 /// @param voiceOrArray
 
-function VinylGetAllPaused(_voiceOrArray)
+function VinylGetPaused(_voiceOrArray)
 {
     if (is_array(_voiceOrArray))
     {
@@ -14,7 +14,7 @@ function VinylGetAllPaused(_voiceOrArray)
         var _i = 0;
         repeat(array_length(_voiceOrArray))
         {
-            if (not VinylGetAllPaused(_voiceOrArray[_i]))
+            if (not VinylGetPaused(_voiceOrArray[_i]))
             {
                 return false;
             }
@@ -26,7 +26,7 @@ function VinylGetAllPaused(_voiceOrArray)
     }
     else if (is_struct(_voiceOrArray))
     {
-        return _voiceOrArray.ImplGetAllPaused();
+        return _voiceOrArray.ImplGetPaused();
     }
     else if (_voiceOrArray != undefined)
     {

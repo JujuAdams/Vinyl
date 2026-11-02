@@ -7,7 +7,7 @@ function VinylArrayDeleteStopped(_array)
 {
     if (not is_array(_array))
     {
-        return VinylGetAnyPlaying(_array);
+        return VinylGetPlaying(_array);
     }
     
     var _i = array_length(_array)-1;

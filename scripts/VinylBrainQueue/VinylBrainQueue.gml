@@ -41,7 +41,7 @@ function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _loo
         
         __playableArray = variable_clone(_playableArray);
         
-        if ((__behavior == VINYL_QUEUE_LOOP_ON_LAST) && VinylGetAnyPlaying(__voice))
+        if ((__behavior == VINYL_QUEUE_LOOP_ON_LAST) && VinylGetPlaying(__voice))
         {
             VinylSetLoop(__voice, (array_length(__playableArray) <= 0));
         }
@@ -92,7 +92,7 @@ function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _loo
     {
         __behavior = _behavior;
         
-        if (VinylGetAnyPlaying(__voice))
+        if (VinylGetPlaying(__voice))
         {
             var _loop = (__behavior == VINYL_QUEUE_LOOP_ON_LAST)? (array_length(__playableArray) <= 0) : (__behavior == VINYL_QUEUE_LOOP_EACH);
             VinylSetLoop(__voice, _loop);
@@ -238,7 +238,7 @@ function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _loo
         return undefined;
     }
     
-    static ImplGetAnyLoop = function()
+    static ImplGetLoop = function()
     {
         return __loopQueue;
     }
