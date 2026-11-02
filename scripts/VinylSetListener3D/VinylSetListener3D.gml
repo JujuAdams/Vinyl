@@ -1,3 +1,7 @@
+/// Set the position and orientation for Vinyl's listener. This function offers full compatibility
+/// for use in 3D games. If you are making a 2D game and don't need to adjust the orientation of
+/// the listener then consider using `VinylSetListener2D()`.
+/// 
 /// @param x
 /// @param y
 /// @param z
@@ -8,9 +12,10 @@
 /// @param yUp
 /// @param zUp
 
-function VinylSetListener(_x, _y, _z,   _xForward, _yForward, _zForward,   _xUp, _yUp, _zUp)
+function VinylSetListener3D(_x, _y, _z,   _xForward, _yForward, _zForward,   _xUp, _yUp, _zUp)
 {
     static _mixGroupArray = __VinylSystem().__mixGroupArray;
+    static _listenerStruct = __VinylSystem().__listener;
     
     //Move the listener
     audio_listener_set_position(0, _x, _y, _z);
@@ -27,4 +32,19 @@ function VinylSetListener(_x, _y, _z,   _xForward, _yForward, _zForward,   _xUp,
     audio_listener_set_orientation(0,
                                    _xForward, _yForward, _zForward,
                                    -_xUp, -_yUp, -_zUp);
+    
+    with(_listenerStruct)
+    {
+        x = _x;
+        y = _y;
+        z = _z;
+        
+        xForward = _xForward;
+        yForward = _yForward;
+        zForward = _zForward;
+        
+        xUp = _xUp;
+        yUp = _yUp;
+        zUp = _zUp;
+    }
 }

@@ -1,3 +1,6 @@
+/// Sets the falloff properties of a Vinyl emitter (created by `VinylEmitterCreate()`). Please
+/// see GameMaker's native documentation for `audio_emitter_falloff()` for further details.
+/// 
 /// @param emitter
 /// @param refDist
 /// @param maxDist

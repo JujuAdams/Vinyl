@@ -1,3 +1,5 @@
+/// Destroys a Vinyl-specific emitter that has been created by `VinylEmitterCreate()`.
+/// 
 /// @param emitter
 
 function VinylEmitterDestroy(_emitter)

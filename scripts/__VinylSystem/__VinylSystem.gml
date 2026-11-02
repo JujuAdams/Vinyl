@@ -32,6 +32,20 @@ function __VinylSystem()
             __weakUpdateArray = [];
             __strongUpdateArray = [];
             
+            __listener = {
+                x: 0,
+                y: 0,
+                z: 0,
+                
+                xForward: 0,
+                yForward: 0,
+                zForward: 1,
+                
+                xUp: 0,
+                yUp: 1,
+                zUp: 0,
+            };
+            
             time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, function()
             {
                 var _updateArray = __weakUpdateArray;

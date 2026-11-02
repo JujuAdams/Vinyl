@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"VinylEmitterCreate",
   "parent":{
-    "name":"Listener & Emitter",
-    "path":"folders/Vinyl/Listener & Emitter.yy",
+    "name":"Emitter & Listener",
+    "path":"folders/Vinyl/Emitter & Listener.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

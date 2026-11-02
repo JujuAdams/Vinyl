@@ -11,17 +11,19 @@
 function VinylRequestInitialize()
 {
     static _system = __VinylSystem();
-    
-    var _result = not _system.__initialized;
-    _system.__initialized = true;
-    
-    if (_result)
+    with(_system)
     {
-        audio_falloff_set_model(VINYL_FALLOFF_MODEL);
-        
-        //Known good default, albeit for 2D games
-        audio_listener_set_orientation(0,   0, 0, 1,   0, -1, 0);
-    }
+        var _result = not __initialized;
+        __initialized = true;
     
-    return _result;
+        if (_result)
+        {
+            audio_falloff_set_model(VINYL_FALLOFF_MODEL);
+            
+            //Known good default, albeit for 2D games
+            VinylSetListener(0, 0, 0,   0, 0, 1,   0, 1, 0);
+        }
+        
+        return _result;
+    }
 }
