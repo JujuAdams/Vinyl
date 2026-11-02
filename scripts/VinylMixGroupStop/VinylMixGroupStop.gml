@@ -1,3 +1,6 @@
+/// Stops all sounds associated with the mix group. This function is relatively slow, especially
+/// as your game gets bigger, so use with care.
+/// 
 /// @param mixGroupIndex
 
 function VinylMixGroupStop(_mixGroupIndex)

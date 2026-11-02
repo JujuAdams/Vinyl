@@ -1,4 +1,7 @@
-/// Basic XORShift32, nothing fancy
+/// Utility function that returns a random integer up to and including `value` without using
+/// GameMaker's native PRNG. As such, shuffling an array using this function won't impact
+/// procedural generation (etc.) which uses GameMaker's native random functions. `value` must be
+/// a positive integer.
 /// 
 /// @param value
 

@@ -1,3 +1,6 @@
+/// Returns the track position for a voice. If an array of voices is provided then this function
+/// will return an array of track positions, one for each voice.
+/// 
 /// @param voiceOrArray
 
 function VinylGetTrackPosition(_voiceOrArray)

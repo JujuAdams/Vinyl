@@ -1,3 +1,5 @@
+/// Sets the gain for the mix group.
+/// 
 /// @param mixGroupIndex
 /// @param gain
 

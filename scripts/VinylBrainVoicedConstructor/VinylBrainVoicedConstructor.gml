@@ -74,14 +74,9 @@ function VinylBrainVoicedConstructor(_update = false) : VinylBrainParentConstruc
         return VinylGetAllLoop(__voice);
     }
     
-    static ImplPause = function()
+    static ImplSetPause = function(_state)
     {
-        VinylPause(__voice);
-    }
-    
-    static ImplResume = function()
-    {
-        VinylResume(__voice);
+        VinylSetPause(__voice, _state);
     }
     
     static ImplGetAllPaused = function()

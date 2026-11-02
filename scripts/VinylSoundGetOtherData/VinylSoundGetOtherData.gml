@@ -1,3 +1,5 @@
+/// Returns the additional "other data", as set by `VinylDefineSound()`.
+/// 
 /// @param soundAsset
 
 function VinylSoundGetOtherData(_soundAsset)

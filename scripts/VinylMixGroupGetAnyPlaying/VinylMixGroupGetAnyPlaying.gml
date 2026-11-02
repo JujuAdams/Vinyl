@@ -1,3 +1,6 @@
+/// Returns if there are any sounds playing that are associated with the mix group. This function
+/// is relatively slow, especially as your game gets bigger, so use with care.
+/// 
 /// @param mixGroupIndex
 
 function VinylMixGroupGetAnyPlaying(_mixGroupIndex)

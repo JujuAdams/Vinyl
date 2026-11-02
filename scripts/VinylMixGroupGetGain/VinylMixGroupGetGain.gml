@@ -1,3 +1,5 @@
+/// Returns the gain for a mix group, not including the "trim gain" set by `VinylDefineMixGroup()`.
+/// 
 /// @param mixGroupIndex
 
 function VinylMixGroupGetGain(_mixGroupIndex)

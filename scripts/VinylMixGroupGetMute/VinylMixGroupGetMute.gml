@@ -1,3 +1,5 @@
+/// Returns the mute state for a mix group`.
+/// 
 /// @param mixGroupIndex
 
 function VinylMixGroupGetMute(_mixGroupIndex)

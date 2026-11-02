@@ -1,3 +1,5 @@
+/// Sets the mute state for the mix group.
+/// 
 /// @param mixGroupIndex
 /// @param state
 

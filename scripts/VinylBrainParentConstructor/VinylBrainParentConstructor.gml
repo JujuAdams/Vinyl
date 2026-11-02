@@ -87,14 +87,9 @@ function VinylBrainParentConstructor(_update = false) constructor
         __VinylDevError($"`VinylGetAllLoop()` not supported for this struct type ({instanceof(self)})");
     }
     
-    static ImplPause = function()
+    static ImplSetPause = function(_state)
     {
-        __VinylDevError($"`VinylGetPause()` not supported for this struct type ({instanceof(self)})");
-    }
-    
-    static ImplResume = function()
-    {
-        __VinylDevError($"`VinylGetResume()` not supported for this struct type ({instanceof(self)})");
+        __VinylDevError($"`VinylSetPause()` not supported for this struct type ({instanceof(self)})");
     }
     
     static ImplGetAllPaused = function()

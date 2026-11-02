@@ -1,3 +1,5 @@
+/// Returns the per-sound gain, as set by `VinylDefineSound()`.
+/// 
 /// @param soundAsset
 
 function VinylSoundGetGain(_soundAsset)

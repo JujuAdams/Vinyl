@@ -1,3 +1,5 @@
+/// Returns the export name for a mix group, as set by `VinylDefineMixGroup()`.
+/// 
 /// @param mixGroupIndex
 
 function VinylMixGroupGetExportName(_mixGroupIndex)

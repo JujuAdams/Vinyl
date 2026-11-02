@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylPause",
+  "%Name":"VinylSetPause",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylPause",
+  "name":"VinylSetPause",
   "parent":{
     "name":"Pause & Resume",
     "path":"folders/Vinyl/Pause & Resume.yy",
