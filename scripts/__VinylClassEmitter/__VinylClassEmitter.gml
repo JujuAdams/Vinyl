@@ -24,7 +24,7 @@ function __VinylClassEmitter(_x, _y, _z) constructor
         var _mixGroup = _mixGroupArray[_i];
         if (not _mixGroup.__omniOnly)
         {
-            __gmEmitterAndBusArray[@ _i] = (new __VinylClassGMGMEmitterAndBus(_mixGroup))
+            __gmEmitterAndBusArray[@ _i] = (new __VinylClassGMEmitterAndBus(_mixGroup))
                                             .__SetFalloff(VINYL_FALLOFF_REF_DIST, VINYL_FALLOFF_MAX_DIST, VINYL_FALLOFF_FACTOR)
                                             .__SetPosition(_x, _y, _z);
         }

@@ -15,7 +15,7 @@ function __VinylClassMixGroup(_mixGroupIndex, _exportName, _omniOnly, _trim, _ot
     __gain = __trim;
     __mute = false;
     
-    __globalGMEmitterAndBus = new __VinylClassGMGMEmitterAndBus(self);
+    __globalGMEmitterAndBus = new __VinylClassGMEmitterAndBus(self);
     __gmEmitterAndBusArray = [__globalGMEmitterAndBus];
     
     __soundArray = [];
