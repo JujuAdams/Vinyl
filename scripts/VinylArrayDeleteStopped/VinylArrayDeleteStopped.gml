@@ -1,4 +1,5 @@
-/// Returns if the array has any remaining playing members.
+/// Iterates over an array of voices and deletes any voices that are not currently playing. This
+/// function additionally returns if the array contains any remaining playing voices.
 /// 
 /// @param array
 

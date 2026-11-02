@@ -1,3 +1,5 @@
+/// Stops a voice. If an array is passed, all voices in that array are stopped.
+/// 
 /// @param voiceOrArray
 
 function VinylStop(_voiceOrArray)

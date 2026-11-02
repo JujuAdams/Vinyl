@@ -1,3 +1,8 @@
+/// Returns `true` if the voice will stop before the next frame. This check is approximate and may
+/// sometimes be wrong. If an array is passed, this function will return `true` if *all* voices in
+/// the given array are likely to stop in the next step (or have already stopped). If an empty
+/// array is provided then this function will always return `true`.
+/// 
 /// @param voiceOrArray
 
 function VinylGetWillStop(_voiceOrArray)

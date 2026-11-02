@@ -1,4 +1,4 @@
-/// Return `true` if *all* voices in the given array are paused. If any one voice is not paused
+/// Returns `true` if *all* voices in the given array are paused. If any one voice is not paused
 /// then this function will return `false`. If an empty array is provided then this function will
 /// return `false`. If a voice is passed to this function directly (not in an array) then this
 /// function will return if that particular voice is paused.

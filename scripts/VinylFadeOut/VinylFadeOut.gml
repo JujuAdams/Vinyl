@@ -1,3 +1,7 @@
+/// Fade out a voice, or array of voices, to zero gain at which point the voice(s) will be stopped.
+/// You may specify a callback to execute when the fade out has been completed. The fade out cannot
+/// be cancelled once started.
+/// 
 /// @param voiceOrArray
 /// @param fadeTime
 /// @param [callback]

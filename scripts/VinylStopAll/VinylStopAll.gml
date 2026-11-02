@@ -1,3 +1,5 @@
+/// Stops all sound everywhere instantly.
+
 function VinylStopAll()
 {
     audio_stop_all();
