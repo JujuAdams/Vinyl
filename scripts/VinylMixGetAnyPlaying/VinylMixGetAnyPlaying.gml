@@ -11,7 +11,7 @@ function VinylMixGetAnyPlaying(_mixGroupIndex)
         var _i = 0;
         repeat(array_length(_soundArray))
         {
-            if (audio_is_playing(_soundArray[_i]))
+            if (audio_is_playing(_soundArray[_i].__sound))
             {
                 return true;
             }

@@ -11,7 +11,7 @@ function VinylMixResume(_mixGroupIndex)
         var _i = 0;
         repeat(array_length(_soundArray))
         {
-            audio_resume_sound(_soundArray[_i]);
+            audio_resume_sound(_soundArray[_i].__sound);
             ++_i;
         }
     }

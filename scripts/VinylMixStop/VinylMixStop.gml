@@ -11,7 +11,7 @@ function VinylMixStop(_mixGroupIndex)
         var _i = 0;
         repeat(array_length(_soundArray))
         {
-            audio_stop_sound(_soundArray[_i]);
+            audio_stop_sound(_soundArray[_i].__sound);
             ++_i;
         }
     }
