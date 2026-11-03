@@ -8,6 +8,11 @@ UIButton("Basic Test", function()
     instance_destroy();
     instance_create_layer(0, 0, "Instances", oTestBasic);
 });
+UIButton("Mix Groups Test", function()
+{
+    instance_destroy();
+    instance_create_layer(0, 0, "Instances", oTestMixGroups);
+});
 UIButton("Queue Test", function()
 {
     instance_destroy();
