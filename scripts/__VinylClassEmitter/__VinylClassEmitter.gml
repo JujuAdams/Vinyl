@@ -1,4 +1,4 @@
-/// This is actually n GameMaker emitters in a trenchcoat.
+/// This is actually a bunch of GameMaker emitters in a trenchcoat.
 ///
 /// @param x
 /// @param y

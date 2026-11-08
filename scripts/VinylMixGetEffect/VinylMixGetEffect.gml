@@ -1,3 +1,5 @@
+/// Returns the mix group effect struct for the given index.
+/// 
 /// @param mixGroupIndex
 /// @param effectIndex
 
@@ -15,5 +17,5 @@ function VinylMixGetEffect(_mixGroupIndex, _effectIndex)
         return undefined;
     }
     
-    return _mixGroup.__GetEffect(_effectIndex);
+    return _mixGroup.__globalGMEmitterAndBus.__bus.effects[4 + _effectIndex];
 }

@@ -9,6 +9,8 @@ function __VinylClassGMEmitterAndBus(_mixGroup) constructor
     __bus.gain = __mixGroup.__mute? 0 : __mixGroup.__gain;
     audio_emitter_bus(__gmEmitter, __bus);
     
+    _mixGroup.__AddEmitter(self);
+    
     static __SetFalloff = function(_refDist, _maxDist, _factor)
     {
         audio_emitter_falloff(__gmEmitter, _refDist, _maxDist, _factor);
@@ -23,6 +25,8 @@ function __VinylClassGMEmitterAndBus(_mixGroup) constructor
     
     static __Destroy = function()
     {
+        __mixGroup.__DeleteEmitter(self);
+        
         audio_emitter_free(__gmEmitter);
         __gmEmitter = undefined;
     }
