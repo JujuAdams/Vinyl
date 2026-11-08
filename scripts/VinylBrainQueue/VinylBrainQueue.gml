@@ -1,4 +1,8 @@
-/// Manages a queue of playables stored in an array.
+/// Constructor. Creates a struct that manages a queue of playables stored in an array.
+/// 
+/// This brain is considered a playable and can be nested inside of other brains. Similarly, each
+/// of the playables stored in the brain can be any other form of playable. You could nest a queue
+/// within a queue if you wanted.
 /// 
 /// @param playableArray
 /// @param [behavior=DONT_LOOP]

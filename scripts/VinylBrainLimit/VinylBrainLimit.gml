@@ -1,3 +1,6 @@
+/// Constructor. Creates a struct that can be used to restrict how many voices are playing at the
+/// same time.
+/// 
 /// Example:
 ///     ///Create Event
 ///     brain = new VinylBrainLimit(5);

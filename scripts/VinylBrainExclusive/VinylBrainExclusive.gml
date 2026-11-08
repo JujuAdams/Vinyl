@@ -1,5 +1,7 @@
-/// Automatically stops a previous voice stored by the brain when a new voice is played and pushed
-/// to the brain. If a fade time has been set then the old voice will be faded out (using `VinylFadeOut()`).
+/// Constructor. Creates a struct that can be used to control overlapping audio. This struct will
+/// automatically stop a previous voice stored by the struct when a new voice is played and pushed
+/// to the struct. If a fade time has been set then the old voice will be faded out (using
+/// `VinylFadeOut()`).
 /// 
 /// Example:
 ///     ///Create Event

@@ -1,7 +1,7 @@
-/// Manages sounds organised as a "Head loop tail". This is also known as "intro loop outro".
-/// The head will be played first, if specified, then the loop sound will be played. When you'd
-/// like the loop to stop, call `VinylSetLoop(brain, false)` targeting the brain. Once the loop
-/// sound has stopped, the tail will play.
+/// Constructor. Manages playables organised as a "Head loop tail". This is also known as "intro
+/// loop outro". The head will be played first, if specified, then the loop sound will be played.
+/// When you'd like the loop to stop, call `VinylSetLoop(brain, false)` targeting the brain. Once
+/// the loop sound has stopped, the tail will play.
 /// 
 /// This brain is considered a playable and can be nested inside of other brains. Similarly, each
 /// of the playables for this brain (head, loop, tail) can be any other form of playable. This
