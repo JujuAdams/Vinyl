@@ -19,7 +19,7 @@
 ///     Returns whether there is space in the brain for a new voice.
 /// 
 /// `.ForcePush(voice)`
-///     Pushes a voice to the brain without consider whether there is space or not.
+///     Pushes a voice to the brain without considering whether there is space or not.
 /// 
 /// `.SetMaxCount(maxCount)`
 ///     Sets the maximum number of voices that can be played simultaneously for this brain. If

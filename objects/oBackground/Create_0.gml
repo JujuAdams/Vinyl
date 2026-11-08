@@ -3,8 +3,8 @@
 
 if (VinylRequestInitialize())
 {
-    VinylDefineMixGroup(MIX_SFX, "sfx", false);
-    VinylDefineMixGroup(MIX_MUSIC, "music", true);
+    VinylDefineMixGroup(MIX_SFX, "sfx", true);
+    VinylDefineMixGroup(MIX_MUSIC, "music", false);
     
     VinylDefineSound(sndChickenNuggets, MIX_MUSIC);
     VinylDefineSound([sndCat, sndBonk], MIX_SFX);

@@ -1,15 +1,15 @@
 /// @param mixGroupIndex
 /// @param exportName
-/// @param omniOnly
+/// @param allowEmitters
 /// @param trim
 /// @param otherData
 
-function __VinylClassMixGroup(_mixGroupIndex, _exportName, _omniOnly, _trim, _otherData) constructor
+function __VinylClassMixGroup(_mixGroupIndex, _exportName, _allowEmitters, _trim, _otherData) constructor
 {
     __mixGroupIndex = _mixGroupIndex;
     __exportName    = _exportName;
     __trim          = _trim;
-    __omniOnly      = _omniOnly;
+    __allowEmitters = _allowEmitters;
     __otherData     = _otherData;
     
     __gain = __trim;

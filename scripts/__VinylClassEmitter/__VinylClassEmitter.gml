@@ -3,10 +3,11 @@
 /// @param x
 /// @param y
 /// @param z
+/// @param forceMixGroupArray
 
-function __VinylClassEmitter(_x, _y, _z) constructor
+function __VinylClassEmitter(_x, _y, _z, _forceMixGroupArray) constructor
 {
-    static _mixGroupArray = __VinylSystem().__mixGroupArray;
+    static _systemMixGroupArray = __VinylSystem().__mixGroupArray;
     
     x = _x;
     y = _y;
@@ -16,13 +17,13 @@ function __VinylClassEmitter(_x, _y, _z) constructor
     __maxDist = VINYL_FALLOFF_MAX_DIST;
     __factor  = VINYL_FALLOFF_FACTOR;
     
-    __gmEmitterAndBusArray = array_create(array_length(_mixGroupArray), undefined);
+    __gmEmitterAndBusArray = array_create(array_length(_systemMixGroupArray), undefined);
     
     var _i = 0;
     repeat(array_length(__gmEmitterAndBusArray))
     {
-        var _mixGroup = _mixGroupArray[_i];
-        if (not _mixGroup.__omniOnly)
+        var _mixGroup = _systemMixGroupArray[_i];
+        if (_mixGroup.__allowEmitters || (array_get_index(_forceMixGroupArray, _i) >= 0))
         {
             __gmEmitterAndBusArray[@ _i] = (new __VinylClassGMEmitterAndBus(_mixGroup))
                                             .__SetFalloff(VINYL_FALLOFF_REF_DIST, VINYL_FALLOFF_MAX_DIST, VINYL_FALLOFF_FACTOR)

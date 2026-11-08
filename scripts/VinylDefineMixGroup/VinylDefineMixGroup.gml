@@ -8,10 +8,11 @@
 /// N.B. If you change an export name then exported settings for the mix group will no longer be
 ///      imported. Be very careful when modifying mix groups.
 /// 
-/// The `omniOnly` parameter prevents emitters from being able to play sounds associated with the
-/// mix group. The advantage to setting a mix group to omni-only is that it reduces the amount of
-/// work Vinyl has to do to update emitters. Try to set mix groups to omni-only where possible e.g.
-/// a mix group intended to play music should likely be set to omni-only.
+/// The `allowEmitters` parameter allows emitters to play sounds associated with the mix group. The
+/// advantage to setting a mix group to disallow emitters is that it reduces the amount of work
+/// Vinyl has to do to update emitters. Try to set mix groups to disallow emitters where possible e.g.
+/// a mix group intended to play music should likely be set to disallow emitters but a mix group
+/// intended to play sound effects should likely be set to allow emitters.
 /// 
 /// `trimGain` applies a multiplicative gain to the mix group regardless of other settings. This is
 /// useful to tweak relative volumes of different kinds of audio without having to adjust how
@@ -22,11 +23,11 @@
 /// 
 /// @param mixGroupIndex
 /// @param exportName
-/// @param omniOnly
+/// @param allowEmitters
 /// @param [trimGain=1]
 /// @param [otherData]
 
-function VinylDefineMixGroup(_mixGroupIndex, _exportName, _omniOnly, _trimGain = 1, _otherData = undefined)
+function VinylDefineMixGroup(_mixGroupIndex, _exportName, _allowEmitters, _trimGain = 1, _otherData = undefined)
 {
     static _system = __VinylSystem();
     static _mixGroupArray = _system.__mixGroupArray;
@@ -37,6 +38,6 @@ function VinylDefineMixGroup(_mixGroupIndex, _exportName, _omniOnly, _trimGain =
         return;
     }
     
-    var _mixGroup = new __VinylClassMixGroup(_mixGroupIndex, _exportName, _omniOnly, _trimGain, _otherData);
+    var _mixGroup = new __VinylClassMixGroup(_mixGroupIndex, _exportName, _allowEmitters, _trimGain, _otherData);
     _mixGroupArray[@ _mixGroupIndex] = _mixGroup;
 }
