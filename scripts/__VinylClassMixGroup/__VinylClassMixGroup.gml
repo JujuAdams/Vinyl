@@ -15,8 +15,9 @@ function __VinylClassMixGroup(_mixGroupIndex, _exportName, _allowEmitters, _trim
     __gain = __trim;
     __mute = false;
     
+    __globalGMEmitterAndBus = undefined;
+    __gmEmitterAndBusArray = [];
     __globalGMEmitterAndBus = new __VinylClassGMEmitterAndBus(self);
-    __gmEmitterAndBusArray = [__globalGMEmitterAndBus];
     
     __soundArray = [];
     
@@ -24,14 +25,17 @@ function __VinylClassMixGroup(_mixGroupIndex, _exportName, _allowEmitters, _trim
     {
         array_push(__gmEmitterAndBusArray, _gmEmitterAndBus);
         
-        //Copy the mix group's effects to the newly added emitter
-        var _mixEffects = __globalGMEmitterAndBus.__bus.effects;
-        with(_gmEmitterAndBus.__bus)
+        if (__globalGMEmitterAndBus != undefined)
         {
-            effects[@ 4] = _mixEffects[4];
-            effects[@ 5] = _mixEffects[5];
-            effects[@ 6] = _mixEffects[6];
-            effects[@ 7] = _mixEffects[7];
+            //Copy the mix group's effects to the newly added emitter
+            var _mixEffects = __globalGMEmitterAndBus.__bus.effects;
+            with(_gmEmitterAndBus.__bus)
+            {
+                effects[@ 4] = _mixEffects[4];
+                effects[@ 5] = _mixEffects[5];
+                effects[@ 6] = _mixEffects[6];
+                effects[@ 7] = _mixEffects[7];
+            }
         }
     }
     
