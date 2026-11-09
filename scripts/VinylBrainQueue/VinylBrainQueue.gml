@@ -124,9 +124,9 @@ function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _loo
             var _loop = (__behavior == VINYL_QUEUE_LOOP_ON_LAST)? (array_length(__playableArray) <= 1) : (__behavior == VINYL_QUEUE_LOOP_EACH);
             var _gain = (__fadeInTime > 0)? 0 : __gain;
             
-            if (__playType == __VINYL_PLAY_OMNI)
+            if (__playType == __VINYL_PLAY)
             {
-                __voice = VinylPlayOmni(__playableArray[0], _loop, _gain, __pitch);
+                __voice = VinylPlay(__playableArray[0], _loop, _gain, __pitch);
             }
             else if (__playType == __VINYL_PLAY_AT)
             {
@@ -153,9 +153,9 @@ function VinylBrainQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _loo
         }
     }
     
-    static ImplPlayOmni = function(_loop, _gain_UNUSED, _pitch_UNUSED)
+    static ImplPlay = function(_loop, _gain_UNUSED, _pitch_UNUSED)
     {
-        __playType = __VINYL_PLAY_OMNI;
+        __playType = __VINYL_PLAY;
         
         __loopQueue = _loop;
         

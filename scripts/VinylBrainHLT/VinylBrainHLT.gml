@@ -41,9 +41,9 @@ function VinylBrainHLT(_head, _loop, _tail) : VinylBrainVoicedConstructor(true) 
         {
             var _funcPlay = function(_playable, _loop)
             {
-                if (__playType == __VINYL_PLAY_OMNI)
+                if (__playType == __VINYL_PLAY)
                 {
-                    __voice = VinylPlayOmni(_playable, _loop, __gain, __pitch);
+                    __voice = VinylPlay(_playable, _loop, __gain, __pitch);
                 }
                 else if (__playType == __VINYL_PLAY_AT)
                 {
@@ -88,9 +88,9 @@ function VinylBrainHLT(_head, _loop, _tail) : VinylBrainVoicedConstructor(true) 
         }
     }
     
-    static ImplPlayOmni = function(_loop_UNUSED, _gain, _pitch)
+    static ImplPlay = function(_loop_UNUSED, _gain, _pitch)
     {
-        __playType = __VINYL_PLAY_OMNI;
+        __playType = __VINYL_PLAY;
         
         __stage = 0;
         

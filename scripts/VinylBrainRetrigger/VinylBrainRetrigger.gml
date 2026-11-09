@@ -6,7 +6,7 @@
 ///     ///Create Event
 ///     shuffleBrain = new VinylBrainShuffle([sndBird1, sndBird2, sndBird3, sndFrog]);
 ///     retriggerBrain = new VinylBrainRetrigger(shuffleBrain, 1, 2);
-///     VinylPlayOmni(retriggerBrain);
+///     VinylPlay(retriggerBrain);
 /// 
 /// @param playable
 /// @param minDelay
@@ -50,9 +50,9 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         }
         else if (current_time >= __nextPlay)
         {
-            if (__playType == __VINYL_PLAY_OMNI)
+            if (__playType == __VINYL_PLAY)
             {
-                __voice = VinylPlayOmni(__playable, false, __gain, __pitch);
+                __voice = VinylPlay(__playable, false, __gain, __pitch);
             }
             else if (__playType == __VINYL_PLAY_AT)
             {
@@ -69,9 +69,9 @@ function VinylBrainRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         }
     }
     
-    static ImplPlayOmni = function(_loop, _gain, _pitch)
+    static ImplPlay = function(_loop, _gain, _pitch)
     {
-        __playType = __VINYL_PLAY_OMNI;
+        __playType = __VINYL_PLAY;
         
         __loop  = _loop;
         __gain  = _gain;

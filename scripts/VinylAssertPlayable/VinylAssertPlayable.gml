@@ -1,6 +1,6 @@
 /// Throws an exception if the given value is not a "playable". A playable is an asset or other
-/// resource that Vinyl can use to play audio e.g. using `VinylPlayOmni()`. The following is a
-/// list of valid playables:
+/// resource that Vinyl can use to play audio e.g. using `VinylPlay()`. The following is a list of
+/// valid playables:
 /// 
 /// - Sound asset added to the project via the GameMaker IDE
 /// - Sound created with `audio_create_stream()`

@@ -19,5 +19,5 @@ UIButtonInline("Play bleep on echo emitter", function()
 UINewline();
 UIButtonInline("Play fallback sound using defined emitter", function()
 {
-    VinylPlayOmni(VinylFallbackSoundIDE);
+    VinylPlay(VinylFallbackSoundIDE);
 });

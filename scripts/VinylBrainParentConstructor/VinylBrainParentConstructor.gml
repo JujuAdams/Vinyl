@@ -7,9 +7,9 @@ function VinylBrainParentConstructor(_update = false) constructor
         __VinylDevError($"No update function has been defined for this struct type ({instanceof(self)})");
     }
     
-    static ImplPlayOmni = function(_loop, _gain, _pitch)
+    static ImplPlay = function(_loop, _gain, _pitch)
     {
-        __VinylDevError($"`VinylPlayOmni()` not supported this struct type ({instanceof(self)})");
+        __VinylDevError($"`VinylPlay()` not supported this struct type ({instanceof(self)})");
     }
     
     static ImplPlayAt = function(_x, _y, _z, _loop, _gain, _pitch)

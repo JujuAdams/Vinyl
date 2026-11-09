@@ -13,7 +13,7 @@
 ///     if (moved && (footstepTimer <= 0))
 ///     {
 ///         footstepTimer = 24;
-///         VinylPlayOmni(footstepBrain);
+///         VinylPlay(footstepBrain);
 ///     }
 /// 
 /// @param playableArray
@@ -76,9 +76,9 @@ function VinylBrainShuffle(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1
     
     
     
-    static ImplPlayOmni = function(_loop, _gain, _pitch)
+    static ImplPlay = function(_loop, _gain, _pitch)
     {
-        return VinylPlayOmni(PopPlayable(), _loop, _gain*PopGain(), _pitch*PopPitch());
+        return VinylPlay(PopPlayable(), _loop, _gain*PopGain(), _pitch*PopPitch());
     }
     
     static ImplPlayAt = function(_x, _y, _z, _loop, _gain, _pitch)

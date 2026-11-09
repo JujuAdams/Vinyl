@@ -11,7 +11,7 @@ UINewline();
 UIButtonInline("Simple", function()
 {
     VinylStop(voice);
-    voice = VinylPlayOmni(sndSync1, true);
+    voice = VinylPlay(sndSync1, true);
     bpmBrain = new VinylBrainBPM(voice, originalBPM, true);
     bpm = originalBPM;
 });
@@ -19,7 +19,7 @@ UISpace(30);
 UIButtonInline("Shuffle", function()
 {
     VinylStop(voice);
-    voice = VinylPlayOmni(shuffleBrain, true);
+    voice = VinylPlay(shuffleBrain, true);
     bpmBrain = new VinylBrainBPM(voice, originalBPM, true);
     bpm = originalBPM;
 });
@@ -27,7 +27,7 @@ UISpace(30);
 UIButtonInline("HLT", function()
 {
     VinylStop(voice);
-    voice = VinylPlayOmni(hltBrain, true);
+    voice = VinylPlay(hltBrain, true);
     bpmBrain = new VinylBrainBPM(voice, originalBPM, true);
     bpm = originalBPM;
 });
@@ -35,7 +35,7 @@ UISpace(30);
 UIButtonInline("Blend", function()
 {
     VinylStop(voice);
-    voice = VinylPlayOmni(soundArray, true);
+    voice = VinylPlay(soundArray, true);
     bpmBrain = new VinylBrainBPM(voice, originalBPM, true);
     bpm = originalBPM;
 });
@@ -95,5 +95,5 @@ UIText(_string);
 
 if ((bpmBrain != undefined) && bpmBrain.GetBeatThisStep())
 {
-    VinylPlayOmni(sndBleep0);
+    VinylPlay(sndBleep0);
 }

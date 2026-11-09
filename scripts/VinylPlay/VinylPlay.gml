@@ -1,15 +1,20 @@
 /// Plays a "playable". This sound will not be panned relative the listener and will appear to come
 /// from all around the player's head.
 /// 
-/// Please see `Vinyl Terminology` for information on what counts as a "playable". Typically, a
-/// playable is just a sound asset that you've added to the GameMaker IDE.
+/// The following is a list of valid playables:
+/// 
+/// - Sound asset added to the project via the GameMaker IDE
+/// - Sound created with `audio_create_stream()`
+/// - Sound created with `audio_create_buffer_sound()`
+/// - Certain types of Vinyl brain; see documentation per brain for more details
+/// - An array of any of the preceeding resources (arrays can be nested inside each other)
 /// 
 /// @param playable
 /// @param [loop=false]
 /// @param [gain=1]
 /// @param [pitch=1]
 
-function VinylPlayOmni(_playable, _loop = false, _gain = 1, _pitch = 1)
+function VinylPlay(_playable, _loop = false, _gain = 1, _pitch = 1)
 {
     static _mixGroupArray = __VinylSystem().__mixGroupArray;
     static _soundDefMap   = __VinylSystem().__soundDefMap;
@@ -21,7 +26,7 @@ function VinylPlayOmni(_playable, _loop = false, _gain = 1, _pitch = 1)
         var _i = 0;
         repeat(array_length(_playable))
         {
-            _voiceArray[@ _i] = VinylPlayOmni(_playable[_i], _loop, _gain, _pitch);
+            _voiceArray[@ _i] = VinylPlay(_playable[_i], _loop, _gain, _pitch);
             ++_i;
         }
         
@@ -29,7 +34,7 @@ function VinylPlayOmni(_playable, _loop = false, _gain = 1, _pitch = 1)
     }
     else if (is_struct(_playable))
     {
-        return _playable.ImplPlayOmni(_playable, _loop, _gain, _pitch);
+        return _playable.ImplPlay(_playable, _loop, _gain, _pitch);
     }
     else if (_playable != undefined)
     {

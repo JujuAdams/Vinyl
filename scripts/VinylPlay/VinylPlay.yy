@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylPlayOmni",
+  "%Name":"VinylPlay",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylPlayOmni",
+  "name":"VinylPlay",
   "parent":{
     "name":"Playing",
     "path":"folders/Vinyl/Playing.yy",

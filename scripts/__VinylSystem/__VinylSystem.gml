@@ -1,7 +1,7 @@
 #macro __VINYL_MAX_MIX_GROUP_GAIN  1
 
 #macro __VINYL_PLAY_NONE  0
-#macro __VINYL_PLAY_OMNI  1
+#macro __VINYL_PLAY       1
 #macro __VINYL_PLAY_AT    2
 #macro __VINYL_PLAY_ON    3
 

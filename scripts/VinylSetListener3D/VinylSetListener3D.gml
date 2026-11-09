@@ -20,7 +20,7 @@ function VinylSetListener3D(_x, _y, _z,   _xForward, _yForward, _zForward,   _xU
     //Move the listener
     audio_listener_set_position(0, _x, _y, _z);
     
-    //Keep global (omnidirectional) emitters next to the listener
+    //Keep global emitters next to the listener
     var _i = 0;
     repeat(array_length(_mixGroupArray))
     {

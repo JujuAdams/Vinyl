@@ -9,7 +9,7 @@
 ///     if (keyboard_check_pressed(vk_space))
 ///     {
 ///         //The incoming voice will only be played if there are less than 5 playing voices
-///         brain.Push(VinylPlayOmni(sndExample));
+///         brain.Push(VinylPlay(sndExample));
 ///     }
 /// 
 /// Methods for this brain:

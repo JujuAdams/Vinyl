@@ -11,7 +11,7 @@
 ///     if (keyboard_check_pressed(vk_space))
 ///     {
 ///         //The incoming voice will interrupt the existing voice (if one is playing)
-///         brain.Push(VinylPlayOmni(sndExample));
+///         brain.Push(VinylPlay(sndExample));
 ///     }
 /// 
 /// Methods for this brain:

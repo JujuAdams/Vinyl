@@ -26,13 +26,13 @@ UIButton("Stop all", function()
 UINewline();
 UIButton("Play one-time sound", function()
 {
-    VinylPlayOmni(sndCat);
+    VinylPlay(sndCat);
 });
 UINewline();
 UIButtonInline("Play loop", function()
 {
     VinylStop(loopVoice);
-    loopVoice = VinylPlayOmni(sndChickenNuggets, true);
+    loopVoice = VinylPlay(sndChickenNuggets, true);
 });
 UISpace(10);
 UIButtonInline("Stop loop", function()

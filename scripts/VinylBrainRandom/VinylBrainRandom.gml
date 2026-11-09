@@ -9,7 +9,7 @@
 ///     
 ///     ///Collision with objCoin
 ///     score += 100;
-///     VinylPlayOmni(coinBrain);
+///     VinylPlay(coinBrain);
 /// 
 /// @param playableArray
 /// @param [gain=1]
@@ -48,9 +48,9 @@ function VinylBrainRandom(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1,
     
     
     
-    static ImplPlayOmni = function(_loop, _gain, _pitch)
+    static ImplPlay = function(_loop, _gain, _pitch)
     {
-        return VinylPlayOmni(PopPlayable(), _loop, _gain*PopGain(), _pitch*PopPitch());
+        return VinylPlay(PopPlayable(), _loop, _gain*PopGain(), _pitch*PopPitch());
     }
     
     static ImplPlayAt = function(_x, _y, _z, _loop, _gain, _pitch)

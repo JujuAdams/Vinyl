@@ -66,12 +66,12 @@ UINewline();
 UINewline();
 UIButtonInline("1KHz", function()
 {
-    VinylPlayOmni(snd1KHz);
+    VinylPlay(snd1KHz);
 });
 UISpace(20);
 UIButtonInline("Shuffle Bleeps", function()
 {
-    VinylPlayOmni("Shuffle");
+    VinylPlay("Shuffle");
 });
 UISpace(20);
 UIButtonInline("Blast Start", function()
@@ -87,7 +87,7 @@ UINewline();
 UINewline();
 UIButtonInline("HLT Test", function()
 {
-    hltVoice = VinylPlayOmni("HLT");
+    hltVoice = VinylPlay("HLT");
 });
 UISpace(20);
 UIButtonInline("HLT End Loop", function()
@@ -98,7 +98,7 @@ UINewline();
 UINewline();
 UIButtonInline("Blend Test", function()
 {
-    blendVoice = VinylPlayOmni("Blend");
+    blendVoice = VinylPlay("Blend");
 });
 UISpace(20);
 UIButtonInline("Factor -", function()
@@ -135,7 +135,7 @@ UINewline();
 UINewline();
 UIButtonInline("Start callback test", function()
 {
-    global.callbackTestVoice = VinylPlayOmni(sndSync0, true);
+    global.callbackTestVoice = VinylPlay(sndSync0, true);
     VinylBrainOnStop(global.callbackTestVoice, undefined, function()
     {
         show_debug_message("Callback triggered");
@@ -150,7 +150,7 @@ UINewline();
 UINewline();
 UIButtonInline("Play fade out test", function()
 {
-    fadeOutPauseTest = VinylPlayOmni(sndChickenNuggets, true);
+    fadeOutPauseTest = VinylPlay(sndChickenNuggets, true);
 });
 UISpace(20);
 UIButtonInline("Fade out to pause", function()

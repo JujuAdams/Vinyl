@@ -13,7 +13,7 @@ UIText($"Mix group \"{VinylMixGetExportName(MIX_MUSIC)}\" any playing = {VinylMi
 UINewline();
 UIButtonInline("Play sfx", function()
 {
-    VinylPlayOmni(sndCat);
+    VinylPlay(sndCat);
 });
 UISpace(30);
 UIButtonInline("Stop \"sfx\"", function()
@@ -33,7 +33,7 @@ UIButtonInline("Resume \"sfx\"", function()
 UINewline();
 UIButtonInline("Play music", function()
 {
-    VinylPlayOmni(sndChickenNuggets, true);
+    VinylPlay(sndChickenNuggets, true);
 });
 UISpace(30);
 UIButtonInline("Stop \"music\" mix group", function()
