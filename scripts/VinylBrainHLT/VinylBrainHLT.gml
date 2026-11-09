@@ -19,6 +19,7 @@ function VinylBrainHLT(_head, _loop, _tail) : VinylBrainVoicedConstructor(true) 
     __loop = _loop;
     __tail = _tail;
     
+    __voice = undefined;
     __stage = 0;
     
     __gain  = 1;
@@ -42,15 +43,15 @@ function VinylBrainHLT(_head, _loop, _tail) : VinylBrainVoicedConstructor(true) 
             {
                 if (__playType == __VINYL_PLAY_OMNI)
                 {
-                    __voice = VinylPlayOmni(_playable, _loop, _gain, __pitch);
+                    __voice = VinylPlayOmni(_playable, _loop, __gain, __pitch);
                 }
                 else if (__playType == __VINYL_PLAY_AT)
                 {
-                    __voice = VinylPlayAt(_playable, __playX, __playY, __playZ, _loop, _gain, __pitch);
+                    __voice = VinylPlayAt(_playable, __playX, __playY, __playZ, _loop, __gain, __pitch);
                 }
                 else if (__playType == __VINYL_PLAY_ON)
                 {
-                    __voice = VinylPlayOn(_playable, __playEmitter, _loop, _gain, __pitch);
+                    __voice = VinylPlayOn(_playable, __playEmitter, _loop, __gain, __pitch);
                 }
                 else
                 {
@@ -72,7 +73,7 @@ function VinylBrainHLT(_head, _loop, _tail) : VinylBrainVoicedConstructor(true) 
             {
                 if (__tail != undefined)
                 {
-                    _funcPlay(__loop, false);
+                    _funcPlay(__tail, false);
                     __stage = 3;
                 }
                 else
@@ -137,6 +138,41 @@ function VinylBrainHLT(_head, _loop, _tail) : VinylBrainVoicedConstructor(true) 
     {
         VinylStop(__voice);
         __stage = 4;
+    }
+    
+    static ImplGetPlaying = function()
+    {
+        return ((__stage != 0) && (__stage != 4));
+    }
+    
+    static ImplGetAllPlaying = function()
+    {
+        return ((__stage != 0) && (__stage != 4));
+    }
+    
+    static ImplGetWillStop = function()
+    {
+        if ((__stage == 0) || (__stage == 4))
+        {
+            return true;
+        }
+        
+        if (__tail == undefined)
+        {
+            if (__stage == 2)
+            {
+                return VinylGetWillStop(__voice);
+            }
+        }
+        else
+        {
+            if (__stage == 3)
+            {
+                return VinylGetWillStop(__voice);
+            }
+        }
+        
+        return false;
     }
     
     static ImplSetGain = function(_gain, _time)

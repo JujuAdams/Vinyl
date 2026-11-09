@@ -22,7 +22,7 @@ function VinylGetPlaying(_voiceOrArray)
     }
     else if (is_struct(_voiceOrArray))
     {
-        return _voiceOrArray.ImplGetPlaying ();
+        return _voiceOrArray.ImplGetPlaying();
     }
     else if (_voiceOrArray != undefined)
     {

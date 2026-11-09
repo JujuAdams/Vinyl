@@ -27,7 +27,7 @@ function VinylBrainParentConstructor(_update = false) constructor
         __VinylDevError($"`VinylStop()` not supported this struct type ({instanceof(self)})");
     }
     
-    static ImplGetPlaying  = function()
+    static ImplGetPlaying = function()
     {
         __VinylDevError($"`VinylGetPlaying()` not supported for this struct type ({instanceof(self)})");
     }

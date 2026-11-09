@@ -14,7 +14,7 @@ function VinylBrainVoicedConstructor(_update = false) : VinylBrainParentConstruc
         VinylStop(__voice);
     }
     
-    static ImplGetPlaying  = function()
+    static ImplGetPlaying = function()
     {
         return VinylGetPlaying(__voice);
     }

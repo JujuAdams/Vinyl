@@ -20,7 +20,7 @@ function VinylGetTrackPosition(_voiceOrArray)
     }
     else if (is_struct(_voiceOrArray))
     {
-        _voiceOrArray.ImplGetTrackPosition();
+        return _voiceOrArray.ImplGetTrackPosition();
     }
     else if (_voiceOrArray != undefined)
     {
