@@ -62,7 +62,7 @@ function VinylBrainShuffle(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1
         }
     }
     
-    static PopPlayable = function()
+    static PopGain = function()
     {
         return VinylUtilRandomRange(__gain - __gainRange, __gain + __gainRange);
     }
@@ -78,16 +78,16 @@ function VinylBrainShuffle(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1
     
     static ImplPlayOmni = function(_loop, _gain, _pitch)
     {
-        VinylPlayOmni(PopPlayable(), _loop, _gain*PopGain(), _pitch*PopPitch());
+        return VinylPlayOmni(PopPlayable(), _loop, _gain*PopGain(), _pitch*PopPitch());
     }
     
     static ImplPlayAt = function(_x, _y, _z, _loop, _gain, _pitch)
     {
-        VinylPlayAt(PopPlayable(), _x, _y, _z, _loop, _gain*PopGain(), _pitch*PopPitch());
+        return VinylPlayAt(PopPlayable(), _x, _y, _z, _loop, _gain*PopGain(), _pitch*PopPitch());
     }
     
     static ImplPlayOn = function(_emitter, _loop, _gain, _pitch)
     {
-        VinylPlayOn(PopPlayable(), _emitter, _loop, _gain*PopGain(), _pitch*PopPitch());
+        return VinylPlayOn(PopPlayable(), _emitter, _loop, _gain*PopGain(), _pitch*PopPitch());
     }
 }
