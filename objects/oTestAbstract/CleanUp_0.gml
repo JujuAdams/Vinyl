@@ -1,1 +1,0 @@
-VinylStop(voice);

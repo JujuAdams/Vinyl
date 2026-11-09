@@ -37,6 +37,8 @@ function VinylBrainBPM(_voice, _bpm, _beginOnBeat) : VinylBrainParentConstructor
             __beatIndex    = _beatIndex;
             __beatDistance = -((((_beat - _beatIndex) + 0.5) mod 1) - 0.5);
         }
+        
+        return true;
     });
     
     static GetVoice = function()

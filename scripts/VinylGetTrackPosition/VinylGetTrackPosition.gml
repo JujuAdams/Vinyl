@@ -24,7 +24,10 @@ function VinylGetTrackPosition(_voiceOrArray)
     }
     else if (_voiceOrArray != undefined)
     {
-        return audio_sound_get_track_position(_voiceOrArray);
+        if (audio_is_playing(_voiceOrArray))
+        {
+            return audio_sound_get_track_position(_voiceOrArray);
+        }
     }
     
     return 0;

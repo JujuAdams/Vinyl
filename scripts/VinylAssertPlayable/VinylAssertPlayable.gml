@@ -17,7 +17,7 @@ function VinylAssertPlayable(_value)
         var _i = 0;
         repeat(array_length(_value))
         {
-            VinylAssertPlayable(_value);
+            VinylAssertPlayable(_value[_i]);
             ++_i;
         }
     }
