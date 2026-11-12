@@ -34,6 +34,11 @@ function VinylLogicVoicedConstructor(_update = false) : VinylLogicParentConstruc
         array_push(_resultArray, __voice);
     }
     
+    static ImplGetAsset = function(_resultArray)
+    {
+        return VinylGetAsset(__voice);
+    }
+    
     static ImplGetTrackPosition = function()
     {
         return VinylGetTrackPosition(__voice);

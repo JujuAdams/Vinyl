@@ -70,6 +70,7 @@
     {"name":"VinylFadeOut","order":5,"path":"scripts/VinylFadeOut/VinylFadeOut.yy",},
     {"name":"VinylGetAnyPaused","order":1,"path":"scripts/VinylGetAnyPaused/VinylGetAnyPaused.yy",},
     {"name":"VinylGetAnyStopped","order":7,"path":"scripts/VinylGetAnyStopped/VinylGetAnyStopped.yy",},
+    {"name":"VinylGetAsset","order":6,"path":"scripts/VinylGetAsset/VinylGetAsset.yy",},
     {"name":"VinylGetFlatVoiceArray","order":5,"path":"scripts/VinylGetFlatVoiceArray/VinylGetFlatVoiceArray.yy",},
     {"name":"VinylGetGain","order":1,"path":"scripts/VinylGetGain/VinylGetGain.yy",},
     {"name":"VinylGetInitialized","order":5,"path":"scripts/VinylGetInitialized/VinylGetInitialized.yy",},

@@ -47,6 +47,11 @@ function VinylLogicParentConstructor(_update = false) constructor
         __VinylDevError($"`VinylGetFlatVoiceArray()` not supported for this struct type ({instanceof(self)})");
     }
     
+    static ImplGetAsset = function()
+    {
+        __VinylDevError($"`VinylGetAsset()` not supported for this struct type ({instanceof(self)})");
+    }
+    
     static ImplGetTrackPosition = function()
     {
         __VinylDevError($"`VinylGetTrackPosition()` not supported for this struct type ({instanceof(self)})");
