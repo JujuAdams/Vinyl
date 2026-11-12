@@ -18,14 +18,12 @@ UIButton("BPM Test", function()
     instance_destroy();
     instance_create_layer(0, 0, "Instances", oTestBPM);
 });
+UIButton("Queue Test", function()
+{
+    instance_destroy();
+    instance_create_layer(0, 0, "Instances", oTestQueues);
+});
 
-
-
-//UIButton("Queue Test", function()
-//{
-//    instance_destroy();
-//    instance_create_layer(0, 0, "Instances", oTestQueues);
-//});
 //UIButton("Effects Test", function()
 //{
 //    instance_destroy();

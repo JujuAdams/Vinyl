@@ -1,109 +1,114 @@
 draw_set_font(fntText);
 
 UIStart(10, 10, undefined, undefined, true);
-UIButtonInline("General Test", function()
+UIButton("<-- Back to main menu", function()
 {
     instance_destroy();
-    instance_create_layer(0, 0, "Instances", oTestGeneral);
+    instance_create_layer(0, 0, "Instances", oTestMainMenu);
 });
 UINewline();
-UINewline();
-UIButtonInline("Stop Current", function()
+UIButtonInline("Play", function()
 {
-    VinylStop(runtimeQueue);
-});
-UISpace(20);
-UIButtonInline("Fade Out Current", function()
-{
-    VinylFadeOut(runtimeQueue);
+    VinylPlay(queue);
 });
 UINewline();
-UITextInline($"Behaviour = {VinylQueueGetBehaviour(runtimeQueue)}");
-UISpace(20);
-UIButtonInline("DONT_LOOP", function()
+UIButtonInline("Stop current", function()
 {
-    VinylQueueSetBehaviour(runtimeQueue, VINYL_QUEUE.DONT_LOOP);
+    VinylStop(queue);
 });
 UISpace(20);
-UIButtonInline("LOOP_EACH", function()
+UIButtonInline("Fade out current", function()
 {
-    VinylQueueSetBehaviour(runtimeQueue, VINYL_QUEUE.LOOP_EACH);
+    VinylFadeOut(queue, 1000);
 });
 UISpace(20);
-UIButtonInline("LOOP_ON_LAST", function()
+UITextInline($"Behavior = {queue.GetBehavior()}");
+UINewline();
+UIButtonInline("DONT_LOOP (0)", function()
 {
-    VinylQueueSetBehaviour(runtimeQueue, VINYL_QUEUE.LOOP_ON_LAST);
+    queue.SetBehavior(VINYL_QUEUE_DONT_LOOP);
+});
+UISpace(20);
+UIButtonInline("LOOP_EACH (1)", function()
+{
+    queue.SetBehavior(VINYL_QUEUE_LOOP_EACH);
+});
+UISpace(20);
+UIButtonInline("LOOP_ON_LAST (2)", function()
+{
+    queue.SetBehavior(VINYL_QUEUE_LOOP_ON_LAST);
 });
 UINewline();
-UIButtonInline("Play current sound once", function()
+UIButtonInline("Play queue once", function()
 {
-    VinylSetLoop(runtimeQueue, false);
+    VinylSetLoop(queue, false);
 });
-UIButtonInline("Loop current sound", function()
+UISpace(10);
+UIButtonInline("Loop queue", function()
 {
-    VinylSetLoop(runtimeQueue, true);
+    VinylSetLoop(queue, true);
 });
 UINewline();
 UINewline();
 UIButtonInline("Set 0", function()
 {
-    VinylFadeOut(runtimeQueue);
-    VinylQueueSetBottom(runtimeQueue, sndSync0);
+    VinylFadeOut(queue, 1000);
+    queue.SetBottom(sndSync0);
 });
 UISpace(20);
 UIButtonInline("Set 1", function()
 {
-    VinylFadeOut(runtimeQueue);
-    VinylQueueSetBottom(runtimeQueue, sndSync1);
+    VinylFadeOut(queue, 1000);
+    queue.SetBottom(sndSync1);
 });
 UISpace(20);
 UIButtonInline("Set 2", function()
 {
-    VinylFadeOut(runtimeQueue);
-    VinylQueueSetBottom(runtimeQueue, sndSync2);
+    VinylFadeOut(queue, 1000);
+    queue.SetBottom(sndSync2);
 });
 UISpace(20);
 UIButtonInline("Set 3", function()
 {
-    VinylFadeOut(runtimeQueue);
-    VinylQueueSetBottom(runtimeQueue, sndSync3);
+    VinylFadeOut(queue, 1000);
+    queue.SetBottom(sndSync3);
 });
 UISpace(20);
 UIButtonInline("Set 1KHz", function()
 {
-    VinylFadeOut(runtimeQueue);
-    VinylQueueSetBottom(runtimeQueue, snd1KHz);
+    VinylFadeOut(queue, 1000);
+    queue.SetBottom(snd1KHz);
 });
 UINewline();
 UIButtonInline("Push 0", function()
 {
-    VinylQueuePushBottom(runtimeQueue, sndSync0);
+    queue.PushBottom(sndSync0);
 });
 UISpace(20);
 UIButtonInline("Push 1", function()
 {
-    VinylQueuePushBottom(runtimeQueue, sndSync1);
+    queue.PushBottom(sndSync1);
 });
 UISpace(20);
 UIButtonInline("Push 2", function()
 {
-    VinylQueuePushBottom(runtimeQueue, sndSync2);
+    queue.PushBottom(sndSync2);
 });
 UISpace(20);
 UIButtonInline("Push 3", function()
 {
-    VinylQueuePushBottom(runtimeQueue, sndSync3);
+    queue.PushBottom(sndSync3);
 });
 UISpace(20);
 UIButtonInline("Push 1KHz", function()
 {
-    VinylQueuePushBottom(runtimeQueue, snd1KHz);
+    queue.PushBottom(snd1KHz);
 });
 UINewline();
 UINewline();
-var _asset = VinylGetAsset(runtimeQueue);
+var _asset = VinylGetAsset(queue);
 UITextInline(audio_exists(_asset)? audio_get_name(_asset) : "<no sound playing>");
 UISpace(20);
-UITextInline(VinylGetLoop(runtimeQueue)? "(looping)" : "(playing once)");
+UITextInline(VinylGetLoop(queue)? "(looping queue)" : "(playing queue once)");
 UINewline();
-UIText(json_stringify(VinylQueueGetArray(runtimeQueue), true));
+UIText(json_stringify(queue.GetPlayableArray(), true));

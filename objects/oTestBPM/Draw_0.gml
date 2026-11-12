@@ -1,12 +1,11 @@
 draw_set_font(fntText);
 
 UIStart(10, 10, undefined, undefined, true);
-UIButtonInline("General Test", function()
+UIButton("<-- Back to main menu", function()
 {
     instance_destroy();
     instance_create_layer(0, 0, "Instances", oTestMainMenu);
 });
-UINewline();
 UINewline();
 UIButtonInline("Simple", function()
 {

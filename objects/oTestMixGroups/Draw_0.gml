@@ -1,12 +1,11 @@
 draw_set_font(fntText);
 
 UIStart(10, 10, undefined, undefined, true);
-UIButton("Back to main menu", function()
+UIButton("<-- Back to main menu", function()
 {
     instance_destroy();
     instance_create_layer(0, 0, "Instances", oTestMainMenu);
 });
-
 UINewline();
 UIText($"Mix group \"{VinylMixGetExportName(MIX_SFX)}\" any playing = {VinylMixGetAnyPlaying(MIX_SFX)? "true" : "false"}");
 UIText($"Mix group \"{VinylMixGetExportName(MIX_MUSIC)}\" any playing = {VinylMixGetAnyPlaying(MIX_MUSIC)? "true" : "false"}");

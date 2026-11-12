@@ -1,3 +1,3 @@
 // Feather disable all
 
-runtimeQueue = VinylQueueCreate(VINYL_QUEUE.LOOP_EACH, false, undefined, undefined, VINYL_DEFAULT_FADE_IN_RATE);
+queue = new VinylLogicQueue([sndSync0, sndSync1, sndSync2, sndSync3], undefined, true);
