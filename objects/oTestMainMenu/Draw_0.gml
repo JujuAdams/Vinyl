@@ -23,6 +23,11 @@ UIButton("Queue Test", function()
     instance_destroy();
     instance_create_layer(0, 0, "Instances", oTestQueues);
 });
+UIButton("HLT Test", function()
+{
+    instance_destroy();
+    instance_create_layer(0, 0, "Instances", oTestHLT);
+});
 
 //UIButton("Effects Test", function()
 //{

@@ -33,7 +33,10 @@ function VinylLogicHLT(_head, _loop, _tail) : VinylLogicVoicedConstructor(true) 
     
     
     
-    
+    static GetStage = function()
+    {
+        return __stage;
+    }
     
     static ImplUpdate = function()
     {
@@ -59,31 +62,31 @@ function VinylLogicHLT(_head, _loop, _tail) : VinylLogicVoicedConstructor(true) 
                 }
             }
             
-            if ((__stage == 0) && (__head != undefined))
+            if ((__stage == VINYL_STAGE_PENDING) && (__head != undefined))
             {
                 _funcPlay(__head, false);
-                __stage = 1;
+                __stage = VINYL_STAGE_HEAD;
             }
-            else if (__stage <= 1)
+            else if (__stage <= VINYL_STAGE_HEAD)
             {
                 _funcPlay(__loop, true);
-                __stage = 2;
+                __stage = VINYL_STAGE_LOOP;
             }
-            else if (__stage == 2)
+            else if (__stage == VINYL_STAGE_LOOP)
             {
                 if (__tail != undefined)
                 {
                     _funcPlay(__tail, false);
-                    __stage = 3;
+                    __stage = VINYL_STAGE_TAIL;
                 }
                 else
                 {
-                    __stage = 4;
+                    __stage = VINYL_STAGE_END;
                 }
             }
-            else if (__stage == 3)
+            else if (__stage == VINYL_STAGE_TAIL)
             {
-                __stage = 4;
+                __stage = VINYL_STAGE_END;
             }
         }
     }
@@ -92,7 +95,7 @@ function VinylLogicHLT(_head, _loop, _tail) : VinylLogicVoicedConstructor(true) 
     {
         __playType = __VINYL_PLAY;
         
-        __stage = 0;
+        __stage = VINYL_STAGE_PENDING;
         
         __gain  = _gain;
         __pitch = _pitch;
@@ -109,7 +112,7 @@ function VinylLogicHLT(_head, _loop, _tail) : VinylLogicVoicedConstructor(true) 
         __playY    = _y;
         __playZ    = _z;
         
-        __stage = 0;
+        __stage = VINYL_STAGE_PENDING;
         
         __gain  = _gain;
         __pitch = _pitch;
@@ -124,7 +127,7 @@ function VinylLogicHLT(_head, _loop, _tail) : VinylLogicVoicedConstructor(true) 
         __playType    = __VINYL_PLAY_ON;
         __playEmitter = _emitter;
         
-        __stage = 0;
+        __stage = VINYL_STAGE_PENDING;
         
         __gain  = _gain;
         __pitch = _pitch;
@@ -137,36 +140,36 @@ function VinylLogicHLT(_head, _loop, _tail) : VinylLogicVoicedConstructor(true) 
     static ImplStop = function()
     {
         VinylStop(__voice);
-        __stage = 4;
+        __stage = VINYL_STAGE_END;
     }
     
     static ImplGetPlaying = function()
     {
-        return ((__stage != 0) && (__stage != 4));
+        return ((__stage != VINYL_STAGE_PENDING) && (__stage != VINYL_STAGE_END));
     }
     
     static ImplGetAllPlaying = function()
     {
-        return ((__stage != 0) && (__stage != 4));
+        return ((__stage != VINYL_STAGE_PENDING) && (__stage != VINYL_STAGE_END));
     }
     
     static ImplGetWillStop = function()
     {
-        if ((__stage == 0) || (__stage == 4))
+        if ((__stage == VINYL_STAGE_PENDING) || (__stage == VINYL_STAGE_END))
         {
             return true;
         }
         
         if (__tail == undefined)
         {
-            if (__stage == 2)
+            if (__stage == VINYL_STAGE_LOOP)
             {
                 return VinylGetWillStop(__voice);
             }
         }
         else
         {
-            if (__stage == 3)
+            if (__stage == VINYL_STAGE_TAIL)
             {
                 return VinylGetWillStop(__voice);
             }

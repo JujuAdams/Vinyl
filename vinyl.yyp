@@ -55,6 +55,7 @@
     {"id":{"name":"oTestEffects","path":"objects/oTestEffects/oTestEffects.yy",},},
     {"id":{"name":"oTestExternal","path":"objects/oTestExternal/oTestExternal.yy",},},
     {"id":{"name":"oTestGeneral__OLD","path":"objects/oTestGeneral__OLD/oTestGeneral__OLD.yy",},},
+    {"id":{"name":"oTestHLT","path":"objects/oTestHLT/oTestHLT.yy",},},
     {"id":{"name":"oTestMainMenu","path":"objects/oTestMainMenu/oTestMainMenu.yy",},},
     {"id":{"name":"oTestMixGroups","path":"objects/oTestMixGroups/oTestMixGroups.yy",},},
     {"id":{"name":"oTestPlayAt","path":"objects/oTestPlayAt/oTestPlayAt.yy",},},

@@ -34,7 +34,7 @@ function VinylPlay(_playable, _loop = false, _gain = 1, _pitch = 1)
     }
     else if (is_struct(_playable))
     {
-        return _playable.ImplPlay(_playable, _loop, _gain, _pitch);
+        return _playable.ImplPlay(_loop, _gain, _pitch);
     }
     else if (_playable != undefined)
     {
