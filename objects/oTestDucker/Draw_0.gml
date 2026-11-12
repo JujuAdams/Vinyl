@@ -38,18 +38,18 @@ UIButtonInline("Ducker prio 2", function()
 UINewline();
 UIButtonInline("Fade out prio 0", function()
 {
-    VinylFadeOut(duckPrio0);
+    VinylFadeOut(duckPrio0, 1);
     duckPrio0 = undefined;
 });
 UISpace(20);
 UIButtonInline("Fade out prio 1", function()
 {
-    VinylFadeOut(duckPrio1);
+    VinylFadeOut(duckPrio1, 1);
     duckPrio1 = undefined;
 });
 UISpace(20);
 UIButtonInline("Fade out prio 2", function()
 {
-    VinylFadeOut(duckPrio2);
+    VinylFadeOut(duckPrio2, 1);
     duckPrio2 = undefined;
 });

@@ -19,7 +19,7 @@ UIButtonInline("Stop current", function()
 UISpace(20);
 UIButtonInline("Fade out current", function()
 {
-    VinylFadeOut(queue, 1000);
+    VinylFadeOut(queue, 1);
 });
 UISpace(20);
 UITextInline($"Behavior = {queue.GetBehavior()}");
@@ -52,31 +52,31 @@ UINewline();
 UINewline();
 UIButtonInline("Set 0", function()
 {
-    VinylFadeOut(queue, 1000);
+    VinylFadeOut(queue, 1);
     queue.SetBottom(sndSync0);
 });
 UISpace(20);
 UIButtonInline("Set 1", function()
 {
-    VinylFadeOut(queue, 1000);
+    VinylFadeOut(queue, 1);
     queue.SetBottom(sndSync1);
 });
 UISpace(20);
 UIButtonInline("Set 2", function()
 {
-    VinylFadeOut(queue, 1000);
+    VinylFadeOut(queue, 1);
     queue.SetBottom(sndSync2);
 });
 UISpace(20);
 UIButtonInline("Set 3", function()
 {
-    VinylFadeOut(queue, 1000);
+    VinylFadeOut(queue, 1);
     queue.SetBottom(sndSync3);
 });
 UISpace(20);
 UIButtonInline("Set 1KHz", function()
 {
-    VinylFadeOut(queue, 1000);
+    VinylFadeOut(queue, 1);
     queue.SetBottom(snd1KHz);
 });
 UINewline();

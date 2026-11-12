@@ -64,12 +64,12 @@ function VinylLogicShuffle(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1
     
     static PopGain = function()
     {
-        return VinylUtilRandomRange(__gain - __gainRange, __gain + __gainRange);
+        return VinylUtilRandomRange(max(0, __gain - __gainRange), __gain + __gainRange);
     }
     
     static PopPitch = function()
     {
-        return VinylUtilRandomRange(__pitch - __pitchRange, __pitch + __pitchRange);
+        return VinylUtilRandomRange(max(0.01, __pitch - __pitchRange), __pitch + __pitchRange);
     }
     
     

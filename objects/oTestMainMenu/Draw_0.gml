@@ -28,16 +28,21 @@ UIButton("HLT Test", function()
     instance_destroy();
     instance_create_layer(0, 0, "Instances", oTestHLT);
 });
+UIButton("Random & Shuffle Test", function()
+{
+    instance_destroy();
+    instance_create_layer(0, 0, "Instances", oTestRandomAndShuffle);
+});
+UIButton("Exclusive & Limit Test", function()
+{
+    instance_destroy();
+    instance_create_layer(0, 0, "Instances", oTestExclusiveAndLimit);
+});
 
 //UIButton("Effects Test", function()
 //{
 //    instance_destroy();
 //    instance_create_layer(0, 0, "Instances", oTestEffects);
-//});
-//UIButton("Abstract Test", function()
-//{
-//    instance_destroy();
-//    instance_create_layer(0, 0, "Instances", oTestAbstract);
 //});
 //UIButton("PlayAt Test", function()
 //{

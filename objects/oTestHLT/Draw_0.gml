@@ -19,7 +19,7 @@ UIButtonInline("Stop", function()
 UISpace(20);
 UIButtonInline("Fade Out", function()
 {
-    VinylFadeOut(hlt);
+    VinylFadeOut(hlt, 1);
 });
 UINewline();
 UIButtonInline("Toggle loop", function()

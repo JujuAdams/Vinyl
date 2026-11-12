@@ -160,7 +160,7 @@ UIButtonInline("Fade out to pause", function()
 UINewline();
 UIButtonInline("Fade out to stop", function()
 {
-    VinylFadeOut(fadeOutPauseTest, 1000);
+    VinylFadeOut(fadeOutPauseTest, 1);
 });
 UISpace(20);
 UIButtonInline("Unpause test", function()

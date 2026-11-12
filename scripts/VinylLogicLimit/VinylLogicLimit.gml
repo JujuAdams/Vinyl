@@ -53,7 +53,7 @@ function VinylLogicLimit(_maxCount) : VinylLogicParentConstructor(false) constru
         }
     }
     
-    static GetAllowed = function()
+    static __CleanUp = function()
     {
         var _watchArray = __watchArray;
         var _i = array_length(_watchArray)-1;
@@ -66,8 +66,18 @@ function VinylLogicLimit(_maxCount) : VinylLogicParentConstructor(false) constru
             
             --_i;
         }
-        
-        return (array_length(_watchArray) < __maxCount);
+    }
+    
+    static GetCount = function()
+    {
+        __CleanUp();
+        return array_length(__watchArray);
+    }
+    
+    static GetAllowed = function()
+    {
+        __CleanUp();
+        return (array_length(__watchArray) < __maxCount);
     }
     
     static ForcePush = function(_voice)
@@ -84,8 +94,24 @@ function VinylLogicLimit(_maxCount) : VinylLogicParentConstructor(false) constru
         return self;
     }
     
-    return GetMaxCount = function()
+    static GetMaxCount = function()
     {
         return __maxCount;
+    }
+    
+    
+    
+    
+    
+    static ImplGetAllPlaying = function()
+    {
+        __CleanUp();
+        return (array_length(__watchArray) > 0);
+    }
+    
+    static ImplGetPlaying = function()
+    {
+        __CleanUp();
+        return (array_length(__watchArray) > 0);
     }
 }
