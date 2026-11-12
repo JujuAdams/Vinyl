@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"UIButtonInline",
+  "%Name":"UIButtonNewline",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"UIButtonInline",
+  "name":"UIButtonNewline",
   "parent":{
     "name":"UI",
     "path":"folders/UI.yy",

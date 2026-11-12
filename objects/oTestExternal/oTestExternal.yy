@@ -10,8 +10,8 @@
   "name":"oTestExternal",
   "overriddenProperties":[],
   "parent":{
-    "name":"vinyl",
-    "path":"vinyl.yyp",
+    "name":"Legacy",
+    "path":"folders/Legacy.yy",
   },
   "parentObjectId":null,
   "persistent":false,

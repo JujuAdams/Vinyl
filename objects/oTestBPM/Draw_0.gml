@@ -1,13 +1,13 @@
 draw_set_font(fntText);
 
 UIStart(10, 10, undefined, undefined, true);
-UIButton("<-- Back to main menu", function()
+UIButtonNewline("<-- Back to main menu", function()
 {
     instance_destroy();
     instance_create_layer(0, 0, "Instances", oTestMainMenu);
 });
 UINewline();
-UIButtonInline("Simple", function()
+UIButton("Simple", function()
 {
     VinylStop(voice);
     voice = VinylPlay(sndSync1, true);
@@ -15,7 +15,7 @@ UIButtonInline("Simple", function()
     bpm = originalBPM;
 });
 UISpace(30);
-UIButtonInline("Shuffle", function()
+UIButton("Shuffle", function()
 {
     VinylStop(voice);
     voice = VinylPlay(shuffleLogic, true);
@@ -23,7 +23,7 @@ UIButtonInline("Shuffle", function()
     bpm = originalBPM;
 });
 UISpace(30);
-UIButtonInline("HLT", function()
+UIButton("HLT", function()
 {
     VinylStop(voice);
     voice = VinylPlay(hltLogic, true);
@@ -31,7 +31,7 @@ UIButtonInline("HLT", function()
     bpm = originalBPM;
 });
 UISpace(30);
-UIButtonInline("Blend", function()
+UIButton("Blend", function()
 {
     VinylStop(voice);
     voice = VinylPlay(soundArray, true);
@@ -39,27 +39,27 @@ UIButtonInline("Blend", function()
     bpm = originalBPM;
 });
 UINewline();
-UIButtonInline("Pause", function()
+UIButton("Pause", function()
 {
     VinylSetPaused(voice, true);
 });
 UISpace(30);
-UIButtonInline("Resume", function()
+UIButton("Resume", function()
 {
     VinylSetPaused(voice, false);
 });
 UISpace(30);
-UIButtonInline("End Loop", function()
+UIButton("End Loop", function()
 {
     VinylSetLoop(voice, false);
 });
 UISpace(30);
-UIButtonInline("Stop", function()
+UIButton("Stop", function()
 {
     VinylStop(voice);
 });
 UISpace(30);
-UIButtonInline("Change BPM", function()
+UIButton("Change BPM", function()
 {
     if (bpmLogic != undefined)
     {
@@ -90,7 +90,7 @@ if (bpmLogic != undefined)
     _string += $"beat dist (secs) = {bpmLogic.GetBeatDistance()}\n";
 }
 
-UIText(_string);
+UITextNewline(_string);
 
 if ((bpmLogic != undefined) && bpmLogic.GetBeatThisStep())
 {

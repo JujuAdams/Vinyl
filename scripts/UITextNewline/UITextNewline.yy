@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"UITextInline",
+  "%Name":"UITextNewline",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"UITextInline",
+  "name":"UITextNewline",
   "parent":{
     "name":"UI",
     "path":"folders/UI.yy",
