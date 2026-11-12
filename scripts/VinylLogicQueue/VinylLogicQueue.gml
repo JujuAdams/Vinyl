@@ -121,20 +121,20 @@ function VinylLogicQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _loo
             var _playable = array_shift(__playableArray);
             if (__loopQueue) array_push(__playableArray, _playable);
             
-            var _loop = (__behavior == VINYL_QUEUE_LOOP_ON_LAST)? (array_length(__playableArray) <= 1) : (__behavior == VINYL_QUEUE_LOOP_EACH);
+            var _loop = (__behavior == VINYL_QUEUE_LOOP_ON_LAST)? (array_length(__playableArray) <= 0) : (__behavior == VINYL_QUEUE_LOOP_EACH);
             var _gain = (__fadeInTime > 0)? 0 : __gain;
             
             if (__playType == __VINYL_PLAY)
             {
-                __voice = VinylPlay(__playableArray[0], _loop, _gain, __pitch);
+                __voice = VinylPlay(_playable, _loop, _gain, __pitch);
             }
             else if (__playType == __VINYL_PLAY_AT)
             {
-                __voice = VinylPlayAt(__playableArray[0], __playX, __playY, __playZ, _loop, _gain, __pitch);
+                __voice = VinylPlayAt(_playable, __playX, __playY, __playZ, _loop, _gain, __pitch);
             }
             else if (__playType == __VINYL_PLAY_ON)
             {
-                __voice = VinylPlayOn(__playableArray[0], __playEmitter, _loop, _gain, __pitch);
+                __voice = VinylPlayOn(_playable, __playEmitter, _loop, _gain, __pitch);
             }
             else
             {
