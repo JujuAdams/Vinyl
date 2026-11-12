@@ -5,7 +5,7 @@
 /// - Sound asset added to the project via the GameMaker IDE
 /// - Sound created with `audio_create_stream()`
 /// - Sound created with `audio_create_buffer_sound()`
-/// - Certain types of Vinyl brain; see documentation per brain for more details
+/// - Certain types of Vinyl logic; see documentation per logic for more details
 /// - An array of any of the preceeding resources (arrays can be nested inside each other)
 /// 
 /// @param value
@@ -25,11 +25,11 @@ function VinylAssertPlayable(_value)
     {
         try
         {
-            var _ = _value.__brainInterface;
+            var _ = _value.__logicInterface;
         }
         catch(_error)
         {
-            throw $"Struct type \"{instanceof(_value)}\" does not inherit from `VinylBrainParentConstructor`";
+            throw $"Struct type \"{instanceof(_value)}\" does not inherit from `VinylLogicParentConstructor`";
         }
     }
     else if (is_handle(_value) || is_numeric(_value))

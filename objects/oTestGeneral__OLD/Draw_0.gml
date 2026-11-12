@@ -136,7 +136,7 @@ UINewline();
 UIButtonInline("Start callback test", function()
 {
     global.callbackTestVoice = VinylPlay(sndSync0, true);
-    VinylBrainOnStop(global.callbackTestVoice, undefined, function()
+    VinylLogicOnStop(global.callbackTestVoice, undefined, function()
     {
         show_debug_message("Callback triggered");
     });

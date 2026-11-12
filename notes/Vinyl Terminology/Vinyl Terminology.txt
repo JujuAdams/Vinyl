@@ -1,10 +1,10 @@
-Brain:
+Logic Structs:
 
-A special Vinyl concept, "brains" are chunks of code that manage audio for you. Each type of brain
-does something different, please refer to individual documentation for details. Some brains will
-run an update function every frame, some brains will only do something when you execute a method.
-Other brains act as playable audio. There's a lot of variety. Brains can be used together or
-separately as the situation demands.
+A special Vinyl concept, "logic structs" are chunks of code that manage audio for you. Each type of
+logic struct does something different, please refer to individual documentation for details. Some
+logic structs will run an update function every frame, some logic structs will only do something
+when you execute a method. Other logic structs act as playable audio. There's a lot of variety.
+Logics can be used together or separately as the situation demands.
 
 
 
@@ -14,16 +14,16 @@ There are two kinds of voice that Vinyl uses. The simplest is a number that Game
 identify each individual playing sound. As an analogy, a voice is an "instance" of a sound asset
 "object". Voices are what is returned by `audio_play_sound()`.
 
-The second type of voice that is unique to Vinyl is a brain voice. Some brains can be used directly
-with Vinyl functions that otherwise require native GameMaker voices.
+The second type of voice that is unique to Vinyl is a logic voice. Some logic structs can be used
+directly with Vinyl functions that otherwise require native GameMaker voices.
 
 
 
 Playable:
 
 Data that can be played by Vinyl's audio functions. The most type of "playable" is a sound asset
-added to your game via the IDE. Other playables include certain brains, such as `VinylBrainHLT()`.
-Most functions can also handle an array of playables.
+added to your game via the IDE. Other playables include certain logic structs, such as
+`VinylLogicHLT()`. Most functions can also handle an array of playables.
 
 
 

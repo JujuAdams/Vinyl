@@ -21,7 +21,7 @@ function VinylFadeOut(_voiceOrArray, _fadeTime, _callback = undefined)
         ++_i;
     }
     
-    new VinylBrainTick(_voiceOrArray, {
+    new VinylLogicTick(_voiceOrArray, {
         __startTime: current_time,
         __flatArray: _flatArray,
         __gainArray: _gainArray,

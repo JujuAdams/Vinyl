@@ -5,7 +5,7 @@
 /// - Sound asset added to the project via the GameMaker IDE
 /// - Sound created with `audio_create_stream()`
 /// - Sound created with `audio_create_buffer_sound()`
-/// - Certain types of Vinyl brain; see documentation per brain for more details
+/// - Certain types of Vinyl logic; see documentation per logic for more details
 /// - An array of any of the preceeding resources (arrays can be nested inside each other)
 /// 
 /// @param value
@@ -31,7 +31,7 @@ function VinylGetIsPlayable(_value)
     {
         try
         {
-            var _ = _value.__brainInterface;
+            var _ = _value.__logicInterface;
             return true;
         }
         catch(_error)

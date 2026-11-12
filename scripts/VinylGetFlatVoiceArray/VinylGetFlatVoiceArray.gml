@@ -1,5 +1,5 @@
 /// Returns an array of voices currently being played. This will flatten arrays (i.e. remove any
-/// array nesting). Where this is most useful is to return all voices being played by a brain.
+/// array nesting). Where this is most useful is to return all voices being played by a logic.
 /// 
 /// @param voiceOrArray
 /// @param [resultArray]

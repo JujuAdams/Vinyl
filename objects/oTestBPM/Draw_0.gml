@@ -12,23 +12,23 @@ UIButtonInline("Simple", function()
 {
     VinylStop(voice);
     voice = VinylPlay(sndSync1, true);
-    bpmBrain = new VinylBrainBPM(voice, originalBPM, true);
+    bpmLogic = new VinylLogicBPM(voice, originalBPM, true);
     bpm = originalBPM;
 });
 UISpace(30);
 UIButtonInline("Shuffle", function()
 {
     VinylStop(voice);
-    voice = VinylPlay(shuffleBrain, true);
-    bpmBrain = new VinylBrainBPM(voice, originalBPM, true);
+    voice = VinylPlay(shuffleLogic, true);
+    bpmLogic = new VinylLogicBPM(voice, originalBPM, true);
     bpm = originalBPM;
 });
 UISpace(30);
 UIButtonInline("HLT", function()
 {
     VinylStop(voice);
-    voice = VinylPlay(hltBrain, true);
-    bpmBrain = new VinylBrainBPM(voice, originalBPM, true);
+    voice = VinylPlay(hltLogic, true);
+    bpmLogic = new VinylLogicBPM(voice, originalBPM, true);
     bpm = originalBPM;
 });
 UISpace(30);
@@ -36,7 +36,7 @@ UIButtonInline("Blend", function()
 {
     VinylStop(voice);
     voice = VinylPlay(soundArray, true);
-    bpmBrain = new VinylBrainBPM(voice, originalBPM, true);
+    bpmLogic = new VinylLogicBPM(voice, originalBPM, true);
     bpm = originalBPM;
 });
 UINewline();
@@ -62,7 +62,7 @@ UIButtonInline("Stop", function()
 UISpace(30);
 UIButtonInline("Change BPM", function()
 {
-    if (bpmBrain != undefined)
+    if (bpmLogic != undefined)
     {
         if (bpm == originalBPM)
         {
@@ -73,7 +73,7 @@ UIButtonInline("Change BPM", function()
             bpm = originalBPM;
         }
         
-        var _pitchMultiplier = bpmBrain.GetPitchForBPM(bpm);
+        var _pitchMultiplier = bpmLogic.GetPitchForBPM(bpm);
         VinylSetPitch(voice, _pitchMultiplier);
     }
 });
@@ -83,17 +83,17 @@ var _string = $"track position   = {VinylGetTrackPosition(voice)}\n";
 _string += $"current bpm      = {bpm}\n";
 _string += $"current pitch    = {VinylGetPitch(voice)}\n"
 
-if (bpmBrain != undefined)
+if (bpmLogic != undefined)
 {
-    _string += $"beat this step   = {bpmBrain.GetBeatThisStep()}\n"
-    _string += $"beat count       = {bpmBrain.GetBeatCount()}\n";
-    _string += $"beat distance    = {bpmBrain.GetBeatDistance(false)}\n";
-    _string += $"beat dist (secs) = {bpmBrain.GetBeatDistance()}\n";
+    _string += $"beat this step   = {bpmLogic.GetBeatThisStep()}\n"
+    _string += $"beat count       = {bpmLogic.GetBeatCount()}\n";
+    _string += $"beat distance    = {bpmLogic.GetBeatDistance(false)}\n";
+    _string += $"beat dist (secs) = {bpmLogic.GetBeatDistance()}\n";
 }
 
 UIText(_string);
 
-if ((bpmBrain != undefined) && bpmBrain.GetBeatThisStep())
+if ((bpmLogic != undefined) && bpmLogic.GetBeatThisStep())
 {
     VinylPlay(sndBleep0);
 }

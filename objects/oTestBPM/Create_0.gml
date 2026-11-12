@@ -5,8 +5,8 @@ voice = undefined;
 originalBPM = 4 * (60 / audio_sound_length(sndSync0));
 bpm = originalBPM;
 
-bpmBrain = undefined;
+bpmLogic = undefined;
 
-shuffleBrain = new VinylBrainShuffle([sndSync0, sndSync1, sndSync2, sndSync3]);
-hltBrain = new VinylBrainHLT(sndSync0, sndSync1, sndSync2);
+shuffleLogic = new VinylLogicShuffle([sndSync0, sndSync1, sndSync2, sndSync3]);
+hltLogic = new VinylLogicHLT(sndSync0, sndSync1, sndSync2);
 soundArray = [sndSync0, sndSync1, sndSync2, sndSync3];
