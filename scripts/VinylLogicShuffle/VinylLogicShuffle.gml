@@ -4,7 +4,7 @@
 /// native random functions.
 /// 
 /// Example:
-///     ///Create Event
+///     /// Create Event
 ///     footstepLogic = new VinylLogicShuffle([sndFootstep1, sndFootstep2, sndFootstep3], 1, 0, 1, 0.2);
 ///     footstepTimer = 0;
 ///     

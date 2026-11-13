@@ -63,6 +63,7 @@
     {"id":{"name":"oTestPlayAt","path":"objects/oTestPlayAt/oTestPlayAt.yy",},},
     {"id":{"name":"oTestQueues","path":"objects/oTestQueues/oTestQueues.yy",},},
     {"id":{"name":"oTestRandomAndShuffle","path":"objects/oTestRandomAndShuffle/oTestRandomAndShuffle.yy",},},
+    {"id":{"name":"oTestRetrigger","path":"objects/oTestRetrigger/oTestRetrigger.yy",},},
     {"id":{"name":"rMain","path":"rooms/rMain/rMain.yy",},},
     {"id":{"name":"__VinylClassEmitter","path":"scripts/__VinylClassEmitter/__VinylClassEmitter.yy",},},
     {"id":{"name":"__VinylClassGMEmitterAndBus","path":"scripts/__VinylClassGMEmitterAndBus/__VinylClassGMEmitterAndBus.yy",},},

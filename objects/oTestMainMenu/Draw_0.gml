@@ -45,6 +45,12 @@ UIButton("Exclusive & Limit Test", function()
     instance_create_layer(0, 0, "Instances", oTestExclusiveAndLimit);
 });
 UINewline();
+UIButton("Retrigger Test", function()
+{
+    instance_destroy();
+    instance_create_layer(0, 0, "Instances", oTestRetrigger);
+});
+UINewline();
 
 //UIButton("Effects Test", function()
 //{

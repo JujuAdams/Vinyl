@@ -2,7 +2,7 @@
 /// same time.
 /// 
 /// Example:
-///     ///Create Event
+///     /// Create Event
 ///     logic = new VinylLogicLimit(5);
 /// 
 ///     ///Step Event

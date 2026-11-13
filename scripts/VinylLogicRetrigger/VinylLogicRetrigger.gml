@@ -3,7 +3,7 @@
 /// playable such as `VinylLogicShuffle()`.
 /// 
 /// Example:
-///     ///Create Event
+///     /// Create Event
 ///     shuffleLogic = new VinylLogicShuffle([sndBird1, sndBird2, sndBird3, sndFrog]);
 ///     retriggerLogic = new VinylLogicRetrigger(shuffleLogic, 1, 2);
 ///     VinylPlay(retriggerLogic);
@@ -45,7 +45,7 @@ function VinylLogicRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
             if (VinylGetStopped(__voice))
             {
                 __voice = undefined;
-                __nextPlay = __loop? (current_time + VinylUtilRandomRange(__minDelay, __maxDelay) / 1000) : infinity;
+                __nextPlay = current_time + 1000*VinylUtilRandomRange(__minDelay, __maxDelay);
             }
         }
         else if (current_time >= __nextPlay)
@@ -147,6 +147,21 @@ function VinylLogicRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         VinylStop(__voice);
         __voice = undefined;
         __nextPlay = infinity;
+    }
+    
+    static ImplGetPlaying = function()
+    {
+        return (__voice != undefined);
+    }
+    
+    static ImplGetAllPlaying = function()
+    {
+        return (__voice != undefined);
+    }
+    
+    static ImplGetWillStop = function()
+    {
+        return VinylGetWillStop(__voice);
     }
     
     static ImplSetGain = function(_gain, _time)

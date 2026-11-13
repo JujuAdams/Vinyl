@@ -1,6 +1,6 @@
 {
   "FolderOrderSettings":[
-    {"name":"Legacy","order":12,"path":"folders/Legacy.yy",},
+    {"name":"Legacy","order":13,"path":"folders/Legacy.yy",},
     {"name":"Sounds","order":1,"path":"folders/Sounds.yy",},
     {"name":"UI","order":3,"path":"folders/UI.yy",},
     {"name":"Emitter & Listener","order":5,"path":"folders/Vinyl/Emitter & Listener.yy",},
@@ -19,8 +19,8 @@
     {"name":"Utilities","order":9,"path":"folders/Vinyl/Utilities.yy",},
   ],
   "ResourceOrderSettings":[
-    {"name":"acTest","order":21,"path":"animcurves/acTest/acTest.yy",},
-    {"name":"fntText","order":20,"path":"fonts/fntText/fntText.yy",},
+    {"name":"acTest","order":17,"path":"animcurves/acTest/acTest.yy",},
+    {"name":"fntText","order":16,"path":"fonts/fntText/fntText.yy",},
     {"name":"Vinyl Terminology","order":16,"path":"notes/Vinyl Terminology/Vinyl Terminology.yy",},
     {"name":"oBackground","order":2,"path":"objects/oBackground/oBackground.yy",},
     {"name":"oTestBasic","order":5,"path":"objects/oTestBasic/oTestBasic.yy",},
@@ -35,7 +35,8 @@
     {"name":"oTestPlayAt","order":2,"path":"objects/oTestPlayAt/oTestPlayAt.yy",},
     {"name":"oTestQueues","order":8,"path":"objects/oTestQueues/oTestQueues.yy",},
     {"name":"oTestRandomAndShuffle","order":10,"path":"objects/oTestRandomAndShuffle/oTestRandomAndShuffle.yy",},
-    {"name":"rMain","order":18,"path":"rooms/rMain/rMain.yy",},
+    {"name":"oTestRetrigger","order":12,"path":"objects/oTestRetrigger/oTestRetrigger.yy",},
+    {"name":"rMain","order":14,"path":"rooms/rMain/rMain.yy",},
     {"name":"__VinylClassEmitter","order":1,"path":"scripts/__VinylClassEmitter/__VinylClassEmitter.yy",},
     {"name":"__VinylClassMixGroup","order":2,"path":"scripts/__VinylClassMixGroup/__VinylClassMixGroup.yy",},
     {"name":"__VinylClassSoundDef","order":3,"path":"scripts/__VinylClassSoundDef/__VinylClassSoundDef.yy",},
@@ -128,7 +129,7 @@
     {"name":"VinylUtilIRandom","order":1,"path":"scripts/VinylUtilIRandom/VinylUtilIRandom.yy",},
     {"name":"VinylUtilRandom","order":3,"path":"scripts/VinylUtilRandom/VinylUtilRandom.yy",},
     {"name":"VinylUtilRandomRange","order":2,"path":"scripts/VinylUtilRandomRange/VinylUtilRandomRange.yy",},
-    {"name":"shdJujuverse","order":19,"path":"shaders/shdJujuverse/shdJujuverse.yy",},
+    {"name":"shdJujuverse","order":15,"path":"shaders/shdJujuverse/shdJujuverse.yy",},
     {"name":"snd1KHz","order":5,"path":"sounds/snd1KHz/snd1KHz.yy",},
     {"name":"sndBleep0","order":13,"path":"sounds/sndBleep0/sndBleep0.yy",},
     {"name":"sndBleep1","order":14,"path":"sounds/sndBleep1/sndBleep1.yy",},

@@ -4,7 +4,7 @@
 /// this logic will not impact GameMaker's native random functions.
 /// 
 /// Example:
-///     ///Create Event
+///     /// Create Event
 ///     coinLogic = new VinylLogicRandom([sndCoin1, sndCoin2, sndCoin3]);
 ///     
 ///     ///Collision with objCoin

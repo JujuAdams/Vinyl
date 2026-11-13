@@ -4,7 +4,7 @@
 /// `VinylFadeOut()`).
 /// 
 /// Example:
-///     ///Create Event
+///     /// Create Event
 ///     logic = new VinylLogicExclusive();
 /// 
 ///     ///Step Event
