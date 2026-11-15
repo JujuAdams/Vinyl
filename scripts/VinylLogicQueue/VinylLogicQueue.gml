@@ -12,6 +12,8 @@
 
 function VinylLogicQueue(_playableArray, _behavior = VINYL_QUEUE_DONT_LOOP, _loopQueue = false, _fadeInTime = 0, _playCallback = undefined) : VinylLogicVoicedConstructor(true) constructor
 {
+    VinylAssertPlayable(_playableArray);
+    
     __playableArray = variable_clone(_playableArray);
     __behavior      = _behavior;
     __loopQueue     = _loopQueue;

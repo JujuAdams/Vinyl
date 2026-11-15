@@ -13,7 +13,9 @@
 
 function VinylLogicHLT(_head, _loop, _tail) : VinylLogicVoicedConstructor(true) constructor
 {
+    if (_head != undefined) VinylAssertPlayable(_head);
     VinylAssertPlayable(_loop);
+    if (_tail != undefined) VinylAssertPlayable(_tail);
     
     __head = _head;
     __loop = _loop;
