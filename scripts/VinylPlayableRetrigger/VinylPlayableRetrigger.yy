@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylPlayableRetrigger",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylPlayableRetrigger",
+  "parent":{
+    "name":"Playable",
+    "path":"folders/Vinyl/Playable.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

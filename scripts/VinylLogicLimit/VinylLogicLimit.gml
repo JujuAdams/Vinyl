@@ -34,7 +34,7 @@
 /// 
 /// @param maxCount
 
-function VinylLogicLimit(_maxCount) : VinylLogicParentConstructor(false) constructor
+function VinylLogicLimit(_maxCount) : __VinylLogicParentConstructor(false) constructor
 {
     __maxCount = _maxCount;
     __watchArray = [];

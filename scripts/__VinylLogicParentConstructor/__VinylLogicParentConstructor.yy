@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__VinylLogicParentConstructor",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__VinylLogicParentConstructor",
+  "parent":{
+    "name":"Constructor",
+    "path":"folders/Vinyl/(System)/Constructor.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

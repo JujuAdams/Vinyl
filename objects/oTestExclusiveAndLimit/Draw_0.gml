@@ -14,17 +14,23 @@ UIText($"playing = {VinylGetPlaying(exclusiveLogic)? "true" : "false"}, asset = 
 UINewline();
 UIButton("Play 1KHz", function()
 {
-    exclusiveLogic.Push(VinylPlay(snd1KHz));
+    VinylStop(voice);
+    voice = VinylPlay(snd1KHz);
+    exclusiveLogic.Push(voice);
 });
 UISpace(20);
 UIButton("Play music", function()
 {
-    exclusiveLogic.Push(VinylPlay(sndChickenNuggets));
+    VinylStop(voice);
+    voice = VinylPlay(sndChickenNuggets);
+    exclusiveLogic.Push(voice);
 });
 UISpace(20);
 UIButton("Play bonk", function()
 {
-    exclusiveLogic.Push(VinylPlay(sndBonk));
+    VinylStop(voice);
+    voice = VinylPlay(sndBonk);
+    exclusiveLogic.Push(voice);
 });
 UINewline();
 UINewline();

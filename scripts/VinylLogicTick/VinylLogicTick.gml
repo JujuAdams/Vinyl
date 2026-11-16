@@ -7,7 +7,7 @@
 /// @param data
 /// @param callback
 
-function VinylLogicTick(_voiceOrArray, _data, _callback) : VinylLogicParentConstructor(false) constructor
+function VinylLogicTick(_voiceOrArray, _data, _callback) : __VinylLogicParentConstructor(false) constructor
 {
     static __logicInterface = false;
     

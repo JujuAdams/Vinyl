@@ -17,36 +17,32 @@
 /// @param [pitch=1]
 /// @param [pitchRange=0]
 
-function VinylLogicRandom(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1, _pitchRange = 0) : VinylLogicParentConstructor(false) constructor
+function VinylPlayableRandom(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1, _pitchRange = 0) : __VinylLogicParentConstructor(false) constructor
 {
     _playableArray = VinylUtilEnsureArray(_playableArray);
     VinylAssertPlayable(_playableArray);
     
-    __playableArray = _playableArray;
-    __gain          = _gain;
-    __gainRange     = _gainRange;
-    __pitch         = _pitch;
-    __pitchRange    = _pitchRange;
-    __soundCount    = array_length(__playableArray);
+    playableArray = _playableArray;
+    gain          = _gain;
+    gainRange     = _gainRange;
+    pitch         = _pitch;
+    pitchRange    = _pitchRange;
     
     static PopPlayable = function()
     {
-        return __playableArray[VinylUtilIRandom(__soundCount-1)];
+        var _length = array_length(playableArray);
+        return (_length <= 0)? undefined : playableArray[VinylUtilIRandom(_length-1)];
     }
     
     static PopGain = function()
     {
-        return VinylUtilRandomRange(__gain - __gainRange, __gain + __gainRange);
+        return VinylUtilRandomRange(gain - gainRange, gain + gainRange);
     }
     
     static PopPitch = function()
     {
-        return VinylUtilRandomRange(__pitch - __pitchRange, __pitch + __pitchRange);
+        return VinylUtilRandomRange(pitch - pitchRange, pitch + pitchRange);
     }
-    
-    
-    
-    
     
     static ImplPlay = function(_loop, _gain, _pitch)
     {

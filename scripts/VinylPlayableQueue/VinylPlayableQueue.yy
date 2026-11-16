@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VinylPlayableQueue",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VinylPlayableQueue",
+  "parent":{
+    "name":"Playable",
+    "path":"folders/Vinyl/Playable.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

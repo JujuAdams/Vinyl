@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__VinylVoiceRetrigger",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__VinylVoiceRetrigger",
+  "parent":{
+    "name":"Constructor",
+    "path":"folders/Vinyl/(System)/Constructor.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

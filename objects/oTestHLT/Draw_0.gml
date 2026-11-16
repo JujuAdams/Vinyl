@@ -9,26 +9,26 @@ UIButtonNewline("<-- Back to main menu", function()
 UINewline();
 UIButton("Play", function()
 {
-    VinylPlay(hlt);
+    voice = VinylPlay(hlt);
 });
 UISpace(20);
 UIButton("Stop", function()
 {
-    VinylStop(hlt);
+    VinylStop(voice);
 });
 UISpace(20);
 UIButton("Fade Out", function()
 {
-    VinylFadeOut(hlt, 1);
+    VinylFadeOut(voice, 1);
 });
 UINewline();
 UIButton("Toggle loop", function()
 {
-    VinylSetLoop(hlt, not VinylGetLoop(hlt));
+    VinylSetLoop(voice, not VinylGetLoop(voice));
 });
-UIText($"loop = {VinylGetLoop(hlt)? "true" : "false"}");
-UINewline();
-UIText($"state = {hlt.GetStage()}");
 UISpace(20);
-UIText($"playing = {VinylGetPlaying(hlt)? "true" : "false"} / stopped = {VinylGetStopped(hlt)? "true" : "false"}");
+UIText($"loop = {VinylGetLoop(voice)? "true" : "false"}");
 UINewline();
+UIText($"state = {VinylGetPlaying(voice)? voice.GetStage() : "<no hlt playing>"}");
+UINewline();
+UIText($"playing = {VinylGetPlaying(voice)? "true" : "false"} / stopped = {VinylGetStopped(voice)? "true" : "false"}");

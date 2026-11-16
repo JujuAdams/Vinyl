@@ -5,7 +5,7 @@
 /// @param bpm
 /// @param beginOnBeat
 
-function VinylLogicBPM(_voice, _bpm, _beginOnBeat) : VinylLogicParentConstructor(false) constructor
+function VinylLogicBPM(_voice, _bpm, _beginOnBeat) : __VinylLogicParentConstructor(false) constructor
 {
     __voice = _voice;
     __bpm   = _bpm;

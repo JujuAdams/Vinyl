@@ -27,7 +27,7 @@
 /// 
 /// @param fadeTime
 
-function VinylLogicExclusive(_fadeTime) : VinylLogicVoicedConstructor(false) constructor
+function VinylLogicExclusive(_fadeTime) : __VinylVoiceCommonConstructor(false) constructor
 {
     __fadeTime = max(0, _fadeTime);
     
@@ -38,7 +38,7 @@ function VinylLogicExclusive(_fadeTime) : VinylLogicVoicedConstructor(false) con
         VinylFadeOut(__voice, __fadeTime);
         __voice = _voice;
         
-        return self;
+        return _voice;
     }
     
     static SetFadeTime = function(_fadeTime)

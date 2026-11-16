@@ -1,6 +1,6 @@
 /// @param [update=false]
 
-function VinylLogicVoicedConstructor(_update = false) : VinylLogicParentConstructor(_update) constructor
+function __VinylVoiceCommonConstructor(_update = false) : __VinylLogicParentConstructor(_update) constructor
 {
     __voice = undefined;
     

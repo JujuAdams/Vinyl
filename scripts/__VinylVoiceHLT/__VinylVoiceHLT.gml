@@ -1,22 +1,9 @@
-/// Constructor. Manages playables organised as a "Head loop tail". This is also known as "intro
-/// loop outro". The head will be played first, if specified, then the loop sound will be played.
-/// When you'd like the loop to stop, call `VinylSetLoop(logic, false)` targeting the logic. Once
-/// the loop sound has stopped, the tail will play.
-/// 
-/// This logic is considered a playable and can be nested inside of other logic structs. Similarly,
-/// each of the playables for this logic (head, loop, tail) can be any other form of playable. This
-/// means you could use a queue logic for the loop playable.
-/// 
 /// @param [head]
 /// @param loop
 /// @param [tail]
 
-function VinylLogicHLT(_head, _loop, _tail) : VinylLogicVoicedConstructor(true) constructor
+function __VinylVoiceHLT(_head, _loop, _tail) : __VinylVoiceCommonConstructor(true) constructor
 {
-    if (_head != undefined) VinylAssertPlayable(_head);
-    VinylAssertPlayable(_loop);
-    if (_tail != undefined) VinylAssertPlayable(_tail);
-    
     __head = _head;
     __loop = _loop;
     __tail = _tail;
@@ -93,7 +80,7 @@ function VinylLogicHLT(_head, _loop, _tail) : VinylLogicVoicedConstructor(true) 
         }
     }
     
-    static ImplPlay = function(_loop_UNUSED, _gain, _pitch)
+    static __Play = function(_loop_UNUSED, _gain, _pitch)
     {
         __playType = __VINYL_PLAY;
         
@@ -107,7 +94,7 @@ function VinylLogicHLT(_head, _loop, _tail) : VinylLogicVoicedConstructor(true) 
         return self;
     }
     
-    static ImplPlayAt = function(_x, _y, _z, _loop_UNUSED, _gain, _pitch)
+    static __PlayAt = function(_x, _y, _z, _loop_UNUSED, _gain, _pitch)
     {
         __playType = __VINYL_PLAY_AT;
         __playX    = _x;
@@ -124,7 +111,7 @@ function VinylLogicHLT(_head, _loop, _tail) : VinylLogicVoicedConstructor(true) 
         return self;
     }
     
-    static ImplPlayOn = function(_emitter, _loop_UNUSED, _gain, _pitch)
+    static __PlayOn = function(_emitter, _loop_UNUSED, _gain, _pitch)
     {
         __playType    = __VINYL_PLAY_ON;
         __playEmitter = _emitter;

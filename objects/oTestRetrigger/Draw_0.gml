@@ -9,12 +9,13 @@ UIButtonNewline("<-- Back to main menu", function()
 UINewline();
 UIButton("Play", function()
 {
-    VinylPlay(retrigger);
+    VinylStop(voice);
+    voice = VinylPlay(retrigger);
 });
 UISpace(20);
 UIButton("Stop", function()
 {
-    VinylStop(retrigger);
+    VinylStop(voice);
 });
 UINewline();
-UIText($"playing = {VinylGetPlaying(retrigger)? "true" : "false"}");
+UIText($"playing = {VinylGetPlaying(voice)? "true" : "false"}");

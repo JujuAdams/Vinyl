@@ -9,106 +9,107 @@ UIButtonNewline("<-- Back to main menu", function()
 UINewline();
 UIButton("Play", function()
 {
-    VinylPlay(queue);
+    VinylStop(voice);
+    voice = VinylPlay(queue);
 });
 UINewline();
 UIButton("Stop current", function()
 {
-    VinylStop(queue);
+    VinylStop(voice);
 });
 UISpace(20);
 UIButton("Fade out current", function()
 {
-    VinylFadeOut(queue, 1);
+    VinylFadeOut(voice, 1);
 });
 UISpace(20);
-UIText($"Behavior = {queue.GetBehavior()}");
+UIText(VinylGetPlaying(voice)? $"Behavior = {voice.GetBehavior()}" : "<no queue playing>");
 UINewline();
 UIButton("DONT_LOOP (0)", function()
 {
-    queue.SetBehavior(VINYL_QUEUE_DONT_LOOP);
+    voice.SetBehavior(VINYL_QUEUE_DONT_LOOP);
 });
 UISpace(20);
 UIButton("LOOP_EACH (1)", function()
 {
-    queue.SetBehavior(VINYL_QUEUE_LOOP_EACH);
+    voice.SetBehavior(VINYL_QUEUE_LOOP_EACH);
 });
 UISpace(20);
 UIButton("LOOP_ON_LAST (2)", function()
 {
-    queue.SetBehavior(VINYL_QUEUE_LOOP_ON_LAST);
+    voice.SetBehavior(VINYL_QUEUE_LOOP_ON_LAST);
 });
 UINewline();
 UIButton("Play queue once", function()
 {
-    VinylSetLoop(queue, false);
+    VinylSetLoop(voice, false);
 });
 UISpace(10);
 UIButton("Loop queue", function()
 {
-    VinylSetLoop(queue, true);
+    VinylSetLoop(voice, true);
 });
 UINewline();
 UINewline();
 UIButton("Set 0", function()
 {
-    VinylFadeOut(queue, 1);
-    queue.SetBottom(sndSync0);
+    VinylFadeOut(voice, 1);
+    voice.SetBottom(sndSync0);
 });
 UISpace(20);
 UIButton("Set 1", function()
 {
-    VinylFadeOut(queue, 1);
-    queue.SetBottom(sndSync1);
+    VinylFadeOut(voice, 1);
+    voice.SetBottom(sndSync1);
 });
 UISpace(20);
 UIButton("Set 2", function()
 {
-    VinylFadeOut(queue, 1);
-    queue.SetBottom(sndSync2);
+    VinylFadeOut(voice, 1);
+    voice.SetBottom(sndSync2);
 });
 UISpace(20);
 UIButton("Set 3", function()
 {
-    VinylFadeOut(queue, 1);
-    queue.SetBottom(sndSync3);
+    VinylFadeOut(voice, 1);
+    voice.SetBottom(sndSync3);
 });
 UISpace(20);
 UIButton("Set 1KHz", function()
 {
-    VinylFadeOut(queue, 1);
-    queue.SetBottom(snd1KHz);
+    VinylFadeOut(voice, 1);
+    voice.SetBottom(snd1KHz);
 });
 UINewline();
 UIButton("Push 0", function()
 {
-    queue.PushBottom(sndSync0);
+    voice.PushBottom(sndSync0);
 });
 UISpace(20);
 UIButton("Push 1", function()
 {
-    queue.PushBottom(sndSync1);
+    voice.PushBottom(sndSync1);
 });
 UISpace(20);
 UIButton("Push 2", function()
 {
-    queue.PushBottom(sndSync2);
+    voice.PushBottom(sndSync2);
 });
 UISpace(20);
 UIButton("Push 3", function()
 {
-    queue.PushBottom(sndSync3);
+    voice.PushBottom(sndSync3);
 });
 UISpace(20);
 UIButton("Push 1KHz", function()
 {
-    queue.PushBottom(snd1KHz);
+    voice.PushBottom(snd1KHz);
 });
 UINewline();
 UINewline();
-var _asset = VinylGetAsset(queue);
-UIText(audio_exists(_asset)? audio_get_name(_asset) : "<no sound playing>");
+var _asset = VinylGetAsset(voice);
+UIText(audio_exists(_asset)? audio_get_name(_asset) : "<no queue playing>");
 UISpace(20);
-UIText(VinylGetLoop(queue)? "(looping queue)" : "(playing queue once)");
+UIText(VinylGetLoop(voice)? "(looping queue)" : "(playing queue once)");
 UINewline();
-UITextNewline(json_stringify(queue.GetPlayableArray(), true));
+UITextNewline(VinylGetPlaying(voice)? json_stringify(voice.GetPlayableArray(), true) : "<no queue playing>");

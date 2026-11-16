@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylLogicRetrigger",
+  "%Name":"__VinylVoiceQueue",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylLogicRetrigger",
+  "name":"__VinylVoiceQueue",
   "parent":{
-    "name":"Logic Structs",
-    "path":"folders/Vinyl/Logic Structs.yy",
+    "name":"Constructor",
+    "path":"folders/Vinyl/(System)/Constructor.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

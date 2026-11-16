@@ -1,6 +1,6 @@
 /// @param [update=false]
 
-function VinylLogicParentConstructor(_update = false) constructor
+function __VinylLogicParentConstructor(_update = false) constructor
 {
     static ImplUpdate = function()
     {

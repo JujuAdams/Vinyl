@@ -22,17 +22,33 @@
 /// @param [pitch=1]
 /// @param [pitchRange=0]
 
-function VinylLogicShuffle(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1, _pitchRange = 0) : VinylLogicParentConstructor(false) constructor
+function VinylPlayableShuffle(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1, _pitchRange = 0) : __VinylLogicParentConstructor(false) constructor
 {
     _playableArray = VinylUtilEnsureArray(_playableArray);
     VinylAssertPlayable(_playableArray);
     
-    __playableArray = _playableArray;
-    __gain          = _gain;
-    __gainRange     = _gainRange;
-    __pitch         = _pitch;
-    __pitchRange    = _pitchRange;
-    __playIndex     = infinity;
+    __originalPlayable = variable_clone(_playableArray, 0);
+    __playableArray    = variable_clone(_playableArray, 0);
+    __playIndex        = infinity;
+    
+    gain       = _gain;
+    gainRange  = _gainRange;
+    pitch      = _pitch;
+    pitchRange = _pitchRange;
+    
+    static SetPlayableArray = function(_playableArray)
+    {
+        __originalPlayable = variable_clone(_playableArray, 0);
+        __playableArray    = variable_clone(_playableArray, 0);
+        __playIndex        = infinity;
+        
+        return self;
+    }
+    
+    static GetPlayableArray = function()
+    {
+        return variable_clone(__originalPlayable, 0);
+    }
     
     static PopPlayable = function()
     {
@@ -64,17 +80,13 @@ function VinylLogicShuffle(_playableArray, _gain = 1, _gainRange = 0, _pitch = 1
     
     static PopGain = function()
     {
-        return VinylUtilRandomRange(max(0, __gain - __gainRange), __gain + __gainRange);
+        return VinylUtilRandomRange(max(0, gain - gainRange), gain + gainRange);
     }
     
     static PopPitch = function()
     {
-        return VinylUtilRandomRange(max(0.01, __pitch - __pitchRange), __pitch + __pitchRange);
+        return VinylUtilRandomRange(max(0.01, pitch - pitchRange), pitch + pitchRange);
     }
-    
-    
-    
-    
     
     static ImplPlay = function(_loop, _gain, _pitch)
     {

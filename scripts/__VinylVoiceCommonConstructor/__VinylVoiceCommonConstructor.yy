@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__VinylVoiceCommonConstructor",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__VinylVoiceCommonConstructor",
+  "parent":{
+    "name":"Constructor",
+    "path":"folders/Vinyl/(System)/Constructor.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

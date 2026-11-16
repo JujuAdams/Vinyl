@@ -1,19 +1,9 @@
-/// Starts audio on a timer. The time between audio is randomly chosen between the minimum and
-/// maximum delays. The audio that is played does not have to be a sound asset and could be another
-/// playable such as `VinylLogicShuffle()`.
-/// 
-/// Example:
-///     /// Create Event
-///     shuffleLogic = new VinylLogicShuffle([sndBird1, sndBird2, sndBird3, sndFrog]);
-///     retriggerLogic = new VinylLogicRetrigger(shuffleLogic, 1, 2);
-///     VinylPlay(retriggerLogic);
-/// 
 /// @param playable
 /// @param minDelay
 /// @param maxDelay
-/// @param [playImmediate=false]
+/// @param playImmediate
 
-function VinylLogicRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = false) : VinylLogicVoicedConstructor(true) constructor
+function __VinylVoiceRetrigger(_playable, _minDelay, _maxDelay, _playImmediate) : __VinylVoiceCommonConstructor(true) constructor
 {
     VinylAssertPlayable(_playable);
     
@@ -69,7 +59,7 @@ function VinylLogicRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         }
     }
     
-    static ImplPlay = function(_loop, _gain, _pitch)
+    static __Play = function(_loop, _gain, _pitch)
     {
         __playType = __VINYL_PLAY;
         
@@ -92,7 +82,7 @@ function VinylLogicRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         return __voice;
     }
     
-    static ImplPlayAt = function(_x, _y, _z, _loop, _gain, _pitch)
+    static __PlayAt = function(_x, _y, _z, _loop, _gain, _pitch)
     {
         __playType = __VINYL_PLAY_AT;
         __playX    = _x;
@@ -118,7 +108,7 @@ function VinylLogicRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
         return __voice;
     }
     
-    static ImplPlayOn = function(_emitter, _loop, _gain, _pitch)
+    static __PlayOn = function(_emitter, _loop, _gain, _pitch)
     {
         __playType    = __VINYL_PLAY_ON;
         __playEmitter = _emitter;
@@ -139,6 +129,11 @@ function VinylLogicRetrigger(_playable, _minDelay, _maxDelay, _playImmediate = f
             __voice = -1;
         }
         
+        return __voice;
+    }
+    
+    static GetVoice = function(_voice)
+    {
         return __voice;
     }
     

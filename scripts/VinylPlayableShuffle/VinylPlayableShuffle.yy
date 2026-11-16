@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"VinylLogicHLT",
+  "%Name":"VinylPlayableShuffle",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"VinylLogicHLT",
+  "name":"VinylPlayableShuffle",
   "parent":{
-    "name":"Logic Structs",
-    "path":"folders/Vinyl/Logic Structs.yy",
+    "name":"Playable",
+    "path":"folders/Vinyl/Playable.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
