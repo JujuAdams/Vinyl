@@ -23,6 +23,13 @@ function __VinylVoiceQueue(_playableArray, _behavior, _loopQueue, _fadeInTime, _
     __playY       = undefined;
     __playZ       = undefined;
     
+    static Next = function()
+    {
+        VinylStop(__voice);
+        __voice = undefined;
+        ImplUpdate();
+    }
+    
     static SetFadeIn = function(_time)
     {
         __fadeInTime = _time;
@@ -188,9 +195,9 @@ function __VinylVoiceQueue(_playableArray, _behavior, _loopQueue, _fadeInTime, _
     
     static ImplStop = function()
     {
-        var _voice = __voice;
+        VinylStop(__voice);
         __voice = undefined;
-        VinylStop(_voice);
+        array_resize(__playableArray, 0);
     }
     
     static ImplSetGain = function(_gain, _time)
